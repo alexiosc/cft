@@ -1500,8 +1500,6 @@ Wire Wire Line
 	2650 6000 4700 6000
 Wire Wire Line
 	4700 6000 4700 5600
-Wire Wire Line
-	4700 5600 5250 5600
 Connection ~ 2650 4300
 Text Label 2650 3350 1    50   ~ 0
 ~ABEN2

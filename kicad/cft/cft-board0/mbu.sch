@@ -170,38 +170,6 @@ F 3 "~" H 6550 4100 50  0001 C CNN
 $EndComp
 Text HLabel 5550 4300 0    50   Input ~ 0
 ~FPRAM~∕ROM
-Wire Wire Line
-	8700 4200 9000 4200
-Wire Wire Line
-	8700 4100 9000 4100
-Wire Wire Line
-	8700 4000 9000 4000
-Wire Wire Line
-	8700 3900 9000 3900
-Wire Wire Line
-	8700 3800 9000 3800
-Wire Wire Line
-	8700 3700 9000 3700
-Wire Wire Line
-	8700 3600 9000 3600
-Wire Wire Line
-	8700 3500 9000 3500
-Text Label 8750 4200 0    50   ~ 0
-AEXT7
-Text Label 8750 4100 0    50   ~ 0
-AEXT6
-Text Label 8750 4000 0    50   ~ 0
-AEXT5
-Text Label 8750 3900 0    50   ~ 0
-AEXT4
-Text Label 8750 3800 0    50   ~ 0
-AEXT3
-Text Label 8750 3700 0    50   ~ 0
-AEXT2
-Text Label 8750 3600 0    50   ~ 0
-AEXT1
-Text Label 8750 3500 0    50   ~ 0
-AEXT0
 $Comp
 L power:GND #PWR0603
 U 1 1 643A0C45
@@ -250,89 +218,25 @@ Entry Wire Line
 	8600 1700 8700 1600
 Entry Wire Line
 	8600 1800 8700 1700
-Entry Wire Line
-	8700 4200 8600 4100
-Entry Wire Line
-	8700 3900 8600 3800
-Entry Wire Line
-	8700 4000 8600 3900
-Entry Wire Line
-	8700 4100 8600 4000
-Entry Wire Line
-	8700 3500 8600 3400
-Entry Wire Line
-	8700 3600 8600 3500
-Entry Wire Line
-	8700 3700 8600 3600
-Entry Wire Line
-	8700 3800 8600 3700
 Text Label 8600 2850 1    50   ~ 0
 AEXT[0..7]
 $Comp
 L alexios:74HC541 U605
 U 1 1 61720F4D
-P 9500 4000
-F 0 "U605" H 9850 3650 50  0000 L CNN
-F 1 "74HC541" H 9850 3550 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 9500 4000 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 9500 4000 50  0001 C CNN
-	1    9500 4000
+P 14900 7050
+F 0 "U605" H 15250 6700 50  0000 L CNN
+F 1 "74HC541" H 15250 6600 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 14900 7050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 14900 7050 50  0001 C CNN
+	1    14900 7050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9000 4400 8750 4400
-Text Label 8750 4400 0    50   ~ 0
+	14400 7450 14150 7450
+Text Label 14150 7450 0    50   ~ 0
 ~IOMBR
-Text Notes 8700 4700 0    50   ~ 0
+Text Notes 14100 7750 0    50   ~ 0
 IN (i.e. register read) transactions only!
-Wire Wire Line
-	10000 3500 10300 3500
-Wire Wire Line
-	10000 3600 10300 3600
-Wire Wire Line
-	10000 3700 10300 3700
-Wire Wire Line
-	10000 3800 10300 3800
-Wire Wire Line
-	10000 3900 10300 3900
-Wire Wire Line
-	10000 4000 10300 4000
-Wire Wire Line
-	10000 4100 10300 4100
-Wire Wire Line
-	10000 4200 10300 4200
-Entry Wire Line
-	10400 3600 10300 3500
-Entry Wire Line
-	10400 3700 10300 3600
-Entry Wire Line
-	10400 3800 10300 3700
-Entry Wire Line
-	10400 3900 10300 3800
-Entry Wire Line
-	10400 4000 10300 3900
-Entry Wire Line
-	10400 4100 10300 4000
-Entry Wire Line
-	10400 4200 10300 4100
-Entry Wire Line
-	10400 4300 10300 4200
-Text Label 10050 3500 0    50   ~ 0
-DB0
-Text Label 10050 3600 0    50   ~ 0
-DB1
-Text Label 10050 3700 0    50   ~ 0
-DB2
-Text Label 10050 3800 0    50   ~ 0
-DB3
-Text Label 10050 3900 0    50   ~ 0
-DB4
-Text Label 10050 4000 0    50   ~ 0
-DB5
-Text Label 10050 4100 0    50   ~ 0
-DB6
-Text Label 10050 4200 0    50   ~ 0
-DB7
 Wire Wire Line
 	8700 2100 9000 2100
 Wire Wire Line
@@ -649,10 +553,6 @@ Text Label 1700 4800 1    50   ~ 0
 WADDR[0..4]
 Text Label 1700 3100 1    50   ~ 0
 RADDR[0..4]
-Text HLabel 10650 4850 2    50   3State ~ 0
-DB[0..7]
-Text Label 10400 4700 1    50   ~ 0
-DB[0..7]
 Wire Wire Line
 	5200 2300 4800 2300
 Wire Wire Line
@@ -824,10 +724,6 @@ Wire Wire Line
 	3300 7100 3300 7150
 Wire Wire Line
 	6950 4300 6950 3400
-Entry Bus Bus
-	10400 4750 10500 4850
-Wire Bus Line
-	10500 4850 10650 4850
 $Comp
 L alexios:74HC138 U?
 U 2 1 6BC4FA6D
@@ -1112,59 +1008,59 @@ Connection ~ 9300 2850
 $Comp
 L power:GND #PWR?
 U 1 1 6BD5B1A0
-P 9300 5250
+P 14700 8300
 AR Path="/6BD5B1A0" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/6BD5B1A0" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/6BD5B1A0" Ref="#PWR0614"  Part="1" 
-F 0 "#PWR0614" H 9300 5000 50  0001 C CNN
-F 1 "GND" H 9305 5077 50  0000 C CNN
-F 2 "" H 9300 5250 50  0001 C CNN
-F 3 "" H 9300 5250 50  0001 C CNN
-	1    9300 5250
+F 0 "#PWR0614" H 14700 8050 50  0001 C CNN
+F 1 "GND" H 14705 8127 50  0000 C CNN
+F 2 "" H 14700 8300 50  0001 C CNN
+F 3 "" H 14700 8300 50  0001 C CNN
+	1    14700 8300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 6BD5B1A6
-P 9300 5050
+P 14700 8100
 AR Path="/6BD5B1A6" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/6BD5B1A6" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/6BD5B1A6" Ref="#PWR0613"  Part="1" 
-F 0 "#PWR0613" H 9300 4900 50  0001 C CNN
-F 1 "+5V" H 9315 5223 50  0000 C CNN
-F 2 "" H 9300 5050 50  0001 C CNN
-F 3 "" H 9300 5050 50  0001 C CNN
-	1    9300 5050
+F 0 "#PWR0613" H 14700 7950 50  0001 C CNN
+F 1 "+5V" H 14715 8273 50  0000 C CNN
+F 2 "" H 14700 8100 50  0001 C CNN
+F 3 "" H 14700 8100 50  0001 C CNN
+	1    14700 8100
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 6BD5B1AC
-P 9300 5150
+P 14700 8200
 AR Path="/5CC0D65F/6BD5B1AC" Ref="C?"  Part="1" 
 AR Path="/6BD5B1AC" Ref="C?"  Part="1" 
 AR Path="/5F3EA987/6BD5B1AC" Ref="C?"  Part="1" 
 AR Path="/61F95ACC/6BD5B1AC" Ref="C605"  Part="1" 
-F 0 "C605" H 9209 5196 50  0000 R CNN
-F 1 "100nF" H 9209 5105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9300 5150 50  0001 C CNN
-F 3 "~" H 9300 5150 50  0001 C CNN
-	1    9300 5150
+F 0 "C605" H 14609 8246 50  0000 R CNN
+F 1 "100nF" H 14609 8155 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14700 8200 50  0001 C CNN
+F 3 "~" H 14700 8200 50  0001 C CNN
+	1    14700 8200
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC541 U605
 U 2 1 6BD5B1B2
-P 9650 5150
-F 0 "U605" H 9830 5196 50  0000 L CNN
-F 1 "74HC541" H 9830 5105 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 9650 5150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 9650 5150 50  0001 C CNN
-	2    9650 5150
+P 15050 8200
+F 0 "U605" H 15230 8246 50  0000 L CNN
+F 1 "74HC541" H 15230 8155 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 15050 8200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 15050 8200 50  0001 C CNN
+	2    15050 8200
 	1    0    0    -1  
 $EndComp
-Connection ~ 9300 5250
-Connection ~ 9300 5050
+Connection ~ 14700 8300
+Connection ~ 14700 8100
 $Comp
 L alexios:74LVC1G04 U604
 U 2 1 6BD8628D
@@ -1263,8 +1159,8 @@ AEXT[0..7]
 Text Label 10550 5650 2    50   ~ 0
 AEXT[0..7]
 Wire Wire Line
-	9000 4500 8750 4500
-Text Label 8750 4500 0    50   ~ 0
+	14400 7550 14150 7550
+Text Label 14150 7550 0    50   ~ 0
 ~R
 $Comp
 L alexios:74LVC1G74 U?
@@ -1380,8 +1276,6 @@ NoConn ~ 3250 1750
 NoConn ~ 3250 1850
 NoConn ~ 3250 1950
 NoConn ~ 3250 2050
-Text Label 3600 1350 2    50   ~ 0
-~IOMBR
 Text Label 2250 5200 2    50   ~ 0
 WADDR3
 Text Label 2250 5100 2    50   ~ 0
@@ -1401,16 +1295,6 @@ F 3 "" H 2200 5650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2200 5700 2250 5700
-Text Label 2250 2700 2    50   ~ 0
-RADDR1
-Text Label 2250 2800 2    50   ~ 0
-RADDR2
-Text Label 2250 3200 2    50   ~ 0
-RADDR3
-Text Label 2250 3300 2    50   ~ 0
-RADDR4
-Text Notes 2800 3250 1    50   ~ 10
-RADDR=01XXX
 Text Notes 2800 4500 1    50   ~ 10
 WADDR=01XXX
 NoConn ~ 3250 2600
@@ -1425,21 +1309,6 @@ Asserted if CU addresses\nwrite_mbp (01100) or\nwrite_mbp_flags (01101).
 NoConn ~ 3250 3000
 Text Notes 3400 2950 0    50   ~ 0
 RADDR=01101
-$Comp
-L alexios:74HC138 U?
-U 1 1 60A07F64
-P 2750 3000
-AR Path="/5F3EA987/60A07F64" Ref="U?"  Part="1" 
-AR Path="/60A07F64" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/60A07F64" Ref="U603"  Part="1" 
-AR Path="/61F95ACC/63C9F04D/60A07F64" Ref="U?"  Part="1" 
-F 0 "U603" H 2750 3667 50  0000 C CNN
-F 1 "74HC138" H 2750 3576 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2750 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2750 3000 50  0001 C CNN
-	1    2750 3000
-	1    0    0    -1  
-$EndComp
 Text Notes 3600 1200 2    50   ~ 0
 AB=&008–&00F
 Text Label 2250 3850 2    50   ~ 0
@@ -1473,19 +1342,9 @@ NoConn ~ 3250 4550
 Wire Wire Line
 	2200 5650 2200 5700
 Wire Wire Line
-	1800 3300 2250 3300
-Text Label 2250 2600 2    50   ~ 0
-RADDR0
-Wire Wire Line
 	1800 4650 2250 4650
 Text Label 2250 3750 2    50   ~ 0
 WADDR0
-Wire Wire Line
-	2250 2600 1800 2600
-Wire Wire Line
-	2250 2700 1800 2700
-Wire Wire Line
-	2250 2800 1800 2800
 Wire Wire Line
 	2250 3850 1800 3850
 Wire Wire Line
@@ -1501,18 +1360,12 @@ Wire Wire Line
 Wire Wire Line
 	2250 5300 1800 5300
 Wire Wire Line
-	3250 1350 4550 1350
-Wire Wire Line
 	3250 4450 4500 4450
 Wire Wire Line
 	3250 5200 3850 5200
 Wire Wire Line
 	3250 3100 3550 3100
-Wire Wire Line
-	1800 3200 2250 3200
 NoConn ~ 3250 3200
-Wire Wire Line
-	2250 3400 2200 3400
 $Comp
 L alexios:74HC138 U?
 U 1 1 6022A4DB
@@ -1528,19 +1381,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2750 4250 50  0001 C CNN
 	1    2750 4250
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0608
-U 1 1 5FA2BE60
-P 2200 3450
-F 0 "#PWR0608" H 2200 3200 50  0001 C CNN
-F 1 "GND" H 2205 3277 50  0000 C CNN
-F 2 "" H 2200 3450 50  0001 C CNN
-F 3 "" H 2200 3450 50  0001 C CNN
-	1    2200 3450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2200 3400 2200 3450
 Text Label 3550 3100 2    50   ~ 0
 ~RMBP
 Text Label 2150 4650 2    50   ~ 0
@@ -1577,18 +1417,681 @@ Wire Wire Line
 NoConn ~ 2550 7400
 Wire Wire Line
 	2550 7100 2700 7100
+$Comp
+L alexios:16V8 U?
+U 1 1 604FB713
+P 12850 3000
+AR Path="/61F95ACC/6AF25BF3/604FB713" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/604FB713" Ref="U?"  Part="1" 
+F 0 "U?" H 12850 3717 50  0000 C CNN
+F 1 "16V8" H 12850 3626 50  0000 C CNN
+F 2 "" H 12850 3000 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 12850 3000 50  0001 C CNN
+	1    12850 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12000 2550 12400 2550
+Wire Wire Line
+	12000 2650 12400 2650
+Wire Wire Line
+	12000 2750 12400 2750
+Wire Wire Line
+	12000 2850 12400 2850
+Wire Wire Line
+	12000 2950 12400 2950
+Wire Wire Line
+	12000 3050 12400 3050
+Wire Wire Line
+	12000 3150 12400 3150
+Text Label 12000 2550 0    50   ~ 0
+IR0
+Text Label 12000 2650 0    50   ~ 0
+IR1
+Text Label 12000 2750 0    50   ~ 0
+IR2
+Text Label 12000 2850 0    50   ~ 0
+WADDR0
+Text Label 12000 2950 0    50   ~ 0
+WADDR1
+Text Label 12000 3050 0    50   ~ 0
+~WAR
+Text Label 12000 3150 0    50   ~ 0
+~RBMP
+Wire Wire Line
+	12400 3250 12000 3250
+Wire Wire Line
+	12400 3350 12000 3350
+Wire Wire Line
+	12400 3450 12000 3450
+Text Label 12000 3250 0    50   ~ 0
+~IR-IDXR
+Text Label 12000 3350 0    50   ~ 0
+~IOMBR
+Text Label 12000 3450 0    50   ~ 0
+~WBMP
+$Comp
+L alexios:IS61C256AL U?
+U 1 1 604FB738
+P 14900 3350
+AR Path="/61F95ACC/6AF25BF3/604FB738" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/604FB738" Ref="U?"  Part="1" 
+F 0 "U?" H 14900 4417 50  0000 C CNN
+F 1 "IS61C256AL" H 14900 4326 50  0000 C CNN
+F 2 "Package_SO:SOJ-28_10.16x23.49mm_P1.27mm" V 14800 3275 50  0001 C CNN
+F 3 "https://www.mouser.co.uk/datasheet/2/198/61C256AL-258651.pdf" H 14800 3350 50  0001 C CNN
+F 4 "870-IS61C256AL-12JLI; €0.912" H 14200 2100 50  0001 L CNN "AC:BOM-Mouser"
+	1    14900 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13300 2550 14400 2550
+Wire Wire Line
+	13300 2650 14400 2650
+Wire Wire Line
+	13300 2750 14400 2750
+Text Label 13650 2750 2    50   ~ 0
+RA2
+Text Label 13650 2650 2    50   ~ 0
+RA1
+Text Label 13650 2550 2    50   ~ 0
+RA0
+Wire Wire Line
+	15650 3250 15400 3250
+Wire Wire Line
+	15650 3150 15400 3150
+Wire Wire Line
+	15650 3050 15400 3050
+Wire Wire Line
+	15650 2950 15400 2950
+Wire Wire Line
+	15650 2850 15400 2850
+Wire Wire Line
+	15650 2750 15400 2750
+Wire Wire Line
+	15650 2650 15400 2650
+Wire Wire Line
+	15650 2550 15400 2550
+Text Label 15650 3250 2    50   ~ 0
+AEXT7
+Text Label 15650 3150 2    50   ~ 0
+AEXT6
+Text Label 15650 3050 2    50   ~ 0
+AEXT5
+Text Label 15650 2950 2    50   ~ 0
+AEXT4
+Text Label 15650 2850 2    50   ~ 0
+AEXT3
+Text Label 15650 2750 2    50   ~ 0
+AEXT2
+Text Label 15650 2650 2    50   ~ 0
+AEXT1
+Text Label 15650 2550 2    50   ~ 0
+AEXT0
+Wire Wire Line
+	14400 4150 14350 4150
+Wire Wire Line
+	14350 4150 14350 4400
+$Comp
+L power:GND #PWR?
+U 1 1 604FB756
+P 14350 4400
+AR Path="/61F95ACC/6AF25BF3/604FB756" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/604FB756" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 14350 4150 50  0001 C CNN
+F 1 "GND" H 14355 4227 50  0000 C CNN
+F 2 "" H 14350 4400 50  0001 C CNN
+F 3 "" H 14350 4400 50  0001 C CNN
+	1    14350 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14400 3650 14350 3650
+Wire Wire Line
+	14350 3650 14350 3750
+Connection ~ 14350 4150
+Wire Wire Line
+	14400 3750 14350 3750
+Connection ~ 14350 3750
+Wire Wire Line
+	14350 3750 14350 3850
+Wire Wire Line
+	14400 3850 14350 3850
+Connection ~ 14350 3850
+Wire Wire Line
+	14350 3850 14350 3950
+Wire Wire Line
+	14400 3950 14350 3950
+Connection ~ 14350 3950
+Wire Wire Line
+	14350 3950 14350 4150
+Text Label 12100 6550 0    50   ~ 0
+IBUS0
+Text Label 12100 6650 0    50   ~ 0
+IBUS1
+Text Label 12100 6750 0    50   ~ 0
+IBUS2
+Text Label 12100 6850 0    50   ~ 0
+IBUS3
+Text Label 12100 6950 0    50   ~ 0
+IBUS4
+Text Label 12100 7050 0    50   ~ 0
+IBUS5
+Text Label 12100 7150 0    50   ~ 0
+IBUS6
+Text Label 12100 7250 0    50   ~ 0
+IBUS7
+Wire Wire Line
+	12350 6550 12100 6550
+Wire Wire Line
+	12350 6650 12100 6650
+Wire Wire Line
+	12350 6750 12100 6750
+Wire Wire Line
+	12350 6850 12100 6850
+Wire Wire Line
+	12350 6950 12100 6950
+Wire Wire Line
+	12350 7050 12100 7050
+Wire Wire Line
+	12350 7150 12100 7150
+Wire Wire Line
+	12350 7250 12100 7250
+Wire Wire Line
+	14400 2850 14200 2850
+Wire Wire Line
+	14400 2950 14200 2950
+Wire Wire Line
+	14400 3050 14200 3050
+Wire Wire Line
+	14400 3150 14200 3150
+Wire Wire Line
+	14400 3250 14200 3250
+Wire Wire Line
+	14400 3350 14200 3350
+Wire Wire Line
+	14400 3450 14200 3450
+Wire Wire Line
+	14400 3550 14200 3550
+Text Label 14200 2850 0    50   ~ 0
+CTX0
+Text Label 14200 2950 0    50   ~ 0
+CTX1
+Text Label 14200 3050 0    50   ~ 0
+CTX2
+Text Label 14200 3150 0    50   ~ 0
+CTX3
+Text Label 14200 3250 0    50   ~ 0
+CTX4
+Text Label 14200 3350 0    50   ~ 0
+CTX5
+Text Label 14200 3450 0    50   ~ 0
+CTX6
+Text Label 14200 3550 0    50   ~ 0
+CTX7
+Wire Wire Line
+	13350 6550 13600 6550
+Wire Wire Line
+	13350 6650 13600 6650
+Wire Wire Line
+	13350 6750 13600 6750
+Wire Wire Line
+	13350 6850 13600 6850
+Wire Wire Line
+	13350 6950 13600 6950
+Wire Wire Line
+	13350 7050 13600 7050
+Wire Wire Line
+	13350 7150 13600 7150
+Wire Wire Line
+	13350 7250 13600 7250
+Text Label 13600 6550 2    50   ~ 0
+CTX0
+Text Label 13600 6650 2    50   ~ 0
+CTX1
+Text Label 13600 6750 2    50   ~ 0
+CTX2
+Text Label 13600 6850 2    50   ~ 0
+CTX3
+Text Label 13600 6950 2    50   ~ 0
+CTX4
+Text Label 13600 7050 2    50   ~ 0
+CTX5
+Text Label 13600 7150 2    50   ~ 0
+CTX6
+Text Label 13600 7250 2    50   ~ 0
+CTX7
+$Comp
+L power:GND #PWR?
+U 1 1 608480BA
+P 12300 7600
+F 0 "#PWR?" H 12300 7350 50  0001 C CNN
+F 1 "GND" H 12305 7427 50  0000 C CNN
+F 2 "" H 12300 7600 50  0001 C CNN
+F 3 "" H 12300 7600 50  0001 C CNN
+	1    12300 7600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12300 7550 12300 7600
+Wire Wire Line
+	12350 7550 12300 7550
+Wire Wire Line
+	12350 7450 12100 7450
+Text Label 12100 7450 0    50   ~ 0
+~WCTX
+Text Label 14200 4250 0    50   ~ 0
+~OE
+Text Label 14200 4350 0    50   ~ 0
+~WE
+Text Label 13650 2850 2    50   ~ 0
+~OE
+Text Label 13650 2950 2    50   ~ 0
+~WE
+$Comp
+L alexios:74HC374 U?
+U 1 1 60918C18
+P 12850 7050
+F 0 "U?" H 13200 6650 50  0000 L CNN
+F 1 "74HC374" H 13200 6550 50  0000 L CNN
+F 2 "" H 13100 7275 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 13100 7275 50  0001 C CNN
+	1    12850 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13350 5650 13600 5650
+Wire Wire Line
+	13350 5550 13600 5550
+Wire Wire Line
+	13350 5450 13600 5450
+Wire Wire Line
+	13350 5350 13600 5350
+Wire Wire Line
+	13350 5250 13600 5250
+Wire Wire Line
+	13350 5150 13600 5150
+Wire Wire Line
+	13350 5050 13600 5050
+Wire Wire Line
+	13350 4950 13600 4950
+Text Label 13600 5650 2    50   ~ 0
+IBUS7
+Text Label 13600 5550 2    50   ~ 0
+IBUS6
+Text Label 13600 5450 2    50   ~ 0
+IBUS5
+Text Label 13600 5350 2    50   ~ 0
+IBUS4
+Text Label 13600 5250 2    50   ~ 0
+IBUS3
+Text Label 13600 5150 2    50   ~ 0
+IBUS2
+Text Label 13600 5050 2    50   ~ 0
+IBUS1
+Text Label 13600 4950 2    50   ~ 0
+IBUS0
+Text Label 12100 5650 0    50   ~ 0
+CTX7
+Text Label 12100 5550 0    50   ~ 0
+CTX6
+Text Label 12100 5450 0    50   ~ 0
+CTX5
+Text Label 12100 5350 0    50   ~ 0
+CTX4
+Text Label 12100 5250 0    50   ~ 0
+CTX3
+Text Label 12100 5150 0    50   ~ 0
+CTX2
+Text Label 12100 5050 0    50   ~ 0
+CTX1
+Text Label 12100 4950 0    50   ~ 0
+CTX0
+Wire Wire Line
+	12350 5650 12100 5650
+Wire Wire Line
+	12350 5550 12100 5550
+Wire Wire Line
+	12350 5450 12100 5450
+Wire Wire Line
+	12350 5350 12100 5350
+Wire Wire Line
+	12350 5250 12100 5250
+Wire Wire Line
+	12350 5150 12100 5150
+Wire Wire Line
+	12350 5050 12100 5050
+Wire Wire Line
+	12350 4950 12100 4950
+Text Label 12100 5850 0    50   ~ 0
+~RCTX
+$Comp
+L alexios:74HC541 U?
+U 1 1 60513838
+P 12850 5450
+F 0 "U?" H 13200 5100 50  0000 L CNN
+F 1 "74HC541" H 13200 5000 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 12850 5450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 12850 5450 50  0001 C CNN
+	1    12850 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 5850 12100 5850
+Wire Wire Line
+	12350 5950 12300 5950
+Wire Wire Line
+	12300 5950 12300 6000
+$Comp
+L power:GND #PWR?
+U 1 1 6051382E
+P 12300 6000
+F 0 "#PWR?" H 12300 5750 50  0001 C CNN
+F 1 "GND" H 12305 5827 50  0000 C CNN
+F 2 "" H 12300 6000 50  0001 C CNN
+F 3 "" H 12300 6000 50  0001 C CNN
+	1    12300 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14100 2850 14100 4250
+Wire Wire Line
+	14100 4250 14400 4250
+Wire Wire Line
+	13300 2850 14100 2850
+Wire Wire Line
+	14000 2950 14000 4350
+Wire Wire Line
+	14000 4350 14400 4350
+Wire Wire Line
+	13300 2950 14000 2950
+Text Label 14150 6550 0    50   ~ 0
+AEXT0
+Text Label 14150 6650 0    50   ~ 0
+AEXT1
+Text Label 14150 6750 0    50   ~ 0
+AEXT2
+Text Label 14150 6850 0    50   ~ 0
+AEXT3
+Text Label 14150 6950 0    50   ~ 0
+AEXT4
+Text Label 14150 7050 0    50   ~ 0
+AEXT5
+Text Label 14150 7150 0    50   ~ 0
+AEXT6
+Text Label 14150 7250 0    50   ~ 0
+AEXT7
+Wire Wire Line
+	14150 6550 14400 6550
+Wire Wire Line
+	14150 6650 14400 6650
+Wire Wire Line
+	14150 6750 14400 6750
+Wire Wire Line
+	14150 6850 14400 6850
+Wire Wire Line
+	14150 6950 14400 6950
+Wire Wire Line
+	14150 7050 14400 7050
+Wire Wire Line
+	14150 7150 14400 7150
+Wire Wire Line
+	14150 7250 14400 7250
+Wire Wire Line
+	15400 6550 15650 6550
+Wire Wire Line
+	15400 6650 15650 6650
+Wire Wire Line
+	15400 6750 15650 6750
+Wire Wire Line
+	15400 6850 15650 6850
+Wire Wire Line
+	15400 6950 15650 6950
+Wire Wire Line
+	15400 7050 15650 7050
+Wire Wire Line
+	15400 7150 15650 7150
+Wire Wire Line
+	15400 7250 15650 7250
+Text Label 15650 6550 2    50   ~ 0
+DB0
+Text Label 15650 6650 2    50   ~ 0
+DB1
+Text Label 15650 6750 2    50   ~ 0
+DB2
+Text Label 15650 6850 2    50   ~ 0
+DB3
+Text Label 15650 6950 2    50   ~ 0
+DB4
+Text Label 15650 7050 2    50   ~ 0
+DB5
+Text Label 15650 7150 2    50   ~ 0
+DB6
+Text Label 15650 7250 2    50   ~ 0
+DB7
+Text Notes 12550 2150 0    100  ~ 20
+Control ROM (GAL)
+Text Notes 12550 4750 0    100  ~ 20
+CTX → IBus
+Text Notes 12550 6350 0    100  ~ 20
+IBus → CTX
+Wire Wire Line
+	14400 5850 14150 5850
+Text Label 14150 5850 0    50   ~ 0
+~IOMBR
+Wire Wire Line
+	15650 5650 15400 5650
+Wire Wire Line
+	15650 5550 15400 5550
+Wire Wire Line
+	15650 5450 15400 5450
+Wire Wire Line
+	15650 5350 15400 5350
+Wire Wire Line
+	15650 5250 15400 5250
+Wire Wire Line
+	15650 5150 15400 5150
+Wire Wire Line
+	15650 5050 15400 5050
+Wire Wire Line
+	15650 4950 15400 4950
+Text Label 15650 5650 2    50   ~ 0
+AEXT7
+Text Label 15650 5550 2    50   ~ 0
+AEXT6
+Text Label 15650 5450 2    50   ~ 0
+AEXT5
+Text Label 15650 5350 2    50   ~ 0
+AEXT4
+Text Label 15650 5250 2    50   ~ 0
+AEXT3
+Text Label 15650 5150 2    50   ~ 0
+AEXT2
+Text Label 15650 5050 2    50   ~ 0
+AEXT1
+Text Label 15650 4950 2    50   ~ 0
+AEXT0
+$Comp
+L alexios:74HC541 U?
+U 1 1 60964F8F
+P 14900 5450
+F 0 "U?" H 15250 5100 50  0000 L CNN
+F 1 "74HC541" H 15250 5000 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 14900 5450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 14900 5450 50  0001 C CNN
+	1    14900 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14400 5950 14150 5950
+Text Label 14150 5950 0    50   ~ 0
+~R
+Wire Wire Line
+	14400 4950 14150 4950
+Wire Wire Line
+	14400 5050 14150 5050
+Wire Wire Line
+	14400 5150 14150 5150
+Wire Wire Line
+	14400 5250 14150 5250
+Wire Wire Line
+	14400 5350 14150 5350
+Wire Wire Line
+	14400 5450 14150 5450
+Wire Wire Line
+	14400 5550 14150 5550
+Wire Wire Line
+	14400 5650 14150 5650
+Text Label 14150 4950 0    50   ~ 0
+DB0
+Text Label 14150 5050 0    50   ~ 0
+DB1
+Text Label 14150 5150 0    50   ~ 0
+DB2
+Text Label 14150 5250 0    50   ~ 0
+DB3
+Text Label 14150 5350 0    50   ~ 0
+DB4
+Text Label 14150 5450 0    50   ~ 0
+DB5
+Text Label 14150 5550 0    50   ~ 0
+DB6
+Text Label 14150 5650 0    50   ~ 0
+DB7
+Text Notes 14200 2150 0    100  ~ 20
+Register File
+Text Notes 17350 1150 0    50   ~ 0
+MBRs are written by:\n\n1. ~WRITE_MBP~ (address 0 always selected)\n2. ~WRITE_MBP+FLAGS~ (address 0 always selected)\n3. I/O Space writes (address is in AB[2:0])\n\nLogic here: select address 0 unless ~IOWMBR~\nasserted.
+Text Notes 17350 3050 0    50   ~ 0
+MBRs are read by:\n\n1. ~READ_MBP~ (address 0 always selected)\n2. ~READ_MBP+FLAGS~ (address 0 always selected)\n3. ~WRITE_AR_MBx~ (address in IR[2:0])\n    if IDXEN is low, address is 3 (011)\n    if IDXEN is high, address is IR[1:0] (range 0-3 only)\n4. I/O Space reads (address is in AB[2:0])\n\nValue should always be &00 or &80 if ~DIS~ is\nasserted.
+Text Notes 17350 3800 0    50   ~ 0
+~DIS~\n\n0\n1\n1\n1\n
+Text Notes 17500 3800 0    50   ~ 0
+~RMBP~\n\nX\n0\n1\n1\n
+Text Notes 17750 3800 0    50   ~ 0
+~IOMBR~\n\nX\nX\n0\n1\n
+Text Notes 18100 3800 0    50   ~ 0
+~WA~\n\n000\n000\nAB[2:0]\nIR[1:0]\n
+Text Notes 18500 3800 0    50   ~ 0
+Why\n\nMBR init, gate disabled\nReading MB0, gate disabled\nI/O space read (IN)\nMBx:AR Indexing\n
+Text Notes 17350 1800 0    50   ~ 0
+Timing: ~WEN0~ & ~WEN1~ are latch enables and must be asserted\n>10ns after WA0 & WA1 change. The WA0 & WA1 muxes change on\n~IOMBR~ which happens early during T3. ~IOWMBR~ strobes in\nsync with the ~W~ strobe, which comes during T4, at least 62.5ns\nafter T3.
+Wire Wire Line
+	13300 250  13700 250 
+Wire Wire Line
+	13300 350  13700 350 
+Wire Wire Line
+	13300 450  13700 450 
+Text Label 13700 250  2    50   ~ 0
+~RMBP
+Text Label 13700 350  2    50   ~ 0
+~RCTX
+Text Label 13700 450  2    50   ~ 0
+~RCTX+F
+Wire Wire Line
+	13300 550  13700 550 
+Wire Wire Line
+	13300 650  13700 650 
+Wire Wire Line
+	13300 750  13700 750 
+Text Label 13700 550  2    50   ~ 0
+~WMBP
+Text Label 13700 650  2    50   ~ 0
+~WCTX
+Text Label 13700 750  2    50   ~ 0
+~WCTX+F
+Wire Wire Line
+	13300 850  13700 850 
+Text Label 13700 850  2    50   ~ 0
+~WFLAGS
+$Comp
+L alexios:16V8 U?
+U 1 1 60FA549C
+P 12850 700
+AR Path="/61F95ACC/6AF25BF3/60FA549C" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/60FA549C" Ref="U?"  Part="1" 
+F 0 "U?" H 12850 1417 50  0000 C CNN
+F 1 "16V8" H 12850 1326 50  0000 C CNN
+F 2 "" H 12850 700 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 12850 700 50  0001 C CNN
+	1    12850 700 
+	1    0    0    -1  
+$EndComp
+Text Label 12000 350  0    50   ~ 0
+RADDR1
+Text Label 12000 450  0    50   ~ 0
+RADDR2
+Text Label 12000 250  0    50   ~ 0
+RADDR0
+Wire Wire Line
+	12000 450  12400 450 
+Wire Wire Line
+	12000 350  12400 350 
+Wire Wire Line
+	12000 250  12400 250 
+Wire Wire Line
+	12000 750  12400 750 
+Wire Wire Line
+	12000 650  12400 650 
+Wire Wire Line
+	12000 550  12400 550 
+Wire Wire Line
+	12000 1050 12400 1050
+Wire Wire Line
+	12000 950  12400 950 
+Wire Wire Line
+	12000 850  12400 850 
+Text Label 12000 550  0    50   ~ 0
+RADDR3
+Text Label 12000 650  0    50   ~ 0
+RADDR4
+Text Label 12000 750  0    50   ~ 0
+WADDR0
+Text Label 12000 850  0    50   ~ 0
+WADDR1
+Text Label 12000 950  0    50   ~ 0
+WADDR2
+Text Label 12000 1050 0    50   ~ 0
+WADDR3
+Text Label 12000 1150 0    50   ~ 0
+WADDR4
+Wire Wire Line
+	12000 1150 12400 1150
+Wire Wire Line
+	13300 950  13450 950 
+Wire Wire Line
+	13450 950  13450 1350
+Wire Wire Line
+	13450 1350 12000 1350
+Text Label 12000 1350 0    50   ~ 0
+CLK4
+Text Notes 14100 1000 0    50   ~ 0
+~RMBP~ = RADDR == 11100\n~RCTX~ = RADDR == 11101\n~RCTX+F~ = RADDR == 11110\n~WMBP~ = CLK4 == 0 && WADDR == 11100\n~WCTX~ = WADDR == 11101\n~WCTX+F~ = WADDR == 11110\n~WFLAGS~ = WADDR = 11111\n
+Text Notes 14100 350  0    63   ~ 13
+GAL Equations
+Wire Notes Line width 20 style solid
+	14000 150  14000 1100
+Wire Notes Line width 20 style solid
+	14000 150  15850 150 
+Wire Notes Line width 20 style solid
+	15850 1100 15850 150 
+Wire Notes Line width 20 style solid
+	15850 1100 14000 1100
+Text Notes 12905 985  0    50   ~ 0
+IN
+NoConn ~ 13300 3050
+NoConn ~ 13300 3150
+NoConn ~ 13300 3250
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
 	1700 2350 1700 3200
 Wire Bus Line
-	10400 1150 10400 2000
-Wire Bus Line
 	1700 3600 1700 5200
 Wire Bus Line
 	6450 1150 6450 2000
 Wire Bus Line
-	10400 3600 10400 4750
+	10400 1150 10400 2000
 Wire Bus Line
 	8600 1500 8600 5550
 $EndSCHEMATC

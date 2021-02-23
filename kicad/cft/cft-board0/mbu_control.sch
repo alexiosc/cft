@@ -1452,4 +1452,30 @@ Text Label 8200 3350 2    50   ~ 0
 Connection ~ 2100 2650
 Wire Wire Line
 	2100 2650 2100 1850
+Text HLabel 12600 -450 0    50   Input ~ 0
+AB0
+Text HLabel 12600 -350 0    50   Input ~ 0
+AB1
+Text HLabel 12600 -250 0    50   Input ~ 0
+AB2
+Text HLabel 12600 -950 0    50   Input ~ 0
+~IOMBR
+Text HLabel 12600 -850 0    50   Input ~ 0
+~W
+Text HLabel 12600 -750 0    50   Input ~ 0
+~WMBP
+Text HLabel 16950 1300 0    50   Input ~ 0
+WADDR0
+Text HLabel 16950 1400 0    50   Input ~ 0
+WADDR1
+Text HLabel 16950 1900 0    50   Input ~ 0
+~RG
+Text HLabel 16950 1800 0    50   Input ~ 0
+~WAR
+Text HLabel 16950 1600 0    50   Input ~ 0
+IR1
+Text HLabel 16950 1500 0    50   Input ~ 0
+IR0
+Text HLabel 16950 1700 0    50   Input ~ 0
+IR2
 $EndSCHEMATC
