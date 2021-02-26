@@ -13,7 +13,15 @@ def minterm(vec, names):
         if c == "1":
             yield n.upper()
 
+def verilog_mt(vec, names):
+    assert len(vec) == len(names)
+    for c, n in zip(vec, names):
+        if c in "01":
+            yield "({} == 1'b{})".format(n.lower(), c)
+
+
 res = []
+vres = []
 vecmap = []
 for line in sys.stdin:
     line = line.strip()
@@ -40,9 +48,12 @@ for line in sys.stdin:
         continue
     invec, outvec = m.groups()
     mts = " * ".join(minterm(invec, inlabels))
+    vmts = " && ".join(verilog_mt(invec, inlabels))
     res.append([ invec, outvec, mts ])
+    vres.append([ invec, outvec, vmts ])
 
 res.sort(reverse=True)
+vres.sort(reverse=True)
 pprint.pprint(res)
 
 #pprint.pprint(res)
@@ -50,4 +61,9 @@ for i, n in enumerate(outlabels):
     print("{} = \t\t".format(n.upper()), end="")
     vecs = "  + \\\n\t\t".join(minterms for invec, outvec, minterms in res if outvec[i] == "1" )
     print(vecs)
+
+for i, n in enumerate(outlabels):
+    print("assign #delay {} = ".format(n.lower()), end="")
+    vecs = " || \\\n\t".join(minterms for invec, outvec, minterms in vres if outvec[i] == "1" )
+    print(vecs + ";\n")
 
