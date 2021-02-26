@@ -31,6 +31,138 @@
 
 `timescale 1ns/1ps
 
+
+// This is the MBU Decoder GAL.
+module mbu_decoder_gal(raddr,	// CFT Read Unit
+		       waddr,	// CFT WRite Unit
+		       clk4,    // Write strobe
+		       nrmbn,	// Put MBn on IBus
+		       nrmbp,	// Put MBP (MB0) on IBus
+		       nrctx,	// Put CTX on IBus
+		       nwmbn,	// Write IBus to MBn
+		       nwmbp,   // Write IBus to MBp
+		       nwctx,   // Write IBus to CTX 
+		       nwar     // One of the four write_ar_xx strobes
+		       );
+
+   parameter delay = 15;
+
+   input [4:0] raddr;
+   input [4:0] waddr;
+   input       clk4;
+   
+   output      nrmbn;
+   output      nrmbp;
+   output      nrctx;
+   output      nwmbn;
+   output      nwmbp;
+   output      nwctx;
+   output      nwar;
+
+   // REVISION: MBUDEC00
+
+   assign #delay nrmbn = (raddr == 5'b11011) ? 1'b0 : 1'b1;
+   assign #delay nrmbp = (raddr == 5'b11100) ? 1'b0 : 1'b1;
+   assign #delay nrctx = (raddr == 5'b11110 || raddr == 5'b11101) ? 1'b0 : 1'b1;
+   
+   assign #delay nwmbn = (waddr == 5'b11011 && clk4 == 1'b0) ? 1'b0 : 1'b1;
+   assign #delay nwmbp = (waddr == 5'b11100 && clk4 == 1'b0) ? 1'b0 : 1'b1;
+   assign #delay nwctx = ((waddr == 5'b11110 || waddr == 5'b11101) && clk4 == 1'b0) ? 1'b0 : 1'b1;
+   // assign #delay nflags = ((waddr == 5'b11111 || waddr == 5'b11101) && clk4 == 1'b0) ? 1'b0 : 1'b1;
+   assign #delay nwar = ((waddr[4:2] == 3'b001) && clk4 == 1'b0) ? 1'b0 : 1'b1;
+endmodule
+
+ 
+// This is the MBU Control GAL.
+module mbu_control(ndis,	// MBU Disable
+		   nrmbp,
+		   nrmbn,
+		   nwar,
+		   nidxen,
+		   nwmbp,
+		   nrmbn,
+		   raddr1_0,	// RADDR[1:0]
+		   ir2_0,	// IR[2:0]
+		   a,
+		   noe,
+		   nwe
+		   );
+
+   parameter delay = 15;
+
+   input       ndis;
+   input       nrmbp;
+   input       nrmbn;
+   input       nwar;
+   input       nidxen;
+   input       nwmbp;
+   input       nwmbn;
+   input [1:0] raddr1_0;
+   input [2:0] ir2_0;
+
+   output [2:0] a;
+   output 	noe;
+   output 	nwe;
+
+   // Taken directly from running:
+   // 
+   // espresso  ../microcode/mbu-control.espresso  | ../tools/espresso2pld
+
+
+   // Map galasm name to verilog names
+   wire 	dis, rmbp, rmbn, war, wmbn, wmbp, iden, addr0, addr1, ir0, ir1, ir2;
+   wire 	a0, a1, a2, oe, we;
+
+   assign dis = ndis;
+   assign rmbp = nrmbp;
+   assign war = nwar;
+   assign wmbn = nwmbn;
+   assign wmbp = nwmbp;
+   assign iden = nidxen;
+   assign addr0 = raddr1_0[0];
+   assign addr1 = raddr1_0[1];
+   assign ir0 = ir2_0[0];
+   assign ir1 = ir2_0[1];
+   assign ir2 = ir2_0[2];
+   assign a0 = a[0];
+   assign a1 = a[1];
+   assign a2 = a[2];
+   assign noe = oe;
+   assign nwe = we;
+
+   // REVISION: MBUCTL00
+
+   assign #delay a2 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (ir2 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b1) && (wmbn == 1'b0) && (ir2 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (ir2 == 1'b1);
+
+   assign #delay a1 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (addr1 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (ir1 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b1) && (wmbn == 1'b0) && (ir1 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (ir1 == 1'b1);
+
+   assign #delay a0 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (addr0 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (ir0 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b1) && (wmbn == 1'b0) && (ir0 == 1'b1) ||
+		      (dis == 1'b1) && (rmbp == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (ir0 == 1'b1);
+
+   assign #delay oe = (dis == 1'b0) ||
+		      (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) ||
+		      (rmbp == 1'b0) && (wmbp == 1'b0) ||
+		      (rmbn == 1'b1) && (wmbp == 1'b0) ||
+		      (war == 1'b0) && (wmbp == 1'b0) ||
+		      (wmbn == 1'b0);
+
+   assign #delay we = (dis == 1'b0) ||
+		      (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) ||
+		      (rmbp == 1'b0) ||
+		      (rmbn == 1'b0) ||
+		      (war == 1'b0);
+endmodule
+
+ 
+   
+
 // The Memory Bank Register File
 
 module mbu (nreset,

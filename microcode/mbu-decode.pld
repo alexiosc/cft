@@ -1,0 +1,63 @@
+GAL16V8         ; this is the GAL type
+MBUDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+RA0     RA1     RA2     RA3     RA4     WA0     WA1     WA2     WA3     GND
+WA4     CLK4    /WCTX   /WMBP   /RCTX   /RMBP   /RMBn   /WMBn   /WAR    VCC
+;11     12      13      14      15      16      17      18      19      20
+
+; The addresses we need are like this:
+
+; signal read_mbn        = ...................11011; // Read an MBn register
+; signal read_mbp        = ...................11100; // Read the MBP (_new added temporarily to avoid bugs)
+; signal read_ctx        = ...................11101; // Read the context register
+; signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
+
+; signal write_mbn       = ..............11011.....; // Write an MBn register
+; signal write_mbp       = ..............11100.....; // Write the MBP (_new added temporarily to avoid bugs)
+; signal write_ctx       = ..............11101.....; // Write the context register
+; signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
+; signal write_flags     = ..............11111.....; // Write flags
+
+
+; ~RMBP~ = RADDR == 11100
+; ~RCTX~ = RADDR == 11101
+; ~RCTX+F~ = RADDR == 11110
+; ~WMBP~ = CLK4 == 0 && WADDR == 11100
+; ~WCTX~ = WADDR == 11101
+; ~WCTX+F~ = WADDR == 11110
+; ~WFLAGS~ = WADDR = 11111
+
+/RMBn   =  RA4 *  RA3 * /RA2 *  RA1 *  RA0                                                    ; RADDR = 11011
+/RMBP   =  RA4 *  RA3 *  RA2 * /RA1 * /RA0                                                    ; RADDR = 11100
+/RCTX   =  RA4 *  RA3 *  RA2 * /RA1 *  RA0   +   RA4 * RA3 * RA2 * RA1 * /RA0                 ; RADDR = 11110 or 11101
+
+/WMBn   =  WA4 *  WA3 * /WA2 *  WA1 *  WA0 * /CLK4                                            ; WADDR = 11011
+/WMBP   =  WA4 *  WA3 *  WA2 * /WA1 * /WA0 * /CLK4                                            ; WADDR = 11100
+/WCTX   =  WA4 *  WA3 *  WA2 * /WA1 *  WA0 * /CLK4   +   WA4 * RA3 * RA2 * RA1 * /RA0 * /CLK4 ; WADDR = 11110 or 11101
+/WAR    = /WA4 * /WA3 *  WA2 *               /CLK4                                            ; WADDR = 001xx
+
+; /WFLAGS =  WA4 *  WA3 *  WA2 *  WA1 *  WA0 * /CLK4   +   WA4 * RA3 * RA2 * RA1 * /RA0 * /CLK4 ; WADDR = 11111 or 11101
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+RADDR    -- The read address
+WADDR    -- The write address
+CLK4     -- Write strobe clock
+
+Outputs:
+
+/RMBP    -- Read the MBP register
+/RCTX    -- Read the CTX register
+
+/WMBP    -- Write to the MBP register
+/WCTX    -- Write to the CTX register
+/WAR     -- Read from MBU, write to AR (four variants)
+
+; End of file.

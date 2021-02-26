@@ -40,10 +40,10 @@
 ;;; the MBR to access) as argument.
 
 
-.equ SMB   OUT       mbu.BASE		; SMB extended instruction
-.equ RMB   IN        mbu.BASE		; RMB extended instruction
+;.equ SMB   OUT       mbu.BASE		; SMB extended instruction
+;.equ RMB   IN        mbu.BASE		; RMB extended instruction
 
-.pushns mbu
+.pushns mbu				
 
 ;;; Useful macros. You probably won't have to use anything other than these, ISR
 ;;; and ISR_IRQn for testing if an interrupt has been signaled.
@@ -54,7 +54,7 @@
 
 ;;; ;;; Definitions
 
-.equ BASE &008				; Base address
+;.equ BASE &008				; Base address
 
 .equ MB0  0
 .equ MB1  1
