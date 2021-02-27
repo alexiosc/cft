@@ -59,7 +59,7 @@ pprint.pprint(res)
 #pprint.pprint(res)
 for i, n in enumerate(outlabels):
     print("{} = \t\t".format(n.upper()), end="")
-    vecs = "  + \\\n\t\t".join(minterms for invec, outvec, minterms in res if outvec[i] == "1" )
+    vecs = "   +   ".join(minterms for invec, outvec, minterms in res if outvec[i] == "1" )
     print(vecs)
 
 for i, n in enumerate(outlabels):
