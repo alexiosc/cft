@@ -71,7 +71,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		control_store.v         control_store_tb.v \
 		microcode_sequencer.v   microcode_sequencer_tb.v   \
 		constant_store.v        constant_store_tb.v   \
-		mbu.v                   mbu_decoder_gal_tb.v mbu_tb.v \
+		mbu.v                   mbu_decoder_gal_tb.v mbu_control_gal_tb.v mbu_tb.v \
 		flag_unit.v             flag_unit_tb.v \
 		reg_ir.v                reg_ir_tb.v \
 		reg_ar.v                reg_ar_tb.v \
@@ -503,6 +503,10 @@ test_reg_v:	reg_v_tb.o reg_v.o flipflop.o mux.o
 test_mbu_decoder_gal:	mbu_decoder_gal_tb.o mbu.o ram.o rom.o demux.o buffer.o flipflop.o
 		./mbu_decoder_gal_tb.o
 		$(GTKWAVE) $(VCDDIR)/mbu_decoder_gal_tb.vcd $(SAVDIR)/mbu_decoder_gal_tb.sav
+
+test_mbu_control_gal:	mbu_control_gal_tb.o mbu.o ram.o rom.o demux.o buffer.o flipflop.o
+		./mbu_control_gal_tb.o
+		$(GTKWAVE) $(VCDDIR)/mbu_control_gal_tb.vcd $(SAVDIR)/mbu_control_gal_tb.sav
 
 test_mbu:	mbu_tb.o mbu.o ram.o rom.o demux.o buffer.o flipflop.o
 		./mbu_tb.o
