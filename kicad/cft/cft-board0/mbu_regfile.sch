@@ -488,34 +488,6 @@ Wire Wire Line
 	6950 3350 6950 5400
 Text HLabel 9950 3150 2    50   Output ~ 0
 AEXT7
-Text HLabel 9950 2200 2    50   Output ~ 0
-AEXT6
-Text HLabel 9950 2100 2    50   Output ~ 0
-AEXT5
-Text HLabel 9950 2000 2    50   Output ~ 0
-AEXT4
-Text HLabel 9950 1900 2    50   Output ~ 0
-AEXT3
-Text HLabel 9950 1800 2    50   Output ~ 0
-AEXT2
-Text HLabel 9950 1700 2    50   Output ~ 0
-AEXT1
-Text HLabel 9950 1600 2    50   Output ~ 0
-AEXT0
-Wire Wire Line
-	8800 2200 9950 2200
-Wire Wire Line
-	8900 2100 9950 2100
-Wire Wire Line
-	9000 2000 9950 2000
-Wire Wire Line
-	9100 1900 9950 1900
-Wire Wire Line
-	9200 1800 9950 1800
-Wire Wire Line
-	9300 1700 9950 1700
-Wire Wire Line
-	9400 1600 9950 1600
 Wire Wire Line
 	1250 5400 6950 5400
 Entry Wire Line
@@ -536,84 +508,8 @@ Entry Wire Line
 	6750 1500 6850 1600
 Text Label 9900 3150 2    50   ~ 0
 AEXT7
-Text Label 9900 2200 2    50   ~ 0
-AEXT6
-Text Label 9900 2100 2    50   ~ 0
-AEXT5
-Text Label 9900 2000 2    50   ~ 0
-AEXT4
-Text Label 9900 1900 2    50   ~ 0
-AEXT3
-Text Label 9900 1800 2    50   ~ 0
-AEXT2
-Text Label 9900 1700 2    50   ~ 0
-AEXT1
-Text Label 9900 1600 2    50   ~ 0
-AEXT0
 Wire Wire Line
 	8350 3150 9950 3150
-Text Label 8550 1600 0    50   ~ 0
-AEXT0
-Text Label 8550 1700 0    50   ~ 0
-AEXT1
-Text Label 8550 1800 0    50   ~ 0
-AEXT2
-Text Label 8550 1900 0    50   ~ 0
-AEXT3
-Text Label 8550 2000 0    50   ~ 0
-AEXT4
-Text Label 8550 2100 0    50   ~ 0
-AEXT5
-Text Label 8550 2200 0    50   ~ 0
-AEXT6
-$Comp
-L power:GND #PWR?
-U 1 1 6890B205
-P 9400 2700
-AR Path="/61F95ACC/6890B205" Ref="#PWR?"  Part="1" 
-AR Path="/61F95ACC/6888FBA2/6890B205" Ref="#PWR0702"  Part="1" 
-F 0 "#PWR0702" H 9400 2450 50  0001 C CNN
-F 1 "GND" H 9405 2527 50  0000 C CNN
-F 2 "" H 9400 2700 50  0001 C CNN
-F 3 "" H 9400 2700 50  0001 C CNN
-	1    9400 2700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8800 2300 8800 2200
-Wire Wire Line
-	8900 2300 8900 2100
-Wire Wire Line
-	9000 2300 9000 2000
-Wire Wire Line
-	9100 2300 9100 1900
-Wire Wire Line
-	9200 2300 9200 1800
-Wire Wire Line
-	9300 2300 9300 1700
-Wire Wire Line
-	9400 2300 9400 1600
-Connection ~ 8800 2200
-Connection ~ 8900 2100
-Connection ~ 9000 2000
-Connection ~ 9100 1900
-Connection ~ 9200 1800
-Connection ~ 9300 1700
-Connection ~ 9400 1600
-Wire Wire Line
-	8500 2200 8800 2200
-Wire Wire Line
-	8500 2100 8900 2100
-Wire Wire Line
-	8500 2000 9000 2000
-Wire Wire Line
-	8500 1900 9100 1900
-Wire Wire Line
-	8500 1800 9200 1800
-Wire Wire Line
-	8500 1700 9300 1700
-Wire Wire Line
-	8500 1600 9400 1600
 $Comp
 L alexios:74AC541 U?
 U 1 1 6890B1A8
@@ -1153,18 +1049,6 @@ Registers 0–3\n
 Text Notes 8150 6350 0    50   ~ 0
 The Register file is made of of 2×2 array of 4×4-bit\n74HC670 register files. They can be read from and\nwritten to simultaneously, though this doesn't happen\non the CFT.\n\nA buffer allows the output of the register file to be\ntri-stated. Pull-down resistors and a multiplexer\nallow the register files to be disabled until needed.\n\nIn that case, AEXT will be hardwired to either &00\nor &80, depending on the state of the RAM/ROM\nswitch on the front panel.
 NoConn ~ 8350 3450
-NoConn ~ 8700 2300
-$Comp
-L Device:R_Network08 RN701
-U 1 1 63261A91
-P 9000 2500
-F 0 "RN701" H 8520 2454 50  0000 R CNN
-F 1 "10kΩ" H 8520 2545 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP9" V 9475 2500 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9000 2500 50  0001 C CNN
-	1    9000 2500
-	-1   0    0    1   
-$EndComp
 Wire Bus Line
 	6750 1250 6750 3350
 Wire Bus Line

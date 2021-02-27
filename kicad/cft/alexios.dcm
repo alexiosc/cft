@@ -12,6 +12,12 @@ K 2ch UART FIFO
 F https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf
 $ENDCMP
 #
+$CMP 16V8
+D Programmable Logic Array, DIP-20/SOIC-20/PLCC-20
+K GAL PAL PLD 16V8
+F https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf
+$ENDCMP
+#
 $CMP 27C256
 D OTP EPROM 256 KiBit
 K OTP EPROM 256 KiBit
@@ -38,6 +44,12 @@ $ENDCMP
 $CMP 29W040
 D JEDEC 4M Flash EEProm (512×8)
 K EEPROM FLASH 4M 512KB
+$ENDCMP
+#
+$CMP 6116SA15TPG
+D 32K × 8 High Speed CMOS RAM, SOJ-28
+K RAM SRAM CMOS MEMORY
+F https://gr.mouser.com/datasheet/2/698/REN_6116_DST_20200717-1995925.pdf
 $ENDCMP
 #
 $CMP 74AC04
@@ -1426,6 +1438,12 @@ $CMP AT27C020
 D 2Mbit (256K×8) OPT ROM, 5V, 55ns
 K EEPROM EPROM ROM FLASH 256KB OTP
 F https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf
+$ENDCMP
+#
+$CMP ATF16V8B
+D Programmable Logic Array, DIP-20/SOIC-20/PLCC-20
+K GAL PAL PLD 16V8
+F https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf
 $ENDCMP
 #
 $CMP ATmega64L-8AU

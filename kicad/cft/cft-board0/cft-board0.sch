@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 19
+Sheet 1 17
 Title "Control Unit Board"
 Date ""
 Rev "2023"
@@ -929,22 +929,6 @@ Wire Wire Line
 Text Label 16200 -5600 2    50   ~ 0
 ~FPAEXT
 Wire Wire Line
-	12150 -6450 13000 -6450
-Wire Wire Line
-	12150 -6150 13000 -6150
-Text Label 13000 -6450 2    50   ~ 0
-~SYSDEV
-Wire Bus Line
-	12150 -6350 13000 -6350
-Text Label 13000 -6350 2    50   ~ 0
-AB[0..23]
-Text Label 13000 -6150 2    50   ~ 0
-~W
-Wire Bus Line
-	12150 -6050 13000 -6050
-Text Label 13000 -6050 2    50   ~ 0
-DB[0..15]
-Wire Wire Line
 	11000 -5450 10150 -5450
 Text Label 10150 -5450 0    50   ~ 0
 ~FPRAM~∕ROM
@@ -958,10 +942,6 @@ Wire Bus Line
 	11000 -6250 10150 -6250
 Wire Bus Line
 	11000 -6150 10150 -6150
-Text Label 10150 -6700 0    50   ~ 0
-~RESET
-Wire Wire Line
-	11000 -6700 10150 -6700
 Wire Wire Line
 	15350 -6200 16200 -6200
 Wire Wire Line
@@ -1071,22 +1051,6 @@ Wire Wire Line
 Text Notes 14150 -7100 0    100  ~ 20
 Address Register
 Wire Wire Line
-	11000 -5850 10150 -5850
-Wire Wire Line
-	11000 -5750 10150 -5750
-Text Label 10150 -5850 0    50   ~ 0
-IR0
-Text Label 10150 -5750 0    50   ~ 0
-IR1
-Wire Wire Line
-	12150 -6250 13000 -6250
-Text Label 13000 -6250 2    50   ~ 0
-~R
-Wire Wire Line
-	11000 -5650 10150 -5650
-Text Label 10150 -5650 0    50   ~ 0
-IR2
-Wire Wire Line
 	15300 -3650 16150 -3650
 Text Label 16150 -3650 2    50   ~ 0
 ~WAITING
@@ -1102,14 +1066,6 @@ Wire Wire Line
 	14200 -6100 13350 -6100
 Text Label 13350 -6100 0    50   ~ 0
 ~HALT
-Wire Wire Line
-	11000 -6600 10150 -6600
-Text Label 10150 -6600 0    50   ~ 0
-CLK2
-Wire Wire Line
-	11000 -6500 10150 -6500
-Text Label 10150 -6500 0    50   ~ 0
-CLK4
 $Sheet
 S 10950 -4650 1150 450 
 U 5E25A7FA
@@ -1128,24 +1084,18 @@ S 11000 -6850 1150 1550
 U 61F95ACC
 F0 "Memory Bank Unit (MBU)" 50
 F1 "mbu.sch" 50
-F2 "~RESET" I L 11000 -6700 50 
-F3 "AEXT[0..7]" O R 12150 -6700 50 
-F4 "WADDR[0..4]" I L 11000 -6150 50 
-F5 "~FPRAM~∕ROM" I L 11000 -5450 50 
-F6 "IBUS[0..7]" T L 11000 -6050 50 
-F7 "RADDR[0..4]" I L 11000 -6250 50 
-F8 "AB[0..7]" I R 12150 -6350 50 
-F9 "~W" I R 12150 -6150 50 
-F10 "~SYSDEV" I R 12150 -6450 50 
-F11 "DB[0..7]" B R 12150 -6050 50 
-F12 "~IR-IDX" I L 11000 -5950 50 
-F13 "~WAR" O R 12150 -5450 50 
-F14 "IR0" I L 11000 -5850 50 
-F15 "IR1" I L 11000 -5750 50 
-F16 "~R" I R 12150 -6250 50 
-F17 "IR2" I L 11000 -5650 50 
-F18 "CLK4" I L 11000 -6500 50 
-F19 "CLK2" I L 11000 -6600 50 
+F2 "AEXT[0..7]" O R 12150 -6700 50 
+F3 "WADDR[0..4]" I L 11000 -6150 50 
+F4 "~FPRAM~∕ROM" I L 11000 -5450 50 
+F5 "IBUS[0..7]" T L 11000 -6050 50 
+F6 "RADDR[0..4]" I L 11000 -6250 50 
+F7 "~IR-IDX" I L 11000 -5950 50 
+F8 "~WAR" O R 12150 -5450 50 
+F9 "CLK4" I L 11000 -6500 50 
+F10 "CLK2" I L 11000 -6600 50 
+F11 "~RSTHOLD" I L 11000 -6700 50 
+F12 "IR[0..2]" I L 11000 -5850 50 
+F13 "~T34" I L 11000 -6400 50 
 $EndSheet
 Wire Wire Line
 	14150 -4100 13300 -4100
@@ -3236,6 +3186,18 @@ F 3 "" H -4175 8925 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Bus Line
+	11000 -5850 10150 -5850
+Text Label 10150 -5850 0    50   ~ 0
+IR[0..2]
+Wire Wire Line
+	11000 -6700 10150 -6700
+Wire Wire Line
+	11000 -6600 10150 -6600
+Wire Wire Line
+	11000 -6500 10150 -6500
+Wire Wire Line
+	11000 -6400 10150 -6400
+Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
 	2450 -6350 2450 -5550
@@ -3245,4 +3207,12 @@ Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3450 -10350 -2650
+Text Label 10150 -6700 0    50   ~ 0
+~RSTHOLD
+Text Label 10150 -6600 0    50   ~ 0
+CLK2
+Text Label 10150 -6500 0    50   ~ 0
+CLK3
+Text Label 10150 -6400 0    50   ~ 0
+~T34
 $EndSCHEMATC

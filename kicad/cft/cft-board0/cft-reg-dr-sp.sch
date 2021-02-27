@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 19
+Sheet 3 17
 Title "Data Register (DR)"
 Date ""
 Rev "2047"

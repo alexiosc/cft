@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 19
+Sheet 10 17
 Title "Clock Generator"
 Date ""
 Rev "2023"
@@ -1342,7 +1342,7 @@ U 2 1 604F8DAC
 P 2050 7850
 F 0 "U1005" H 2230 8396 50  0000 L CNN
 F 1 "74AC157" H 2230 8305 50  0000 L CNN
-F 2 "" H 2050 7850 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 2050 7850 50  0001 C CNN
 F 3 "https://www.ti.com/lit/ds/symlink/cd74ac157.pdf" H 2050 7850 50  0001 C CNN
 	2    2050 7850
 	1    0    0    -1  

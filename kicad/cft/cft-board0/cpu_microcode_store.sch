@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 19
+Sheet 17 17
 Title "Control Store (24×512k ROM)"
 Date ""
 Rev "2023"
