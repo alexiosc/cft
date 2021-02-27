@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Feb 27 10:13:39 2021
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_decoder_gal_tb.vcd"
+[dumpfile_mtime] "Sat Feb 27 10:13:31 2021"
+[dumpfile_size] 15816432
+[optimize_vcd]
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_decoder_gal_tb.sav"
+[timestart] 330933000
+[size] 1375 588
+[pos] 2366 235
+*-19.000000 1835000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 226
+[signals_width] 209
+[sst_expanded] 1
+[sst_vpaned_height] 137
+@420
+mbu_decoder_gal_tb.i
+@820
+mbu_decoder_gal_tb.what[8191:0]
+@200
+-
+@28
+mbu_decoder_gal_tb.clk4
+@200
+-
+@28
+mbu_decoder_gal_tb.raddr[4:0]
+mbu_decoder_gal_tb.waddr[4:0]
+@200
+-
+@28
+[color] 2
+mbu_decoder_gal_tb.nrmbn
+[color] 3
+mbu_decoder_gal_tb.nrmbp
+[color] 1
+mbu_decoder_gal_tb.nrctx
+@200
+-
+@29
+[color] 4
+mbu_decoder_gal_tb.nwar
+@28
+[color] 6
+mbu_decoder_gal_tb.nwmbn
+[color] 7
+mbu_decoder_gal_tb.nwmbp
+[color] 5
+mbu_decoder_gal_tb.nwctx
+[pattern_trace] 1
+[pattern_trace] 0
