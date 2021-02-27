@@ -477,5 +477,9 @@ output[0-9]
 
 *.pasm
 a-??.list
+*.chp
+*.fus
+*.jed
+*.pin
 
 # End of file.
