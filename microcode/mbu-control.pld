@@ -2,9 +2,13 @@ GAL16V8         ; this is the GAL type
 MBUCTL00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-NC1     DIS     RMBP    WAR     IDXEN   WMBP    WMBn    RA0     RA1     GND
-RMBn    IR0     IR1     IR2     A0      A1      A2      OE      WE      VCC
+NC1     DIS     RMBP    WAR     IDEN    WMBP    WMBN    ADDR0   ADDR1   GND
+RMBN    IR0     IR1     IR2     A0      A1      A2      OE      WE      VCC
 ;11     12      13      14      15      16      17      18      19      20
+
+; Hint: convert espresso output to equations using:
+;
+; espresso mbu-control.espresso | ../tools/espresso2pld
 
 ; We provide an explicit safety interlock here, so OE and WE are never asserted
 ; together. If reads and writes are requested at the same time, neither
@@ -13,12 +17,12 @@ RMBn    IR0     IR1     IR2     A0      A1      A2      OE      WE      VCC
 ; Memory Output Enable. Note, this has its semantics REVERSED. That is, output
 ; is DISABLED in these conditions:
 
-OE = /DIS   +   RMBP * RMBn * WAR * WMBP * WMBn   +   /RMBP * /WMBP   +   RMBn * /WMBP   +   /WAR * /WMBP   +   /WMBn
+OE = /DIS  +  /RMBP * /RMBN  +  /RMBP * /WAR  +  /RMBN * /WAR  +  /WMBP  +  /WMBN
 
 ; Memory Write Enable. Note, this has its semantics REVERSED. That is, writing
 ; is DISABLED in these conditions:
 
-WE = /DIS   +   RMBP * RMBn * WAR * WMBP * WMBn   +   /RMBP   +   /RMBn   +   /WAR
+WE = /DIS  +  /RMBP  +  /RMBN  +  /WAR  +  WMBP * WMBN  +  /WMBP * /WMBN
 
 
 ; The exact MBr is selected from either RADDR or IR. The selection criteria are:
@@ -31,9 +35,9 @@ WE = /DIS   +   RMBP * RMBn * WAR * WMBP * WMBn   +   /RMBP   +   /RMBn   +   /W
 
 ;    MUX: use RADDR (write_ar_xxx)               use IR (write_ar_xxx, idx reg)      use IR (read_mbn)            use IR (write_mbn)            
 ; ------------------------------------------     -------------------------------     ------------------------     ------------------------------
-; A0 = DIS * RMBP * RMBn * /WAR * IDEN * ADDR0  +  DIS * RMBP * /WAR * /IDEN * IR0  +  DIS * RMBP * /RMBn * IR0  +  DIS * RMBP * WAR * /WMBn * IR0
-; A1 = DIS * RMBP * RMBn * /WAR * IDEN * ADDR1  +  DIS * RMBP * /WAR * /IDEN * IR1  +  DIS * RMBP * /RMBn * IR1  +  DIS * RMBP * WAR * /WMBn * IR1
-; A2 =                                          +  DIS * RMBP * /WAR * /IDEN * IR2     DIS * RMBP * /RMBn * IR2  +  DIS * RMBP * WAR * /WMBn * IR2
+A0 = DIS * RMBP * RMBN * /WAR * IDEN * ADDR0  +  DIS * RMBP * /WAR * /IDEN * IR0  +  DIS * RMBP * /RMBN * IR0  +  DIS * RMBP * WAR * /WMBN * IR0
+A1 = DIS * RMBP * RMBN * /WAR * IDEN * ADDR1  +  DIS * RMBP * /WAR * /IDEN * IR1  +  DIS * RMBP * /RMBN * IR1  +  DIS * RMBP * WAR * /WMBN * IR1
+A2 =                                             DIS * RMBP * /WAR * /IDEN * IR2  +  DIS * RMBP * /RMBN * IR2  +  DIS * RMBP * WAR * /WMBN * IR2
 
 
 
@@ -60,11 +64,11 @@ WE       -- Active low write enable signal to the register file RAM.
 
 Truth table:
 
-___  ____  ____  ___  _____  ____   ____                           __  __
+___  ____  ____  ___  _____  ____   ____
 DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  OE  WE  What
 ----------------------------------------------------------|-----------------------------------------
- 0     -    -     -     -     -      -     --       ---   |   000   1   1  MBR disabled
- 1     1    1     1     -     1      1     --       ---   |   000   1   1  MBR idle
+ 0     -    -     -     -     -      -     --       ---   |   000   1   1  MBU disabled
+ 1     1    1     1     -     1      1     --       ---   |   000   0   1  MBU idle, output MB0
 ----------------------------------------------------------|-----------------------------------------
  1     0    -     -     -     -      -     --       ---   |   000   0   1  Read MBP
 ----------------------------------------------------------|-----------------------------------------
@@ -77,10 +81,10 @@ DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  OE  WE  What
  1     1    0     -     -     -      -     --       110   |   110   0   1  Read MB6 index register
  1     1    0     -     -     -      -     --       111   |   111   0   1  Read MB7 index register
 ----------------------------------------------------------|-----------------------------------------
- 1     1    1     0     1     -      -     00       ---   |   000   0   1  write_ar_mbp (MBP read)
- 1     1    1     0     1     -      -     01       ---   |   001   0   1  write_ar_mbd (MBD read)
- 1     1    1     0     1     -      -     10       ---   |   010   0   1  write_ar_mbs (MBS read)
- 1     1    1     0     1     -      -     11       ---   |   011   0   1  write_ar_mbz (MBZ read)
+ 1     1    1     0     1     -      -     00       ---   |   000   0   1  write_ar_mbp
+ 1     1    1     0     1     -      -     01       ---   |   001   0   1  write_ar_mbd
+ 1     1    1     0     1     -      -     10       ---   |   010   0   1  write_ar_mbs
+ 1     1    1     0     1     -      -     11       ---   |   011   0   1  write_ar_mbz
 ----------------------------------------------------------|-----------------------------------------
  1     1    1     0     0     -      -     --       000   |   000   0   1  Read MBP index register
  1     1    1     0     0     -      -     --       001   |   001   0   1  Read MBD index register
@@ -91,7 +95,7 @@ DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  OE  WE  What
  1     1    1     0     0     -      -     --       110   |   110   0   1  Read MB6 index register
  1     1    1     0     0     -      -     --       111   |   111   0   1  Read MB7 index register
 ----------------------------------------------------------|-----------------------------------------
- 1     1    1     1     -     0      -     --       ---   |   000   1   0  Write MBP
+ 1     1    1     1     -     0      -     --       ---   |   000   1   0  Write BMP
 ----------------------------------------------------------|-----------------------------------------
  1     1    1     1     -     -      0     --       000   |   000   1   0  Write MBP index register
  1     1    1     1     -     -      0     --       001   |   001   1   0  Write MBD index register
@@ -102,11 +106,19 @@ DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  OE  WE  What
  1     1    1     1     -     -      0     --       110   |   110   1   0  Write MB6 index register
  1     1    1     1     -     -      0     --       111   |   111   1   0  Write MB7 index register
 ----------------------------------------------------------|-----------------------------------------
- 1     0    -     -     -     0      -     --       ---   |   000   1   1  Safety (RMBP + WMBP asserted)
- 1     0    -     -     -     -      0     --       ---   |   000   1   1  Safety (RMBP + WMBn asserted)
- 1     -    0     -     -     -      0     --       ---   |   000   1   1  Safety (RMBP + WMBn asserted)
- 1     -    -     0     -     0      -     --       ---   |   000   1   1  Safety (RMBP + WMBP asserted)
- 1     -    -     0     -     -      0     --       ---   |   000   1   1  Safety (RMBP + WMBn asserted)
- 1     -    -     0     -     -      0     --       ---   |   000   1   1  Safety (RMBP + WMBn asserted)
+ 1     0    0     -     -     -      -     --       ---   |   000   1   1  Safety (RBMP + RMBn asserted)
+ 1     0    -     0     -     -      -     --       ---   |   000   1   1  Safety (RBMP + WAR  asserted)
+ 1     -    0     0     -     -      -     --       ---   |   000   1   1  Safety (RBMn + WAR  asserted)
+----------------------------------------------------------|-----------------------------------------
+ 1     0    -     -     -     0      -     --       ---   |   000   1   1  Safety (RBMP + WBMP asserted)
+ 1     0    -     -     -     -      0     --       ---   |   000   1   1  Safety (RBMP + WBMn asserted)
+----------------------------------------------------------|-----------------------------------------
+ 1     -    0     -     -     0      -     --       ---   |   000   1   1  Safety (RBMn + WBMP asserted)
+ 1     -    0     -     -     -      0     --       ---   |   000   1   1  Safety (RBMP + WBMn asserted)
+----------------------------------------------------------|-----------------------------------------
+ 1     -    -     0     -     0      -     --       ---   |   000   1   1  Safety (RBMP + WBMP asserted)
+ 1     -    -     0     -     -      0     --       ---   |   000   1   1  Safety (WAR + WBMn asserted)
+----------------------------------------------------------|-----------------------------------------
+ 1     -    -     -     -     0      0     --       ---   |   000   1   1  Safety (WMBP + WMBn asserted)
 
 ; End of file.
