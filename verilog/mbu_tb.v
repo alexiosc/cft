@@ -36,7 +36,7 @@
 
 
 module reg_mbr_tb();
-   reg        nreset;
+   reg        nrsthold;
    reg        nfpram_rom;
    reg [15:0] ibus, ab, db, ir;
    reg 	      nr, nwen;
@@ -45,7 +45,7 @@ module reg_mbr_tb();
    wire       nw;
    wire       nir_idx;
 
-   wire       nreset_real, nfpram_rom_real;
+   wire       nrsthold_real, nfpram_rom_real;
    wire [15:0] ibus_real, ab_real, db_real;
    wire [7:0]  aext, db_low, ibus_low;
    
@@ -110,14 +110,11 @@ module reg_mbr_tb();
       // for (i = 0; i < 8 ; i = i + 1) begin
       // 	 mbu.regfile.mem[i] = $random & 255;
       // end;
-      for (i = 0; i < 4 ; i = i + 1) begin
-	 mbu.rf_0lo.q0[i] = $random & 15;
-	 mbu.rf_0hi.q0[i] = $random & 15;
-	 mbu.rf_1lo.q0[i] = $random & 15;
-	 mbu.rf_1hi.q0[i] = $random & 15;
+      for (i = 0; i < 2048 ; i = i + 1) begin
+	 mbu.regfile_mbu.mem[i] = $random & 255;
       end;
 
-      nreset = 0;
+      nrsthold = 0;
       nfpram_rom = 0;		// RAM
       ibus = 16'bzzzzzzzzzzzzzzzz;
       ir = 16'd0;
@@ -133,7 +130,7 @@ module reg_mbr_tb();
 
       status = "reset";
 
-      #5000 nreset = 1;
+      #5000 nrsthold = 1;
 
       // The TB isn't synchronous to the clock, so adjust its phase difference.
       #10;
@@ -347,7 +344,7 @@ module reg_mbr_tb();
 
    // Bi-directional buses and convenience
 
-   assign nreset_real = nreset;
+   assign nrsthold_real = nrsthold;
    assign nfpram_rom_real = nfpram_rom;
    assign ibus_real = ibus;
    assign ab_real = ab;
@@ -356,18 +353,14 @@ module reg_mbr_tb();
    assign ibus_low = ibus_real[7:0]; // This simplifies things with gtkwave
 
    // Connect the DUT   
-   mbu mbu (.nreset(nreset_real),
-	    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), // TODO: remove unneeded clocks!
+   mbu mbu (.nrsthold(nrsthold_real),
+	    .clk2(clk2), .clk4(clk4),
 	    .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
 	    .nir_idx(nir_idx),
 	    .ibus(ibus_real[7:0]),
 	    .aext(aext),
-	    .nr(nr), .nw(nw),
-	    .ab(ab_real[7:0]),
-	    .db(db_real),
-	    .nsysdev(nsysdev),
 	    .nwar(nwar),
 	    .nfpram_rom(nfpram_rom_real)
 	    );
@@ -376,7 +369,7 @@ module reg_mbr_tb();
    assign #15 nir_idx = ir[11:8] === 4'b1111 ? 1'b0 : 1'b1;
 
    // Use the actual clock generator to make testing more accurate.
-   clock_generator clk (.nreset(nreset_real), .clk1(clk1), .clk2(clk2),
+   clock_generator clk (.nrsthold(nrsthold_real), .clk1(clk1), .clk2(clk2),
 			.clk3(clk3), .clk4(clk4), .t34(t34));
 
    // Simulate SYSDEV generation. Assume ALL bus transactions are I/O
@@ -417,7 +410,7 @@ module reg_mbr_tb();
    // end
 
    always @(nfpram_rom, aext, mbu.ndis) begin
-      if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin
+      if (nrsthold === 1'b1 && mbu.ndis === 1'b0) #50 begin
 	 correct_value1 = { nfpram_rom, 7'd0 };
 	 if (nfpram_rom_real == 0 && aext !== correct_value1) begin
 	    $sformat(msg, "post-reset, nfpram_rom_real=%b (RAM) but AEXT was %02x (should be %02x)",
