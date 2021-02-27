@@ -64,6 +64,6 @@ for i, n in enumerate(outlabels):
 
 for i, n in enumerate(outlabels):
     print("assign #delay {} = ".format(n.lower()), end="")
-    vecs = " || \\\n\t".join(minterms for invec, outvec, minterms in vres if outvec[i] == "1" )
+    vecs = " || \n\t".join(minterms for invec, outvec, minterms in vres if outvec[i] == "1" )
     print(vecs + ";\n")
 
