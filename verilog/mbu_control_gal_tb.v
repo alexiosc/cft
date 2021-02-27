@@ -63,6 +63,7 @@ module mbu_control_gal_tb();
    wire [1:0] raddr1_0;
    wire [2:0] ir2_0;
    wire [2:0] a;
+   wire       nibusen;
    wire       noe;
    wire       nwe;
 
@@ -80,13 +81,14 @@ module mbu_control_gal_tb();
 				    .raddr1_0(raddr1_0),
 				    .ir2_0(ir2_0),
 				    .a(a),
+				    .nibusen(nibusen),
 				    .noe(noe),
 				    .nwe(nwe)
 				    );
    
    // Verify our findings.
    reg [8191:0] msg, what;
-   reg [4:0] 	vec;
+   reg [5:0] 	vec;
    
    always @ (i) begin
       #30 begin
@@ -94,49 +96,49 @@ module mbu_control_gal_tb();
 
 	 // val: nrmbn, nrmbp, nrctx
    	 casex ({ndis, nrmbp, nrmbn, nwar, nidxen, nwmbp, nwmbn, raddr1_0, ir2_0})
-	   12'b0_?_?_?_?_?_?_??_???: begin vec = 5'b000_1_1; $sformat(what, "should be idle when disabled"); end
-	   12'b1_1_1_1_?_1_1_??_???: begin vec = 5'b000_0_1; $sformat(what, "enabled, read MB0"); end
+	   12'b0_?_?_?_?_?_?_??_???: begin vec = 6'b000_1_1_1; $sformat(what, "should be idle when disabled"); end
+	   12'b1_1_1_1_?_1_1_??_???: begin vec = 6'b000_1_0_1; $sformat(what, "enabled, read MB0"); end
 	   
-	   12'b1_0_1_1_?_1_1_??_???: begin vec = 5'b000_0_1; $sformat(what, "nread_mbp"); end
+	   12'b1_0_1_1_?_1_1_??_???: begin vec = 6'b000_0_0_1; $sformat(what, "nread_mbp"); end
 	   
-	   12'b1_1_0_1_?_1_1_??_000: begin vec = 5'b000_0_1; $sformat(what, "nread_mbn, a=0"); end
-	   12'b1_1_0_1_?_1_1_??_001: begin vec = 5'b001_0_1; $sformat(what, "nread_mbn, a=1"); end
-	   12'b1_1_0_1_?_1_1_??_010: begin vec = 5'b010_0_1; $sformat(what, "nread_mbn, a=2"); end
-	   12'b1_1_0_1_?_1_1_??_011: begin vec = 5'b011_0_1; $sformat(what, "nread_mbn, a=3"); end
-	   12'b1_1_0_1_?_1_1_??_100: begin vec = 5'b100_0_1; $sformat(what, "nread_mbn, a=4"); end
-	   12'b1_1_0_1_?_1_1_??_101: begin vec = 5'b101_0_1; $sformat(what, "nread_mbn, a=5"); end
-	   12'b1_1_0_1_?_1_1_??_110: begin vec = 5'b110_0_1; $sformat(what, "nread_mbn, a=6"); end
-	   12'b1_1_0_1_?_1_1_??_111: begin vec = 5'b111_0_1; $sformat(what, "nread_mbn, a=7"); end
+	   12'b1_1_0_1_?_1_1_??_000: begin vec = 6'b000_0_0_1; $sformat(what, "nread_mbn, a=0"); end
+	   12'b1_1_0_1_?_1_1_??_001: begin vec = 6'b001_0_0_1; $sformat(what, "nread_mbn, a=1"); end
+	   12'b1_1_0_1_?_1_1_??_010: begin vec = 6'b010_0_0_1; $sformat(what, "nread_mbn, a=2"); end
+	   12'b1_1_0_1_?_1_1_??_011: begin vec = 6'b011_0_0_1; $sformat(what, "nread_mbn, a=3"); end
+	   12'b1_1_0_1_?_1_1_??_100: begin vec = 6'b100_0_0_1; $sformat(what, "nread_mbn, a=4"); end
+	   12'b1_1_0_1_?_1_1_??_101: begin vec = 6'b101_0_0_1; $sformat(what, "nread_mbn, a=5"); end
+	   12'b1_1_0_1_?_1_1_??_110: begin vec = 6'b110_0_0_1; $sformat(what, "nread_mbn, a=6"); end
+	   12'b1_1_0_1_?_1_1_??_111: begin vec = 6'b111_0_0_1; $sformat(what, "nread_mbn, a=7"); end
 
-	   12'b1_1_1_0_1_1_1_00_???: begin vec = 5'b000_0_1; $sformat(what, "write_ar_mbp, a=0"); end
-	   12'b1_1_1_0_1_1_1_01_???: begin vec = 5'b001_0_1; $sformat(what, "write_ar_mbd, a=1"); end
-	   12'b1_1_1_0_1_1_1_10_???: begin vec = 5'b010_0_1; $sformat(what, "write_ar_mbs, a=2"); end
-	   12'b1_1_1_0_1_1_1_11_???: begin vec = 5'b011_0_1; $sformat(what, "write_ar_mbz, a=3"); end
+	   12'b1_1_1_0_1_1_1_00_???: begin vec = 6'b000_1_0_1; $sformat(what, "write_ar_mbp, a=0"); end
+	   12'b1_1_1_0_1_1_1_01_???: begin vec = 6'b001_1_0_1; $sformat(what, "write_ar_mbd, a=1"); end
+	   12'b1_1_1_0_1_1_1_10_???: begin vec = 6'b010_1_0_1; $sformat(what, "write_ar_mbs, a=2"); end
+	   12'b1_1_1_0_1_1_1_11_???: begin vec = 6'b011_1_0_1; $sformat(what, "write_ar_mbz, a=3"); end
 
-	   12'b1_1_1_0_0_1_1_??_000: begin vec = 5'b000_0_1; $sformat(what, "read MB0 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_001: begin vec = 5'b001_0_1; $sformat(what, "read MB1 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_010: begin vec = 5'b010_0_1; $sformat(what, "read MB2 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_011: begin vec = 5'b011_0_1; $sformat(what, "read MB3 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_100: begin vec = 5'b100_0_1; $sformat(what, "read MB4 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_101: begin vec = 5'b101_0_1; $sformat(what, "read MB5 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_110: begin vec = 5'b110_0_1; $sformat(what, "read MB6 index reg"); end
-	   12'b1_1_1_0_0_1_1_??_111: begin vec = 5'b111_0_1; $sformat(what, "read MB7 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_000: begin vec = 6'b000_1_0_1; $sformat(what, "read MB0 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_001: begin vec = 6'b001_1_0_1; $sformat(what, "read MB1 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_010: begin vec = 6'b010_1_0_1; $sformat(what, "read MB2 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_011: begin vec = 6'b011_1_0_1; $sformat(what, "read MB3 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_100: begin vec = 6'b100_1_0_1; $sformat(what, "read MB4 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_101: begin vec = 6'b101_1_0_1; $sformat(what, "read MB5 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_110: begin vec = 6'b110_1_0_1; $sformat(what, "read MB6 index reg"); end
+	   12'b1_1_1_0_0_1_1_??_111: begin vec = 6'b111_1_0_1; $sformat(what, "read MB7 index reg"); end
 
-	   12'b1_1_1_1_?_0_1_??_???: begin vec = 5'b000_1_0; $sformat(what, "nwrite_mbp"); end
+	   12'b1_1_1_1_?_0_1_??_???: begin vec = 6'b000_1_1_0; $sformat(what, "nwrite_mbp"); end
 
-	   12'b1_1_1_1_?_1_0_??_000: begin vec = 5'b000_1_0; $sformat(what, "nwrite_MBN, a=0"); end
-	   12'b1_1_1_1_?_1_0_??_001: begin vec = 5'b001_1_0; $sformat(what, "nwrite_MBN, a=1"); end
-	   12'b1_1_1_1_?_1_0_??_010: begin vec = 5'b010_1_0; $sformat(what, "nwrite_MBN, a=2"); end
-	   12'b1_1_1_1_?_1_0_??_011: begin vec = 5'b011_1_0; $sformat(what, "nwrite_MBN, a=3"); end
-	   12'b1_1_1_1_?_1_0_??_100: begin vec = 5'b100_1_0; $sformat(what, "nwrite_MBN, a=4"); end
-	   12'b1_1_1_1_?_1_0_??_101: begin vec = 5'b101_1_0; $sformat(what, "nwrite_MBN, a=5"); end
-	   12'b1_1_1_1_?_1_0_??_110: begin vec = 5'b110_1_0; $sformat(what, "nwrite_MBN, a=6"); end
-	   12'b1_1_1_1_?_1_0_??_111: begin vec = 5'b111_1_0; $sformat(what, "nwrite_MBN, a=7"); end
+	   12'b1_1_1_1_?_1_0_??_000: begin vec = 6'b000_1_1_0; $sformat(what, "nwrite_MBN, a=0"); end
+	   12'b1_1_1_1_?_1_0_??_001: begin vec = 6'b001_1_1_0; $sformat(what, "nwrite_MBN, a=1"); end
+	   12'b1_1_1_1_?_1_0_??_010: begin vec = 6'b010_1_1_0; $sformat(what, "nwrite_MBN, a=2"); end
+	   12'b1_1_1_1_?_1_0_??_011: begin vec = 6'b011_1_1_0; $sformat(what, "nwrite_MBN, a=3"); end
+	   12'b1_1_1_1_?_1_0_??_100: begin vec = 6'b100_1_1_0; $sformat(what, "nwrite_MBN, a=4"); end
+	   12'b1_1_1_1_?_1_0_??_101: begin vec = 6'b101_1_1_0; $sformat(what, "nwrite_MBN, a=5"); end
+	   12'b1_1_1_1_?_1_0_??_110: begin vec = 6'b110_1_1_0; $sformat(what, "nwrite_MBN, a=6"); end
+	   12'b1_1_1_1_?_1_0_??_111: begin vec = 6'b111_1_1_0; $sformat(what, "nwrite_MBN, a=7"); end
 
-	   12'b1_?_?_?_?_?_?_??_???: begin vec = 5'b000_0_1; $sformat(what, "safety interlock, read MB0"); end
+	   12'b1_?_?_?_?_?_?_??_???: begin vec = 6'b000_1_0_1; $sformat(what, "safety interlock, read MB0"); end
 	 endcase // casex ({ waddr, clk4 })
 
-	 if ({a, noe, nwe} !== vec) begin
+	 if ({a, nibusen, noe, nwe} !== vec) begin
    	    $sformat(msg, "failure: %0s", what);
 	 end
 
