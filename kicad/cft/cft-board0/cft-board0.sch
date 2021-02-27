@@ -1096,6 +1096,8 @@ F10 "CLK2" I L 11000 -6600 50
 F11 "~RSTHOLD" I L 11000 -6700 50 
 F12 "IR[0..2]" I L 11000 -5850 50 
 F13 "~T34" I L 11000 -6400 50 
+F14 "~FPCTX" I L 11000 -5550 50 
+F15 "FPD[0..7]" T R 12150 -5550 50 
 $EndSheet
 Wire Wire Line
 	14150 -4100 13300 -4100
@@ -3197,6 +3199,22 @@ Wire Wire Line
 	11000 -6500 10150 -6500
 Wire Wire Line
 	11000 -6400 10150 -6400
+Text Label 10150 -6700 0    50   ~ 0
+~RSTHOLD
+Text Label 10150 -6600 0    50   ~ 0
+CLK2
+Text Label 10150 -6500 0    50   ~ 0
+CLK3
+Text Label 10150 -6400 0    50   ~ 0
+~T34
+Wire Wire Line
+	10150 -5550 11000 -5550
+Text Label 10150 -5550 0    50   ~ 0
+~FPCTX
+Wire Bus Line
+	12150 -5550 13000 -5550
+Text Label 13000 -5550 2    50   ~ 0
+FPD[0..7]
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
@@ -3207,12 +3225,4 @@ Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3450 -10350 -2650
-Text Label 10150 -6700 0    50   ~ 0
-~RSTHOLD
-Text Label 10150 -6600 0    50   ~ 0
-CLK2
-Text Label 10150 -6500 0    50   ~ 0
-CLK3
-Text Label 10150 -6400 0    50   ~ 0
-~T34
 $EndSCHEMATC

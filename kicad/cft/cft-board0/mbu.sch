@@ -126,8 +126,6 @@ Wire Wire Line
 	4150 4650 4100 4650
 Wire Wire Line
 	4150 4550 3800 4550
-Text Label 3800 4550 0    50   ~ 0
-~WCTX
 Text Label 7450 3300 0    50   ~ 0
 ~OE
 Text Label 5450 2000 2    50   ~ 0
@@ -1115,17 +1113,6 @@ Connection ~ 5950 2300
 Wire Notes Line width 20 style solid
 	8600 8300 8600 7650
 $Comp
-L alexios:74HC541 U604
-U 2 1 6BD5B1B2
-P 2450 7350
-F 0 "U604" H 2630 7396 50  0000 L CNN
-F 1 "74HC541" H 2630 7305 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2450 7350 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 2450 7350 50  0001 C CNN
-	2    2450 7350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C?
 U 1 1 623F4C2F
 P 2100 7350
@@ -1168,8 +1155,6 @@ F 3 "" H 2100 7450 50  0001 C CNN
 	1    2100 7450
 	1    0    0    -1  
 $EndComp
-Connection ~ 2100 7450
-Connection ~ 2100 7250
 $Comp
 L alexios:74HC541 U608
 U 2 1 6245744C
@@ -1339,11 +1324,7 @@ $EndComp
 Connection ~ 6000 7450
 Connection ~ 6000 7250
 Wire Wire Line
-	7800 3200 7450 3200
-Wire Wire Line
 	7200 3400 7800 3400
-Text Label 7450 3200 0    50   ~ 0
-~DIS
 $Comp
 L alexios:6116SA15TPG U603
 U 2 1 62694EBC
@@ -1390,17 +1371,6 @@ Wire Wire Line
 	5150 5950 5650 5950
 Wire Wire Line
 	5150 6050 5650 6050
-$Comp
-L alexios:74HC541 U604
-U 1 1 627004D5
-P 4650 4150
-F 0 "U604" H 5000 3800 50  0000 L CNN
-F 1 "74HC541" H 5000 3700 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4650 4150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4650 4150 50  0001 C CNN
-	1    4650 4150
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:6116SA15TPG U603
 U 1 1 626357A5
@@ -1471,6 +1441,227 @@ Text HLabel 1250 2850 0    50   Input ~ 0
 ~T34
 Wire Wire Line
 	1250 2850 1950 2850
+Text Label 1950 2850 2    50   ~ 0
+~T34
+Text Label 3800 4550 0    50   ~ 0
+~WCTX
+$Comp
+L alexios:74HC574 U604
+U 1 1 60417CE4
+P 4650 4150
+F 0 "U604" H 5000 3700 50  0000 L CNN
+F 1 "74HC574" H 5000 3600 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4350 4100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 4350 4100 50  0001 C CNN
+F 4 "Yes" H 4500 3200 50  0001 C CNN "Verified"
+	1    4650 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC574 U604
+U 2 1 6041DF9E
+P 2450 7350
+F 0 "U604" H 2630 7396 50  0000 L CNN
+F 1 "74HC574" H 2630 7305 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2150 7300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 2150 7300 50  0001 C CNN
+F 4 "Yes" H 2300 6400 50  0001 C CNN "Verified"
+	2    2450 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 2100 7450
+Connection ~ 2100 7250
+$Comp
+L power:GND #PWR?
+U 1 1 60432B3F
+P 7750 3500
+F 0 "#PWR?" H 7750 3250 50  0001 C CNN
+F 1 "GND" H 7755 3327 50  0000 C CNN
+F 2 "" H 7750 3500 50  0001 C CNN
+F 3 "" H 7750 3500 50  0001 C CNN
+	1    7750 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 3500 7750 3200
+Wire Wire Line
+	7750 3200 7800 3200
+Text Label 7550 5400 0    50   ~ 0
+CTX7
+Text Label 7550 5300 0    50   ~ 0
+CTX6
+Text Label 7550 5200 0    50   ~ 0
+CTX5
+Text Label 7550 5100 0    50   ~ 0
+CTX4
+Text Label 7550 5000 0    50   ~ 0
+CTX3
+Text Label 7550 4900 0    50   ~ 0
+CTX2
+Text Label 7550 4800 0    50   ~ 0
+CTX1
+Text Label 7550 4700 0    50   ~ 0
+CTX0
+Text Label 7550 5600 0    50   ~ 0
+~FPCTX
+$Comp
+L alexios:74HC541 U610
+U 1 1 6050F357
+P 8400 5200
+F 0 "U610" H 8750 4850 50  0000 L CNN
+F 1 "74HC541" H 8750 4750 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8400 5200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8400 5200 50  0001 C CNN
+	1    8400 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 5600 7500 5600
+Wire Wire Line
+	7900 5700 7850 5700
+Wire Wire Line
+	7850 5700 7850 5750
+$Comp
+L power:GND #PWR?
+U 1 1 6050F360
+P 7850 5750
+F 0 "#PWR?" H 7850 5500 50  0001 C CNN
+F 1 "GND" H 7855 5577 50  0000 C CNN
+F 2 "" H 7850 5750 50  0001 C CNN
+F 3 "" H 7850 5750 50  0001 C CNN
+	1    7850 5750
+	1    0    0    -1  
+$EndComp
+Text Notes 8100 4500 0    100  ~ 20
+CTX → FP
+Wire Wire Line
+	7550 4700 7900 4700
+Wire Wire Line
+	7550 4800 7900 4800
+Wire Wire Line
+	7550 4900 7900 4900
+Wire Wire Line
+	7550 5000 7900 5000
+Wire Wire Line
+	7550 5100 7900 5100
+Wire Wire Line
+	7550 5200 7900 5200
+Wire Wire Line
+	7550 5300 7900 5300
+Wire Wire Line
+	7550 5400 7900 5400
+Text Label 9150 4700 2    50   ~ 0
+FPD0
+Text Label 9150 4800 2    50   ~ 0
+FPD1
+Text Label 9150 4900 2    50   ~ 0
+FPD2
+Text Label 9150 5000 2    50   ~ 0
+FPD3
+Text Label 9150 5100 2    50   ~ 0
+FPD4
+Text Label 9150 5200 2    50   ~ 0
+FPD5
+Text Label 9150 5300 2    50   ~ 0
+FPD6
+Text Label 9150 5400 2    50   ~ 0
+FPD7
+Text HLabel 7500 5600 0    50   Input ~ 0
+~FPCTX
+$Comp
+L alexios:74HC541 U610
+U 2 1 6061F1B9
+P 8450 6300
+F 0 "U610" H 8630 6346 50  0000 L CNN
+F 1 "74HC541" H 8630 6255 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8450 6300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8450 6300 50  0001 C CNN
+	2    8450 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6061F1BF
+P 8100 6300
+AR Path="/5CC0D65F/6061F1BF" Ref="C?"  Part="1" 
+AR Path="/6061F1BF" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/6061F1BF" Ref="C?"  Part="1" 
+AR Path="/61F95ACC/6061F1BF" Ref="C610"  Part="1" 
+F 0 "C610" H 8009 6346 50  0000 R CNN
+F 1 "100nF" H 8009 6255 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8100 6300 50  0001 C CNN
+F 3 "~" H 8100 6300 50  0001 C CNN
+	1    8100 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6061F1C5
+P 8100 6200
+AR Path="/6061F1C5" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6061F1C5" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6061F1C5" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8100 6050 50  0001 C CNN
+F 1 "+5V" H 8115 6373 50  0000 C CNN
+F 2 "" H 8100 6200 50  0001 C CNN
+F 3 "" H 8100 6200 50  0001 C CNN
+	1    8100 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6061F1CB
+P 8100 6400
+AR Path="/6061F1CB" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6061F1CB" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6061F1CB" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8100 6150 50  0001 C CNN
+F 1 "GND" H 8105 6227 50  0000 C CNN
+F 2 "" H 8100 6400 50  0001 C CNN
+F 3 "" H 8100 6400 50  0001 C CNN
+	1    8100 6400
+	1    0    0    -1  
+$EndComp
+Connection ~ 8100 6400
+Connection ~ 8100 6200
+Wire Wire Line
+	8900 4700 9200 4700
+Wire Wire Line
+	8900 4800 9200 4800
+Wire Wire Line
+	8900 4900 9200 4900
+Wire Wire Line
+	8900 5000 9200 5000
+Wire Wire Line
+	8900 5100 9200 5100
+Wire Wire Line
+	8900 5200 9200 5200
+Wire Wire Line
+	8900 5300 9200 5300
+Wire Wire Line
+	8900 5400 9200 5400
+Entry Wire Line
+	9200 4700 9300 4800
+Entry Wire Line
+	9200 4800 9300 4900
+Entry Wire Line
+	9200 4900 9300 5000
+Entry Wire Line
+	9200 5000 9300 5100
+Entry Wire Line
+	9200 5100 9300 5200
+Entry Wire Line
+	9200 5200 9300 5300
+Entry Wire Line
+	9200 5300 9300 5400
+Entry Wire Line
+	9200 5400 9300 5500
+Entry Bus Bus
+	9300 5700 9400 5800
+Wire Bus Line
+	9400 5800 9650 5800
+Text HLabel 9650 5800 2    50   3State ~ 0
+FPD[0..7]
 Wire Bus Line
 	3700 2600 3700 3050
 Wire Bus Line
@@ -1480,9 +1671,9 @@ Wire Bus Line
 Wire Bus Line
 	10150 1700 10150 2600
 Wire Bus Line
+	9300 4800 9300 5700
+Wire Bus Line
 	7000 3750 7000 6550
 Wire Bus Line
 	3700 3400 3700 6550
-Text Label 1950 2850 2    50   ~ 0
-~T34
 $EndSCHEMATC
