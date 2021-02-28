@@ -96,7 +96,10 @@ module mbu_control_gal_tb();
 
 	 // val: nrmbn, nrmbp, nrctx
    	 casex ({ndis, nrmbp, nrmbn, nwar, nidxen, nwmbp, nwmbn, raddr1_0, ir2_0})
+	   12'b0_0_1_1_?_1_1_??_???: begin vec = 6'b000_0_1_1; $sformat(what, "nRMBP with MBU disabled"); end
+	   12'b0_1_0_1_?_1_1_??_???: begin vec = 6'b000_0_1_1; $sformat(what, "nRMBn with MBU disabled"); end
 	   12'b0_?_?_?_?_?_?_??_???: begin vec = 6'b000_1_1_1; $sformat(what, "should be idle when disabled"); end
+
 	   12'b1_1_1_1_?_1_1_??_???: begin vec = 6'b000_1_0_1; $sformat(what, "enabled, read MB0"); end
 	   
 	   12'b1_0_1_1_?_1_1_??_???: begin vec = 6'b000_0_0_1; $sformat(what, "nread_mbp"); end
