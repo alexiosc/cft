@@ -1,33 +1,51 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 00000 idle
 00001 ?red4?00001
 00010 ?red4?00010
 00011 ?red4?00011
-00100 ?green4?cs0
-00101 ?green4?cs1
-00110 ?green4?cs2
-00111 ?green4?cs3
-01000 pc
-01001 dr
-01010 ac
-01011 sp
+00100 ?green4?CS0
+00101 ?green4?CS1
+00110 ?green4?CS2
+00111 ?green4?CS3
+01000 PC
+01001 DR
+01010 AC
+01011 SP
 01100 ?red4?01100
-01101 ?blue4?mbp+flags
+01101 ?red4?01101
 01110 ?red4?01110
-01111 ?magenta4?agl
-10000 alu_add
-10001 alu_and
-10010 alu_or
-10011 alu_xor
-10100 alu_not
+01111 ?magenta4?AGL
+10000 ADD
+10001 AND
+10010 OR
+10011 XOR
+10100 NOT
 10101 ?red4?10101
 10110 ?red4?10110
-10111 ?red4?11100
-11000 ?blue4?alu_b
-11001 ?blue4?alu_y
+10111 ?red4?10111
+11000 ?orange4?Y
+11001 ?orange4?B
 11010 ?red4?11010
-11011 ?red4?11011
-11100 ?red4?11100
-11101 ?red4?11101
-11110 ?red4?11110
+11011 ?blue4?MBn
+11100 ?blue4?MBP
+11101 ?blue4?CTX
+11110 ?blue4?CTX+F
 11111 ?red4?11111
+
 
