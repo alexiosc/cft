@@ -135,42 +135,36 @@ module mbu_control_gal(ndis,	// MBU Disable
 
    // REVISION: MBUCTL00
 
-   assign #delay a0 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir0 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr0 == 1'b1);
+   assign #delay ibusen = ((war == 1'b0)) || 
+			  ((wmbn == 1'b0)) || 
+			  ((wmbp == 1'b0)) || 
+			  ((rmbp == 1'b0) && (rmbn == 1'b0)) || 
+			  ((rmbp == 1'b1) && (rmbn == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1));
 
-   assign #delay a1 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir1 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr1 == 1'b1);
+   assign #delay oe = ((dis == 1'b0)) || 
+		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b0) && (wmbn == 1'b1)) || 
+		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0));
 
-   assign #delay a2 = (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir2 == 1'b1) || 
-		      (dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1);
+   assign #delay we = ((dis == 1'b0)) || 
+		      ((war == 1'b0)) || 
+		      ((rmbn == 1'b0)) || 
+		      ((rmbp == 1'b0)) || 
+		      ((wmbp == 1'b0) && (wmbn == 1'b0)) || 
+		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1));
 
-   assign #delay ibusen = (dis == 1'b1) && (war == 1'b0) || 
-			  (dis == 1'b0) && (wmbp == 1'b1) || 
-			  (rmbp == 1'b1) && (rmbn == 1'b1) || 
-			  (rmbp == 1'b0) && (rmbn == 1'b0) && (war == 1'b1) || 
-			  (rmbp == 1'b0) && (rmbn == 1'b1) && (wmbn == 1'b0) || 
-			  (rmbp == 1'b0) && (wmbp == 1'b0) && (wmbn == 1'b1) || 
-			  (rmbp == 1'b1) && (rmbn == 1'b0) && (wmbn == 1'b0) || 
-			  (rmbp == 1'b1) && (rmbn == 1'b0) && (wmbp == 1'b0);
+   assign #delay a0 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir0 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr0 == 1'b1));
 
-   assign #delay oe = (dis == 1'b0) || 
-		      (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b0) && (wmbn == 1'b1) || 
-		      (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0);
+   assign #delay a1 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir1 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr1 == 1'b1));
 
-   assign #delay we = (dis == 1'b0) || 
-		      (dis == 1'b1) && (war == 1'b0) || 
-		      (wmbp == 1'b0) && (wmbn == 1'b0) || 
-		      (wmbp == 1'b1) && (wmbn == 1'b1) || 
-		      (rmbp == 1'b0) && (rmbn == 1'b0) && (war == 1'b1) || 
-		      (rmbp == 1'b0) && (rmbn == 1'b1) && (wmbn == 1'b0) || 
-		      (rmbp == 1'b0) && (wmbp == 1'b0) && (wmbn == 1'b1) || 
-		      (rmbp == 1'b1) && (rmbn == 1'b0) && (wmbn == 1'b0) || 
-		      (rmbp == 1'b1) && (rmbn == 1'b0) && (wmbp == 1'b0);
+   assign #delay a2 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir2 == 1'b1)) || 
+		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1));
 
 endmodule // mbu_control_gal
 
