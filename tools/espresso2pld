@@ -54,16 +54,19 @@ for line in sys.stdin:
 
 res.sort(reverse=True)
 vres.sort(reverse=True)
-pprint.pprint(res)
-
 #pprint.pprint(res)
+
 for i, n in enumerate(outlabels):
     print("{} = ".format(n.upper()), end="")
-    vecs = "  +  ".join(minterms for invec, outvec, minterms in res if outvec[i] == "1" )
+    minterms = [ minterms for invec, outvec, minterms in res if outvec[i] == "1" ]
+    minterms.sort(key=lambda x: (len(x), x))
+    vecs = "  +  ".join(minterms)
     print(vecs)
 
 for i, n in enumerate(outlabels):
     print("assign #delay {} = ".format(n.lower()), end="")
-    vecs = " || \n\t".join(minterms for invec, outvec, minterms in vres if outvec[i] == "1" )
+    minterms = [ minterms for invec, outvec, minterms in vres if outvec[i] == "1" ]
+    minterms.sort(key=lambda x: (len(x), x))
+    vecs = " || \n\t".join(minterms)
     print(vecs + ";\n")
 
