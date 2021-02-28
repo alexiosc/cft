@@ -222,7 +222,7 @@ signal read_alu_y      = ...................11000; // Read the ALU Y Port (ADD r
 signal read_alu_b      = ...................11001; // Read the ALU B Port (SRU result)
 //signal               = ...................11010; // (Available)
 signal read_mbn        = ...................11011; // Read an MBn register
-signal read_mbp_new    = ...................11100; // Read the MBP (_new added temporarily to avoid bugs)
+signal read_mbp        = ...................11100; // Read the MBP
 signal read_ctx        = ...................11101; // Read the context register
 signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
 //signal               = ...................11111; // (Available)
@@ -257,7 +257,7 @@ signal write_ir        = ..............01111.....; // Write to the Instruction R
 signal write_alu_b     = ..............11001.....; // Write to ALU's B Port
 //signal               = ..............11010.....; // (Available)
 signal write_mbn       = ..............11011.....; // Write an MBn register
-signal write_mbp_new   = ..............11100.....; // Write the MBP (_new added temporarily to avoid bugs)
+signal write_mbp       = ..............11100.....; // Write the MBP
 signal write_ctx       = ..............11101.....; // Write the context register
 signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
 signal write_flags     = ..............11111.....; // Write flags
@@ -504,6 +504,9 @@ start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+
+// TODO: FIX THIS!!! NO CTX SUPPORT
+
 // Interrupt handling algorithm:
 //
 // Push MBP+flags onto stack.
@@ -615,6 +618,8 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// TODO: FIX THIS, NO CTX SUPPORT
+
 // MNEMONIC: IRET
 // NAME:     Interrupt Return
 // DESC:     Return from Interrupt
@@ -656,7 +661,7 @@ start IRET;
 start LRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(pc);                            // 02 PC ← mem[--SP]
-      STACK_POP(mbp_new), END;                  // 05 MBP ← mem[--SP]
+      STACK_POP(mbp), END;                  // 05 MBP ← mem[--SP]
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -2072,42 +2077,42 @@ start LIA, I=0, R=1, IDX=XX;
 // (3) LJSR, Indirect
 start LJSR, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbp, agl, pc), action_incdr;      // 07 PC ← mem[MBP:AGL]
-      MEMREAD(mbp, dr, mbp_new), END;           // 09 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, dr, mbp), END;               // 09 MBP ← mem[MBP:AGL+1]
 
 // (4) & (5) LJSR, Register Indirect and Memory Bank-Relative Indirect
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbz, agl, pc), action_incdr;      // 07 PC ← mem[MBZ:AGL]
-      MEMREAD(mbz, dr, mbp_new), END;           // 09 MBP ← mem[MBZ:AGL+1]
+      MEMREAD(mbz, dr, mbp), END;               // 09 MBP ← mem[MBZ:AGL+1]
 
 // NON-STANDARD: (6) LJSR, Auto-Increment Double Indirect
 // TODO: If action_incdr can happen fast enough, we can shave off two cycles here.
 // TODO: Can't tell if this microprogram fails or not. Test before control unit is fabricated!
 start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 08 PC ← mem[MBn:DR]
       action_incdr;                             // 10 DR++
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 11 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 11 MBP ← mem[MBn:DR]
       action_incdr;                             // 13 DR++
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
 // NON-STANDARD: (7) LJSR, Auto-Decrement Double Indirect.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 08 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 08 MBP ← mem[MBn:DR]
       action_decdr;                             // 10 DR--
       MEMREAD_IDX(mbd, dr, pc);                 // 11 PC ← mem[MBn:DR]
       action_decdr;                             // 13 DR--
@@ -2118,12 +2123,12 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
 // them. Push MBP onto the stack FIRST.
 start LJSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, dr, pc);                     // 06 PC ← mem[MBn:DR]
       MEMREAD_IDX(mbd, agl, dr);                // 08 DR ← mem[MBn:AGL]
       action_decdr;                             // 10 DR--
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 11 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 11 MBP ← mem[MBn:DR]
       action_decdr;                             // 13 DR--
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBD:AGL] ← DR
 
@@ -2167,14 +2172,14 @@ start LJMP, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, agl);                             // 02 DR ← AGL
       MEMREAD(mbp, agl, pc), action_incdr;      // 03 PC ← mem[MBP:AGL]; DR++
-      MEMREAD(mbp, dr, mbp_new), END;           // 05 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, dr, mbp), END;               // 05 MBP ← mem[MBP:AGL+1]
 
 // (4) & (5) LJMP, Register Indirect and Memory Bank-Relative Indirect
 start LJMP, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, agl);                             // 02 DR ← AGL
       MEMREAD(mbz, agl, pc), action_incdr;      // 03 PC ← mem[MBZ:AGL]; DR++
-      MEMREAD(mbz, dr, mbp_new), END;           // 05 MBP ← mem[MBZ:AGL+1]
+      MEMREAD(mbz, dr, mbp), END;               // 05 MBP ← mem[MBZ:AGL+1]
 
 // NON-STANDARD: (6) LJMP, Auto-Increment Double Indirect
 // NOTE: If action_incdr can happen fast enough, we can shave off two cycles here.
@@ -2183,7 +2188,7 @@ start LJMP, I=1, R=1, IDX=IDX_INC;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 04 PC ← mem[MBn:DR]
       action_incdr;                             // 06 DR++
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 07 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 07 MBP ← mem[MBn:DR]
       action_incdr;                             // 09 DR++
       MEMWRITE(mbz, agl, dr), END;              // 10 mem[MBZ:AGL] ← DR
 
@@ -2191,7 +2196,7 @@ start LJMP, I=1, R=1, IDX=IDX_INC;
 start LJMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 04 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 04 MBP ← mem[MBn:DR]
       action_decdr;                             // 06 DR--
       MEMREAD_IDX(mbd, dr, pc);                 // 07 PC ← mem[MBn:DR]
       action_decdr;                             // 09 DR--
@@ -2205,7 +2210,7 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 04 PC ← mem[MBn:DR]
       action_decdr;                             // 06 DR--
-      MEMREAD_IDX(mbd, dr, mbp_new);            // 07 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 07 MBP ← mem[MBn:DR]
       action_decdr;                             // 09 DR--
       MEMWRITE(mbz, agl, dr), END;              // 10 mem[MBD:AGL] ← DR
 
