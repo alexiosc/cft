@@ -3,7 +3,7 @@ MBUCTL00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 WAR     WMBN    RMBN    RMBP    DIS     WMBP    IDEN    ADDR0   ADDR1   GND
-IR0     IR1     IR2     IBUSEN  A0      A1      A2      WE      OE      VCC
+IR0     IR1     IR2     /IBUSEN A0      A1      A2      WE      OE      VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 ; Hint: convert espresso output to equations using:
@@ -25,7 +25,7 @@ IR0     IR1     IR2     IBUSEN  A0      A1      A2      WE      OE      VCC
 ; IBus. Note, this has its semantics REVERSED. That is, output to the IBus is
 ; DISABLED in these conditions:
 
-IBUSEN = /DIS  +  RMBP * RMBN * WMBP * WMBN  +  /RMBP * /RMBN  +  /WAR  +  /WMBP  +  /WMBN
+IBUSEN = DIS * /WAR  +  /DIS * WMBP  +  RMBP * RMBN  +  /RMBP * /RMBN * WAR  +  /RMBP * /WMBP * WMBN  +  /RMBP * RMBN * /WMBN  +  RMBP * /RMBN * /WMBN  +  RMBP * /RMBN * /WMBP
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -37,13 +37,13 @@ IBUSEN = /DIS  +  RMBP * RMBN * WMBP * WMBN  +  /RMBP * /RMBN  +  /WAR  +  /WMBP
 ; Memory Output Enable. Note, this has its semantics REVERSED. That is, output
 ; is DISABLED in these conditions:
 
-OE = /DIS  +  RMBP * RMBN * WAR * WMBP * /WMBN  +  RMBP * RMBN * WAR * /WMBP * WMBN
-
+OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /WMBN
 
 ; Memory Write Enable. Note, this has its semantics REVERSED. That is, writing
 ; is DISABLED in these conditions:
 
-WE = /DIS  +  RMBP * RMBN * WMBP * WMBN  +  /RMBP  +  /RMBN  +  /WAR  +  /WMBP * /WMBN
+/WE = /DIS  +  DIS * /WAR  +  WMBP * WMBN  +  /WMBP * /WMBN  +  /RMBP * /RMBN * WAR  +  /RMBP * /WMBP * WMBN  +  /RMBP * RMBN * /WMBN  +  RMBP * /RMBN * /WMBN  +  RMBP * /RMBN * /WMBP
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -59,10 +59,9 @@ WE = /DIS  +  RMBP * RMBN * WMBP * WMBN  +  /RMBP  +  /RMBN  +  /WAR  +  /WMBP *
 ;    b. READ_MBn is asserted
 ;    c. WRITE_MBn is asserted
 
-A0 = DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR0  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR0  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR0  +  DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR0
-A1 = DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR1  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR1  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR1  +  DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR1
-A2 =                                                           DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR2  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR2  +  DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR2
-
+A0 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR0  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR0  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR0  +  DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR0
+A1 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR1  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR1  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR1  +  DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR1
+A2 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR2  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR2  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR2
 
 
 DESCRIPTION
