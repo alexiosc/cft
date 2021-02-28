@@ -43,7 +43,7 @@ for line in sys.stdin:
         num_outputs = len(outlabels)
         #print(vars)
 
-    m = re.match("^([01-]+) ([01-]+)", line)
+    m = re.match("^([01-]+) ([01~-]+)", line)
     if not m:
         continue
     invec, outvec = m.groups()
@@ -56,6 +56,8 @@ res.sort(reverse=True)
 vres.sort(reverse=True)
 #pprint.pprint(res)
 
+print("\n; PLD DEFINITIONS (POSITIVE LOGIC)\n")
+
 for i, n in enumerate(outlabels):
     print("{} = ".format(n.upper()), end="")
     minterms = [ minterms for invec, outvec, minterms in res if outvec[i] == "1" ]
@@ -63,10 +65,28 @@ for i, n in enumerate(outlabels):
     vecs = "  +  ".join(minterms)
     print(vecs)
 
+print("\n; PLD DEFINITIONS (NEGATIVE LOGIC)\n")
 for i, n in enumerate(outlabels):
-    print("assign #delay {} = ".format(n.lower()), end="")
+    print("/{} = ".format(n.upper()), end="")
+    minterms = [ minterms for invec, outvec, minterms in res if outvec[i] == "0" ]
+    minterms.sort(key=lambda x: (len(x), x))
+    vecs = "  +  ".join(minterms)
+    print(vecs)
+
+print("\n; VERILOG DEFINITIONS (POSITIVE LOGIC)\n")
+
+for i, n in enumerate(outlabels):
+    print("assign #delay {} = (".format(n.lower()), end="")
     minterms = [ minterms for invec, outvec, minterms in vres if outvec[i] == "1" ]
     minterms.sort(key=lambda x: (len(x), x))
-    vecs = " || \n\t".join(minterms)
-    print(vecs + ";\n")
+    vecs = ") || \n\t(".join(minterms)
+    print(vecs + ");\n")
 
+# print("\n; VERILOG DEFINITIONS (NEGATIVE LOGIC)\n")
+
+# for i, n in enumerate(outlabels):
+#     print("assign #delay n{} = ".format(n.lower()), end="")
+#     minterms = [ minterms for invec, outvec, minterms in vres if outvec[i] == "0" ]
+#     minterms.sort(key=lambda x: (len(x), x))
+#     vecs = " || \n\t".join(minterms)
+#     print(vecs + ";\n")
