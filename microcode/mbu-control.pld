@@ -3,12 +3,12 @@ MBUCTL00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 WAR     WMBN    RMBN    RMBP    DIS     WMBP    IDEN    ADDR0   ADDR1   GND
-IR0     IR1     IR2     /IBUSEN A0      A1      A2      WE      OE      VCC
+IR0     IR1     IR2     IBUSEN  A0      A1      A2      WE      OE      VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 ; Hint: convert espresso output to equations using:
 ;
-; espresso mbu-control.espresso | ../tools/espresso2pld
+; espresso -ofr mbu-control.espresso | ../tools/espresso2pld
 
 ; We provide an explicit safety interlock here, so OE and WE are never asserted
 ; together. If reads and writes are requested at the same time, neither
@@ -21,28 +21,98 @@ IR0     IR1     IR2     /IBUSEN A0      A1      A2      WE      OE      VCC
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; IBus Output enable. IBEN is asserted when transferring AEXT to the
-; IBus. Note, this has its semantics REVERSED. That is, output to the IBus is
-; DISABLED in these conditions:
+; IBus Output enable, in negative logic because it has fewer minterms.
 
-IBUSEN = DIS * /WAR  +  /DIS * WMBP  +  RMBP * RMBN  +  /RMBP * /RMBN * WAR  +  /RMBP * /WMBP * WMBN  +  /RMBP * RMBN * /WMBN  +  RMBP * /RMBN * /WMBN  +  RMBP * /RMBN * /WMBP
+; ___  ____  ____  ___  _____  ____   ____     ____  __  __
+; DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  |  IBEN  OE  WE  What
+; ------------------------------------------|-------------------------------------------
+;  0     1    -     -     -     -      -    |   1     1   1  MBU disabled
+;  0     -    1     -     -     -      -    |   1     1   1  MBU disabled
+;  0     0    -     -     -     -      -    |   0     1   1  MBU disabled, read hard map
+;  0     -    0     -     -     -      -    |   0     1   1  MBU disabled, read hard map
+;  0     -    -     0     -     -      -    |   1     1   1  MBU disabled, ignore writes
+;  0     -    -     -     -     0      -    |   1     1   1  MBU disabled, ignore writes
+;  0     -    -     -     -     -      0    |   1     1   1  MBU disabled, ignore writes
+; ------------------------------------------|-------------------------------------------
+;  1     1    1     1     -     1      1    |   1     0   1  MBU idle, output MB0
+; ------------------------------------------|-------------------------------------------
+;  1     0    -     -     -     -      -    |   0     0   1  Read MBP
+; ------------------------------------------|-------------------------------------------
+;  1     1    0     1     -     1      1    |   0     0   1  Read MBP index register
+; ------------------------------------------|-------------------------------------------
+;  1     1    1     0     1     1      1    |   1     0   1  write_ar_XX
+; ------------------------------------------|-------------------------------------------
+;  1     1    1     0     0     1      1    |   1     0   1  write_ar_mbz, MB0 idx reg
+; ------------------------------------------|-------------------------------------------
+;  1     1    1     1     -     0      1    |   1     1   0  Write BMP
+; ------------------------------------------|-------------------------------------------
+;  1     1    1     1     -     1      0    |   1     1   0  Write MBx index register
 
 
+; Enable the IBUS when /RMBN or /RMBP is asserted, even when the MBU
+; is disabled. Other signals are included as a safety interlock.
+
+IBUSEN = /WAR  +  /WMBN  +  /WMBP  +  /RMBP * /RMBN  +  RMBP * RMBN * WMBP * WMBN
+	  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Register File I/O control
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Memory Output Enable. Note, this has its semantics REVERSED. That is, output
-; is DISABLED in these conditions:
+; ___  ____  ____  ___  _____  ____   ____     __  __
+; DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  |  OE  WE  What
+; ------------------------------------------|-------------------------------------
+;  0     -    -     -     -     -      -    |   1   1  MBU disabled
+; ------------------------------------------|-------------------------------------
+;  1     1    1     1     -     1      1    |   0   1  MBU idle, output MB0
+; ------------------------------------------|-------------------------------------
+;  1     0    -     -     -     -      -    |   0   1  Read MBP
+; ------------------------------------------|-------------------------------------
+;  1     1    0     1     -     1      1    |   0   1  Read MBX index register
+; ------------------------------------------|-------------------------------------
+;  1     1    1     0     1     1      1    |   0   1  write_ar_mbX
+;  1     1    1     0     0     1      1    |   0   1  write_ar_mbz, MBX idx reg
+; ------------------------------------------|-------------------------------------
+;  1     1    1     1     -     0      1    |   1   0  Write BMP
+; ------------------------------------------|-------------------------------------
+;  1     1    1     1     -     1      0    |   1   0  Write MBX index register
+; ------------------------------------------|-------------------------------------
+;  1     0    0     -     -     -      -    |   0   1  Safety (RBMP + RMBn asserted)
+;  1     0    -     0     -     -      -    |   0   1  Safety (RBMP + WAR  asserted)
+;  1     -    0     0     -     -      -    |   0   1  Safety (RBMn + WAR  asserted)
+; ------------------------------------------|-------------------------------------
+;  1     0    -     -     -     0      -    |   0   1  Safety (RBMP + WBMP asserted)
+;  1     0    -     -     -     -      0    |   0   1  Safety (RBMP + WBMn asserted)
+; ------------------------------------------|-------------------------------------
+;  1     -    0     -     -     0      -    |   0   1  Safety (RBMn + WBMP asserted)
+;  1     -    0     -     -     -      0    |   0   1  Safety (RBMP + WBMn asserted)
+; ------------------------------------------|-------------------------------------
+;  1     -    -     0     -     0      -    |   0   1  Safety (RBMP + WBMP asserted)
+;  1     -    -     0     -     -      0    |   0   1  Safety (WAR + WBMn asserted)
+; ------------------------------------------|-------------------------------------
+;  1     -    -     -     -     0      0    |   0   1  Safety (WMBP + WMBn asserted)
+
+; Memory Output Enable. Define in positive logic because it's easier.
+
+; Output is DISABLED when:
+;
+; 1. The MBU is disabled.
+; 2. The MBU is enabled and WMBP is the only asserted signal.
+; 2. The MBU is enabled and WMBn is the only asserted signal.
+;
+; Note: Espresso comes up with the exact same expression in positive logic.
 
 OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /WMBN
 
-; Memory Write Enable. Note, this has its semantics REVERSED. That is, writing
-; is DISABLED in these conditions:
+; Memory Write Enable. This one is easier to do in negative logic because there's only two minterms:
+;
+; 1. The MBU is enabled and write_mbp is the only asserted control signal.
+; 2. The MBU is enabled and write_mbn is the only asserted control signal.
+;
+; Note: Again, Espresso comes up with the exact same expression.
 
-/WE = /DIS  +  DIS * /WAR  +  WMBP * WMBN  +  /WMBP * /WMBN  +  /RMBP * /RMBN * WAR  +  /RMBP * /WMBP * WMBN  +  /RMBP * RMBN * /WMBN  +  RMBP * /RMBN * /WMBN  +  RMBP * /RMBN * /WMBP
+WE = /DIS  +  /WAR  +  /RMBN  +  /RMBP  +  /WMBP * /WMBN  +  RMBP * RMBN * WMBP * WMBN
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -62,6 +132,8 @@ OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /W
 A0 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR0  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR0  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR0  +  DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR0
 A1 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR1  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR1  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR1  +  DIS * RMBP * RMBN * /WAR * IDEN * WMBP * WMBN * ADDR1
 A2 = DIS * RMBP * /RMBN * WAR * WMBP * WMBN * IR2  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN * IR2  +  DIS * RMBP * RMBN * /WAR * /IDEN * WMBP * WMBN * IR2
+
+
 
 
 DESCRIPTION
