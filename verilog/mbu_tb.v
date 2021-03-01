@@ -38,7 +38,7 @@
 module reg_mbu_tb();
    reg        nrsthold;
    reg        nfpram_rom;
-   reg [15:0] ibus, ab, db, ir;
+   reg [15:0] ibus_drv, ir;
    reg 	      nr, nwen;
    reg [4:0]  waddr;
    reg [4:0]  raddr;
@@ -46,7 +46,7 @@ module reg_mbu_tb();
    wire       nir_idx;
 
    wire       nrsthold_real, nfpram_rom_real;
-   wire [15:0] ibus_real, ab_real, db_real;
+   wire [15:0] ibus;
    wire [7:0]  aext, db_low, ibus_low;
    
    integer    i, j, k;
@@ -116,11 +116,11 @@ module reg_mbu_tb();
 
       nrsthold = 0;
       nfpram_rom = 0;		// RAM
-      ibus = 16'bzzzzzzzzzzzzzzzz;
+      ibus_drv = 16'bzzzzzzzzzzzzzzzz;
       ir = 16'd0;
       
-      waddr = 4'b0000;
-      raddr = 4'b0000;
+      waddr = 5'b00000;
+      raddr = 5'b00000;
 
       status = "reset";
 
@@ -132,7 +132,7 @@ module reg_mbu_tb();
       mbu.ff_ctx.q0 = $random;
 
       // The TB isn't synchronous to the clock, so adjust its phase difference.
-      #10;
+      #114;
 
       ///////////////////////////////////////////////////////////////////////////////
       //
@@ -145,14 +145,110 @@ module reg_mbu_tb();
       // the MBU out of its post-reset mode so we can't use them.
 
       status = "read power-on default MBx (via IR)";
-      #1000 raddr = 4'd0;
-      for (i = 0; i < 2048 ; i = i + 1) begin
-   	 nfpram_rom = i[0];
-      	 ibus = 16'bzzzzzzzzzzzzzzz;
-	 ir = 16'b0000_11_1100000000 | i[3:1]; // Use IDX registers for good measure.
+      #1000 raddr = 5'd0;
+      for (i = 0; i < 4096 ; i = i + 1) begin
+      	 nfpram_rom = i[0];
+      	 ibus_drv = 16'bzzzzzzzzzzzzzzz;
+      	 ir = 16'b0000_11_1100000000 | i[3:1]; // Use IDX registers for good measure.
       	 #250 raddr = 5'b11011;	       // read_mbn
       	 #250 raddr = 5'b00000;	       // idle again
       end
+
+      #1000;
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // SET AND READ THE CTX REGISTER BEFORE ENABLING THE MBU
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      status = "set and read the CTX register";
+      #1000 raddr = 5'd0;
+      waddr = 5'd0;
+      for (i = 0; i < 256 ; i = i + 1) begin
+      	 #63.5 ibus_drv = i;                 // Only the LSB is used here
+      	 #63.5;
+      	 #63.5;
+      	 #63.5 waddr = 5'b11101;             // write_ctx
+      	 #250 waddr = 5'b00000;		     // idle again
+
+      	 #125 ibus_drv = 16'bzzzzzzzzzzzzzzz;
+
+      	 #125 raddr = 5'b11101;	             // read_ctx
+      	 #250 raddr = 5'b00000;		     // idle again
+      end
+
+      #1000;
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // ENABLE THE MBU, SET MBRs
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      status = "enable MBU, initialise MBRs via WMBn";
+      #1000 raddr = 5'd0;
+      waddr = 5'd0;
+      raddr = 5'd0;
+      ibus_drv = 16'bZ;
+      for (i = 0; i < 8 ; i = i + 1) begin
+      	 #63.5 ir = 16'b0000_11_1100000000 | i[2:0]; // Use IDX registers for good measure.
+	 ibus_drv = i << 4 | (i ^ 15);
+	 #63.5;
+	 #63.5;
+	 #63.5 waddr = 5'b11011;
+      	 #250 waddr = 5'b00000;	     // idle again
+      end
+      ibus_drv = 16'bZ;
+
+      #10000;
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // READ BACK THE MBRs
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      status = "read back the MBRs";
+      #1000 raddr = 5'd0;
+      waddr = 5'd0;
+      raddr = 5'd0;
+      ibus_drv = 16'bZ;
+      for (i = 0; i < 8 ; i = i + 1) begin
+      	 #63.5 ir = 16'b0000_11_1100000000 | i[2:0]; // Use IDX registers for good measure.
+	 #125;
+	 #63.5 raddr = 5'b11011;
+      	 #250 raddr = 5'b00000;		     // idle again
+      end
+      ibus_drv = 16'bZ;
+
+      #10000;
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // WRITE MBP, READ MBP
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      status = "test write_mbp, read_mbp";
+      #1000 raddr = 5'd0;
+      waddr = 5'd0;
+      raddr = 5'd0;
+      ibus_drv = 16'bZ;
+      for (i = 0; i < 256 ; i = i + 1) begin
+	 // For sanity, if IR is used by mistake, the wrong MBr gets updated.
+      	 #63.5 ir = 16'b0000_11_110000000011;
+	 ibus_drv = i;
+	 #63.5;
+	 #63.5;
+	 #63.5 waddr = 5'b11100;
+      	 #250 waddr = 5'b00000;	     // idle again
+	 #125 ibus_drv = 16'bZ;
+	 #125;
+	 #250 raddr = 5'b11100;	     // Read it back
+      	 #250 raddr = 5'b00000;	     // idle again
+      end
+      ibus_drv = 16'bZ;
 
       #1000;
 
@@ -163,8 +259,8 @@ module reg_mbu_tb();
 
    assign nrsthold_real = nrsthold;
    assign nfpram_rom_real = nfpram_rom;
-   assign ibus_real = ibus;
-   assign ibus_low = ibus_real[7:0]; // This simplifies things with gtkwave
+   assign ibus = ibus_drv;
+   assign ibus_low = ibus[7:0]; // This simplifies things with gtkwave
 
    // Connect the DUT   
    mbu mbu (.nrsthold(nrsthold_real),
@@ -173,7 +269,7 @@ module reg_mbu_tb();
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
 	    .nir_idx(nir_idx),
-	    .ibus(ibus_real[7:0]),
+	    .ibus(ibus_low),
 	    .aext(aext),
 	    .nwar(nwar),
 	    .nfpram_rom(nfpram_rom_real)

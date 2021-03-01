@@ -1,22 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun Feb 28 10:37:57 2021
+[*] Mon Mar  1 19:13:13 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Sun Feb 28 10:26:32 2021"
-[dumpfile_size] 2767664
+[dumpfile_mtime] "Mon Mar  1 19:12:54 2021"
+[dumpfile_size] 8229058
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 166377000
-[size] 1920 1019
-[pos] 18322 82
-*-20.184700 166889000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 2306020000
+[size] 3752 1587
+[pos] 7946 27
+*-22.177187 2352102000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbu_tb.
 [treeopen] reg_mbu_tb.mbu.
-[sst_width] 258
-[signals_width] 341
+[sst_width] 372
+[signals_width] 430
 [sst_expanded] 1
-[sst_vpaned_height] 331
+[sst_vpaned_height] 583
 @28
 reg_mbu_tb.nrsthold
 reg_mbu_tb.clk1
@@ -35,9 +35,38 @@ reg_mbu_tb.raddr[4:0]
 ^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
 reg_mbu_tb.waddr[4:0]
 @22
-reg_mbu_tb.ibus_real[15:0]
 reg_mbu_tb.mbu.ibus[7:0]
-reg_mbu_tb.ibus[15:0]
+@28
+reg_mbu_tb.mbu.ir[2:0]
+@200
+-
+@421
+reg_mbu_tb.i
+@22
+reg_mbu_tb.mbu.ctx[7:0]
+reg_mbu_tb.mbu.regfile_mbu.a[10:0]
+@c00022
+reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+@28
+[color] 1
+(0)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(1)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(2)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(3)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(4)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(5)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(6)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+(7)reg_mbu_tb.mbu.regfile_mbu.d[7:0]
+@1401200
+-group_end
+@28
+reg_mbu_tb.mbu.regfile_mbu.noe
+[color] 2
+reg_mbu_tb.mbu.regfile_mbu.nwe
+@200
+-
+@28
+reg_mbu_tb.mbu.nfpram_rom
 @200
 -
 @28
@@ -71,7 +100,7 @@ reg_mbu_tb.mb6[7:0]
 reg_mbu_tb.mb7[7:0]
 @200
 -
-@c00201
+@c00200
 -Decoder GAL
 @28
 reg_mbu_tb.mbu.decoder_gal.clk4
@@ -85,7 +114,7 @@ reg_mbu_tb.mbu.decoder_gal.nwmbp
 @22
 reg_mbu_tb.mbu.decoder_gal.raddr[4:0]
 reg_mbu_tb.mbu.decoder_gal.waddr[4:0]
-@1401201
+@1401200
 -Decoder GAL
 @200
 -

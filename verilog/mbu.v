@@ -193,10 +193,10 @@ module mbu (nrsthold,
    inout 	nfpram_rom;
    inout [7:0] 	ibus;
    
-   inout [7:0] 	aext;
+   output [7:0] aext; 
    output 	nwar;
 
-   tri0 [7:0] 	aext;
+   wire [7:0] 	aext;
    tri1 	nfpram_rom;
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -269,9 +269,14 @@ module mbu (nrsthold,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   sram #(11, 15) regfile_mbu (.a({ctx, a}), .d(aext), .nce(1'b1), .nwe(nwe), .noe(noe));
+   // Reproduce the pull-down/up scheme in the schematics
+   assign (weak0, weak1) aext[7] = nfpram_rom; // This is how it's done in hardware
+   assign (pull0, pull1) aext[6:0] = 6'd0;
+   
+   sram #(11, 30) regfile_mbu (.a({ctx, a}), .d(aext), .nce(1'b0), .nwe(nwe), .noe(noe));
    buffer_541 buf_mbu_in (.noe1(nwe), .noe2(1'b0), .a(ibus[7:0]), .y(aext));
    buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(t34), .a(aext), .y(ibus[7:0]));
+
 
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -293,6 +298,7 @@ module mbu (nrsthold,
 
    flipflop_74h ff_idx(.d(1'b1), .clk(clk2), .nset(nir_idx), .nrst(nrsthold), 
 			.q(nir_idxr));
+
 
    ///////////////////////////////////////////////////////////////////////////////
    //

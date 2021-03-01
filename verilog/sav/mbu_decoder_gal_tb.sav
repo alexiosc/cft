@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sat Feb 27 10:47:55 2021
+[*] Sun Feb 28 22:51:18 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_decoder_gal_tb.vcd"
-[dumpfile_mtime] "Sat Feb 27 10:47:51 2021"
+[dumpfile_mtime] "Sun Feb 28 22:51:15 2021"
 [dumpfile_size] 15816432
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_decoder_gal_tb.sav"
 [timestart] 330933000
-[size] 1375 588
-[pos] 2366 235
+[size] 2137 1662
+[pos] 1604 235
 *-19.000000 1835000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[sst_width] 226
-[signals_width] 209
+[sst_width] 372
+[signals_width] 430
 [sst_expanded] 1
-[sst_vpaned_height] 137
+[sst_vpaned_height] 603
 @420
 mbu_decoder_gal_tb.i
 @820
