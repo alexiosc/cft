@@ -44,10 +44,11 @@ module sram (a, d, nce, nwe, noe);
 
    assign #access_time d = (noe == 0 && nce == 0) ? mem[a] : 8'bzzzzzzzz;
 
-   always @(posedge nwe, posedge nce) begin
-      if (nwe == 0 || nce == 0) begin
+   always @(nwe, nce, d) begin
+      if (nwe == 0 && nce == 0) begin
 	 // Most modern chips have Thd=0, so no delay is necessary here.
          mem[a] = d;
+	 $display("D: mem[%x] <- %02x", a, mem[a]);
 	 if ($test$plusargs("debug-memwrites")) $display("D: mem[%x] <- %02x", a, mem[a]);
       end
    end
