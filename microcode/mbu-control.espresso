@@ -3,7 +3,7 @@
 #
 # Truth table:
 # __: ___  ____  ____  ___  _____  ____   ____                           ____  __  __
-# __: DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  IBEN  OE  WE  What
+# __: DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  WADDR0-1 IR0-2  |  A0-2  IBEN  OE  WE  What
 # __: ----------------------------------------------------------|-------------------------------------------------
 # __:  0     1    -     -     -     -      -     --       ---   |   000   1     1   1  MBU disabled
 # __:  0     -    1     -     -     -      -     --       ---   |   000   1     1   1  MBU disabled
