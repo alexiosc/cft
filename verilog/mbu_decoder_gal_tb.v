@@ -46,21 +46,21 @@ module mbu_decoder_gal_tb();
       i = 1;
       #250;
       for (i = 0; i < 64; i = i + 1) begin
-	 #63.5;
+	 #62.5;
       end
 
       i = 1;
       #10000;
       
       for (i = 0; i < 2048; i = i + 64) begin
-	 #63.5;
+	 #62.5;
       end
       
       i = 1;
       #10000;
 
       for (i = 0; i < 65536; i = i + 1) begin
-	 #63.5;
+	 #62.5;
       end
       
       #500 $display("345 OK");

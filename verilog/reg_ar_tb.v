@@ -106,7 +106,7 @@ module reg_ar_tb();
    // Load the IR every now and then
    // always begin
    //    #1000 nwrite_ir = 0;
-   //    #63.5 nwrite_ir = 1;
+   //    #62.5 nwrite_ir = 1;
    // end
 
    assign ibus_real = ibus;

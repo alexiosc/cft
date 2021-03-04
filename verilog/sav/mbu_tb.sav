@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Mon Mar  1 19:13:13 2021
+[*] Thu Mar  4 19:02:00 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Mon Mar  1 19:12:54 2021"
-[dumpfile_size] 8229058
+[dumpfile_mtime] "Thu Mar  4 19:00:51 2021"
+[dumpfile_size] 8375988
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 2306020000
-[size] 3752 1587
-[pos] 7946 27
-*-22.177187 2352102000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 16176000
+[size] 1952 1123
+[pos] 10046 27
+*-17.142729 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbu_tb.
 [treeopen] reg_mbu_tb.mbu.
 [sst_width] 372
@@ -32,18 +32,43 @@ reg_mbu_tb.status[800:0]
 @2028
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
 reg_mbu_tb.raddr[4:0]
+@28
+reg_mbu_tb.raddr[4:0]
+@c02028
 ^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+reg_mbu_tb.waddr[4:0]
+@28
+(0)reg_mbu_tb.waddr[4:0]
+(1)reg_mbu_tb.waddr[4:0]
+(2)reg_mbu_tb.waddr[4:0]
+(3)reg_mbu_tb.waddr[4:0]
+(4)reg_mbu_tb.waddr[4:0]
+@1401200
+-group_end
+@28
 reg_mbu_tb.waddr[4:0]
 @22
 reg_mbu_tb.mbu.ibus[7:0]
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
+reg_mbu_tb.ir[15:0]
 @28
 reg_mbu_tb.mbu.ir[2:0]
+reg_mbu_tb.naction_index
+reg_mbu_tb.mbu.nir_idxr
+reg_mbu_tb.mbu.nir_idx
+@200
+-
+@22
+[color] 2
+reg_mbu_tb.mbu.aext[7:0]
 @200
 -
 @421
 reg_mbu_tb.i
 @22
 reg_mbu_tb.mbu.ctx[7:0]
+[color] 2
 reg_mbu_tb.mbu.regfile_mbu.a[10:0]
 @c00022
 reg_mbu_tb.mbu.regfile_mbu.d[7:0]
@@ -75,8 +100,8 @@ reg_mbu_tb.mbu.nir_idx
 reg_mbu_tb.mbu.nir_idxr
 reg_mbu_tb.mbu.noe
 reg_mbu_tb.mbu.nrctx
-reg_mbu_tb.mbu.nrmbn
 reg_mbu_tb.mbu.nrmbp
+reg_mbu_tb.mbu.nrmbn
 @200
 -
 @28
@@ -85,12 +110,27 @@ reg_mbu_tb.mbu.nwctx
 reg_mbu_tb.mbu.nwe
 reg_mbu_tb.mbu.nwmbn
 reg_mbu_tb.mbu.nwmbp
+reg_mbu_tb.mbu.control_gal.nibusen
 @200
 -
 @22
 reg_mbu_tb.mbu.aext[7:0]
+[color] 2
 reg_mbu_tb.mbu.ctx[7:0]
+@c00022
 reg_mbu_tb.mb0[7:0]
+@28
+(0)reg_mbu_tb.mb0[7:0]
+(1)reg_mbu_tb.mb0[7:0]
+(2)reg_mbu_tb.mb0[7:0]
+(3)reg_mbu_tb.mb0[7:0]
+(4)reg_mbu_tb.mb0[7:0]
+(5)reg_mbu_tb.mb0[7:0]
+(6)reg_mbu_tb.mb0[7:0]
+(7)reg_mbu_tb.mb0[7:0]
+@1401200
+-group_end
+@22
 reg_mbu_tb.mb1[7:0]
 reg_mbu_tb.mb2[7:0]
 reg_mbu_tb.mb3[7:0]
@@ -122,7 +162,6 @@ reg_mbu_tb.mbu.decoder_gal.waddr[4:0]
 -Control GAL
 @28
 reg_mbu_tb.mbu.control_gal.ndis
-reg_mbu_tb.mbu.control_gal.raddr1_0[1:0]
 @24
 reg_mbu_tb.mbu.control_gal.ir2_0[2:0]
 @28

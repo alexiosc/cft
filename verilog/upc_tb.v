@@ -60,7 +60,7 @@ module upc_tb();
    // Simulate a realistic fast clock
    always begin
       #185.5 clk4 = 0;
-      #63.5 clk4 = 1;
+      #62.5 clk4 = 1;
    end
 
    // Simulate asynchronous END# and ENDEXT# strobes

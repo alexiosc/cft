@@ -47,7 +47,7 @@ module ail_tb();
       i = 0;
             
       for (i = 0; i < 65536; i = i + 1) begin
-	 #63.5;
+	 #62.5;
       end
       
       #500 $display("345 OK");

@@ -82,33 +82,33 @@ module reg_major_tb();
       ibus = 16'h5678;
       nwrite = 0;
       #250 reset = 0;
-      #63.5 nwrite = 1;
+      #62.5 nwrite = 1;
       #186.5 ibus = 16'hZZZZ;	// Shoul be 5678
       #250 reset = 1;
-      #63.5 reset = 0;		// Should be zero again.
+      #62.5 reset = 0;		// Should be zero again.
 
       // Test writes and reads. The Control Unit ‘guarantees’ (via
       // microcode) that a read and write can't be asserted
       // simultaneously.
       for (i = 0; i < 65536 ; i = i + 1) begin
-      	 #63.5 ibus = i ^ 16'h1234;	// Mix up the values a little bit.
-      	 #63.5 nwrite = 0;
-      	 #63.5 nwrite = 1;
-      	 #63.5 ibus = 16'hZZZZ;
-      	 #63.5 nread = 0;
-      	 #63.5 nread = 1;
+      	 #62.5 ibus = i ^ 16'h1234;	// Mix up the values a little bit.
+      	 #62.5 nwrite = 0;
+      	 #62.5 nwrite = 1;
+      	 #62.5 ibus = 16'hZZZZ;
+      	 #62.5 nread = 0;
+      	 #62.5 nread = 1;
       end
 
       // Test increments
       for (i = 0; i < 65540 ; i = i + 1) begin
       	 #186.5 ninc = 0;
-      	 #63.5 ninc = 1;
+      	 #62.5 ninc = 1;
       end
 
       // Test decrements
       for (i = 0; i < 65540 ; i = i + 1) begin
 	 #186.5 ndec = 0;
-	 #63.5 ndec = 1;
+	 #62.5 ndec = 1;
       end
 
       #1000 $display("345 OK");

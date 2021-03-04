@@ -45,7 +45,7 @@ module mbu_decoder_gal(raddr,	// CFT Read Unit
 		       nwar     // One of the four write_ar_xx strobes
 		       );
 
-   parameter delay = 15;
+   parameter delay = 10;	// Maximum delay per the Microchip/Atmel datasheet
 
    input [4:0] raddr;
    input [4:0] waddr;
@@ -81,7 +81,7 @@ module mbu_control_gal(ndis,	// MBU Disable
 		       nidxen,
 		       nwmbp,
 		       nwmbn,
-		       raddr1_0, // RADDR[1:0]
+		       waddr1_0, // WADDR[1:0]
 		       ir2_0,	 // IR[2:0]
 		       a,
 		       noe,
@@ -89,7 +89,7 @@ module mbu_control_gal(ndis,	// MBU Disable
 		       nibusen
 		       );
    
-   parameter delay = 15;
+   parameter delay = 10;	// Maximum delay per the Microchip/Atmel datasheet
 
    input       ndis;
    input       nrmbp;
@@ -98,7 +98,7 @@ module mbu_control_gal(ndis,	// MBU Disable
    input       nidxen;
    input       nwmbp;
    input       nwmbn;
-   input [1:0] raddr1_0;
+   input [1:0] waddr1_0;
    input [2:0] ir2_0;
 
    output [2:0] a;
@@ -122,8 +122,8 @@ module mbu_control_gal(ndis,	// MBU Disable
    assign wmbn = nwmbn;
    assign wmbp = nwmbp;
    assign iden = nidxen;
-   assign addr0 = raddr1_0[0];
-   assign addr1 = raddr1_0[1];
+   assign addr0 = waddr1_0[0];
+   assign addr1 = waddr1_0[1];
    assign ir0 = ir2_0[0];
    assign ir1 = ir2_0[1];
    assign ir2 = ir2_0[2];
@@ -242,7 +242,7 @@ module mbu (nrsthold,
 			       .nidxen(nir_idxr),
 			       .nwmbp(nwmbp),
 			       .nwmbn(nwmbn),
-			       .raddr1_0(raddr[1:0] ),	// RADDR[1:0]
+			       .waddr1_0(waddr[1:0] ),	// WADDR[1:0]
 			       .ir2_0(ir[2:0]),
 			       .a(a),
 			       .noe(noe),
@@ -273,7 +273,7 @@ module mbu (nrsthold,
    assign (weak0, weak1) aext[7] = nfpram_rom; // This is how it's done in hardware
    assign (pull0, pull1) aext[6:0] = 6'd0;
    
-   sram #(11, 30) regfile_mbu (.a({ctx, a}), .d(aext), .nce(1'b0), .nwe(nwe), .noe(noe));
+   sram #(11, 12) regfile_mbu (.a({ctx, a}), .d(aext), .nce(1'b0), .nwe(nwe), .noe(noe));
    buffer_541 buf_mbu_in (.noe1(nwe), .noe2(1'b0), .a(ibus[7:0]), .y(aext));
    buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(t34), .a(aext), .y(ibus[7:0]));
 
@@ -296,7 +296,7 @@ module mbu (nrsthold,
    flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nwmbn), .nrst(nrsthold), 
 			.q(ndis));
 
-   flipflop_74h ff_idx(.d(1'b1), .clk(clk2), .nset(nir_idx), .nrst(nrsthold), 
+   flipflop_74h ff_idx(.d(1'b1), .clk(clk2), .nrst(nir_idx), .nset(nrsthold), 
 			.q(nir_idxr));
 
 
@@ -318,7 +318,7 @@ module mbu (nrsthold,
    assign mb[4] = regfile_mbu.mem[{ctx, 3'd4 }];
    assign mb[5] = regfile_mbu.mem[{ctx, 3'd5 }];
    assign mb[6] = regfile_mbu.mem[{ctx, 3'd6 }];
-   assign mb[7] = regfile_mbu.mem[{ctx, 3'd6 }];
+   assign mb[7] = regfile_mbu.mem[{ctx, 3'd7 }];
 
    assign mb0 = mb[0];
    assign mb1 = mb[1];
