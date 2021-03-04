@@ -400,299 +400,182 @@ module reg_mbu_tb();
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   always @(waddr) begin
-      if ($time > 100) #60 begin
+   always @(waddr, clk4) begin
+      if ($time > 100) #30 begin
 	 if (nwar !== ((clk4 == 1'b0 && waddr[4:2] === 3'b001) ? 1'b0 : 1'b1)) begin
 	    $display("346 FAIL waddr decoding failure, clk4=%b, waddr=%b, nwar=%b (should be %b)",
 		     clk4, waddr, mbu.nwar, (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
-	    #500 $finish;
+	    #100 $finish;
 	 end
-	 else $display("345 OK waddr/war");
+	 else if (mbu.nwmbn !== ((clk4 == 1'b0 && waddr === 5'b11011) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL write_mbn decoding failure, clk4=%b, waddr=%b, but nwmbn=%b",
+		     clk4, waddr, mbu.nwmbn);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else if (mbu.nwmbp !== ((clk4 == 1'b0 && waddr === 5'b11100) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL write_mbp decoding failure, clk4=%b, waddr=%b, but nwmbp=%b",
+		     clk4, waddr, mbu.nwmbp);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else if (mbu.nwctx !== ((clk4 == 1'b0 && (waddr === 5'b11101 || waddr === 5'b11110)) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL write_ctx decoding failure, clk4=%b, waddr=%b, but nwctx=%b",
+		     clk4, waddr, mbu.nwctx);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 //else $display("345 OK waddr/war");
       end
    end
    
-//    // always @(waddr, t34) begin
-//    //    if ($time > 100) #40 begin
-//    // 	 if (t34 === 1'b0 && (mbu.nwmbp !== ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1))) begin
-//    // 	    $display("346 FAIL waddr decoding failure, waddr=%b, nwmbp=%b (should be %b)",
-//    // 	  	     waddr, mbu.nwmbp,
-//    // 		     ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1));
-//    // 	    $error("assertion failure");
-//    // 	    #100 $finish;
-//    // 	 end
-
-//    // 	 else if (t34 !== 1'b0 && mbu.nwmbp !== 1'b1) begin
-//    // 	    $display("346 FAIL waddr decoding failure, nwbmp=%b during t34=%b (should never happen!)",
-//    // 	  	     mbu.nwmbp, t34);
-//    // 	    $error("assertion failure");
-//    // 	    #100 $finish;
-//    // 	 end
-//    // 	 else $display("345 OK waddr");
-//    //    end
-//    // end
-
-//    // always @(raddr, t34) begin
-//    //    if ($time > 100) #30 begin
-//    // 	 if (t34 === 1'b1 && mbu.nrmbp !== 1'b1) begin
-//    // 	    $display("346 FAIL nrmbp went low outside of t34");
-//    // 	    $error("assertion failure");
-//    // 	    #100 $finish;
-//    // 	 end
-	 
-//    // 	 if (t34 === 1'b0 && mbu.nrmbp !== (raddr[4:0] === 5'b01101 ? 1'b0 : 1'b1)) begin
-//    // 	    $display("346 FAIL raddr decoding failure, raddr=%b, nrmbp=%b (should be %b)",
-//    // 	 	     raddr, mbu.nrmbp, (raddr[4:1] === 4'b0110 ? 1'b0 : 1'b1));
-//    // 	    $error("assertion failure");
-//    // 	    #100 $finish;
-//    // 	 end
-	 
-//    // 	 else $display("345 OK raddr");
-//    //    end
-//    // end
-
-//    always @(ab) begin
-//       #30 begin
-// 	 // Verify selection
-// 	 if (nsysdev === 1'b0 && ab >= 16'h8 && ab <= 16'hf) begin
-// 	    if (mbu.niombr !== 1'b0) begin
-//    	       $display("I/O space decoding failure. nsysdev=%b, ab=%04h, but mbu.niombr=%b (should be 0)",
-// 			nsysdev, ab, mbu.niombr);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	    else $display("345 OK OUT decoding");
-// 	 end else begin
-// 	    if (mbu.niombr !== 1'b1) begin
-//    	       $display("I/O space decoding failure. nsysdev=%b, ab=%04h, but mbu.niombr=%b (should be 1)",
-// 			nsysdev, ab, mbu.niombr);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	    else $display("345 OK OUT decoding");
-// 	 end
-//       end
-//    end // always @ (ab)
+   always @(raddr) begin
+      if ($time > 100) #30 begin
+	 if (mbu.nrmbn !== ((raddr === 5'b11011) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL read_mbn decoding failure, raddr=%b, but nrmbn=%b",
+		     raddr, mbu.nrmbn);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else if (mbu.nrmbp !== ((raddr === 5'b11100) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL read_mbp decoding failure, raddr=%b, but nrmbp=%b",
+		     raddr, mbu.nrmbp);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else if (mbu.nrctx !== ((raddr === 5'b11101 || raddr === 5'b11110) ? 1'b0 : 1'b1)) begin
+	    $display("346 FAIL read_ctx decoding failure, raddr=%b, but nrctx=%b",
+		     raddr, mbu.nrctx);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 //else $display("345 OK raddr/war");
+      end
+   end
    
-//    always @(mbu.niombr, negedge nw) begin
-//       #30 begin
-// 	 // Verify selection
-// 	 if (mbu.niombr === 1'b0 && nw === 1'b0) begin
-// 	    if (mbu.niowmbr !== 1'b0) begin
-//    	       $display("I/O space write enable failure. mbu.niombr=%b, nw=%b, but mbu.niowmbr=%b (should be 0)",
-// 			mbu.niombr, nw, mbu.niowmbr);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	    else $display("345 OK OUT decoding");
-// 	 end else begin
-// 	    if (mbu.niowmbr !== 1'b1) begin
-//    	       $display("I/O space write enable failure. mbu.niombr=%b, nw=%b, but mbu.niowmbr=%b (should be 1)",
-// 			mbu.niombr, nw, mbu.niowmbr);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	    else $display("345 OK OUT decoding");
-// 	 end
-//       end
-//    end
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY ENABLING OF THE MBU
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // Verify the MBU can be enabled by nwrite_mbn.
+   always @(posedge mbu.nwmbn) #80 begin
+      if ($time > 250 && mbu.ndis !== 1'b1) begin
+   	 $sformat(msg, "After write_mbn, mbu.ndis=%b (should be 1).",
+		  mbu.ndis);
+      end
+
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+   	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	 $error("assertion failure");
+   	 #100 $finish;
+      end
+      else begin
+   	 $display("345 OK INIT");
+      end
+   end // always @ (posedge nw)
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY WADDR WRITES
+   //
+   ///////////////////////////////////////////////////////////////////////////////
    
-//    ///////////////////////////////////////////////////////////////////////////////
-//    //
-//    // VERIFY ENABLING OF THE MBU
-//    //
-//    ///////////////////////////////////////////////////////////////////////////////
+   // always @(waddr, ibus[7:0]) begin
+   //    if (waddr === 5'b01100 || waddr === 5'b01101) #250 begin
+   // 	 // if (ibus[7:0] !== 8'bZ && mbu.regfile.mem[0] !== ibus[7:0]) begin
+   // 	 //    $sformat(msg, "waddr=%b, ibus=%02x but mbp=%02x (should be %02x)",
+   // 	 // 	     waddr, ibus[7:0], mbu.regfile.mem[0], ibus[7:0]);
+   // 	 // end;	      
 
-//    // Verify the MBU can be enabled by a write.
-//    always @(posedge nw) #80 begin
-//       if ($time > 250 && (mbu.ndis !== 1'b1 || mbu.nen !== 1'b0)) begin
-//    	 $sformat(msg, "After an OUT instruction, mbu.ndis=%b, mbu.nen=%b (should be 1, 0).",
-// 		  mbu.ndis, mbu.nen);
-//       end
-
-//       // Fail if we've logged an issue.
-//       if (msg[7:0]) begin
-//    	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-//    	 $error("assertion failure");
-//    	 #100 $finish;
-//       end
-//       else begin
-//    	 $display("345 OK INIT");
-//       end
-//    end // always @ (posedge nw)
-
-//    ///////////////////////////////////////////////////////////////////////////////
-//    //
-//    // VERIFY THE I/O SPACE INTERFACE
-//    //
-//    ///////////////////////////////////////////////////////////////////////////////
-
-//    // Verify OUT behaviour
-//    always @(posedge nw) begin
-//       // Don't test until 250ns after start, to allow the clock to work properly.
-//       if ($time > 250 && nw === 1'b0) begin
-//    	 // Test that the correct value was written.
-//    	 begin
-//    	    ab_snoop = ab_real;
-//    	    db_snoop = db_real;
-//    	    #0 if (mbu.mb[ab_real[2:0]] !== db_real[7:0]) begin
-//    	       $sformat(msg, "OUT %03x <- %02x, but mbu.mb[%d] = %02x (should be %02x)",
-//    			ab_real[10:0], db_real, ab_real[2:0],
-//    			mbu.mb[ab_real[2:0]], db_real[2:0]);
-//    	    end
-//    	 end
-
-//    	 // Fail if we've logged an issue.
-//    	 if (msg[7:0]) begin
-//    	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-//    	    $error("assertion failure");
-//    	    #1000 $finish;
-//    	 end
-//    	 else $display("345 OK OUT");
-//       end
-//    end
+   // 	 // // Fail if we've logged an issue.
+   // 	 // if (msg[7:0]) begin
+   // 	 //    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   // 	 //    $error("assertion failure");
+   // 	 //    #100 $finish;
+   // 	 // end
+   // 	 // else $display("345 OK WADDR write");
+   //    end
+   // end // always @ (waddr, ibus[7:0])
 
 
-//    ///////////////////////////////////////////////////////////////////////////////
-//    //
-//    // VERIFY WADDR WRITES
-//    //
-//    ///////////////////////////////////////////////////////////////////////////////
-   
-//    always @(waddr, ibus[7:0]) begin
-//       if (waddr === 5'b01100 || waddr === 5'b01101) #250 begin
-// 	 // if (ibus[7:0] !== 8'bZ && mbu.regfile.mem[0] !== ibus[7:0]) begin
-// 	 //    $sformat(msg, "waddr=%b, ibus=%02x but mbp=%02x (should be %02x)",
-// 	 // 	     waddr, ibus[7:0], mbu.regfile.mem[0], ibus[7:0]);
-// 	 // end;	      
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY INDEXING READS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
 
-// 	 // // Fail if we've logged an issue.
-// 	 // if (msg[7:0]) begin
-// 	 //    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-// 	 //    $error("assertion failure");
-// 	 //    #100 $finish;
-// 	 // end
-// 	 // else $display("345 OK WADDR write");
-//       end
-//    end // always @ (waddr, ibus[7:0])
+   // NOTE: on this version of the processor, indexing happens when
+   // both {I,R} == 11 *AND* action_idx is asserted. This means that
+   // any write_ar_mbX address can index.
 
+   always @(waddr) begin
+      if ($time > 250 && clk4 == 1'b0 && mbu.ndis == 1 && waddr >= 5'b00100 && waddr <= 5'b00111) #220 begin
+	 casex (waddr)
+	   5'b00100: begin
+	      what = "write_ar_mbp";
+	      if (mbu.nir_idxr == 1 || ir[11:0] < 12'b11_1100000000) begin
+		 correct_value1 = 0;
+	      end else begin
+		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
+		 correct_value1 = ir[2:0];
+	      end
+	   end
+	   5'b00101: begin
+	      what = "write_ar_mbd";
+	      if (mbu.nir_idxr == 1 || ir[11:0] < 12'b11_1100000000) begin
+		 correct_value1 = 1;
+	      end else begin
+		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
+		 correct_value1 = ir[2:0];
+	      end
+	   end
+	   5'b00110: begin
+	      what = "write_ar_mbs";
+	      if (mbu.nir_idxr == 1 || ir[11:0] < 12'b11_1100000000) begin
+		 correct_value1 = 2;
+	      end else begin
+		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
+		 correct_value1 = ir[2:0];
+	      end
+	   end
+	   5'b00111: begin
+	      what = "write_ar_mbz";
+	      if (mbu.nir_idxr == 1 || ir[11:0] < 12'b11_1100000000) begin
+		 correct_value1 = 3;
+	      end else begin
+		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
+		 correct_value1 = ir[2:0];
+	      end
+	   end
+	 endcase // casex (waddr)
 
-//    ///////////////////////////////////////////////////////////////////////////////
-//    //
-//    // VERIFY INDEXING READS
-//    //
-//    ///////////////////////////////////////////////////////////////////////////////
-
-//    always @(waddr, ir) begin
-//       if ($time > 250 && mbu.ndis == 1 && waddr >= 5'b00100 && waddr <= 5'b00111) begin
-// 	 casex (waddr)
-// 	   5'b00100: begin
-// 	      what = "write_ar_mbp";
-// 	      correct_value1 = 0;
-// 	   end
-// 	   5'b00101: begin
-// 	      what = "write_ar_mbd";
-// 	      correct_value1 = 1;
-// 	   end
-// 	   5'b00110: begin
-// 	      what = "write_ar_mbs";
-// 	      correct_value1 = 2;
-// 	   end
-// 	   5'b00111: begin
-// 	      what = "write_ar_mbz";
-// 	      if (ir[11:0] < 12'b11_1100000000) begin
-// 		 correct_value1 = 3;
-// 	      end else begin
-// 		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
-// 		 correct_value1 = ir[2:0];
-// 	      end
-// 	   end
-// 	 endcase // casex (waddr)
-
-// 	 #80 begin
-// 	    // if (mbu.nibusen !== 1'b1) begin
-// 	    //    $sformat(msg, "waddr=%05b (%0s), mbu.nibusen=%b (should be 0, MBU should not be driving the IBUS!)",
-// 	    // 		waddr, what, mbu.nibusen);
-// 	    // end
+	 #80 begin
+	    if (mbu.nibusen !== 1'b1) begin
+	       $sformat(msg, "waddr=%05b (%0s), mbu.nibusen=%b (should be 0, MBU should not be driving the IBUS!)",
+	    		waddr, what, mbu.nibusen);
+	    end
 	    
-// 	    // else if (mbu.sel !== correct_value1) begin
-// 	    //    $sformat(msg, "waddr=%05b (%0s), ir=%b:%b:%02b_%04b_%04b, sel=%02b (should be %02b)",
-// 	    // 		waddr, what, ir[11], ir[10], ir[9:8], ir[7:4], ir[3:0], mbu.sel, correct_value1[2:0]);
-// 	    // end
+	    else if (mbu.a[2:0] !== correct_value1) begin
+	       $sformat(msg, "waddr=%05b (%0s), nir_idxr=%b, I=%b, R=%b, IR.a=%010b, MBR=%02b (should be %02b)",
+	    		waddr, what, mbu.nir_idxr, ir[11], ir[10], ir[9:0], mbu.a[2:0], correct_value1[2:0]); 
+	    end
 
-// 	    // // Fail if we've logged an issue.
-// 	    // if (msg[7:0]) begin
-// 	    //    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-// 	    //    $error("assertion failure");
-// 	    //    #100 $finish;
-// 	    // end
-// 	    // else $display("345 OK index");
-// 	 end
-//       end
-//    end // always @ (waddr, ir)
+	    // Fail if we've logged an issue.
+	    if (msg[7:0]) begin
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #500 $finish;
+	    end
+	    else $display("345 OK index");
+	 end
+      end
+   end // always @ (waddr, ir)
 
 
-//    ///////////////////////////////////////////////////////////////////////////////
-//    //
-//    // BUS CONTENTION CHECKS
-//    //
-//    ///////////////////////////////////////////////////////////////////////////////
-
-//    // Check for bus contention
-//    always @(aext) begin
-//       if ($time > 250) begin
-// 	 for (k = 0; k < 8; k++) begin
-// 	    if (aext[k] === 1'bX) begin
-// 	       $sformat(msg, "AEXT contention (%08b, %02x)", aext, aext);
-// 	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	 end
-//       end // if ($time > 250)
-//    end // always @ (aext)
-   
-//    // Check for bus contention on DB[7:0]
-//    always @(db_low) begin
-//       if ($time > 250) begin
-// 	 for (k = 0; k < 8; k++) begin
-// 	    if (db_low[k] === 1'bX) begin
-// 	       $sformat(msg, "DB[7:0] (db_low) contention (%08b, %02x)", db_low, db_low);
-// 	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	 end
-//       end
-//    end // always @ (db_low)
-   
-//    // Check for bus contention on AB[7:0]
-//    always @(ab_real[7:0]) begin
-//       if ($time > 250) begin
-// 	 for (k = 0; k < 8; k++) begin
-// 	    if (ab_real[k] === 1'bX) begin
-// 	       $sformat(msg, "AB[7:0] contention (%08b, %02x)", ab_real[7:0], ab_real[7:0]);
-// 	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-// 	       $error("assertion failure");
-// 	       #100 $finish;
-// 	    end
-// 	 end
-//       end
-//    end // always @ (ab_real)
-   
-//    // Check for bus contention on SEL (the MBU register file's address)
-//    // always @(mbu.sel) begin
-//    //    if ($time > 250) begin
-//    // 	 for (k = 0; k < 3; k++) begin
-//    // 	    if (mbu.sel[k] === 1'bX) begin
-//    // 	       $sformat(msg, "SEL contention (%03b)", mbu.sel);
-//    // 	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-//    // 	       $error("assertion failure");
-//    // 	       #100 $finish;
-//    // 	    end
-//    // 	 end
-//    //    end
-//    // end // always @ (mbu.sel)
 
 // ///////////////////////////////////////////////////////////////////////////////   
 // ///////////////////////////////////////////////////////////////////////////////   
