@@ -37,7 +37,10 @@ ALUBB =			$(ALUB)-4bit-00.bin $(ALUB)-6bit-00.bin
 BINS =			$(BASE)-00.bin $(BASE)-01.bin $(BASE)-02.bin $(ALUBB) $(ALUUB)
 LISTS =			$(BASE)-00.list $(BASE)-01.list $(BASE)-02.list $(ALUBL) $(ALUUL)
 
-PLDS =			$(BUILDDIR)/mbu-control.jed $(BUILDDIR)/mbu-decode.jed
+PLDS =			$(BUILDDIR)/mbu-control.jed \
+			$(BUILDDIR)/mbu-decode.jed \
+			$(BUILDDIR)/ctl-waddr-decode.jed \
+			$(BUILDDIR)/ctl-raddr-decode.jed \
 
 
 #.PHONY: 		all clean microcode alu-binary alu-unary
