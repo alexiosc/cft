@@ -3,18 +3,20 @@ CURDEC00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-RA0     RA1     RA2     RA3     RA4     NC0     NC1     NC2     NC3     GND
-NC4     NC5     NC6     NC7     NC8     RAGL    FLAGOE  RPC     RDR     VCC
+T34     NC1     NC2     NC3     RA4     RA3     RA1     RA2     RA0     GND
+NC4     NC5     NC6     NC7     CSOE    RAGL    FLAGOE  RPC     RDR     VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
-/RPC = /RA4 * RA3 * /RA2 * /RA1 * /RA0
+/RPC =           /RA4 *  RA3 * /RA2 * /RA1 * /RA0
 
-/RDR = /RA4 * RA3 * /RA2 * /RA1 *  RA0
+/RDR =           /RA4 *  RA3 * /RA2 * /RA1 *  RA0
 
-/RAGL = /RA4 * RA3 * RA2 * RA1 * RA0
+/RAGL =          /RA4 *  RA3 *  RA2 *  RA1 *  RA0
 
-/FLAGOE = RA4 * RA3 * RA2 * RA1 * /RA0
+/FLAGOE =         RA4 *  RA3 *  RA2 *  RA1 * /RA0
+
+/CSOE =   /T34 * /RA4 * /RA3 * RA2
 
 
 DESCRIPTION
@@ -31,9 +33,15 @@ Outputs: (all active low)
 /RDR     -- Read the DR
 /RAGL    -- Read the AGL
 /FLAGOE  -- Read from the flag unit
+/CSOE    -- Read from the constant store
 
 
 ; The addresses we need are like this:
+
+; signal read_cs0        = ...................00100; // Constant Store: 0000 (Zero; Reset)
+; signal read_cs1        = ...................00101; // Constant Store: 0001 (Unused)
+; signal read_cs2        = ...................00110; // Constant Store: 0002 (ISR Vector)
+; signal read_cs3        = ...................00111; // Constant Store: 0003 (ISR Vector)
 
 ; signal read_pc         = ...................01000; // Read from PC
 ; signal read_dr         = ...................01001; // Read from DR

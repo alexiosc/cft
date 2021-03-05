@@ -3,7 +3,7 @@ CUWDEC00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-WA0     WA1     WA2     WA3     WA4     NC0     NC1     NC2     CLK4    GND
+WA4     WA3     WA2     WA1     WA0     NC0     NC1     NC2     CLK4    GND
 NC4     NC5     NC6     NC7     NC8     WIR     WF      WPC     WDR     VCC
 ;11     12      13      14      15      16      17      18      19      20
 
