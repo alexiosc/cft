@@ -177,20 +177,14 @@ module card_bus(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   mbu mbu (.nreset(nreset),
-	    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), // TODO: remove unneeded clocks!
-	    .t34(t34),
-	    .waddr(waddr),
+   mbu mbu (.nrsthold(nrsthold),
+	    .clk2(clk2), .clk4(clk4), .t34(t34),
 	    .raddr(raddr),
-	    .ir(ir2_0),
-	    .nir_idx(nir_idx),
+	    .waddr(waddr),
 	    .ibus(ibus[7:0]),
+	    .nir_idx(nir_idx),
+	    .ir(ir2_0),
 	    .aext(aext),
-	    .nr(nr),
-	    .nw(nw),
-	    .ab(ab[7:0]),
-	    .db(db),		// Real hardware only receives db[7:0]
-	    .nsysdev(nsysdev),
 	    .nfpram_rom(nfpram_rom),
 	    .nwar(nwrite_ar) // Note port naming difference
 	    );

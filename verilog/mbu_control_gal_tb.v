@@ -60,7 +60,7 @@ module mbu_control_gal_tb();
    wire       nidxen;
    wire       nwmbp;
    wire       nwmbn;
-   wire [1:0] raddr1_0;
+   wire [1:0] waddr1_0;
    wire [2:0] ir2_0;
    wire [2:0] a;
    wire       nibusen;
@@ -78,7 +78,7 @@ module mbu_control_gal_tb();
 				    .nidxen(nidxen),
 				    .nwmbp(nwmbp),
 				    .nwmbn(nwmbn),
-				    .raddr1_0(raddr1_0),
+				    .waddr1_0(waddr1_0),
 				    .ir2_0(ir2_0),
 				    .a(a),
 				    .nibusen(nibusen),
