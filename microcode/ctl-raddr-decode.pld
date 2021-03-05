@@ -1,0 +1,43 @@
+GAL16V8         ; this is the GAL type
+CURDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+RA0     RA1     RA2     RA3     RA4     NC0     NC1     NC2     NC3     GND
+NC4     NC5     NC6     NC7     NC8     RAGL    FLAGOE  RPC     RDR     VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/RPC = /RA4 * RA3 * /RA2 * /RA1 * /RA0
+
+/RDR = /RA4 * RA3 * /RA2 * /RA1 *  RA0
+
+/RAGL = /RA4 * RA3 * RA2 * RA1 * RA0
+
+/FLAGOE = RA4 * RA3 * RA2 * RA1 * /RA0
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+RADDR    -- The read address
+
+Outputs: (all active low)
+
+/RPC     -- Read the PC
+/RDR     -- Read the DR
+/RAGL    -- Read the AGL
+/FLAGOE  -- Read from the flag unit
+
+
+; The addresses we need are like this:
+
+; signal read_pc         = ...................01000; // Read from PC
+; signal read_dr         = ...................01001; // Read from DR
+; signal read_agl        = ...................01111; // Read from address generation logic
+; signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
+
+; End of file.

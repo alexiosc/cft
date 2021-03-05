@@ -1,0 +1,43 @@
+GAL16V8         ; this is the GAL type
+CUWDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+WA0     WA1     WA2     WA3     WA4     NC0     NC1     NC2     CLK4    GND
+NC4     NC5     NC6     NC7     NC8     WIR     WF      WPC     WDR     VCC
+;11     12      13      14      15      16      17      18      19      20
+
+/WPC =    /CLK4 * /WA4 * WA3 * /WA2 * /WA1 * /WA0
+
+/WDR =    /CLK4 * /WA4 * WA3 * /WA2 * /WA1 *  WA0
+
+/WIR =    /CLK4 * /WA4 * WA3 *  WA2 *  WA1 *  WA0
+
+/WF = /CLK4 *  WA4 * WA3 *  WA2 *  WA1
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+WADDR    -- The read address
+CLK4     -- Write strobe clock
+
+Outputs:
+
+/WPC     -- Write to the PC
+/WDR     -- Write to the DR
+/WIR     -- Write to the IR
+/FLAGOE  -- Write to the flag unit
+
+
+; signal write_pc        = ..............01000.....; // Write to PC
+; signal write_dr        = ..............01001.....; // Write to DR
+; signal write_ir        = ..............01111.....; // Write to the Instruction Register
+; signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
+; signal write_flags     = ..............11111.....; // Write flags
+
+
+; End of file.
