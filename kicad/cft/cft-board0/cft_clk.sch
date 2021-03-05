@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 17
+Sheet 8 17
 Title "Clock Generator"
 Date ""
 Rev "2023"
@@ -1257,19 +1257,6 @@ F 3 "~" H 2450 4950 50  0001 C CNN
 	1    2450 4950
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:CXO X1001
-U 1 1 5E4EF57E
-P 3350 4900
-F 0 "X1001" H 3450 5267 50  0000 C CNN
-F 1 "16 MHz" H 3450 5176 50  0000 C CNN
-F 2 "alexios:Oscillator_DIP-8-socket" H 3500 4300 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/741/LFSPXO022296Bulk-985375.pdf" H 3450 4850 50  0001 C CNN
-F 4 "Yes" H 3450 5175 50  0001 C CNN "Verified"
-F 5 "449-LFSPXO022296BULK" H 3150 4200 50  0001 C CNN "BOM-Mouser"
-	1    3350 4900
-	1    0    0    -1  
-$EndComp
 Text HLabel 10800 4850 2    50   UnSpc ~ 0
 WSTB
 $Comp
@@ -1385,4 +1372,15 @@ Wire Wire Line
 Connection ~ 4950 5250
 Wire Wire Line
 	4950 5250 4950 5500
+$Comp
+L alexios:CXO_DIP8 X1
+U 1 1 604D2694
+P 3350 4900
+F 0 "X1" H 3450 5267 50  0000 C CNN
+F 1 "CXO_DIP8" H 3450 5176 50  0000 C CNN
+F 2 "alexios:Oscillator_DIP-8-socket" H 3500 4500 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3450 4850 50  0001 C CNN
+	1    3350 4900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

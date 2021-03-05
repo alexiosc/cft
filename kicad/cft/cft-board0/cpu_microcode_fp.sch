@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 18 17
+Sheet 16 17
 Title "Microcode Front Panel Buffers"
 Date ""
 Rev "2023"
@@ -13,37 +13,37 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 3300 3300 0    50   Input ~ 0
-RADDR0
-Text HLabel 3300 3400 0    50   Input ~ 0
-RADDR1
-Text HLabel 3300 3500 0    50   Input ~ 0
-RADDR2
-Text HLabel 3300 3600 0    50   Input ~ 0
-RADDR3
-Text HLabel 3300 3700 0    50   Input ~ 0
-RADDR4
-Text HLabel 3300 3800 0    50   Input ~ 0
-WADDR0
-Text HLabel 3300 3900 0    50   Input ~ 0
-WADDR1
 Text HLabel 3300 4000 0    50   Input ~ 0
+RADDR0
+Text HLabel 3300 3800 0    50   Input ~ 0
+RADDR1
+Text HLabel 3300 3900 0    50   Input ~ 0
+RADDR2
+Text HLabel 3300 3700 0    50   Input ~ 0
+RADDR3
+Text HLabel 3300 3600 0    50   Input ~ 0
+RADDR4
+Text HLabel 3300 3500 0    50   Input ~ 0
+WADDR0
+Text HLabel 3300 3400 0    50   Input ~ 0
+WADDR1
+Text HLabel 3300 3300 0    50   Input ~ 0
 WADDR2
-Text HLabel 6100 1800 0    50   Input ~ 0
-WADDR3
-Text HLabel 6100 1900 0    50   Input ~ 0
-WADDR4
-Text HLabel 6100 2000 0    50   Input ~ 0
-COND0
-Text HLabel 6100 2100 0    50   Input ~ 0
-COND1
-Text HLabel 6100 2200 0    50   Input ~ 0
-COND2
-Text HLabel 6100 2300 0    50   Input ~ 0
-COND3
-Text HLabel 6100 2400 0    50   Input ~ 0
-COND4
 Text HLabel 6100 2500 0    50   Input ~ 0
+WADDR3
+Text HLabel 6100 2300 0    50   Input ~ 0
+WADDR4
+Text HLabel 6100 2400 0    50   Input ~ 0
+COND0
+Text HLabel 6100 2200 0    50   Input ~ 0
+COND1
+Text HLabel 6100 2100 0    50   Input ~ 0
+COND2
+Text HLabel 6100 2000 0    50   Input ~ 0
+COND3
+Text HLabel 6100 1900 0    50   Input ~ 0
+COND4
+Text HLabel 6100 1800 0    50   Input ~ 0
 ACTION0
 Text HLabel 6100 3300 0    50   Input ~ 0
 ACTION1
@@ -51,15 +51,11 @@ Text HLabel 6100 3400 0    50   Input ~ 0
 ACTION2
 Text HLabel 6100 3500 0    50   Input ~ 0
 ACTION3
-Text HLabel 6100 3600 0    50   Input ~ 0
+Text HLabel 6100 4000 0    50   Input ~ 0
 ~MEM
-Text HLabel 6100 3700 0    50   Input ~ 0
-~IO
-Text HLabel 6100 3800 0    50   Input ~ 0
+Text HLabel 6100 3600 0    50   Input ~ 0
 ~R
 Text HLabel 6100 3900 0    50   Input ~ 0
-~WEN
-Text HLabel 6100 4000 0    50   Input ~ 0
 ~END
 Text Label 3400 1800 0    50   ~ 0
 UPC0
@@ -125,38 +121,38 @@ F 3 "" H 3850 2800 50  0001 C CNN
 	1    3850 2800
 	1    0    0    -1  
 $EndComp
-Text Label 5150 3300 2    50   ~ 0
-FPD0
-Text Label 5150 3400 2    50   ~ 0
-FPD1
-Text Label 5150 3500 2    50   ~ 0
-FPD2
-Text Label 5150 3600 2    50   ~ 0
-FPD3
-Text Label 5150 3700 2    50   ~ 0
-FPD4
-Text Label 5150 3800 2    50   ~ 0
-FPD5
-Text Label 5150 3900 2    50   ~ 0
-FPD6
 Text Label 5150 4000 2    50   ~ 0
+FPD0
+Text Label 5150 3800 2    50   ~ 0
+FPD1
+Text Label 5150 3900 2    50   ~ 0
+FPD2
+Text Label 5150 3700 2    50   ~ 0
+FPD3
+Text Label 5150 3600 2    50   ~ 0
+FPD4
+Text Label 5150 3500 2    50   ~ 0
+FPD5
+Text Label 5150 3400 2    50   ~ 0
+FPD6
+Text Label 5150 3300 2    50   ~ 0
 FPD7
 Wire Wire Line
-	4850 3300 5150 3300
-Wire Wire Line
-	4850 3400 5150 3400
-Wire Wire Line
-	4850 3500 5150 3500
-Wire Wire Line
-	4850 3600 5150 3600
-Wire Wire Line
-	4850 3700 5150 3700
+	4850 4000 5150 4000
 Wire Wire Line
 	4850 3800 5150 3800
 Wire Wire Line
 	4850 3900 5150 3900
 Wire Wire Line
-	4850 4000 5150 4000
+	4850 3700 5150 3700
+Wire Wire Line
+	4850 3600 5150 3600
+Wire Wire Line
+	4850 3500 5150 3500
+Wire Wire Line
+	4850 3400 5150 3400
+Wire Wire Line
+	4850 3300 5150 3300
 $Comp
 L alexios:74HC541 U1803
 U 1 1 5DDD8FBA
@@ -179,74 +175,74 @@ F 3 "" H 3850 4300 50  0001 C CNN
 	1    3850 4300
 	1    0    0    -1  
 $EndComp
-Text Label 3400 3300 0    50   ~ 0
-RADDR0
-Text Label 3400 3400 0    50   ~ 0
-RADDR1
-Text Label 3400 3500 0    50   ~ 0
-RADDR2
-Text Label 3400 3600 0    50   ~ 0
-RADDR3
-Text Label 3400 3700 0    50   ~ 0
-RADDR4
-Text Label 3400 3800 0    50   ~ 0
-WADDR0
-Text Label 3400 3900 0    50   ~ 0
-WADDR1
 Text Label 3400 4000 0    50   ~ 0
+RADDR0
+Text Label 3400 3800 0    50   ~ 0
+RADDR1
+Text Label 3400 3900 0    50   ~ 0
+RADDR2
+Text Label 3400 3700 0    50   ~ 0
+RADDR3
+Text Label 3400 3600 0    50   ~ 0
+RADDR4
+Text Label 3400 3500 0    50   ~ 0
+WADDR0
+Text Label 3400 3400 0    50   ~ 0
+WADDR1
+Text Label 3400 3300 0    50   ~ 0
 WADDR2
 Wire Wire Line
-	3850 3300 3300 3300
-Wire Wire Line
-	3850 3400 3300 3400
-Wire Wire Line
-	3850 3500 3300 3500
-Wire Wire Line
-	3850 3600 3300 3600
-Wire Wire Line
-	3850 3700 3300 3700
+	3850 4000 3300 4000
 Wire Wire Line
 	3850 3800 3300 3800
 Wire Wire Line
 	3850 3900 3300 3900
 Wire Wire Line
-	3850 4000 3300 4000
+	3850 3700 3300 3700
+Wire Wire Line
+	3850 3600 3300 3600
+Wire Wire Line
+	3850 3500 3300 3500
+Wire Wire Line
+	3850 3400 3300 3400
+Wire Wire Line
+	3850 3300 3300 3300
 Text Label 3400 4200 0    50   ~ 0
 ~FPµĊ0
 Wire Wire Line
 	3300 4200 3850 4200
-Text Label 7950 1800 2    50   ~ 0
-FPD0
-Text Label 7950 1900 2    50   ~ 0
-FPD1
-Text Label 7950 2000 2    50   ~ 0
-FPD2
-Text Label 7950 2100 2    50   ~ 0
-FPD3
-Text Label 7950 2200 2    50   ~ 0
-FPD4
-Text Label 7950 2300 2    50   ~ 0
-FPD5
-Text Label 7950 2400 2    50   ~ 0
-FPD6
 Text Label 7950 2500 2    50   ~ 0
+FPD0
+Text Label 7950 2300 2    50   ~ 0
+FPD1
+Text Label 7950 2400 2    50   ~ 0
+FPD2
+Text Label 7950 2200 2    50   ~ 0
+FPD3
+Text Label 7950 2100 2    50   ~ 0
+FPD4
+Text Label 7950 2000 2    50   ~ 0
+FPD5
+Text Label 7950 1900 2    50   ~ 0
+FPD6
+Text Label 7950 1800 2    50   ~ 0
 FPD7
 Wire Wire Line
-	7650 1800 7950 1800
-Wire Wire Line
-	7650 1900 7950 1900
-Wire Wire Line
-	7650 2000 7950 2000
-Wire Wire Line
-	7650 2100 7950 2100
-Wire Wire Line
-	7650 2200 7950 2200
+	7650 2500 7950 2500
 Wire Wire Line
 	7650 2300 7950 2300
 Wire Wire Line
 	7650 2400 7950 2400
 Wire Wire Line
-	7650 2500 7950 2500
+	7650 2200 7950 2200
+Wire Wire Line
+	7650 2100 7950 2100
+Wire Wire Line
+	7650 2000 7950 2000
+Wire Wire Line
+	7650 1900 7950 1900
+Wire Wire Line
+	7650 1800 7950 1800
 $Comp
 L power:GND #PWR01802
 U 1 1 5DEA3445
@@ -258,38 +254,38 @@ F 3 "" H 6650 2800 50  0001 C CNN
 	1    6650 2800
 	1    0    0    -1  
 $EndComp
-Text Label 6200 1800 0    50   ~ 0
-WADDR3
-Text Label 6200 1900 0    50   ~ 0
-WADDR4
-Text Label 6200 2000 0    50   ~ 0
-COND0
-Text Label 6200 2100 0    50   ~ 0
-COND1
-Text Label 6200 2200 0    50   ~ 0
-COND2
-Text Label 6200 2300 0    50   ~ 0
-COND3
-Text Label 6200 2400 0    50   ~ 0
-COND4
 Text Label 6200 2500 0    50   ~ 0
+WADDR3
+Text Label 6200 2300 0    50   ~ 0
+WADDR4
+Text Label 6200 2400 0    50   ~ 0
+COND0
+Text Label 6200 2200 0    50   ~ 0
+COND1
+Text Label 6200 2100 0    50   ~ 0
+COND2
+Text Label 6200 2000 0    50   ~ 0
+COND3
+Text Label 6200 1900 0    50   ~ 0
+COND4
+Text Label 6200 1800 0    50   ~ 0
 ACTION0
 Wire Wire Line
-	6650 1800 6100 1800
-Wire Wire Line
-	6650 1900 6100 1900
-Wire Wire Line
-	6650 2000 6100 2000
-Wire Wire Line
-	6650 2100 6100 2100
-Wire Wire Line
-	6650 2200 6100 2200
+	6650 2500 6100 2500
 Wire Wire Line
 	6650 2300 6100 2300
 Wire Wire Line
 	6650 2400 6100 2400
 Wire Wire Line
-	6650 2500 6100 2500
+	6650 2200 6100 2200
+Wire Wire Line
+	6650 2100 6100 2100
+Wire Wire Line
+	6650 2000 6100 2000
+Wire Wire Line
+	6650 1900 6100 1900
+Wire Wire Line
+	6650 1800 6100 1800
 Text Label 6200 2700 0    50   ~ 0
 ~FPµĊ1
 Wire Wire Line
@@ -300,15 +296,15 @@ Text Label 7950 3400 2    50   ~ 0
 FPD1
 Text Label 7950 3500 2    50   ~ 0
 FPD2
-Text Label 7950 3600 2    50   ~ 0
+Text Label 7950 4000 2    50   ~ 0
 FPD3
 Text Label 7950 3700 2    50   ~ 0
 FPD4
-Text Label 7950 3800 2    50   ~ 0
+Text Label 7950 3600 2    50   ~ 0
 FPD5
-Text Label 7950 3900 2    50   ~ 0
+Text Label 7950 3800 2    50   ~ 0
 FPD6
-Text Label 7950 4000 2    50   ~ 0
+Text Label 7950 3900 2    50   ~ 0
 FPD7
 Wire Wire Line
 	7650 3300 7950 3300
@@ -317,15 +313,15 @@ Wire Wire Line
 Wire Wire Line
 	7650 3500 7950 3500
 Wire Wire Line
-	7650 3600 7950 3600
+	7650 4000 7950 4000
 Wire Wire Line
 	7650 3700 7950 3700
+Wire Wire Line
+	7650 3600 7950 3600
 Wire Wire Line
 	7650 3800 7950 3800
 Wire Wire Line
 	7650 3900 7950 3900
-Wire Wire Line
-	7650 4000 7950 4000
 $Comp
 L alexios:74HC541 U1804
 U 1 1 5DF1B315
@@ -348,15 +344,11 @@ F 3 "" H 6650 4300 50  0001 C CNN
 	1    6650 4300
 	1    0    0    -1  
 $EndComp
-Text Label 6200 3600 0    50   ~ 0
+Text Label 6200 4000 0    50   ~ 0
 ~MEM
-Text Label 6200 3700 0    50   ~ 0
-~IO
-Text Label 6200 3800 0    50   ~ 0
+Text Label 6200 3600 0    50   ~ 0
 ~R
 Text Label 6200 3900 0    50   ~ 0
-~WEN
-Text Label 6200 4000 0    50   ~ 0
 ~END
 Text Label 6200 3300 0    50   ~ 0
 ACTION1
@@ -371,15 +363,11 @@ Wire Wire Line
 Wire Wire Line
 	6650 3500 6100 3500
 Wire Wire Line
+	6650 4000 6100 4000
+Wire Wire Line
 	6650 3600 6100 3600
 Wire Wire Line
-	6650 3700 6100 3700
-Wire Wire Line
-	6650 3800 6100 3800
-Wire Wire Line
 	6650 3900 6100 3900
-Wire Wire Line
-	6650 4000 6100 4000
 Text Label 6200 4200 0    50   ~ 0
 ~FPµĊ2
 Wire Wire Line
@@ -741,6 +729,20 @@ Wire Wire Line
 	3850 2500 3300 2500
 Text HLabel 3300 2500 0    50   Input ~ 0
 RSVD
+Wire Wire Line
+	6650 3800 6100 3800
+Text Label 6200 3800 0    50   ~ 0
+~WEN
+Text HLabel 6100 3800 0    50   Input ~ 0
+~WEN
+Text HLabel 6100 3700 0    50   Input ~ 0
+~IO
+Wire Wire Line
+	6650 3700 6100 3700
+Text Label 6200 3700 0    50   ~ 0
+~IO
+Text Notes 8150 3800 0    50   ~ 0
+Note! Pins out of order for ease of routing!
 Wire Bus Line
 	8050 1900 8050 4600
 Wire Bus Line

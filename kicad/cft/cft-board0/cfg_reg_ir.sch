@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 17
+Sheet 9 17
 Title "Instruction Register (IR)"
 Date ""
 Rev "2023"
@@ -735,10 +735,6 @@ Text Label 8400 5200 0    50   ~ 0
 FPD6
 Text Label 8400 5300 0    50   ~ 0
 FPD7
-Text HLabel 1200 4750 0    50   Input ~ 0
-CLK4
-Text Label 1250 4750 0    50   ~ 0
-CLK4
 $Comp
 L alexios:74HC574 U1101
 U 1 1 61409CF5
@@ -795,85 +791,10 @@ Text Label 4800 3900 0    50   ~ 0
 ~WIR
 Text Label 4800 5500 0    50   ~ 0
 ~WIR
-Wire Wire Line
-	4350 4700 4500 4700
-Connection ~ 4500 4700
-Wire Wire Line
-	4500 4700 4500 3900
-Wire Wire Line
-	3850 4750 1200 4750
-$Comp
-L Device:C_Small C?
-U 1 1 6144DE30
-P 1050 7300
-AR Path="/5CC0D65F/6144DE30" Ref="C?"  Part="1" 
-AR Path="/6144DE30" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/6144DE30" Ref="C?"  Part="1" 
-AR Path="/5F63066B/6144DE30" Ref="C1103"  Part="1" 
-F 0 "C1103" H 959 7346 50  0000 R CNN
-F 1 "100nF" H 959 7255 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 7300 50  0001 C CNN
-F 3 "~" H 1050 7300 50  0001 C CNN
-	1    1050 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 6144DE36
-P 1050 7200
-AR Path="/5F4B0011/6144DE36" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/6144DE36" Ref="#PWR01109"  Part="1" 
-F 0 "#PWR01109" H 1050 7050 50  0001 C CNN
-F 1 "+5V" H 1065 7373 50  0000 C CNN
-F 2 "" H 1050 7200 50  0001 C CNN
-F 3 "" H 1050 7200 50  0001 C CNN
-	1    1050 7200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 6144DE3C
-P 1050 7400
-AR Path="/6144DE3C" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/6144DE3C" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/6144DE3C" Ref="#PWR01112"  Part="1" 
-F 0 "#PWR01112" H 1050 7150 50  0001 C CNN
-F 1 "GND" H 1055 7227 50  0000 C CNN
-F 2 "" H 1050 7400 50  0001 C CNN
-F 3 "" H 1050 7400 50  0001 C CNN
-	1    1050 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U1103
-U 1 1 61458F47
-P 4050 4700
-F 0 "U1103" H 4100 4967 50  0000 C CNN
-F 1 "74LVC1G32" H 4100 4876 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 4160 4680 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4160 4680 50  0001 C CNN
-	1    4050 4700
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U1103
-U 2 1 61464092
-P 1450 7050
-F 0 "U1103" H 1580 6846 50  0000 L CNN
-F 1 "74LVC1G32" H 1580 6755 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1560 7030 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1560 7030 50  0001 C CNN
-	2    1450 7050
-	1    0    0    -1  
-$EndComp
-Connection ~ 1050 7400
-Connection ~ 1050 7200
 Text Notes 950  2100 0    50   ~ 0
 The IR is a minor write-only register, and an integral part of the Control Unit. It holds the instruction being\nexecuted. It is written to from the IBus when WADDR is 00010. Data is clocked on the rising edge of CLK4,\nas with all writable units.\n\nIt's configured to output permanently, and its outputs are routed to the Control Store, where it is\ninterpreted. Parts of the IR are also routed off-board because they need to be intepreted by other units,\nlike the Memory Banking Unit (MBU).\n\nFor something as crucial as this, the design is trivial.\n\nThe IR has a couple of front panel buffers so it can be read by the DFP and displayed on the front panel.
 Text Notes 950  1050 0    98   ~ 20
 The Instruction Register
-Wire Wire Line
-	4500 5500 4500 4700
 Connection ~ 2500 6650
 Connection ~ 2500 6450
 Connection ~ 2500 7400
@@ -909,7 +830,12 @@ Text HLabel 1200 4650 0    50   Input ~ 0
 Text Label 1250 4650 0    50   ~ 0
 ~WRITE-IR
 Wire Wire Line
-	1200 4650 3850 4650
+	1200 4650 4500 4650
+Connection ~ 4500 4650
+Wire Wire Line
+	4500 4650 4500 3900
+Wire Wire Line
+	4500 4650 4500 5500
 Wire Bus Line
 	6700 3100 6700 6050
 Wire Bus Line

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 17
+Sheet 15 17
 Title "Control Store (24×512k ROM)"
 Date ""
 Rev "2023"
@@ -601,25 +601,17 @@ Wire Wire Line
 	5800 5450 6500 5450
 Text HLabel 6500 4750 2    50   Output ~ 0
 ACTION0
-Text HLabel 6500 4850 2    50   Output ~ 0
-COND4
 Text HLabel 6500 4950 2    50   Output ~ 0
+COND4
+Text HLabel 6500 4850 2    50   Output ~ 0
 COND3
-Text HLabel 6500 5050 2    50   Output ~ 0
-COND2
-Text HLabel 6500 5150 2    50   Output ~ 0
-COND1
 Text HLabel 6500 5350 2    50   Output ~ 0
 COND0
 Text Label 6400 5350 2    50   ~ 0
 COND0
-Text Label 6400 5150 2    50   ~ 0
-COND1
-Text Label 6400 5050 2    50   ~ 0
-COND2
-Text Label 6400 4950 2    50   ~ 0
-COND3
 Text Label 6400 4850 2    50   ~ 0
+COND3
+Text Label 6400 4950 2    50   ~ 0
 COND4
 Text Label 6400 4750 2    50   ~ 0
 ACTION0
@@ -855,28 +847,6 @@ F 3 "~" H 5700 4950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R_Small R1715
-U 1 1 5F51708D
-P 5700 5050
-F 0 "R1715" V 5650 5200 50  0000 C CNN
-F 1 "0Ω/30Ω" V 5450 5050 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5700 5050 50  0001 C CNN
-F 3 "~" H 5700 5050 50  0001 C CNN
-	1    5700 5050
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1717
-U 1 1 5F517093
-P 5700 5150
-F 0 "R1717" V 5650 5300 50  0000 C CNN
-F 1 "0Ω/30Ω" V 5450 5150 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5700 5150 50  0001 C CNN
-F 3 "~" H 5700 5150 50  0001 C CNN
-	1    5700 5150
-	0    1    1    0   
-$EndComp
-$Comp
 L Device:R_Small R1719
 U 1 1 5F517099
 P 5700 5250
@@ -1015,13 +985,9 @@ Text Label 9000 3350 1    50   ~ 0
 Wire Wire Line
 	5800 5350 6500 5350
 Wire Wire Line
-	5800 5150 6500 5150
-Wire Wire Line
-	5800 5050 6500 5050
+	5800 4850 6500 4850
 Wire Wire Line
 	5800 4950 6500 4950
-Wire Wire Line
-	5800 4850 6500 4850
 Wire Wire Line
 	5800 4750 6500 4750
 $Comp
@@ -1340,72 +1306,45 @@ Wire Wire Line
 Wire Wire Line
 	4250 5350 4550 5350
 Wire Wire Line
-	4250 5150 4550 5150
-Wire Wire Line
-	4250 5050 4550 5050
-Wire Wire Line
-	4250 4950 4550 4950
-Wire Wire Line
-	4250 4850 4550 4850
-Wire Wire Line
 	4250 4750 4550 4750
 Text Label 4300 5450 0    50   ~ 0
 µCV8
 Text Label 4300 5250 0    50   ~ 0
 µCV9
-Text Label 4300 5150 0    50   ~ 0
-µCV11
-Text Label 4300 5050 0    50   ~ 0
-µCV12
-Text Label 4300 4950 0    50   ~ 0
-µCV13
-Text Label 4300 4850 0    50   ~ 0
-µCV14
 Text Label 4300 4750 0    50   ~ 0
 µCV15
 Text Label 3100 3350 1    50   ~ 0
 µCV[0..7]
+Wire Wire Line
+	10700 2950 10900 2950
 Wire Wire Line
 	10700 3050 10900 3050
 Wire Wire Line
 	10700 3150 10900 3150
 Wire Wire Line
 	10700 2850 10900 2850
-Wire Wire Line
-	10700 2950 10900 2950
-Text HLabel 10900 2950 2    50   Output ~ 0
+Text HLabel 10900 2850 2    50   Output ~ 0
 ~WEN
-Text HLabel 10900 3150 2    50   Output ~ 0
-~IO
 Text HLabel 10900 3050 2    50   Output ~ 0
+~IO
+Text HLabel 10900 2950 2    50   Output ~ 0
 ~MEM
 $Comp
 L Device:R_Small R1704
 U 1 1 5F5592CF
-P 10600 3150
-F 0 "R1704" V 10550 3300 50  0000 C CNN
-F 1 "0Ω/30Ω" V 10150 3150 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10600 3150 50  0001 C CNN
-F 3 "~" H 10600 3150 50  0001 C CNN
-	1    10600 3150
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1703
-U 1 1 5F5592C9
 P 10600 3050
-F 0 "R1703" V 10550 3200 50  0000 C CNN
-F 1 "0Ω/30Ω" V 10350 3050 50  0001 C CNN
+F 0 "R1704" V 10550 3200 50  0000 C CNN
+F 1 "0Ω/30Ω" V 10250 3050 50  0000 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10600 3050 50  0001 C CNN
 F 3 "~" H 10600 3050 50  0001 C CNN
 	1    10600 3050
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R_Small R1702
-U 1 1 5F5592C3
+L Device:R_Small R1703
+U 1 1 5F5592C9
 P 10600 2950
-F 0 "R1702" V 10550 3100 50  0000 C CNN
+F 0 "R1703" V 10550 3100 50  0000 C CNN
 F 1 "0Ω/30Ω" V 10350 2950 50  0001 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10600 2950 50  0001 C CNN
 F 3 "~" H 10600 2950 50  0001 C CNN
@@ -1413,23 +1352,34 @@ F 3 "~" H 10600 2950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R_Small R1701
-U 1 1 5F5592BD
+L Device:R_Small R1702
+U 1 1 5F5592C3
 P 10600 2850
-F 0 "R1701" V 10550 3000 50  0000 C CNN
+F 0 "R1702" V 10550 3000 50  0000 C CNN
 F 1 "0Ω/30Ω" V 10350 2850 50  0001 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10600 2850 50  0001 C CNN
 F 3 "~" H 10600 2850 50  0001 C CNN
 	1    10600 2850
 	0    1    1    0   
 $EndComp
-Text Label 9100 3500 0    50   ~ 0
-~MEM0
-Text Label 9100 3600 0    50   ~ 0
-~IO0
-Text Label 9100 3300 0    50   ~ 0
-~R0
+$Comp
+L Device:R_Small R1701
+U 1 1 5F5592BD
+P 10600 3150
+F 0 "R1701" V 10550 3300 50  0000 C CNN
+F 1 "0Ω/30Ω" V 10350 3150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10600 3150 50  0001 C CNN
+F 3 "~" H 10600 3150 50  0001 C CNN
+	1    10600 3150
+	0    1    1    0   
+$EndComp
 Text Label 9100 3400 0    50   ~ 0
+~MEM0
+Text Label 9100 3500 0    50   ~ 0
+~IO0
+Text Label 9100 3600 0    50   ~ 0
+~R0
+Text Label 9100 3300 0    50   ~ 0
 ~WEN0
 Text Notes 9200 4550 0    50   ~ 0
 The '157 mux disables bus transactions\nduring ~NRSTHOLD~ to ensure undefined\ncontrol signals don't have unforeseen\nside effects on peripherals.
@@ -1515,13 +1465,13 @@ Connection ~ 9400 3050
 Wire Wire Line
 	9400 3050 9400 3150
 Wire Wire Line
-	9450 3400 9100 3400
-Wire Wire Line
 	9450 3300 9100 3300
 Wire Wire Line
-	9450 3500 9100 3500
-Wire Wire Line
 	9450 3600 9100 3600
+Wire Wire Line
+	9450 3400 9100 3400
+Wire Wire Line
+	9450 3500 9100 3500
 $Comp
 L power:GND #PWR01710
 U 1 1 5F4B072A
@@ -1541,7 +1491,7 @@ Wire Wire Line
 	9450 3750 9100 3750
 Text Label 9100 3750 0    50   ~ 0
 ~RSTHOLD
-Text HLabel 10900 2850 2    50   Output ~ 0
+Text HLabel 10900 3150 2    50   Output ~ 0
 ~R
 $Comp
 L alexios:74AC157 U1704
@@ -1890,6 +1840,56 @@ Text Notes 3500 4400 2    50   ~ 10
 NOTE: '574 pins are out of order for easier routing!
 Text Label 4300 5350 0    50   ~ 0
 µCV10
+Text HLabel 6500 5150 2    50   Output ~ 0
+COND2
+Text HLabel 6500 5050 2    50   Output ~ 0
+COND1
+Text Label 6400 5050 2    50   ~ 0
+COND1
+Text Label 6400 5150 2    50   ~ 0
+COND2
+Wire Wire Line
+	5800 5050 6500 5050
+Wire Wire Line
+	5800 5150 6500 5150
+$Comp
+L Device:R_Small R1717
+U 1 1 5F517093
+P 5700 5050
+F 0 "R1717" V 5650 5200 50  0000 C CNN
+F 1 "0Ω/30Ω" V 5450 5050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5700 5050 50  0001 C CNN
+F 3 "~" H 5700 5050 50  0001 C CNN
+	1    5700 5050
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Small R1715
+U 1 1 5F51708D
+P 5700 5150
+F 0 "R1715" V 5650 5300 50  0000 C CNN
+F 1 "0Ω/30Ω" V 5450 5150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5700 5150 50  0001 C CNN
+F 3 "~" H 5700 5150 50  0001 C CNN
+	1    5700 5150
+	0    1    -1   0   
+$EndComp
+Text Label 4300 5150 0    50   ~ 0
+µCV12
+Text Label 4300 5050 0    50   ~ 0
+µCV11
+Wire Wire Line
+	4250 5150 4550 5150
+Wire Wire Line
+	4250 5050 4550 5050
+Text Label 4300 4950 0    50   ~ 0
+µCV14
+Text Label 4300 4850 0    50   ~ 0
+µCV13
+Wire Wire Line
+	4250 4950 4550 4950
+Wire Wire Line
+	4250 4850 4550 4850
 Wire Bus Line
 	9000 1900 9000 4050
 Wire Bus Line

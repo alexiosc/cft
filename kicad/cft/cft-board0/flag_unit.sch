@@ -213,130 +213,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8100 19
 	1    8100 1950
 	1    0    0    -1  
 $EndComp
-Text Label 2700 3150 1    50   ~ 0
-WADDR[0..4]
-Text Label 2700 4550 1    50   ~ 0
-RADDR[0..4]
-Text Label 2000 3700 0    50   ~ 0
-RADDR[0..4]
-Text Label 2000 2400 0    50   ~ 0
-WADDR[0..4]
-Wire Bus Line
-	1900 3700 2600 3700
-Wire Bus Line
-	1900 2400 2600 2400
-Entry Bus Bus
-	2600 3700 2700 3800
-Entry Bus Bus
-	2600 2400 2700 2500
-Entry Wire Line
-	2700 4550 2800 4650
-Entry Wire Line
-	2700 4450 2800 4550
-Entry Wire Line
-	2700 4050 2800 4150
-Entry Wire Line
-	2700 3950 2800 4050
-Entry Wire Line
-	2700 3850 2800 3950
-Entry Wire Line
-	2700 3250 2800 3350
-Entry Wire Line
-	2700 3150 2800 3250
-Entry Wire Line
-	2700 2750 2800 2850
-Entry Wire Line
-	2700 2650 2800 2750
-Entry Wire Line
-	2700 2550 2800 2650
-Wire Wire Line
-	3150 2650 2800 2650
-Wire Wire Line
-	3150 2750 2800 2750
-Wire Wire Line
-	2800 2850 3150 2850
-Wire Wire Line
-	3150 3950 2800 3950
-Wire Wire Line
-	3150 4050 2800 4050
-Wire Wire Line
-	2800 4150 3150 4150
-Wire Wire Line
-	3150 4650 2800 4650
-Wire Wire Line
-	3150 4550 2800 4550
-Text Label 6250 3250 0    50   ~ 0
-~FLAGWE
-NoConn ~ 4150 4350
-NoConn ~ 4150 4250
-NoConn ~ 4150 4150
-NoConn ~ 4150 4050
-NoConn ~ 4150 3950
-NoConn ~ 4150 3050
-NoConn ~ 4150 2950
-NoConn ~ 4150 2850
-NoConn ~ 4150 2750
-NoConn ~ 4150 2650
-Text Label 2800 4650 0    50   ~ 0
-RADDR4
-Text Label 2800 4550 0    50   ~ 0
-RADDR3
-Text Label 2800 4150 0    50   ~ 0
-RADDR2
-Text Label 2800 4050 0    50   ~ 0
-RADDR1
-Text Label 2800 3950 0    50   ~ 0
-RADDR0
-$Comp
-L alexios:74HC138 U?
-U 1 1 5D676FFB
-P 3650 4350
-AR Path="/5F3EA987/5D676FFB" Ref="U?"  Part="1" 
-AR Path="/5D676FFB" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5D676FFB" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D676FFB" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FFB" Ref="U1204"  Part="1" 
-F 0 "U1204" H 3650 5017 50  0000 C CNN
-F 1 "74HC138" H 3650 4926 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 3650 4350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3650 4350 50  0001 C CNN
-	1    3650 4350
-	1    0    0    -1  
-$EndComp
-Text Notes 3700 4600 1    50   ~ 10
-RADDR=01xxx
-Text Label 4900 3250 2    50   ~ 0
-~WRITE-FLAGS
-Text Label 4900 3150 2    50   ~ 0
-~WRITE-MBP+FLAGS
-Text Label 2800 2850 0    50   ~ 0
-WADDR2
-Text Label 2800 2750 0    50   ~ 0
-WADDR1
-Text Label 2800 2650 0    50   ~ 0
-WADDR0
-$Comp
-L alexios:74HC138 U?
-U 1 1 5D67700F
-P 3650 3050
-AR Path="/5F3EA987/5D67700F" Ref="U?"  Part="1" 
-AR Path="/5D67700F" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5D67700F" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D67700F" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D67700F" Ref="U1202"  Part="1" 
-F 0 "U1202" H 3650 3717 50  0000 C CNN
-F 1 "74HC138" H 3650 3626 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 3650 3050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3650 3050 50  0001 C CNN
-	1    3650 3050
-	1    0    0    -1  
-$EndComp
-Text Notes 3700 3300 1    50   ~ 10
-WADDR=011xx
-Text HLabel 1900 2400 0    50   Input ~ 0
-WADDR[0..4]
-Text HLabel 1900 3700 0    50   Input ~ 0
-RADDR[0..4]
 Wire Wire Line
 	7600 1650 7150 1650
 Wire Wire Line
@@ -369,12 +245,6 @@ Text HLabel 1900 5100 0    50   Input ~ 0
 FZ
 Text HLabel 1900 5000 0    50   Input ~ 0
 FN
-Text HLabel 9800 3250 2    50   Output ~ 0
-~FLAGWE
-Wire Wire Line
-	6650 2350 7600 2350
-Text Label 6650 2900 1    50   ~ 0
-~FLAGOE
 Text Label 6750 2900 1    50   ~ 0
 FI
 Text Label 6850 2900 1    50   ~ 0
@@ -397,27 +267,6 @@ Text Label 2000 5500 0    50   ~ 0
 FI
 Text Label 7250 5400 0    50   ~ 0
 FPRSVD14
-Wire Wire Line
-	2800 3250 3150 3250
-Wire Wire Line
-	2800 3350 3150 3350
-Text Label 2800 3250 0    50   ~ 0
-WADDR3
-Text Label 2800 3350 0    50   ~ 0
-WADDR4
-$Comp
-L power:GND #PWR01206
-U 1 1 5DFDCB26
-P 3150 4750
-F 0 "#PWR01206" H 3150 4500 50  0001 C CNN
-F 1 "GND" H 3155 4577 50  0000 C CNN
-F 2 "" H 3150 4750 50  0001 C CNN
-F 3 "" H 3150 4750 50  0001 C CNN
-	1    3150 4750
-	1    0    0    -1  
-$EndComp
-Text Notes 4350 3900 0    50   ~ 0
-RADDR or WADDR = 01101 → Read/Write MBP & Flags\nRADDR or WADDR = 01110 → Read/Write Flags
 Text Label 8650 4800 0    50   ~ 0
 FPD0
 Text Label 8650 4900 0    50   ~ 0
@@ -556,144 +405,12 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 9900 5250 50  0001 C CNN
 $EndComp
 Connection ~ 9550 5350
 Connection ~ 9550 5150
-Text HLabel 4900 3400 0    50   Input ~ 0
-CLK4
-Text Label 5100 3400 0    50   ~ 0
-CLK4
 Text Notes 7500 4400 0    98   ~ 20
 Front Panel Buffer
 Wire Wire Line
 	8600 2050 8950 2050
-Wire Wire Line
-	6200 3250 9800 3250
 Text Notes 7650 2950 0    98   ~ 20
 IBus Buffer
-$Comp
-L alexios:74HC138 U?
-U 2 1 5E5A9D24
-P 1400 6550
-AR Path="/5F3EA987/5E5A9D24" Ref="U?"  Part="1" 
-AR Path="/5E5A9D24" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5E5A9D24" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5E5A9D24" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5E5A9D24" Ref="U1202"  Part="2" 
-F 0 "U1202" H 1579 6596 50  0000 L CNN
-F 1 "74HC138" H 1579 6505 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 1400 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1400 6550 50  0001 C CNN
-	2    1400 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 2 1 5E5A9E50
-P 2900 6550
-AR Path="/5F3EA987/5E5A9E50" Ref="U?"  Part="1" 
-AR Path="/5E5A9E50" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5E5A9E50" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5E5A9E50" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5E5A9E50" Ref="U1204"  Part="2" 
-F 0 "U1204" H 3079 6596 50  0000 L CNN
-F 1 "74HC138" H 3079 6505 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2900 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2900 6550 50  0001 C CNN
-	2    2900 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E5AF321
-P 1050 6450
-AR Path="/5F4B0011/5E5AF321" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5E5AF321" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5E5AF321" Ref="#PWR01211"  Part="1" 
-F 0 "#PWR01211" H 1050 6300 50  0001 C CNN
-F 1 "+5V" H 1065 6623 50  0000 C CNN
-F 2 "" H 1050 6450 50  0001 C CNN
-F 3 "" H 1050 6450 50  0001 C CNN
-	1    1050 6450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E5AF327
-P 1050 6650
-AR Path="/5E5AF327" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/5E5AF327" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5E5AF327" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5E5AF327" Ref="#PWR01213"  Part="1" 
-F 0 "#PWR01213" H 1050 6400 50  0001 C CNN
-F 1 "GND" H 1055 6477 50  0000 C CNN
-F 2 "" H 1050 6650 50  0001 C CNN
-F 3 "" H 1050 6650 50  0001 C CNN
-	1    1050 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E5AF32D
-P 1050 6550
-AR Path="/5CC0D65F/5E5AF32D" Ref="C?"  Part="1" 
-AR Path="/5E5AF32D" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5E5AF32D" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5E5AF32D" Ref="C?"  Part="1" 
-AR Path="/5D69F3FD/5E5AF32D" Ref="C1203"  Part="1" 
-F 0 "C1203" H 959 6596 50  0000 R CNN
-F 1 "100nF" H 959 6505 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 6550 50  0001 C CNN
-F 3 "~" H 1050 6550 50  0001 C CNN
-	1    1050 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E5B19FE
-P 2550 6450
-AR Path="/5F4B0011/5E5B19FE" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5E5B19FE" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5E5B19FE" Ref="#PWR01212"  Part="1" 
-F 0 "#PWR01212" H 2550 6300 50  0001 C CNN
-F 1 "+5V" H 2565 6623 50  0000 C CNN
-F 2 "" H 2550 6450 50  0001 C CNN
-F 3 "" H 2550 6450 50  0001 C CNN
-	1    2550 6450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E5B1A04
-P 2550 6650
-AR Path="/5E5B1A04" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/5E5B1A04" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5E5B1A04" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5E5B1A04" Ref="#PWR01214"  Part="1" 
-F 0 "#PWR01214" H 2550 6400 50  0001 C CNN
-F 1 "GND" H 2555 6477 50  0000 C CNN
-F 2 "" H 2550 6650 50  0001 C CNN
-F 3 "" H 2550 6650 50  0001 C CNN
-	1    2550 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E5B1A0A
-P 2550 6550
-AR Path="/5CC0D65F/5E5B1A0A" Ref="C?"  Part="1" 
-AR Path="/5E5B1A0A" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5E5B1A0A" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5E5B1A0A" Ref="C?"  Part="1" 
-AR Path="/5D69F3FD/5E5B1A0A" Ref="C1204"  Part="1" 
-F 0 "C1204" H 2459 6596 50  0000 R CNN
-F 1 "100nF" H 2459 6505 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 6550 50  0001 C CNN
-F 3 "~" H 2550 6550 50  0001 C CNN
-	1    2550 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 2550 6450
-Connection ~ 2550 6650
-Connection ~ 1050 6450
-Connection ~ 1050 6650
 Connection ~ 6850 5300
 Connection ~ 6950 5200
 Connection ~ 7050 5100
@@ -710,84 +427,6 @@ Text Notes 1350 1950 0    50   ~ 0
 The flag unit collects the values of all the flags in the processor and puts them on the IBus. This is used by the\ncontrol unit to store flags onto the stack, which is necessary to implement subrouines and interrupts.\n\nIt can also read some of these flags and update them. Not all flags can be updated this way. The Link (L)\nflag/register, Interrupt flag (I), and Overflow (V) flag can be written to this way. The Negative (N) and\nZero (Z) flags are read-only because they depend directly on the value of the AC. They are automatically\nrestored when the AC is popped from the stack.\n\nSince all flags are implemented in their respective units, this unit simply provides a ~FLAGWE~ strobe which\nindividual flags can use to set themselves from the appropriate IBUS signal.
 Text Notes 1350 1000 0    98   ~ 20
 The Flag Unit
-$Comp
-L power:GND #PWR01205
-U 1 1 5E5FF3C3
-P 3150 3450
-F 0 "#PWR01205" H 3150 3200 50  0001 C CNN
-F 1 "GND" H 3155 3277 50  0000 C CNN
-F 2 "" H 3150 3450 50  0001 C CNN
-F 3 "" H 3150 3450 50  0001 C CNN
-	1    3150 3450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4150 4650 7250 4650
-Wire Wire Line
-	7250 4050 9800 4050
-Text Label 4250 4650 0    50   ~ 0
-~READ-AGL
-Text HLabel 9800 4050 2    50   Output ~ 0
-~READ-AGL
-Text Label 9700 3250 2    50   ~ 0
-~FLAGWE
-Text Label 9700 4050 2    50   ~ 0
-~READ-AGL
-$Comp
-L power:+5V #PWR?
-U 1 1 5EF39B94
-P 1050 7150
-AR Path="/5F4B0011/5EF39B94" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5EF39B94" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5EF39B94" Ref="#PWR01215"  Part="1" 
-F 0 "#PWR01215" H 1050 7000 50  0001 C CNN
-F 1 "+5V" H 1065 7323 50  0000 C CNN
-F 2 "" H 1050 7150 50  0001 C CNN
-F 3 "" H 1050 7150 50  0001 C CNN
-	1    1050 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5EF39B9A
-P 1050 7350
-AR Path="/5EF39B9A" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/5EF39B9A" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5EF39B9A" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5EF39B9A" Ref="#PWR01216"  Part="1" 
-F 0 "#PWR01216" H 1050 7100 50  0001 C CNN
-F 1 "GND" H 1055 7177 50  0000 C CNN
-F 2 "" H 1050 7350 50  0001 C CNN
-F 3 "" H 1050 7350 50  0001 C CNN
-	1    1050 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5EF39BA0
-P 1050 7250
-AR Path="/5CC0D65F/5EF39BA0" Ref="C?"  Part="1" 
-AR Path="/5EF39BA0" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5EF39BA0" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5EF39BA0" Ref="C?"  Part="1" 
-AR Path="/5D69F3FD/5EF39BA0" Ref="C1205"  Part="1" 
-F 0 "C1205" H 959 7296 50  0000 R CNN
-F 1 "100nF" H 959 7205 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 7250 50  0001 C CNN
-F 3 "~" H 1050 7250 50  0001 C CNN
-	1    1050 7250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4150 3350 4400 3350
-Wire Wire Line
-	4400 3350 4400 3650
-Wire Wire Line
-	4400 3650 9800 3650
-Text HLabel 9800 3650 2    50   Output ~ 0
-~WRITE-IR
-Text Label 9700 3650 2    50   ~ 0
-~WRITE-IR
 Connection ~ 6750 5500
 Wire Wire Line
 	6750 2150 6750 5500
@@ -845,53 +484,12 @@ Wire Wire Line
 	6150 1550 7600 1550
 Text Notes 6150 1150 0    50   ~ 0
 These traces are named, but connected to ground directly.\nThe traces on the board are long so they can be cut and the\nsignals repurposed (e.g. tied to Vcc).
-Wire Wire Line
-	4150 3150 5450 3150
-$Comp
-L alexios:74LVC1G0832 U1203
-U 1 1 5EE068C9
-P 5800 3250
-F 0 "U1203" H 5825 3564 50  0000 C CNN
-F 1 "74LVC1G0832" H 5825 3473 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 5800 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 5800 3250 50  0001 C CNN
-	1    5800 3250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4150 3250 5450 3250
-Wire Wire Line
-	5400 3350 5400 3400
-Wire Wire Line
-	5400 3400 4900 3400
-Wire Wire Line
-	5400 3350 5450 3350
-$Comp
-L alexios:74LVC1G0832 U1203
-U 2 1 5EE2A72B
-P 1400 7250
-F 0 "U1203" H 1580 7204 50  0000 L CNN
-F 1 "74LVC1G0832" H 1580 7295 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 1400 7250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 1400 7250 50  0001 C CNN
-	2    1400 7250
-	1    0    0    -1  
-$EndComp
-Text Label 4250 4450 0    50   ~ 0
+Text Label 2000 2350 0    50   ~ 0
 ~FLAGOE
+Text HLabel 1950 2350 0    50   Input ~ 0
+~READ_FLAGS
 Wire Wire Line
-	4150 4450 6650 4450
-Wire Wire Line
-	7250 4650 7250 4050
-Wire Wire Line
-	6650 2350 6650 4450
-NoConn ~ 4150 4550
-Connection ~ 1050 7150
-Connection ~ 1050 7350
-Wire Bus Line
-	2700 3800 2700 4550
-Wire Bus Line
-	2700 2500 2700 3250
+	1950 2350 7600 2350
 Wire Bus Line
 	9050 4900 9050 6150
 Wire Bus Line
