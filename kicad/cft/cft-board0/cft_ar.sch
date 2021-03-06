@@ -27,22 +27,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4150 1750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4650 1250 4850 1250
-Wire Wire Line
-	4650 1350 4850 1350
-Wire Wire Line
-	4650 1450 4850 1450
-Wire Wire Line
-	4650 1550 4850 1550
-Wire Wire Line
-	4650 1650 4850 1650
-Wire Wire Line
-	4650 1750 4850 1750
-Wire Wire Line
-	4650 1850 4850 1850
-Wire Wire Line
-	4650 1950 4850 1950
-Wire Wire Line
 	4650 2900 4850 2900
 Wire Wire Line
 	4650 3000 4850 3000
@@ -58,22 +42,6 @@ Wire Wire Line
 	4650 3500 4850 3500
 Wire Wire Line
 	4650 3600 4850 3600
-Text Label 4650 1250 0    50   ~ 0
-AR0
-Text Label 4650 1350 0    50   ~ 0
-AR1
-Text Label 4650 1450 0    50   ~ 0
-AR2
-Text Label 4650 1550 0    50   ~ 0
-AR3
-Text Label 4650 1650 0    50   ~ 0
-AR4
-Text Label 4650 1750 0    50   ~ 0
-AR5
-Text Label 4650 1850 0    50   ~ 0
-AR6
-Text Label 4650 1950 0    50   ~ 0
-AR7
 Text Label 4650 2900 0    50   ~ 0
 AR8
 Text Label 4650 3000 0    50   ~ 0
@@ -90,22 +58,6 @@ Text Label 4650 3500 0    50   ~ 0
 AR14
 Text Label 4650 3600 0    50   ~ 0
 AR15
-Wire Wire Line
-	5050 1250 5250 1250
-Wire Wire Line
-	5050 1350 5250 1350
-Wire Wire Line
-	5050 1450 5250 1450
-Wire Wire Line
-	5050 1550 5250 1550
-Wire Wire Line
-	5050 1650 5250 1650
-Wire Wire Line
-	5050 1750 5250 1750
-Wire Wire Line
-	5050 1850 5250 1850
-Wire Wire Line
-	5050 1950 5250 1950
 Wire Wire Line
 	5050 2900 5250 2900
 Wire Wire Line
@@ -135,22 +87,6 @@ F 3 "" H 3650 3900 50  0001 C CNN
 	1    3650 3900
 	1    0    0    -1  
 $EndComp
-Text Label 5250 1250 2    50   ~ 0
-AR0
-Text Label 5250 1350 2    50   ~ 0
-AR1
-Text Label 5250 1450 2    50   ~ 0
-AR2
-Text Label 5250 1550 2    50   ~ 0
-AR3
-Text Label 5250 1650 2    50   ~ 0
-AR4
-Text Label 5250 1750 2    50   ~ 0
-AR5
-Text Label 5250 1850 2    50   ~ 0
-AR6
-Text Label 5250 1950 2    50   ~ 0
-AR7
 Text Label 5250 2900 2    50   ~ 0
 AR8
 Text Label 5250 3000 2    50   ~ 0
@@ -167,22 +103,6 @@ Text Label 5250 3500 2    50   ~ 0
 AR14
 Text Label 5250 3600 2    50   ~ 0
 AR15
-Wire Wire Line
-	6250 1250 6500 1250
-Wire Wire Line
-	6250 1350 6500 1350
-Wire Wire Line
-	6250 1450 6500 1450
-Wire Wire Line
-	6250 1550 6500 1550
-Wire Wire Line
-	6250 1650 6500 1650
-Wire Wire Line
-	6250 1750 6500 1750
-Wire Wire Line
-	6250 1850 6500 1850
-Wire Wire Line
-	6250 1950 6500 1950
 Wire Wire Line
 	6250 2900 6500 2900
 Wire Wire Line
@@ -215,38 +135,6 @@ Wire Wire Line
 	3300 3500 3650 3500
 Wire Wire Line
 	3300 3600 3650 3600
-Wire Wire Line
-	3300 1250 3650 1250
-Wire Wire Line
-	3300 1350 3650 1350
-Wire Wire Line
-	3300 1450 3650 1450
-Wire Wire Line
-	3300 1550 3650 1550
-Wire Wire Line
-	3300 1650 3650 1650
-Wire Wire Line
-	3300 1750 3650 1750
-Wire Wire Line
-	3300 1850 3650 1850
-Wire Wire Line
-	3300 1950 3650 1950
-Text Label 3650 1250 2    50   ~ 0
-IBUS0
-Text Label 3650 1350 2    50   ~ 0
-IBUS1
-Text Label 3650 1450 2    50   ~ 0
-IBUS2
-Text Label 3650 1550 2    50   ~ 0
-IBUS3
-Text Label 3650 1650 2    50   ~ 0
-IBUS4
-Text Label 3650 1750 2    50   ~ 0
-IBUS5
-Text Label 3650 1850 2    50   ~ 0
-IBUS6
-Text Label 3650 1950 2    50   ~ 0
-IBUS7
 Text Label 3650 2900 2    50   ~ 0
 IBUS8
 Text Label 3650 3000 2    50   ~ 0
@@ -354,22 +242,6 @@ Entry Wire Line
 	6500 3500 6600 3600
 Entry Wire Line
 	6500 3600 6600 3700
-Text Label 6250 1250 0    50   ~ 0
-AB0
-Text Label 6250 1350 0    50   ~ 0
-AB1
-Text Label 6250 1450 0    50   ~ 0
-AB2
-Text Label 6250 1550 0    50   ~ 0
-AB3
-Text Label 6250 1650 0    50   ~ 0
-AB4
-Text Label 6250 1750 0    50   ~ 0
-AB5
-Text Label 6250 1850 0    50   ~ 0
-AB6
-Text Label 6250 1950 0    50   ~ 0
-AB7
 Text Label 6250 2900 0    50   ~ 0
 AB8
 Text Label 6250 3000 0    50   ~ 0
@@ -575,38 +447,6 @@ Wire Wire Line
 Text HLabel 1000 1500 0    50   Input ~ 0
 AEXT[0..7]
 Wire Wire Line
-	4650 4600 4850 4600
-Wire Wire Line
-	4650 4700 4850 4700
-Wire Wire Line
-	4650 4800 4850 4800
-Wire Wire Line
-	4650 4900 4850 4900
-Wire Wire Line
-	4650 5000 4850 5000
-Wire Wire Line
-	4650 5100 4850 5100
-Wire Wire Line
-	4650 5200 4850 5200
-Wire Wire Line
-	4650 5300 4850 5300
-Text Label 4650 4600 0    50   ~ 0
-AR16
-Text Label 4650 4700 0    50   ~ 0
-AR17
-Text Label 4650 4800 0    50   ~ 0
-AR18
-Text Label 4650 4900 0    50   ~ 0
-AR19
-Text Label 4650 5000 0    50   ~ 0
-AR20
-Text Label 4650 5100 0    50   ~ 0
-AR21
-Text Label 4650 5200 0    50   ~ 0
-AR22
-Text Label 4650 5300 0    50   ~ 0
-AR23
-Wire Wire Line
 	5250 4600 5050 4600
 Wire Wire Line
 	5250 4700 5050 4700
@@ -703,8 +543,8 @@ U 1 1 5D344142
 P 900 6750
 AR Path="/5CC0D65F/5D344142" Ref="C?"  Part="1" 
 AR Path="/5D344142" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5D344142" Ref="C404"  Part="1" 
-F 0 "C404" H 809 6796 50  0000 R CNN
+AR Path="/5CC06F10/5D344142" Ref="C402"  Part="1" 
+F 0 "C402" H 809 6796 50  0000 R CNN
 F 1 "100nF" H 809 6705 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 6750 50  0001 C CNN
 F 3 "~" H 900 6750 50  0001 C CNN
@@ -731,8 +571,8 @@ U 1 1 5D34414E
 P 2300 6750
 AR Path="/5CC0D65F/5D34414E" Ref="C?"  Part="1" 
 AR Path="/5D34414E" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5D34414E" Ref="C405"  Part="1" 
-F 0 "C405" H 2209 6796 50  0000 R CNN
+AR Path="/5CC06F10/5D34414E" Ref="C406"  Part="1" 
+F 0 "C406" H 2209 6796 50  0000 R CNN
 F 1 "100nF" H 2209 6705 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2300 6750 50  0001 C CNN
 F 3 "~" H 2300 6750 50  0001 C CNN
@@ -759,8 +599,8 @@ U 1 1 5D34415A
 P 900 7400
 AR Path="/5CC0D65F/5D34415A" Ref="C?"  Part="1" 
 AR Path="/5D34415A" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5D34415A" Ref="C407"  Part="1" 
-F 0 "C407" H 809 7446 50  0000 R CNN
+AR Path="/5CC06F10/5D34415A" Ref="C403"  Part="1" 
+F 0 "C403" H 809 7446 50  0000 R CNN
 F 1 "100nF" H 809 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
 F 3 "~" H 900 7400 50  0001 C CNN
@@ -787,8 +627,8 @@ U 1 1 5D344166
 P 2300 7400
 AR Path="/5CC0D65F/5D344166" Ref="C?"  Part="1" 
 AR Path="/5D344166" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5D344166" Ref="C408"  Part="1" 
-F 0 "C408" H 2209 7446 50  0000 R CNN
+AR Path="/5CC06F10/5D344166" Ref="C407"  Part="1" 
+F 0 "C407" H 2209 7446 50  0000 R CNN
 F 1 "100nF" H 2209 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2300 7400 50  0001 C CNN
 F 3 "~" H 2300 7400 50  0001 C CNN
@@ -901,8 +741,8 @@ U 1 1 5D34419E
 P 3700 6750
 AR Path="/5CC0D65F/5D34419E" Ref="C?"  Part="1" 
 AR Path="/5D34419E" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5D34419E" Ref="C406"  Part="1" 
-F 0 "C406" H 3609 6796 50  0000 R CNN
+AR Path="/5CC06F10/5D34419E" Ref="C408"  Part="1" 
+F 0 "C408" H 3609 6796 50  0000 R CNN
 F 1 "100nF" H 3609 6705 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3700 6750 50  0001 C CNN
 F 3 "~" H 3700 6750 50  0001 C CNN
@@ -1688,8 +1528,8 @@ U 1 1 5E3EB5F8
 P 900 5450
 AR Path="/5CC0D65F/5E3EB5F8" Ref="C?"  Part="1" 
 AR Path="/5E3EB5F8" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/5E3EB5F8" Ref="C402"  Part="1" 
-F 0 "C402" H 809 5496 50  0000 R CNN
+AR Path="/5CC06F10/5E3EB5F8" Ref="C404"  Part="1" 
+F 0 "C404" H 809 5496 50  0000 R CNN
 F 1 "100nF" H 809 5405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 5450 50  0001 C CNN
 F 3 "~" H 900 5450 50  0001 C CNN
@@ -1715,8 +1555,8 @@ U 1 1 604EA909
 P 900 6100
 AR Path="/5CC0D65F/604EA909" Ref="C?"  Part="1" 
 AR Path="/604EA909" Ref="C?"  Part="1" 
-AR Path="/5CC06F10/604EA909" Ref="C403"  Part="1" 
-F 0 "C403" H 809 6146 50  0000 R CNN
+AR Path="/5CC06F10/604EA909" Ref="C405"  Part="1" 
+F 0 "C405" H 809 6146 50  0000 R CNN
 F 1 "100nF" H 809 6055 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 6100 50  0001 C CNN
 F 3 "~" H 900 6100 50  0001 C CNN
@@ -1795,6 +1635,136 @@ Wire Notes Line
 	2000 1850 1400 1850
 Text Notes 1450 2450 0    50   ~ 0
 Optional
+Wire Wire Line
+	4700 5600 5250 5600
+Wire Wire Line
+	3300 1250 3650 1250
+Wire Wire Line
+	3300 1350 3650 1350
+Wire Wire Line
+	3300 1450 3650 1450
+Wire Wire Line
+	3300 1550 3650 1550
+Wire Wire Line
+	3300 1650 3650 1650
+Wire Wire Line
+	3300 1750 3650 1750
+Wire Wire Line
+	3300 1850 3650 1850
+Wire Wire Line
+	3300 1950 3650 1950
+Text Label 3650 1250 2    50   ~ 0
+IBUS0
+Text Label 3650 1350 2    50   ~ 0
+IBUS1
+Text Label 3650 1450 2    50   ~ 0
+IBUS2
+Text Label 3650 1550 2    50   ~ 0
+IBUS3
+Text Label 3650 1650 2    50   ~ 0
+IBUS4
+Text Label 3650 1750 2    50   ~ 0
+IBUS5
+Text Label 3650 1850 2    50   ~ 0
+IBUS6
+Text Label 3650 1950 2    50   ~ 0
+IBUS7
+Wire Wire Line
+	4650 1250 4850 1250
+Wire Wire Line
+	4650 1350 4850 1350
+Wire Wire Line
+	4650 1450 4850 1450
+Wire Wire Line
+	4650 1550 4850 1550
+Wire Wire Line
+	4650 1650 4850 1650
+Wire Wire Line
+	4650 1750 4850 1750
+Wire Wire Line
+	4650 1850 4850 1850
+Wire Wire Line
+	4650 1950 4850 1950
+Text Label 4650 1250 0    50   ~ 0
+AR0
+Text Label 4650 1350 0    50   ~ 0
+AR1
+Text Label 4650 1450 0    50   ~ 0
+AR2
+Text Label 4650 1550 0    50   ~ 0
+AR3
+Text Label 4650 1650 0    50   ~ 0
+AR4
+Text Label 4650 1750 0    50   ~ 0
+AR5
+Text Label 4650 1850 0    50   ~ 0
+AR6
+Text Label 4650 1950 0    50   ~ 0
+AR7
+Wire Wire Line
+	5050 1250 5250 1250
+Wire Wire Line
+	5050 1350 5250 1350
+Wire Wire Line
+	5050 1450 5250 1450
+Wire Wire Line
+	5050 1550 5250 1550
+Wire Wire Line
+	5050 1650 5250 1650
+Wire Wire Line
+	5050 1750 5250 1750
+Wire Wire Line
+	5050 1850 5250 1850
+Wire Wire Line
+	5050 1950 5250 1950
+Text Label 5250 1250 2    50   ~ 0
+AR0
+Text Label 5250 1350 2    50   ~ 0
+AR1
+Text Label 5250 1450 2    50   ~ 0
+AR2
+Text Label 5250 1550 2    50   ~ 0
+AR3
+Text Label 5250 1650 2    50   ~ 0
+AR4
+Text Label 5250 1750 2    50   ~ 0
+AR5
+Text Label 5250 1850 2    50   ~ 0
+AR6
+Text Label 5250 1950 2    50   ~ 0
+AR7
+Wire Wire Line
+	6250 1250 6500 1250
+Wire Wire Line
+	6250 1350 6500 1350
+Wire Wire Line
+	6250 1450 6500 1450
+Wire Wire Line
+	6250 1550 6500 1550
+Wire Wire Line
+	6250 1650 6500 1650
+Wire Wire Line
+	6250 1750 6500 1750
+Wire Wire Line
+	6250 1850 6500 1850
+Wire Wire Line
+	6250 1950 6500 1950
+Text Label 6250 1250 0    50   ~ 0
+AB0
+Text Label 6250 1350 0    50   ~ 0
+AB1
+Text Label 6250 1450 0    50   ~ 0
+AB2
+Text Label 6250 1550 0    50   ~ 0
+AB3
+Text Label 6250 1650 0    50   ~ 0
+AB4
+Text Label 6250 1750 0    50   ~ 0
+AB5
+Text Label 6250 1850 0    50   ~ 0
+AB6
+Text Label 6250 1950 0    50   ~ 0
+AB7
 Wire Bus Line
 	6900 950  6900 1200
 Wire Bus Line
@@ -1809,4 +1779,36 @@ Wire Bus Line
 	6600 1350 6600 5900
 Wire Bus Line
 	4950 950  4950 5200
+Text Label 4650 5300 0    50   ~ 0
+AR23
+Text Label 4650 5200 0    50   ~ 0
+AR22
+Text Label 4650 5100 0    50   ~ 0
+AR21
+Text Label 4650 5000 0    50   ~ 0
+AR20
+Text Label 4650 4900 0    50   ~ 0
+AR19
+Text Label 4650 4800 0    50   ~ 0
+AR18
+Text Label 4650 4700 0    50   ~ 0
+AR17
+Text Label 4650 4600 0    50   ~ 0
+AR16
+Wire Wire Line
+	4650 5300 4850 5300
+Wire Wire Line
+	4650 5200 4850 5200
+Wire Wire Line
+	4650 5100 4850 5100
+Wire Wire Line
+	4650 5000 4850 5000
+Wire Wire Line
+	4650 4900 4850 4900
+Wire Wire Line
+	4650 4800 4850 4800
+Wire Wire Line
+	4650 4700 4850 4700
+Wire Wire Line
+	4650 4600 4850 4600
 $EndSCHEMATC

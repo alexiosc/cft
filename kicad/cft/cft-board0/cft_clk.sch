@@ -14,20 +14,6 @@ Comment3 ""
 Comment4 "clock.v"
 $EndDescr
 $Comp
-L Device:C_Small C?
-U 1 1 5E3810F5
-P 2900 4950
-AR Path="/5CC0D65F/5E3810F5" Ref="C?"  Part="1" 
-AR Path="/5E3810F5" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E3810F5" Ref="C1003"  Part="1" 
-F 0 "C1003" H 2809 4996 50  0000 R CNN
-F 1 "100nF" H 2809 4905 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2900 4950 50  0001 C CNN
-F 3 "~" H 2900 4950 50  0001 C CNN
-	1    2900 4950
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5E3810FB
 P 2700 5150
@@ -125,19 +111,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8400 4500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC139 U?
-U 3 1 5E3811A3
-P 4850 7400
-AR Path="/5E3811A3" Ref="U?"  Part="3" 
-AR Path="/5E36D9C8/5E3811A3" Ref="U1003"  Part="3" 
-F 0 "U1003" H 5030 7446 50  0000 L CNN
-F 1 "74HC139" H 5030 7355 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4850 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4850 7400 50  0001 C CNN
-	3    4850 7400
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5E3811AF
 P 7850 4750
@@ -163,88 +136,6 @@ Wire Wire Line
 	7400 3700 7700 3700
 NoConn ~ 8900 4400
 NoConn ~ 8900 4700
-$Comp
-L power:GND #PWR?
-U 1 1 5E3811BF
-P 3100 7500
-AR Path="/5E3811BF" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E3811BF" Ref="#PWR01022"  Part="1" 
-F 0 "#PWR01022" H 3100 7250 50  0001 C CNN
-F 1 "GND" H 3105 7327 50  0000 C CNN
-F 2 "" H 3100 7500 50  0001 C CNN
-F 3 "" H 3100 7500 50  0001 C CNN
-	1    3100 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E3811C5
-P 4500 7500
-AR Path="/5E3811C5" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E3811C5" Ref="#PWR01023"  Part="1" 
-F 0 "#PWR01023" H 4500 7250 50  0001 C CNN
-F 1 "GND" H 4505 7327 50  0000 C CNN
-F 2 "" H 4500 7500 50  0001 C CNN
-F 3 "" H 4500 7500 50  0001 C CNN
-	1    4500 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E3811CB
-P 4500 7300
-AR Path="/5E3811CB" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E3811CB" Ref="#PWR01018"  Part="1" 
-F 0 "#PWR01018" H 4500 7150 50  0001 C CNN
-F 1 "+5V" H 4515 7473 50  0000 C CNN
-F 2 "" H 4500 7300 50  0001 C CNN
-F 3 "" H 4500 7300 50  0001 C CNN
-	1    4500 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E3811D1
-P 3100 7400
-AR Path="/5CC0D65F/5E3811D1" Ref="C?"  Part="1" 
-AR Path="/5E3811D1" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E3811D1" Ref="C1006"  Part="1" 
-F 0 "C1006" H 3009 7446 50  0000 R CNN
-F 1 "100nF" H 3009 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3100 7400 50  0001 C CNN
-F 3 "~" H 3100 7400 50  0001 C CNN
-	1    3100 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E3811D7
-P 4500 7400
-AR Path="/5CC0D65F/5E3811D7" Ref="C?"  Part="1" 
-AR Path="/5E3811D7" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E3811D7" Ref="C1007"  Part="1" 
-F 0 "C1007" H 4409 7446 50  0000 R CNN
-F 1 "100nF" H 4409 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4500 7400 50  0001 C CNN
-F 3 "~" H 4500 7400 50  0001 C CNN
-	1    4500 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 4500 7300
-Connection ~ 4500 7500
-$Comp
-L power:+5V #PWR?
-U 1 1 5E3811E1
-P 3100 7300
-AR Path="/5E3811E1" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E3811E1" Ref="#PWR01017"  Part="1" 
-F 0 "#PWR01017" H 3100 7150 50  0001 C CNN
-F 1 "+5V" H 3115 7473 50  0000 C CNN
-F 2 "" H 3100 7300 50  0001 C CNN
-F 3 "" H 3100 7300 50  0001 C CNN
-	1    3100 7300
-	1    0    0    -1  
-$EndComp
 Text Label 7750 3600 0    50   ~ 0
 ÷2
 Text Label 7750 3700 0    50   ~ 0
@@ -306,42 +197,6 @@ Wire Wire Line
 Wire Wire Line
 	4600 3200 4250 3200
 $Comp
-L Device:C_Small C?
-U 1 1 5CF0ABAA
-P 800 7350
-AR Path="/5CC0D65F/5CF0ABAA" Ref="C?"  Part="1" 
-AR Path="/5CF0ABAA" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5CF0ABAA" Ref="C1004"  Part="1" 
-F 0 "C1004" H 709 7396 50  0000 R CNN
-F 1 "47µF" H 709 7305 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 800 7350 50  0001 C CNN
-F 3 "~" H 800 7350 50  0001 C CNN
-	1    800  7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01015
-U 1 1 5CF0BF5E
-P 800 7250
-F 0 "#PWR01015" H 800 7100 50  0001 C CNN
-F 1 "+5V" H 815 7423 50  0000 C CNN
-F 2 "" H 800 7250 50  0001 C CNN
-F 3 "" H 800 7250 50  0001 C CNN
-	1    800  7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01020
-U 1 1 5CF0C819
-P 800 7450
-F 0 "#PWR01020" H 800 7200 50  0001 C CNN
-F 1 "GND" H 805 7277 50  0000 C CNN
-F 2 "" H 800 7450 50  0001 C CNN
-F 3 "" H 800 7450 50  0001 C CNN
-	1    800  7450
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74HC590 U?
 U 1 1 5D0FD6BA
 P 8250 1350
@@ -367,56 +222,6 @@ NoConn ~ 8750 1150
 NoConn ~ 8750 1250
 NoConn ~ 8750 1350
 NoConn ~ 8750 1450
-$Comp
-L alexios:74HC590 U1001
-U 2 1 5D0FD6CB
-P 6200 7750
-F 0 "U1001" H 6380 8146 50  0000 L CNN
-F 1 "74HC590" H 6380 8055 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 6200 7800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 6200 7800 50  0001 C CNN
-	2    6200 7750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01019
-U 1 1 5D0FD6D2
-P 5850 7300
-F 0 "#PWR01019" H 5850 7150 50  0001 C CNN
-F 1 "+5V" H 5865 7473 50  0000 C CNN
-F 2 "" H 5850 7300 50  0001 C CNN
-F 3 "" H 5850 7300 50  0001 C CNN
-	1    5850 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01024
-U 1 1 5D0FD6D8
-P 5850 7500
-F 0 "#PWR01024" H 5850 7250 50  0001 C CNN
-F 1 "GND" H 5855 7327 50  0000 C CNN
-F 2 "" H 5850 7500 50  0001 C CNN
-F 3 "" H 5850 7500 50  0001 C CNN
-	1    5850 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D0FD6DE
-P 5850 7400
-AR Path="/5CC0D65F/5D0FD6DE" Ref="C?"  Part="1" 
-AR Path="/5D0FD6DE" Ref="C?"  Part="1" 
-AR Path="/5E4DDD44/5D0FD6DE" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5D0FD6DE" Ref="C1008"  Part="1" 
-F 0 "C1008" H 5759 7446 50  0000 R CNN
-F 1 "100nF" H 5759 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5850 7400 50  0001 C CNN
-F 3 "~" H 5850 7400 50  0001 C CNN
-	1    5850 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 5850 7300
-Connection ~ 5850 7500
 Wire Wire Line
 	8900 1550 8950 1550
 Connection ~ 8900 1550
@@ -930,64 +735,6 @@ Wire Wire Line
 Text Label 10350 4500 0    50   ~ 0
 T34
 $Comp
-L power:GND #PWR?
-U 1 1 5E38112C
-P 1700 7450
-AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E38112C" Ref="#PWR01021"  Part="1" 
-F 0 "#PWR01021" H 1700 7200 50  0001 C CNN
-F 1 "GND" H 1705 7277 50  0000 C CNN
-F 2 "" H 1700 7450 50  0001 C CNN
-F 3 "" H 1700 7450 50  0001 C CNN
-	1    1700 7450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E381125
-P 1700 7350
-AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
-AR Path="/5E381125" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E381125" Ref="C1005"  Part="1" 
-F 0 "C1005" H 1609 7396 50  0000 R CNN
-F 1 "100nF" H 1609 7305 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1700 7350 50  0001 C CNN
-F 3 "~" H 1700 7350 50  0001 C CNN
-	1    1700 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E38111F
-P 1700 7250
-AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E38111F" Ref="#PWR01016"  Part="1" 
-F 0 "#PWR01016" H 1700 7100 50  0001 C CNN
-F 1 "+5V" H 1715 7423 50  0000 C CNN
-F 2 "" H 1700 7250 50  0001 C CNN
-F 3 "" H 1700 7250 50  0001 C CNN
-	1    1700 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AC191 U?
-U 2 1 5DD549AB
-P 3450 7650
-AR Path="/5CE09726/5DD549AB" Ref="U?"  Part="1" 
-AR Path="/6A313729/5DD549AB" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D0A147D/5DD549AB" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D396E91/5DD549AB" Ref="U?"  Part="1" 
-AR Path="/5E36D9C8/5DD549AB" Ref="U1004"  Part="2" 
-F 0 "U1004" H 3630 7946 50  0000 L CNN
-F 1 "74AC191" H 3630 7855 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 3425 7650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 3425 7650 50  0001 C CNN
-	2    3450 7650
-	1    0    0    -1  
-$EndComp
-Connection ~ 3100 7300
-Connection ~ 3100 7500
-$Comp
 L power:+5V #PWR?
 U 1 1 5E0821E1
 P 3900 4750
@@ -1087,20 +834,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3050 2400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
-U 1 1 5CFC28E8
-P 2550 2550
-AR Path="/5CC0D65F/5CFC28E8" Ref="C?"  Part="1" 
-AR Path="/5CFC28E8" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5CFC28E8" Ref="C1001"  Part="1" 
-F 0 "C1001" H 2459 2596 50  0000 R CNN
-F 1 "100nF" H 2459 2505 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 2550 50  0001 C CNN
-F 3 "~" H 2550 2550 50  0001 C CNN
-	1    2550 2550
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR01005
 U 1 1 5CFA0680
 P 2550 2800
@@ -1191,19 +924,6 @@ Wire Wire Line
 	7400 3600 7900 3600
 Wire Wire Line
 	8900 3900 10000 3900
-$Comp
-L alexios:74LVC1G17 U1002
-U 2 1 6157DD36
-P 1150 7250
-F 0 "U1002" H 1100 7517 50  0000 C CNN
-F 1 "74LVC1G17" H 1100 7426 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1150 7250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1150 7250 50  0001 C CNN
-	2    1150 7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 800  7450
-Connection ~ 800  7250
 Text Label 6200 4100 2    50   ~ 0
 ~RESET
 Text Label 7450 1350 0    50   ~ 0
@@ -1243,20 +963,6 @@ Wire Wire Line
 Connection ~ 2700 4800
 Wire Wire Line
 	2450 4800 2700 4800
-$Comp
-L Device:C_Small C?
-U 1 1 5E381133
-P 2450 4950
-AR Path="/5CC0D65F/5E381133" Ref="C?"  Part="1" 
-AR Path="/5E381133" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E381133" Ref="C1002"  Part="1" 
-F 0 "C1002" H 2359 4996 50  0000 R CNN
-F 1 "10µF" H 2359 4905 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 4950 50  0001 C CNN
-F 3 "~" H 2450 4950 50  0001 C CNN
-	1    2450 4950
-	1    0    0    -1  
-$EndComp
 Text HLabel 10800 4850 2    50   UnSpc ~ 0
 WSTB
 $Comp
@@ -1323,19 +1029,6 @@ F 3 "https://www.ti.com/lit/ds/symlink/cd74ac157.pdf" H 5500 5100 50  0001 C CNN
 	1    5500 5100
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74AC157 U1005
-U 2 1 604F8DAC
-P 2050 7850
-F 0 "U1005" H 2230 8396 50  0000 L CNN
-F 1 "74AC157" H 2230 8305 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2050 7850 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/cd74ac157.pdf" H 2050 7850 50  0001 C CNN
-	2    2050 7850
-	1    0    0    -1  
-$EndComp
-Connection ~ 1700 7250
-Connection ~ 1700 7450
 NoConn ~ 6000 4600
 NoConn ~ 6000 4800
 Wire Wire Line
@@ -1381,6 +1074,313 @@ F 1 "CXO_DIP8" H 3450 5176 50  0000 C CNN
 F 2 "alexios:Oscillator_DIP-8-socket" H 3500 4500 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3450 4850 50  0001 C CNN
 	1    3350 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC139 U?
+U 3 1 5E3811A3
+P 5000 7400
+AR Path="/5E3811A3" Ref="U?"  Part="3" 
+AR Path="/5E36D9C8/5E3811A3" Ref="U1003"  Part="3" 
+F 0 "U1003" H 5180 7446 50  0000 L CNN
+F 1 "74HC139" H 5180 7355 50  0000 L CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 5000 7400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5000 7400 50  0001 C CNN
+	3    5000 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3811BF
+P 3250 7500
+AR Path="/5E3811BF" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811BF" Ref="#PWR01022"  Part="1" 
+F 0 "#PWR01022" H 3250 7250 50  0001 C CNN
+F 1 "GND" H 3255 7327 50  0000 C CNN
+F 2 "" H 3250 7500 50  0001 C CNN
+F 3 "" H 3250 7500 50  0001 C CNN
+	1    3250 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3811C5
+P 4650 7500
+AR Path="/5E3811C5" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811C5" Ref="#PWR01023"  Part="1" 
+F 0 "#PWR01023" H 4650 7250 50  0001 C CNN
+F 1 "GND" H 4655 7327 50  0000 C CNN
+F 2 "" H 4650 7500 50  0001 C CNN
+F 3 "" H 4650 7500 50  0001 C CNN
+	1    4650 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E3811CB
+P 4650 7300
+AR Path="/5E3811CB" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811CB" Ref="#PWR01018"  Part="1" 
+F 0 "#PWR01018" H 4650 7150 50  0001 C CNN
+F 1 "+5V" H 4665 7473 50  0000 C CNN
+F 2 "" H 4650 7300 50  0001 C CNN
+F 3 "" H 4650 7300 50  0001 C CNN
+	1    4650 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3811D1
+P 3250 7400
+AR Path="/5CC0D65F/5E3811D1" Ref="C?"  Part="1" 
+AR Path="/5E3811D1" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3811D1" Ref="C1004"  Part="1" 
+F 0 "C1004" H 3159 7446 50  0000 R CNN
+F 1 "100nF" H 3159 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3250 7400 50  0001 C CNN
+F 3 "~" H 3250 7400 50  0001 C CNN
+	1    3250 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3811D7
+P 4650 7400
+AR Path="/5CC0D65F/5E3811D7" Ref="C?"  Part="1" 
+AR Path="/5E3811D7" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3811D7" Ref="C1003"  Part="1" 
+F 0 "C1003" H 4559 7446 50  0000 R CNN
+F 1 "100nF" H 4559 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4650 7400 50  0001 C CNN
+F 3 "~" H 4650 7400 50  0001 C CNN
+	1    4650 7400
+	1    0    0    -1  
+$EndComp
+Connection ~ 4650 7300
+Connection ~ 4650 7500
+$Comp
+L power:+5V #PWR?
+U 1 1 5E3811E1
+P 3250 7300
+AR Path="/5E3811E1" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811E1" Ref="#PWR01017"  Part="1" 
+F 0 "#PWR01017" H 3250 7150 50  0001 C CNN
+F 1 "+5V" H 3265 7473 50  0000 C CNN
+F 2 "" H 3250 7300 50  0001 C CNN
+F 3 "" H 3250 7300 50  0001 C CNN
+	1    3250 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5CF0ABAA
+P 950 7350
+AR Path="/5CC0D65F/5CF0ABAA" Ref="C?"  Part="1" 
+AR Path="/5CF0ABAA" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5CF0ABAA" Ref="C1002"  Part="1" 
+F 0 "C1002" H 859 7396 50  0000 R CNN
+F 1 "47µF" H 859 7305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7350 50  0001 C CNN
+F 3 "~" H 950 7350 50  0001 C CNN
+	1    950  7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01015
+U 1 1 5CF0BF5E
+P 950 7250
+F 0 "#PWR01015" H 950 7100 50  0001 C CNN
+F 1 "+5V" H 965 7423 50  0000 C CNN
+F 2 "" H 950 7250 50  0001 C CNN
+F 3 "" H 950 7250 50  0001 C CNN
+	1    950  7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01020
+U 1 1 5CF0C819
+P 950 7450
+F 0 "#PWR01020" H 950 7200 50  0001 C CNN
+F 1 "GND" H 955 7277 50  0000 C CNN
+F 2 "" H 950 7450 50  0001 C CNN
+F 3 "" H 950 7450 50  0001 C CNN
+	1    950  7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC590 U1001
+U 2 1 5D0FD6CB
+P 6350 7750
+F 0 "U1001" H 6530 8146 50  0000 L CNN
+F 1 "74HC590" H 6530 8055 50  0000 L CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 6350 7800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 6350 7800 50  0001 C CNN
+	2    6350 7750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01019
+U 1 1 5D0FD6D2
+P 6000 7300
+F 0 "#PWR01019" H 6000 7150 50  0001 C CNN
+F 1 "+5V" H 6015 7473 50  0000 C CNN
+F 2 "" H 6000 7300 50  0001 C CNN
+F 3 "" H 6000 7300 50  0001 C CNN
+	1    6000 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01024
+U 1 1 5D0FD6D8
+P 6000 7500
+F 0 "#PWR01024" H 6000 7250 50  0001 C CNN
+F 1 "GND" H 6005 7327 50  0000 C CNN
+F 2 "" H 6000 7500 50  0001 C CNN
+F 3 "" H 6000 7500 50  0001 C CNN
+	1    6000 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D0FD6DE
+P 6000 7400
+AR Path="/5CC0D65F/5D0FD6DE" Ref="C?"  Part="1" 
+AR Path="/5D0FD6DE" Ref="C?"  Part="1" 
+AR Path="/5E4DDD44/5D0FD6DE" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5D0FD6DE" Ref="C1001"  Part="1" 
+F 0 "C1001" H 5909 7446 50  0000 R CNN
+F 1 "100nF" H 5909 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 7400 50  0001 C CNN
+F 3 "~" H 6000 7400 50  0001 C CNN
+	1    6000 7400
+	1    0    0    -1  
+$EndComp
+Connection ~ 6000 7300
+Connection ~ 6000 7500
+$Comp
+L power:GND #PWR?
+U 1 1 5E38112C
+P 1850 7450
+AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38112C" Ref="#PWR01021"  Part="1" 
+F 0 "#PWR01021" H 1850 7200 50  0001 C CNN
+F 1 "GND" H 1855 7277 50  0000 C CNN
+F 2 "" H 1850 7450 50  0001 C CNN
+F 3 "" H 1850 7450 50  0001 C CNN
+	1    1850 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E381125
+P 1850 7350
+AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381125" Ref="C1005"  Part="1" 
+F 0 "C1005" H 1759 7396 50  0000 R CNN
+F 1 "100nF" H 1759 7305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1850 7350 50  0001 C CNN
+F 3 "~" H 1850 7350 50  0001 C CNN
+	1    1850 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E38111F
+P 1850 7250
+AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38111F" Ref="#PWR01016"  Part="1" 
+F 0 "#PWR01016" H 1850 7100 50  0001 C CNN
+F 1 "+5V" H 1865 7423 50  0000 C CNN
+F 2 "" H 1850 7250 50  0001 C CNN
+F 3 "" H 1850 7250 50  0001 C CNN
+	1    1850 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC191 U?
+U 2 1 5DD549AB
+P 3600 7650
+AR Path="/5CE09726/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/6A313729/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5DD549AB" Ref="U1004"  Part="2" 
+F 0 "U1004" H 3780 7946 50  0000 L CNN
+F 1 "74AC191" H 3780 7855 50  0000 L CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3575 7650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 3575 7650 50  0001 C CNN
+	2    3600 7650
+	1    0    0    -1  
+$EndComp
+Connection ~ 3250 7300
+Connection ~ 3250 7500
+$Comp
+L alexios:74LVC1G17 U1002
+U 2 1 6157DD36
+P 1300 7250
+F 0 "U1002" H 1250 7517 50  0000 C CNN
+F 1 "74LVC1G17" H 1250 7426 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1300 7250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1300 7250 50  0001 C CNN
+	2    1300 7250
+	1    0    0    -1  
+$EndComp
+Connection ~ 950  7450
+Connection ~ 950  7250
+$Comp
+L alexios:74AC157 U1005
+U 2 1 604F8DAC
+P 2200 7850
+F 0 "U1005" H 2380 8396 50  0000 L CNN
+F 1 "74AC157" H 2380 8305 50  0000 L CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 2200 7850 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74ac157.pdf" H 2200 7850 50  0001 C CNN
+	2    2200 7850
+	1    0    0    -1  
+$EndComp
+Connection ~ 1850 7250
+Connection ~ 1850 7450
+$Comp
+L Device:C_Small C?
+U 1 1 5E381133
+P 2450 4950
+AR Path="/5CC0D65F/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381133" Ref="C1007"  Part="1" 
+F 0 "C1007" H 2359 4996 50  0000 R CNN
+F 1 "10µF" H 2359 4905 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 4950 50  0001 C CNN
+F 3 "~" H 2450 4950 50  0001 C CNN
+	1    2450 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3810F5
+P 2900 4950
+AR Path="/5CC0D65F/5E3810F5" Ref="C?"  Part="1" 
+AR Path="/5E3810F5" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3810F5" Ref="C1008"  Part="1" 
+F 0 "C1008" H 2809 4996 50  0000 R CNN
+F 1 "100nF" H 2809 4905 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2900 4950 50  0001 C CNN
+F 3 "~" H 2900 4950 50  0001 C CNN
+	1    2900 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5CFC28E8
+P 2550 2550
+AR Path="/5CC0D65F/5CFC28E8" Ref="C?"  Part="1" 
+AR Path="/5CFC28E8" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5CFC28E8" Ref="C1006"  Part="1" 
+F 0 "C1006" H 2459 2596 50  0000 R CNN
+F 1 "100nF" H 2459 2505 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 2550 50  0001 C CNN
+F 3 "~" H 2550 2550 50  0001 C CNN
+	1    2550 2550
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

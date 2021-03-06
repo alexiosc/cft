@@ -21,8 +21,8 @@ AR Path="/5CC0D65F/5D33F674" Ref="C?"  Part="1"
 AR Path="/5D33F674" Ref="C?"  Part="1" 
 AR Path="/5D30488D/5D33F674" Ref="C?"  Part="1" 
 AR Path="/5D44ECB5/5D33F674" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5D33F674" Ref="C905"  Part="1" 
-F 0 "C905" H 2359 6746 50  0000 R CNN
+AR Path="/5D46B22D/5D33F674" Ref="C908"  Part="1" 
+F 0 "C908" H 2359 6746 50  0000 R CNN
 F 1 "100nF" H 2359 6655 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 6700 50  0001 C CNN
 F 3 "~" H 2450 6700 50  0001 C CNN
@@ -67,8 +67,8 @@ AR Path="/5CC0D65F/5D33F68E" Ref="C?"  Part="1"
 AR Path="/5D33F68E" Ref="C?"  Part="1" 
 AR Path="/5D30488D/5D33F68E" Ref="C?"  Part="1" 
 AR Path="/5D44ECB5/5D33F68E" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5D33F68E" Ref="C910"  Part="1" 
-F 0 "C910" H 5259 7446 50  0000 R CNN
+AR Path="/5D46B22D/5D33F68E" Ref="C906"  Part="1" 
+F 0 "C906" H 5259 7446 50  0000 R CNN
 F 1 "100nF" H 5259 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7400 50  0001 C CNN
 F 3 "~" H 5350 7400 50  0001 C CNN
@@ -113,8 +113,8 @@ AR Path="/5CC0D65F/5D33F777" Ref="C?"  Part="1"
 AR Path="/5D33F777" Ref="C?"  Part="1" 
 AR Path="/5D30488D/5D33F777" Ref="C?"  Part="1" 
 AR Path="/5D44ECB5/5D33F777" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5D33F777" Ref="C909"  Part="1" 
-F 0 "C909" H 3809 7446 50  0000 R CNN
+AR Path="/5D46B22D/5D33F777" Ref="C901"  Part="1" 
+F 0 "C901" H 3809 7446 50  0000 R CNN
 F 1 "100nF" H 3809 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 7400 50  0001 C CNN
 F 3 "~" H 3900 7400 50  0001 C CNN
@@ -189,8 +189,8 @@ AR Path="/5CC0D65F/5D33F7C1" Ref="C?"  Part="1"
 AR Path="/5D33F7C1" Ref="C?"  Part="1" 
 AR Path="/5D30488D/5D33F7C1" Ref="C?"  Part="1" 
 AR Path="/5D44ECB5/5D33F7C1" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5D33F7C1" Ref="C911"  Part="1" 
-F 0 "C911" H 859 7496 50  0000 R CNN
+AR Path="/5D46B22D/5D33F7C1" Ref="C910"  Part="1" 
+F 0 "C910" H 859 7496 50  0000 R CNN
 F 1 "100nF" H 859 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7450 50  0001 C CNN
 F 3 "~" H 950 7450 50  0001 C CNN
@@ -251,8 +251,8 @@ AR Path="/5CC0D65F/5D4281C6" Ref="C?"  Part="1"
 AR Path="/5D4281C6" Ref="C?"  Part="1" 
 AR Path="/5D30488D/5D4281C6" Ref="C?"  Part="1" 
 AR Path="/5D44ECB5/5D4281C6" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5D4281C6" Ref="C908"  Part="1" 
-F 0 "C908" H 2359 7446 50  0000 R CNN
+AR Path="/5D46B22D/5D4281C6" Ref="C907"  Part="1" 
+F 0 "C907" H 2359 7446 50  0000 R CNN
 F 1 "100nF" H 2359 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7400 50  0001 C CNN
 F 3 "~" H 2450 7400 50  0001 C CNN
@@ -351,8 +351,8 @@ P 5350 6700
 AR Path="/5CC0D65F/5E214C06" Ref="C?"  Part="1" 
 AR Path="/5E214C06" Ref="C?"  Part="1" 
 AR Path="/5D4D9B4A/5E214C06" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5E214C06" Ref="C907"  Part="1" 
-F 0 "C907" H 5259 6746 50  0000 R CNN
+AR Path="/5D46B22D/5E214C06" Ref="C909"  Part="1" 
+F 0 "C909" H 5259 6746 50  0000 R CNN
 F 1 "100nF" H 5259 6655 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 6700 50  0001 C CNN
 F 3 "~" H 5350 6700 50  0001 C CNN
@@ -429,8 +429,8 @@ P 3900 6700
 AR Path="/5CC0D65F/5E7D5FA4" Ref="C?"  Part="1" 
 AR Path="/5E7D5FA4" Ref="C?"  Part="1" 
 AR Path="/5D4D9B4A/5E7D5FA4" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5E7D5FA4" Ref="C906"  Part="1" 
-F 0 "C906" H 3809 6746 50  0000 R CNN
+AR Path="/5D46B22D/5E7D5FA4" Ref="C911"  Part="1" 
+F 0 "C911" H 3809 6746 50  0000 R CNN
 F 1 "100nF" H 3809 6655 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 6700 50  0001 C CNN
 F 3 "~" H 3900 6700 50  0001 C CNN
@@ -539,22 +539,6 @@ Text Label 8350 5100 0    50   ~ 0
 DB9
 Text Label 8350 5000 0    50   ~ 0
 DB8
-Text Label 8350 4200 0    50   ~ 0
-DB7
-Text Label 8350 4100 0    50   ~ 0
-DB6
-Text Label 8350 4000 0    50   ~ 0
-DB5
-Text Label 8350 3900 0    50   ~ 0
-DB4
-Text Label 8350 3800 0    50   ~ 0
-DB3
-Text Label 8350 3700 0    50   ~ 0
-DB2
-Text Label 8350 3600 0    50   ~ 0
-DB1
-Text Label 8350 3500 0    50   ~ 0
-DB0
 Wire Wire Line
 	8300 5700 8650 5700
 Wire Wire Line
@@ -571,22 +555,6 @@ Wire Wire Line
 	8300 5100 8650 5100
 Wire Wire Line
 	8300 5000 8650 5000
-Wire Wire Line
-	8300 4200 8650 4200
-Wire Wire Line
-	8300 4100 8650 4100
-Wire Wire Line
-	8300 4000 8650 4000
-Wire Wire Line
-	8300 3900 8650 3900
-Wire Wire Line
-	8300 3800 8650 3800
-Wire Wire Line
-	8300 3700 8650 3700
-Wire Wire Line
-	8300 3600 8650 3600
-Wire Wire Line
-	8300 3500 8650 3500
 Text Label 7050 5700 0    50   ~ 0
 IBUS15
 Text Label 7050 5600 0    50   ~ 0
@@ -1422,8 +1390,8 @@ P 9350 1950
 AR Path="/5CC0D65F/5FCECB5F" Ref="C?"  Part="1" 
 AR Path="/5FCECB5F" Ref="C?"  Part="1" 
 AR Path="/5D4D9B4A/5FCECB5F" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5FCECB5F" Ref="C901"  Part="1" 
-F 0 "C901" H 9259 1996 50  0000 R CNN
+AR Path="/5D46B22D/5FCECB5F" Ref="C902"  Part="1" 
+F 0 "C902" H 9259 1996 50  0000 R CNN
 F 1 "100nF" H 9259 1905 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9350 1950 50  0001 C CNN
 F 3 "~" H 9350 1950 50  0001 C CNN
@@ -1759,8 +1727,8 @@ P 10350 2700
 AR Path="/5CC0D65F/6015DD70" Ref="C?"  Part="1" 
 AR Path="/6015DD70" Ref="C?"  Part="1" 
 AR Path="/5D4D9B4A/6015DD70" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/6015DD70" Ref="C903"  Part="1" 
-F 0 "C903" H 10259 2746 50  0000 R CNN
+AR Path="/5D46B22D/6015DD70" Ref="C905"  Part="1" 
+F 0 "C905" H 10259 2746 50  0000 R CNN
 F 1 "100nF" H 10259 2655 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 2700 50  0001 C CNN
 F 3 "~" H 10350 2700 50  0001 C CNN
@@ -1798,8 +1766,8 @@ P 10350 1950
 AR Path="/5CC0D65F/601722D7" Ref="C?"  Part="1" 
 AR Path="/601722D7" Ref="C?"  Part="1" 
 AR Path="/5D4D9B4A/601722D7" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/601722D7" Ref="C902"  Part="1" 
-F 0 "C902" H 10259 1996 50  0000 R CNN
+AR Path="/5D46B22D/601722D7" Ref="C903"  Part="1" 
+F 0 "C903" H 10259 1996 50  0000 R CNN
 F 1 "100nF" H 10259 1905 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 1950 50  0001 C CNN
 F 3 "~" H 10350 1950 50  0001 C CNN
@@ -1984,6 +1952,38 @@ F 3 "~" H 4850 3150 50  0001 C CNN
 	1    4850 3150
 	-1   0    0    -1  
 $EndComp
+Text Label 8350 4200 0    50   ~ 0
+DB7
+Text Label 8350 4100 0    50   ~ 0
+DB6
+Text Label 8350 4000 0    50   ~ 0
+DB5
+Text Label 8350 3900 0    50   ~ 0
+DB4
+Text Label 8350 3800 0    50   ~ 0
+DB3
+Text Label 8350 3700 0    50   ~ 0
+DB2
+Text Label 8350 3600 0    50   ~ 0
+DB1
+Text Label 8350 3500 0    50   ~ 0
+DB0
+Wire Wire Line
+	8300 4200 8650 4200
+Wire Wire Line
+	8300 4100 8650 4100
+Wire Wire Line
+	8300 4000 8650 4000
+Wire Wire Line
+	8300 3900 8650 3900
+Wire Wire Line
+	8300 3800 8650 3800
+Wire Wire Line
+	8300 3700 8650 3700
+Wire Wire Line
+	8300 3600 8650 3600
+Wire Wire Line
+	8300 3500 8650 3500
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line

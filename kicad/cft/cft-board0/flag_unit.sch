@@ -52,7 +52,7 @@ Wire Wire Line
 Wire Wire Line
 	7600 1750 7050 1750
 Text Label 7250 2350 0    50   ~ 0
-~FLAGOE
+~READ-FL
 Text Label 9700 6250 2    50   ~ 0
 FPD[0..7]
 Text Label 9050 6050 1    50   ~ 0
@@ -161,8 +161,8 @@ U 1 1 5D676F64
 P 8100 5300
 AR Path="/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F64" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F64" Ref="U1205"  Part="1" 
-F 0 "U1205" H 8100 6067 50  0000 C CNN
+AR Path="/5D69F3FD/5D676F64" Ref="U1202"  Part="1" 
+F 0 "U1202" H 8100 6067 50  0000 C CNN
 F 1 "74HC541" H 8100 5976 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 8100 5300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8100 5300 50  0001 C CNN
@@ -395,8 +395,8 @@ U 2 1 5DDC83B3
 P 9900 5250
 AR Path="/5F4B0011/5DDC83B3" Ref="U?"  Part="2" 
 AR Path="/5F63066B/5DDC83B3" Ref="U?"  Part="2" 
-AR Path="/5D69F3FD/5DDC83B3" Ref="U1205"  Part="2" 
-F 0 "U1205" H 10080 5296 50  0000 L CNN
+AR Path="/5D69F3FD/5DDC83B3" Ref="U1202"  Part="2" 
+F 0 "U1202" H 10080 5296 50  0000 L CNN
 F 1 "74HC541" H 10080 5205 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 9900 5250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 9900 5250 50  0001 C CNN
@@ -485,9 +485,9 @@ Wire Wire Line
 Text Notes 6150 1150 0    50   ~ 0
 These traces are named, but connected to ground directly.\nThe traces on the board are long so they can be cut and the\nsignals repurposed (e.g. tied to Vcc).
 Text Label 2000 2350 0    50   ~ 0
-~FLAGOE
+~READ-FL
 Text HLabel 1950 2350 0    50   Input ~ 0
-~READ_FLAGS
+~READ-FL
 Wire Wire Line
 	1950 2350 7600 2350
 Wire Bus Line

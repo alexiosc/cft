@@ -513,13 +513,13 @@ U 1 1 5DD51032
 P 6150 -950
 AR Path="/5CC0D65F/5DD51032" Ref="C?"  Part="1" 
 AR Path="/5CE16E65/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5DD51032" Ref="C112"  Part="1" 
+AR Path="/5DD51032" Ref="C104"  Part="1" 
 AR Path="/5D54E677/5DD51032" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5DD51032" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5DD51032" Ref="C?"  Part="1" 
 AR Path="/5D892D5E/5DD51032" Ref="C?"  Part="1" 
 AR Path="/5D9672D4/5DD51032" Ref="C?"  Part="1" 
-F 0 "C112" H 6059 -904 50  0000 R CNN
+F 0 "C104" H 6059 -904 50  0000 R CNN
 F 1 "100nF" H 6059 -995 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6150 -950 50  0001 C CNN
 F 3 "~" H 6150 -950 50  0001 C CNN
@@ -746,21 +746,6 @@ F 3 "" H 19750 -1650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	19750 -2050 19750 -1950
-$Comp
-L Device:CP_Small C105
-U 1 1 5DF0FF8F
-P 19750 -1850
-AR Path="/5DF0FF8F" Ref="C105"  Part="1" 
-AR Path="/5D34E810/5DF0FF8F" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DF0FF8F" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/5DF0FF8F" Ref="C?"  Part="1" 
-F 0 "C105" H 19662 -1804 50  0000 R CNN
-F 1 "47µF" H 19662 -1895 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19750 -1850 50  0001 C CNN
-F 3 "~" H 19750 -1850 50  0001 C CNN
-	1    19750 -1850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	19750 -1750 19750 -1650
 $Comp
@@ -799,21 +784,6 @@ F 3 "" H 19300 -1650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	19300 -2050 19300 -1950
-$Comp
-L Device:CP_Small C104
-U 1 1 5DF0FFA3
-P 19300 -1850
-AR Path="/5DF0FFA3" Ref="C104"  Part="1" 
-AR Path="/5D34E810/5DF0FFA3" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DF0FFA3" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/5DF0FFA3" Ref="C?"  Part="1" 
-F 0 "C104" H 19212 -1804 50  0000 R CNN
-F 1 "47µF" H 19212 -1895 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19300 -1850 50  0001 C CNN
-F 3 "~" H 19300 -1850 50  0001 C CNN
-	1    19300 -1850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	19300 -1750 19300 -1650
 Wire Bus Line
@@ -991,12 +961,12 @@ F0 "Constant Store" 50
 F1 "cpu_cs.sch" 50
 F2 "RADDR[0..1]" I L 10950 -4500 50 
 F3 "IBUS[0..15]" B R 12100 -4500 50 
-F4 "~READ_CS" I L 10950 -4350 50 
+F4 "~READ-CS" I L 10950 -4350 50 
 $EndSheet
 Wire Wire Line
 	10950 -4350 10100 -4350
 Text Label 10100 -4350 0    50   ~ 0
-~READ_CS
+~READ-CS
 $Sheet
 S 11000 -6850 1150 1550
 U 61F95ACC
@@ -1082,21 +1052,6 @@ F 3 "" H 20200 -1650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	20200 -2050 20200 -1950
-$Comp
-L Device:CP_Small C106
-U 1 1 5EFD0822
-P 20200 -1850
-AR Path="/5EFD0822" Ref="C106"  Part="1" 
-AR Path="/5D34E810/5EFD0822" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5EFD0822" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/5EFD0822" Ref="C?"  Part="1" 
-F 0 "C106" H 20112 -1804 50  0000 R CNN
-F 1 "47µF" H 20112 -1895 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 20200 -1850 50  0001 C CNN
-F 3 "~" H 20200 -1850 50  0001 C CNN
-	1    20200 -1850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	20200 -1750 20200 -1650
 Wire Wire Line
@@ -2221,6 +2176,7 @@ F11 "FN" I L -9650 -1100 50
 F12 "CLK4" I L -9650 -1950 50 
 F13 "~READ-AGL" O R -8500 -1450 50 
 F14 "~WRITE-IR" O R -8500 -1350 50 
+F15 "~READ-FL" I R -8500 -1950 50 
 $EndSheet
 Wire Bus Line
 	-9650 -1850 -10250 -1850
@@ -3168,13 +3124,13 @@ NoConn ~ 16700 3050
 NoConn ~ 16700 3150
 NoConn ~ 16700 3250
 Text Label 17200 2550 2    50   ~ 0
-~READ_DR
+~READ-DR
 Text Label 17200 2650 2    50   ~ 0
-~READ_PC
+~READ-PC
 Text Label 17200 2750 2    50   ~ 0
-~READ_FL
+~READ-FL
 Text Label 17200 2850 2    50   ~ 0
-~READ_AGL
+~READ-AGL
 Wire Wire Line
 	15800 4250 15350 4250
 Wire Wire Line
@@ -3383,12 +3339,59 @@ $EndComp
 Wire Wire Line
 	16700 2950 17200 2950
 Text Label 17200 2950 2    50   ~ 0
-~READ_CS
+~READ-CS
 NoConn ~ 15800 2650
 NoConn ~ 15800 2750
 NoConn ~ 15800 2850
 NoConn ~ 15800 3450
 NoConn ~ 15800 3550
+$Comp
+L Device:CP_Small C22
+U 1 1 5EFD0822
+P 20200 -1850
+AR Path="/5EFD0822" Ref="C22"  Part="1" 
+AR Path="/5D34E810/5EFD0822" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5EFD0822" Ref="C?"  Part="1" 
+AR Path="/5DD3D79F/5EFD0822" Ref="C?"  Part="1" 
+F 0 "C22" H 20112 -1804 50  0000 R CNN
+F 1 "47µF" H 20112 -1895 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 20200 -1850 50  0001 C CNN
+F 3 "~" H 20200 -1850 50  0001 C CNN
+	1    20200 -1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C21
+U 1 1 5DF0FF8F
+P 19750 -1850
+AR Path="/5DF0FF8F" Ref="C21"  Part="1" 
+AR Path="/5D34E810/5DF0FF8F" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5DF0FF8F" Ref="C?"  Part="1" 
+AR Path="/5DD3D79F/5DF0FF8F" Ref="C?"  Part="1" 
+F 0 "C21" H 19662 -1804 50  0000 R CNN
+F 1 "47µF" H 19662 -1895 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19750 -1850 50  0001 C CNN
+F 3 "~" H 19750 -1850 50  0001 C CNN
+	1    19750 -1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C20
+U 1 1 5DF0FFA3
+P 19300 -1850
+AR Path="/5DF0FFA3" Ref="C20"  Part="1" 
+AR Path="/5D34E810/5DF0FFA3" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5DF0FFA3" Ref="C?"  Part="1" 
+AR Path="/5DD3D79F/5DF0FFA3" Ref="C?"  Part="1" 
+F 0 "C20" H 19212 -1804 50  0000 R CNN
+F 1 "47µF" H 19212 -1895 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 19300 -1850 50  0001 C CNN
+F 3 "~" H 19300 -1850 50  0001 C CNN
+	1    19300 -1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-8500 -1950 -7900 -1950
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
@@ -3397,4 +3400,6 @@ Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3450 -10350 -2650
+Text Label -7900 -1950 2    50   ~ 0
+~READ-FL
 $EndSCHEMATC

@@ -22,8 +22,8 @@ AR Path="/5E51C0B5" Ref="C?"  Part="1"
 AR Path="/5E4DDD44/5E51C0B5" Ref="C?"  Part="1" 
 AR Path="/5E507DE3/5E51C0B5" Ref="C?"  Part="1" 
 AR Path="/5DF0FEB9/5E51C0B5" Ref="C?"  Part="1" 
-AR Path="/5E25A7FA/5E51C0B5" Ref="C502"  Part="1" 
-F 0 "C502" H 2359 7396 50  0000 R CNN
+AR Path="/5E25A7FA/5E51C0B5" Ref="C501"  Part="1" 
+F 0 "C501" H 2359 7396 50  0000 R CNN
 F 1 "100nF" H 2359 7305 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7350 50  0001 C CNN
 F 3 "~" H 2450 7350 50  0001 C CNN
@@ -99,15 +99,15 @@ RADDR[0..1]
 Wire Bus Line
 	4000 2750 3400 2750
 Text Label 3500 3950 0    50   ~ 0
-~CSOE
+~READ-CS
 Text Notes 4050 4050 2    50   ~ 0
 RADDR=001XX
 Text Label 5450 3950 2    50   ~ 0
-~CSOE
+~READ-CS
 Wire Wire Line
 	5500 4050 5600 4050
 Text Label 5450 5500 2    50   ~ 0
-~CSOE
+~READ-CS
 Wire Wire Line
 	5500 5600 5600 5600
 Wire Wire Line
@@ -448,7 +448,7 @@ Wire Wire Line
 Text Notes 1100 1050 0    100  ~ 20
 The Constant Store
 Text HLabel 3400 3950 0    50   Input ~ 0
-~READ_CS
+~READ-CS
 Connection ~ 5050 3950
 Wire Wire Line
 	5050 3950 5050 5500
