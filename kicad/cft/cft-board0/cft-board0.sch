@@ -1584,7 +1584,7 @@ FZ
 Text Label -7150 12900 0    50   ~ 0
 FN
 Text Label -7150 13000 0    50   ~ 0
-~FLAGWE
+~WRITE-FL
 Text Label -7150 13200 0    50   ~ 0
 IR0
 Text Label -7150 13300 0    50   ~ 0
@@ -2115,7 +2115,7 @@ Wire Bus Line
 Text Label -800 -6950 2    50   ~ 0
 IR[0..6]
 Text Label -1050 -5700 2    50   ~ 0
-~FLAGWE
+~WRITE-FL
 Text Label -1050 -5900 2    50   ~ 0
 FL
 Text Label -1050 -5800 2    50   ~ 0
@@ -2543,7 +2543,7 @@ F6 "~END" I L -6950 -1250 50
 F7 "CLK4" I L -6950 -1850 50 
 F8 "~IRQSµC" O R -5800 -1100 50 
 F9 "IBUS15" I L -6950 -1450 50 
-F10 "~FLAGWE" I L -6950 -1350 50 
+F10 "~WRITE-FL" I L -6950 -1350 50 
 F11 "ACTION[0..3]" I L -6950 -1650 50 
 F12 "~ACTION-IDX" O R -5800 -1750 50 
 $EndSheet
@@ -2570,7 +2570,7 @@ Text Label -7550 -1100 0    50   ~ 0
 Text Label -7550 -1250 0    50   ~ 0
 ~END
 Text Label -7550 -1350 0    50   ~ 0
-~FLAGWE
+~WRITE-FL
 Text Label -7550 -1450 0    50   ~ 0
 IBUS15
 Text Label -7550 -1850 0    50   ~ 0
