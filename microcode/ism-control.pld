@@ -1,0 +1,86 @@
+GAL16V8         ; this is the GAL type
+ISMCTL00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+RESET   ACT0    ACT1    ACT2    ACT3    CLK4    END	FI	NC0	GND
+NC1	ACTSTI  ACTCLI	ACTIDX  INCPC   INCDR   DECDR   INH	ENDCP	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+; Interrupt FSM decode equations
+
+/ACTSTI =              /CLK4 * /ACT3 * /ACT2 *  ACT1 *  ACT0
+
+/ACTCLI = /RESET   +   /CLK4 * /ACT3 *  ACT2 * /ACT1 * /ACT0
+
+
+; State MACHINE transitions
+
+; We mask (inhibit) interrupts when reset or action_cli is asserted,
+; or when the Interrupt Flag (FI) is 0 (interrupts disabled).
+
+/INH =    /RESET   +   /CLK4 * /ACT3 * /ACT2 * /ACT1 * /ACT0   +   /FI
+
+
+; If we've received and registered an IRQ, let the microcode sequencer
+; know at just the right time: at the end of the processor cycle when
+; END has been asserted, i.e. the end of an instruction.
+
+/ENDCP =  /CLK4 * /END
+
+; Note: the schematics do this with an 74LVC, which has a 6ns propagation delay.
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; COURTESY DECODED SIGNALS
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+/ACTIDX = /CLK4 * /ACT3 *  ACT2 * /ACT1 *  ACT0
+
+/INCPC =  /CLK4 *  ACT3 * /ACT2 * /ACT1 * /ACT0
+
+/INCDR =  /CLK4 *  ACT3 * /ACT2 *  ACT1 * /ACT0
+
+/DECDR =  /CLK4 *  ACT3 * /ACT2 *  ACT1 *  ACT0
+
+
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+RESET        -- An active-low reset signal
+CLK4         -- Phase 4 of the CPU clock (active low, 25% duty cycle)
+ACT0-ACT3    -- The ACTION field from the Control Unit
+END          -- End of instruction (from the Control Unit)
+FI           -- The Interrupt Flag, aka /INT-INH or /INH0
+
+Outputs: (all active low)
+
+/ACTSTI  -- action_sti asserted
+/ACTCLI  -- action_cli or reset asserted
+/INH     -- when low, disables interrupt reception
+/ENDCP   -- jump to interrupt handler on end of instruction and processor cycle
+
+/ACTIDX  -- action_idx (courtesy signal for addressing mode unit)
+/INCPC   -- increment PC (courtesy signal to the PC)
+/INCDR   -- increment PC (courtesy signal to the DR)
+/DECDR   -- increment PC (courtesy signal to the DR)
+
+
+; The addresses we need are like this:
+
+; signal action_sti      = .....0011...............; // Set I flag
+; signal action_cli      = .....0100...............; // Clear I flag
+; signal action_idx      = .....0101...............; // Autoindexing; use IR to select MBn bank
+; signal action_incpc    = .....1000...............; // Step the PC
+; signal action_incdr    = .....1010...............; // Increment DR
+; signal action_decdr    = .....1011...............; // Decrement DR
+
+; End of file.
