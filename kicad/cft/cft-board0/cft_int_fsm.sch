@@ -60,7 +60,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5550 3850
 	1    5900 3850
 	1    0    0    -1  
 $EndComp
-Text HLabel 2250 2300 0    50   Input ~ 0
+Text HLabel 1250 2300 0    50   Input ~ 0
 ~RESET
 Text Label 5600 3800 2    50   ~ 0
 ~RESET
@@ -77,36 +77,8 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5460 5680 50  0001 C CNN
 	1    5350 5700
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR01402
-U 1 1 5DEFC7B4
-P 2700 4950
-F 0 "#PWR01402" H 2700 4800 50  0001 C CNN
-F 1 "+5V" H 2715 5123 50  0000 C CNN
-F 2 "" H 2700 4950 50  0001 C CNN
-F 3 "" H 2700 4950 50  0001 C CNN
-	1    2700 4950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	2700 5150 2700 5200
-$Comp
-L Device:R_Small R?
-U 1 1 5DEFC7B3
-P 2700 5050
-AR Path="/5DEFC7B3" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5DEFC7B3" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5DEFC7B3" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5DEFC7B3" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5DEFC7B3" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5DEFC7B3" Ref="R1402"  Part="1" 
-F 0 "R1402" H 2759 5096 50  0000 L CNN
-F 1 "4.7kΩ" H 2759 5005 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2700 5050 50  0001 C CNN
-F 3 "~" H 2700 5050 50  0001 C CNN
-	1    2700 5050
-	1    0    0    -1  
-$EndComp
+	-450 4650 -450 4700
 Text Notes 6850 2900 0    79   ~ 16
 Interrupt Flag
 Text HLabel 8850 5100 2    50   Output ~ 0
@@ -132,138 +104,70 @@ F 3 "~" H 8400 5400 50  0001 C CNN
 	1    8400 5400
 	0    1    1    0   
 $EndComp
-Text HLabel 2250 2400 0    50   Input ~ 0
+Text HLabel 1250 2400 0    50   Input ~ 0
 IBUS15
-Text Label 2350 2400 0    50   ~ 0
+Text Label 1350 2400 0    50   ~ 0
 IBUS15
-Text Notes 2750 2400 0    50   ~ 0
+Text Notes 1750 2400 0    50   ~ 0
 (FI bit for retrieving FI from stack)
-Text HLabel 2250 2500 0    50   Input ~ 0
+Text HLabel 1250 2500 0    50   Input ~ 0
 ~FLAGWE
-Text Label 2350 2500 0    50   ~ 0
+Text Label 1350 2500 0    50   ~ 0
 ~FLAGWE
 Text Notes 5650 2300 0    63   ~ 13
 Assumption
 Text Notes 5650 2550 0    50   ~ 0
 ~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
-Text Label 3050 3550 1    50   ~ 0
-ACTION[0..3]
-Text Label 2350 2750 0    50   ~ 0
+Text Label 1350 2750 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
-	2250 2750 2950 2750
+	1250 2750 1950 2750
 Entry Bus Bus
-	2950 2750 3050 2850
+	1950 2750 2050 2850
 Entry Wire Line
-	3050 3600 3150 3700
+	2050 3200 2150 3300
 Entry Wire Line
-	3050 3100 3150 3200
+	2050 3100 2150 3200
 Entry Wire Line
-	3050 3000 3150 3100
+	2050 3000 2150 3100
 Entry Wire Line
-	3050 2900 3150 3000
-$Comp
-L alexios:74HC138 U?
-U 1 1 610B639A
-P 4000 3400
-AR Path="/5F3EA987/610B639A" Ref="U?"  Part="1" 
-AR Path="/610B639A" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/610B639A" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/610B639A" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/610B639A" Ref="U?"  Part="1" 
-AR Path="/5F67D4B5/610B639A" Ref="U1401"  Part="1" 
-F 0 "U1401" H 4000 4067 50  0000 C CNN
-F 1 "74HC138" H 4000 3976 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4000 3400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4000 3400 50  0001 C CNN
-	1    4000 3400
-	1    0    0    -1  
-$EndComp
-Text Label 3150 3000 0    50   ~ 0
-ACTION0
-Text Label 3150 3100 0    50   ~ 0
-ACTION1
-Text Label 3150 3200 0    50   ~ 0
-ACTION2
-Text Label 3150 3700 0    50   ~ 0
-ACTION3
-$Comp
-L power:+5V #PWR?
-U 1 1 610B63A4
-P 3500 3600
-AR Path="/610B63A4" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/610B63A4" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/610B63A4" Ref="#PWR?"  Part="1" 
-AR Path="/5F67D4B5/610B63A4" Ref="#PWR01401"  Part="1" 
-F 0 "#PWR01401" H 3500 3450 50  0001 C CNN
-F 1 "+5V" H 3515 3773 50  0000 C CNN
-F 2 "" H 3500 3600 50  0001 C CNN
-F 3 "" H 3500 3600 50  0001 C CNN
-	1    3500 3600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4500 3400 5100 3400
-Text Label 4550 3300 0    50   ~ 0
-~ACTION-STI
-Text Label 4550 3400 0    50   ~ 0
-~ACTION-CLI
-NoConn ~ 4500 3000
-NoConn ~ 4500 3600
-NoConn ~ 4500 3700
-Text Notes 4050 3650 1    50   ~ 10
-ACTION=0xxx
-Wire Wire Line
-	3500 3700 3150 3700
-Wire Wire Line
-	3500 3200 3150 3200
-Wire Wire Line
-	3500 3100 3150 3100
-Wire Wire Line
-	3500 3000 3150 3000
-Text HLabel 2250 2750 0    50   Input ~ 0
+	2050 2900 2150 3000
+Text HLabel 1250 2750 0    50   Input ~ 0
 ACTION[0..3]
-NoConn ~ 4500 3100
-NoConn ~ 4500 3200
-Text Label 3150 3800 0    50   ~ 0
-CLK4
 $Comp
 L alexios:74LVC1G373 U1407
 U 1 1 5EB1699E
-P 3700 5300
-F 0 "U1407" H 3700 5667 50  0000 C CNN
-F 1 "74LVC1G373" H 3700 5576 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 3600 5325 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3600 5325 50  0001 C CNN
-	1    3700 5300
+P 3000 5300
+F 0 "U1407" H 3000 5667 50  0000 C CNN
+F 1 "74LVC1G373" H 3000 5576 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 2900 5325 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2900 5325 50  0001 C CNN
+	1    3000 5300
 	1    0    0    -1  
 $EndComp
-Text HLabel 2250 5200 0    50   Input ~ 0
+Text HLabel 1250 5200 0    50   Input ~ 0
 ~IRQ
-Text Label 3250 5200 2    50   ~ 0
+Text Label 2550 5200 2    50   ~ 0
 ~IRQ
 Wire Wire Line
-	4350 5650 3000 5650
-Text HLabel 2250 5650 0    50   Input ~ 0
+	4350 5650 1650 5650
+Text HLabel 1250 3400 0    50   Input ~ 0
 CLK4
-Text Label 3250 5300 2    50   ~ 0
+Text Label 2550 5300 2    50   ~ 0
 CLK4
 Wire Wire Line
-	3250 5300 3000 5300
+	2550 5300 1650 5300
 Wire Wire Line
-	3000 5300 3000 5650
-Connection ~ 3000 5650
-Wire Wire Line
-	3000 5650 2250 5650
+	1650 5300 1650 5650
 $Comp
 L power:GND #PWR01404
 U 1 1 5EB26974
-P 3250 5400
-F 0 "#PWR01404" H 3250 5150 50  0001 C CNN
-F 1 "GND" H 3255 5227 50  0000 C CNN
-F 2 "" H 3250 5400 50  0001 C CNN
-F 3 "" H 3250 5400 50  0001 C CNN
-	1    3250 5400
+P 2550 5400
+F 0 "#PWR01404" H 2550 5150 50  0001 C CNN
+F 1 "GND" H 2555 5227 50  0000 C CNN
+F 2 "" H 2550 5400 50  0001 C CNN
+F 3 "" H 2550 5400 50  0001 C CNN
+	1    2550 5400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -281,8 +185,6 @@ Wire Wire Line
 	4950 5300 4350 5300
 Text Label 4950 5300 2    50   ~ 0
 CLK4
-Wire Wire Line
-	4150 5200 4950 5200
 $Comp
 L alexios:74LVC1G04 U1408
 U 1 1 5EBBC99F
@@ -298,19 +200,12 @@ Wire Wire Line
 	8250 5400 8300 5400
 Text Label 8750 5400 2    50   ~ 0
 ~IRQS
-Text Label 2350 5650 0    50   ~ 0
+Text Label 3550 5650 0    50   ~ 0
 CLK4
-Text Label 2350 5200 0    50   ~ 0
+Text Label 1350 5200 0    50   ~ 0
 ~IRQ
-Wire Wire Line
-	2250 5200 2700 5200
-Connection ~ 2700 5200
-Wire Wire Line
-	2700 5200 3250 5200
 Text Notes 2750 5950 0    50   ~ 0
 Interrupts are very prone to metastability. Using a latch\nhere greatly reduces the probability of this happening.
-Wire Wire Line
-	4500 3300 6850 3300
 Wire Wire Line
 	4350 5300 4350 5650
 $Comp
@@ -325,13 +220,11 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 7700 5250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2250 5750 5150 5750
-Wire Wire Line
 	4350 5650 5150 5650
 Connection ~ 4350 5650
-Text HLabel 2250 5750 0    50   Input ~ 0
+Text HLabel 1250 3500 0    50   Input ~ 0
 ~END
-Text Label 2350 5750 0    50   ~ 0
+Text Label 3550 5750 0    50   ~ 0
 ~END
 Text Label 5100 5650 2    50   ~ 0
 CLK4
@@ -375,8 +268,6 @@ Wire Wire Line
 	7750 5400 7700 5400
 Wire Wire Line
 	6500 5100 6800 5100
-Wire Wire Line
-	5200 2300 2250 2300
 Text Label 6800 3600 2    50   ~ 0
 ~RESET-OR-CLI
 Text Label 8400 3300 0    50   ~ 0
@@ -417,13 +308,13 @@ Wire Wire Line
 Wire Wire Line
 	5300 3400 5300 2400
 Wire Wire Line
-	5300 2400 2250 2400
+	5300 2400 1250 2400
 Wire Wire Line
 	5300 3400 6850 3400
 Wire Wire Line
 	5400 3500 5400 2500
 Wire Wire Line
-	5400 2500 2250 2500
+	5400 2500 1250 2500
 Wire Wire Line
 	5400 3500 6850 3500
 Text Label 5400 3100 1    50   ~ 0
@@ -432,7 +323,7 @@ Text Label 5200 3100 1    50   ~ 0
 ~RESET
 Text Label 5300 3100 1    50   ~ 0
 IBUS15
-Text Label 2350 2300 0    50   ~ 0
+Text Label 1350 2300 0    50   ~ 0
 ~RESET
 Wire Wire Line
 	4350 5100 4350 4400
@@ -457,7 +348,7 @@ Text Label 4400 4400 0    50   ~ 0
 ~INH
 Text Label 4950 5100 2    50   ~ 0
 ~INH
-Text Label 4950 5200 2    50   ~ 0
+Text Label 3550 5200 0    50   ~ 0
 ~IRQ0
 Text Notes 8150 2500 0    63   ~ 13
 6502 users beware!
@@ -847,11 +738,7 @@ Wire Notes Line width 24 style solid
 	11050 2950 8050 2950
 Wire Notes Line width 24 style solid
 	11050 2950 11050 2300
-Wire Wire Line
-	3000 3800 3000 5300
-Wire Wire Line
-	3000 3800 3500 3800
-Connection ~ 3000 5300
+Connection ~ 1650 5300
 $Comp
 L power:+5V #PWR01405
 U 1 1 5EDB9385
@@ -867,8 +754,6 @@ Wire Wire Line
 	5200 3800 5600 3800
 Wire Wire Line
 	5600 3900 5100 3900
-Wire Wire Line
-	5100 3400 5100 3900
 Wire Wire Line
 	6050 3850 6150 3850
 Wire Wire Line
@@ -915,14 +800,8 @@ $EndComp
 Connection ~ 5550 7300
 Connection ~ 5550 7100
 Wire Wire Line
-	4500 3500 5000 3500
-Wire Wire Line
-	5000 3500 5000 4200
-Wire Wire Line
 	5000 4200 8850 4200
-Text HLabel 8850 4200 2    50   Output ~ 0
-~ACTION-IDX
-Text Label 4550 3500 0    50   ~ 0
+Text HLabel 4300 3400 2    50   Output ~ 0
 ~ACTION-IDX
 Text Notes 8400 4100 0    50   ~ 0
 This is used to select addressing modes.
@@ -1010,6 +889,139 @@ Wire Wire Line
 	8600 3300 8850 3300
 Wire Wire Line
 	8050 3300 8050 4450
+$Comp
+L alexios:16V8 U?
+U 1 1 62FD8287
+P 3000 3350
+F 0 "U?" H 3000 4100 50  0000 C CNN
+F 1 "16V8" H 3000 4000 50  0000 C CNN
+F 2 "" H 3000 3350 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3000 3350 50  0001 C CNN
+F 4 "ISMCTL00" V 3000 3350 50  0000 C CNB "Signature"
+F 5 "ism-control.jed" H 3000 2750 50  0000 C CNN "Image Filename"
+	1    3000 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 2900 4050 2900
+Wire Wire Line
+	3450 3000 4050 3000
+Wire Wire Line
+	3450 3100 4300 3100
+Wire Wire Line
+	3450 3200 4300 3200
+Wire Wire Line
+	3450 3300 4300 3300
+Wire Wire Line
+	3450 3400 4300 3400
+Wire Wire Line
+	3450 3500 4050 3500
+Wire Wire Line
+	3450 3600 4050 3600
+Wire Wire Line
+	2200 2900 2550 2900
+Wire Wire Line
+	2200 3600 2550 3600
+Text Label 2200 2900 0    50   ~ 0
+~RESET
+Text Label 1350 3400 0    50   ~ 0
+CLK4
+Text Label 2200 3500 0    50   ~ 0
+~END
+Text Label 2200 3600 0    50   ~ 0
+FI
+NoConn ~ 2550 3700
+NoConn ~ 2550 3800
+Text Label 4050 2900 2    50   ~ 0
+ENDCP
+Text Label 4050 3000 2    50   ~ 0
+~INH
+Text Label 2200 3000 0    50   ~ 0
+ACTION0
+Text Label 2200 3100 0    50   ~ 0
+ACTION1
+Text Label 2200 3200 0    50   ~ 0
+ACTION2
+Text Label 2200 3300 0    50   ~ 0
+ACTION3
+Text Label 4050 3100 2    50   ~ 0
+~ACTION-DECDR
+Text Label 4050 3200 2    50   ~ 0
+~ACTION-INCDR
+Text Label 4050 3300 2    50   ~ 0
+~ACTION-INCPC
+Text Label 4050 3400 2    50   ~ 0
+~ACTION-IDX
+Text Label 4050 3500 2    50   ~ 0
+~ACTION-CLI
+Text Label 4050 3600 2    50   ~ 0
+~ACTION-STI
+Wire Wire Line
+	2150 3000 2550 3000
+Wire Wire Line
+	2150 3100 2550 3100
+Wire Wire Line
+	2150 3200 2550 3200
+Wire Wire Line
+	2150 3300 2550 3300
+Wire Wire Line
+	1250 3400 1650 3400
+Wire Wire Line
+	1650 3400 1650 5300
+Connection ~ 1650 3400
+Wire Wire Line
+	1650 3400 2550 3400
+Wire Wire Line
+	3450 5200 4950 5200
+$Comp
+L Device:R_Small R?
+U 1 1 5DEFC7B3
+P -450 4550
+AR Path="/5DEFC7B3" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DEFC7B3" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DEFC7B3" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DEFC7B3" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DEFC7B3" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DEFC7B3" Ref="R1402"  Part="1" 
+F 0 "R1402" H -391 4596 50  0000 L CNN
+F 1 "4.7kΩ" H -391 4505 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -450 4550 50  0001 C CNN
+F 3 "~" H -450 4550 50  0001 C CNN
+	1    -450 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01402
+U 1 1 5DEFC7B4
+P -450 4450
+F 0 "#PWR01402" H -450 4300 50  0001 C CNN
+F 1 "+5V" H -435 4623 50  0000 C CNN
+F 2 "" H -450 4450 50  0001 C CNN
+F 3 "" H -450 4450 50  0001 C CNN
+	1    -450 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1250 5200 2550 5200
+Wire Wire Line
+	1250 3500 1750 3500
+Wire Wire Line
+	1750 5750 1750 3500
+Wire Wire Line
+	1750 5750 5150 5750
+Connection ~ 1750 3500
+Wire Wire Line
+	1750 3500 2550 3500
+Text Label 1350 3500 0    50   ~ 0
+~END
+Wire Wire Line
+	1250 2300 5200 2300
+Text HLabel 4300 3300 2    50   Output ~ 0
+~ACTION-INCPC
+Text HLabel 4300 3100 2    50   Output ~ 0
+~ACTION-DECDR
+Text HLabel 4300 3200 2    50   Output ~ 0
+~ACTION-INCDR
 Wire Bus Line
-	3050 2850 3050 3600
+	2050 2850 2050 3200
 $EndSCHEMATC

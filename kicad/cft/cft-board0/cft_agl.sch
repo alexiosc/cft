@@ -563,7 +563,7 @@ $EndComp
 Text Notes 7900 2750 0    63   ~ 13
 Note: Pull Down Resistors on PAGE
 Text Notes 7900 3050 0    50   ~ 0
-PAGE changes at the rising edge of ~END~, the end of an instruction. This\nis the fist cycle of the 500ns instruction fetch, where the AGL is never\nused. This gives PAGE ample time to settle.
+PAGE changes at the rising edge of ~END~, the end of an instruction. This\nis the first cycle of the 500ns instruction fetch, where the AGL is never\nused. This gives PAGE ample time to settle.
 Wire Notes Line width 24 style solid
 	7800 2550 7800 3150
 Wire Notes Line width 24 style solid

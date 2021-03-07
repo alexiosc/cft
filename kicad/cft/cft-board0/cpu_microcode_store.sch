@@ -1860,18 +1860,6 @@ Wire Wire Line
 	4250 4950 4550 4950
 Wire Wire Line
 	4250 4850 4550 4850
-Wire Bus Line
-	9000 1900 9000 4050
-Wire Bus Line
-	7100 4250 7100 5350
-Wire Bus Line
-	4150 4250 4150 5350
-Wire Bus Line
-	6050 1900 6050 4050
-Wire Bus Line
-	1200 4250 1200 5350
-Wire Bus Line
-	3100 1900 3100 4050
 $Comp
 L Device:C_Small C?
 U 1 1 5E4A5D93
@@ -1902,4 +1890,16 @@ F 3 "~" H 950 6600 50  0001 C CNN
 	1    950  6600
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	9000 1900 9000 4050
+Wire Bus Line
+	7100 4250 7100 5350
+Wire Bus Line
+	4150 4250 4150 5350
+Wire Bus Line
+	6050 1900 6050 4050
+Wire Bus Line
+	1200 4250 1200 5350
+Wire Bus Line
+	3100 1900 3100 4050
 $EndSCHEMATC

@@ -3392,6 +3392,8 @@ F 3 "~" H 19300 -1850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	-8500 -1950 -7900 -1950
+Text Label -7900 -1950 2    50   ~ 0
+~READ-FL
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
@@ -3400,6 +3402,4 @@ Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3450 -10350 -2650
-Text Label -7900 -1950 2    50   ~ 0
-~READ-FL
 $EndSCHEMATC

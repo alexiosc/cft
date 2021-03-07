@@ -210,8 +210,6 @@ Wire Wire Line
 	1850 3850 2300 3850
 Wire Wire Line
 	2300 3300 2300 3850
-Text HLabel 1850 3850 0    50   Input ~ 0
-~µPC-INH
 $Comp
 L alexios:74HC251 U?
 U 1 1 5F6F5927
@@ -487,4 +485,8 @@ Connection ~ 3550 5500
 Connection ~ 3550 5700
 Text Notes 6600 2850 0    50   ~ 0
 ~µPCCLR~\n\n  1\n  1\n  0\n  0\n  1
+Text HLabel 1850 3850 0    50   Input ~ 0
+~µPC-INH
+Text Notes 1150 3350 0    197  ~ 39
+TODO: Check why ~µPC-INH~ resets the µPC!
 $EndSCHEMATC
