@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 17
+Sheet 16 17
 Title "Microprogram Counter"
 Date ""
 Rev "2023"
@@ -487,6 +487,6 @@ Text Notes 6600 2850 0    50   ~ 0
 ~µPCCLR~\n\n  1\n  1\n  0\n  0\n  1
 Text HLabel 1850 3850 0    50   Input ~ 0
 ~µPC-INH
-Text Notes 1150 3350 0    197  ~ 39
+Text Notes 1800 1750 0    197  ~ 39
 TODO: Check why ~µPC-INH~ resets the µPC!
 $EndSCHEMATC

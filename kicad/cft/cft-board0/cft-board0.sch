@@ -132,48 +132,6 @@ Text Notes 6900 -7300 0    197  ~ 39
 Registers
 Text Notes 2350 -7300 0    197  ~ 39
 Decoders
-$Comp
-L alexios:74HC138 U104
-U 1 1 5DA3323E
-P 3400 -2650
-F 0 "U104" H 3400 -1983 50  0000 C CNN
-F 1 "74HC138" H 3400 -2074 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 3400 -2650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3400 -2650 50  0001 C CNN
-F 4 "Yes" H 3325 -3475 50  0001 C CNN "Verified"
-	1    3400 -2650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2900 -3050 2550 -3050
-Wire Wire Line
-	2900 -2950 2550 -2950
-Wire Wire Line
-	2900 -2850 2550 -2850
-Wire Wire Line
-	2900 -2450 2550 -2450
-Text Label 2600 -2450 0    50   ~ 0
-ACTION3
-Text Label 2600 -3050 0    50   ~ 0
-ACTION0
-Text Label 2600 -2950 0    50   ~ 0
-ACTION1
-Text Label 2600 -2850 0    50   ~ 0
-ACTION2
-Entry Wire Line
-	2450 -3150 2550 -3050
-Entry Wire Line
-	2450 -3050 2550 -2950
-Entry Wire Line
-	2450 -2950 2550 -2850
-Entry Wire Line
-	2450 -2550 2550 -2450
-Text Label 4500 -3050 2    50   ~ 0
-~ACTION-INCPC
-Text Label 4500 -2850 2    50   ~ 0
-~ACTION-INCDR
-Wire Wire Line
-	3900 -3050 4500 -3050
 Wire Wire Line
 	2900 -5550 2550 -5550
 Wire Wire Line
@@ -230,8 +188,6 @@ NoConn ~ 3900 -4100
 NoConn ~ 3900 -4000
 Text Label 2450 -4200 1    50   ~ 0
 WADDR[4..0]
-Text Label 2450 -2600 1    50   ~ 0
-ACTION[3..0]
 Text Label 6150 -6550 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
@@ -294,18 +250,6 @@ Wire Wire Line
 	7000 -6350 6150 -6350
 Text Label 6150 -6750 0    50   ~ 0
 RESET
-$Comp
-L alexios:74HC138 U104
-U 2 1 5DD28B4B
-P 6500 -950
-F 0 "U104" H 6679 -904 50  0000 L CNN
-F 1 "74HC138" H 6679 -995 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 6500 -950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6500 -950 50  0001 C CNN
-F 4 "Yes" H 6425 -1775 50  0001 C CNN "Verified"
-	2    6500 -950
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5DD296FB
@@ -472,61 +416,6 @@ F 3 "~" H 4750 -950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
-U 1 1 5DD51026
-P 6150 -1050
-AR Path="/5CE16E65/5DD51026" Ref="#PWR?"  Part="1" 
-AR Path="/5DD51026" Ref="#PWR0122"  Part="1" 
-AR Path="/5D54E677/5DD51026" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD51026" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD51026" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD51026" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD51026" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0122" H 6150 -1200 50  0001 C CNN
-F 1 "+5V" H 6165 -877 50  0000 C CNN
-F 2 "" H 6150 -1050 50  0001 C CNN
-F 3 "" H 6150 -1050 50  0001 C CNN
-	1    6150 -1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DD5102C
-P 6150 -850
-AR Path="/5CE16E65/5DD5102C" Ref="#PWR?"  Part="1" 
-AR Path="/5DD5102C" Ref="#PWR0126"  Part="1" 
-AR Path="/5D54E677/5DD5102C" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD5102C" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD5102C" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD5102C" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD5102C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0126" H 6150 -1100 50  0001 C CNN
-F 1 "GND" H 6155 -1023 50  0000 C CNN
-F 2 "" H 6150 -850 50  0001 C CNN
-F 3 "" H 6150 -850 50  0001 C CNN
-	1    6150 -850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DD51032
-P 6150 -950
-AR Path="/5CC0D65F/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5DD51032" Ref="C104"  Part="1" 
-AR Path="/5D54E677/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5DD51032" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5DD51032" Ref="C?"  Part="1" 
-F 0 "C104" H 6059 -904 50  0000 R CNN
-F 1 "100nF" H 6059 -995 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6150 -950 50  0001 C CNN
-F 3 "~" H 6150 -950 50  0001 C CNN
-	1    6150 -950
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74LVC1G04 U101
 U 2 1 5DD5B011
 P 2300 -950
@@ -539,8 +428,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 2300 -950
 $EndComp
 Connection ~ 1950 -850
 Connection ~ 1950 -1050
-Connection ~ 6150 -1050
-Connection ~ 6150 -850
 $Sheet
 S 7000 -5600 1150 1000
 U 5D967A8B
@@ -556,12 +443,6 @@ F8 "IBUS[0..15]" I L 7000 -5250 50
 F9 "~DEC" I L 7000 -4750 50 
 F10 "FPD[0..7]" T R 8150 -4950 50 
 $EndSheet
-Text Label 4500 -2750 2    50   ~ 0
-~ACTION-DECDR
-Wire Wire Line
-	3900 -2850 4500 -2850
-Wire Wire Line
-	3900 -2750 4500 -2750
 Wire Wire Line
 	3900 -4700 4500 -4700
 Wire Wire Line
@@ -592,14 +473,11 @@ RESET
 Wire Wire Line
 	3500 -6800 4000 -6800
 Text Label 6150 -4750 0    50   ~ 0
-~ACTION-DECDR
+~DECDR
 Text Label 6150 -4850 0    50   ~ 0
-~ACTION-INCDR
+~INCDR
 Text Label 6150 -6150 0    50   ~ 0
-~ACTION-INCPC
-NoConn ~ 3900 -2950
-Text Notes 4550 -2950 0    50   ~ 0
-The PC doesn't decrement
+~INCPC
 Text Notes 4200 -5050 0    50   ~ 0
 [RW]ADDR\n\n01000\n01001\n01010\n01011
 Text Notes 4750 -5050 0    50   ~ 0
@@ -618,10 +496,6 @@ Wire Notes Line
 	4700 -5575 4700 -5000
 Text Label 2900 -3900 2    50   ~ 0
 CLK4'
-Text Label 2600 -2250 0    50   ~ 0
-CLK4'
-Wire Wire Line
-	2600 -2250 2900 -2250
 Text Notes 3150 -1450 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 Wire Wire Line
@@ -641,34 +515,6 @@ F 3 "" H 2550 -5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2850 -5350 2900 -5350
-Wire Wire Line
-	2650 -2350 2400 -2350
-Wire Wire Line
-	2400 -2350 2400 -2300
-$Comp
-L power:GND #PWR0104
-U 1 1 60249AD4
-P 2400 -2300
-F 0 "#PWR0104" H 2400 -2550 50  0001 C CNN
-F 1 "GND" H 2405 -2473 50  0000 C CNN
-F 2 "" H 2400 -2300 50  0001 C CNN
-F 3 "" H 2400 -2300 50  0001 C CNN
-	1    2400 -2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2850 -2350 2900 -2350
-$Comp
-L Device:Jumper_NC_Small JP104
-U 1 1 602831A6
-P 2750 -2350
-F 0 "JP104" H 2600 -2300 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 2750 -2229 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 2750 -2350 50  0001 C CNN
-F 3 "~" H 2750 -2350 50  0001 C CNN
-	1    2750 -2350
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:Jumper_NC_Small JP101
 U 1 1 60284772
@@ -2207,8 +2053,6 @@ Wire Wire Line
 Wire Wire Line
 	-1650 -3000 -1050 -3000
 Wire Wire Line
-	-1650 -2900 -1050 -2900
-Wire Wire Line
 	-1650 -3500 -1050 -3500
 Wire Wire Line
 	-1650 -3400 -1050 -3400
@@ -2408,92 +2252,6 @@ Text Label -8050 -5350 2    50   ~ 0
 WSTB
 Text Notes -1000 -6100 0    50   ~ 0
 → BUS.MBU
-Text Notes -950 -2900 0    50   ~ 0
-→ BUS.MBU
-Text Label -1050 -2900 2    50   ~ 0
-~IR-IDX
-Wire Wire Line
-	-4900 -2550 -4300 -2550
-Wire Wire Line
-	-4900 -2450 -4300 -2450
-$Comp
-L power:GND #PWR0111
-U 1 1 6C5C85C4
-P -4400 -1950
-AR Path="/6C5C85C4" Ref="#PWR0111"  Part="1" 
-AR Path="/5CBF1647/6C5C85C4" Ref="#PWR?"  Part="1" 
-AR Path="/5CC0D65F/6C5C85C4" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/6C5C85C4" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/6C5C85C4" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0111" H -4400 -2200 50  0001 C CNN
-F 1 "GND" H -4395 -2123 50  0000 C CNN
-F 2 "" H -4400 -1950 50  0001 C CNN
-F 3 "" H -4400 -1950 50  0001 C CNN
-	1    -4400 -1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 6C5C85BE
-P -4400 -2050
-AR Path="/5CC0D65F/6C5C85BE" Ref="C?"  Part="1" 
-AR Path="/5CD3AC27/6C5C85BE" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/6C5C85BE" Ref="C?"  Part="1" 
-AR Path="/6C5C85BE" Ref="C101"  Part="1" 
-F 0 "C101" H -4491 -2004 50  0000 R CNN
-F 1 "100nF" H -4491 -2095 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -4400 -2050 50  0001 C CNN
-F 3 "~" H -4400 -2050 50  0001 C CNN
-	1    -4400 -2050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0107
-U 1 1 6C5C85B8
-P -4400 -2150
-AR Path="/6C5C85B8" Ref="#PWR0107"  Part="1" 
-AR Path="/5CC0D65F/6C5C85B8" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/6C5C85B8" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/6C5C85B8" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0107" H -4400 -2300 50  0001 C CNN
-F 1 "+5V" H -4385 -1977 50  0000 C CNN
-F 2 "" H -4400 -2150 50  0001 C CNN
-F 3 "" H -4400 -2150 50  0001 C CNN
-	1    -4400 -2150
-	1    0    0    -1  
-$EndComp
-Connection ~ -4400 -2150
-Connection ~ -4400 -1950
-$Comp
-L alexios:74LVC1G32 U105
-U 2 1 6C5AEB2D
-P -4000 -2300
-F 0 "U105" H -3870 -2504 50  0000 L CNN
-F 1 "74LVC1G32" H -3870 -2595 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H -3890 -2320 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -3890 -2320 50  0001 C CNN
-	2    -4000 -2300
-	1    0    0    -1  
-$EndComp
-Text Label -3500 -2500 2    50   ~ 0
-~IR-IDX
-Wire Wire Line
-	-3800 -2500 -3500 -2500
-Text Label -4750 -2550 0    50   ~ 0
-~IDXEN
-Text Label -4750 -2450 0    50   ~ 0
-~ACTION-IDX
-$Comp
-L alexios:74LVC1G32 U105
-U 1 1 6C570E28
-P -4100 -2500
-F 0 "U105" H -4050 -2233 50  0000 C CNN
-F 1 "74LVC1G32" H -4050 -2324 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H -3990 -2520 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -3990 -2520 50  0001 C CNN
-	1    -4100 -2500
-	1    0    0    -1  
-$EndComp
 Text Label -5200 -4550 2    50   ~ 0
 ~IDXEN
 $Sheet
@@ -2522,31 +2280,8 @@ Wire Wire Line
 	-9650 -4250 -10250 -4250
 Text Label -10250 -4350 0    50   ~ 0
 CLK2
-Wire Wire Line
-	-4900 -1750 -4900 -2450
-Wire Wire Line
-	-5800 -1750 -4900 -1750
-Text Label -5200 -1750 2    50   ~ 0
-~ACTION-IDX
 Text Label -7550 -1950 0    50   ~ 0
-~RESET
-$Sheet
-S -6950 -2050 1150 1050
-U 5F67D4B5
-F0 "Interrupt State Machine" 50
-F1 "cft_int_fsm.sch" 50
-F2 "~IRQ" I L -6950 -1100 50 
-F3 "~RESET" I L -6950 -1950 50 
-F4 "FI" O R -5800 -1950 50 
-F5 "~IRQS" O R -5800 -1200 50 
-F6 "~END" I L -6950 -1250 50 
-F7 "CLK4" I L -6950 -1850 50 
-F8 "~IRQSµC" O R -5800 -1100 50 
-F9 "IBUS15" I L -6950 -1450 50 
-F10 "~WRITE-FL" I L -6950 -1350 50 
-F11 "ACTION[0..3]" I L -6950 -1650 50 
-F12 "~ACTION-IDX" O R -5800 -1750 50 
-$EndSheet
+~RSTHOLD
 Wire Wire Line
 	-6950 -1250 -7550 -1250
 Text Label -5200 -1100 2    50   ~ 0
@@ -2573,7 +2308,7 @@ Text Label -7550 -1350 0    50   ~ 0
 ~WRITE-FL
 Text Label -7550 -1450 0    50   ~ 0
 IBUS15
-Text Label -7550 -1850 0    50   ~ 0
+Text Label -7550 -1750 0    50   ~ 0
 CLK4
 Wire Wire Line
 	-6950 -1100 -7550 -1100
@@ -2582,7 +2317,7 @@ Wire Wire Line
 Wire Wire Line
 	-6950 -1450 -7550 -1450
 Wire Wire Line
-	-6950 -1850 -7550 -1850
+	-6950 -1750 -7550 -1750
 Wire Wire Line
 	-6950 -1950 -7550 -1950
 $Comp
@@ -2786,8 +2521,6 @@ Wire Wire Line
 	-9650 -2550 -10150 -2550
 Text Label -10150 -2550 0    50   ~ 0
 ~µPC-INH
-Wire Wire Line
-	-4900 -4550 -4900 -2550
 Wire Wire Line
 	-5800 -3850 -5200 -3850
 Text Label -5200 -3850 2    50   ~ 0
@@ -3394,10 +3127,56 @@ Wire Wire Line
 	-8500 -1950 -7900 -1950
 Text Label -7900 -1950 2    50   ~ 0
 ~READ-FL
+Text Label -7550 -1850 0    50   ~ 0
+CLK3
+Wire Wire Line
+	-6950 -1850 -7550 -1850
+Wire Wire Line
+	-5800 -1550 -5200 -1550
+Wire Wire Line
+	-5800 -1450 -5200 -1450
+Wire Wire Line
+	-5800 -1350 -5200 -1350
+Text Label -5200 -1550 2    50   ~ 0
+~INCPC
+Text Label -5200 -1450 2    50   ~ 0
+~INCDR
+Text Label -5200 -1350 2    50   ~ 0
+~DECDR
+Text Label -5200 -1750 2    50   ~ 0
+~IR-IDX
+$Sheet
+S -6950 -2050 1150 1050
+U 5F67D4B5
+F0 "Interrupt State Machine" 50
+F1 "cft_int_fsm.sch" 50
+F2 "~IRQ" I L -6950 -1100 50 
+F3 "~RESET" I L -6950 -1950 50 
+F4 "FI" O R -5800 -1950 50 
+F5 "~IRQS" O R -5800 -1200 50 
+F6 "~END" I L -6950 -1250 50 
+F7 "CLK4" I L -6950 -1750 50 
+F8 "~IRQSµC" O R -5800 -1100 50 
+F9 "IBUS15" I L -6950 -1450 50 
+F10 "~WRITE-FL" I L -6950 -1350 50 
+F11 "ACTION[0..3]" I L -6950 -1650 50 
+F12 "~IR-IDX" O R -5800 -1750 50 
+F13 "~ACTION-INCPC" O R -5800 -1550 50 
+F14 "~ACTION-DECDR" O R -5800 -1350 50 
+F15 "~ACTION-INCDR" O R -5800 -1450 50 
+F16 "CLK3" I L -6950 -1850 50 
+F17 "IDXEN" I R -5800 -1850 50 
+$EndSheet
+Text Label -5200 -1850 2    50   ~ 0
+~IDXEN
+Wire Wire Line
+	-5800 -1850 -4900 -1850
+Wire Wire Line
+	-4900 -4550 -4900 -1850
+Wire Wire Line
+	-5800 -1750 -5200 -1750
 Wire Bus Line
 	2450 -4900 2450 -4100
-Wire Bus Line
-	2450 -3250 2450 -2550
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line

@@ -1765,20 +1765,6 @@ Text Label 6250 1850 0    50   ~ 0
 AB6
 Text Label 6250 1950 0    50   ~ 0
 AB7
-Wire Bus Line
-	6900 950  6900 1200
-Wire Bus Line
-	7800 4550 7800 5250
-Wire Bus Line
-	9550 4750 9550 5500
-Wire Bus Line
-	3050 1600 3050 5200
-Wire Bus Line
-	3200 1050 3200 3500
-Wire Bus Line
-	6600 1350 6600 5900
-Wire Bus Line
-	4950 950  4950 5200
 Text Label 4650 5300 0    50   ~ 0
 AR23
 Text Label 4650 5200 0    50   ~ 0
@@ -1811,4 +1797,18 @@ Wire Wire Line
 	4650 4700 4850 4700
 Wire Wire Line
 	4650 4600 4850 4600
+Wire Bus Line
+	6900 950  6900 1200
+Wire Bus Line
+	7800 4550 7800 5250
+Wire Bus Line
+	9550 4750 9550 5500
+Wire Bus Line
+	3050 1600 3050 5200
+Wire Bus Line
+	3200 1050 3200 3500
+Wire Bus Line
+	6600 1350 6600 5900
+Wire Bus Line
+	4950 950  4950 5200
 $EndSCHEMATC
