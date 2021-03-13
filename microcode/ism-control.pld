@@ -3,8 +3,8 @@ ISMCTL00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-RESET   ACT0    ACT1    ACT2    ACT3    CLK4    END	FI	NC0	GND
-NC1	ACTSTI  ACTCLI	ACTIDX  INCPC   INCDR   DECDR   INH	ENDCP	VCC
+RESET   ACT0    ACT1    ACT2    ACT3    CLK4    END	FI	IDXEN	GND
+NC1	ACTSTI  ACTIDX  INCPC   INCDR   DECDR   INH	ENDCP	ACTCLI	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -29,7 +29,8 @@ NC1	ACTSTI  ACTCLI	ACTIDX  INCPC   INCDR   DECDR   INH	ENDCP	VCC
 
 /ENDCP =  /CLK4 * /END
 
-; Note: the schematics do this with an 74LVC, which has a 6ns propagation delay.
+; Note: the schematics do this with an 74LVC1G32 OR gate, which has a
+; 6ns propagation delay.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -38,7 +39,10 @@ NC1	ACTSTI  ACTCLI	ACTIDX  INCPC   INCDR   DECDR   INH	ENDCP	VCC
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-/ACTIDX = /CLK4 * /ACT3 *  ACT2 * /ACT1 *  ACT0
+;; We have a spare pin, so use it to evaluate /IDX rather than just
+;; ACTION-IDX. /IDX is asserted with /ACTION-IDX and /IDXEN are both asserted.
+
+/IDX =    /CLK4 * /ACT3 *  ACT2 * /ACT1 *  ACT0 * /IDXEN
 
 /INCPC =  /CLK4 *  ACT3 * /ACT2 * /ACT1 * /ACT0
 
