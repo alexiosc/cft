@@ -252,11 +252,11 @@ Text HLabel 4300 3600 2    50   Output ~ 0
 Text Notes 8400 3200 0    50   ~ 0
 This is output to the Flag Unit.
 Wire Wire Line
-	3450 3300 4050 3300
+	3450 3200 4050 3200
 Wire Wire Line
 	3450 3000 4050 3000
 Wire Wire Line
-	3450 3200 4300 3200
+	3450 3300 4300 3300
 Wire Wire Line
 	3450 3400 4300 3400
 Wire Wire Line
@@ -276,7 +276,7 @@ CLK4
 Text Label 2200 3600 0    50   ~ 0
 ~END
 NoConn ~ 2550 3800
-Text Label 4050 3300 2    50   ~ 0
+Text Label 4050 3200 2    50   ~ 0
 ENDCP
 Text Label 4050 3000 2    50   ~ 0
 ~INH
@@ -288,7 +288,7 @@ Text Label 2200 3400 0    50   ~ 0
 ACTION2
 Text Label 2200 3500 0    50   ~ 0
 ACTION3
-Text Label 4050 3200 2    50   ~ 0
+Text Label 4050 3300 2    50   ~ 0
 ~ACTION-DECDR
 Text Label 4050 3400 2    50   ~ 0
 ~ACTION-INCDR
@@ -296,9 +296,9 @@ Text Label 4050 3500 2    50   ~ 0
 ~ACTION-INCPC
 Text Label 4050 3600 2    50   ~ 0
 ~IR-IDX
-Text Label 4050 2900 2    50   ~ 0
-~ACTION-CLI
 Text Label 4050 3100 2    50   ~ 0
+~ACTION-CLI
+Text Label 4050 2900 2    50   ~ 0
 ~ACTION-STI
 Wire Wire Line
 	2200 3200 2550 3200
@@ -327,7 +327,7 @@ Wire Wire Line
 	1250 2300 2150 2300
 Text HLabel 4300 3500 2    50   Output ~ 0
 ~ACTION-INCPC
-Text HLabel 4300 3200 2    50   Output ~ 0
+Text HLabel 4300 3300 2    50   Output ~ 0
 ~ACTION-DECDR
 Text HLabel 4300 3400 2    50   Output ~ 0
 ~ACTION-INCDR
