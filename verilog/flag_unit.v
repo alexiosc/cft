@@ -43,7 +43,7 @@
 
 module flag_unit (clk4, waddr, raddr,
 		  fn, fz, fl, fv, fi,
-		  ibus, nflagwe, nwrite_ir, nread_agl,
+		  ibus, nwrite_fl, nwrite_ir, nread_agl,
 		  nfpflags, fpd);
 
    input          clk4;
@@ -52,7 +52,7 @@ module flag_unit (clk4, waddr, raddr,
    input 	  fn, fz, fl, fv, fi;
 
    output [15:8]  ibus;
-   output 	  nflagwe;
+   output 	  nwrite_fl;
    output 	  nwrite_ir;
    output 	  nread_agl;
    
@@ -64,11 +64,11 @@ module flag_unit (clk4, waddr, raddr,
    demux_138 demux_write (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(wy));
    demux_138 demux_read  (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .y(ry));
 
-   // Decode the write signals, generate nflagwe.
+   // Decode the write signals, generate nwrite_fl.
    wire 	  nwrite_mbp_flags, nwrite_flags;
    assign nwrite_mbp_flags = wy[5];
    assign nwrite_flags = wy[6];
-   assign #7 nflagwe = (nwrite_mbp_flags & nwrite_flags) | clk4; // Writing only happens during T4
+   assign #7 nwrite_fl = (nwrite_mbp_flags & nwrite_flags) | clk4; // Writing only happens during T4
    assign nwrite_ir = wy[7];
 
    // Decode the read signals, generate nflagoe.
@@ -101,7 +101,7 @@ module flag_unit (clk4, waddr, raddr,
 	       .noe1(nflagoe), .noe2(1'b0));
 
    // Now: *WRITING* to flags isn't implemented here. We only generate the
-   // nFLAGWE strobe, and flag circuitry that can be set this way (currently,
+   // nwrite_fl strobe, and flag circuitry that can be set this way (currently,
    // FI, FV and FL) will do so itself.
 
    // The front panel buffer drives the flag section of the FP. The light

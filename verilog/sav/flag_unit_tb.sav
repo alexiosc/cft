@@ -42,7 +42,7 @@ flag_unit_tb.waddr[4:0]
 @28
 flag_unit_tb.waddr[4:0]
 [color] 3
-flag_unit_tb.nflagwe
+flag_unit_tb.nwrite_fl
 flag_unit_tb.nwrite_ir
 @200
 -

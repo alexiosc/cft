@@ -150,7 +150,7 @@ module card_ctl(
    wire 	 fz;		// ← REG, Zero flag
    wire 	 fn;		// ← ALU, Negative flag
    wire 	 nfpflags;	// ← DFP, request flags group
-   wire 	 nflagwe;	// → ALU/REG, strobe to write flags from IBus
+   wire 	 nwrite_fl;	// → ALU/REG, strobe to write flags from IBus
 
    wire [15:10]  pc;		// Used by the AGL.
 
@@ -161,7 +161,7 @@ module card_ctl(
    //assign cport[8] = nwen;
    assign fl = cport[9];
    assign fv = cport[10];
-   assign cport[11] = nflagwe;
+   assign cport[11] = nwrite_fl;
    assign fz = cport[12];
    assign fn = cport[13];
    assign pc[15:10] = cport[19:14];
@@ -202,7 +202,6 @@ module card_ctl(
    wire 	 cext8;
    wire 	 cext9;
    wire 	 cext10;	// testpoint on board, not on cport
-   wire 	 naction_idx;	// Maybe use IR[2:0] to select memory bank.
    wire 	 nidxen;	// Operand is in the auto-indexing range
    wire 	 nir_idx;       // → BUS.MBU, uses IR[2:0] to select memory bank
 
@@ -303,7 +302,7 @@ module card_ctl(
    			.fv(fv),
    			.fi(fi),
    			.ibus(ibus[15:8]),
-   			.nflagwe(nflagwe),
+   			.nwrite_fl(nwrite_fl),
    			.nread_agl(nread_agl),
    			.nwrite_ir(nwrite_ir),
    			.nfpflags(nfpflags),
@@ -328,8 +327,9 @@ module card_ctl(
 	    .idx(idx),
 	    .nidxen(nidxen));
 
-   // Generate the IR-IDX signal for the MBU.
-   assign #4 nir_idx = naction_idx | nidxen;
+   // Alexios (2021-03-14): this is now done in the ISM GAL.
+   // // Generate the IR-IDX signal for the MBU.
+   // assign #4 nir_idx = naction_idx | nidxen;
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -359,17 +359,19 @@ module card_ctl(
    ///////////////////////////////////////////////////////////////////////////////
 
    // Connect DUT to test bench
-   int_fsm ism (.nreset(nreset),
+   int_fsm ism (.nreset(nrsthold),
+		.clk3(clk3),
 		.clk4(clk4),
 		.nend(nend),
 		.ibus15(ibus[15]),
-		.nflagwe(nflagwe),
+		.nwrite_fl(nwrite_fl),
 		.action(action),
 		.nirq(nirq),
 		.fi(fi),
 		.nirqs(nirqs),
 		.nirqsuc(nirqsuc),
-		.naction_idx(naction_idx));
+		.nidxen(nidxen),
+		.nir_idx(nir_idx));
 
 endmodule // card_ctl
 

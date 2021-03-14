@@ -1,15 +1,16 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar 18 18:51:15 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sun Mar 14 09:20:08 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ism_tb.vcd"
-[dumpfile_mtime] "Wed Mar 18 18:51:13 2020"
-[dumpfile_size] 83422
+[dumpfile_mtime] "Sun Mar 14 09:19:30 2021"
+[dumpfile_size] 48160
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ism_tb.sav"
-[timestart] 3681000
-[size] 1750 817
+[timestart] 119420000
+[size] 1854 817
 [pos] 2078 13
-*-16.540703 4157000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.643538 150500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] int_tb.
 [treeopen] int_tb.int_fsm.
 [sst_width] 258
@@ -20,29 +21,43 @@
 int_tb.status[800:0]
 @28
 int_tb.nreset
-@421
+@420
 int_tb.i
+@28
+int_tb.int_fsm.clk3
+int_tb.int_fsm.clk4
 @200
 -
 -FI Generation
 @28
 int_tb.ibus15
-int_tb.nflagwe
+int_tb.nwrite_fl
 @2028
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
 int_tb.action[3:0]
 @28
-int_tb.int_fsm.naction_sti
-int_tb.int_fsm.naction_cli
+int_tb.int_fsm.nsti
+int_tb.int_fsm.ncli
 int_tb.fi
 @200
 -
 -nIRQSYNC
 @28
+[color] 1
 int_tb.fi
+[color] 2
+int_tb.int_fsm.clk3
+[color] 3
 int_tb.clk4
+[color] 4
+int_tb.int_fsm.control_gal.endcp
+[color] 1
 int_tb.nirq
+int_tb.int_fsm.nirq0
+int_tb.int_fsm.nirqr
+@29
 int_tb.nirqs
+@28
 int_tb.nirqsuc
 @200
 -

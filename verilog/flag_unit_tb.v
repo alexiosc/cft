@@ -39,7 +39,7 @@ module flag_unit_tb();
 
    wire [15:0] 	ibus;
    wire [7:0] 	ibus_hi;
-   wire 	nflagwe;
+   wire 	nwrite_fl;
    wire 	nwrite_ir;
    wire 	nread_agl;
    // wire 	naction_cpl;
@@ -60,7 +60,7 @@ module flag_unit_tb();
       //$display ("time\t rst oe cs q");
       $monitor ("t: %7d | %b > %b %b | %b > %04h %b | %b > %02x",
 		$time,
-		waddr, nflagwe, nwrite_ir,
+		waddr, nwrite_fl, nwrite_ir,
 		raddr, ibus, nread_agl,
 		nfpflags, fpd);
       $dumpfile ("vcd/flag_unit_tb.vcd");
@@ -110,7 +110,7 @@ module flag_unit_tb();
 			.raddr(raddr),
 			.fn(fn), .fz(fz), .fl(fl), .fv(fv), .fi(fi),
 			.ibus(ibus[15:8]),
-			.nflagwe(nflagwe),
+			.nwrite_fl(nwrite_fl),
 			.nread_agl(nread_agl),
 			.nwrite_ir(nwrite_ir),
 			//.action(action),
@@ -164,21 +164,21 @@ module flag_unit_tb();
    end
 
    
-   // Test the writer (strobing nflagwe)
+   // Test the writer (strobing nwrite_fl)
    always @ (waddr, clk4) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (clk4 === 1'b0 && (waddr === 5'b01101 || waddr === 5'b01110)) begin
-	    if (nflagwe !== 0) begin
-	       $sformat(msg, "waddr=%b but nflagwe=%b (should be 0)",
-			waddr, nflagwe);
+	    if (nwrite_fl !== 0) begin
+	       $sformat(msg, "waddr=%b but nwrite_fl=%b (should be 0)",
+			waddr, nwrite_fl);
 	    end
 	 end
 
-	 else if (nflagwe === 0) begin
-	       $sformat(msg, "waddr=%b but nflagwe=%b (should be 1)",
-			waddr, nflagwe);
+	 else if (nwrite_fl === 0) begin
+	       $sformat(msg, "waddr=%b but nwrite_fl=%b (should be 1)",
+			waddr, nwrite_fl);
 	 end
 
 	 else if (waddr === 5'b01111 && nwrite_ir !== 1'b0) begin
@@ -241,7 +241,7 @@ module flag_unit_tb();
    // 	    $error("assertion failure");
    // 	    #100 $finish;
    // 	 end
-   // 	 else $display("345 OK nflagwe");
+   // 	 else $display("345 OK nwrite_fl");
    //    end
    // end
 
