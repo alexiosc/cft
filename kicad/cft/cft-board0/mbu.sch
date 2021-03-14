@@ -37,21 +37,21 @@ Text Label 5450 1700 2    50   ~ 0
 RA1
 Text Label 5450 1600 2    50   ~ 0
 RA0
-Text Label 9050 2300 2    50   ~ 0
-AEXT7
-Text Label 9050 2200 2    50   ~ 0
-AEXT6
-Text Label 9050 2100 2    50   ~ 0
-AEXT5
-Text Label 9050 2000 2    50   ~ 0
-AEXT4
-Text Label 9050 1900 2    50   ~ 0
-AEXT3
-Text Label 9050 1800 2    50   ~ 0
-AEXT2
-Text Label 9050 1700 2    50   ~ 0
-AEXT1
 Text Label 9050 1600 2    50   ~ 0
+AEXT5
+Text Label 9050 1700 2    50   ~ 0
+AEXT6
+Text Label 9050 1800 2    50   ~ 0
+AEXT7
+Text Label 9050 1900 2    50   ~ 0
+AEXT4
+Text Label 9050 2000 2    50   ~ 0
+AEXT3
+Text Label 9050 2100 2    50   ~ 0
+AEXT2
+Text Label 9050 2200 2    50   ~ 0
+AEXT1
+Text Label 9050 2300 2    50   ~ 0
 AEXT0
 Text Label 3800 3650 0    50   ~ 0
 IBUS0
@@ -839,34 +839,7 @@ F 3 "" H 9150 2900 50  0001 C CNN
 	1    9150 2900
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	9250 2500 9250 2200
-Wire Wire Line
-	9350 2500 9350 2100
-Wire Wire Line
-	9450 2500 9450 2000
-Wire Wire Line
-	9550 2500 9550 1900
-Wire Wire Line
-	9650 2500 9650 1800
-Wire Wire Line
-	9750 2500 9750 1700
-Wire Wire Line
-	9850 2500 9850 1600
 NoConn ~ 9150 2500
-$Comp
-L Device:R_Network08 RN?
-U 1 1 617A93A1
-P 9550 2700
-AR Path="/61F95ACC/6888FBA2/617A93A1" Ref="RN?"  Part="1" 
-AR Path="/61F95ACC/617A93A1" Ref="RN601"  Part="1" 
-F 0 "RN601" H 9070 2654 50  0000 R CNN
-F 1 "10kΩ" H 9070 2745 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP9" V 10025 2700 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9550 2700 50  0001 C CNN
-	1    9550 2700
-	1    0    0    1   
-$EndComp
 Entry Wire Line
 	10050 1600 10150 1700
 Entry Wire Line
@@ -931,59 +904,19 @@ Text HLabel 1250 750  0    50   Input ~ 0
 ~FPRAM~∕ROM
 Text Label 9000 750  2    50   ~ 0
 ~FPRAM~∕ROM
-Connection ~ 9250 2200
-Wire Wire Line
-	9250 2200 10050 2200
-Connection ~ 9350 2100
-Wire Wire Line
-	9350 2100 10050 2100
-Connection ~ 9450 2000
-Wire Wire Line
-	9450 2000 10050 2000
-Connection ~ 9550 1900
-Wire Wire Line
-	9550 1900 10050 1900
-Connection ~ 9650 1800
-Wire Wire Line
-	9650 1800 10050 1800
-Connection ~ 9750 1700
-Wire Wire Line
-	9750 1700 10050 1700
-Connection ~ 9850 1600
-Wire Wire Line
-	9850 1600 10050 1600
-Wire Wire Line
-	8800 1600 9850 1600
-Wire Wire Line
-	8800 1700 9750 1700
-Wire Wire Line
-	8800 1800 9650 1800
-Wire Wire Line
-	8800 1900 9550 1900
-Wire Wire Line
-	8800 2000 9450 2000
-Wire Wire Line
-	8800 2100 9350 2100
-Wire Wire Line
-	8800 2200 9250 2200
 $Comp
 L Device:R_Small R601
 U 1 1 61D0DEA7
 P 9150 1350
-F 0 "R601" H 9091 1396 50  0000 R CNN
-F 1 "10kΩ" H 9091 1305 50  0000 R CNN
+F 0 "R601" H 9400 1400 50  0000 R CNN
+F 1 "10kΩ" H 9400 1300 50  0000 R CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9150 1350 50  0001 C CNN
 F 3 "~" H 9150 1350 50  0001 C CNN
 	1    9150 1350
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	8800 2300 9150 2300
-Wire Wire Line
-	9150 1450 9150 2300
-Connection ~ 9150 2300
-Wire Wire Line
-	9150 2300 10050 2300
+	9150 1450 9150 1800
 Wire Wire Line
 	9150 1250 9150 750 
 Wire Notes Line width 20 style solid
@@ -1662,6 +1595,82 @@ Text HLabel 9650 5800 2    50   3State ~ 0
 FPD[0..7]
 Wire Wire Line
 	1250 750  9150 750 
+Wire Notes Line width 20 style solid
+	9450 750  9450 1350
+Wire Notes Line width 20 style solid
+	11100 1350 9450 1350
+Wire Notes Line width 20 style solid
+	9450 750  11100 750 
+Text Notes 9550 1250 0    50   ~ 0
+Register file address and data buses\nhave been rearranged to ease routing.
+Text Notes 9550 950  0    50   ~ 10
+Signals not in order!
+Wire Notes Line width 20 style solid
+	11100 750  11100 1350
+$Comp
+L Device:R_Network08 RN?
+U 1 1 617A93A1
+P 9550 2700
+AR Path="/61F95ACC/6888FBA2/617A93A1" Ref="RN?"  Part="1" 
+AR Path="/61F95ACC/617A93A1" Ref="RN601"  Part="1" 
+F 0 "RN601" H 9070 2654 50  0000 R CNN
+F 1 "10kΩ" H 9070 2745 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 10025 2700 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9550 2700 50  0001 C CNN
+	1    9550 2700
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8800 2200 9750 2200
+Wire Wire Line
+	8800 2100 9650 2100
+Wire Wire Line
+	8800 2000 9550 2000
+Wire Wire Line
+	8800 1600 9350 1600
+Wire Wire Line
+	8800 1700 9250 1700
+Wire Wire Line
+	8800 1800 9150 1800
+Connection ~ 9150 1800
+Wire Wire Line
+	9150 1800 10050 1800
+Wire Wire Line
+	9250 2500 9250 1700
+Connection ~ 9250 1700
+Wire Wire Line
+	9250 1700 10050 1700
+Wire Wire Line
+	9350 2500 9350 1600
+Connection ~ 9350 1600
+Wire Wire Line
+	9350 1600 10050 1600
+Wire Wire Line
+	9450 2500 9450 1900
+Wire Wire Line
+	8800 1900 9450 1900
+Connection ~ 9450 1900
+Wire Wire Line
+	9450 1900 10050 1900
+Wire Wire Line
+	9550 2500 9550 2000
+Connection ~ 9550 2000
+Wire Wire Line
+	9550 2000 10050 2000
+Wire Wire Line
+	9650 2500 9650 2100
+Connection ~ 9650 2100
+Wire Wire Line
+	9650 2100 10050 2100
+Wire Wire Line
+	9750 2500 9750 2200
+Connection ~ 9750 2200
+Wire Wire Line
+	9750 2200 10050 2200
+Wire Wire Line
+	9850 2500 9850 2300
+Wire Wire Line
+	8800 2300 9850 2300
 Wire Bus Line
 	3700 2600 3700 3050
 Wire Bus Line
@@ -1676,4 +1685,7 @@ Wire Bus Line
 	7000 3750 7000 6550
 Wire Bus Line
 	3700 3400 3700 6550
+Connection ~ 9850 2300
+Wire Wire Line
+	9850 2300 10050 2300
 $EndSCHEMATC

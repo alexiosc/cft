@@ -86,7 +86,7 @@ CLK4
 Text Label 1300 4900 0    50   ~ 0
 ~IRQ
 Text Notes 2400 6550 0    50   ~ 0
-Interrupts are very prone to metastability. Using two flip-flops\nhere greatly reduces the probability of this happening. Normally,\nyou use the same clock for metastability protection, but in this case\nwe can use CLK3 and CLK4 because the rising edge of CLK3 is\nguaranteed to lead the rising edge of CLK4 by 62.5ns, greater than\nthe set-up time on the HC or AC family. We still use the AC famil\nbecause its set-up time is shorter, so the chance of metastability is\nlower.
+Interrupts are very prone to metastability. Using two flip-flops\nhere greatly reduces the probability of this happening. Normally,\nyou use the same clock for metastability protection, but in this case\nwe can use CLK3 and CLK4 because the rising edge of CLK3 is\nguaranteed to lead the rising edge of CLK4 by 62.5ns, greater than\nthe set-up time on the HC or AC family. We still use the AC family\nbecause its set-up time is shorter, so the chance of metastability is\nlower.
 Text HLabel 1250 3600 0    50   Input ~ 0
 ~END
 Text Label 6000 4900 0    50   ~ 0
@@ -115,7 +115,7 @@ FI
 Text Label 6350 3400 0    50   ~ 0
 IBUS15
 Text Label 6350 3300 0    50   ~ 0
-~ACTION-STI
+~STI
 Wire Wire Line
 	6350 3600 6850 3600
 Wire Wire Line
@@ -226,7 +226,7 @@ Wire Notes Line width 24 style solid
 Wire Notes Line width 24 style solid
 	11000 2550 11000 1900
 Text Label 6350 3600 0    50   ~ 0
-~ACTION-CLI
+~CLI
 Text Notes 800  850  0    98   ~ 20
 The Interrupt State Machine
 Text Notes 800  1700 0    50   ~ 0
@@ -297,9 +297,9 @@ Text Label 4050 3500 2    50   ~ 0
 Text Label 4050 3600 2    50   ~ 0
 ~IR-IDX
 Text Label 4050 3100 2    50   ~ 0
-~ACTION-CLI
+~CLI
 Text Label 4050 2900 2    50   ~ 0
-~ACTION-STI
+~STI
 Wire Wire Line
 	2200 3200 2550 3200
 Wire Wire Line
@@ -403,12 +403,12 @@ $EndComp
 $Comp
 L power:+5V #PWR0142
 U 1 1 60660F10
-P 4000 5100
-F 0 "#PWR0142" H 4000 4950 50  0001 C CNN
-F 1 "+5V" V 4015 5228 50  0000 L CNN
-F 2 "" H 4000 5100 50  0001 C CNN
-F 3 "" H 4000 5100 50  0001 C CNN
-	1    4000 5100
+P 4250 5100
+F 0 "#PWR0142" H 4250 4950 50  0001 C CNN
+F 1 "+5V" V 4265 5228 50  0000 L CNN
+F 2 "" H 4250 5100 50  0001 C CNN
+F 3 "" H 4250 5100 50  0001 C CNN
+	1    4250 5100
 	0    -1   -1   0   
 $EndComp
 Text HLabel 1250 5000 0    50   Input ~ 0
@@ -435,12 +435,10 @@ Wire Wire Line
 Wire Wire Line
 	3700 4800 3700 4900
 Wire Wire Line
-	3700 4900 4000 4900
+	3700 4900 4250 4900
 Wire Wire Line
-	3600 5000 4000 5000
-Wire Wire Line
-	3800 4800 4000 4800
-Text Label 3800 4800 0    50   ~ 0
+	4050 4800 4250 4800
+Text Label 4050 4800 0    50   ~ 0
 ~INH
 Text Notes 2400 5500 0    63   ~ 13
 Caution: AC Family part!
@@ -451,19 +449,19 @@ Wire Wire Line
 	2300 4800 2500 4800
 Text Label 2300 4800 0    50   ~ 0
 ~INH
-Text Label 3800 5000 0    50   ~ 0
+Text Label 4050 5000 0    50   ~ 0
 CLK4
 Text Label 2850 4200 0    50   ~ 0
 CLK4
 $Comp
 L alexios:74AC74 U1403
 U 1 1 606579EE
-P 4450 4950
-F 0 "U1403" H 4450 5367 50  0000 C CNN
-F 1 "74AC74" H 4450 5276 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 4400 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4400 5100 50  0001 C CNN
-	1    4450 4950
+P 4700 4950
+F 0 "U1403" H 4700 5367 50  0000 C CNN
+F 1 "74AC74" H 4700 5276 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4650 5100 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4650 5100 50  0001 C CNN
+	1    4700 4950
 	1    0    0    1   
 $EndComp
 Connection ~ 3600 7100
@@ -471,7 +469,7 @@ Connection ~ 3600 7300
 Text Notes 2600 4400 0    79   ~ 16
 Input Stage
 Wire Wire Line
-	3600 5000 3600 4200
+	3950 5000 3950 4200
 NoConn ~ 7750 5000
 Text Notes 2400 5850 0    63   ~ 13
 Metastability
@@ -623,7 +621,7 @@ F 3 "" H 6850 5800 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4900 4800 6400 4800
+	5150 4800 6400 4800
 Wire Wire Line
 	6300 4900 6300 5700
 Connection ~ 6300 4900
@@ -652,7 +650,7 @@ Connection ~ 1900 3000
 Wire Wire Line
 	1900 3000 1250 3000
 Wire Wire Line
-	1900 4200 3600 4200
+	1900 4200 3950 4200
 $Comp
 L alexios:74HC74 U1402
 U 3 1 60823366
@@ -715,25 +713,25 @@ F 3 "74xx/74hc_hct74.pdf" H 5200 7350 50  0001 C CNN
 $EndComp
 Connection ~ 4900 7100
 Connection ~ 4900 7300
-Text Notes 5450 5300 2    50   ~ 0
+Text Notes 5700 5300 2    50   ~ 0
 IRQ Received
 Wire Wire Line
 	1900 3000 2550 3000
 $Comp
 L power:GND #PWR01
 U 1 1 60CEB832
-P 5600 5150
-F 0 "#PWR01" H 5600 4900 50  0001 C CNN
-F 1 "GND" H 5605 4977 50  0000 C CNN
-F 2 "" H 5600 5150 50  0001 C CNN
-F 3 "" H 5600 5150 50  0001 C CNN
-	1    5600 5150
+P 5850 5150
+F 0 "#PWR01" H 5850 4900 50  0001 C CNN
+F 1 "GND" H 5855 4977 50  0000 C CNN
+F 2 "" H 5850 5150 50  0001 C CNN
+F 3 "" H 5850 5150 50  0001 C CNN
+	1    5850 5150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5500 5100 5600 5100
+	5750 5100 5850 5100
 Wire Wire Line
-	5600 5100 5600 5150
+	5850 5100 5850 5150
 Wire Wire Line
 	7750 5800 7800 5800
 Wire Wire Line
@@ -782,29 +780,29 @@ Wire Wire Line
 $Comp
 L Device:LED_ALT D?
 U 1 1 60CD7F25
-P 5350 5100
+P 5600 5100
 AR Path="/61F95ACC/60CD7F25" Ref="D?"  Part="1" 
 AR Path="/5F67D4B5/60CD7F25" Ref="D1402"  Part="1" 
-F 0 "D1402" H 5300 4950 50  0000 C CNN
-F 1 "LED_ALT" H 5343 4936 50  0001 C CNN
-F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 5100 50  0001 C CNN
-F 3 "~" H 5350 5100 50  0001 C CNN
-	1    5350 5100
+F 0 "D1402" H 5550 4950 50  0000 C CNN
+F 1 "LED_ALT" H 5593 4936 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 5100 50  0001 C CNN
+F 3 "~" H 5600 5100 50  0001 C CNN
+	1    5600 5100
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	4900 5100 5000 5100
+	5150 5100 5250 5100
 $Comp
 L Device:R_Small R?
 U 1 1 60CD7F1F
-P 5100 5100
+P 5350 5100
 AR Path="/61F95ACC/60CD7F1F" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/60CD7F1F" Ref="R1402"  Part="1" 
-F 0 "R1402" V 4904 5100 50  0000 C CNN
-F 1 "680Ω" V 4995 5100 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 5100 50  0001 C CNN
-F 3 "~" H 5100 5100 50  0001 C CNN
-	1    5100 5100
+F 0 "R1402" V 5154 5100 50  0000 C CNN
+F 1 "680Ω" V 5245 5100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 5100 50  0001 C CNN
+F 3 "~" H 5350 5100 50  0001 C CNN
+	1    5350 5100
 	0    -1   1    0   
 $EndComp
 $Comp
@@ -830,4 +828,8 @@ Text Label 1350 3700 0    50   ~ 0
 ~IDXEN
 Text Label 2200 3700 0    50   ~ 0
 ~IDXEN
+Wire Wire Line
+	3950 5000 4250 5000
+Text Label 3450 4800 0    50   ~ 0
+~IRQ'
 $EndSCHEMATC

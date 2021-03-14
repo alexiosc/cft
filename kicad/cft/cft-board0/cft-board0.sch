@@ -2897,13 +2897,13 @@ Wire Wire Line
 Wire Wire Line
 	17200 4350 16700 4350
 Text Label 17200 4050 2    50   ~ 0
-~WRITE_DR
+~WRITE-DR
 Text Label 17200 4150 2    50   ~ 0
-~WRITE_PC
+~WRITE-PC
 Text Label 17200 4250 2    50   ~ 0
-~WRITE_FL
+~WRITE-FL
 Text Label 17200 4350 2    50   ~ 0
-~WRITE_IR
+~WRITE-IR
 NoConn ~ 15800 4550
 NoConn ~ 15800 4650
 NoConn ~ 15800 4750
