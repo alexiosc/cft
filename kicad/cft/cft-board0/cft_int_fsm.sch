@@ -435,8 +435,6 @@ Wire Wire Line
 Wire Wire Line
 	3700 4800 3700 4900
 Wire Wire Line
-	3700 4900 4250 4900
-Wire Wire Line
 	4050 4800 4250 4800
 Text Label 4050 4800 0    50   ~ 0
 ~INH
@@ -832,4 +830,6 @@ Wire Wire Line
 	3950 5000 4250 5000
 Text Label 3450 4800 0    50   ~ 0
 ~IRQ'
+Wire Wire Line
+	4250 4900 3700 4900
 $EndSCHEMATC

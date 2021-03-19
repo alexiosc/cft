@@ -300,7 +300,7 @@ AR Path="/5D892D5E/5DD29707" Ref="C?"  Part="1"
 AR Path="/5D9672D4/5DD29707" Ref="C?"  Part="1" 
 F 0 "C110" H 3259 -904 50  0000 R CNN
 F 1 "100nF" H 3259 -995 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3350 -950 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3350 -950 50  0001 C CNN
 F 3 "~" H 3350 -950 50  0001 C CNN
 	1    3350 -950
 	1    0    0    -1  
@@ -355,7 +355,7 @@ AR Path="/5D892D5E/5DD3D3D8" Ref="C?"  Part="1"
 AR Path="/5D9672D4/5DD3D3D8" Ref="C?"  Part="1" 
 F 0 "C109" H 1859 -904 50  0000 R CNN
 F 1 "100nF" H 1859 -995 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1950 -950 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1950 -950 50  0001 C CNN
 F 3 "~" H 1950 -950 50  0001 C CNN
 	1    1950 -950
 	1    0    0    -1  
@@ -410,7 +410,7 @@ AR Path="/5D892D5E/5DD47242" Ref="C?"  Part="1"
 AR Path="/5D9672D4/5DD47242" Ref="C?"  Part="1" 
 F 0 "C111" H 4659 -904 50  0000 R CNN
 F 1 "100nF" H 4659 -995 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4750 -950 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4750 -950 50  0001 C CNN
 F 3 "~" H 4750 -950 50  0001 C CNN
 	1    4750 -950
 	1    0    0    -1  
@@ -901,8 +901,6 @@ Wire Wire Line
 Wire Wire Line
 	20200 -1750 20200 -1650
 Wire Wire Line
-	-3450 13400 -3350 13400
-Wire Wire Line
 	-3450 12900 -3100 12900
 Wire Wire Line
 	-3450 12800 -3100 12800
@@ -1220,30 +1218,7 @@ F 3 "" H -3350 14000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-3450 13500 -3350 13500
-Wire Wire Line
-	-3350 13400 -3350 13500
-Connection ~ -3350 13500
-Wire Wire Line
-	-3450 13600 -3350 13600
-Wire Wire Line
-	-3350 13500 -3350 13600
-Connection ~ -3350 13600
-Wire Wire Line
-	-3350 13600 -3350 13700
-Wire Wire Line
-	-3450 13700 -3350 13700
-Connection ~ -3350 13700
-Wire Wire Line
-	-3350 13700 -3350 13800
-Wire Wire Line
-	-3450 13800 -3350 13800
-Connection ~ -3350 13800
-Wire Wire Line
-	-3350 13800 -3350 13900
-Wire Wire Line
 	-3450 13900 -3350 13900
-Connection ~ -3350 13900
 Wire Wire Line
 	-3350 13900 -3350 14000
 Text Label -3100 11400 2    50   ~ 0
@@ -1354,10 +1329,6 @@ Wire Wire Line
 Connection ~ -5500 13900
 Wire Wire Line
 	-5500 13900 -5500 14000
-Wire Wire Line
-	-4700 10100 -4700 10000
-Wire Wire Line
-	-4700 10100 -4650 10100
 $Comp
 L power:+5V #PWR0130
 U 1 1 61D152B5
@@ -1371,14 +1342,8 @@ F 3 "" H -4700 9850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	-4650 9900 -4700 9900
-Connection ~ -4700 9900
 Wire Wire Line
 	-4700 9900 -4700 9850
-Wire Wire Line
-	-4650 10000 -4700 10000
-Connection ~ -4700 10000
-Wire Wire Line
-	-4700 10000 -4700 9900
 Text Label -7150 10300 0    50   ~ 0
 CLK1
 Text Label -7150 10400 0    50   ~ 0
@@ -2773,17 +2738,6 @@ Wire Wire Line
 	-1650 -4400 -1050 -4400
 Wire Wire Line
 	-100 -4900 -100 -3750
-$Comp
-L alexios:CFT-2021-Peripheral-Bus P2
-U 1 1 60987323
-P -4050 9800
-F 0 "P2" H -4050 9967 50  0000 C CNN
-F 1 "CFT-2021-Peripheral-Bus" H -4050 9876 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H -4175 8925 50  0001 C CNN
-F 3 "" H -4175 8925 50  0001 C CNN
-	1    -4050 9800
-	1    0    0    -1  
-$EndComp
 Wire Bus Line
 	11000 -5850 10150 -5850
 Text Label 10150 -5850 0    50   ~ 0
@@ -2853,9 +2807,6 @@ Wire Wire Line
 	17200 2750 16700 2750
 Wire Wire Line
 	17200 2850 16700 2850
-NoConn ~ 16700 3050
-NoConn ~ 16700 3150
-NoConn ~ 16700 3250
 Text Label 17200 2550 2    50   ~ 0
 ~READ-DR
 Text Label 17200 2650 2    50   ~ 0
@@ -2908,10 +2859,6 @@ NoConn ~ 15800 4550
 NoConn ~ 15800 4650
 NoConn ~ 15800 4750
 NoConn ~ 15800 4850
-NoConn ~ 16700 4450
-NoConn ~ 16700 4550
-NoConn ~ 16700 4650
-NoConn ~ 16700 4750
 $Comp
 L alexios:16V8 U1
 U 2 1 6184158E
@@ -3056,19 +3003,6 @@ Wire Wire Line
 	15800 2550 15350 2550
 Text Label 15350 2550 0    50   ~ 0
 ~T34
-$Comp
-L alexios:16V8 U1
-U 1 1 60850EA3
-P 16250 3000
-F 0 "U1" H 16250 3750 50  0000 C CNN
-F 1 "16V8" H 16250 3650 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 16250 3000 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 16250 3000 50  0001 C CNN
-F 4 "CURDEC00" V 16250 3000 50  0000 C CNB "Signature"
-F 5 "ctl-raddr-decode.jed" H 16250 2350 50  0000 C CNN "Image Filename"
-	1    16250 3000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	16700 2950 17200 2950
 Text Label 17200 2950 2    50   ~ 0
@@ -3175,6 +3109,46 @@ Wire Wire Line
 	-4900 -4550 -4900 -1850
 Wire Wire Line
 	-5800 -1750 -5200 -1750
+$Comp
+L alexios:16V8 U1
+U 1 1 60850EA3
+P 16250 3000
+F 0 "U1" H 16250 3750 50  0000 C CNN
+F 1 "16V8" H 16250 3650 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 16250 3000 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 16250 3000 50  0001 C CNN
+F 4 "CURDEC00" V 16250 3000 50  0000 C CNB "Signature"
+F 5 "ctl-raddr-decode.jed" H 16250 2350 50  0000 C CNN "Image Filename"
+	1    16250 3000
+	1    0    0    -1  
+$EndComp
+NoConn ~ 16700 3250
+NoConn ~ 16700 3150
+NoConn ~ 16700 3050
+Wire Wire Line
+	16700 4450 17200 4450
+Wire Wire Line
+	16700 4550 17200 4550
+Wire Wire Line
+	16700 4650 17200 4650
+Text Label 17200 4450 2    50   ~ 0
+XORY
+Text Label 17200 4550 2    50   ~ 0
+XORB
+Text Label 17200 4650 2    50   ~ 0
+XORA
+NoConn ~ 16700 4750
+$Comp
+L alexios:CFT-2021-Peripheral-Bus P2
+U 1 1 60987323
+P -4050 9800
+F 0 "P2" H -4050 9967 50  0000 C CNN
+F 1 "CFT-2021-Peripheral-Bus" H -4050 9876 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H -4175 8925 50  0001 C CNN
+F 3 "" H -4175 8925 50  0001 C CNN
+	1    -4050 9800
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
