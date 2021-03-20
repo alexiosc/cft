@@ -901,8 +901,6 @@ Wire Wire Line
 Wire Wire Line
 	20200 -1750 20200 -1650
 Wire Wire Line
-	-3450 12900 -3100 12900
-Wire Wire Line
 	-3450 12800 -3100 12800
 Wire Wire Line
 	-3450 12700 -3100 12700
@@ -933,6 +931,8 @@ Wire Wire Line
 Wire Wire Line
 	-3450 11400 -3100 11400
 Wire Wire Line
+	-3450 11300 -3100 11300
+Wire Wire Line
 	-3450 11100 -3100 11100
 Wire Wire Line
 	-3450 11000 -3100 11000
@@ -959,10 +959,6 @@ Wire Wire Line
 Wire Wire Line
 	-3450 9900 -3100 9900
 Wire Wire Line
-	-5000 13800 -4650 13800
-Wire Wire Line
-	-5000 13700 -4650 13700
-Wire Wire Line
 	-5000 13600 -4650 13600
 Wire Wire Line
 	-5000 13500 -4650 13500
@@ -975,9 +971,9 @@ Wire Wire Line
 Wire Wire Line
 	-5000 13100 -4650 13100
 Wire Wire Line
-	-5000 12900 -4650 12900
+	-5000 13000 -4650 13000
 Wire Wire Line
-	-5000 12800 -4650 12800
+	-5000 12900 -4650 12900
 Wire Wire Line
 	-5000 12700 -4650 12700
 Wire Wire Line
@@ -1023,312 +1019,108 @@ Wire Wire Line
 Wire Wire Line
 	-5000 10600 -4650 10600
 Wire Wire Line
+	-5000 10500 -4650 10500
+Wire Wire Line
 	-5000 10400 -4650 10400
 Wire Wire Line
-	-5000 10300 -4650 10300
+	-5000 10200 -4650 10200
 Wire Wire Line
-	-5600 12800 -5250 12800
+	-5000 10100 -4650 10100
 Wire Wire Line
-	-5600 12700 -5250 12700
+	-5550 10600 -5200 10600
 Wire Wire Line
-	-5600 12600 -5250 12600
+	-5550 10500 -5200 10500
 Wire Wire Line
-	-5600 12500 -5250 12500
+	-5550 10400 -5200 10400
 Wire Wire Line
-	-5600 12400 -5250 12400
+	-5550 10300 -5200 10300
 Wire Wire Line
-	-5600 12300 -5250 12300
+	-5550 10200 -5200 10200
 Wire Wire Line
-	-5600 12200 -5250 12200
+	-5550 10100 -5200 10100
 Wire Wire Line
-	-5600 12100 -5250 12100
+	-5550 10000 -5200 10000
 Wire Wire Line
-	-5600 12000 -5250 12000
+	-5550 9900 -5200 9900
 Wire Wire Line
-	-5600 11900 -5250 11900
+	-5200 11900 -5550 11900
 Wire Wire Line
-	-5600 11800 -5250 11800
+	-5200 11800 -5550 11800
 Wire Wire Line
-	-5600 11700 -5250 11700
+	-5200 11700 -5550 11700
 Wire Wire Line
-	-5600 11600 -5250 11600
+	-5200 11600 -5550 11600
 Wire Wire Line
-	-5600 11500 -5250 11500
+	-5200 11500 -5550 11500
 Wire Wire Line
-	-5600 11400 -5250 11400
+	-5200 11400 -5550 11400
 Wire Wire Line
-	-5600 11300 -5250 11300
+	-5200 11300 -5550 11300
 Wire Wire Line
-	-5600 11200 -5250 11200
-Wire Wire Line
-	-5600 11100 -5250 11100
-Wire Wire Line
-	-5600 10900 -5250 10900
-Wire Wire Line
-	-5600 10800 -5250 10800
-Wire Wire Line
-	-5600 10600 -5250 10600
-Wire Wire Line
-	-5600 10500 -5250 10500
-Wire Wire Line
-	-5600 10400 -5250 10400
-Wire Wire Line
-	-5600 10300 -5250 10300
-Wire Wire Line
-	-5600 10200 -5250 10200
-Wire Wire Line
-	-5600 10100 -5250 10100
-Wire Wire Line
-	-5600 10000 -5250 10000
-Wire Wire Line
-	-5600 9900 -5250 9900
-Wire Wire Line
-	-7150 13900 -6800 13900
-Wire Wire Line
-	-7150 13800 -6800 13800
-Wire Wire Line
-	-7150 13700 -6800 13700
-Wire Wire Line
-	-7150 13600 -6800 13600
-Wire Wire Line
-	-7150 13500 -6800 13500
-Wire Wire Line
-	-7150 13400 -6800 13400
-Wire Wire Line
-	-7150 13300 -6800 13300
-Wire Wire Line
-	-7150 13200 -6800 13200
-Wire Wire Line
-	-7150 13000 -6800 13000
-Wire Wire Line
-	-7150 12900 -6800 12900
-Wire Wire Line
-	-7150 12800 -6800 12800
-Wire Wire Line
-	-7150 12700 -6800 12700
-Wire Wire Line
-	-7150 12600 -6800 12600
-Wire Wire Line
-	-7150 12400 -6800 12400
-Wire Wire Line
-	-7150 12300 -6800 12300
-Wire Wire Line
-	-7150 12200 -6800 12200
-Wire Wire Line
-	-7150 12100 -6800 12100
-Wire Wire Line
-	-7150 12000 -6800 12000
-Wire Wire Line
-	-7150 11900 -6800 11900
-Wire Wire Line
-	-7150 11800 -6800 11800
-Wire Wire Line
-	-7150 11700 -6800 11700
-Wire Wire Line
-	-7150 11600 -6800 11600
-Wire Wire Line
-	-7150 11500 -6800 11500
-Wire Wire Line
-	-7150 11400 -6800 11400
-Wire Wire Line
-	-7150 11300 -6800 11300
-Wire Wire Line
-	-7150 11200 -6800 11200
-Wire Wire Line
-	-7150 11100 -6800 11100
-Wire Wire Line
-	-7150 11000 -6800 11000
-Wire Wire Line
-	-7150 10900 -6800 10900
-Wire Wire Line
-	-7150 10700 -6800 10700
-Wire Wire Line
-	-7150 10600 -6800 10600
-Wire Wire Line
-	-7150 10500 -6800 10500
-Wire Wire Line
-	-7150 10400 -6800 10400
-Wire Wire Line
-	-7150 10300 -6800 10300
-$Comp
-L alexios:CFT-2021-Processor-Bus P1
-U 1 1 60A3E373
-P -6200 9800
-F 0 "P1" H -6200 9967 50  0000 C CNN
-F 1 "CFT-2021-Processor-Bus" H -6200 9876 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H -6250 8900 50  0001 C CNN
-F 3 "" H -6250 8900 50  0001 C CNN
-	1    -6200 9800
-	1    0    0    -1  
-$EndComp
-Text Label -5250 9900 2    50   ~ 0
+	-5200 11200 -5550 11200
+Text Label -5200 9900 2    50   ~ 0
 FPD0
-Text Label -5250 10000 2    50   ~ 0
+Text Label -5200 10000 2    50   ~ 0
 FPD1
-Text Label -5250 10100 2    50   ~ 0
+Text Label -5200 10100 2    50   ~ 0
 FPD2
-Text Label -5250 10200 2    50   ~ 0
+Text Label -5200 10200 2    50   ~ 0
 FPD3
-Text Label -5250 10300 2    50   ~ 0
+Text Label -5200 10300 2    50   ~ 0
 FPD4
-Text Label -5250 10400 2    50   ~ 0
+Text Label -5200 10400 2    50   ~ 0
 FPD5
-Text Label -5250 10500 2    50   ~ 0
+Text Label -5200 10500 2    50   ~ 0
 FPD6
-Text Label -5250 10600 2    50   ~ 0
+Text Label -5200 10600 2    50   ~ 0
 FPD7
-Text Label -5250 10800 2    50   ~ 0
-~ENDEXT
-Text Label -5250 10900 2    50   ~ 0
-~SKIPEXT
-Wire Wire Line
-	-6850 10100 -6850 10000
-Wire Wire Line
-	-6850 10100 -6800 10100
-$Comp
-L power:+5V #PWR0129
-U 1 1 60E723B0
-P -6850 9850
-F 0 "#PWR0129" H -6850 9700 50  0001 C CNN
-F 1 "+5V" H -6835 10023 50  0000 C CNN
-F 2 "" H -6850 9850 50  0001 C CNN
-F 3 "" H -6850 9850 50  0001 C CNN
-	1    -6850 9850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-6800 9900 -6850 9900
-Connection ~ -6850 9900
-Wire Wire Line
-	-6850 9900 -6850 9850
-Wire Wire Line
-	-6800 10000 -6850 10000
-Connection ~ -6850 10000
-Wire Wire Line
-	-6850 10000 -6850 9900
 $Comp
 L power:GND #PWR0132
 U 1 1 60F6906D
-P -3350 14000
-F 0 "#PWR0132" H -3350 13750 50  0001 C CNN
-F 1 "GND" H -3345 13827 50  0000 C CNN
-F 2 "" H -3350 14000 50  0001 C CNN
-F 3 "" H -3350 14000 50  0001 C CNN
-	1    -3350 14000
+P -3350 13700
+F 0 "#PWR0132" H -3350 13450 50  0001 C CNN
+F 1 "GND" H -3345 13527 50  0000 C CNN
+F 2 "" H -3350 13700 50  0001 C CNN
+F 3 "" H -3350 13700 50  0001 C CNN
+	1    -3350 13700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-3450 13900 -3350 13900
+	-3450 13600 -3350 13600
 Wire Wire Line
-	-3350 13900 -3350 14000
-Text Label -3100 11400 2    50   ~ 0
+	-3350 13600 -3350 13700
+Text Label -3100 11300 2    50   ~ 0
 DB0
-Text Label -3100 11500 2    50   ~ 0
+Text Label -3100 11400 2    50   ~ 0
 DB1
-Text Label -3100 11600 2    50   ~ 0
+Text Label -3100 11500 2    50   ~ 0
 DB2
-Text Label -3100 11700 2    50   ~ 0
+Text Label -3100 11600 2    50   ~ 0
 DB3
-Text Label -3100 11800 2    50   ~ 0
+Text Label -3100 11700 2    50   ~ 0
 DB4
-Text Label -3100 11900 2    50   ~ 0
+Text Label -3100 11800 2    50   ~ 0
 DB5
-Text Label -3100 12000 2    50   ~ 0
+Text Label -3100 11900 2    50   ~ 0
 DB6
-Text Label -3100 12100 2    50   ~ 0
+Text Label -3100 12000 2    50   ~ 0
 DB7
-Text Label -3100 12200 2    50   ~ 0
+Text Label -3100 12100 2    50   ~ 0
 DB8
-Text Label -3100 12300 2    50   ~ 0
+Text Label -3100 12200 2    50   ~ 0
 DB9
-Text Label -3100 12400 2    50   ~ 0
+Text Label -3100 12300 2    50   ~ 0
 DB10
-Text Label -3100 12500 2    50   ~ 0
+Text Label -3100 12400 2    50   ~ 0
 DB11
-Text Label -3100 12600 2    50   ~ 0
+Text Label -3100 12500 2    50   ~ 0
 DB12
-Text Label -3100 12700 2    50   ~ 0
+Text Label -3100 12600 2    50   ~ 0
 DB13
-Text Label -3100 12800 2    50   ~ 0
+Text Label -3100 12700 2    50   ~ 0
 DB14
-Text Label -3100 12900 2    50   ~ 0
+Text Label -3100 12800 2    50   ~ 0
 DB15
-Text Label -5250 11100 2    50   ~ 0
-RADDR0
-Text Label -5250 11200 2    50   ~ 0
-RADDR1
-Text Label -5250 11300 2    50   ~ 0
-RADDR2
-Text Label -5250 11400 2    50   ~ 0
-RADDR3
-Text Label -5250 11500 2    50   ~ 0
-RADDR4
-Text Label -5250 11600 2    50   ~ 0
-WADDR0
-Text Label -5250 11700 2    50   ~ 0
-WADDR1
-Text Label -5250 11800 2    50   ~ 0
-WADDR2
-Text Label -5250 11900 2    50   ~ 0
-WADDR3
-Text Label -5250 12000 2    50   ~ 0
-WADDR4
-Text Label -5250 12100 2    50   ~ 0
-ACTION0
-Text Label -5250 12200 2    50   ~ 0
-ACTION1
-Text Label -5250 12300 2    50   ~ 0
-ACTION2
-Text Label -5250 12400 2    50   ~ 0
-ACTION3
-Text Label -5250 12500 2    50   ~ 0
-COND0
-Text Label -5250 12600 2    50   ~ 0
-COND1
-Text Label -5250 12700 2    50   ~ 0
-COND2
-Text Label -5250 12800 2    50   ~ 0
-COND3
-Wire Wire Line
-	-5600 13400 -5500 13400
-$Comp
-L power:GND #PWR0131
-U 1 1 61C7A92A
-P -5500 14000
-F 0 "#PWR0131" H -5500 13750 50  0001 C CNN
-F 1 "GND" H -5495 13827 50  0000 C CNN
-F 2 "" H -5500 14000 50  0001 C CNN
-F 3 "" H -5500 14000 50  0001 C CNN
-	1    -5500 14000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-5600 13500 -5500 13500
-Wire Wire Line
-	-5500 13400 -5500 13500
-Connection ~ -5500 13500
-Wire Wire Line
-	-5600 13600 -5500 13600
-Wire Wire Line
-	-5500 13500 -5500 13600
-Connection ~ -5500 13600
-Wire Wire Line
-	-5500 13600 -5500 13700
-Wire Wire Line
-	-5600 13700 -5500 13700
-Connection ~ -5500 13700
-Wire Wire Line
-	-5500 13700 -5500 13800
-Wire Wire Line
-	-5600 13800 -5500 13800
-Connection ~ -5500 13800
-Wire Wire Line
-	-5500 13800 -5500 13900
-Wire Wire Line
-	-5600 13900 -5500 13900
-Connection ~ -5500 13900
-Wire Wire Line
-	-5500 13900 -5500 14000
 $Comp
 L power:+5V #PWR0130
 U 1 1 61D152B5
@@ -1344,141 +1136,89 @@ Wire Wire Line
 	-4650 9900 -4700 9900
 Wire Wire Line
 	-4700 9900 -4700 9850
-Text Label -7150 10300 0    50   ~ 0
-CLK1
-Text Label -7150 10400 0    50   ~ 0
-CLK2
-Text Label -7150 10500 0    50   ~ 0
-CLK3
-Text Label -7150 10600 0    50   ~ 0
-CLK4
-Text Label -7150 10700 0    50   ~ 0
-T34
-Text Label -7150 10900 0    50   ~ 0
-IBUS0
-Text Label -7150 11000 0    50   ~ 0
-IBUS1
-Text Label -7150 11100 0    50   ~ 0
-IBUS2
-Text Label -7150 11200 0    50   ~ 0
-IBUS3
-Text Label -7150 11300 0    50   ~ 0
-IBUS4
-Text Label -7150 11400 0    50   ~ 0
-IBUS5
-Text Label -7150 11500 0    50   ~ 0
-IBUS6
-Text Label -7150 11600 0    50   ~ 0
-IBUS7
-Text Label -7150 11700 0    50   ~ 0
-IBUS8
-Text Label -7150 11800 0    50   ~ 0
-IBUS9
-Text Label -7150 11900 0    50   ~ 0
-IBUS10
-Text Label -7150 12000 0    50   ~ 0
-IBUS11
-Text Label -7150 12100 0    50   ~ 0
-IBUS12
-Text Label -7150 12200 0    50   ~ 0
-IBUS13
-Text Label -7150 12300 0    50   ~ 0
-IBUS14
-Text Label -7150 12400 0    50   ~ 0
-IBUS15
-Text Label -7150 12600 0    50   ~ 0
-FV
-Text Label -7150 12700 0    50   ~ 0
-FL
-Text Label -7150 12800 0    50   ~ 0
-FZ
-Text Label -7150 12900 0    50   ~ 0
-FN
-Text Label -7150 13000 0    50   ~ 0
-~WRITE-FL
-Text Label -7150 13200 0    50   ~ 0
+Text Label -5200 11200 2    50   ~ 0
 IR0
-Text Label -7150 13300 0    50   ~ 0
+Text Label -5200 11300 2    50   ~ 0
 IR1
-Text Label -7150 13400 0    50   ~ 0
+Text Label -5200 11400 2    50   ~ 0
 IR2
-Text Label -7150 13500 0    50   ~ 0
+Text Label -5200 11500 2    50   ~ 0
 IR3
-Text Label -7150 13600 0    50   ~ 0
+Text Label -5200 11600 2    50   ~ 0
 IR4
-Text Label -7150 13700 0    50   ~ 0
+Text Label -5200 11700 2    50   ~ 0
 IR5
-Text Label -7150 13800 0    50   ~ 0
+Text Label -5200 11800 2    50   ~ 0
 IR6
-Text Label -7150 13900 0    50   ~ 0
+Text Label -5200 11900 2    50   ~ 0
 IR7
-Text Label -5000 10300 0    50   ~ 0
+Text Label -5000 10100 0    50   ~ 0
 ~RESET
-Text Label -5000 10400 0    50   ~ 0
+Text Label -5000 10200 0    50   ~ 0
 ~RSTHOLD
-Text Label -5000 10600 0    50   ~ 0
+Text Label -5000 10400 0    50   ~ 0
 AB0
-Text Label -5000 10700 0    50   ~ 0
+Text Label -5000 10500 0    50   ~ 0
 AB1
-Text Label -5000 10800 0    50   ~ 0
+Text Label -5000 10600 0    50   ~ 0
 AB2
-Text Label -5000 10900 0    50   ~ 0
+Text Label -5000 10700 0    50   ~ 0
 AB3
-Text Label -5000 11000 0    50   ~ 0
+Text Label -5000 10800 0    50   ~ 0
 AB4
-Text Label -5000 11100 0    50   ~ 0
+Text Label -5000 10900 0    50   ~ 0
 AB5
-Text Label -5000 11200 0    50   ~ 0
+Text Label -5000 11000 0    50   ~ 0
 AB6
-Text Label -5000 11300 0    50   ~ 0
+Text Label -5000 11100 0    50   ~ 0
 AB7
-Text Label -5000 11400 0    50   ~ 0
+Text Label -5000 11200 0    50   ~ 0
 AB8
-Text Label -5000 11500 0    50   ~ 0
+Text Label -5000 11300 0    50   ~ 0
 AB9
-Text Label -5000 11600 0    50   ~ 0
+Text Label -5000 11400 0    50   ~ 0
 AB10
-Text Label -5000 11700 0    50   ~ 0
+Text Label -5000 11500 0    50   ~ 0
 AB11
-Text Label -5000 11800 0    50   ~ 0
+Text Label -5000 11600 0    50   ~ 0
 AB12
-Text Label -5000 11900 0    50   ~ 0
+Text Label -5000 11700 0    50   ~ 0
 AB13
-Text Label -5000 12000 0    50   ~ 0
+Text Label -5000 11800 0    50   ~ 0
 AB14
-Text Label -5000 12100 0    50   ~ 0
+Text Label -5000 11900 0    50   ~ 0
 AB15
-Text Label -5000 12200 0    50   ~ 0
+Text Label -5000 12000 0    50   ~ 0
 AB16
-Text Label -5000 12300 0    50   ~ 0
+Text Label -5000 12100 0    50   ~ 0
 AB17
-Text Label -5000 12400 0    50   ~ 0
+Text Label -5000 12200 0    50   ~ 0
 AB18
-Text Label -5000 12500 0    50   ~ 0
+Text Label -5000 12300 0    50   ~ 0
 AB19
-Text Label -5000 12600 0    50   ~ 0
+Text Label -5000 12400 0    50   ~ 0
 AB20
-Text Label -5000 12700 0    50   ~ 0
+Text Label -5000 12500 0    50   ~ 0
 AB21
-Text Label -5000 12800 0    50   ~ 0
+Text Label -5000 12600 0    50   ~ 0
 AB22
-Text Label -5000 12900 0    50   ~ 0
+Text Label -5000 12700 0    50   ~ 0
 AB23
-Text Label -5000 13100 0    50   ~ 0
+Text Label -5000 12900 0    50   ~ 0
 ~IRQ0
-Text Label -5000 13200 0    50   ~ 0
+Text Label -5000 13000 0    50   ~ 0
 ~IRQ1
-Text Label -5000 13300 0    50   ~ 0
+Text Label -5000 13100 0    50   ~ 0
 ~IRQ2
-Text Label -5000 13400 0    50   ~ 0
+Text Label -5000 13200 0    50   ~ 0
 ~IRQ3
-Text Label -5000 13500 0    50   ~ 0
+Text Label -5000 13300 0    50   ~ 0
 ~IRQ4
-Text Label -5000 13600 0    50   ~ 0
+Text Label -5000 13400 0    50   ~ 0
 ~IRQ5
-Text Label -5000 13700 0    50   ~ 0
+Text Label -5000 13500 0    50   ~ 0
 ~IRQ6
-Text Label -5000 13800 0    50   ~ 0
+Text Label -5000 13600 0    50   ~ 0
 ~IRQ7
 Text Label -3100 9900 2    50   ~ 0
 ~MEM
@@ -1586,7 +1326,7 @@ F9 "POWEROK" I L -9650 -5450 50
 F10 "~FPRESET" I L -9650 -5900 50 
 F11 "~FPCLK~⁄CLK" I L -9650 -5700 50 
 F12 "T34" O R -8500 -5450 50 
-F13 "WSTB" U R -8500 -5350 50 
+F13 "16MHz" O R -8500 -5350 50 
 $EndSheet
 Wire Wire Line
 	-8050 -6050 -8500 -6050
@@ -2099,21 +1839,13 @@ Text Notes -1000 -4900 0    50   ~ 0
 ← REG
 Wire Wire Line
 	-8500 -5900 -8050 -5900
-Wire Wire Line
-	-1650 -4800 -1050 -4800
-Text Label -1050 -4800 2    50   ~ 0
+Text Label -7250 11800 0    50   ~ 0
 ~FPRESET
-Wire Wire Line
-	-1650 -4700 -1050 -4700
-Text Label -1050 -4700 2    50   ~ 0
+Text Label -7250 10100 0    50   ~ 0
 FPCLK
-Wire Wire Line
-	-1650 -4600 -1050 -4600
-Text Label -1050 -4600 2    50   ~ 0
+Text Label -7250 10200 0    50   ~ 0
 ~FPCLK~⁄CLK
-Wire Wire Line
-	-1650 -3700 -1050 -3700
-Text Label -1050 -3700 2    50   ~ 0
+Text Label -7250 11900 0    50   ~ 0
 POWEROK
 Wire Bus Line
 	-8500 -4650 -7900 -4650
@@ -2123,10 +1855,8 @@ Wire Bus Line
 	-8500 -4450 -7900 -4450
 Wire Bus Line
 	-8500 -4550 -7900 -4550
-Wire Wire Line
-	-1650 -4500 -1050 -4500
-Text Label -1050 -4500 2    50   ~ 0
-FPFETCH∕~EXEC
+Text Label -7250 9900 0    50   ~ 0
+FPFETCH
 Text Notes -1000 -4800 0    50   ~ 0
 ← DFP
 Text Notes -1000 -4700 0    50   ~ 0
@@ -2161,13 +1891,13 @@ Text Notes -10350 -6500 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
 Text Notes -1000 -3600 0    50   ~ 0
 Future expansion
-Text Label -1050 -4100 2    50   ~ 0
+Text Label -7250 10800 0    50   ~ 0
 ~FPµC2
-Text Label -1050 -4200 2    50   ~ 0
+Text Label -7250 10700 0    50   ~ 0
 ~FPµC1
-Text Label -1050 -4300 2    50   ~ 0
+Text Label -7250 10600 0    50   ~ 0
 ~FPµC0
-Text Label -1050 -4400 2    50   ~ 0
+Text Label -7250 10500 0    50   ~ 0
 ~FPµA0
 Text Notes -1000 -4400 0    50   ~ 0
 ← DFP
@@ -2177,9 +1907,9 @@ Text Notes -1000 -4200 0    50   ~ 0
 ← DFP
 Text Notes -1000 -4100 0    50   ~ 0
 ← DFP
-Text Label -1050 -4000 2    50   ~ 0
+Text Label -7250 10400 0    50   ~ 0
 ~FPIRL
-Text Label -1050 -3900 2    50   ~ 0
+Text Label -7250 10900 0    50   ~ 0
 ~FPIRH
 Text Notes -1000 -4000 0    50   ~ 0
 ← DFP
@@ -2209,12 +1939,12 @@ Text Notes -1000 -6000 0    50   ~ 0
 → BUS
 Text Notes -1000 -3800 0    50   ~ 0
 ← DFP
-Text Label -1050 -3800 2    50   ~ 0
+Text Label -7250 11000 0    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
 	-8500 -5350 -8050 -5350
 Text Label -8050 -5350 2    50   ~ 0
-WSTB
+16MHz
 Text Notes -1000 -6100 0    50   ~ 0
 → BUS.MBU
 Text Label -5200 -4550 2    50   ~ 0
@@ -2723,20 +2453,6 @@ Text Notes -1000 -3000 0    50   ~ 0
 Future expansion
 Connection ~ -100 -4900
 Wire Wire Line
-	-1650 -3800 -1050 -3800
-Wire Wire Line
-	-1650 -3900 -1050 -3900
-Wire Wire Line
-	-1650 -4000 -1050 -4000
-Wire Wire Line
-	-1650 -4100 -1050 -4100
-Wire Wire Line
-	-1650 -4200 -1050 -4200
-Wire Wire Line
-	-1650 -4300 -1050 -4300
-Wire Wire Line
-	-1650 -4400 -1050 -4400
-Wire Wire Line
 	-100 -4900 -100 -3750
 Wire Bus Line
 	11000 -5850 10150 -5850
@@ -3149,6 +2865,293 @@ F 3 "" H -4175 8925 50  0001 C CNN
 	1    -4050 9800
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:CFT-2021-Processor-Bus P1
+U 2 1 609EF5BD
+P -6150 9800
+F 0 "P1" H -6150 9967 50  0000 C CNN
+F 1 "CFT-2021-Processor-Bus" H -6150 9876 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H -6200 8900 50  0001 C CNN
+F 3 "" H -6200 8900 50  0001 C CNN
+	2    -6150 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CFT-2021-Processor-Bus P1
+U 1 1 60A3E373
+P -8400 9800
+F 0 "P1" H -8400 9967 50  0000 C CNN
+F 1 "CFT-2021-Processor-Bus" H -8400 9876 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H -8450 8900 50  0001 C CNN
+F 3 "" H -8450 8900 50  0001 C CNN
+	1    -8400 9800
+	1    0    0    -1  
+$EndComp
+Text Label -7450 10100 2    50   ~ 0
+~END
+Wire Wire Line
+	-7800 10100 -7450 10100
+Text Label -9350 12800 0    50   ~ 0
+~WRITE-FL
+Text Label -9350 12700 0    50   ~ 0
+FN
+Text Label -9350 12600 0    50   ~ 0
+FZ
+Text Label -9350 12500 0    50   ~ 0
+FL
+Text Label -9350 12400 0    50   ~ 0
+FV
+Text Label -9350 12200 0    50   ~ 0
+IBUS15
+Text Label -9350 12100 0    50   ~ 0
+IBUS14
+Text Label -9350 12000 0    50   ~ 0
+IBUS13
+Text Label -9350 11900 0    50   ~ 0
+IBUS12
+Text Label -9350 11800 0    50   ~ 0
+IBUS11
+Text Label -9350 11700 0    50   ~ 0
+IBUS10
+Text Label -9350 11600 0    50   ~ 0
+IBUS9
+Text Label -9350 11500 0    50   ~ 0
+IBUS8
+Text Label -9350 11400 0    50   ~ 0
+IBUS7
+Text Label -9350 11300 0    50   ~ 0
+IBUS6
+Text Label -9350 11200 0    50   ~ 0
+IBUS5
+Text Label -9350 11100 0    50   ~ 0
+IBUS4
+Text Label -9350 11000 0    50   ~ 0
+IBUS3
+Text Label -9350 10900 0    50   ~ 0
+IBUS2
+Text Label -9350 10800 0    50   ~ 0
+IBUS1
+Text Label -9350 10700 0    50   ~ 0
+IBUS0
+Text Label -9350 10500 0    50   ~ 0
+T34
+Text Label -9350 10400 0    50   ~ 0
+CLK4
+Text Label -9350 10300 0    50   ~ 0
+CLK3
+Text Label -9350 10200 0    50   ~ 0
+CLK2
+Text Label -9350 10100 0    50   ~ 0
+CLK1
+Wire Wire Line
+	-7700 12800 -7700 12900
+Wire Wire Line
+	-7800 12800 -7700 12800
+$Comp
+L power:GND #PWR0131
+U 1 1 61C7A92A
+P -7700 12900
+F 0 "#PWR0131" H -7700 12650 50  0001 C CNN
+F 1 "GND" H -7695 12727 50  0000 C CNN
+F 2 "" H -7700 12900 50  0001 C CNN
+F 3 "" H -7700 12900 50  0001 C CNN
+	1    -7700 12900
+	1    0    0    -1  
+$EndComp
+Text Label -7450 12500 2    50   ~ 0
+COND3
+Text Label -7450 12400 2    50   ~ 0
+COND2
+Text Label -7450 12300 2    50   ~ 0
+COND1
+Text Label -7450 12200 2    50   ~ 0
+COND0
+Text Label -7450 12000 2    50   ~ 0
+ACTION3
+Text Label -7450 11900 2    50   ~ 0
+ACTION2
+Text Label -7450 11800 2    50   ~ 0
+ACTION1
+Text Label -7450 11700 2    50   ~ 0
+ACTION0
+Text Label -7450 11500 2    50   ~ 0
+WADDR4
+Text Label -7450 11400 2    50   ~ 0
+WADDR3
+Text Label -7450 11300 2    50   ~ 0
+WADDR2
+Text Label -7450 11200 2    50   ~ 0
+WADDR1
+Text Label -7450 11100 2    50   ~ 0
+WADDR0
+Text Label -7450 10900 2    50   ~ 0
+RADDR4
+Text Label -7450 10800 2    50   ~ 0
+RADDR3
+Text Label -7450 10700 2    50   ~ 0
+RADDR2
+Text Label -7450 10600 2    50   ~ 0
+RADDR1
+Text Label -7450 10500 2    50   ~ 0
+RADDR0
+Wire Wire Line
+	-9050 9900 -9050 9850
+Wire Wire Line
+	-9000 9900 -9050 9900
+$Comp
+L power:+5V #PWR0129
+U 1 1 60E723B0
+P -9050 9850
+F 0 "#PWR0129" H -9050 9700 50  0001 C CNN
+F 1 "+5V" H -9035 10023 50  0000 C CNN
+F 2 "" H -9050 9850 50  0001 C CNN
+F 3 "" H -9050 9850 50  0001 C CNN
+	1    -9050 9850
+	1    0    0    -1  
+$EndComp
+Text Label -7450 10300 2    50   ~ 0
+~SKIPEXT
+Text Label -7450 10200 2    50   ~ 0
+~ENDEXT
+Wire Wire Line
+	-9350 10100 -9000 10100
+Wire Wire Line
+	-9350 10200 -9000 10200
+Wire Wire Line
+	-9350 10300 -9000 10300
+Wire Wire Line
+	-9350 10400 -9000 10400
+Wire Wire Line
+	-9350 10500 -9000 10500
+Wire Wire Line
+	-9350 10700 -9000 10700
+Wire Wire Line
+	-9350 10800 -9000 10800
+Wire Wire Line
+	-9350 10900 -9000 10900
+Wire Wire Line
+	-9350 11000 -9000 11000
+Wire Wire Line
+	-9350 11100 -9000 11100
+Wire Wire Line
+	-9350 11200 -9000 11200
+Wire Wire Line
+	-9350 11300 -9000 11300
+Wire Wire Line
+	-9350 11400 -9000 11400
+Wire Wire Line
+	-9350 11500 -9000 11500
+Wire Wire Line
+	-9350 11600 -9000 11600
+Wire Wire Line
+	-9350 11700 -9000 11700
+Wire Wire Line
+	-9350 11800 -9000 11800
+Wire Wire Line
+	-9350 11900 -9000 11900
+Wire Wire Line
+	-9350 12000 -9000 12000
+Wire Wire Line
+	-9350 12100 -9000 12100
+Wire Wire Line
+	-9350 12200 -9000 12200
+Wire Wire Line
+	-9350 12400 -9000 12400
+Wire Wire Line
+	-9350 12500 -9000 12500
+Wire Wire Line
+	-9350 12600 -9000 12600
+Wire Wire Line
+	-9350 12700 -9000 12700
+Wire Wire Line
+	-9350 12800 -9000 12800
+Wire Wire Line
+	-7800 10200 -7450 10200
+Wire Wire Line
+	-7800 10300 -7450 10300
+Wire Wire Line
+	-7800 10500 -7450 10500
+Wire Wire Line
+	-7800 10600 -7450 10600
+Wire Wire Line
+	-7800 10700 -7450 10700
+Wire Wire Line
+	-7800 10800 -7450 10800
+Wire Wire Line
+	-7800 10900 -7450 10900
+Wire Wire Line
+	-7800 11100 -7450 11100
+Wire Wire Line
+	-7800 11200 -7450 11200
+Wire Wire Line
+	-7800 11300 -7450 11300
+Wire Wire Line
+	-7800 11400 -7450 11400
+Wire Wire Line
+	-7800 11500 -7450 11500
+Wire Wire Line
+	-7800 11700 -7450 11700
+Wire Wire Line
+	-7800 11800 -7450 11800
+Wire Wire Line
+	-7800 11900 -7450 11900
+Wire Wire Line
+	-7800 12000 -7450 12000
+Wire Wire Line
+	-7800 12200 -7450 12200
+Wire Wire Line
+	-7800 12300 -7450 12300
+Wire Wire Line
+	-7800 12400 -7450 12400
+Wire Wire Line
+	-7800 12500 -7450 12500
+Wire Wire Line
+	-7250 10700 -6750 10700
+Wire Wire Line
+	-7250 10600 -6750 10600
+Wire Wire Line
+	-7250 10500 -6750 10500
+Wire Wire Line
+	-7250 10300 -6750 10300
+Wire Wire Line
+	-7250 10200 -6750 10200
+Wire Wire Line
+	-7250 10100 -6750 10100
+Wire Wire Line
+	-7250 10000 -6750 10000
+Wire Wire Line
+	-7250 9900 -6750 9900
+Wire Wire Line
+	-7250 11400 -6750 11400
+Wire Wire Line
+	-7250 11300 -6750 11300
+Wire Wire Line
+	-7250 11200 -6750 11200
+Wire Wire Line
+	-7250 11100 -6750 11100
+Wire Wire Line
+	-7250 11000 -6750 11000
+Wire Wire Line
+	-7250 10900 -6750 10900
+Wire Wire Line
+	-7250 10800 -6750 10800
+Wire Wire Line
+	-6750 11500 -7250 11500
+Wire Wire Line
+	-6750 11600 -7250 11600
+Wire Wire Line
+	-6750 11700 -7250 11700
+Wire Wire Line
+	-6750 11800 -7250 11800
+Wire Wire Line
+	-6750 11900 -7250 11900
+Wire Wire Line
+	-7800 9900 -7450 9900
+Text Label -7450 9900 2    50   ~ 0
+16MHz
+NoConn ~ -7800 12700
+Wire Wire Line
+	-7250 10400 -6750 10400
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
