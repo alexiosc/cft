@@ -315,17 +315,6 @@ $EndComp
 Connection ~ 950  7550
 Connection ~ 950  7350
 $Comp
-L alexios:74LVC1G04 U901
-U 2 1 5D1C6D66
-P 4250 7400
-F 0 "U901" H 4430 7446 50  0000 L CNN
-F 1 "74LVC1G04" H 4430 7355 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 4250 7400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 4250 7400 50  0001 C CNN
-	2    4250 7400
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74AHC1G125 U?
 U 2 1 5D1C70BE
 P 5700 7400
@@ -340,8 +329,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5850 7650 50  0001 C CNN
 	2    5700 7400
 	1    0    0    -1  
 $EndComp
-Connection ~ 3900 7500
-Connection ~ 3900 7300
 Connection ~ 5350 7500
 Connection ~ 5350 7300
 $Comp
@@ -916,17 +903,6 @@ Text Notes 7150 2250 0    50   ~ 0
 Tristate ~W~ on ~HALT~.
 Text Label 1750 1500 0    50   ~ 0
 ~HALT
-$Comp
-L alexios:74LVC1G04 U901
-U 1 1 5D6F45CB
-P 6450 1500
-F 0 "U901" H 6400 1767 50  0000 C CNN
-F 1 "74LVC1G04" H 6400 1676 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6450 1500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 6450 1500 50  0001 C CNN
-	1    6450 1500
-	1    0    0    -1  
-$EndComp
 Text HLabel 9550 2450 2    50   3State ~ 0
 ~W
 Text Label 9450 2450 2    50   ~ 0
@@ -989,17 +965,6 @@ F 1 "74LVC1G74" H 4350 2626 50  0000 C CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 4800 2300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 4800 2300 50  0001 C CNN
 	1    4350 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U902
-U 1 1 5F1AB8BB
-P 3500 2150
-F 0 "U902" H 3550 2417 50  0000 C CNN
-F 1 "74LVC1G32" H 3550 2326 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3610 2130 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3610 2130 50  0001 C CNN
-	1    3500 2150
 	1    0    0    -1  
 $EndComp
 Text Label 1750 2450 0    50   ~ 0
@@ -1693,19 +1658,6 @@ Wire Notes Line width 20 style solid
 Wire Notes Line width 20 style solid
 	11050 1350 9700 1350
 $Comp
-L alexios:74LVC1G32 U902
-U 2 1 600CE177
-P 9750 1700
-F 0 "U902" H 9600 1850 50  0000 L CNN
-F 1 "74LVC1G32" H 9500 1750 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 9860 1680 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9860 1680 50  0001 C CNN
-	2    9750 1700
-	1    0    0    -1  
-$EndComp
-Connection ~ 9350 2050
-Connection ~ 9350 1850
-$Comp
 L alexios:74AUC1G74 U?
 U 2 1 6015C566
 P 10700 2700
@@ -1984,6 +1936,189 @@ Wire Wire Line
 	8300 3600 8650 3600
 Wire Wire Line
 	8300 3500 8650 3500
+$Comp
+L Device:R_POT RV901
+U 1 1 62097662
+P 6400 -1000
+F 0 "RV901" V 6193 -1000 50  0000 C CNN
+F 1 "1kΩ" V 6284 -1000 50  0000 C CNN
+F 2 "alexios:Potentiometer_Bourns_67W" H 6400 -1000 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/414/67-1528393.pdf" H 6400 -1000 50  0001 C CNN
+F 4 "858-67ZR1KLF; €1.02" V 6400 -1000 50  0001 C CNN "Mouser"
+	1    6400 -1000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 620A5328
+P 6400 -650
+AR Path="/5CC0D65F/620A5328" Ref="C?"  Part="1" 
+AR Path="/620A5328" Ref="C?"  Part="1" 
+AR Path="/5D4D9B4A/620A5328" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/620A5328" Ref="C920"  Part="1" 
+F 0 "C920" H 6309 -604 50  0000 R CNN
+F 1 "22pF" H 6309 -695 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6400 -650 50  0001 C CNN
+F 3 "~" H 6400 -650 50  0001 C CNN
+	1    6400 -650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5700 -1000 5350 -1000
+Text Label 5350 -1000 0    50   ~ 0
+~WEN
+Wire Wire Line
+	6400 -850 6400 -800
+Wire Wire Line
+	6400 -800 6700 -800
+Wire Wire Line
+	6700 -800 6700 -1000
+Wire Wire Line
+	6700 -1000 6750 -1000
+Wire Wire Line
+	6400 -800 6400 -750
+Connection ~ 6400 -800
+$Comp
+L power:GND #PWR0126
+U 1 1 620FD076
+P 6400 -550
+F 0 "#PWR0126" H 6400 -800 50  0001 C CNN
+F 1 "GND" H 6405 -723 50  0000 C CNN
+F 2 "" H 6400 -550 50  0001 C CNN
+F 3 "" H 6400 -550 50  0001 C CNN
+	1    6400 -550
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6600 -1000
+Wire Wire Line
+	6550 -1000 6600 -1000
+$Comp
+L alexios:74HC14 U901
+U 1 1 6212B1D8
+P 5900 -1000
+F 0 "U901" H 5975 -733 50  0000 C CNN
+F 1 "74HC14" H 5975 -824 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 5900 -800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 5900 -800 50  0001 C CNN
+	1    5900 -1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 2 1 6214AC9E
+P 6950 -1000
+F 0 "U901" H 7025 -733 50  0000 C CNN
+F 1 "74HC14" H 7025 -824 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 6950 -800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 6950 -800 50  0001 C CNN
+	2    6950 -1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 3 1 6215C6AA
+P 3100 -950
+F 0 "U901" H 3175 -683 50  0000 C CNN
+F 1 "74HC14" H 3175 -774 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 3100 -750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 3100 -750 50  0001 C CNN
+	3    3100 -950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 4 1 6215D1B1
+P 3100 -550
+F 0 "U901" H 3175 -283 50  0000 C CNN
+F 1 "74HC14" H 3175 -374 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 3100 -350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 3100 -350 50  0001 C CNN
+	4    3100 -550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 7 1 6215E1E0
+P 4250 7300
+F 0 "U901" H 4430 7246 50  0000 L CNN
+F 1 "74HC14" H 4430 7155 50  0000 L CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4250 7500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 4250 7500 50  0001 C CNN
+	7    4250 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 5 1 62160451
+P 3950 -950
+F 0 "U901" H 4025 -683 50  0000 C CNN
+F 1 "74HC14" H 4025 -774 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 3950 -750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 3950 -750 50  0001 C CNN
+	5    3950 -950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC14 U901
+U 6 1 62160457
+P 3950 -550
+F 0 "U901" H 4025 -283 50  0000 C CNN
+F 1 "74HC14" H 4025 -374 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 3950 -350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 3950 -350 50  0001 C CNN
+	6    3950 -550
+	1    0    0    -1  
+$EndComp
+Connection ~ 3900 7300
+Connection ~ 3900 7500
+Wire Wire Line
+	2900 -950 2850 -950
+Wire Wire Line
+	2850 -950 2850 -550
+$Comp
+L power:GND #PWR0147
+U 1 1 6217680E
+P 2850 -450
+F 0 "#PWR0147" H 2850 -700 50  0001 C CNN
+F 1 "GND" H 2855 -623 50  0000 C CNN
+F 2 "" H 2850 -450 50  0001 C CNN
+F 3 "" H 2850 -450 50  0001 C CNN
+	1    2850 -450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 -550 2850 -550
+Connection ~ 2850 -550
+Wire Wire Line
+	2850 -550 2850 -450
+Wire Wire Line
+	3750 -950 3700 -950
+Wire Wire Line
+	3700 -950 3700 -550
+$Comp
+L power:GND #PWR0148
+U 1 1 621884D6
+P 3700 -450
+F 0 "#PWR0148" H 3700 -700 50  0001 C CNN
+F 1 "GND" H 3705 -623 50  0000 C CNN
+F 2 "" H 3700 -450 50  0001 C CNN
+F 3 "" H 3700 -450 50  0001 C CNN
+	1    3700 -450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 -550 3700 -550
+Connection ~ 3700 -550
+Wire Wire Line
+	3700 -550 3700 -450
+NoConn ~ 3450 -950
+NoConn ~ 3450 -550
+NoConn ~ 4300 -950
+NoConn ~ 4300 -550
+Text Label 7900 -1000 2    50   ~ 0
+~WEN-DELAYED
+Wire Wire Line
+	7300 -1000 7900 -1000
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line

@@ -1284,19 +1284,19 @@ Wire Wire Line
 	-8500 -4150 -7900 -4150
 Wire Wire Line
 	-8500 -4250 -7900 -4250
-Text Label -10250 -3950 0    50   ~ 0
+Text Label -10250 -3850 0    50   ~ 0
 ~WS
-Text Label -10250 -4050 0    50   ~ 0
+Text Label -10250 -3950 0    50   ~ 0
 ~ENDEXT
 Text Label -10250 -4550 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	-10250 -4550 -9650 -4550
-Text Label -10250 -4250 0    50   ~ 0
+Text Label -10250 -4150 0    50   ~ 0
 CLK4
 Wire Wire Line
 	-9650 -4350 -10250 -4350
-Text Label -10250 -4150 0    50   ~ 0
+Text Label -10250 -4050 0    50   ~ 0
 ~HALT
 Text Label -8050 -5450 2    50   ~ 0
 T34
@@ -1966,13 +1966,13 @@ $EndSheet
 Wire Wire Line
 	-5800 -4550 -4900 -4550
 Wire Wire Line
-	-9650 -4150 -10250 -4150
-Wire Wire Line
-	-10250 -4050 -9650 -4050
+	-9650 -4050 -10250 -4050
 Wire Wire Line
 	-10250 -3950 -9650 -3950
 Wire Wire Line
-	-9650 -4250 -10250 -4250
+	-10250 -3850 -9650 -3850
+Wire Wire Line
+	-9650 -4150 -10250 -4150
 Text Label -10250 -4350 0    50   ~ 0
 CLK2
 Text Label -7550 -1950 0    50   ~ 0
@@ -2102,11 +2102,11 @@ S -9650 -4800 1150 2450
 U 5DEAC282
 F0 "Microprogram Sequencer" 50
 F1 "cft_microcode.sch" 50
-F2 "~ENDEXT" I L -9650 -4050 50 
+F2 "~ENDEXT" I L -9650 -3950 50 
 F3 "~RSTHOLD" I L -9650 -4550 50 
-F4 "~WS" I L -9650 -3950 50 
-F5 "~HALT" I L -9650 -4150 50 
-F6 "CLK4" I L -9650 -4250 50 
+F4 "~WS" I L -9650 -3850 50 
+F5 "~HALT" I L -9650 -4050 50 
+F6 "CLK4" I L -9650 -4150 50 
 F7 "~RESET" I L -9650 -4650 50 
 F8 "RADDR[0..4]" O R -8500 -4650 50 
 F9 "WADDR[0..4]" O R -8500 -4550 50 
@@ -2117,35 +2117,34 @@ F13 "~IO" O R -8500 -4150 50
 F14 "~R" O R -8500 -4050 50 
 F15 "~WEN" O R -8500 -3950 50 
 F16 "~END" O R -8500 -3850 50 
-F17 "~IRQSµC" I L -9650 -2650 50 
-F18 "~COND" I L -9650 -3650 50 
+F17 "~IRQSµC" I L -9650 -2550 50 
+F18 "~COND" I L -9650 -3550 50 
 F19 "FPD[0..7]" T R -8500 -2650 50 
 F20 "~FPµA0" I R -8500 -3050 50 
 F21 "~FPµC0" I R -8500 -2950 50 
 F22 "~FPµC1" I R -8500 -2850 50 
 F23 "~FPµC2" I R -8500 -2750 50 
 F24 "FPFETCH" O R -8500 -3150 50 
-F25 "IDX0" I L -9650 -3850 50 
-F26 "IDX1" I L -9650 -3750 50 
-F27 "IR7" I L -9650 -3550 50 
-F28 "IR8" I L -9650 -3450 50 
-F29 "IR9" I L -9650 -3350 50 
-F30 "IR10" I L -9650 -3250 50 
-F31 "IR11" I L -9650 -3150 50 
-F32 "IR12" I L -9650 -3050 50 
-F33 "IR13" I L -9650 -2950 50 
-F34 "IR14" I L -9650 -2850 50 
-F35 "IR15" I L -9650 -2750 50 
+F25 "IDX0" I L -9650 -3750 50 
+F26 "IDX1" I L -9650 -3650 50 
+F27 "IR7" I L -9650 -3450 50 
+F28 "IR8" I L -9650 -3350 50 
+F29 "IR9" I L -9650 -3250 50 
+F30 "IR10" I L -9650 -3150 50 
+F31 "IR11" I L -9650 -3050 50 
+F32 "IR12" I L -9650 -2950 50 
+F33 "IR13" I L -9650 -2850 50 
+F34 "IR14" I L -9650 -2750 50 
+F35 "IR15" I L -9650 -2650 50 
 F36 "CLK1" I L -9650 -4450 50 
 F37 "CLK2" I L -9650 -4350 50 
-F38 "~µPC-INH" I L -9650 -2550 50 
+F38 "~WAITING" I L -9650 -2450 50 
+F39 "CLK3" I L -9650 -4250 50 
 $EndSheet
-Wire Wire Line
-	-9650 -3850 -10250 -3850
 Wire Wire Line
 	-9650 -3750 -10250 -3750
 Wire Wire Line
-	-9650 -3550 -10250 -3550
+	-9650 -3650 -10250 -3650
 Wire Wire Line
 	-9650 -3450 -10250 -3450
 Wire Wire Line
@@ -2163,13 +2162,13 @@ Wire Wire Line
 Wire Wire Line
 	-9650 -2750 -10250 -2750
 Wire Wire Line
-	-9650 -3650 -10250 -3650
-Text Label -10350 -2950 1    50   ~ 0
+	-9650 -2650 -10250 -2650
+Wire Wire Line
+	-9650 -3550 -10250 -3550
+Text Label -10350 -2850 1    50   ~ 0
 IR[0..15]
 Entry Wire Line
-	-10350 -2650 -10250 -2750
-Entry Wire Line
-	-10350 -3450 -10250 -3550
+	-10350 -2550 -10250 -2650
 Entry Wire Line
 	-10350 -3350 -10250 -3450
 Entry Wire Line
@@ -2184,37 +2183,39 @@ Entry Wire Line
 	-10350 -2850 -10250 -2950
 Entry Wire Line
 	-10350 -2750 -10250 -2850
-Text Label -10150 -2650 0    50   ~ 0
+Entry Wire Line
+	-10350 -2650 -10250 -2750
+Text Label -10150 -2550 0    50   ~ 0
 ~IRQSµC
-Text Label -10250 -2750 0    50   ~ 0
+Text Label -10250 -2650 0    50   ~ 0
 IR15
-Text Label -10250 -2850 0    50   ~ 0
+Text Label -10250 -2750 0    50   ~ 0
 IR14
-Text Label -10250 -2950 0    50   ~ 0
+Text Label -10250 -2850 0    50   ~ 0
 IR13
-Text Label -10250 -3050 0    50   ~ 0
+Text Label -10250 -2950 0    50   ~ 0
 IR12
-Text Label -10250 -3150 0    50   ~ 0
+Text Label -10250 -3050 0    50   ~ 0
 IR11
-Text Label -10250 -3250 0    50   ~ 0
+Text Label -10250 -3150 0    50   ~ 0
 IR10
-Text Label -10250 -3350 0    50   ~ 0
+Text Label -10250 -3250 0    50   ~ 0
 IR9
-Text Label -10250 -3450 0    50   ~ 0
+Text Label -10250 -3350 0    50   ~ 0
 IR8
-Text Label -10250 -3550 0    50   ~ 0
+Text Label -10250 -3450 0    50   ~ 0
 IR7
 Wire Wire Line
-	-9650 -2650 -10150 -2650
-Text Label -10250 -3750 0    50   ~ 0
-IDX1
-Text Label -10250 -3850 0    50   ~ 0
-IDX0
+	-9650 -2550 -10150 -2550
 Text Label -10250 -3650 0    50   ~ 0
+IDX1
+Text Label -10250 -3750 0    50   ~ 0
+IDX0
+Text Label -10250 -3550 0    50   ~ 0
 ~COND
 Wire Wire Line
-	-9650 -2550 -10150 -2550
-Text Label -10150 -2550 0    50   ~ 0
+	-9650 -2450 -10150 -2450
+Text Label -10150 -2450 0    50   ~ 0
 ~µPC-INH
 Wire Wire Line
 	-5800 -3850 -5200 -3850
@@ -3152,12 +3153,16 @@ Text Label -5450 3850 2    50   ~ 0
 NoConn ~ -5800 6650
 Wire Wire Line
 	-5250 4350 -4750 4350
+Text Label -5250 5050 0    50   ~ 0
+~FPAEXT
+Text Label -10250 -4250 0    50   ~ 0
+CLK3
+Wire Wire Line
+	-9650 -4250 -10250 -4250
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
-	-10350 -3450 -10350 -2650
-Text Label -5250 5050 0    50   ~ 0
-~FPAEXT
+	-10350 -3350 -10350 -2550
 $EndSCHEMATC

@@ -701,7 +701,7 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74HC04
-D Hex inverter schmitt trigger
+D Hex inverter
 K HCMOS not inverter
 F http://www.ti.com/lit/gpn/sn74HC04
 $ENDCMP

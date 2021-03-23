@@ -13,11 +13,11 @@ Comment2 ""
 Comment3 ""
 Comment4 "sequencer.v"
 $EndDescr
-Text HLabel 1150 2000 0    50   Input ~ 0
+Text HLabel 1150 2050 0    50   Input ~ 0
 ~ENDEXT
-Text HLabel 1150 1800 0    50   Input ~ 0
+Text HLabel 1150 1850 0    50   Input ~ 0
 ~HALT
-Text HLabel 1150 1700 0    50   Input ~ 0
+Text HLabel 1150 1750 0    50   Input ~ 0
 CLK4
 Text Label 5000 1600 2    50   ~ 0
 UPC0
@@ -642,7 +642,7 @@ $EndComp
 Connection ~ 10250 950 
 Connection ~ 10250 1150
 Wire Wire Line
-	1350 1650 1350 1800
+	1350 1700 1350 1850
 Text Notes 650  6450 0    50   ~ 0
 The Microcode Store is enabled when ~RESET~ and ~HALT~\nare both deasserted. This is synced with CLK1 to ensure\nthe processor doesn't halt mid-microinstruction.
 Text HLabel 4700 5800 0    50   Input ~ 0
@@ -1052,12 +1052,14 @@ F2 "UPC0" O R 4550 1600 50
 F3 "UPC1" O R 4550 1700 50 
 F4 "UPC2" O R 4550 1800 50 
 F5 "UPC3" O R 4550 1900 50 
-F6 "CLK4" I L 3400 1700 50 
-F7 "~ENDEXT" I L 3400 2000 50 
-F8 "~END" I L 3400 1900 50 
-F9 "~HALT" I L 3400 1800 50 
-F10 "~RSTHOLD" I L 3400 1600 50 
-F11 "~µPC-INH" I L 3400 2100 50 
+F6 "CLK4" I L 3400 1750 50 
+F7 "~ENDEXT" I L 3400 2050 50 
+F8 "~END" I L 3400 1950 50 
+F9 "~HALT" I L 3400 1850 50 
+F10 "~RSTHOLD" I L 3400 1650 50 
+F11 "~WAITING" I L 3400 2150 50 
+F12 "~RESET" I L 3400 1550 50 
+F13 "CLK3" I L 3400 2250 50 
 $EndSheet
 Wire Wire Line
 	4550 1600 5000 1600
@@ -1068,28 +1070,28 @@ Wire Wire Line
 Wire Wire Line
 	4550 1900 5000 1900
 Wire Wire Line
-	1150 2100 3400 2100
-Text HLabel 1150 2100 0    50   Input ~ 0
-~µPC-INH
+	1150 2150 3400 2150
+Text HLabel 1150 2150 0    50   Input ~ 0
+~WAITING
 Wire Wire Line
-	3400 1600 2150 1600
-Text Label 2150 1600 0    50   ~ 0
+	3400 1650 2150 1650
+Text Label 2150 1650 0    50   ~ 0
 ~RSTHOLD
-Text Label 2150 1700 0    50   ~ 0
+Text Label 2150 1750 0    50   ~ 0
 CLK4
-Text Label 2150 1800 0    50   ~ 0
+Text Label 2150 1850 0    50   ~ 0
 ~HALT
-Text Label 2150 1900 0    50   ~ 0
+Text Label 2150 1950 0    50   ~ 0
 ~END
-Text Label 2150 2000 0    50   ~ 0
+Text Label 2150 2050 0    50   ~ 0
 ~ENDEXT
 Wire Wire Line
-	1350 1800 3400 1800
-Connection ~ 1350 1800
+	1350 1850 3400 1850
+Connection ~ 1350 1850
 Wire Wire Line
-	1150 1700 3400 1700
+	1150 1750 3400 1750
 Wire Wire Line
-	2150 1900 3400 1900
+	2150 1950 3400 1950
 Text Notes 700  1200 0    50   ~ 0
 This is the inner sanctum of the control unit, reading, and decoding microprograms\ninto various fields.
 Text Notes 700  900  0    100  ~ 20
@@ -1219,7 +1221,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 3750 6900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1150 1800 1350 1800
+	1150 1850 1350 1850
 Text Label 1400 6950 0    50   ~ 0
 ~CLK1
 Wire Wire Line
@@ -1265,16 +1267,16 @@ F 3 "" H 2800 6700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1800 2000 3400 2000
-Connection ~ 1800 2000
+	1800 2050 3400 2050
+Connection ~ 1800 2050
 Wire Wire Line
-	1150 2000 1800 2000
+	1150 2050 1800 2050
 Wire Wire Line
-	1800 1650 1800 2000
+	1800 1700 1800 2050
 $Comp
 L Device:R_Small R?
 U 1 1 5DD09005
-P 1800 1550
+P 1800 1600
 AR Path="/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5DD09005" Ref="R?"  Part="1" 
@@ -1282,39 +1284,39 @@ AR Path="/5D62E1DC/5DD09005" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5DD09005" Ref="R1602"  Part="1" 
 AR Path="/5F67D4B5/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5DD09005" Ref="R?"  Part="1" 
-F 0 "R1602" H 1741 1504 50  0000 R CNN
-F 1 "4.7kΩ" H 1741 1595 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1800 1550 50  0001 C CNN
-F 3 "~" H 1800 1550 50  0001 C CNN
-	1    1800 1550
+F 0 "R1602" H 1741 1554 50  0000 R CNN
+F 1 "4.7kΩ" H 1741 1645 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1800 1600 50  0001 C CNN
+F 3 "~" H 1800 1600 50  0001 C CNN
+	1    1800 1600
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:+5V #PWR01604
 U 1 1 5DD4145D
-P 1800 1450
-F 0 "#PWR01604" H 1800 1300 50  0001 C CNN
-F 1 "+5V" H 1650 1500 50  0000 C CNN
-F 2 "" H 1800 1450 50  0001 C CNN
-F 3 "" H 1800 1450 50  0001 C CNN
-	1    1800 1450
+P 1800 1500
+F 0 "#PWR01604" H 1800 1350 50  0001 C CNN
+F 1 "+5V" H 1650 1550 50  0000 C CNN
+F 2 "" H 1800 1500 50  0001 C CNN
+F 3 "" H 1800 1500 50  0001 C CNN
+	1    1800 1500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR01603
 U 1 1 5DD4162D
-P 1350 1450
-F 0 "#PWR01603" H 1350 1300 50  0001 C CNN
-F 1 "+5V" H 1200 1500 50  0000 C CNN
-F 2 "" H 1350 1450 50  0001 C CNN
-F 3 "" H 1350 1450 50  0001 C CNN
-	1    1350 1450
+P 1350 1500
+F 0 "#PWR01603" H 1350 1350 50  0001 C CNN
+F 1 "+5V" H 1200 1550 50  0000 C CNN
+F 2 "" H 1350 1500 50  0001 C CNN
+F 3 "" H 1350 1500 50  0001 C CNN
+	1    1350 1500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5DD0C349
-P 1350 1550
+P 1350 1600
 AR Path="/5DD0C349" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5DD0C349" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5DD0C349" Ref="R?"  Part="1" 
@@ -1322,17 +1324,17 @@ AR Path="/5D62E1DC/5DD0C349" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5DD0C349" Ref="R1601"  Part="1" 
 AR Path="/5F67D4B5/5DD0C349" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5DD0C349" Ref="R?"  Part="1" 
-F 0 "R1601" H 1291 1504 50  0000 R CNN
-F 1 "4.7kΩ" H 1291 1595 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1350 1550 50  0001 C CNN
-F 3 "~" H 1350 1550 50  0001 C CNN
-	1    1350 1550
+F 0 "R1601" H 1291 1554 50  0000 R CNN
+F 1 "4.7kΩ" H 1291 1645 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1350 1600 50  0001 C CNN
+F 3 "~" H 1350 1600 50  0001 C CNN
+	1    1350 1600
 	-1   0    0    1   
 $EndComp
 Text Label 2850 6850 2    50   ~ 0
 ~HALT₀
-Text Label 2150 2100 0    50   ~ 0
-~µPC-INH
+Text Label 2150 2150 0    50   ~ 0
+~WAITING
 Wire Wire Line
 	5550 1850 5650 1850
 Wire Wire Line
@@ -1485,6 +1487,282 @@ F 3 "~" H 4850 4000 50  0001 C CNN
 	1    4650 4000
 	0    -1   -1   0   
 $EndComp
+Text Label 13250 7750 2    50   ~ 0
+RADDR0
+Text Label 13250 7550 2    50   ~ 0
+RADDR1
+Text Label 13250 7650 2    50   ~ 0
+RADDR2
+Text Label 13250 7450 2    50   ~ 0
+RADDR3
+Text Label 13250 7350 2    50   ~ 0
+RADDR4
+Text Label 13250 7250 2    50   ~ 0
+WADDR0
+Text Label 13250 7150 2    50   ~ 0
+WADDR1
+Text Label 13250 7050 2    50   ~ 0
+WADDR2
+Text Label 13250 6800 2    50   ~ 0
+WADDR3
+Text Label 13250 6600 2    50   ~ 0
+WADDR4
+Text Label 13250 6700 2    50   ~ 0
+COND0
+Text Label 13250 6400 2    50   ~ 0
+COND1
+Text Label 13250 6500 2    50   ~ 0
+COND2
+Text Label 13250 6200 2    50   ~ 0
+COND3
+Text Label 13250 6300 2    50   ~ 0
+COND4
+Text Label 13250 6100 2    50   ~ 0
+ACTION0
+Wire Wire Line
+	12800 7750 13250 7750
+Wire Wire Line
+	12800 7550 13250 7550
+Wire Wire Line
+	12800 7650 13250 7650
+Wire Wire Line
+	12800 7450 13250 7450
+Wire Wire Line
+	12800 7350 13250 7350
+Wire Wire Line
+	12800 7250 13250 7250
+Wire Wire Line
+	12800 7150 13250 7150
+Wire Wire Line
+	12800 7050 13250 7050
+Wire Wire Line
+	12800 6800 13250 6800
+Wire Wire Line
+	12800 6600 13250 6600
+Wire Wire Line
+	12800 6700 13250 6700
+Wire Wire Line
+	12800 6400 13250 6400
+Wire Wire Line
+	12800 6500 13250 6500
+Wire Wire Line
+	12800 6200 13250 6200
+Wire Wire Line
+	12800 6300 13250 6300
+Wire Wire Line
+	12800 6100 13250 6100
+$Comp
+L power:GND #PWR?
+U 1 1 622D66E4
+P 12350 7800
+AR Path="/61F95ACC/622D66E4" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6888FBA2/622D66E4" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/622D66E4" Ref="#PWR0149"  Part="1" 
+F 0 "#PWR0149" H 12350 7550 50  0001 C CNN
+F 1 "GND" H 12200 7800 50  0000 C CNN
+F 2 "" H 12350 7800 50  0001 C CNN
+F 3 "" H 12350 7800 50  0001 C CNN
+	1    12350 7800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 7800 12350 7750
+Wire Wire Line
+	12400 7750 12350 7750
+$Comp
+L Device:R_Network08 RN?
+U 1 1 622D66EA
+P 12600 7350
+AR Path="/61F95ACC/6888FBA2/622D66EA" Ref="RN?"  Part="1" 
+AR Path="/61F95ACC/622D66EA" Ref="RN?"  Part="1" 
+AR Path="/5DEAC282/622D66EA" Ref="RN1601"  Part="1" 
+F 0 "RN1601" V 12900 7500 50  0000 L CNN
+F 1 "10kΩ" V 12800 7500 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 13075 7350 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 12600 7350 50  0001 C CNN
+	1    12600 7350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 623B3808
+P 12350 6850
+AR Path="/61F95ACC/623B3808" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6888FBA2/623B3808" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/623B3808" Ref="#PWR0150"  Part="1" 
+F 0 "#PWR0150" H 12350 6600 50  0001 C CNN
+F 1 "GND" H 12200 6850 50  0000 C CNN
+F 2 "" H 12350 6850 50  0001 C CNN
+F 3 "" H 12350 6850 50  0001 C CNN
+	1    12350 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 6850 12350 6800
+Wire Wire Line
+	12400 6800 12350 6800
+$Comp
+L Device:R_Network08 RN?
+U 1 1 623B3810
+P 12600 6400
+AR Path="/61F95ACC/6888FBA2/623B3810" Ref="RN?"  Part="1" 
+AR Path="/61F95ACC/623B3810" Ref="RN?"  Part="1" 
+AR Path="/5DEAC282/623B3810" Ref="RN1602"  Part="1" 
+F 0 "RN1602" V 12900 6550 50  0000 L CNN
+F 1 "10kΩ" V 12800 6550 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 13075 6400 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 12600 6400 50  0001 C CNN
+	1    12600 6400
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3400 2250 1150 2250
+Text HLabel 1150 2250 0    50   Input ~ 0
+CLK3
+Wire Wire Line
+	3400 1550 2150 1550
+Text Label 2150 1550 0    50   ~ 0
+~RESET
+Wire Wire Line
+	12650 4900 13250 4900
+Wire Wire Line
+	12650 5000 13250 5000
+Wire Wire Line
+	12650 5100 13250 5100
+Text Label 13250 4900 2    50   ~ 0
+ACTION3
+Text Label 13250 5000 2    50   ~ 0
+ACTION2
+Text Label 13250 5100 2    50   ~ 0
+ACTION1
+$Comp
+L power:GND #PWR?
+U 1 1 6273089B
+P 12300 5150
+AR Path="/61F95ACC/6273089B" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6888FBA2/6273089B" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/6273089B" Ref="#PWR0154"  Part="1" 
+F 0 "#PWR0154" H 12300 4900 50  0001 C CNN
+F 1 "GND" H 12150 5150 50  0000 C CNN
+F 2 "" H 12300 5150 50  0001 C CNN
+F 3 "" H 12300 5150 50  0001 C CNN
+	1    12300 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 628113A2
+P 12550 4900
+AR Path="/628113A2" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/628113A2" Ref="R?"  Part="1" 
+AR Path="/5D54E677/628113A2" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/628113A2" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/628113A2" Ref="R1603"  Part="1" 
+AR Path="/5F67D4B5/628113A2" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/628113A2" Ref="R?"  Part="1" 
+F 0 "R1603" V 12500 5100 50  0000 C CNN
+F 1 "10kΩ" V 12450 4700 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12550 4900 50  0001 C CNN
+F 3 "~" H 12550 4900 50  0001 C CNN
+	1    12550 4900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 62812B62
+P 12550 5000
+AR Path="/62812B62" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/62812B62" Ref="R?"  Part="1" 
+AR Path="/5D54E677/62812B62" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/62812B62" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/62812B62" Ref="R1604"  Part="1" 
+AR Path="/5F67D4B5/62812B62" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/62812B62" Ref="R?"  Part="1" 
+F 0 "R1604" V 12500 5200 50  0000 C CNN
+F 1 "4.7kΩ" V 12450 4800 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12550 5000 50  0001 C CNN
+F 3 "~" H 12550 5000 50  0001 C CNN
+	1    12550 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 62812DC9
+P 12550 5100
+AR Path="/62812DC9" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/62812DC9" Ref="R?"  Part="1" 
+AR Path="/5D54E677/62812DC9" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/62812DC9" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/62812DC9" Ref="R1605"  Part="1" 
+AR Path="/5F67D4B5/62812DC9" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/62812DC9" Ref="R?"  Part="1" 
+F 0 "R1605" V 12500 5300 50  0000 C CNN
+F 1 "4.7kΩ" V 12450 4900 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12550 5100 50  0001 C CNN
+F 3 "~" H 12550 5100 50  0001 C CNN
+	1    12550 5100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	12450 4900 12300 4900
+Wire Wire Line
+	12300 4900 12300 5000
+Wire Wire Line
+	12450 5000 12300 5000
+Connection ~ 12300 5000
+Wire Wire Line
+	12300 5000 12300 5100
+Wire Wire Line
+	12450 5100 12300 5100
+Connection ~ 12300 5100
+Wire Wire Line
+	12300 5100 12300 5150
+Text Label 13250 5900 2    50   ~ 0
+~MEM
+Text Label 13250 5800 2    50   ~ 0
+~IO
+Text Label 13250 5700 2    50   ~ 0
+~R
+Text Label 13250 5600 2    50   ~ 0
+~WEN
+Text Label 13250 5500 2    50   ~ 0
+~END
+Wire Wire Line
+	12800 5600 13250 5600
+Wire Wire Line
+	12800 5500 13250 5500
+Wire Wire Line
+	12800 5700 13250 5700
+Wire Wire Line
+	12800 5800 13250 5800
+Wire Wire Line
+	12800 5900 13250 5900
+$Comp
+L Device:R_Network05 RN1603
+U 1 1 62C5EA16
+P 12600 5700
+F 0 "RN1603" V 12800 5900 50  0000 L CNN
+F 1 "10kΩ" V 12700 5900 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP6" V 12975 5700 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 12600 5700 50  0001 C CNN
+	1    12600 5700
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:+5V #PWR0151
+U 1 1 62C5EA1C
+P 12300 5450
+F 0 "#PWR0151" H 12300 5300 50  0001 C CNN
+F 1 "+5V" H 12150 5550 50  0000 C CNN
+F 2 "" H 12300 5450 50  0001 C CNN
+F 3 "" H 12300 5450 50  0001 C CNN
+	1    12300 5450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	12300 5500 12400 5500
+Wire Wire Line
+	12300 5450 12300 5500
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
