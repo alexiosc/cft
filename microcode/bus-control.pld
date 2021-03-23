@@ -1,0 +1,95 @@
+GAL16V8         ; this is the GAL type
+BUSCTL00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+RESET	CLK3	T34	HALT	WEN	MEM	IO	T34	HALT    GND
+WAITING						SETWS	DBEN	ABEN    VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; ADDRESS BUS ENABLE (IN FLUX)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; The Address Bus driver is in a state of flux at the moment. For now,
+; we drive it when HALT is high.
+;
+; In the future, we would drive it only during a MEM or IO transaction
+; during, e.g. T34.
+
+; Enable the Address Bus only during a memory or I/O bus
+; transaction. NOT PROPERLY IMPLEMENTED/TESTED (YET).
+
+;;; /ABEN =    /MEM * /T34 * HALT   +  /IO * /T34 * HALT
+
+; For now, drive all the time when not halted.
+/ABEN =    HALT
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; DATA BUS ENABLE (IN FLUX)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Truth table:
+; ___  __  _______     _____
+; MEM  IO  WAITING  |  BUSEN
+; ------------------|-------
+;  0    X     X     |    0
+;  X    0     X     |    0
+;  X    X     0     |    0
+;  1    1     1     |    1
+;
+; I.e. it's a three-input negative-logic OR gate. (implemented as a
+; three-input AND gate in the pre-GAL schematics).
+
+/DBEN = 	/MEM  +  /IO  +  /WAITING
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; WAIT STATES
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Optional configuration on the schematics: allow wait states only during T34.
+;;; /SETWS = /WS * /T34
+
+; Currently, set a WS asynchronously, whenever the 
+/SETWS = /WS
+
+
+
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+WADDR    -- The read address
+CLK4     -- Write strobe clock
+XORA     -- XOR input A, used by the Skip/Branch Unit.
+XORB     -- XOR input B
+
+Outputs:
+
+/WPC     -- Write to the PC
+/WDR     -- Write to the DR
+/WIR     -- Write to the IR
+/FLAGOE  -- Write to the flag unit
+XORY     -- Output of the XOR gate
+
+
+; signal write_pc        = ..............01000.....; // Write to PC
+; signal write_dr        = ..............01001.....; // Write to DR
+; signal write_ir        = ..............01111.....; // Write to the Instruction Register
+; signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
+; signal write_flags     = ..............11111.....; // Write flags
+
+
+; End of file.

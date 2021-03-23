@@ -1,0 +1,47 @@
+GAL16V8         ; this is the GAL type
+uPCGTE00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+CLK	RESET	END1	NC0	INH	NC1	NC2	WAITING	END2	GND
+OE	HALT	PE	CEP	CET	NC5	NC6	NC7	NC8	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+;; Synchronous parallel load of 0000 happens at reset. Also at end of
+;; instruction (either internal or ENDEXT) provided we're not at a
+;; wait state.
+
+/PE.R = /RESET  +  /END1 * WAITING  +  /END2 * WAITING
+
+
+;; For our purposes, CET and CEP are equivalent: both must be high to
+;; enable counting.
+
+CET.R = RESET * HALT * WAITING * INH
+
+CEP.R = RESET * HALT * WAITING * INH
+
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+CLK          -- built-in clock of the GAL/PLD. Registers equation results.
+RESET        -- An active-low reset signal
+HALT         -- The CPU is halted when low
+WAITING      -- We are in the Wait State when low.
+INH          -- (for expansion) Inhibit counting when low.
+END1         -- End of instruction (from Control Unit or bus)
+END2         -- End of instruction (from bus or Control Unit)
+
+Outputs: (registered on the rising edge of Clock)
+
+CET      -- Enables counting (on the rising edge of CLK4)
+CEP      -- Functionally identical to CET, and currently controlled by the same equation.
+PE       -- Active low. Parallel enable (sets µPC to 0000 on rising edge of CLK4).
+
+; End of file.

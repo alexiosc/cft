@@ -4,7 +4,7 @@ CUWDEC00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 WA4     WA3     WA2     WA1     WA0     NC0     NC1     NC2     CLK4    GND
-NC4     NC5     NC6     NC7     NC8     WIR     WF      WPC     WDR     VCC
+NC4     NC5     XORA    XORB    XORY    WIR     WF      WPC     WDR     VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 /WPC =    /CLK4 * /WA4 * WA3 * /WA2 * /WA1 * /WA0
@@ -16,6 +16,13 @@ NC4     NC5     NC6     NC7     NC8     WIR     WF      WPC     WDR     VCC
 /WF = /CLK4 *  WA4 * WA3 *  WA2 *  WA1
 
 
+; This is the single XOR gate in the Skip/Branch Unit. Putting it here saves a
+; chip package, and we have the space. Plus, this GAL is very close to the SBU
+; physically.
+
+XORY = /XORA * XORB  +  XORA * /XORB
+
+
 DESCRIPTION
 
 MBU GAL EQUATIONS
@@ -24,6 +31,8 @@ Inputs: (active low unless otherwise stated)
 
 WADDR    -- The read address
 CLK4     -- Write strobe clock
+XORA     -- XOR input A, used by the Skip/Branch Unit.
+XORB     -- XOR input B
 
 Outputs:
 
@@ -31,6 +40,7 @@ Outputs:
 /WDR     -- Write to the DR
 /WIR     -- Write to the IR
 /FLAGOE  -- Write to the flag unit
+XORY     -- Output of the XOR gate
 
 
 ; signal write_pc        = ..............01000.....; // Write to PC
