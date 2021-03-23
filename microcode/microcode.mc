@@ -419,13 +419,11 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 //
 // Fill the entire microcode ROM with /end signals (and jumps to µPC 0000).
 //
-// This removes a glitch with Autoincrement modes: at the end of autoincrement
-// microinstructions, control briefly jumps to the non-autoincrement variety,
-// so we need to fill with /end.
-//
-// This microprogram doesn't clobber others because the microcode assembler
-// assembles microprograms in order of increasing specificity (decreasing
-// number of don't-care [X] values.)
+// Despite all the don't-care values, this microprogram doesn't clobber others
+// because the microcode assembler assembles microprograms in order of
+// increasing specificity (decreasing number of don't-care [X] values.) This
+// being the least specific microprogram, it simply initialises the entire ROM
+// with ENDs.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
