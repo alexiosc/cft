@@ -3,9 +3,51 @@ BUSCTL00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-RESET	CLK3	T34	HALT	WEN	MEM	IO	T34	HALT    GND
-WAITING						SETWS	DBEN	ABEN    VCC
+RESET	CLK3	T34	HALT	WEN	REN	MEM	IO	WS    	GND
+WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
 ;11     12      13      14      15      16      17      18      19      20
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; READ/WRITE ENABLES
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; _____      ___ ___ _______   ____ ____ _____
+;; RESET CLK3 REN WEN WAITING   SETR SETW CLRRW   Notes
+;; ----------------------------------------------------------------------------
+;;   0    X    X   X     X       1    1     0     Reset in progress
+;;   1    0    1   1     1       1    1     0     Sanity bus disablement
+;; ----------------------------------------------------------------------------
+;;   1    1    X   X     X       1    1     1     T2 or T4: do nothing.
+;;   1    0    1   1     1       1    1     1     T3: no bus transaction
+;; ----------------------------------------------------------------------------
+;;   1    0    0   1     X       0    1     1     T3: read
+;;   1    1    0   1     0       0    1     1     T3: read, wait state
+;; ----------------------------------------------------------------------------
+;;   1    0    1   0     X       1    0     1     T3: write
+;;   1    1    1   0     0       1    0     1     T3: write, wait state
+;; ----------------------------------------------------------------------------
+
+;; Reading starts when T3 is entered, and we enable a read when REN is
+;; low during T3 (CLK3 low). If we enter a wait state, reading
+;; continues, overriding the normal de-assertion of R and W on the
+;; rising edge of CLK1.
+
+;; Update: added sanity: only assert when MEM or IO are also asserted.
+
+/SETR = /MEM * /REN * /CLK3  +  /IO * /REN * /CLK3  +  /REN * /WAITING
+
+/SETW = /MEM * /WEN * /CLK3  +  /IO * /WEN * /CLK3  +  /WEN * /WAITING
+
+
+;; Disable the peripheral bus on reset. Also, for paranoia's sake, disable it
+;; whenever there's no bus transaction (REN or WEN are both high, or MEM and IO
+;; are both high) during T3.
+
+/CLRRW = /RESET  +  /CLK3 * WAITING * WEN * REN  +  /CLK3 * MEM * IO
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -23,7 +65,7 @@ WAITING						SETWS	DBEN	ABEN    VCC
 ; Enable the Address Bus only during a memory or I/O bus
 ; transaction. NOT PROPERLY IMPLEMENTED/TESTED (YET).
 
-;;; /ABEN =    /MEM * /T34 * HALT   +  /IO * /T34 * HALT
+;;; /ABEN =    /MEM * /T34 * HALT   +  /IO * /T34 * HALT   +   /WAITING * HALT
 
 ; For now, drive all the time when not halted.
 /ABEN =    HALT
@@ -61,6 +103,7 @@ WAITING						SETWS	DBEN	ABEN    VCC
 ; Currently, set a WS asynchronously, whenever the 
 /SETWS = /WS
 
+/CLRWS = /RESET
 
 
 
