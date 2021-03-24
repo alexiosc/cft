@@ -139,7 +139,7 @@ cond uaddr:4;
 // ACTION   4 bits     Opcode of action to perform
 // MEM      1 bit      Perform a memory transaction
 // IO       1 bit      Perform an I/O transaction
-// R        1 bit      Perform a read transaction
+// REN      1 bit      Perform a read transaction
 // WEN      1 bit      Perform a write transaction
 // END      1 bit      End this microprogram
 //
@@ -317,7 +317,7 @@ signal action_decsp    = .....1111...............; // Increment SP
 // HORIZONTAL SIGNALS
 signal /MEM            = ....1...................; // Memory access
 signal /IO             = ...1....................; // Input/Output enable
-signal /R              = ..1.....................; // Memory read
+signal /REN            = ..1.....................; // Memory read
 signal /WEN            = .1......................; // Memory write
 signal /END            = 1.......................; // Reset uaddr, go to fetch state.
 
@@ -334,7 +334,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // This macro uses cpp's symbol concatenation, which is why it's extra ugly.
 #define MEMREAD(mbr, addr, data)             \
     write_ar_##mbr, read_##addr;             \
-    /MEM, /R, write_##data
+    /MEM, /REN, write_##data
 
 // This macro performs a read relative to memory bank register n, where n is
 // determined from IR[2:0]. This implements half of the autoindexing register
@@ -347,7 +347,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // old MBR to write to the AR, it doesn't matter.
 #define IOREAD(addr, data)                   \
     write_ar_mbp, read_##addr;               \
-    /IO, /R, write_##data
+    /IO, /REN, write_##data
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1164,25 +1164,25 @@ start SRU;
 
 // This is a joke instruction added for GitHub commit #666. May delete later.
 start HCF;
-      /MEM, SET(ar_mbp, pc),  action_cpl;    // 00 CPL
-      /MEM, /R, write_ar_mbp, action_sru;    // 01 Kick the Shift/Rotate Unit
-      /MEM, /R, write_ar_mbp, action_cli;    // 02 CLI (entry point)
-      /MEM, /R, write_ar_mbp, action_incpc;  // 03 PC++
+      /MEM, SET(ar_mbp, pc),  action_cpl;     // 00 CPL
+      /MEM, /REN, write_ar_mbp, action_sru;   // 01 Kick the Shift/RENotate Unit
+      /MEM, /REN, write_ar_mbp, action_cli;   // 02 CLI (entry point)
+      /MEM, /REN, write_ar_mbp, action_incpc; // 03 PC++
 
-      /MEM, SET(ar_mbd, pc),  action_incac;  // 04 Use MBD. AC++
-      /MEM, /R, write_ar_mbd, action_incsp;  // 05 SP++
-      /MEM, /R, write_ar_mbd, action_incdr;  // 06 DR++
-      /MEM, /R, write_ar_mbd, action_incpc;  // 07 PC++
+      /MEM, SET(ar_mbd, pc),  action_incac;   // 04 Use MBD. AC++
+      /MEM, /REN, write_ar_mbd, action_incsp; // 05 SP++
+      /MEM, /REN, write_ar_mbd, action_incdr; // 06 DR++
+      /MEM, /REN, write_ar_mbd, action_incpc; // 07 PC++
 
-      /MEM, SET(ar_mbs, pc),  action_incac;  // 08 Use MBS. AC++
-      /MEM, /R, write_ar_mbs, action_incsp;  // 09 SP++
-      /MEM, /R, write_ar_mbs, action_incdr;  // 10 DR++
-      /MEM, /R, write_ar_mbs, action_incpc;  // 11 PC++
+      /MEM, SET(ar_mbs, pc),  action_incac;   // 08 Use MBS. AC++
+      /MEM, /REN, write_ar_mbs, action_incsp; // 09 SP++
+      /MEM, /REN, write_ar_mbs, action_incdr; // 10 DR++
+      /MEM, /REN, write_ar_mbs, action_incpc; // 11 PC++
 
-      /MEM, SET(ar_mbz, pc),  action_incac;  // 12 Use MBZ. AC++
-      /MEM, /R, write_ar_mbz, action_incsp;  // 13 SP++
-      /MEM, /R, write_ar_mbz, action_incdr;  // 14 DR++
-      /MEM, /R, write_ar_mbz, action_incpc;  // 15 PC++ (and loop)
+      /MEM, SET(ar_mbz, pc),  action_incac;   // 12 Use MBZ. AC++
+      /MEM, /REN, write_ar_mbz, action_incsp; // 13 SP++
+      /MEM, /REN, write_ar_mbz, action_incdr; // 14 DR++
+      /MEM, /REN, write_ar_mbz, action_incpc; // 15 PC++ (and loop)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
