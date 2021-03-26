@@ -513,7 +513,7 @@ F 3 "" H 4150 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 5400 6350 0    50   ~ 0
-~T34
+T34
 Wire Wire Line
 	1800 5800 1850 5800
 Text Label 1300 5900 0    50   ~ 0
@@ -1369,11 +1369,11 @@ Wire Wire Line
 Wire Wire Line
 	7200 1900 7200 3400
 Text HLabel 1250 2850 0    50   Input ~ 0
-~T34
+T34
 Wire Wire Line
 	1250 2850 1950 2850
 Text Label 1950 2850 2    50   ~ 0
-~T34
+T34
 Text Label 3800 4550 0    50   ~ 0
 ~WCTX
 $Comp

@@ -1067,7 +1067,7 @@ Text Label 8150 3650 0    50   ~ 0
 Text Label 8150 3750 0    50   ~ 0
 ~IO0
 Text Label 8150 3850 0    50   ~ 0
-~R0
+~REN0
 Text Label 8150 3550 0    50   ~ 0
 ~WEN0
 Text Notes 9000 1950 0    50   ~ 0
@@ -1150,7 +1150,7 @@ Wire Wire Line
 Text Label 8800 4000 0    50   ~ 0
 ~RSTHOLD
 Text HLabel 10600 3400 2    50   Output ~ 0
-~R
+~REN
 $Comp
 L alexios:74AC157 U1704
 U 2 1 5F2BA5E3
@@ -1442,7 +1442,7 @@ Wire Wire Line
 Text Label 7850 4850 2    50   ~ 0
 ~WEN0
 Text Label 7850 4950 2    50   ~ 0
-~R0
+~REN0
 Text Label 7850 5050 2    50   ~ 0
 ~IO0
 Text Label 7850 5150 2    50   ~ 0

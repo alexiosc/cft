@@ -50,7 +50,7 @@ Text HLabel 10500 5550 2    50   Output ~ 0
 Text HLabel 10500 5650 2    50   Output ~ 0
 ~IO
 Text HLabel 10500 5750 2    50   Output ~ 0
-~R
+~REN
 Text HLabel 10500 5850 2    50   Output ~ 0
 ~WEN
 Text HLabel 10500 5950 2    50   Output ~ 0
@@ -148,7 +148,7 @@ Text Label 9300 5950 0    50   ~ 0
 Text Label 9300 5850 0    50   ~ 0
 ~WEN
 Text Label 9300 5750 0    50   ~ 0
-~R
+~REN
 Text Label 9300 5650 0    50   ~ 0
 ~IO
 Text Label 9300 5550 0    50   ~ 0
@@ -217,49 +217,12 @@ Text HLabel 1150 3900 0    50   Input ~ 0
 ~COND
 Text HLabel 6650 5800 2    50   3State ~ 0
 FPD[0..7]
-$Comp
-L power:+5V #PWR01614
-U 1 1 5E28DA06
-P 7650 5000
-AR Path="/5DEAC282/5E28DA06" Ref="#PWR01614"  Part="1" 
-AR Path="/5DEAC282/5DEAA264/5E28DA06" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01614" H 7650 4850 50  0001 C CNN
-F 1 "+5V" H 7665 5173 50  0000 C CNN
-F 2 "" H 7650 5000 50  0001 C CNN
-F 3 "" H 7650 5000 50  0001 C CNN
-	1    7650 5000
-	1    0    0    -1  
-$EndComp
-Text Label 7000 3450 0    50   ~ 0
-COND0
-Text Label 7000 3550 0    50   ~ 0
-COND1
-Text Label 7000 3650 0    50   ~ 0
-COND2
-Text Label 7000 3750 0    50   ~ 0
-COND3
-Text Label 7000 3850 0    50   ~ 0
-COND4
-Wire Wire Line
-	7350 3450 7000 3450
-Wire Wire Line
-	7350 3550 7000 3550
-Wire Wire Line
-	7350 3650 7000 3650
-Wire Wire Line
-	7350 3750 7000 3750
-Wire Wire Line
-	7350 3850 7000 3850
-Wire Wire Line
-	7350 3950 7000 3950
-Text Label 7000 3950 0    50   ~ 0
-~END
 Text Label 6650 5200 2    50   ~ 0
 ~MEM
 Text Label 6650 5300 2    50   ~ 0
 ~IO
 Text Label 6650 5400 2    50   ~ 0
-~R
+~REN
 Text Label 6650 5500 2    50   ~ 0
 ~WEN
 Text Label 6650 5600 2    50   ~ 0
@@ -403,7 +366,7 @@ Text Label 4250 5200 2    50   ~ 0
 Text Label 4250 5300 2    50   ~ 0
 ~IO
 Text Label 4250 5400 2    50   ~ 0
-~R
+~REN
 Text Label 4250 5500 2    50   ~ 0
 ~WEN
 Text Label 4250 5600 2    50   ~ 0
@@ -492,7 +455,7 @@ F37 "ACTION2" O R 3800 5000 50
 F38 "ACTION3" O R 3800 5100 50 
 F39 "~MEM" O R 3800 5200 50 
 F40 "~IO" O R 3800 5300 50 
-F41 "~R" O R 3800 5400 50 
+F41 "~REN" O R 3800 5400 50 
 F42 "~WEN" O R 3800 5500 50 
 F43 "~END" O R 3800 5600 50 
 F44 "CLK" I L 2650 5350 50 
@@ -590,8 +553,6 @@ Wire Wire Line
 	3800 5100 4250 5100
 Wire Wire Line
 	3800 5200 4250 5200
-Text Notes 8200 2950 2    100  ~ 20
-Bus Hold
 $Comp
 L alexios:74HC85 U1601
 U 2 1 5F4A7223
@@ -651,58 +612,6 @@ Text HLabel 4700 5700 0    50   Input ~ 0
 ~FPµC1
 Text HLabel 4700 5600 0    50   Input ~ 0
 ~FPµC0
-Text Notes 7000 4650 0    50   ~ 0
-Note: The DFP adds bus hold\nto all other control outputs.
-Connection ~ 7650 5000
-Connection ~ 7650 5400
-Connection ~ 7650 5300
-Connection ~ 7650 5100
-$Comp
-L alexios:SN74ACT1071 U?
-U 2 1 5DA7AA39
-P 8000 5500
-AR Path="/5DEAC282/5DEAA264/5DA7AA39" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DA7AA39" Ref="U1602"  Part="2" 
-AR Path="/5DA7AA39" Ref="U?"  Part="1" 
-F 0 "U1602" H 7900 5450 50  0000 L CNN
-F 1 "SN74ACT1071" H 7900 5350 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 7700 5850 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7700 5850 50  0001 C CNN
-	2    8000 5500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7650 5300 7650 5400
-Wire Wire Line
-	7650 5100 7650 5000
-$Comp
-L power:GND #PWR01615
-U 1 1 5E28DA00
-P 7650 5400
-AR Path="/5DEAC282/5E28DA00" Ref="#PWR01615"  Part="1" 
-AR Path="/5DEAC282/5DEAA264/5E28DA00" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01615" H 7650 5150 50  0001 C CNN
-F 1 "GND" H 7655 5227 50  0000 C CNN
-F 2 "" H 7650 5400 50  0001 C CNN
-F 3 "" H 7650 5400 50  0001 C CNN
-	1    7650 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E28D9FA
-P 7650 5200
-AR Path="/5CC0D65F/5E28D9FA" Ref="C?"  Part="1" 
-AR Path="/5E28D9FA" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E28D9FA" Ref="C1602"  Part="1" 
-AR Path="/5DEAC282/5DEAA264/5E28D9FA" Ref="C?"  Part="1" 
-F 0 "C1602" H 7558 5246 50  0000 R CNN
-F 1 "100nF" H 7558 5155 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 5200 50  0001 C CNN
-F 3 "~" H 7650 5200 50  0001 C CNN
-	1    7650 5200
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5DF3702C
@@ -785,7 +694,7 @@ F19 "ACTION2" I R 6200 5000 50
 F20 "ACTION3" I R 6200 5100 50 
 F21 "~MEM" I R 6200 5200 50 
 F22 "~IO" I R 6200 5300 50 
-F23 "~R" I R 6200 5400 50 
+F23 "~REN" I R 6200 5400 50 
 F24 "~WEN" I R 6200 5500 50 
 F25 "~END" I R 6200 5600 50 
 F26 "FPD[0..7]" I R 6200 5800 50 
@@ -999,50 +908,6 @@ Wire Bus Line
 	4450 2650 2250 2650
 Wire Wire Line
 	1150 5350 2650 5350
-$Comp
-L alexios:SN74ACT1071 U?
-U 1 1 5E1680B3
-P 7850 3950
-AR Path="/5DEAC282/5DEAA264/5E1680B3" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E1680B3" Ref="U1602"  Part="1" 
-AR Path="/5E1680B3" Ref="U?"  Part="1" 
-F 0 "U1602" H 7800 4750 50  0000 L CNN
-F 1 "SN74ACT1071" H 7600 4650 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 7550 4300 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7550 4300 50  0001 C CNN
-	1    7850 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01613
-U 1 1 61FE2DF7
-P 7200 4050
-F 0 "#PWR01613" H 7200 3900 50  0001 C CNN
-F 1 "+5V" V 7215 4178 50  0000 L CNN
-F 2 "" H 7200 4050 50  0001 C CNN
-F 3 "" H 7200 4050 50  0001 C CNN
-	1    7200 4050
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7200 4050 7300 4050
-Wire Wire Line
-	7300 4050 7300 4150
-Wire Wire Line
-	7300 4350 7350 4350
-Connection ~ 7300 4050
-Wire Wire Line
-	7300 4050 7350 4050
-Wire Wire Line
-	7350 4150 7300 4150
-Connection ~ 7300 4150
-Wire Wire Line
-	7300 4150 7300 4250
-Wire Wire Line
-	7350 4250 7300 4250
-Connection ~ 7300 4250
-Wire Wire Line
-	7300 4250 7300 4350
 $Sheet
 S 3400 1450 1150 900 
 U 5F643CAF
@@ -1722,7 +1587,7 @@ Text Label 13250 5900 2    50   ~ 0
 Text Label 13250 5800 2    50   ~ 0
 ~IO
 Text Label 13250 5700 2    50   ~ 0
-~R
+~REN
 Text Label 13250 5600 2    50   ~ 0
 ~WEN
 Text Label 13250 5500 2    50   ~ 0

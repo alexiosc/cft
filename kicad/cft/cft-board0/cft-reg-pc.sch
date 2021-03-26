@@ -1652,20 +1652,20 @@ Text Label 5950 6350 0    50   ~ 0
 FPD3
 Text Label 5950 6450 0    50   ~ 0
 FPD7
-Wire Bus Line
-	1700 750  1700 6000
-Wire Bus Line
-	4100 1150 4100 6950
-Wire Bus Line
-	6500 750  6500 6350
-Wire Bus Line
-	6350 750  6350 3200
-Wire Bus Line
-	1100 650  6250 650 
 Wire Wire Line
 	2250 1850 2500 1850
 Text Label 2250 1850 0    50   ~ 0
 ~DEC
 Text Notes 2200 1850 2    50   ~ 10
 ERRATUM *
+Wire Bus Line
+	1100 650  6250 650 
+Wire Bus Line
+	6500 750  6500 6350
+Wire Bus Line
+	1700 750  1700 6000
+Wire Bus Line
+	6350 750  6350 3200
+Wire Bus Line
+	4100 1150 4100 6950
 $EndSCHEMATC

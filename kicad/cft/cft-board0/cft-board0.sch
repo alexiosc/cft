@@ -637,8 +637,8 @@ Wire Bus Line
 Text Label 13350 -6550 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	15350 -5500 16200 -5500
-Text Label 16200 -5500 2    50   ~ 0
+	15350 -5700 16200 -5700
+Text Label 16200 -5700 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
 	12150 -6700 13000 -6700
@@ -653,14 +653,10 @@ Text Label 16150 -3750 2    50   ~ 0
 Wire Wire Line
 	14200 -6300 13350 -6300
 Text Label 13350 -6300 0    50   ~ 0
-~MEM
-Wire Wire Line
-	14200 -6200 13350 -6200
-Text Label 13350 -6200 0    50   ~ 0
 ~IO
 Wire Wire Line
-	15350 -5600 16200 -5600
-Text Label 16200 -5600 2    50   ~ 0
+	15350 -5800 16200 -5800
+Text Label 16200 -5800 2    50   ~ 0
 ~FPAEXT
 Wire Wire Line
 	11000 -5450 10150 -5450
@@ -677,61 +673,53 @@ Wire Bus Line
 Wire Bus Line
 	11000 -6150 10150 -6150
 Wire Wire Line
+	15350 -6300 16200 -6300
+Wire Wire Line
 	15350 -6200 16200 -6200
 Wire Wire Line
 	15350 -6100 16200 -6100
 Wire Wire Line
 	15350 -6000 16200 -6000
-Wire Wire Line
-	15350 -5900 16200 -5900
-Text Label 16200 -6200 2    50   ~ 0
+Text Label 16200 -6300 2    50   ~ 0
 ~SYSDEV
-Text Label 16200 -6100 2    50   ~ 0
+Text Label 16200 -6200 2    50   ~ 0
 ~IODEV1XX
-Text Label 16200 -6000 2    50   ~ 0
+Text Label 16200 -6100 2    50   ~ 0
 ~IODEV2XX
-Text Label 16200 -5900 2    50   ~ 0
+Text Label 16200 -6000 2    50   ~ 0
 ~IODEV3XX
 $Sheet
 S 14200 -6850 1150 1500
 U 5CC06F10
 F0 "Address Register (AR)" 50
 F1 "cft_ar.sch" 50
-F2 "~MEM" T L 14200 -6300 50 
-F3 "~IO" T L 14200 -6200 50 
-F4 "IBUS[0..15]" T L 14200 -6550 50 
-F5 "~WRITE-AR" I L 14200 -5450 50 
-F6 "AB[0..23]" O R 15350 -6500 50 
-F7 "AEXT[0..7]" I L 14200 -6700 50 
-F8 "~SYSDEV" O R 15350 -6200 50 
-F9 "~IODEV1XX" O R 15350 -6100 50 
-F10 "~IODEV2XX" O R 15350 -6000 50 
-F11 "~IODEV3XX" O R 15350 -5900 50 
-F12 "~FPAEXT" I R 15350 -5600 50 
-F13 "FPD[0..7]" T R 15350 -5500 50 
-F14 "~T34" I L 14200 -6400 50 
-F15 "HALT" I L 14200 -6100 50 
+F2 "~IO" T L 14200 -6300 50 
+F3 "IBUS[0..15]" T L 14200 -6550 50 
+F4 "~WRITE-AR" I L 14200 -5450 50 
+F5 "AB[0..23]" O R 15350 -6550 50 
+F6 "AEXT[0..7]" I L 14200 -6700 50 
+F7 "~SYSDEV" O R 15350 -6300 50 
+F8 "~IODEV1XX" O R 15350 -6200 50 
+F9 "~IODEV2XX" O R 15350 -6100 50 
+F10 "~IODEV3XX" O R 15350 -6000 50 
+F11 "~FPAEXT" I R 15350 -5800 50 
+F12 "FPD[0..7]" T R 15350 -5700 50 
+F13 "~ABEN" I R 15350 -5450 50 
 $EndSheet
-Text Label 16200 -6500 2    50   ~ 0
+Text Label 16200 -6550 2    50   ~ 0
 AB[0..23]
 Wire Bus Line
-	15350 -6500 16200 -6500
+	15350 -6550 16200 -6550
 Text Label 13350 -6700 0    50   ~ 0
 AEXT[0..7]
 Wire Bus Line
 	14200 -6700 13350 -6700
-Wire Wire Line
-	14200 -6400 13350 -6400
-Text Label 13350 -6400 0    50   ~ 0
-~T34
 Text Notes 10650 -7050 0    100  ~ 20
 Memory Bank Unit (MBU)
 Text Label 13300 -3400 0    50   ~ 0
 ~WS
 Text Label 13300 -3550 0    50   ~ 0
 ~WEN
-Text Label 13300 -3650 0    50   ~ 0
-~R
 Text Label 13300 -3750 0    50   ~ 0
 ~IO
 Text Label 13300 -3850 0    50   ~ 0
@@ -744,8 +732,6 @@ Wire Wire Line
 	14150 -3400 13300 -3400
 Wire Wire Line
 	14150 -3550 13300 -3550
-Wire Wire Line
-	14150 -3650 13300 -3650
 Wire Wire Line
 	14150 -3750 13300 -3750
 Wire Wire Line
@@ -764,8 +750,6 @@ Text Label 13300 -3300 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
 	14150 -3300 13300 -3300
-Text Notes 13600 -4850 0    100  ~ 20
-Data Bus Driver & Wait States
 Text Notes 10950 -4850 0    100  ~ 20
 Constant Store
 Wire Bus Line
@@ -792,14 +776,8 @@ Text Label 13300 -4300 0    50   ~ 0
 CLK2
 Wire Wire Line
 	14150 -4300 13300 -4300
-Wire Wire Line
-	15300 -4400 16150 -4400
 Text Label 16150 -4400 2    50   ~ 0
-HALT
-Wire Wire Line
-	14200 -6100 13350 -6100
-Text Label 13350 -6100 0    50   ~ 0
-~HALT
+~ABEN
 $Sheet
 S 10950 -4650 1150 450 
 U 5E25A7FA
@@ -829,20 +807,20 @@ F9 "CLK4" I L 11000 -6500 50
 F10 "CLK2" I L 11000 -6600 50 
 F11 "~RSTHOLD" I L 11000 -6700 50 
 F12 "IR[0..2]" I L 11000 -5850 50 
-F13 "~T34" I L 11000 -6400 50 
+F13 "T34" I L 11000 -6400 50 
 F14 "~FPCTX" I L 11000 -5550 50 
 F15 "FPD[0..7]" T R 12150 -5550 50 
 $EndSheet
 Wire Wire Line
 	14150 -4100 13300 -4100
 Text Label 13300 -4100 0    50   ~ 0
-~T34
+T34
 $Sheet
 S 14150 -4650 1150 1500
 U 5D46B22D
 F0 "Wait States & Write Strobes" 50
 F1 "cft_ws_busen.sch" 50
-F2 "~T34" I L 14150 -4100 50 
+F2 "T34" I L 14150 -4100 50 
 F3 "~RSTHOLD" I L 14150 -4500 50 
 F4 "CLK3" I L 14150 -4200 50 
 F5 "~MEM" I L 14150 -3850 50 
@@ -851,12 +829,13 @@ F7 "~HALT" I L 14150 -4400 50
 F8 "~WEN" I L 14150 -3550 50 
 F9 "~WS" I L 14150 -3400 50 
 F10 "~W" T R 15300 -3750 50 
-F11 "~R" I L 14150 -3650 50 
-F12 "IBUS[0..15]" T L 14150 -3300 50 
-F13 "DB[0..15]" T R 15300 -3300 50 
-F14 "~WAITING" O R 15300 -3650 50 
-F15 "CLK2" I L 14150 -4300 50 
-F16 "HALT" O R 15300 -4400 50 
+F11 "IBUS[0..15]" T L 14150 -3300 50 
+F12 "DB[0..15]" T R 15300 -3300 50 
+F13 "~WAITING" O R 15300 -3650 50 
+F14 "CLK2" I L 14150 -4300 50 
+F15 "~ABEN" O R 15300 -4400 50 
+F16 "~REN" I L 14150 -3650 50 
+F17 "~R" T R 15300 -3850 50 
 $EndSheet
 Wire Wire Line
 	14150 -4200 13300 -4200
@@ -901,6 +880,8 @@ Wire Wire Line
 Wire Wire Line
 	20200 -1750 20200 -1650
 Wire Wire Line
+	-1450 6850 -1100 6850
+Wire Wire Line
 	-1450 6750 -1100 6750
 Wire Wire Line
 	-1450 6650 -1100 6650
@@ -931,7 +912,7 @@ Wire Wire Line
 Wire Wire Line
 	-1450 5350 -1100 5350
 Wire Wire Line
-	-1450 5250 -1100 5250
+	-1450 5150 -1100 5150
 Wire Wire Line
 	-1450 5050 -1100 5050
 Wire Wire Line
@@ -948,8 +929,6 @@ Wire Wire Line
 	-1450 4450 -1100 4450
 Wire Wire Line
 	-1450 4350 -1100 4350
-Wire Wire Line
-	-1450 4250 -1100 4250
 Wire Wire Line
 	-1450 4150 -1100 4150
 Wire Wire Line
@@ -1089,37 +1068,37 @@ Wire Wire Line
 	-1450 7550 -1350 7550
 Wire Wire Line
 	-1350 7550 -1350 7650
-Text Label -1100 5250 2    50   ~ 0
-DB0
 Text Label -1100 5350 2    50   ~ 0
-DB1
+DB0
 Text Label -1100 5450 2    50   ~ 0
-DB2
+DB1
 Text Label -1100 5550 2    50   ~ 0
-DB3
+DB2
 Text Label -1100 5650 2    50   ~ 0
-DB4
+DB3
 Text Label -1100 5750 2    50   ~ 0
-DB5
+DB4
 Text Label -1100 5850 2    50   ~ 0
-DB6
+DB5
 Text Label -1100 5950 2    50   ~ 0
-DB7
+DB6
 Text Label -1100 6050 2    50   ~ 0
-DB8
+DB7
 Text Label -1100 6150 2    50   ~ 0
-DB9
+DB8
 Text Label -1100 6250 2    50   ~ 0
-DB10
+DB9
 Text Label -1100 6350 2    50   ~ 0
-DB11
+DB10
 Text Label -1100 6450 2    50   ~ 0
-DB12
+DB11
 Text Label -1100 6550 2    50   ~ 0
-DB13
+DB12
 Text Label -1100 6650 2    50   ~ 0
-DB14
+DB13
 Text Label -1100 6750 2    50   ~ 0
+DB14
+Text Label -1100 6850 2    50   ~ 0
 DB15
 $Comp
 L power:+5V #PWR0130
@@ -1228,23 +1207,23 @@ Text Label -1100 4050 2    50   ~ 0
 ~R
 Text Label -1100 4150 2    50   ~ 0
 ~W
-Text Label -1100 4250 2    50   ~ 0
-~SYSDEV
 Text Label -1100 4350 2    50   ~ 0
-~IODEV1XX
+~SYSDEV
 Text Label -1100 4450 2    50   ~ 0
-~IODEV2XX
+~IODEV1XX
 Text Label -1100 4550 2    50   ~ 0
-~IODEV3XX
+~IODEV2XX
 Text Label -1100 4650 2    50   ~ 0
-~WS
+~IODEV3XX
 Text Label -1100 4750 2    50   ~ 0
-~WAITING
+~WS
 Text Label -1100 4850 2    50   ~ 0
-~HALT
+~WAITING
 Text Label -1100 4950 2    50   ~ 0
-~IRQ
+~HALT
 Text Label -1100 5050 2    50   ~ 0
+~IRQ
+Text Label -1100 5150 2    50   ~ 0
 ~IRQS
 Text Label -7900 -2650 2    50   ~ 0
 FPD[0..7]
@@ -1271,7 +1250,7 @@ Text Label -7900 -3850 2    50   ~ 0
 Text Label -7900 -3950 2    50   ~ 0
 ~WEN
 Text Label -7900 -4050 2    50   ~ 0
-~R
+~REN
 Text Label -7900 -4150 2    50   ~ 0
 ~IO
 Text Label -7900 -4250 2    50   ~ 0
@@ -1421,8 +1400,6 @@ Wire Wire Line
 Wire Wire Line
 	-2800 -4700 -3350 -4700
 Wire Wire Line
-	-2800 -4600 -3350 -4600
-Wire Wire Line
 	-2800 -4900 -3350 -4900
 Wire Wire Line
 	-2800 -5000 -3350 -5000
@@ -1476,8 +1453,6 @@ Text Label -3350 -4800 0    50   ~ 0
 ~MEM
 Text Label -3350 -4700 0    50   ~ 0
 ~IO
-Text Label -3350 -4600 0    50   ~ 0
-~R
 Text Label -3350 -4300 0    50   ~ 0
 ~WS
 Text Label -3350 -4100 0    50   ~ 0
@@ -2114,7 +2089,7 @@ F10 "COND[0..4]" O R -8500 -4450 50
 F11 "ACTION[0..3]" O R -8500 -4350 50 
 F12 "~MEM" O R -8500 -4250 50 
 F13 "~IO" O R -8500 -4150 50 
-F14 "~R" O R -8500 -4050 50 
+F14 "~REN" O R -8500 -4050 50 
 F15 "~WEN" O R -8500 -3950 50 
 F16 "~END" O R -8500 -3850 50 
 F17 "~IRQSµC" I L -9650 -2550 50 
@@ -2474,7 +2449,7 @@ CLK2
 Text Label 10150 -6500 0    50   ~ 0
 CLK3
 Text Label 10150 -6400 0    50   ~ 0
-~T34
+T34
 Wire Wire Line
 	10150 -5550 11000 -5550
 Text Label 10150 -5550 0    50   ~ 0
@@ -2719,7 +2694,7 @@ Connection ~ -9400 6100
 Wire Wire Line
 	-11400 4200 -11850 4200
 Text Label -11850 4200 0    50   ~ 0
-~T34
+T34
 Wire Wire Line
 	-10500 4600 -10000 4600
 Text Label -10000 4600 2    50   ~ 0
@@ -3159,6 +3134,28 @@ Text Label -10250 -4250 0    50   ~ 0
 CLK3
 Wire Wire Line
 	-9650 -4250 -10250 -4250
+Wire Wire Line
+	-1450 4250 -1100 4250
+Text Label -1100 4250 2    50   ~ 0
+T34
+Text Notes 13600 -4850 0    100  ~ 20
+Data Bus Driver & Wait States
+Wire Wire Line
+	15350 -5450 16250 -5450
+Wire Wire Line
+	16250 -5450 16250 -4400
+Wire Wire Line
+	15300 -4400 16250 -4400
+Text Label 16200 -5450 2    50   ~ 0
+~ABEN
+Wire Wire Line
+	15300 -3850 16150 -3850
+Text Label 16150 -3850 2    50   ~ 0
+~R
+Wire Wire Line
+	14150 -3650 13300 -3650
+Text Label 13300 -3650 0    50   ~ 0
+~REN
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line

@@ -650,9 +650,9 @@ Wire Wire Line
 Wire Wire Line
 	7650 2500 7950 2500
 Text HLabel 6100 3800 0    50   Input ~ 0
-~R
+~REN
 Text Label 6200 3800 0    50   ~ 0
-~R
+~REN
 Wire Wire Line
 	6650 3800 6100 3800
 Text HLabel 6100 3700 0    50   Input ~ 0
