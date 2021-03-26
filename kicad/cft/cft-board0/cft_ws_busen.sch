@@ -1928,7 +1928,7 @@ Connection ~ 3850 7200
 Connection ~ 6900 5550
 Connection ~ 6900 5750
 Wire Wire Line
-	3700 2150 4450 2150
+	3700 2150 3950 2150
 Wire Wire Line
 	4100 1650 4450 1650
 Wire Wire Line
@@ -1937,8 +1937,13 @@ Text Label 4100 1650 0    50   ~ 0
 ~WAITING
 Text Label 4100 1550 0    50   ~ 0
 ~HALT
+Wire Wire Line
+	3950 1100 3950 2150
 Wire Bus Line
 	9650 3550 9650 5900
 Wire Bus Line
 	7750 3900 7750 6350
+Connection ~ 3950 2150
+Wire Wire Line
+	3950 2150 4450 2150
 $EndSCHEMATC

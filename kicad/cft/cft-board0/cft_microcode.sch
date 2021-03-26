@@ -878,8 +878,6 @@ Text Label 6800 1450 2    50   ~ 0
 UPC2
 Text Label 6800 1550 2    50   ~ 0
 UPC3
-Text Notes 5600 2100 0    98   ~ 20
-*
 Text Notes 5400 1050 0    50   ~ 0
 JP4: short 2-3. (GND)\nJP5: short 1-2. (VCC)\nJP6: short 2-3. (GND)
 Text Notes 6750 1000 0    100  ~ 20
@@ -1200,133 +1198,6 @@ Text Label 2850 6850 2    50   ~ 0
 ~HALT₀
 Text Label 2150 2150 0    50   ~ 0
 ~WAITING
-Wire Wire Line
-	5550 1850 5650 1850
-Wire Wire Line
-	5650 1850 5650 1750
-Wire Wire Line
-	5650 1750 6850 1750
-Wire Wire Line
-	5950 1850 6850 1850
-Wire Wire Line
-	6250 2100 6250 1950
-Wire Wire Line
-	6250 1950 6850 1950
-$Comp
-L power:+5V #PWR01605
-U 1 1 5EF1BFFC
-P 5450 1700
-F 0 "#PWR01605" H 5450 1550 50  0001 C CNN
-F 1 "+5V" H 5350 1700 50  0000 C CNN
-F 2 "" H 5450 1700 50  0001 C CNN
-F 3 "" H 5450 1700 50  0001 C CNN
-	1    5450 1700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01606
-U 1 1 5EF1C719
-P 5750 1700
-F 0 "#PWR01606" H 5750 1550 50  0001 C CNN
-F 1 "+5V" H 5650 1700 50  0000 C CNN
-F 2 "" H 5750 1700 50  0001 C CNN
-F 3 "" H 5750 1700 50  0001 C CNN
-	1    5750 1700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01607
-U 1 1 5EF1C98A
-P 6050 1700
-F 0 "#PWR01607" H 6050 1550 50  0001 C CNN
-F 1 "+5V" H 5950 1700 50  0000 C CNN
-F 2 "" H 6050 1700 50  0001 C CNN
-F 3 "" H 6050 1700 50  0001 C CNN
-	1    6050 1700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01610
-U 1 1 5EF1D08A
-P 6050 2300
-F 0 "#PWR01610" H 6050 2050 50  0001 C CNN
-F 1 "GND" H 6055 2127 50  0000 C CNN
-F 2 "" H 6050 2300 50  0001 C CNN
-F 3 "" H 6050 2300 50  0001 C CNN
-	1    6050 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01609
-U 1 1 5EF2D562
-P 5750 2300
-F 0 "#PWR01609" H 5750 2050 50  0001 C CNN
-F 1 "GND" H 5755 2127 50  0000 C CNN
-F 2 "" H 5750 2300 50  0001 C CNN
-F 3 "" H 5750 2300 50  0001 C CNN
-	1    5750 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01608
-U 1 1 5EF2D6C0
-P 5450 2300
-F 0 "#PWR01608" H 5450 2050 50  0001 C CNN
-F 1 "GND" H 5455 2127 50  0000 C CNN
-F 2 "" H 5450 2300 50  0001 C CNN
-F 3 "" H 5450 2300 50  0001 C CNN
-	1    5450 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5450 2000 5450 2300
-Wire Wire Line
-	6050 2250 6050 2300
-Wire Wire Line
-	6150 2100 6250 2100
-Wire Wire Line
-	5750 1800 5750 1700
-Wire Wire Line
-	5850 1950 5950 1950
-Wire Wire Line
-	5950 1950 5950 1850
-Wire Wire Line
-	5750 2100 5750 2300
-Wire Wire Line
-	6050 1950 6050 1700
-$Comp
-L alexios:SolderJumper_3_Bridged23 JP1601
-U 1 1 5F125CF7
-P 5450 1850
-F 0 "JP1601" V 5850 1900 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged23" H 5450 1960 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1850 50  0001 C CNN
-F 3 "~" H 5450 1850 50  0001 C CNN
-	1    5450 1850
-	0    -1   1    0   
-$EndComp
-$Comp
-L alexios:SolderJumper_3_Bridged23 JP1603
-U 1 1 5F129456
-P 6050 2100
-F 0 "JP1603" V 6200 2150 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged23" H 6050 2210 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 2100 50  0001 C CNN
-F 3 "~" H 6050 2100 50  0001 C CNN
-	1    6050 2100
-	0    -1   1    0   
-$EndComp
-$Comp
-L alexios:SolderJumper_3_Bridged12 JP1602
-U 1 1 5F12A1A9
-P 5750 1950
-F 0 "JP1602" V 6050 2000 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged12" H 5750 2060 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5750 1950 50  0001 C CNN
-F 3 "~" H 5750 1950 50  0001 C CNN
-	1    5750 1950
-	0    -1   1    0   
-$EndComp
 Wire Notes Line width 20 style solid
 	5200 600  6450 600 
 Wire Notes Line width 20 style solid
@@ -1628,10 +1499,60 @@ Wire Wire Line
 	12300 5500 12400 5500
 Wire Wire Line
 	12300 5450 12300 5500
+$Comp
+L power:GND #PWR01608
+U 1 1 5EF2D6C0
+P 5450 2300
+F 0 "#PWR01608" H 5450 2050 50  0001 C CNN
+F 1 "GND" H 5455 2127 50  0000 C CNN
+F 2 "" H 5450 2300 50  0001 C CNN
+F 3 "" H 5450 2300 50  0001 C CNN
+	1    5450 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01609
+U 1 1 5EF2D562
+P 5750 2300
+F 0 "#PWR01609" H 5750 2050 50  0001 C CNN
+F 1 "GND" H 5755 2127 50  0000 C CNN
+F 2 "" H 5750 2300 50  0001 C CNN
+F 3 "" H 5750 2300 50  0001 C CNN
+	1    5750 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01610
+U 1 1 5EF1D08A
+P 6050 2300
+F 0 "#PWR01610" H 6050 2050 50  0001 C CNN
+F 1 "GND" H 6055 2127 50  0000 C CNN
+F 2 "" H 6050 2300 50  0001 C CNN
+F 3 "" H 6050 2300 50  0001 C CNN
+	1    6050 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 2250 6050 2300
+Wire Wire Line
+	5450 2000 5450 2300
+$Comp
+L power:+5V #PWR01605
+U 1 1 5EF1BFFC
+P 5450 1700
+F 0 "#PWR01605" H 5450 1550 50  0001 C CNN
+F 1 "+5V" H 5350 1700 50  0000 C CNN
+F 2 "" H 5450 1700 50  0001 C CNN
+F 3 "" H 5450 1700 50  0001 C CNN
+	1    5450 1700
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
 	2150 2750 2150 3500
+Wire Bus Line
+	5100 1350 5100 2550
 Wire Bus Line
 	9800 4800 9800 5150
 Wire Bus Line
@@ -1640,6 +1561,85 @@ Wire Bus Line
 	9800 3400 9800 3850
 Wire Bus Line
 	9800 2700 9800 3150
-Wire Bus Line
-	5100 1350 5100 2550
+Wire Wire Line
+	6050 1950 6050 1700
+Wire Wire Line
+	5750 2100 5750 2300
+Wire Wire Line
+	5950 1950 5950 1850
+Wire Wire Line
+	5850 1950 5950 1950
+Wire Wire Line
+	6150 2100 6250 2100
+$Comp
+L power:+5V #PWR01607
+U 1 1 5EF1C98A
+P 6050 1700
+F 0 "#PWR01607" H 6050 1550 50  0001 C CNN
+F 1 "+5V" H 5950 1700 50  0000 C CNN
+F 2 "" H 6050 1700 50  0001 C CNN
+F 3 "" H 6050 1700 50  0001 C CNN
+	1    6050 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 1950 6850 1950
+Wire Wire Line
+	6250 2100 6250 1950
+Wire Wire Line
+	5950 1850 6850 1850
+Wire Wire Line
+	5650 1750 6850 1750
+$Comp
+L power:+5V #PWR01606
+U 1 1 5EF1C719
+P 5750 1700
+F 0 "#PWR01606" H 5750 1550 50  0001 C CNN
+F 1 "+5V" H 5650 1700 50  0000 C CNN
+F 2 "" H 5750 1700 50  0001 C CNN
+F 3 "" H 5750 1700 50  0001 C CNN
+	1    5750 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 1800 5750 1700
+Wire Wire Line
+	5650 1850 5650 1750
+Wire Wire Line
+	5550 1850 5650 1850
+Text Notes 5600 2100 0    98   ~ 20
+*
+$Comp
+L alexios:SolderJumper_3_Bridged23 JP1603
+U 1 1 5F129456
+P 6050 2100
+F 0 "JP1603" V 6200 2150 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged23" H 6050 2210 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 2100 50  0001 C CNN
+F 3 "~" H 6050 2100 50  0001 C CNN
+	1    6050 2100
+	0    -1   1    0   
+$EndComp
+$Comp
+L alexios:SolderJumper_3_Bridged12 JP1602
+U 1 1 5F12A1A9
+P 5750 1950
+F 0 "JP1602" V 6050 2000 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged12" H 5750 2060 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5750 1950 50  0001 C CNN
+F 3 "~" H 5750 1950 50  0001 C CNN
+	1    5750 1950
+	0    -1   1    0   
+$EndComp
+$Comp
+L alexios:SolderJumper_3_Bridged23 JP1601
+U 1 1 5F125CF7
+P 5450 1850
+F 0 "JP1601" V 5850 1900 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged23" H 5450 1960 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1850 50  0001 C CNN
+F 3 "~" H 5450 1850 50  0001 C CNN
+	1    5450 1850
+	0    -1   1    0   
+$EndComp
 $EndSCHEMATC

@@ -1354,7 +1354,7 @@ Text Label -5200 -5750 2    50   ~ 0
 Wire Wire Line
 	-8500 -3150 -7900 -3150
 Text Label -7900 -3150 2    50   ~ 0
-FPFETCH∕~EXEC
+FPFETCH
 Wire Bus Line
 	-5800 -4950 -5200 -4950
 Text Label -5200 -4950 2    50   ~ 0
@@ -1830,7 +1830,7 @@ Wire Bus Line
 	-8500 -4450 -7900 -4450
 Wire Bus Line
 	-8500 -4550 -7900 -4550
-Text Label -5250 3850 0    50   ~ 0
+Text Label -5250 5650 0    50   ~ 0
 FPFETCH
 Text Notes -1000 -4800 0    50   ~ 0
 ← DFP
