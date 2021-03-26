@@ -43,6 +43,7 @@ PLDS =			$(BUILDDIR)/mbu-control.jed \
 			$(BUILDDIR)/ctl-raddr-decode.jed \
 			$(BUILDDIR)/ism-control.jed \
 			$(BUILDDIR)/upc-gate.jed \
+			$(BUILDDIR)/bus-control.jed \
 
 
 #.PHONY: 		all clean microcode alu-binary alu-unary

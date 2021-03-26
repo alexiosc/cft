@@ -3,8 +3,8 @@ BUSCTL00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-RESET	CLK3	T34	HALT	WEN	REN	MEM	IO	WS    	GND
-WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
+RESET	CLK3	T34	HALT	WAITING	WEN	REN	MEM	IO	GND
+WS    	DBEN	ABEN	DBDIR	SETW	CLRRW	SETWS	SETR	CLRWS	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -15,37 +15,37 @@ WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; _____      ___ ___ _______   ____ ____ _____
-;; RESET CLK3 REN WEN WAITING   SETR SETW CLRRW   Notes
-;; ----------------------------------------------------------------------------
-;;   0    X    X   X     X       1    1     0     Reset in progress
-;;   1    0    1   1     1       1    1     0     Sanity bus disablement
-;; ----------------------------------------------------------------------------
-;;   1    1    X   X     X       1    1     1     T2 or T4: do nothing.
-;;   1    0    1   1     1       1    1     1     T3: no bus transaction
-;; ----------------------------------------------------------------------------
-;;   1    0    0   1     X       0    1     1     T3: read
-;;   1    1    0   1     0       0    1     1     T3: read, wait state
-;; ----------------------------------------------------------------------------
-;;   1    0    1   0     X       1    0     1     T3: write
-;;   1    1    1   0     0       1    0     1     T3: write, wait state
-;; ----------------------------------------------------------------------------
+; _____      ___ ___ _______   ____ ____ _____
+; RESET CLK3 REN WEN WAITING   SETR SETW CLRRW   Notes
+; -----------------------------------------------------------------------------
+;   0    X    X   X     X       1    1     0     Reset in progress
+;   1    0    1   1     1       1    1     0     Sanity bus disablement
+; -----------------------------------------------------------------------------
+;   1    1    X   X     X       1    1     1     T2 or T4: do nothing.
+;   1    0    1   1     1       1    1     1     T3: no bus transaction
+; -----------------------------------------------------------------------------
+;   1    0    0   1     X       0    1     1     T3: read
+;   1    1    0   1     0       0    1     1     T3: read, wait state
+; -----------------------------------------------------------------------------
+;   1    0    1   0     X       1    0     1     T3: write
+;   1    1    1   0     0       1    0     1     T3: write, wait state
+; -----------------------------------------------------------------------------
 
-;; Reading starts when T3 is entered, and we enable a read when REN is
-;; low during T3 (CLK3 low). If we enter a wait state, reading
-;; continues, overriding the normal de-assertion of R and W on the
-;; rising edge of CLK1.
+; Reading starts when T3 is entered, and we enable a read when REN is
+; low during T3 (CLK3 low). If we enter a wait state, reading
+; continues, overriding the normal de-assertion of R and W on the
+; rising edge of CLK1.
 
-;; Update: added sanity: only assert when MEM or IO are also asserted.
+; Update: added sanity: only assert when MEM or IO are also asserted.
 
 /SETR = /MEM * /REN * /CLK3  +  /IO * /REN * /CLK3  +  /REN * /WAITING
 
 /SETW = /MEM * /WEN * /CLK3  +  /IO * /WEN * /CLK3  +  /WEN * /WAITING
 
 
-;; Disable the peripheral bus on reset. Also, for paranoia's sake, disable it
-;; whenever there's no bus transaction (REN or WEN are both high, or MEM and IO
-;; are both high) during T3.
+; Disable the peripheral bus on reset. Also, for paranoia's sake, disable it
+; whenever there's no bus transaction (REN or WEN are both high, or MEM and IO
+; are both high) during T3.
 
 /CLRRW = /RESET  +  /CLK3 * WAITING * WEN * REN  +  /CLK3 * MEM * IO
 
@@ -67,8 +67,8 @@ WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
 
 ;;; /ABEN =    /MEM * /T34 * HALT   +  /IO * /T34 * HALT   +   /WAITING * HALT
 
-; For now, drive all the time when not halted.
-/ABEN =    HALT
+; For now, drive all the time when not resetting or halted.
+/ABEN =    RESET * HALT
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -89,7 +89,24 @@ WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
 ; I.e. it's a three-input negative-logic OR gate. (implemented as a
 ; three-input AND gate in the pre-GAL schematics).
 
-/DBEN = 	/MEM  +  /IO  +  /WAITING
+; Note, the /WAITING term isn't strictly needed, because MEM or IO will remain
+; asserted during a wait state. But added minterm coverage helps avoid
+; glitches.
+
+/DBEN = RESET * /MEM  +  RESET * /IO  +  RESET * /WAITING
+
+
+; Set the bus direction. When low, a data bus read is performed. When high, a
+; data bus write is performed. This is here for three reasons:
+;
+; (a) So it is synchronous with DBEN.
+; (b) To add some added protection using /MEM and /IO.
+; (c) So it can be changed if nasty glitches happen anyway.
+
+/DBDIR = /REN * /MEM  +  /REN * /IO
+
+; DBDIR used to be R, the bus signal, but it helps to drive it early, so the
+; data bus has enabled by the time R is asserted.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -110,29 +127,16 @@ WAITING	SETR	SETW	CLRRW	SETWS	CLRWS	NC17	DBEN	ABEN    VCC
 
 DESCRIPTION
 
-MBU GAL EQUATIONS
+
+NOTE: still to be written!
+
 
 Inputs: (active low unless otherwise stated)
 
-WADDR    -- The read address
-CLK4     -- Write strobe clock
-XORA     -- XOR input A, used by the Skip/Branch Unit.
-XORB     -- XOR input B
+xxxxxx   -- 
 
 Outputs:
 
-/WPC     -- Write to the PC
-/WDR     -- Write to the DR
-/WIR     -- Write to the IR
-/FLAGOE  -- Write to the flag unit
-XORY     -- Output of the XOR gate
-
-
-; signal write_pc        = ..............01000.....; // Write to PC
-; signal write_dr        = ..............01001.....; // Write to DR
-; signal write_ir        = ..............01111.....; // Write to the Instruction Register
-; signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
-; signal write_flags     = ..............11111.....; // Write flags
-
+xxxxxx   -- 
 
 ; End of file.
