@@ -1939,11 +1939,11 @@ Text Label 4100 1550 0    50   ~ 0
 ~HALT
 Wire Wire Line
 	3950 1100 3950 2150
+Connection ~ 3950 2150
+Wire Wire Line
+	3950 2150 4450 2150
 Wire Bus Line
 	9650 3550 9650 5900
 Wire Bus Line
 	7750 3900 7750 6350
-Connection ~ 3950 2150
-Wire Wire Line
-	3950 2150 4450 2150
 $EndSCHEMATC

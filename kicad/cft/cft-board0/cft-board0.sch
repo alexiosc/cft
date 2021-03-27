@@ -3156,10 +3156,20 @@ Wire Wire Line
 	14150 -3650 13300 -3650
 Text Label 13300 -3650 0    50   ~ 0
 ~REN
+Text Label -5250 5150 0    50   ~ 0
+~FPPCL
+Text Label -5250 5250 0    50   ~ 0
+~FPPCH
+Text Label -5250 5350 0    50   ~ 0
+~FPDRL
+Text Label -5250 5450 0    50   ~ 0
+~FPDRH
 Wire Bus Line
 	2450 -4900 2450 -4100
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3350 -10350 -2550
+Text Label -5250 4250 0    50   ~ 0
+~FPCTX
 $EndSCHEMATC
