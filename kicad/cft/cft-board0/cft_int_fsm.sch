@@ -481,17 +481,6 @@ Wire Notes Line width 24 style solid
 	5200 6650 5200 5650
 $Comp
 L alexios:74AC74 U1404
-U 1 1 6070860A
-P 6400 7300
-F 0 "U1404" H 6400 7717 50  0000 C CNN
-F 1 "74AC74" H 6400 7626 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 6350 7450 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 6350 7450 50  0001 C CNN
-	1    6400 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AC74 U1404
 U 2 1 60709A8C
 P 7300 4850
 F 0 "U1404" H 7300 5267 50  0000 C CNN
@@ -501,38 +490,6 @@ F 3 "74xx/74hc_hct74.pdf" H 7250 5000 50  0001 C CNN
 	2    7300 4850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5950 7450 5900 7450
-Wire Wire Line
-	5900 7450 5900 7350
-$Comp
-L power:+5V #PWR0143
-U 1 1 6070C7A7
-P 5900 7100
-F 0 "#PWR0143" H 5900 6950 50  0001 C CNN
-F 1 "+5V" H 5915 7273 50  0000 C CNN
-F 2 "" H 5900 7100 50  0001 C CNN
-F 3 "" H 5900 7100 50  0001 C CNN
-	1    5900 7100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5950 7150 5900 7150
-Connection ~ 5900 7150
-Wire Wire Line
-	5900 7150 5900 7100
-Wire Wire Line
-	5950 7250 5900 7250
-Connection ~ 5900 7250
-Wire Wire Line
-	5900 7250 5900 7150
-Wire Wire Line
-	5950 7350 5900 7350
-Connection ~ 5900 7350
-Wire Wire Line
-	5900 7350 5900 7250
-NoConn ~ 6850 7150
-NoConn ~ 6850 7450
 Wire Notes Line width 24 style solid
 	10700 6600 8250 6600
 Wire Notes Line width 24 style solid
@@ -832,4 +789,6 @@ Text Label 3450 4800 0    50   ~ 0
 ~IRQ'
 Wire Wire Line
 	4250 4900 3700 4900
+Text Notes 7700 4500 0    50   ~ 0
+U1404A is used in the Skip & Branch Unit.
 $EndSCHEMATC
