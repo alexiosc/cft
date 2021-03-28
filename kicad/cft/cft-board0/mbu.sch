@@ -422,8 +422,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4650 58
 $EndComp
 Wire Wire Line
 	4150 6250 3800 6250
-Wire Wire Line
-	5650 6350 5400 6350
 $Comp
 L Device:C_Small C?
 U 1 1 6BD5B1AC
@@ -512,8 +510,6 @@ F 3 "" H 4150 6350 50  0001 C CNN
 	1    4150 6350
 	1    0    0    -1  
 $EndComp
-Text Label 5400 6350 0    50   ~ 0
-T34
 Wire Wire Line
 	1800 5800 1850 5800
 Text Label 1300 5900 0    50   ~ 0
@@ -1688,4 +1684,15 @@ Wire Bus Line
 	7000 3750 7000 6550
 Wire Bus Line
 	3700 3400 3700 6550
+$Comp
+L power:GND #PWR?
+U 1 1 60789539
+P 5650 6350
+F 0 "#PWR?" H 5650 6100 50  0001 C CNN
+F 1 "GND" H 5655 6177 50  0000 C CNN
+F 2 "" H 5650 6350 50  0001 C CNN
+F 3 "" H 5650 6350 50  0001 C CNN
+	1    5650 6350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
