@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 16 17
+Sheet 15 17
 Title "Microprogram Counter"
 Date ""
 Rev "2023"
@@ -280,40 +280,6 @@ Connection ~ 2300 3850
 Wire Wire Line
 	2300 3300 2300 3850
 $Comp
-L Device:R_Small R?
-U 1 1 5F6F591C
-P -2900 2100
-AR Path="/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/5F6F591C" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5F643CAF/5F6F591C" Ref="R1902"  Part="1" 
-F 0 "R1902" H -2841 2054 50  0000 L CNN
-F 1 "4.7kΩ" H -2841 2145 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2900 2100 50  0001 C CNN
-F 3 "~" H -2900 2100 50  0001 C CNN
-	1    -2900 2100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	-2900 1950 -2900 2000
-$Comp
-L power:+5V #PWR?
-U 1 1 5F6F5915
-P -2900 1950
-AR Path="/5DEAC282/5F6F5915" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5F643CAF/5F6F5915" Ref="#PWR01903"  Part="1" 
-F 0 "#PWR01903" H -2900 1800 50  0001 C CNN
-F 1 "+5V" H -2885 2123 50  0000 C CNN
-F 2 "" H -2900 1950 50  0001 C CNN
-F 3 "" H -2900 1950 50  0001 C CNN
-	1    -2900 1950
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:16V8 U1901
 U 1 1 62250F79
 P -1900 2900
@@ -340,8 +306,6 @@ Text Label -2700 3800 0    50   ~ 0
 ~HALT
 Text Label -2700 3150 0    50   ~ 0
 ~WAITING
-Text Label -2700 2850 0    50   ~ 0
-~INH
 Text Label -2700 2650 0    50   ~ 0
 ~END
 Text Label -2700 3250 0    50   ~ 0
@@ -360,15 +324,6 @@ Wire Wire Line
 	-3500 2650 -2350 2650
 Wire Wire Line
 	-3500 3150 -2350 3150
-Wire Wire Line
-	-3500 3250 -2800 3250
-Connection ~ -2800 3250
-Wire Wire Line
-	-2800 3250 -2350 3250
-Wire Wire Line
-	-2900 2850 -2900 2200
-Wire Wire Line
-	-2900 2850 -2350 2850
 $Comp
 L alexios:16V8 U1901
 U 2 1 6250072D
@@ -402,8 +357,6 @@ Text Label 6750 4600 0    50   ~ 0
 CEP
 Text Label 6750 4700 0    50   ~ 0
 CET
-Wire Wire Line
-	-2800 2200 -2800 3250
 $Comp
 L power:GND #PWR0152
 U 1 1 625430D7
@@ -425,42 +378,14 @@ Text HLabel -3500 2550 0    50   Input ~ 0
 ~RESET
 Text HLabel -3500 2450 0    50   Input ~ 0
 CLK3
-$Comp
-L Device:R_Small R?
-U 1 1 62556572
-P -2800 2100
-AR Path="/62556572" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/62556572" Ref="R?"  Part="1" 
-AR Path="/5D54E677/62556572" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/62556572" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/62556572" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/62556572" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/62556572" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5F643CAF/62556572" Ref="R1901"  Part="1" 
-F 0 "R1901" H -2850 1950 50  0000 R CNN
-F 1 "4.7kΩ" H -2850 2050 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2800 2100 50  0001 C CNN
-F 3 "~" H -2800 2100 50  0001 C CNN
-	1    -2800 2100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	-2800 1950 -2800 2000
-$Comp
-L power:+5V #PWR?
-U 1 1 62556579
-P -2800 1950
-AR Path="/5DEAC282/62556579" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5F643CAF/62556579" Ref="#PWR0153"  Part="1" 
-F 0 "#PWR0153" H -2800 1800 50  0001 C CNN
-F 1 "+5V" H -2785 2123 50  0000 C CNN
-F 2 "" H -2800 1950 50  0001 C CNN
-F 3 "" H -2800 1950 50  0001 C CNN
-	1    -2800 1950
-	1    0    0    -1  
-$EndComp
 NoConn ~ -1450 2450
 NoConn ~ -1450 2550
 NoConn ~ -1450 2650
 NoConn ~ -1450 2750
+NoConn ~ -2350 2750
+NoConn ~ -2350 2850
+NoConn ~ -2350 2950
+NoConn ~ -2350 3050
+Wire Wire Line
+	-3500 3250 -2350 3250
 $EndSCHEMATC

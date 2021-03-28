@@ -113,370 +113,88 @@ F 3 "~" H 7400 -1000 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7400 -900 7400 -800
-$Sheet
-S 7000 -6900 1150 1000
-U 5D9672D4
-F0 "Program Counter" 50
-F1 "cft-reg-pc.sch" 50
-F2 "~FPH" I R 8150 -6150 50 
-F3 "~FPL" I R 8150 -6050 50 
-F4 "~READ" I L 7000 -6350 50 
-F5 "~INC" I L 7000 -6150 50 
-F6 "~WRITE" I L 7000 -6250 50 
-F7 "RESET" I L 7000 -6750 50 
-F8 "IBUS[0..15]" I L 7000 -6550 50 
-F9 "FPD[0..7]" T R 8150 -6250 50 
-F10 "PC[10..15]" O R 8150 -6750 50 
-$EndSheet
-Text Notes 6900 -7300 0    197  ~ 39
+Text Notes 7050 -5100 0    197  ~ 39
 Registers
 Text Notes 2350 -7300 0    197  ~ 39
 Decoders
-Wire Wire Line
-	2900 -5550 2550 -5550
-Wire Wire Line
-	2900 -5450 2550 -5450
-Wire Wire Line
-	2900 -4100 2550 -4100
-Wire Wire Line
-	2900 -4000 2550 -4000
-Wire Wire Line
-	2900 -4700 2550 -4700
-Wire Wire Line
-	2900 -4600 2550 -4600
-Wire Wire Line
-	2900 -4500 2550 -4500
-Text Notes 3450 -4000 1    50   ~ 10
-WADDR=010xx
-Text Label 2600 -5550 0    50   ~ 0
-RADDR3
-Text Label 2600 -5450 0    50   ~ 0
-RADDR4
-Text Label 2600 -4700 0    50   ~ 0
-WADDR0
-Text Label 2600 -4600 0    50   ~ 0
-WADDR1
-Text Label 2600 -4500 0    50   ~ 0
-WADDR2
-Text Label 2600 -4000 0    50   ~ 0
-WADDR4
-Text Label 2600 -4100 0    50   ~ 0
-WADDR3
-Entry Wire Line
-	2450 -5650 2550 -5550
-Entry Wire Line
-	2450 -5550 2550 -5450
-Entry Wire Line
-	2450 -4800 2550 -4700
-Entry Wire Line
-	2450 -4700 2550 -4600
-Entry Wire Line
-	2450 -4600 2550 -4500
-Entry Wire Line
-	2450 -4200 2550 -4100
-Entry Wire Line
-	2450 -4100 2550 -4000
-Text Label 4500 -4600 2    50   ~ 0
-~WRITE-DR
-NoConn ~ 3900 -5750
-NoConn ~ 3900 -5650
-NoConn ~ 3900 -5550
-NoConn ~ 3900 -5450
-NoConn ~ 3900 -4300
-NoConn ~ 3900 -4200
-NoConn ~ 3900 -4100
-NoConn ~ 3900 -4000
-Text Label 2450 -4200 1    50   ~ 0
-WADDR[4..0]
-Text Label 6150 -6550 0    50   ~ 0
+Text Label 6300 -4350 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	7000 -6550 6150 -6550
-Text Label 6150 -5250 0    50   ~ 0
+	7150 -4350 6300 -4350
+Text Label 6300 -3050 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	7000 -5250 6150 -5250
-Text Label 6150 -5450 0    50   ~ 0
-RESET
-Text Label 6150 -6350 0    50   ~ 0
+	7150 -3050 6300 -3050
+Text Label 6300 -4150 0    50   ~ 0
 ~READ-PC
-Text Label 6150 -6250 0    50   ~ 0
+Text Label 6300 -4050 0    50   ~ 0
 ~WRITE-PC
 Wire Wire Line
-	7000 -5050 6150 -5050
+	7150 -2850 6300 -2850
 Wire Wire Line
-	7000 -4950 6150 -4950
+	7150 -2750 6300 -2750
 Wire Wire Line
-	7000 -4850 6150 -4850
+	7150 -2650 6300 -2650
 Wire Wire Line
-	7000 -4750 6150 -4750
-Text Label 6150 -5050 0    50   ~ 0
+	7150 -2550 6300 -2550
+Text Label 6300 -2850 0    50   ~ 0
 ~READ-DR
-Text Label 6150 -4950 0    50   ~ 0
+Text Label 6300 -2750 0    50   ~ 0
 ~WRITE-DR
 Wire Bus Line
-	8150 -6250 8650 -6250
-Text Label 8650 -6250 2    50   ~ 0
+	8300 -4050 8800 -4050
+Text Label 8800 -4050 2    50   ~ 0
 FPD[0..7]
 Wire Wire Line
-	8150 -6150 8650 -6150
+	8300 -3950 8800 -3950
 Wire Wire Line
-	8150 -6050 8650 -6050
-Text Label 8650 -6150 2    50   ~ 0
+	8300 -3850 8800 -3850
+Text Label 8800 -3950 2    50   ~ 0
 ~FPPCH
-Text Label 8650 -6050 2    50   ~ 0
+Text Label 8800 -3850 2    50   ~ 0
 ~FPPCL
 Wire Bus Line
-	8150 -4950 8650 -4950
-Text Label 8650 -4950 2    50   ~ 0
+	8300 -2750 8800 -2750
+Text Label 8800 -2750 2    50   ~ 0
 FPD[0..7]
 Wire Wire Line
-	8150 -4850 8650 -4850
+	8300 -2650 8800 -2650
 Wire Wire Line
-	8150 -4750 8650 -4750
-Text Label 8650 -4850 2    50   ~ 0
+	8300 -2550 8800 -2550
+Text Label 8800 -2650 2    50   ~ 0
 ~FPDRH
-Text Label 8650 -4750 2    50   ~ 0
+Text Label 8800 -2550 2    50   ~ 0
 ~FPDRL
 Wire Bus Line
-	8150 -6750 8650 -6750
-Text Label 8650 -6750 2    50   ~ 0
+	8300 -4550 8800 -4550
+Text Label 8800 -4550 2    50   ~ 0
 PC[10..15]
 Wire Wire Line
-	7000 -6150 6150 -6150
+	7150 -3950 6300 -3950
 Wire Wire Line
-	7000 -6250 6150 -6250
+	7150 -4050 6300 -4050
 Wire Wire Line
-	7000 -6350 6150 -6350
-Text Label 6150 -6750 0    50   ~ 0
-RESET
-$Comp
-L power:+5V #PWR?
-U 1 1 5DD296FB
-P 3350 -1050
-AR Path="/5CE16E65/5DD296FB" Ref="#PWR?"  Part="1" 
-AR Path="/5DD296FB" Ref="#PWR0120"  Part="1" 
-AR Path="/5D54E677/5DD296FB" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD296FB" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD296FB" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD296FB" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD296FB" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0120" H 3350 -1200 50  0001 C CNN
-F 1 "+5V" H 3365 -877 50  0000 C CNN
-F 2 "" H 3350 -1050 50  0001 C CNN
-F 3 "" H 3350 -1050 50  0001 C CNN
-	1    3350 -1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DD29701
-P 3350 -850
-AR Path="/5CE16E65/5DD29701" Ref="#PWR?"  Part="1" 
-AR Path="/5DD29701" Ref="#PWR0124"  Part="1" 
-AR Path="/5D54E677/5DD29701" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD29701" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD29701" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD29701" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD29701" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0124" H 3350 -1100 50  0001 C CNN
-F 1 "GND" H 3355 -1023 50  0000 C CNN
-F 2 "" H 3350 -850 50  0001 C CNN
-F 3 "" H 3350 -850 50  0001 C CNN
-	1    3350 -850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DD29707
-P 3350 -950
-AR Path="/5CC0D65F/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5DD29707" Ref="C110"  Part="1" 
-AR Path="/5D54E677/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5DD29707" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5DD29707" Ref="C?"  Part="1" 
-F 0 "C110" H 3259 -904 50  0000 R CNN
-F 1 "100nF" H 3259 -995 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3350 -950 50  0001 C CNN
-F 3 "~" H 3350 -950 50  0001 C CNN
-	1    3350 -950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5DD3D3CC
-P 1950 -1050
-AR Path="/5CE16E65/5DD3D3CC" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D3CC" Ref="#PWR0119"  Part="1" 
-AR Path="/5D54E677/5DD3D3CC" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD3D3CC" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD3D3CC" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD3D3CC" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD3D3CC" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0119" H 1950 -1200 50  0001 C CNN
-F 1 "+5V" H 1965 -877 50  0000 C CNN
-F 2 "" H 1950 -1050 50  0001 C CNN
-F 3 "" H 1950 -1050 50  0001 C CNN
-	1    1950 -1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DD3D3D2
-P 1950 -850
-AR Path="/5CE16E65/5DD3D3D2" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D3D2" Ref="#PWR0123"  Part="1" 
-AR Path="/5D54E677/5DD3D3D2" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD3D3D2" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD3D3D2" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD3D3D2" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD3D3D2" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0123" H 1950 -1100 50  0001 C CNN
-F 1 "GND" H 1955 -1023 50  0000 C CNN
-F 2 "" H 1950 -850 50  0001 C CNN
-F 3 "" H 1950 -850 50  0001 C CNN
-	1    1950 -850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DD3D3D8
-P 1950 -950
-AR Path="/5CC0D65F/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5DD3D3D8" Ref="C109"  Part="1" 
-AR Path="/5D54E677/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5DD3D3D8" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5DD3D3D8" Ref="C?"  Part="1" 
-F 0 "C109" H 1859 -904 50  0000 R CNN
-F 1 "100nF" H 1859 -995 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1950 -950 50  0001 C CNN
-F 3 "~" H 1950 -950 50  0001 C CNN
-	1    1950 -950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5DD47236
-P 4750 -1050
-AR Path="/5CE16E65/5DD47236" Ref="#PWR?"  Part="1" 
-AR Path="/5DD47236" Ref="#PWR0121"  Part="1" 
-AR Path="/5D54E677/5DD47236" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD47236" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD47236" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD47236" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD47236" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0121" H 4750 -1200 50  0001 C CNN
-F 1 "+5V" H 4765 -877 50  0000 C CNN
-F 2 "" H 4750 -1050 50  0001 C CNN
-F 3 "" H 4750 -1050 50  0001 C CNN
-	1    4750 -1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DD4723C
-P 4750 -850
-AR Path="/5CE16E65/5DD4723C" Ref="#PWR?"  Part="1" 
-AR Path="/5DD4723C" Ref="#PWR0125"  Part="1" 
-AR Path="/5D54E677/5DD4723C" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5DD4723C" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5DD4723C" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5DD4723C" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5DD4723C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0125" H 4750 -1100 50  0001 C CNN
-F 1 "GND" H 4755 -1023 50  0000 C CNN
-F 2 "" H 4750 -850 50  0001 C CNN
-F 3 "" H 4750 -850 50  0001 C CNN
-	1    4750 -850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DD47242
-P 4750 -950
-AR Path="/5CC0D65F/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5DD47242" Ref="C111"  Part="1" 
-AR Path="/5D54E677/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5DD47242" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5DD47242" Ref="C?"  Part="1" 
-F 0 "C111" H 4659 -904 50  0000 R CNN
-F 1 "100nF" H 4659 -995 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4750 -950 50  0001 C CNN
-F 3 "~" H 4750 -950 50  0001 C CNN
-	1    4750 -950
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G04 U101
-U 2 1 5DD5B011
-P 2300 -950
-F 0 "U101" H 2480 -904 50  0000 L CNN
-F 1 "74LVC1G04" H 2480 -995 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2300 -950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 2300 -950 50  0001 C CNN
-	2    2300 -950
-	1    0    0    -1  
-$EndComp
-Connection ~ 1950 -850
-Connection ~ 1950 -1050
+	7150 -4150 6300 -4150
 $Sheet
-S 7000 -5600 1150 1000
+S 7150 -3400 1150 1000
 U 5D967A8B
 F0 "Data Register" 50
 F1 "cft-reg-dr-sp.sch" 50
-F2 "~FPH" I R 8150 -4850 50 
-F3 "~FPL" I R 8150 -4750 50 
-F4 "~READ" I L 7000 -5050 50 
-F5 "~INC" I L 7000 -4850 50 
-F6 "~WRITE" I L 7000 -4950 50 
-F7 "RESET" I L 7000 -5450 50 
-F8 "IBUS[0..15]" I L 7000 -5250 50 
-F9 "~DEC" I L 7000 -4750 50 
-F10 "FPD[0..7]" T R 8150 -4950 50 
+F2 "~FPH" I R 8300 -2650 50 
+F3 "~FPL" I R 8300 -2550 50 
+F4 "~READ" I L 7150 -2850 50 
+F5 "~INC" I L 7150 -2650 50 
+F6 "~WRITE" I L 7150 -2750 50 
+F7 "RESET" I L 7150 -3250 50 
+F8 "IBUS[0..15]" I L 7150 -3050 50 
+F9 "~DEC" I L 7150 -2550 50 
+F10 "FPD[0..7]" T R 8300 -2750 50 
 $EndSheet
-Wire Wire Line
-	3900 -4700 4500 -4700
-Wire Wire Line
-	3900 -4600 4500 -4600
-Text Label 4500 -4700 2    50   ~ 0
-~WRITE-PC
-Text Label 2450 -6800 0    50   ~ 0
-~RESET
-Wire Wire Line
-	3000 -6800 2450 -6800
-$Comp
-L alexios:74LVC1G04 U101
-U 1 1 5DAE39EC
-P 3300 -6800
-F 0 "U101" H 3250 -6533 50  0000 C CNN
-F 1 "74LVC1G04" H 3250 -6624 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3300 -6800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3300 -6800 50  0001 C CNN
-	1    3300 -6800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6150 -6750 7000 -6750
-Wire Wire Line
-	6150 -5450 7000 -5450
-Text Label 4000 -6800 2    50   ~ 0
-RESET
-Wire Wire Line
-	3500 -6800 4000 -6800
-Text Label 6150 -4750 0    50   ~ 0
+Text Label 6300 -2550 0    50   ~ 0
 ~DECDR
-Text Label 6150 -4850 0    50   ~ 0
+Text Label 6300 -2650 0    50   ~ 0
 ~INCDR
-Text Label 6150 -6150 0    50   ~ 0
+Text Label 6300 -3950 0    50   ~ 0
 ~INCPC
 Text Notes 4200 -5050 0    50   ~ 0
 [RW]ADDR\n\n01000\n01001\n01010\n01011
@@ -494,68 +212,8 @@ Wire Notes Line style solid
 	4150 -5400 4950 -5400
 Wire Notes Line
 	4700 -5575 4700 -5000
-Text Label 2900 -3900 2    50   ~ 0
-CLK4'
 Text Notes 3150 -1450 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
-Wire Wire Line
-	2650 -5350 2550 -5350
-Wire Wire Line
-	2550 -5350 2550 -5300
-$Comp
-L power:GND #PWR0101
-U 1 1 5D9C912E
-P 2550 -5300
-F 0 "#PWR0101" H 2550 -5550 50  0001 C CNN
-F 1 "GND" H 2555 -5473 50  0000 C CNN
-F 2 "" H 2550 -5300 50  0001 C CNN
-F 3 "" H 2550 -5300 50  0001 C CNN
-	1    2550 -5300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2850 -5350 2900 -5350
-$Comp
-L Device:Jumper_NC_Small JP101
-U 1 1 60284772
-P 2750 -5350
-F 0 "JP101" H 2750 -5443 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 2750 -5229 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 2750 -5350 50  0001 C CNN
-F 3 "~" H 2750 -5350 50  0001 C CNN
-	1    2750 -5350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2300 -4100 1900 -4100
-$Comp
-L power:GND #PWR0103
-U 1 1 5EEF256F
-P 2300 -3700
-F 0 "#PWR0103" H 2300 -3950 50  0001 C CNN
-F 1 "GND" H 2305 -3873 50  0000 C CNN
-F 2 "" H 2300 -3700 50  0001 C CNN
-F 3 "" H 2300 -3700 50  0001 C CNN
-	1    2300 -3700
-	1    0    0    -1  
-$EndComp
-Text Label 1900 -4100 0    50   ~ 0
-CLK4
-Text Notes 2500 -3500 0    50   ~ 0
-1-2: Normal Operation\n2-3: Standalone REG Board Testing
-$Comp
-L Jumper:SolderJumper_3_Open JP102
-U 1 1 5EF00BEB
-P 2300 -3900
-F 0 "JP102" V 2300 -3832 50  0000 L CNN
-F 1 "SolderJumper_3_Open" V 2345 -3833 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 2300 -3900 50  0001 C CNN
-F 3 "~" H 2300 -3900 50  0001 C CNN
-	1    2300 -3900
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	2450 -3900 2900 -3900
 $Comp
 L power:+5V #PWR?
 U 1 1 5DF0FF82
@@ -1788,18 +1446,6 @@ Text Notes -1000 -5600 0    50   ~ 0
 ← REG
 Text Notes -1000 -5500 0    50   ~ 0
 ← REG
-Text Label -1050 -5400 2    50   ~ 0
-PC10
-Text Label -1050 -5300 2    50   ~ 0
-PC11
-Text Label -1050 -5200 2    50   ~ 0
-PC12
-Text Label -1050 -5100 2    50   ~ 0
-PC13
-Text Label -1050 -5000 2    50   ~ 0
-PC14
-Text Label -1050 -4900 2    50   ~ 0
-PC15
 Text Notes -1000 -5400 0    50   ~ 0
 ← REG
 Text Notes -1000 -5300 0    50   ~ 0
@@ -2190,39 +1836,12 @@ Text Label -10250 -3550 0    50   ~ 0
 ~COND
 Wire Wire Line
 	-9650 -2450 -10150 -2450
-Text Label -10150 -2450 0    50   ~ 0
-~µPC-INH
 Wire Wire Line
 	-5800 -3850 -5200 -3850
 Text Label -5200 -3850 2    50   ~ 0
 ~COND
-Wire Wire Line
-	-4000 -3200 -3500 -3200
-Text Label -3500 -3200 2    50   ~ 0
-~µPC-INH
-$Comp
-L alexios:Jumper_3_Bridged12 JP103
-U 1 1 6091E201
-P -4150 -3200
-F 0 "JP103" V -4150 -3133 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H -4150 -3090 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H -4150 -3200 50  0001 C CNN
-F 3 "~" H -4150 -3200 50  0001 C CNN
-	1    -4150 -3200
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	-4150 -3450 -4150 -3500
-Wire Wire Line
-	-4150 -3500 -4750 -3500
-Wire Wire Line
-	-4150 -2950 -4150 -2900
-Wire Wire Line
-	-4150 -2900 -4750 -2900
-Text Label -4750 -3500 0    50   ~ 0
+Text Label -10150 -2450 0    50   ~ 0
 ~WAITING
-Text Label -4750 -2900 0    50   ~ 0
-~WS
 NoConn ~ -1050 -2800
 Text Notes -1400 -2500 0    50   ~ 0
 Pull-downs above are for testing\nCTL board without other boards.
@@ -2237,35 +1856,6 @@ F 3 "" H -100 -3750 50  0001 C CNN
 	1    -100 -3750
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	-200 -4900 -100 -4900
-Wire Wire Line
-	-100 -5000 -100 -4900
-Connection ~ -100 -5000
-Wire Wire Line
-	-200 -5000 -100 -5000
-Wire Wire Line
-	-100 -5100 -100 -5000
-Connection ~ -100 -5100
-Wire Wire Line
-	-200 -5100 -100 -5100
-Wire Wire Line
-	-100 -5200 -100 -5100
-Connection ~ -100 -5200
-Wire Wire Line
-	-200 -5200 -100 -5200
-Wire Wire Line
-	-100 -5300 -100 -5200
-Connection ~ -100 -5300
-Wire Wire Line
-	-200 -5300 -100 -5300
-Wire Wire Line
-	-100 -5400 -100 -5300
-Connection ~ -100 -5400
-Wire Wire Line
-	-200 -5400 -100 -5400
-Wire Wire Line
-	-100 -5500 -100 -5400
 Connection ~ -100 -5500
 Wire Wire Line
 	-200 -5500 -100 -5500
@@ -2283,72 +1873,6 @@ Wire Wire Line
 	-100 -5900 -100 -5800
 Wire Wire Line
 	-200 -5900 -100 -5900
-$Comp
-L Device:R_Small R110
-U 1 1 601C6ACC
-P -300 -4900
-F 0 "R110" V -350 -4750 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5050 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -4900 50  0001 C CNN
-F 3 "~" H -300 -4900 50  0001 C CNN
-	1    -300 -4900
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R109
-U 1 1 601C6AC6
-P -300 -5000
-F 0 "R109" V -350 -4850 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5150 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5000 50  0001 C CNN
-F 3 "~" H -300 -5000 50  0001 C CNN
-	1    -300 -5000
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R108
-U 1 1 601B696E
-P -300 -5100
-F 0 "R108" V -350 -4950 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5250 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5100 50  0001 C CNN
-F 3 "~" H -300 -5100 50  0001 C CNN
-	1    -300 -5100
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R107
-U 1 1 601B6968
-P -300 -5200
-F 0 "R107" V -350 -5050 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5350 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5200 50  0001 C CNN
-F 3 "~" H -300 -5200 50  0001 C CNN
-	1    -300 -5200
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R106
-U 1 1 601A6784
-P -300 -5300
-F 0 "R106" V -350 -5150 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5450 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5300 50  0001 C CNN
-F 3 "~" H -300 -5300 50  0001 C CNN
-	1    -300 -5300
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R105
-U 1 1 601A677E
-P -300 -5400
-F 0 "R105" V -350 -5250 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5550 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5400 50  0001 C CNN
-F 3 "~" H -300 -5400 50  0001 C CNN
-	1    -300 -5400
-	0    -1   1    0   
-$EndComp
 $Comp
 L Device:R_Small R104
 U 1 1 60196662
@@ -2402,18 +1926,6 @@ Wire Wire Line
 Wire Wire Line
 	-1650 -5500 -400 -5500
 Wire Wire Line
-	-1650 -5400 -400 -5400
-Wire Wire Line
-	-1650 -5300 -400 -5300
-Wire Wire Line
-	-1650 -5200 -400 -5200
-Wire Wire Line
-	-1650 -5100 -400 -5100
-Wire Wire Line
-	-1650 -5000 -400 -5000
-Wire Wire Line
-	-1650 -4900 -400 -4900
-Wire Wire Line
 	-1650 -6000 -1050 -6000
 Text Notes -1000 -3500 0    50   ~ 0
 Future expansion
@@ -2427,9 +1939,6 @@ Text Notes -1000 -3100 0    50   ~ 0
 Future expansion
 Text Notes -1000 -3000 0    50   ~ 0
 Future expansion
-Connection ~ -100 -4900
-Wire Wire Line
-	-100 -4900 -100 -3750
 Wire Bus Line
 	11000 -5850 10150 -5850
 Text Label 10150 -5850 0    50   ~ 0
@@ -2461,126 +1970,126 @@ FPD[0..7]
 $Comp
 L alexios:16V8 U2
 U 1 1 608B34AB
-P -10950 6150
-F 0 "U2" H -10950 6900 50  0000 C CNN
-F 1 "16V8" H -10950 6800 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H -10950 6150 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -10950 6150 50  0001 C CNN
-F 4 "CUWDEC00" V -10950 6150 50  0000 C CNB "Signature"
-F 5 "ctl-waddr-decode.jed" H -10950 5500 50  0000 C CNN "Image Filename"
-	1    -10950 6150
+P -3350 2250
+F 0 "U2" H -3350 3000 50  0000 C CNN
+F 1 "16V8" H -3350 2900 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -3350 2250 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -3350 2250 50  0001 C CNN
+F 4 "CUWDEC00" V -3350 2250 50  0000 C CNB "Signature"
+F 5 "ctl-waddr-decode.jed" H -3350 1600 50  0000 C CNN "Image Filename"
+	1    -3350 2250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-11400 5000 -11850 5000
+	-3800 1100 -4250 1100
 Wire Wire Line
-	-11400 4800 -11850 4800
+	-3800 900  -4250 900 
 Wire Wire Line
-	-11400 4900 -11850 4900
+	-3800 1000 -4250 1000
 Wire Wire Line
-	-11400 4700 -11850 4700
+	-3800 800  -4250 800 
 Wire Wire Line
-	-11400 4600 -11850 4600
-Text Label -11850 5000 0    50   ~ 0
+	-3800 700  -4250 700 
+Text Label -4250 1100 0    50   ~ 0
 RADDR0
-Text Label -11850 4800 0    50   ~ 0
+Text Label -4250 900  0    50   ~ 0
 RADDR1
-Text Label -11850 4900 0    50   ~ 0
+Text Label -4250 1000 0    50   ~ 0
 RADDR2
-Text Label -11850 4700 0    50   ~ 0
+Text Label -4250 800  0    50   ~ 0
 RADDR3
-Text Label -11850 4600 0    50   ~ 0
+Text Label -4250 700  0    50   ~ 0
 RADDR4
 Wire Wire Line
-	-10000 4200 -10500 4200
+	-2400 300  -2900 300 
 Wire Wire Line
-	-10000 4300 -10500 4300
+	-2400 400  -2900 400 
 Wire Wire Line
-	-10000 4400 -10500 4400
+	-2400 500  -2900 500 
 Wire Wire Line
-	-10000 4500 -10500 4500
-Text Label -10000 4200 2    50   ~ 0
+	-2400 600  -2900 600 
+Text Label -2400 300  2    50   ~ 0
 ~READ-DR
-Text Label -10000 4300 2    50   ~ 0
+Text Label -2400 400  2    50   ~ 0
 ~READ-PC
-Text Label -10000 4400 2    50   ~ 0
+Text Label -2400 500  2    50   ~ 0
 ~READ-FL
-Text Label -10000 4500 2    50   ~ 0
+Text Label -2400 600  2    50   ~ 0
 ~READ-AGL
 Wire Wire Line
-	-11400 5900 -11850 5900
+	-3800 2000 -4250 2000
 Wire Wire Line
-	-11400 6000 -11850 6000
+	-3800 2100 -4250 2100
 Wire Wire Line
-	-11400 6100 -11850 6100
+	-3800 2200 -4250 2200
 Wire Wire Line
-	-11400 5700 -11850 5700
+	-3800 1800 -4250 1800
 Wire Wire Line
-	-11400 5800 -11850 5800
+	-3800 1900 -4250 1900
 Wire Wire Line
-	-11400 6600 -11850 6600
-Text Label -11850 6600 0    50   ~ 0
+	-3800 2700 -4250 2700
+Text Label -4250 2700 0    50   ~ 0
 CLK4
-Text Label -11850 5900 0    50   ~ 0
+Text Label -4250 2000 0    50   ~ 0
 WADDR2
-Text Label -11850 6000 0    50   ~ 0
+Text Label -4250 2100 0    50   ~ 0
 WADDR1
-Text Label -11850 6100 0    50   ~ 0
+Text Label -4250 2200 0    50   ~ 0
 WADDR0
-Text Label -11850 5700 0    50   ~ 0
+Text Label -4250 1800 0    50   ~ 0
 WADDR4
-Text Label -11850 5800 0    50   ~ 0
+Text Label -4250 1900 0    50   ~ 0
 WADDR3
 Wire Wire Line
-	-10000 5700 -10500 5700
+	-2400 1800 -2900 1800
 Wire Wire Line
-	-10000 5800 -10500 5800
+	-2400 1900 -2900 1900
 Wire Wire Line
-	-10000 5900 -10500 5900
+	-2400 2000 -2900 2000
 Wire Wire Line
-	-10000 6000 -10500 6000
-Text Label -10000 5700 2    50   ~ 0
+	-2400 2100 -2900 2100
+Text Label -2400 1800 2    50   ~ 0
 ~WRITE-DR
-Text Label -10000 5800 2    50   ~ 0
+Text Label -2400 1900 2    50   ~ 0
 ~WRITE-PC
-Text Label -10000 5900 2    50   ~ 0
+Text Label -2400 2000 2    50   ~ 0
 ~WRITE-FL
-Text Label -10000 6000 2    50   ~ 0
+Text Label -2400 2100 2    50   ~ 0
 ~WRITE-IR
-NoConn ~ -11400 6200
-NoConn ~ -11400 6300
-NoConn ~ -11400 6400
-NoConn ~ -11400 6500
+NoConn ~ -3800 2300
+NoConn ~ -3800 2400
+NoConn ~ -3800 2500
+NoConn ~ -3800 2600
 $Comp
 L alexios:16V8 U1
 U 2 1 6184158E
-P -9100 4800
-F 0 "U1" H -8920 4846 50  0000 L CNN
-F 1 "16V8" H -8920 4755 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H -9100 4800 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -9100 4800 50  0001 C CNN
-F 4 "CURDEC00" H -8920 4755 50  0001 L CNB "Signature"
-F 5 "ctl-raddr-decode.jed" H -8920 4709 50  0001 L CNN "Image Filename"
-	2    -9100 4800
+P -1500 900
+F 0 "U1" H -1320 946 50  0000 L CNN
+F 1 "16V8" H -1320 855 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1500 900 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1500 900 50  0001 C CNN
+F 4 "CURDEC00" H -1320 855 50  0001 L CNB "Signature"
+F 5 "ctl-raddr-decode.jed" H -1320 809 50  0001 L CNN "Image Filename"
+	2    -1500 900 
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:16V8 U2
 U 2 1 61841B1E
-P -9050 6000
-F 0 "U2" H -8870 6046 50  0000 L CNN
-F 1 "16V8" H -8870 5955 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H -9050 6000 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -9050 6000 50  0001 C CNN
-F 4 "CUWDEC00" V -8650 5950 50  0001 C CNB "Signature"
-F 5 "ctl-waddr-decode.jed" H -9050 5350 50  0001 C CNN "Image Filename"
-	2    -9050 6000
+P -1450 2100
+F 0 "U2" H -1270 2146 50  0000 L CNN
+F 1 "16V8" H -1270 2055 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1450 2100 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1450 2100 50  0001 C CNN
+F 4 "CUWDEC00" V -1050 2050 50  0001 C CNB "Signature"
+F 5 "ctl-waddr-decode.jed" H -1450 1450 50  0001 C CNN "Image Filename"
+	2    -1450 2100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 61848C85
-P -9400 5900
+P -1800 2000
 AR Path="/5CE16E65/61848C85" Ref="#PWR?"  Part="1" 
 AR Path="/61848C85" Ref="#PWR0137"  Part="1" 
 AR Path="/5D54E677/61848C85" Ref="#PWR?"  Part="1" 
@@ -2588,17 +2097,17 @@ AR Path="/5D62E1DC/61848C85" Ref="#PWR?"  Part="1"
 AR Path="/5D79EA4B/61848C85" Ref="#PWR?"  Part="1" 
 AR Path="/5D892D5E/61848C85" Ref="#PWR?"  Part="1" 
 AR Path="/5D9672D4/61848C85" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0137" H -9400 5750 50  0001 C CNN
-F 1 "+5V" H -9385 6073 50  0000 C CNN
-F 2 "" H -9400 5900 50  0001 C CNN
-F 3 "" H -9400 5900 50  0001 C CNN
-	1    -9400 5900
+F 0 "#PWR0137" H -1800 1850 50  0001 C CNN
+F 1 "+5V" H -1785 2173 50  0000 C CNN
+F 2 "" H -1800 2000 50  0001 C CNN
+F 3 "" H -1800 2000 50  0001 C CNN
+	1    -1800 2000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 61848C8B
-P -9400 6100
+P -1800 2200
 AR Path="/5CE16E65/61848C8B" Ref="#PWR?"  Part="1" 
 AR Path="/61848C8B" Ref="#PWR0138"  Part="1" 
 AR Path="/5D54E677/61848C8B" Ref="#PWR?"  Part="1" 
@@ -2606,17 +2115,17 @@ AR Path="/5D62E1DC/61848C8B" Ref="#PWR?"  Part="1"
 AR Path="/5D79EA4B/61848C8B" Ref="#PWR?"  Part="1" 
 AR Path="/5D892D5E/61848C8B" Ref="#PWR?"  Part="1" 
 AR Path="/5D9672D4/61848C8B" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0138" H -9400 5850 50  0001 C CNN
-F 1 "GND" H -9395 5927 50  0000 C CNN
-F 2 "" H -9400 6100 50  0001 C CNN
-F 3 "" H -9400 6100 50  0001 C CNN
-	1    -9400 6100
+F 0 "#PWR0138" H -1800 1950 50  0001 C CNN
+F 1 "GND" H -1795 2027 50  0000 C CNN
+F 2 "" H -1800 2200 50  0001 C CNN
+F 3 "" H -1800 2200 50  0001 C CNN
+	1    -1800 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 61848C91
-P -9400 6000
+P -1800 2100
 AR Path="/5CC0D65F/61848C91" Ref="C?"  Part="1" 
 AR Path="/5CE16E65/61848C91" Ref="C?"  Part="1" 
 AR Path="/61848C91" Ref="C2"  Part="1" 
@@ -2625,17 +2134,17 @@ AR Path="/5D62E1DC/61848C91" Ref="C?"  Part="1"
 AR Path="/5D79EA4B/61848C91" Ref="C?"  Part="1" 
 AR Path="/5D892D5E/61848C91" Ref="C?"  Part="1" 
 AR Path="/5D9672D4/61848C91" Ref="C?"  Part="1" 
-F 0 "C2" H -9491 6046 50  0000 R CNN
-F 1 "100nF" H -9491 5955 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -9400 6000 50  0001 C CNN
-F 3 "~" H -9400 6000 50  0001 C CNN
-	1    -9400 6000
+F 0 "C2" H -1891 2146 50  0000 R CNN
+F 1 "100nF" H -1891 2055 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1800 2100 50  0001 C CNN
+F 3 "~" H -1800 2100 50  0001 C CNN
+	1    -1800 2100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 618A940C
-P -9450 4700
+P -1850 800
 AR Path="/5CE16E65/618A940C" Ref="#PWR?"  Part="1" 
 AR Path="/618A940C" Ref="#PWR0139"  Part="1" 
 AR Path="/5D54E677/618A940C" Ref="#PWR?"  Part="1" 
@@ -2643,17 +2152,17 @@ AR Path="/5D62E1DC/618A940C" Ref="#PWR?"  Part="1"
 AR Path="/5D79EA4B/618A940C" Ref="#PWR?"  Part="1" 
 AR Path="/5D892D5E/618A940C" Ref="#PWR?"  Part="1" 
 AR Path="/5D9672D4/618A940C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0139" H -9450 4550 50  0001 C CNN
-F 1 "+5V" H -9435 4873 50  0000 C CNN
-F 2 "" H -9450 4700 50  0001 C CNN
-F 3 "" H -9450 4700 50  0001 C CNN
-	1    -9450 4700
+F 0 "#PWR0139" H -1850 650 50  0001 C CNN
+F 1 "+5V" H -1835 973 50  0000 C CNN
+F 2 "" H -1850 800 50  0001 C CNN
+F 3 "" H -1850 800 50  0001 C CNN
+	1    -1850 800 
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 618A9412
-P -9450 4900
+P -1850 1000
 AR Path="/5CE16E65/618A9412" Ref="#PWR?"  Part="1" 
 AR Path="/618A9412" Ref="#PWR0140"  Part="1" 
 AR Path="/5D54E677/618A9412" Ref="#PWR?"  Part="1" 
@@ -2661,17 +2170,17 @@ AR Path="/5D62E1DC/618A9412" Ref="#PWR?"  Part="1"
 AR Path="/5D79EA4B/618A9412" Ref="#PWR?"  Part="1" 
 AR Path="/5D892D5E/618A9412" Ref="#PWR?"  Part="1" 
 AR Path="/5D9672D4/618A9412" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0140" H -9450 4650 50  0001 C CNN
-F 1 "GND" H -9445 4727 50  0000 C CNN
-F 2 "" H -9450 4900 50  0001 C CNN
-F 3 "" H -9450 4900 50  0001 C CNN
-	1    -9450 4900
+F 0 "#PWR0140" H -1850 750 50  0001 C CNN
+F 1 "GND" H -1845 827 50  0000 C CNN
+F 2 "" H -1850 1000 50  0001 C CNN
+F 3 "" H -1850 1000 50  0001 C CNN
+	1    -1850 1000
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 618A9418
-P -9450 4800
+P -1850 900
 AR Path="/5CC0D65F/618A9418" Ref="C?"  Part="1" 
 AR Path="/5CE16E65/618A9418" Ref="C?"  Part="1" 
 AR Path="/618A9418" Ref="C1"  Part="1" 
@@ -2680,30 +2189,25 @@ AR Path="/5D62E1DC/618A9418" Ref="C?"  Part="1"
 AR Path="/5D79EA4B/618A9418" Ref="C?"  Part="1" 
 AR Path="/5D892D5E/618A9418" Ref="C?"  Part="1" 
 AR Path="/5D9672D4/618A9418" Ref="C?"  Part="1" 
-F 0 "C1" H -9541 4846 50  0000 R CNN
-F 1 "100nF" H -9541 4755 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -9450 4800 50  0001 C CNN
-F 3 "~" H -9450 4800 50  0001 C CNN
-	1    -9450 4800
+F 0 "C1" H -1941 946 50  0000 R CNN
+F 1 "100nF" H -1941 855 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1850 900 50  0001 C CNN
+F 3 "~" H -1850 900 50  0001 C CNN
+	1    -1850 900 
 	1    0    0    -1  
 $EndComp
-Connection ~ -9450 4900
-Connection ~ -9450 4700
-Connection ~ -9400 5900
-Connection ~ -9400 6100
+Connection ~ -1850 1000
+Connection ~ -1850 800 
+Connection ~ -1800 2000
+Connection ~ -1800 2200
 Wire Wire Line
-	-11400 4200 -11850 4200
-Text Label -11850 4200 0    50   ~ 0
+	-3800 300  -4250 300 
+Text Label -4250 300  0    50   ~ 0
 T34
 Wire Wire Line
-	-10500 4600 -10000 4600
-Text Label -10000 4600 2    50   ~ 0
+	-2900 700  -2400 700 
+Text Label -2400 700  2    50   ~ 0
 ~READ-CS
-NoConn ~ -11400 4300
-NoConn ~ -11400 4400
-NoConn ~ -11400 4500
-NoConn ~ -11400 5100
-NoConn ~ -11400 5200
 $Comp
 L Device:CP_Small C22
 U 1 1 5EFD0822
@@ -2804,32 +2308,29 @@ Wire Wire Line
 $Comp
 L alexios:16V8 U1
 U 1 1 60850EA3
-P -10950 4650
-F 0 "U1" H -10950 5400 50  0000 C CNN
-F 1 "16V8" H -10950 5300 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H -10950 4650 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -10950 4650 50  0001 C CNN
-F 4 "CURDEC00" V -10950 4650 50  0000 C CNB "Signature"
-F 5 "ctl-raddr-decode.jed" H -10950 4000 50  0000 C CNN "Image Filename"
-	1    -10950 4650
+P -3350 750
+F 0 "U1" H -3350 1500 50  0000 C CNN
+F 1 "16V8" H -3350 1400 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -3350 750 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -3350 750 50  0001 C CNN
+F 4 "CURDEC00" V -3350 750 50  0000 C CNB "Signature"
+F 5 "ctl-raddr-decode.jed" H -3350 100 50  0000 C CNN "Image Filename"
+	1    -3350 750 
 	1    0    0    -1  
 $EndComp
-NoConn ~ -10500 4900
-NoConn ~ -10500 4800
-NoConn ~ -10500 4700
 Wire Wire Line
-	-10500 6100 -10000 6100
+	-2900 2200 -2400 2200
 Wire Wire Line
-	-10500 6200 -10000 6200
+	-2900 2300 -2400 2300
 Wire Wire Line
-	-10500 6300 -10000 6300
-Text Label -10000 6100 2    50   ~ 0
+	-2900 2400 -2400 2400
+Text Label -2400 2200 2    50   ~ 0
 XORY
-Text Label -10000 6200 2    50   ~ 0
+Text Label -2400 2300 2    50   ~ 0
 XORB
-Text Label -10000 6300 2    50   ~ 0
+Text Label -2400 2400 2    50   ~ 0
 XORA
-NoConn ~ -10500 6400
+NoConn ~ -2900 2500
 $Comp
 L alexios:CFT-2021-Peripheral-Bus P2
 U 1 1 60987323
@@ -3164,12 +2665,97 @@ Text Label -5250 5350 0    50   ~ 0
 ~FPDRL
 Text Label -5250 5450 0    50   ~ 0
 ~FPDRH
-Wire Bus Line
-	2450 -4900 2450 -4100
+Text Label -5250 4250 0    50   ~ 0
+~FPCTX
+Wire Wire Line
+	-3800 400  -4250 400 
+Wire Wire Line
+	-3800 500  -4250 500 
+Wire Wire Line
+	-3800 600  -4250 600 
+Text Label -4250 400  0    50   ~ 0
+IR6
+Text Label -4250 500  0    50   ~ 0
+IR7
+Text Label -4250 600  0    50   ~ 0
+IR8
+Text Label -4250 1200 0    50   ~ 0
+IR9
+Wire Wire Line
+	-3800 1200 -4250 1200
+Wire Wire Line
+	-2900 800  -2400 800 
+Wire Wire Line
+	-2900 900  -2400 900 
+Wire Wire Line
+	-2900 1000 -2400 1000
+Text Label -2400 1000 2    50   ~ 0
+~IDXEN
+Text Label -2400 900  2    50   ~ 0
+IDX0
+Text Label -2400 800  2    50   ~ 0
+IDX1
+Wire Notes Line width 24 style solid
+	-4450 1100 -7250 1100
+Wire Notes Line width 24 style solid
+	-4450 1100 -4450 400 
+Wire Notes Line width 24 style solid
+	-7250 400  -4450 400 
+Wire Notes Line width 24 style solid
+	-7250 400  -7250 1100
+Text Notes -7150 650  0    63   ~ 13
+Note: IDX Registration
+Text Notes -7150 1000 0    50   ~ 0
+IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
+$Sheet
+S 7150 -4700 1150 1000
+U 5D9672D4
+F0 "Program Counter" 50
+F1 "cft-reg-pc.sch" 50
+F2 "~FPH" I R 8300 -3950 50 
+F3 "~FPL" I R 8300 -3850 50 
+F4 "~READ" I L 7150 -4150 50 
+F5 "~INC" I L 7150 -3950 50 
+F6 "~WRITE" I L 7150 -4050 50 
+F7 "RESET" I L 7150 -4550 50 
+F8 "IBUS[0..15]" I L 7150 -4350 50 
+F9 "FPD[0..7]" T R 8300 -4050 50 
+F10 "PC[10..15]" O R 8300 -4550 50 
+$EndSheet
+Wire Wire Line
+	7150 -4550 7050 -4550
+Wire Wire Line
+	7050 -4550 7050 -4500
+$Comp
+L power:GND #PWR0101
+U 1 1 61693C57
+P 7050 -4500
+F 0 "#PWR0101" H 7050 -4750 50  0001 C CNN
+F 1 "GND" H 6900 -4500 50  0000 C CNN
+F 2 "" H 7050 -4500 50  0001 C CNN
+F 3 "" H 7050 -4500 50  0001 C CNN
+	1    7050 -4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 -3250 7050 -3250
+Wire Wire Line
+	7050 -3250 7050 -3200
+$Comp
+L power:GND #PWR0103
+U 1 1 616940D5
+P 7050 -3200
+F 0 "#PWR0103" H 7050 -3450 50  0001 C CNN
+F 1 "GND" H 6900 -3200 50  0000 C CNN
+F 2 "" H 7050 -3200 50  0001 C CNN
+F 3 "" H 7050 -3200 50  0001 C CNN
+	1    7050 -3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-100 -5500 -100 -3750
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3350 -10350 -2550
-Text Label -5250 4250 0    50   ~ 0
-~FPCTX
 $EndSCHEMATC

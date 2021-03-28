@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 17
+Sheet 12 17
 Title "Microcode Sequencer"
 Date ""
 Rev "2023"
@@ -959,111 +959,23 @@ Text Notes 700  1200 0    50   ~ 0
 This is the inner sanctum of the control unit, reading, and decoding microprograms\ninto various fields.
 Text Notes 700  900  0    100  ~ 20
 The Microprogram Sequencer
-Wire Wire Line
-	2850 6950 2450 6950
-Wire Wire Line
-	2450 6950 2450 7400
 Text Label 3800 7050 0    50   ~ 0
 ~CSE
-Text Label 1050 7400 0    50   ~ 0
-~CLK1
-$Comp
-L power:GND #PWR01617
-U 1 1 5FCC3B45
-P 1600 7100
-F 0 "#PWR01617" H 1600 6850 50  0001 C CNN
-F 1 "GND" H 1605 6927 50  0000 C CNN
-F 2 "" H 1600 7100 50  0001 C CNN
-F 3 "" H 1600 7100 50  0001 C CNN
-	1    1600 7100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1600 7050 1600 7100
-Wire Wire Line
-	1350 6950 1350 7400
-Connection ~ 1350 7400
-Wire Wire Line
-	1350 7400 2450 7400
-Text Label 1400 6850 0    50   ~ 0
+Text Label 2650 6850 0    50   ~ 0
 ~HALT
 Text Label 2850 6950 2    50   ~ 0
 ~CLK1
 Text Label 2850 7050 2    50   ~ 0
 ~RESET
 NoConn ~ 3750 6750
-$Comp
-L alexios:74LVC1G373 U1604
-U 2 1 5FD75300
-P 4900 7350
-F 0 "U1604" H 5080 7396 50  0000 L CNN
-F 1 "74LVC1G373" H 5080 7305 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 4800 7375 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74lvc1g373.pdf" H 4800 7375 50  0001 C CNN
-	2    4900 7350
-	1    0    0    -1  
-$EndComp
 Connection ~ 4550 7450
 Connection ~ 4550 7250
-$Comp
-L Device:C_Small C?
-U 1 1 5FD76B39
-P 5950 7350
-AR Path="/5CC0D65F/5FD76B39" Ref="C?"  Part="1" 
-AR Path="/5FD76B39" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5FD76B39" Ref="C1604"  Part="1" 
-F 0 "C1604" H 5859 7396 50  0000 R CNN
-F 1 "100nF" H 5859 7305 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5950 7350 50  0001 C CNN
-F 3 "~" H 5950 7350 50  0001 C CNN
-	1    5950 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01621
-U 1 1 5FD76B3F
-P 5950 7450
-F 0 "#PWR01621" H 5950 7200 50  0001 C CNN
-F 1 "GND" H 5955 7277 50  0000 C CNN
-F 2 "" H 5950 7450 50  0001 C CNN
-F 3 "" H 5950 7450 50  0001 C CNN
-	1    5950 7450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01619
-U 1 1 5FD76B45
-P 5950 7250
-F 0 "#PWR01619" H 5950 7100 50  0001 C CNN
-F 1 "+5V" H 5965 7423 50  0000 C CNN
-F 2 "" H 5950 7250 50  0001 C CNN
-F 3 "" H 5950 7250 50  0001 C CNN
-	1    5950 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G74 U1603
-U 2 1 5FD86D2B
-P 6300 7350
-F 0 "U1603" H 6480 7396 50  0000 L CNN
-F 1 "74LVC1G74" H 6480 7305 50  0000 L CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6750 7350 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 6750 7350 50  0001 C CNN
-	2    6300 7350
-	1    0    0    -1  
-$EndComp
-Connection ~ 5950 7450
-Connection ~ 5950 7250
 Wire Wire Line
 	4000 7050 4000 5950
 Wire Wire Line
 	3750 7050 4000 7050
-Text HLabel 1000 7400 0    50   Input ~ 0
+Text HLabel 2350 6950 0    50   Input ~ 0
 CLK1
-Wire Wire Line
-	1000 7400 1350 7400
-Wire Wire Line
-	2850 7050 2550 7050
 Text Label 2250 5600 0    50   ~ 0
 ~CSE
 Wire Wire Line
@@ -1072,48 +984,10 @@ Wire Wire Line
 	2200 5950 2200 5600
 Wire Wire Line
 	4000 5950 2200 5950
-$Comp
-L alexios:74LVC1G74 U1603
-U 1 1 5FA8387E
-P 3300 6900
-F 0 "U1603" H 3300 7317 50  0000 C CNN
-F 1 "74LVC1G74" H 3300 7226 50  0000 C CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3750 6900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 3750 6900 50  0001 C CNN
-	1    3300 6900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1150 1850 1350 1850
-Text Label 1400 6950 0    50   ~ 0
-~CLK1
-Wire Wire Line
-	2550 7500 2550 7050
-Wire Wire Line
-	1000 7500 2550 7500
-Text Label 1050 7500 0    50   ~ 0
+Text HLabel 2350 7050 0    50   Input ~ 0
 ~RESET
-Text HLabel 1000 7500 0    50   Input ~ 0
-~RESET
-Wire Wire Line
-	1650 7050 1600 7050
-Wire Wire Line
-	2550 6850 2850 6850
-Wire Wire Line
-	1650 6850 1400 6850
-Wire Wire Line
-	1650 6950 1350 6950
-$Comp
-L alexios:74LVC1G373 U1604
-U 1 1 5FC81A21
-P 2100 6950
-F 0 "U1604" H 2100 7317 50  0000 C CNN
-F 1 "74LVC1G373" H 2100 7226 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 2000 6975 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74lvc1g373.pdf" H 2000 6975 50  0001 C CNN
-	1    2100 6950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2850 6750 2800 6750
 Wire Wire Line
@@ -1194,8 +1068,6 @@ F 3 "~" H 1350 1600 50  0001 C CNN
 	1    1350 1600
 	-1   0    0    1   
 $EndComp
-Text Label 2850 6850 2    50   ~ 0
-~HALT₀
 Text Label 2150 2150 0    50   ~ 0
 ~WAITING
 Wire Notes Line width 20 style solid
@@ -1547,20 +1419,6 @@ F 3 "" H 5450 1700 50  0001 C CNN
 	1    5450 1700
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	4550 2750 4550 3500
-Wire Bus Line
-	2150 2750 2150 3500
-Wire Bus Line
-	5100 1350 5100 2550
-Wire Bus Line
-	9800 4800 9800 5150
-Wire Bus Line
-	9800 4100 9800 4550
-Wire Bus Line
-	9800 3400 9800 3850
-Wire Bus Line
-	9800 2700 9800 3150
 Wire Wire Line
 	6050 1950 6050 1700
 Wire Wire Line
@@ -1642,4 +1500,89 @@ F 3 "~" H 5450 1850 50  0001 C CNN
 	1    5450 1850
 	0    -1   1    0   
 $EndComp
+Wire Wire Line
+	2650 6850 2850 6850
+Wire Wire Line
+	2350 6950 2850 6950
+Wire Wire Line
+	2350 7050 2850 7050
+$Comp
+L alexios:74HC74 U1603
+U 1 1 609E7601
+P 3300 6900
+F 0 "U1603" H 3300 7317 50  0000 C CNN
+F 1 "74HC74" H 3300 7226 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 3250 7050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3250 7050 50  0001 C CNN
+	1    3300 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U1603
+U 2 1 609E8133
+P 5250 6700
+F 0 "U1603" H 5250 7117 50  0000 C CNN
+F 1 "74HC74" H 5250 7026 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 5200 6850 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5200 6850 50  0001 C CNN
+	2    5250 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U1603
+U 3 1 609EA091
+P 4900 7350
+F 0 "U1603" H 5080 7396 50  0000 L CNN
+F 1 "74HC74" H 5080 7305 50  0000 L CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4850 7500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 4850 7500 50  0001 C CNN
+	3    4900 7350
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5700 6550
+NoConn ~ 5700 6850
+Wire Wire Line
+	4800 6850 4750 6850
+Wire Wire Line
+	4750 6850 4750 6750
+$Comp
+L power:+5V #PWR0164
+U 1 1 60A2242D
+P 4750 6400
+F 0 "#PWR0164" H 4750 6250 50  0001 C CNN
+F 1 "+5V" H 4765 6573 50  0000 C CNN
+F 2 "" H 4750 6400 50  0001 C CNN
+F 3 "" H 4750 6400 50  0001 C CNN
+	1    4750 6400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 6550 4750 6550
+Connection ~ 4750 6550
+Wire Wire Line
+	4750 6550 4750 6400
+Wire Wire Line
+	4800 6650 4750 6650
+Connection ~ 4750 6650
+Wire Wire Line
+	4750 6650 4750 6550
+Wire Wire Line
+	4800 6750 4750 6750
+Connection ~ 4750 6750
+Wire Wire Line
+	4750 6750 4750 6650
+Wire Bus Line
+	4550 2750 4550 3500
+Wire Bus Line
+	2150 2750 2150 3500
+Wire Bus Line
+	9800 4800 9800 5150
+Wire Bus Line
+	9800 4100 9800 4550
+Wire Bus Line
+	9800 3400 9800 3850
+Wire Bus Line
+	9800 2700 9800 3150
+Wire Bus Line
+	5100 1350 5100 2550
 $EndSCHEMATC

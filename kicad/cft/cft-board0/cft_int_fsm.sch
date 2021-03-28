@@ -239,14 +239,14 @@ Wire Notes Line width 24 style solid
 	7600 2400 5550 2400
 Wire Notes Line width 24 style solid
 	7600 2400 7600 1800
-Text Notes 8400 6500 0    50   ~ 0
+Text Notes 8600 4250 0    50   ~ 0
 ~IRQS~ and ~IRQµC~ are semantically the same signal.\n~IRQS~ is output to the bus. ~IRQµC~ is for the Control\nStore. We drive them separately to keep the capacitance\ndown and because the one going to the Microcode\nSequencer is more important and must be less loaded\n(and thus rise faster). 
-Text Notes 8400 5900 0    63   ~ 13
+Text Notes 8600 3650 0    63   ~ 13
 ~IRQS~ and ~IRQSµC~
 Wire Notes Line width 24 style solid
-	8250 5650 10700 5650
+	8450 3400 10900 3400
 Wire Notes Line width 24 style solid
-	8250 5650 8250 6600
+	8450 3400 8450 4350
 Text HLabel 4300 3600 2    50   Output ~ 0
 ~IR-IDX
 Text Notes 8400 3200 0    50   ~ 0
@@ -491,34 +491,13 @@ F 3 "74xx/74hc_hct74.pdf" H 7250 5000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Notes Line width 24 style solid
-	10700 6600 8250 6600
+	10900 4350 8450 4350
 Wire Notes Line width 24 style solid
-	10700 6600 10700 5650
+	10900 4350 10900 3400
 Wire Wire Line
 	7750 4700 9300 4700
-Wire Wire Line
-	7750 5500 8150 5500
 Text Label 8600 5500 2    50   ~ 0
 ~IRQS
-$Comp
-L Device:R_Small R?
-U 1 1 5DEFC7BE
-P 8250 5500
-AR Path="/5DEFC7BE" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5DEFC7BE" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5DEFC7BE" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5DEFC7BE" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5DEFC7BE" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5DEFC7BE" Ref="R1403"  Part="1" 
-F 0 "R1403" V 8054 5500 50  0000 C CNN
-F 1 "30Ω" V 8145 5500 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8250 5500 50  0001 C CNN
-F 3 "~" H 8250 5500 50  0001 C CNN
-	1    8250 5500
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	8350 5500 9300 5500
 Text HLabel 9300 5500 2    50   Output ~ 0
 ~IRQS
 Text Notes 8000 5100 0    50   ~ 0
@@ -791,4 +770,52 @@ Wire Wire Line
 	4250 4900 3700 4900
 Text Notes 7700 4500 0    50   ~ 0
 U1404A is used in the Skip & Branch Unit.
+$Comp
+L Device:C_Small C?
+U 1 1 61212649
+P 8850 5700
+AR Path="/5E36D9C8/61212649" Ref="C?"  Part="1" 
+AR Path="/5F67D4B5/61212649" Ref="C1405"  Part="1" 
+F 0 "C1405" H 8800 5800 50  0000 R CNN
+F 1 "120pF" H 8800 5600 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8850 5700 50  0001 C CNN
+F 3 "~" H 8850 5700 50  0001 C CNN
+	1    8850 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8850 5800 8850 5850
+$Comp
+L Device:R_Small R?
+U 1 1 61212650
+P 8850 5950
+AR Path="/5E36D9C8/61212650" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/61212650" Ref="R1405"  Part="1" 
+F 0 "R1405" H 8800 5950 50  0000 R CNN
+F 1 "100Ω" H 8800 5850 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8850 5950 50  0001 C CNN
+F 3 "~" H 8850 5950 50  0001 C CNN
+	1    8850 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 5500 8850 5500
+Wire Wire Line
+	8850 5600 8850 5500
+Connection ~ 8850 5500
+Wire Wire Line
+	8850 5500 9300 5500
+$Comp
+L power:GND #PWR0176
+U 1 1 61218F87
+P 8850 6100
+F 0 "#PWR0176" H 8850 5850 50  0001 C CNN
+F 1 "GND" H 8855 5927 50  0000 C CNN
+F 2 "" H 8850 6100 50  0001 C CNN
+F 3 "" H 8850 6100 50  0001 C CNN
+	1    8850 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8850 6100 8850 6050
 $EndSCHEMATC

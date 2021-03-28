@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 17
+Sheet 5 17
 Title "Memory Bank Unit"
 Date ""
 Rev "2023"
@@ -1685,10 +1685,10 @@ Wire Bus Line
 Wire Bus Line
 	3700 3400 3700 6550
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0143
 U 1 1 60789539
 P 5650 6350
-F 0 "#PWR?" H 5650 6100 50  0001 C CNN
+F 0 "#PWR0143" H 5650 6100 50  0001 C CNN
 F 1 "GND" H 5655 6177 50  0000 C CNN
 F 2 "" H 5650 6350 50  0001 C CNN
 F 3 "" H 5650 6350 50  0001 C CNN
