@@ -3,8 +3,8 @@ CURDEC00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-T34     NC1     NC2     NC3     RA4     RA3     RA1     RA2     RA0     GND
-NC4     NC5     NC6     NC7     CSOE    RAGL    FLAGOE  RPC     RDR     VCC
+T34     IR6     IR7     IR8     RA4     RA3     RA1     RA2     RA0     GND
+IR9     IDXEN   IDX0    IDX1    CSOE    RAGL    FLAGOE  RPC     RDR     VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -17,6 +17,23 @@ NC4     NC5     NC6     NC7     CSOE    RAGL    FLAGOE  RPC     RDR     VCC
 /FLAGOE =         RA4 *  RA3 *  RA2 *  RA1 * /RA0
 
 /CSOE =   /T34 * /RA4 * /RA3 * RA2
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; AUXILLIARY FUNCTION: ADDRESSING MODE DECODER
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; IDXEN is asserted (low) when the operand in IR is in the form
+; 11xxxxxxxx.
+
+/IDXEN = IR8 * IR9
+
+; Indexing mode selection (for the control store).
+
+IDX0 = IR6 * IR8 * IR9
+IDX1 = IR7 * IR8 * IR9
+
 
 
 DESCRIPTION
