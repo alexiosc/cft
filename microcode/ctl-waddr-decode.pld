@@ -19,6 +19,10 @@ NC4     NC5     XORA    XORB    XORY    WIR     WF      WPC     WDR     VCC
 ; This is the single XOR gate in the Skip/Branch Unit. Putting it here saves a
 ; chip package, and we have the space. Plus, this GAL is very close to the SBU
 ; physically.
+;
+
+; Update it was more convenient to use a 74HC86 in the end, but this
+; can stay here in case I need an extra gate somewhere.
 
 XORY = /XORA * XORB  +  XORA * /XORB
 
