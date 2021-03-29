@@ -709,7 +709,6 @@ F34 "UPC3" I L 5050 3600 50
 F35 "IDX0" I L 5050 3700 50 
 F36 "IDX1" I L 5050 3800 50 
 F37 "~COND" I L 5050 3900 50 
-F38 "RSVD" I L 5050 4000 50 
 $EndSheet
 Text Label 2250 5350 0    50   ~ 0
 CLK2
@@ -1080,21 +1079,6 @@ Wire Notes Line width 20 style solid
 	6450 1100 5200 1100
 Wire Notes Line width 20 style solid
 	6450 600  6450 1100
-Wire Wire Line
-	5050 4000 4650 4000
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5F4495E5
-P 4650 4000
-AR Path="/5F4495E5" Ref="TP?"  Part="1" 
-AR Path="/5DEAC282/5F4495E5" Ref="TP1601"  Part="1" 
-F 0 "TP1601" V 4550 4100 50  0000 C CNN
-F 1 "TestPoint" V 4754 4072 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 4850 4000 50  0001 C CNN
-F 3 "~" H 4850 4000 50  0001 C CNN
-	1    4650 4000
-	0    -1   -1   0   
-$EndComp
 Text Label 13250 7750 2    50   ~ 0
 RADDR0
 Text Label 13250 7550 2    50   ~ 0

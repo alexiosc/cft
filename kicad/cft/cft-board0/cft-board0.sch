@@ -2318,18 +2318,6 @@ F 5 "ctl-raddr-decode.jed" H -3350 100 50  0000 C CNN "Image Filename"
 	1    -3350 750 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	-2900 2200 -2400 2200
-Wire Wire Line
-	-2900 2300 -2400 2300
-Wire Wire Line
-	-2900 2400 -2400 2400
-Text Label -2400 2200 2    50   ~ 0
-XORY
-Text Label -2400 2300 2    50   ~ 0
-XORB
-Text Label -2400 2400 2    50   ~ 0
-XORA
 NoConn ~ -2900 2500
 $Comp
 L alexios:CFT-2021-Peripheral-Bus P2
@@ -2754,8 +2742,13 @@ F 3 "" H 7050 -3200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	-100 -5500 -100 -3750
+NoConn ~ -2900 2200
+NoConn ~ -2900 2300
+NoConn ~ -2900 2400
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3350 -10350 -2550
+Text Label -5250 5550 0    50   ~ 0
+~FPRAM~∕ROM
 $EndSCHEMATC

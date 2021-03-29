@@ -57,8 +57,6 @@ Text Label 3400 2200 0    50   ~ 0
 IDX0
 Text Label 3400 2300 0    50   ~ 0
 IDX1
-Text Label 3400 2500 0    50   ~ 0
-RSVD
 Text Label 3400 2400 0    50   ~ 0
 ~COND
 Wire Wire Line
@@ -593,10 +591,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 7150 23
 	1    7150 2300
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3850 2500 3300 2500
-Text HLabel 3300 2500 0    50   Input ~ 0
-RSVD
 Text Notes 8150 3800 0    50   ~ 0
 Note! Pins out of order for ease of routing!
 Text HLabel 6100 1900 0    50   Input ~ 0
@@ -747,4 +741,17 @@ Wire Bus Line
 	8050 1900 8050 4600
 Wire Bus Line
 	5250 1900 5250 4600
+$Comp
+L power:GND #PWR0119
+U 1 1 61CCCC9A
+P 3850 2500
+F 0 "#PWR0119" H 3850 2250 50  0001 C CNN
+F 1 "GND" H 3855 2327 50  0000 C CNN
+F 2 "" H 3850 2500 50  0001 C CNN
+F 3 "" H 3850 2500 50  0001 C CNN
+	1    3850 2500
+	1    0    0    -1  
+$EndComp
+Text Notes 3800 2550 2    50   ~ 0
+Allow trace to be cut for future expansion.
 $EndSCHEMATC
