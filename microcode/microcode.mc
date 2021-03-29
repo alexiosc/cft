@@ -474,9 +474,6 @@ start RST=X, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// The reset sequence is little more than a fetch sequence, but we pad
-// it with a few NOPs.
-
 start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       SET(pc,cs_rstvec), action_cli, END;  // 00
       hold;                                // 01
