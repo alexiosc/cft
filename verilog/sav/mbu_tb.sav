@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Thu Mar  4 19:38:46 2021
+[*] Sun Mar 28 08:15:40 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Thu Mar  4 19:36:29 2021"
+[dumpfile_mtime] "Sun Mar 28 08:15:26 2021"
 [dumpfile_size] 59028458
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 6640919600
+[timestart] 1884541000
 [size] 1952 1123
 [pos] 10046 27
-*-17.184475 6641077400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.184475 1885998750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbu_tb.
 [treeopen] reg_mbu_tb.mbu.
 [sst_width] 372
@@ -47,6 +47,8 @@ reg_mbu_tb.waddr[4:0]
 -group_end
 @28
 reg_mbu_tb.waddr[4:0]
+@29
+reg_mbu_tb.mbu.nibusen
 @22
 reg_mbu_tb.mbu.ibus[7:0]
 @4022
@@ -57,7 +59,6 @@ reg_mbu_tb.mbu.ir[2:0]
 reg_mbu_tb.naction_index
 reg_mbu_tb.mbu.nir_idxr
 reg_mbu_tb.mbu.nir_idx
-@29
 reg_mbu_tb.mbu.a[2:0]
 @200
 -

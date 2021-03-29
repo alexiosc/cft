@@ -275,7 +275,8 @@ module mbu (nrsthold,
    
    sram #(11, 12) regfile_mbu (.a({ctx, a}), .d(aext), .nce(1'b0), .nwe(nwe), .noe(noe));
    buffer_541 buf_mbu_in (.noe1(nwe), .noe2(1'b0), .a(ibus[7:0]), .y(aext));
-   buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(t34), .a(aext), .y(ibus[7:0]));
+   //buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(t34), .a(aext), .y(ibus[7:0]));
+   buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
 
 
 
