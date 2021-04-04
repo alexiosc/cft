@@ -393,6 +393,7 @@ class ParseMicrocode(object):
         
         oldinstr = 0
         for mn, is_bitmap, instr, mask, pr, opmask, comment in rd:
+            #print("***",mn, file=sys.stderr)
             pad = " " * (maxlen - len(mn))
             # if oldinstr != instr & 0xf000:
             #     self.out.write("\n")
@@ -400,11 +401,13 @@ class ParseMicrocode(object):
 
             if is_bitmap:
                 mn0, mn1 = mn.split()
-                mn0 = re.sub(r'\(.+?\)\s*', '', mn0)
+                mn0 = re.sub(r'\((.+?)\)\s*', r'\1', mn0)
+                #print("***",mn0, file=sys.stderr)
 
                 if mn0 not in superinstrs:
                     superinstrs[mn0] = instr
                     self.out.write("\n" + fmt1.format(mn=mn0, instr=instr, comment=mn0 + " bitmap instruction"))
+                    #print("\n" + fmt1.format(mn=mn0, instr=instr, comment=mn0 + " bitmap instruction"), file=sys.stderr)
 
                 #print("---", mn, mn0, mn1)
                 mnb = bin(instr & 0x7f)[2:].zfill(7)
