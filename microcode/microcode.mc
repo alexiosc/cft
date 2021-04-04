@@ -1816,7 +1816,7 @@ start LCT;
 // DESC:     Transfers the AC to the 8-bit CTX register.
 // GROUP:    Memory Management
 // MODE:     Implied
-// FLAGS:    *NZ---
+// FLAGS:    -----
 // FORMAT:   :-------
 //
 // Transfers the least significant eight bits of the AC into the CTX
@@ -1839,9 +1839,9 @@ start SCT;
 ///////////////////////////////////////////////////////////////////////////////
 
 // NOTE: Removed in favour of using the MBU via I/O transactions.
-// NOTE 2: Reinstated, remaned from RMB to LMB to match load/store terminology.
+// NOTE 2: Reinstated, renamed from RMB to LMB to match load/store terminology.
 
-// MNEMONIC: RMB
+// MNEMONIC: LMB
 // NAME:     Read Memory Bank
 // DESC:     Transfers a Memory Bank Register to AC.
 // GROUP:    Memory Management
