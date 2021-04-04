@@ -22,7 +22,7 @@ import unicodedata
 # Registers and a Stack Pointer.
 _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 
-;;; Native Instruction Mnemonics
+;;; Native instruction mnemonics
 
 .equ    IRET    &0000            ; 0000:0:0:000:-------  Interrupt Return
 .equ    LRET    &0080            ; 0000:0:0:001:-------  Long Return
@@ -44,14 +44,12 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    ASR     &0830            ; 0000:1:0:000:011LLLL  Arithmetic Shift Right
 .equ    ROL     &0840            ; 0000:1:0:000:100LLLL  Roll Left
 .equ    ROR     &0850            ; 0000:1:0:000:101LLLL  Roll Right
-;.equ   RLA     &0860            ; 0000:1:0:000:110LLLL  Roll Left Accumulator
-;.equ   RRA     &0870            ; 0000:1:0:000:111LLLL  Roll Right Accumulator
 
 .equ    SKP     &0880            ; SKP bitmap instruction
-.equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation, 4 cycles
+.equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation
 .equ    SKIP    SKP     #0010000 ; 0000:1:0:001:--10000  Skip
-.equ    SNA     SKP     #0001000 ; 0000:1:0:001:--01---  Skip on Negative Accumulator
 .equ    SNP     SKP     #0001100 ; 0000:1:0:001:--011--  Skip on Non-Positive Accumulator
+.equ    SNA     SKP     #0001000 ; 0000:1:0:001:--01---  Skip on Negative Accumulator
 .equ    SZA     SKP     #0000100 ; 0000:1:0:001:--0-1--  Skip on Zero Accumulator
 .equ    SSL     SKP     #0000010 ; 0000:1:0:001:--0--1-  Skip on Link
 .equ    SSV     SKP     #0000001 ; 0000:1:0:001:--0---1  Skip on Overflow
@@ -60,30 +58,55 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    SNZ     SKP     #0010100 ; 0000:1:0:001:--1-1--  Skip on Non-Zero Accumulator
 .equ    SCL     SKP     #0010010 ; 0000:1:0:001:--1--1-  Skip on Link Clear
 .equ    SCV     SKP     #0010001 ; 0000:1:0:001:--1---1  Skip on Overflow
-
+.equ    LCT     &0900            ; 0000:1:0:010:-------  Load Context Register
+.equ    SCT     &0980            ; 0000:1:0:011:-------  Set Context Register
+.equ    LMB     &0a00            ; 0000:1:0:100:----LLL  Read Memory Bank
+.equ    SMB     &0a80            ; 0000:1:0:101:----LLL  Set Memory Bank
 .equ    JPA     &0c00            ; 0000:1:1:000:-------  Jump to Accumulator
 .equ    JSA     &0c80            ; 0000:1:1:001:-------  Jump to Subroutine at Accumulator
 .equ    PEEK    &0d00            ; 0000:1:1:010:-------  Peek top of Stack
 .equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
-.equ    IND     &0fc0            ; 0000:1:1:111:1---LLL  Indirect
-
-; Note: the sub-instructions here can be used either with UOP (in which case
-; the UOP mnemonic can be left out) or with either the IFL or IFV bitmap
-; instructions. IFL and IFV must be specified.
 
 .equ    UOP     &0e00            ; UOP bitmap instruction
-.equ    IFL     &0e80            ; IFL bitmap instruction
-.equ    IFV     &0f00            ; IFV bitmap instruction
-.equ    NOP9   UOP      #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
+.equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
+.equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
+.equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
 .equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
 .equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
-.equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
 .equ    NOT     UOP     #0001000 ; 0000:1:1:100:---1---  Complement Accumulator
-.equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
 .equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
+.equ    IFL     &0e8c            ; IFL bitmap instruction
+
+; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
+; are available with IFL. Use them as IFL NEG.
+
+; .equ  NEG     IFL     #0001100 ; 0000:1:1:101:---11--  Negate Accumulator If Link Set
+; .equ  SEL     IFL     #0010001 ; 0000:1:1:101:--1---1  Set Link
+; .equ  CLA     IFL     #0100000 ; 0000:1:1:101:-1-----  Clear Accumulator If Link Set
+; .equ  CLL     IFL     #0010000 ; 0000:1:1:101:--1----  Clear Link if Link Set
+; .equ  NOT     IFL     #0001000 ; 0000:1:1:101:---1---  Complement Accumulator If Link Set
+; .equ  INC     IFL     #0000100 ; 0000:1:1:101:----1--  Increment Accumulator If Link Set
+; .equ  DEC     IFL     #0000010 ; 0000:1:1:101:-----1-  Decrement Accumulator If Link Set
+; .equ  CPL     IFL     #0000001 ; 0000:1:1:101:------1  Complement Link If Link Set ***
+
+.equ  IFV     &0f0c            ; IFV bitmap instruction
+
+; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
+; are available with IFL. Use them as IFL NEG.
+
+; .equ  NEG     IFV     #0001100 ; 0000:1:1:110:---11--  Negate Accumulator on Overflow
+; .equ  SEL     IFV     #0010001 ; 0000:1:1:110:--1---1  Set Link on Overflow
+; .equ  CLA     IFV     #0100000 ; 0000:1:1:110:-1-----  Clear Accumulator on Overflow
+; .equ  CLL     IFV     #0010000 ; 0000:1:1:110:--1----  Clear Link on Overflow
+; .equ  NOT     IFV     #0001000 ; 0000:1:1:110:---1---  Complement Accumulator on Overflow
+; .equ  INC     IFV     #0000100 ; 0000:1:1:110:----1--  Increment Accumulator on Overflow
+; .equ  DEC     IFV     #0000010 ; 0000:1:1:110:-----1-  Decrement Accumulator on Overflow
+; .equ  CPL     IFV     #0000001 ; 0000:1:1:110:------1  Complement Link on Overflow
+
+.equ    IND     &0fc0            ; 0000:1:1:111:1---LLL  Indirect
 .equ    LIA     &1000            ; 0001:I:R:mmmmmmmmmm   Literal Address
 .equ    LI      &1400            ; 0001:0:1:LLLLLLLLLL   Literal
 .equ    LJSR    &1800            ; 0001:1:R:aaaaaaaaaa   Long Jump to Subroutine
@@ -101,16 +124,14 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    OR      &e000            ; 1110:I:R:mmmmmmmmmm   Bitwise OR With Accumulator
 .equ    XOR     &f000            ; 1111:I:R:mmmmmmmmmm   Bitwise XOR With Accumulator
 
-;;; Instruction flags. These only make sense for instructions with I or R in
-;;; their bitfields.
 
-.equ    R       &0400            ; Zero Page ('register') reference
-.equ    I       &0800            ; Indirection
+;;; 1.1.1. Instruction flags.
+
+.equ R     0x0400 ; Specify to reference a register (zero page).
+.equ I     0x0800 ; Indirection
 
 ;;; Macros for the Memory Bank Unit (MBU, built into the processor).
 
-.equ    SMB     OUT R &8         ; Set a memory bank register
-.equ    RMB     IN R &8          ; Read a memory bank register
 .equ    MBP     0                ; MB0 is MBP, the Program bank
 .equ    MBD     1                ; MB1 is MBD, the Data bank
 .equ    MBS     2                ; MB2 is MBS, the Stack bank
