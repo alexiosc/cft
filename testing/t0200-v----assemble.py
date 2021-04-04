@@ -457,7 +457,10 @@ def test_include(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &0:     mbu.BASE
+    &0:     SMB
+            LMB
+            SCT
+            LCT
             mbu.MBP
             mbu.MBD
             mbu.MBS
