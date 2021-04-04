@@ -18,7 +18,7 @@
 		
 .pushns dfp
 
-.equ BASE &100				; Base address of the DPF card
+.equ BASE R &100			; Base address of the DPF card
 
 ;;; I/O Registers 
 	
