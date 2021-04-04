@@ -238,7 +238,9 @@ def test_STORE_I_R_autoinc(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &0:     LI &80
+    &0:     LI 0
+            SCT
+            LI &80
             SMB mbu.MBP
             LI &0
             SMB mbu.MBD
@@ -296,7 +298,9 @@ def test_STORE_I_R_autodec(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &0:     LI &80
+    &0:     LI 0
+            SCT
+            LI &80
             SMB mbu.MBP
             LI &0
             SMB mbu.MBD
@@ -354,7 +358,9 @@ def test_STORE_I_R_stack(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &0:     LI &80
+    &0:     LI 0
+            SCT
+            LI &80
             SMB mbu.MBP
             LI &0
             SMB mbu.MBD

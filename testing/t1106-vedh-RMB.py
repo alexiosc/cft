@@ -15,10 +15,10 @@ from testing import *
 @pytest.mark.MBU
 @pytest.mark.LI
 @pytest.mark.SMB
-@pytest.mark.RMB
+@pytest.mark.LMB
 @pytest.mark.STORE
 @pytest.mark.LOAD
-def test_RMB(framework, capsys, tmpdir):
+def test_LMB(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -42,27 +42,27 @@ def test_RMB(framework, capsys, tmpdir):
             LI &44
             SMB mbu.MB7
 
-            RMB mbu.MB0
+            LMB mbu.MB0
             dfp.PRINTH
-            RMB mbu.MB1
+            LMB mbu.MB1
             dfp.PRINTH
-            RMB mbu.MB2
+            LMB mbu.MB2
             dfp.PRINTH
-            RMB mbu.MB3
+            LMB mbu.MB3
             dfp.PRINTH
-            RMB mbu.MB4
+            LMB mbu.MB4
             dfp.PRINTH
-            RMB mbu.MB5
+            LMB mbu.MB5
             dfp.PRINTH
-            RMB mbu.MB6
+            LMB mbu.MB6
             dfp.PRINTH
-            RMB mbu.MB7
+            LMB mbu.MB7
             dfp.PRINTH
 
             HALT
     """
 
-    # Note that the RMB instruction only drives the lower 8 bits of the Data
+    # Note that the LMB instruction only drives the lower 8 bits of the Data
     # Bus. On real hardware, Bus Hold would make the MSB equal to the last
     # memory operation, which will almost certainly be an instruction fetch, so
     # &54 would be returned. The Verilog version of the MBU simulates this by

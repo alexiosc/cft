@@ -449,6 +449,8 @@ def asm_memory_banks(mbp=None, mbd=None, mbs=None, mbz=None,
     mbrs = [ [mbp, "MBP"], [mbd, "MBD"], [mbs, "MBS"], [mbz, "MBZ"],
              [mb4, "4"],   [mb5, "5"],   [mb6, "6"],   [mb7, "7"] ]
     source = ""
+    source += "        LI        0\n"
+    source += "        SCT\n"
     ac = None
     for arg, name in mbrs:
         if arg is not None:

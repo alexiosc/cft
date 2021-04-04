@@ -335,8 +335,11 @@ def test_basic_assembly(framework, capsys, tmpdir):
 
     assembled_data = read_cft_bin_file(fname, 11)
 
+    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
-    expected_data = array.array('H', [0x4001, 0x1400, 0x6408, 0x6409, 0x640a, 0x640b, 0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
+    expected_data = array.array('H', [0x4001, 0x1400, 0x0a80, 0x0a81, 0x0a82, 0x0a83,
+                                      0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
     assert len(assembled_data) == 11
     assert assembled_data == expected_data, "Assembled string did not match"
 
@@ -484,15 +487,15 @@ def test_include(framework, capsys, tmpdir):
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 38, \
-        "Wrong object size generated (19W expected)"
+    assert os.path.getsize(fname) == 44, \
+        "Wrong object size generated (22W expected)"
 
-    assembled_data = read_cft_bin_file(fname, 19)
+    assembled_data = read_cft_bin_file(fname, 22)
 
     # Data is byte-swapped when Python reads it a 16-bit ints.
-    expected_data = array.array('H', [ 0x408, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7,
+    expected_data = array.array('H', [ 0x0a80, 0xa00, 0x0980, 0x0900, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7,
                                        0x651d, 0x5500, 0x6500, 0x650f, 0x651e, 0x651f ])
-    assert len(assembled_data) == 19
+    assert len(assembled_data) == 22
     assert assembled_data == expected_data, "Assembled string did not match"
 
 
