@@ -1636,31 +1636,8 @@ Wire Wire Line
 	-6950 -1750 -7550 -1750
 Wire Wire Line
 	-6950 -1950 -7550 -1950
-$Comp
-L Connector:TestPoint TP101
-U 1 1 5E9C8A8F
-P -7600 -2550
-F 0 "TP101" V -7497 -2478 50  0000 C CNN
-F 1 "TestPoint" V -7496 -2478 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H -7400 -2550 50  0001 C CNN
-F 3 "~" H -7400 -2550 50  0001 C CNN
-	1    -7600 -2550
-	0    -1   -1   0   
-$EndComp
 Wire Bus Line
 	-6950 -3650 -7550 -3650
-Text Label -7550 -2550 0    50   ~ 0
-CEXT10
-Text Label -7550 -2650 0    50   ~ 0
-CEXT9
-Text Label -7550 -2750 0    50   ~ 0
-CEXT8
-Wire Wire Line
-	-6950 -2550 -7600 -2550
-Wire Wire Line
-	-6950 -2650 -7550 -2650
-Wire Wire Line
-	-6950 -2750 -7550 -2750
 Text Label -7550 -2850 0    50   ~ 0
 ~SKIPEXT
 Wire Wire Line
@@ -1710,9 +1687,6 @@ F8 "CLK4" I L -6950 -3750 50
 F9 "COND[0..4]" I L -6950 -3650 50 
 F10 "~RESET" I L -6950 -3850 50 
 F11 "IR[0..6]" I L -6950 -3550 50 
-F12 "CEXT8" T L -6950 -2750 50 
-F13 "CEXT9" T L -6950 -2650 50 
-F14 "CEXT10" T L -6950 -2550 50 
 $EndSheet
 Wire Wire Line
 	-2800 -4200 -3350 -4200
@@ -2745,10 +2719,10 @@ Wire Wire Line
 NoConn ~ -2900 2200
 NoConn ~ -2900 2300
 NoConn ~ -2900 2400
+Text Label -5250 5550 0    50   ~ 0
+~FPRAM~∕ROM
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
 	-10350 -3350 -10350 -2550
-Text Label -5250 5550 0    50   ~ 0
-~FPRAM~∕ROM
 $EndSCHEMATC

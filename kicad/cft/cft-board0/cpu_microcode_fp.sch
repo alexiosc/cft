@@ -737,10 +737,6 @@ Wire Wire Line
 	4850 3900 5150 3900
 Wire Wire Line
 	4850 4000 5150 4000
-Wire Bus Line
-	8050 1900 8050 4600
-Wire Bus Line
-	5250 1900 5250 4600
 $Comp
 L power:GND #PWR0119
 U 1 1 61CCCC9A
@@ -754,4 +750,8 @@ F 3 "" H 3850 2500 50  0001 C CNN
 $EndComp
 Text Notes 3800 2550 2    50   ~ 0
 Allow trace to be cut for future expansion.
+Wire Bus Line
+	8050 1900 8050 4600
+Wire Bus Line
+	5250 1900 5250 4600
 $EndSCHEMATC

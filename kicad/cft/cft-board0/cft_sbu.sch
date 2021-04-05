@@ -1320,6 +1320,7 @@ F 3 "" H 5500 7050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5500 6950 5500 7050
+Connection ~ 5500 6950
 Wire Bus Line
 	1050 5750 5650 5750
 Wire Bus Line
@@ -1332,5 +1333,4 @@ Wire Bus Line
 	1400 1800 1400 4350
 Wire Bus Line
 	5750 1800 5750 2500
-Connection ~ 5500 6950
 $EndSCHEMATC
