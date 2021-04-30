@@ -110,7 +110,7 @@ Text HLabel 1900 5700 0    50   Input ~ 0
 Text Label 7250 5700 0    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
-	7600 5700 1900 5700
+	7600 5700 2500 5700
 $Comp
 L power:GND #PWR?
 U 1 1 5D676F48
@@ -227,14 +227,6 @@ Wire Wire Line
 	6750 5500 7600 5500
 Wire Wire Line
 	6750 5500 1900 5500
-Wire Wire Line
-	6850 5300 1900 5300
-Wire Wire Line
-	6950 5200 1900 5200
-Wire Wire Line
-	7050 5100 1900 5100
-Wire Wire Line
-	7150 5000 1900 5000
 Text HLabel 1900 5500 0    50   Input ~ 0
 FI
 Text HLabel 1900 5300 0    50   Input ~ 0
@@ -490,6 +482,95 @@ Text HLabel 1950 2350 0    50   Input ~ 0
 ~READ-FL
 Wire Wire Line
 	1950 2350 7600 2350
+$Comp
+L Device:R_Small R?
+U 1 1 609A7128
+P 2500 4750
+AR Path="/61F95ACC/609A7128" Ref="R?"  Part="1" 
+AR Path="/5F63066B/609A7128" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/609A7128" Ref="R1201"  Part="1" 
+F 0 "R1201" H 2559 4796 50  0000 L CNN
+F 1 "4.7kΩ" H 2559 4705 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 4750 50  0001 C CNN
+F 3 "~" H 2500 4750 50  0001 C CNN
+	1    2500 4750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 609A712E
+P 2500 4650
+AR Path="/61F95ACC/609A712E" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/609A712E" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/609A712E" Ref="#PWR0123"  Part="1" 
+F 0 "#PWR0123" H 2500 4500 50  0001 C CNN
+F 1 "+5V" H 2515 4823 50  0000 C CNN
+F 2 "" H 2500 4650 50  0001 C CNN
+F 3 "" H 2500 4650 50  0001 C CNN
+	1    2500 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 4850 2500 5700
+Connection ~ 2500 5700
+Wire Wire Line
+	2500 5700 1900 5700
+$Comp
+L power:GND #PWR?
+U 1 1 609C9CF9
+P 3250 6200
+AR Path="/61F95ACC/609C9CF9" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6888FBA2/609C9CF9" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/609C9CF9" Ref="#PWR0124"  Part="1" 
+F 0 "#PWR0124" H 3250 5950 50  0001 C CNN
+F 1 "GND" H 3255 6027 50  0000 C CNN
+F 2 "" H 3250 6200 50  0001 C CNN
+F 3 "" H 3250 6200 50  0001 C CNN
+	1    3250 6200
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 5100 3050 5100
+Wire Wire Line
+	1900 5000 2950 5000
+Wire Wire Line
+	1900 5200 3150 5200
+Wire Wire Line
+	1900 5300 3250 5300
+Wire Wire Line
+	2950 5800 2950 5000
+Connection ~ 2950 5000
+Wire Wire Line
+	2950 5000 7150 5000
+Wire Wire Line
+	3050 5800 3050 5100
+Connection ~ 3050 5100
+Wire Wire Line
+	3050 5100 7050 5100
+Wire Wire Line
+	3150 5800 3150 5200
+Connection ~ 3150 5200
+Wire Wire Line
+	3150 5200 6950 5200
+Wire Wire Line
+	3250 5800 3250 5300
+Connection ~ 3250 5300
+Wire Wire Line
+	3250 5300 6850 5300
+$Comp
+L Device:R_Network04 RN?
+U 1 1 609C9CFF
+P 3050 6000
+AR Path="/61F95ACC/6888FBA2/609C9CFF" Ref="RN?"  Part="1" 
+AR Path="/61F95ACC/609C9CFF" Ref="RN?"  Part="1" 
+AR Path="/5D69F3FD/609C9CFF" Ref="RN1201"  Part="1" 
+F 0 "RN1201" H 2770 5954 50  0000 R CNN
+F 1 "10kΩ" H 2770 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP5" V 3525 6000 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 3050 6000 50  0001 C CNN
+	1    3050 6000
+	-1   0    0    1   
+$EndComp
 Wire Bus Line
 	9050 4900 9050 6150
 Wire Bus Line

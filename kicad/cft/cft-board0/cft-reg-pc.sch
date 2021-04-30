@@ -14,16 +14,16 @@ Comment3 ""
 Comment4 "reg_pc.v"
 $EndDescr
 Wire Wire Line
-	1100 1900 1550 1900
-Text HLabel 1100 1900 0    50   Input ~ 0
+	1100 3900 1300 3900
+Text HLabel 1100 3900 0    50   Input ~ 0
 ~FPH
 Wire Wire Line
-	1100 1750 1550 1750
-Text HLabel 1100 1750 0    50   Input ~ 0
+	1100 3750 1200 3750
+Text HLabel 1100 3750 0    50   Input ~ 0
 ~FPL
-Text Label 1550 1900 2    50   ~ 0
+Text Label 1550 3900 2    50   ~ 0
 ~FPH
-Text Label 1550 1750 2    50   ~ 0
+Text Label 1550 3750 2    50   ~ 0
 ~FPL
 $Comp
 L power:GND #PWR?
@@ -1658,6 +1658,67 @@ Text Label 2250 1850 0    50   ~ 0
 ~DEC
 Text Notes 2200 1850 2    50   ~ 10
 ERRATUM *
+$Comp
+L Device:R_Small R?
+U 1 1 60B22C34
+P 1200 3550
+AR Path="/61F95ACC/60B22C34" Ref="R?"  Part="1" 
+AR Path="/5F63066B/60B22C34" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/60B22C34" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/60B22C34" Ref="R205"  Part="1" 
+F 0 "R205" H 1258 3596 50  0000 L CNN
+F 1 "4.7kΩ" H 1258 3505 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1200 3550 50  0001 C CNN
+F 3 "~" H 1200 3550 50  0001 C CNN
+	1    1200 3550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60B22C3A
+P 1250 3400
+AR Path="/61F95ACC/60B22C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/60B22C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/60B22C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5D9672D4/60B22C3A" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 1250 3250 50  0001 C CNN
+F 1 "+5V" H 1265 3573 50  0000 C CNN
+F 2 "" H 1250 3400 50  0001 C CNN
+F 3 "" H 1250 3400 50  0001 C CNN
+	1    1250 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60B2B370
+P 1300 3550
+AR Path="/61F95ACC/60B2B370" Ref="R?"  Part="1" 
+AR Path="/5F63066B/60B2B370" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/60B2B370" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/60B2B370" Ref="R207"  Part="1" 
+F 0 "R207" H 1241 3596 50  0000 R CNN
+F 1 "4.7kΩ" H 1241 3505 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1300 3550 50  0001 C CNN
+F 3 "~" H 1300 3550 50  0001 C CNN
+	1    1300 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 3450 1200 3400
+Wire Wire Line
+	1200 3400 1250 3400
+Wire Wire Line
+	1300 3400 1300 3450
+Connection ~ 1250 3400
+Wire Wire Line
+	1250 3400 1300 3400
+Wire Wire Line
+	1200 3650 1200 3750
+Connection ~ 1200 3750
+Wire Wire Line
+	1200 3750 1550 3750
+Wire Wire Line
+	1300 3650 1300 3900
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -1668,4 +1729,7 @@ Wire Bus Line
 	6350 750  6350 3200
 Wire Bus Line
 	4100 1150 4100 6950
+Connection ~ 1300 3900
+Wire Wire Line
+	1300 3900 1550 3900
 $EndSCHEMATC

@@ -14,16 +14,16 @@ Comment3 ""
 Comment4 "reg_sp.v"
 $EndDescr
 Wire Wire Line
-	1100 1900 1550 1900
-Text HLabel 1100 1900 0    50   Input ~ 0
+	1100 3500 1250 3500
+Text HLabel 1100 3500 0    50   Input ~ 0
 ~FPH
 Wire Wire Line
-	1100 1750 1550 1750
-Text HLabel 1100 1750 0    50   Input ~ 0
+	1100 3350 1150 3350
+Text HLabel 1100 3350 0    50   Input ~ 0
 ~FPL
-Text Label 1550 1900 2    50   ~ 0
+Text Label 1550 3500 2    50   ~ 0
 ~FPH
-Text Label 1550 1750 2    50   ~ 0
+Text Label 1550 3350 2    50   ~ 0
 ~FPL
 $Comp
 L power:GND #PWR?
@@ -1691,6 +1691,69 @@ Text Label 5950 6350 0    50   ~ 0
 FPD3
 Text Label 5950 6450 0    50   ~ 0
 FPD7
+$Comp
+L Device:R_Small R?
+U 1 1 60B56316
+P 1150 3150
+AR Path="/61F95ACC/60B56316" Ref="R?"  Part="1" 
+AR Path="/5F63066B/60B56316" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/60B56316" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/60B56316" Ref="R?"  Part="1" 
+AR Path="/5D967A8B/60B56316" Ref="R305"  Part="1" 
+F 0 "R305" H 1208 3196 50  0000 L CNN
+F 1 "4.7kΩ" H 1208 3105 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1150 3150 50  0001 C CNN
+F 3 "~" H 1150 3150 50  0001 C CNN
+	1    1150 3150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60B5631C
+P 1200 3000
+AR Path="/61F95ACC/60B5631C" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/60B5631C" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/60B5631C" Ref="#PWR?"  Part="1" 
+AR Path="/5D9672D4/60B5631C" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 1200 2850 50  0001 C CNN
+F 1 "+5V" H 1215 3173 50  0000 C CNN
+F 2 "" H 1200 3000 50  0001 C CNN
+F 3 "" H 1200 3000 50  0001 C CNN
+	1    1200 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60B56322
+P 1250 3150
+AR Path="/61F95ACC/60B56322" Ref="R?"  Part="1" 
+AR Path="/5F63066B/60B56322" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/60B56322" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/60B56322" Ref="R?"  Part="1" 
+AR Path="/5D967A8B/60B56322" Ref="R307"  Part="1" 
+F 0 "R307" H 1191 3196 50  0000 R CNN
+F 1 "4.7kΩ" H 1191 3105 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1250 3150 50  0001 C CNN
+F 3 "~" H 1250 3150 50  0001 C CNN
+	1    1250 3150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1150 3050 1150 3000
+Wire Wire Line
+	1150 3000 1200 3000
+Wire Wire Line
+	1250 3000 1250 3050
+Connection ~ 1200 3000
+Wire Wire Line
+	1200 3000 1250 3000
+Wire Wire Line
+	1150 3250 1150 3350
+Connection ~ 1150 3350
+Wire Wire Line
+	1150 3350 1550 3350
+Wire Wire Line
+	1250 3250 1250 3500
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -1701,4 +1764,7 @@ Wire Bus Line
 	6350 750  6350 3200
 Wire Bus Line
 	4100 1150 4100 6550
+Connection ~ 1250 3500
+Wire Wire Line
+	1250 3500 1550 3500
 $EndSCHEMATC

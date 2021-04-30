@@ -1288,12 +1288,12 @@ AR Path="/5D62E1DC/62812DC9" Ref="R?"  Part="1"
 AR Path="/5DEAC282/62812DC9" Ref="R1605"  Part="1" 
 AR Path="/5F67D4B5/62812DC9" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/62812DC9" Ref="R?"  Part="1" 
-F 0 "R1605" V 12500 5300 50  0000 C CNN
+F 0 "R1605" V 12600 4900 50  0000 C CNN
 F 1 "4.7kΩ" V 12450 4900 50  0001 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12550 5100 50  0001 C CNN
 F 3 "~" H 12550 5100 50  0001 C CNN
 	1    12550 5100
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	12450 4900 12300 4900

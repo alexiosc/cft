@@ -1443,7 +1443,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8400 52
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7900 5600 7500 5600
+	7900 5600 7850 5600
 Wire Wire Line
 	7900 5700 7850 5700
 Wire Wire Line
@@ -1681,6 +1681,12 @@ F 3 "" H 5650 6350 50  0001 C CNN
 	1    5650 6350
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7850 5600 7850 5450
+Wire Wire Line
+	7850 5450 7350 5450
+Wire Wire Line
+	7350 5450 7350 5400
 Wire Bus Line
 	3700 2600 3700 3050
 Wire Bus Line
@@ -1695,4 +1701,29 @@ Wire Bus Line
 	7000 3750 7000 6550
 Wire Bus Line
 	3700 3400 3700 6550
+Connection ~ 7850 5600
+Wire Wire Line
+	7850 5600 7500 5600
+$Comp
+L Device:R_Small R610
+U 1 1 6095039A
+P 7350 5300
+F 0 "R610" H 7408 5346 50  0000 L CNN
+F 1 "4.7kΩ" H 7408 5255 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7350 5300 50  0001 C CNN
+F 3 "~" H 7350 5300 50  0001 C CNN
+	1    7350 5300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0120
+U 1 1 60951783
+P 7350 5200
+F 0 "#PWR0120" H 7350 5050 50  0001 C CNN
+F 1 "+5V" H 7365 5373 50  0000 C CNN
+F 2 "" H 7350 5200 50  0001 C CNN
+F 3 "" H 7350 5200 50  0001 C CNN
+	1    7350 5200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

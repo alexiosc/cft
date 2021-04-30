@@ -1117,12 +1117,12 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5750 3400 50  0001 C CNN
 	1    5750 3400
 	1    0    0    -1  
 $EndComp
-Text HLabel 7650 5550 0    50   Input ~ 0
+Text HLabel 7350 5550 0    50   Input ~ 0
 ~FPAEXT
 Text HLabel 10150 5600 2    50   3State ~ 0
 FPD[0..7]
 Wire Wire Line
-	7650 5550 8100 5550
+	7350 5550 7600 5550
 Text Label 7800 5550 0    50   ~ 0
 ~FPAEXT
 Wire Bus Line
@@ -1586,6 +1586,37 @@ F 3 "" H 5200 5675 50  0001 C CNN
 $EndComp
 Text HLabel 7450 1800 0    50   Input ~ 0
 ~IO
+$Comp
+L Device:R_Small R?
+U 1 1 60AF5E1B
+P 7600 5400
+AR Path="/61F95ACC/60AF5E1B" Ref="R?"  Part="1" 
+AR Path="/5F63066B/60AF5E1B" Ref="R?"  Part="1" 
+AR Path="/5D69F3FD/60AF5E1B" Ref="R?"  Part="1" 
+AR Path="/5CC06F10/60AF5E1B" Ref="R410"  Part="1" 
+F 0 "R410" H 7658 5446 50  0000 L CNN
+F 1 "4.7kΩ" H 7658 5355 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7600 5400 50  0001 C CNN
+F 3 "~" H 7600 5400 50  0001 C CNN
+	1    7600 5400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60AF5E21
+P 7600 5300
+AR Path="/61F95ACC/60AF5E21" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/60AF5E21" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/60AF5E21" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7600 5150 50  0001 C CNN
+F 1 "+5V" H 7615 5473 50  0000 C CNN
+F 2 "" H 7600 5300 50  0001 C CNN
+F 3 "" H 7600 5300 50  0001 C CNN
+	1    7600 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 5500 7600 5550
 Wire Bus Line
 	6900 950  6900 1200
 Wire Bus Line
@@ -1600,4 +1631,7 @@ Wire Bus Line
 	6600 1350 6600 5900
 Wire Bus Line
 	4950 950  4950 5200
+Connection ~ 7600 5550
+Wire Wire Line
+	7600 5550 8100 5550
 $EndSCHEMATC
