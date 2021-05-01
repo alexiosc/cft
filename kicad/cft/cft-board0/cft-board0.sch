@@ -2721,6 +2721,106 @@ NoConn ~ -2900 2300
 NoConn ~ -2900 2400
 Text Label -5250 5550 0    50   ~ 0
 ~FPRAM~∕ROM
+$Comp
+L power:+5V #PWR?
+U 1 1 610E4076
+P 8800 -1200
+AR Path="/5F67D4B5/610E4076" Ref="#PWR?"  Part="1" 
+AR Path="/610E4076" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/610E4076" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/610E4076" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/610E4076" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8800 -1350 50  0001 C CNN
+F 1 "+5V" H 8742 -1163 50  0000 R CNN
+F 2 "" H 8800 -1200 50  0001 C CNN
+F 3 "" H 8800 -1200 50  0001 C CNN
+	1    8800 -1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 610E407C
+P 8800 -800
+AR Path="/5F67D4B5/610E407C" Ref="#PWR?"  Part="1" 
+AR Path="/610E407C" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/610E407C" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/610E407C" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/610E407C" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8800 -1050 50  0001 C CNN
+F 1 "GND" H 8722 -837 50  0000 R CNN
+F 2 "" H 8800 -800 50  0001 C CNN
+F 3 "" H 8800 -800 50  0001 C CNN
+	1    8800 -800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8800 -1200 8800 -1100
+$Comp
+L Device:CP_Small C110
+U 1 1 610E4083
+P 8800 -1000
+AR Path="/610E4083" Ref="C110"  Part="1" 
+AR Path="/5D34E810/610E4083" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/610E4083" Ref="C?"  Part="1" 
+F 0 "C110" H 8712 -954 50  0000 R CNN
+F 1 "47µF" H 8712 -1045 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8800 -1000 50  0001 C CNN
+F 3 "~" H 8800 -1000 50  0001 C CNN
+	1    8800 -1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8800 -900 8800 -800
+$Comp
+L power:+5V #PWR?
+U 1 1 610E408A
+P 8350 -1200
+AR Path="/5F67D4B5/610E408A" Ref="#PWR?"  Part="1" 
+AR Path="/610E408A" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/610E408A" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/610E408A" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/610E408A" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8350 -1350 50  0001 C CNN
+F 1 "+5V" H 8292 -1163 50  0000 R CNN
+F 2 "" H 8350 -1200 50  0001 C CNN
+F 3 "" H 8350 -1200 50  0001 C CNN
+	1    8350 -1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 610E4090
+P 8350 -800
+AR Path="/5F67D4B5/610E4090" Ref="#PWR?"  Part="1" 
+AR Path="/610E4090" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/610E4090" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/610E4090" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/610E4090" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8350 -1050 50  0001 C CNN
+F 1 "GND" H 8272 -837 50  0000 R CNN
+F 2 "" H 8350 -800 50  0001 C CNN
+F 3 "" H 8350 -800 50  0001 C CNN
+	1    8350 -800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 -1200 8350 -1100
+$Comp
+L Device:CP_Small C109
+U 1 1 610E4097
+P 8350 -1000
+AR Path="/610E4097" Ref="C109"  Part="1" 
+AR Path="/5D34E810/610E4097" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/610E4097" Ref="C?"  Part="1" 
+F 0 "C109" H 8262 -954 50  0000 R CNN
+F 1 "47µF" H 8262 -1045 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8350 -1000 50  0001 C CNN
+F 3 "~" H 8350 -1000 50  0001 C CNN
+	1    8350 -1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 -900 8350 -800
 Wire Bus Line
 	-1200 -6850 -1200 -6200
 Wire Bus Line
