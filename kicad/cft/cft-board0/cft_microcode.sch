@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 12 17
+Sheet 10 17
 Title "Microcode Sequencer"
 Date ""
 Rev "2023"
@@ -785,64 +785,64 @@ Entry Bus Bus
 Text Label 2150 3100 1    50   ~ 0
 UPC[0..3]
 Wire Wire Line
-	7850 2250 8300 2250
+	8750 2250 9200 2250
 Text Notes 5250 750  0    50   ~ 10
 Set to 010 for Microcode v.7.
-Text Notes 7750 2100 0    50   ~ 0
+Text Notes 8650 2100 0    50   ~ 0
 High = Fetch.\nLow = Execute.\nThis is for the benefit of the front panel only.
-NoConn ~ 7850 2450
-NoConn ~ 7850 2350
+NoConn ~ 8750 2450
+NoConn ~ 8750 2350
 Wire Wire Line
-	6750 2050 6750 2250
+	7650 2050 7650 2250
 Wire Wire Line
-	6850 2050 6750 2050
-Text HLabel 8300 2250 2    50   Output ~ 0
+	7750 2050 7650 2050
+Text HLabel 9200 2250 2    50   Output ~ 0
 FPFETCH
-Text Label 8250 2250 2    50   ~ 0
+Text Label 9150 2250 2    50   ~ 0
 FPFETCH
 Wire Wire Line
-	6700 2350 6850 2350
+	7600 2350 7750 2350
 $Comp
 L power:+5V #PWR01611
 U 1 1 5FEA12FB
-P 6700 2350
-F 0 "#PWR01611" H 6700 2200 50  0001 C CNN
-F 1 "+5V" V 6800 2350 50  0000 L CNN
-F 2 "" H 6700 2350 50  0001 C CNN
-F 3 "" H 6700 2350 50  0001 C CNN
-	1    6700 2350
+P 7600 2350
+F 0 "#PWR01611" H 7600 2200 50  0001 C CNN
+F 1 "+5V" V 7700 2350 50  0000 L CNN
+F 2 "" H 7600 2350 50  0001 C CNN
+F 3 "" H 7600 2350 50  0001 C CNN
+	1    7600 2350
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR01612
 U 1 1 5FE9AF52
-P 6750 2500
-F 0 "#PWR01612" H 6750 2250 50  0001 C CNN
-F 1 "GND" H 6755 2327 50  0000 C CNN
-F 2 "" H 6750 2500 50  0001 C CNN
-F 3 "" H 6750 2500 50  0001 C CNN
-	1    6750 2500
+P 7650 2500
+F 0 "#PWR01612" H 7650 2250 50  0001 C CNN
+F 1 "GND" H 7655 2327 50  0000 C CNN
+F 2 "" H 7650 2500 50  0001 C CNN
+F 3 "" H 7650 2500 50  0001 C CNN
+	1    7650 2500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6750 2450 6750 2500
-Connection ~ 6750 2450
+	7650 2450 7650 2500
+Connection ~ 7650 2450
 Wire Wire Line
-	6850 2450 6750 2450
+	7750 2450 7650 2450
 Wire Wire Line
-	6750 2250 6750 2450
-Connection ~ 6750 2250
+	7650 2250 7650 2450
+Connection ~ 7650 2250
 Wire Wire Line
-	6850 2250 6750 2250
+	7750 2250 7650 2250
 $Comp
 L alexios:74HC85 U1601
 U 1 1 5FE49D00
-P 7350 1650
-F 0 "U1601" H 7350 675 50  0000 C CNN
-F 1 "74HC85" H 7350 584 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 7350 1675 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 7350 1675 50  0001 C CNN
-	1    7350 1650
+P 8250 1650
+F 0 "U1601" H 8250 675 50  0000 C CNN
+F 1 "74HC85" H 8250 584 50  0000 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 8250 1675 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 8250 1675 50  0001 C CNN
+	1    8250 1650
 	1    0    0    -1  
 $EndComp
 Text Label 5200 1250 0    50   ~ 0
@@ -861,25 +861,17 @@ Entry Wire Line
 	5200 1450 5100 1550
 Entry Wire Line
 	5200 1550 5100 1650
-Wire Wire Line
-	5200 1250 6850 1250
-Wire Wire Line
-	5200 1550 6850 1550
-Wire Wire Line
-	5200 1450 6850 1450
-Wire Wire Line
-	5200 1350 6850 1350
-Text Label 6800 1250 2    50   ~ 0
+Text Label 7700 1250 2    50   ~ 0
 UPC0
-Text Label 6800 1350 2    50   ~ 0
+Text Label 7700 1350 2    50   ~ 0
 UPC1
-Text Label 6800 1450 2    50   ~ 0
+Text Label 7700 1450 2    50   ~ 0
 UPC2
-Text Label 6800 1550 2    50   ~ 0
+Text Label 7700 1550 2    50   ~ 0
 UPC3
 Text Notes 5400 1050 0    50   ~ 0
 JP4: short 2-3. (GND)\nJP5: short 1-2. (VCC)\nJP6: short 2-3. (GND)
-Text Notes 6750 1000 0    100  ~ 20
+Text Notes 7000 1000 0    100  ~ 20
 Fetch/Execute State Decoder
 Wire Wire Line
 	1150 5100 2650 5100
@@ -1002,13 +994,6 @@ F 3 "" H 2800 6700 50  0001 C CNN
 	1    2800 6700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1800 2050 3400 2050
-Connection ~ 1800 2050
-Wire Wire Line
-	1150 2050 1800 2050
-Wire Wire Line
-	1800 1700 1800 2050
 $Comp
 L Device:R_Small R?
 U 1 1 5DD09005
@@ -1425,13 +1410,7 @@ F 3 "" H 6050 1700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6250 1950 6850 1950
-Wire Wire Line
 	6250 2100 6250 1950
-Wire Wire Line
-	5950 1850 6850 1850
-Wire Wire Line
-	5650 1750 6850 1750
 $Comp
 L power:+5V #PWR01606
 U 1 1 5EF1C719
@@ -1555,10 +1534,138 @@ Wire Wire Line
 Connection ~ 4750 6750
 Wire Wire Line
 	4750 6750 4750 6650
+Wire Wire Line
+	5200 1250 7750 1250
+Wire Wire Line
+	5200 1350 7750 1350
+Wire Wire Line
+	5200 1450 7750 1450
+Wire Wire Line
+	5200 1550 7750 1550
+$Comp
+L Device:R_Small R?
+U 1 1 612109FF
+P 6600 2200
+AR Path="/612109FF" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/612109FF" Ref="R?"  Part="1" 
+AR Path="/5D54E677/612109FF" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/612109FF" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/612109FF" Ref="R1606"  Part="1" 
+AR Path="/5F67D4B5/612109FF" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/612109FF" Ref="R?"  Part="1" 
+F 0 "R1606" H 6541 2154 50  0000 R CNN
+F 1 "4.7kΩ" H 6541 2245 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6600 2200 50  0001 C CNN
+F 3 "~" H 6600 2200 50  0001 C CNN
+	1    6600 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 612A764A
+P 6600 2300
+F 0 "#PWR0102" H 6600 2050 50  0001 C CNN
+F 1 "GND" H 6605 2127 50  0000 C CNN
+F 2 "" H 6600 2300 50  0001 C CNN
+F 3 "" H 6600 2300 50  0001 C CNN
+	1    6600 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 612A8810
+P 6950 2200
+AR Path="/612A8810" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/612A8810" Ref="R?"  Part="1" 
+AR Path="/5D54E677/612A8810" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/612A8810" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/612A8810" Ref="R1607"  Part="1" 
+AR Path="/5F67D4B5/612A8810" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/612A8810" Ref="R?"  Part="1" 
+F 0 "R1607" H 6891 2154 50  0000 R CNN
+F 1 "4.7kΩ" H 6891 2245 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6950 2200 50  0001 C CNN
+F 3 "~" H 6950 2200 50  0001 C CNN
+	1    6950 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0186
+U 1 1 612A8816
+P 6950 2300
+F 0 "#PWR0186" H 6950 2050 50  0001 C CNN
+F 1 "GND" H 6955 2127 50  0000 C CNN
+F 2 "" H 6950 2300 50  0001 C CNN
+F 3 "" H 6950 2300 50  0001 C CNN
+	1    6950 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 612F1730
+P 7300 2200
+AR Path="/612F1730" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/612F1730" Ref="R?"  Part="1" 
+AR Path="/5D54E677/612F1730" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/612F1730" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/612F1730" Ref="R1608"  Part="1" 
+AR Path="/5F67D4B5/612F1730" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/612F1730" Ref="R?"  Part="1" 
+F 0 "R1608" H 7241 2154 50  0000 R CNN
+F 1 "4.7kΩ" H 7241 2245 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 2200 50  0001 C CNN
+F 3 "~" H 7300 2200 50  0001 C CNN
+	1    7300 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0187
+U 1 1 612F1736
+P 7300 2300
+F 0 "#PWR0187" H 7300 2050 50  0001 C CNN
+F 1 "GND" H 7305 2127 50  0000 C CNN
+F 2 "" H 7300 2300 50  0001 C CNN
+F 3 "" H 7300 2300 50  0001 C CNN
+	1    7300 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 2100 6600 1950
+Wire Wire Line
+	6950 2100 6950 1850
+Wire Wire Line
+	7300 2100 7300 1750
+Wire Notes Line
+	6200 1650 6200 2700
+Wire Notes Line
+	6200 2700 7400 2700
+Wire Notes Line
+	7400 2700 7400 1650
+Wire Notes Line
+	7400 1650 6200 1650
+Text Notes 6250 2650 0    50   ~ 0
+Optional, for safety.
+Connection ~ 7300 1750
+Wire Wire Line
+	7300 1750 7750 1750
+Wire Wire Line
+	5650 1750 7300 1750
+Connection ~ 6950 1850
+Wire Wire Line
+	6950 1850 7750 1850
+Wire Wire Line
+	5950 1850 6950 1850
+Connection ~ 6600 1950
+Wire Wire Line
+	6600 1950 7750 1950
+Wire Wire Line
+	6250 1950 6600 1950
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
 	2150 2750 2150 3500
+Wire Bus Line
+	5100 1350 5100 2550
 Wire Bus Line
 	9800 4800 9800 5150
 Wire Bus Line
@@ -1567,6 +1674,11 @@ Wire Bus Line
 	9800 3400 9800 3850
 Wire Bus Line
 	9800 2700 9800 3150
-Wire Bus Line
-	5100 1350 5100 2550
+Wire Wire Line
+	1150 2050 1800 2050
+Wire Wire Line
+	1800 2050 3400 2050
+Connection ~ 1800 2050
+Wire Wire Line
+	1800 1700 1800 2050
 $EndSCHEMATC

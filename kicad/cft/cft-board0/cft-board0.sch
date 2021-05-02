@@ -430,8 +430,6 @@ Wire Wire Line
 	15300 -3650 16150 -3650
 Text Label 16150 -3650 2    50   ~ 0
 ~WAITING
-Text Label 13300 -4300 0    50   ~ 0
-CLK2
 Wire Wire Line
 	14150 -4300 13300 -4300
 Text Label 16150 -4400 2    50   ~ 0
@@ -473,28 +471,6 @@ Wire Wire Line
 	14150 -4100 13300 -4100
 Text Label 13300 -4100 0    50   ~ 0
 T34
-$Sheet
-S 14150 -4650 1150 1500
-U 5D46B22D
-F0 "Wait States & Write Strobes" 50
-F1 "cft_ws_busen.sch" 50
-F2 "T34" I L 14150 -4100 50 
-F3 "~RSTHOLD" I L 14150 -4500 50 
-F4 "CLK3" I L 14150 -4200 50 
-F5 "~MEM" I L 14150 -3850 50 
-F6 "~IO" I L 14150 -3750 50 
-F7 "~HALT" I L 14150 -4400 50 
-F8 "~WEN" I L 14150 -3550 50 
-F9 "~WS" I L 14150 -3400 50 
-F10 "~W" T R 15300 -3750 50 
-F11 "IBUS[0..15]" T L 14150 -3300 50 
-F12 "DB[0..15]" T R 15300 -3300 50 
-F13 "~WAITING" O R 15300 -3650 50 
-F14 "CLK2" I L 14150 -4300 50 
-F15 "~ABEN" O R 15300 -4400 50 
-F16 "~REN" I L 14150 -3650 50 
-F17 "~R" T R 15300 -3850 50 
-$EndSheet
 Wire Wire Line
 	14150 -4200 13300 -4200
 Text Label 13300 -4200 0    50   ~ 0
@@ -658,8 +634,6 @@ Wire Wire Line
 Wire Wire Line
 	-3000 4450 -2650 4450
 Wire Wire Line
-	-3000 4350 -2650 4350
-Wire Wire Line
 	-3000 4150 -2650 4150
 Wire Wire Line
 	-3000 4050 -2650 4050
@@ -667,8 +641,6 @@ Wire Wire Line
 	-3550 4550 -3200 4550
 Wire Wire Line
 	-3550 4450 -3200 4450
-Wire Wire Line
-	-3550 4350 -3200 4350
 Wire Wire Line
 	-3550 4250 -3200 4250
 Wire Wire Line
@@ -921,8 +893,6 @@ Wire Wire Line
 	-8500 -4150 -7900 -4150
 Wire Wire Line
 	-8500 -4250 -7900 -4250
-Text Label -10250 -3850 0    50   ~ 0
-~WS
 Text Label -10250 -3950 0    50   ~ 0
 ~ENDEXT
 Text Label -10250 -4550 0    50   ~ 0
@@ -1031,110 +1001,6 @@ Text Label -7900 -950 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
 	-8500 -950 -7900 -950
-Wire Bus Line
-	-3350 -5700 -2800 -5700
-Text Label -3350 -5700 0    50   ~ 0
-FPD[0..7]
-Wire Wire Line
-	-2800 -6500 -3350 -6500
-Wire Wire Line
-	-2800 -6400 -3350 -6400
-Wire Wire Line
-	-2800 -6300 -3350 -6300
-Wire Wire Line
-	-2800 -6200 -3350 -6200
-Wire Wire Line
-	-2800 -6600 -3350 -6600
-Wire Wire Line
-	-2800 -5300 -3350 -5300
-Wire Wire Line
-	-2800 -5200 -3350 -5200
-Wire Wire Line
-	-2800 -5100 -3350 -5100
-Wire Wire Line
-	-2800 -5600 -3350 -5600
-Wire Wire Line
-	-2800 -4800 -3350 -4800
-Wire Wire Line
-	-2800 -4700 -3350 -4700
-Wire Wire Line
-	-2800 -4900 -3350 -4900
-Wire Wire Line
-	-2800 -5000 -3350 -5000
-Wire Wire Line
-	-2800 -4000 -3350 -4000
-Wire Wire Line
-	-2800 -3900 -3350 -3900
-Wire Wire Line
-	-2800 -4100 -3350 -4100
-Wire Wire Line
-	-2800 -4300 -3350 -4300
-Text Label -3350 -5600 0    50   ~ 0
-~IRQ
-Wire Wire Line
-	-2800 -5900 -3350 -5900
-Wire Wire Line
-	-2800 -5800 -3350 -5800
-Wire Bus Line
-	-3350 -6700 -2800 -6700
-Text Label -3350 -6700 0    50   ~ 0
-IBUS[0..15]
-Text Label -3350 -6600 0    50   ~ 0
-~RESET
-Text Label -3350 -6500 0    50   ~ 0
-CLK1
-Text Label -3350 -6400 0    50   ~ 0
-CLK2
-Text Label -3350 -6300 0    50   ~ 0
-CLK3
-Text Label -3350 -6200 0    50   ~ 0
-CLK4
-Text Label -3350 -5900 0    50   ~ 0
-WSTB
-Text Label -3350 -5800 0    50   ~ 0
-T34
-Wire Wire Line
-	-2800 -5500 -3350 -5500
-Text Label -3350 -5500 0    50   ~ 0
-~IRQS
-Text Label -3350 -5300 0    50   ~ 0
-~RSTHOLD
-Text Label -3350 -5200 0    50   ~ 0
-~SYSDEV
-Text Label -3350 -5100 0    50   ~ 0
-~IODEV1xx
-Text Label -3350 -5000 0    50   ~ 0
-~IODEV2xx
-Text Label -3350 -4900 0    50   ~ 0
-~IODEV3xx
-Text Label -3350 -4800 0    50   ~ 0
-~MEM
-Text Label -3350 -4700 0    50   ~ 0
-~IO
-Text Label -3350 -4300 0    50   ~ 0
-~WS
-Text Label -3350 -4100 0    50   ~ 0
-~ENDEXT
-Text Label -3350 -4000 0    50   ~ 0
-~SKIPEXT
-Text Label -3350 -3900 0    50   ~ 0
-~HALT
-Text Label -3350 -3800 0    50   ~ 0
-ACTION[0..3]
-Text Label -3350 -3700 0    50   ~ 0
-WADDR[0..4]
-Text Label -3350 -3600 0    50   ~ 0
-RADDR[0..4]
-Wire Bus Line
-	-2800 -3800 -3350 -3800
-Wire Bus Line
-	-2800 -3700 -3350 -3700
-Wire Bus Line
-	-2800 -3600 -3350 -3600
-Wire Bus Line
-	-3350 -3500 -2800 -3500
-Text Label -3350 -3500 0    50   ~ 0
-RSVD[1..4]
 $Comp
 L power:+5V #PWR?
 U 1 1 5DD552A0
@@ -1241,77 +1107,6 @@ F 3 "~" H -750 -2050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	-750 -1950 -750 -1850
-Text Notes -2850 -7100 0    100  ~ 20
-Edge Connector
-Wire Wire Line
-	-1650 -5700 -1050 -5700
-NoConn ~ -3350 -5200
-NoConn ~ -3350 -5100
-NoConn ~ -3350 -5000
-NoConn ~ -3350 -4900
-NoConn ~ -3350 -3500
-Wire Wire Line
-	-1650 -6700 -1300 -6700
-Wire Wire Line
-	-1650 -6600 -1300 -6600
-Wire Wire Line
-	-1650 -6500 -1300 -6500
-Wire Wire Line
-	-1650 -6400 -1300 -6400
-Wire Wire Line
-	-1650 -6300 -1300 -6300
-Wire Wire Line
-	-1650 -6200 -1300 -6200
-Wire Wire Line
-	-1650 -6100 -1300 -6100
-Text Label -1300 -6700 2    50   ~ 0
-IR0
-Text Label -1300 -6600 2    50   ~ 0
-IR1
-Text Label -1300 -6500 2    50   ~ 0
-IR2
-Text Label -1300 -6400 2    50   ~ 0
-IR3
-Text Label -1300 -6300 2    50   ~ 0
-IR4
-Text Label -1300 -6200 2    50   ~ 0
-IR5
-Text Label -1300 -6100 2    50   ~ 0
-IR6
-Entry Wire Line
-	-1300 -6100 -1200 -6200
-Entry Wire Line
-	-1300 -6200 -1200 -6300
-Entry Wire Line
-	-1300 -6300 -1200 -6400
-Entry Wire Line
-	-1300 -6400 -1200 -6500
-Entry Wire Line
-	-1300 -6500 -1200 -6600
-Entry Wire Line
-	-1300 -6600 -1200 -6700
-Entry Wire Line
-	-1300 -6700 -1200 -6800
-Entry Bus Bus
-	-1200 -6850 -1100 -6950
-Wire Bus Line
-	-1100 -6950 -800 -6950
-Text Label -800 -6950 2    50   ~ 0
-IR[0..6]
-Text Label -1050 -5700 2    50   ~ 0
-~WRITE-FL
-Text Label -1050 -5900 2    50   ~ 0
-FL
-Text Label -1050 -5800 2    50   ~ 0
-FV
-Text Notes -1000 -5900 0    50   ~ 0
-← ALU
-Text Notes -1000 -6700 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -5700 0    50   ~ 0
-→ ALU
-Wire Wire Line
-	-1650 -2800 -1050 -2800
 Wire Wire Line
 	-10250 -4450 -9650 -4450
 Text Label -10250 -4450 0    50   ~ 0
@@ -1330,90 +1125,10 @@ F5 "~FPIRH" I R -5800 -5750 50
 F6 "FPD[0..7]" T R -5800 -5650 50 
 F7 "~WRITE-IR" I L -6950 -6050 50 
 $EndSheet
-Wire Wire Line
-	-5800 -4850 -5200 -4850
-Wire Wire Line
-	-5800 -4750 -5200 -4750
-Text Label -5200 -4850 2    50   ~ 0
-IDX0
-Text Label -5200 -4750 2    50   ~ 0
-IDX1
 Wire Bus Line
 	-7550 -4600 -6950 -4600
 Text Label -7550 -4600 0    50   ~ 0
 IR[0..11]
-$Sheet
-S -9650 -2100 1150 1300
-U 5D69F3FD
-F0 "Flag Unit" 50
-F1 "flag_unit.sch" 50
-F2 "FPD[0..7]" T R -8500 -950 50 
-F3 "IBUS[8..15]" T L -9650 -1650 50 
-F4 "~FPFLAGS" I L -9650 -950 50 
-F5 "WADDR[0..4]" I L -9650 -1850 50 
-F6 "RADDR[0..4]" I L -9650 -1750 50 
-F7 "FI" I L -9650 -1500 50 
-F8 "FV" I L -9650 -1400 50 
-F9 "FL" I L -9650 -1300 50 
-F10 "FZ" I L -9650 -1200 50 
-F11 "FN" I L -9650 -1100 50 
-F12 "CLK4" I L -9650 -1950 50 
-F13 "~READ-AGL" O R -8500 -1450 50 
-F14 "~WRITE-IR" O R -8500 -1350 50 
-F15 "~READ-FL" I R -8500 -1950 50 
-$EndSheet
-Wire Bus Line
-	-9650 -1850 -10250 -1850
-Text Label -10250 -1850 0    50   ~ 0
-WADDR[0..4]
-Wire Bus Line
-	-9650 -1750 -10250 -1750
-Text Label -10250 -1750 0    50   ~ 0
-RADDR[4..0]
-Wire Wire Line
-	-9650 -1950 -10250 -1950
-Text Label -10250 -1950 0    50   ~ 0
-CLK4
-Text Notes -1000 -6600 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -6500 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -6400 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -6300 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -6200 0    50   ~ 0
-→ BUS.MBU
-Text Notes -1000 -5800 0    50   ~ 0
-← ALU
-Wire Wire Line
-	-1650 -3100 -1050 -3100
-Wire Wire Line
-	-1650 -3000 -1050 -3000
-Wire Wire Line
-	-1650 -3500 -1050 -3500
-Wire Wire Line
-	-1650 -3400 -1050 -3400
-Wire Wire Line
-	-1650 -3300 -1050 -3300
-Wire Wire Line
-	-1650 -3200 -1050 -3200
-Wire Wire Line
-	-1650 -3600 -1050 -3600
-Text Label -1050 -3600 2    50   ~ 0
-COND0
-Text Label -1050 -3500 2    50   ~ 0
-COND1
-Text Label -1050 -3400 2    50   ~ 0
-COND2
-Text Label -1050 -3300 2    50   ~ 0
-COND3
-Text Label -1050 -3200 2    50   ~ 0
-COND4
-Text Label -1050 -3100 2    50   ~ 0
-CEXT8
-Text Label -1050 -3000 2    50   ~ 0
-CEXT9
 Wire Wire Line
 	-9650 -1500 -10250 -1500
 Wire Wire Line
@@ -1438,26 +1153,6 @@ Text Label -10250 -1200 0    50   ~ 0
 FZ
 Text Label -10250 -1100 0    50   ~ 0
 FN
-Text Label -1050 -5600 2    50   ~ 0
-FZ
-Text Label -1050 -5500 2    50   ~ 0
-FN
-Text Notes -1000 -5600 0    50   ~ 0
-← REG
-Text Notes -1000 -5500 0    50   ~ 0
-← REG
-Text Notes -1000 -5400 0    50   ~ 0
-← REG
-Text Notes -1000 -5300 0    50   ~ 0
-← REG
-Text Notes -1000 -5200 0    50   ~ 0
-← REG
-Text Notes -1000 -5100 0    50   ~ 0
-← REG
-Text Notes -1000 -5000 0    50   ~ 0
-← REG
-Text Notes -1000 -4900 0    50   ~ 0
-← REG
 Wire Wire Line
 	-8500 -5900 -8050 -5900
 Text Label -5250 5750 0    50   ~ 0
@@ -1478,16 +1173,6 @@ Wire Bus Line
 	-8500 -4550 -7900 -4550
 Text Label -5250 5650 0    50   ~ 0
 FPFETCH
-Text Notes -1000 -4800 0    50   ~ 0
-← DFP
-Text Notes -1000 -4700 0    50   ~ 0
-← DFP
-Text Notes -1000 -4600 0    50   ~ 0
-← DFP
-Text Notes -1000 -3700 0    50   ~ 0
-← PSU (backplane)
-Text Notes -1000 -4500 0    50   ~ 0
-→ DFP
 Wire Wire Line
 	-8500 -3850 -7900 -3850
 Wire Wire Line
@@ -1510,8 +1195,6 @@ Text Notes -10350 -7300 0    100  ~ 20
 The Control Unit Board
 Text Notes -10350 -6500 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Text Notes -1000 -3600 0    50   ~ 0
-Future expansion
 Text Label -5250 4750 0    50   ~ 0
 ~FPµC2
 Text Label -5250 4650 0    50   ~ 0
@@ -1520,26 +1203,10 @@ Text Label -5250 4550 0    50   ~ 0
 ~FPµC0
 Text Label -5250 4450 0    50   ~ 0
 ~FPµA0
-Text Notes -1000 -4400 0    50   ~ 0
-← DFP
-Text Notes -1000 -4300 0    50   ~ 0
-← DFP
-Text Notes -1000 -4200 0    50   ~ 0
-← DFP
-Text Notes -1000 -4100 0    50   ~ 0
-← DFP
 Text Label -5250 4350 0    50   ~ 0
 ~FPIRL
 Text Label -5250 4850 0    50   ~ 0
 ~FPIRH
-Text Notes -1000 -4000 0    50   ~ 0
-← DFP
-Text Notes -1000 -3900 0    50   ~ 0
-← DFP
-Wire Wire Line
-	-8500 -1450 -7900 -1450
-Text Label -7900 -1450 2    50   ~ 0
-~READ-AGL
 Wire Wire Line
 	-6950 -4950 -7550 -4950
 Text Label -7550 -4950 0    50   ~ 0
@@ -1548,28 +1215,14 @@ Text Label -7550 -6050 0    50   ~ 0
 ~WRITE-IR
 Wire Wire Line
 	-6950 -6050 -7550 -6050
-Wire Wire Line
-	-8500 -1350 -7900 -1350
-Text Label -7900 -1350 2    50   ~ 0
-~WRITE-IR
 Text Label -10250 -6050 0    50   ~ 0
 ~RESET
-Text Label -1050 -6000 2    50   ~ 0
-~WEN
-Text Notes -1000 -6000 0    50   ~ 0
-→ BUS
-Text Notes -1000 -3800 0    50   ~ 0
-← DFP
 Text Label -5250 4950 0    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
 	-8500 -5350 -8050 -5350
 Text Label -8050 -5350 2    50   ~ 0
 16MHz
-Text Notes -1000 -6100 0    50   ~ 0
-→ BUS.MBU
-Text Label -5200 -4550 2    50   ~ 0
-~IDXEN
 $Sheet
 S -6950 -5100 1150 750 
 U 5F3EA987
@@ -1579,19 +1232,12 @@ F2 "IBUS[0..15]" T R -5800 -4950 50
 F3 "IR[0..11]" I L -6950 -4600 50 
 F4 "PC[10..15]" I L -6950 -4500 50 
 F5 "~END" I L -6950 -4850 50 
-F6 "IDX0" O R -5800 -4850 50 
-F7 "IDX1" O R -5800 -4750 50 
-F8 "~READ-AGL" I L -6950 -4950 50 
-F9 "~IDXEN" O R -5800 -4550 50 
+F6 "~READ-AGL" I L -6950 -4950 50 
 $EndSheet
-Wire Wire Line
-	-5800 -4550 -4900 -4550
 Wire Wire Line
 	-9650 -4050 -10250 -4050
 Wire Wire Line
 	-10250 -3950 -9650 -3950
-Wire Wire Line
-	-10250 -3850 -9650 -3850
 Wire Wire Line
 	-9650 -4150 -10250 -4150
 Text Label -10250 -4350 0    50   ~ 0
@@ -1624,16 +1270,12 @@ Text Label -7550 -1350 0    50   ~ 0
 ~WRITE-FL
 Text Label -7550 -1450 0    50   ~ 0
 IBUS15
-Text Label -7550 -1750 0    50   ~ 0
-CLK4
 Wire Wire Line
 	-6950 -1100 -7550 -1100
 Wire Wire Line
 	-6950 -1350 -7550 -1350
 Wire Wire Line
 	-6950 -1450 -7550 -1450
-Wire Wire Line
-	-6950 -1750 -7550 -1750
 Wire Wire Line
 	-6950 -1950 -7550 -1950
 Wire Bus Line
@@ -1688,10 +1330,6 @@ F9 "COND[0..4]" I L -6950 -3650 50
 F10 "~RESET" I L -6950 -3850 50 
 F11 "IR[0..6]" I L -6950 -3550 50 
 $EndSheet
-Wire Wire Line
-	-2800 -4200 -3350 -4200
-Text Label -3350 -4200 0    50   ~ 0
-~WAITING
 $Sheet
 S -9650 -4800 1150 2450
 U 5DEAC282
@@ -1699,42 +1337,41 @@ F0 "Microprogram Sequencer" 50
 F1 "cft_microcode.sch" 50
 F2 "~ENDEXT" I L -9650 -3950 50 
 F3 "~RSTHOLD" I L -9650 -4550 50 
-F4 "~WS" I L -9650 -3850 50 
-F5 "~HALT" I L -9650 -4050 50 
-F6 "CLK4" I L -9650 -4150 50 
-F7 "~RESET" I L -9650 -4650 50 
-F8 "RADDR[0..4]" O R -8500 -4650 50 
-F9 "WADDR[0..4]" O R -8500 -4550 50 
-F10 "COND[0..4]" O R -8500 -4450 50 
-F11 "ACTION[0..3]" O R -8500 -4350 50 
-F12 "~MEM" O R -8500 -4250 50 
-F13 "~IO" O R -8500 -4150 50 
-F14 "~REN" O R -8500 -4050 50 
-F15 "~WEN" O R -8500 -3950 50 
-F16 "~END" O R -8500 -3850 50 
-F17 "~IRQSµC" I L -9650 -2550 50 
-F18 "~COND" I L -9650 -3550 50 
-F19 "FPD[0..7]" T R -8500 -2650 50 
-F20 "~FPµA0" I R -8500 -3050 50 
-F21 "~FPµC0" I R -8500 -2950 50 
-F22 "~FPµC1" I R -8500 -2850 50 
-F23 "~FPµC2" I R -8500 -2750 50 
-F24 "FPFETCH" O R -8500 -3150 50 
-F25 "IDX0" I L -9650 -3750 50 
-F26 "IDX1" I L -9650 -3650 50 
-F27 "IR7" I L -9650 -3450 50 
-F28 "IR8" I L -9650 -3350 50 
-F29 "IR9" I L -9650 -3250 50 
-F30 "IR10" I L -9650 -3150 50 
-F31 "IR11" I L -9650 -3050 50 
-F32 "IR12" I L -9650 -2950 50 
-F33 "IR13" I L -9650 -2850 50 
-F34 "IR14" I L -9650 -2750 50 
-F35 "IR15" I L -9650 -2650 50 
-F36 "CLK1" I L -9650 -4450 50 
-F37 "CLK2" I L -9650 -4350 50 
-F38 "~WAITING" I L -9650 -2450 50 
-F39 "CLK3" I L -9650 -4250 50 
+F4 "~HALT" I L -9650 -4050 50 
+F5 "CLK4" I L -9650 -4150 50 
+F6 "~RESET" I L -9650 -4650 50 
+F7 "RADDR[0..4]" O R -8500 -4650 50 
+F8 "WADDR[0..4]" O R -8500 -4550 50 
+F9 "COND[0..4]" O R -8500 -4450 50 
+F10 "ACTION[0..3]" O R -8500 -4350 50 
+F11 "~MEM" O R -8500 -4250 50 
+F12 "~IO" O R -8500 -4150 50 
+F13 "~REN" O R -8500 -4050 50 
+F14 "~WEN" O R -8500 -3950 50 
+F15 "~END" O R -8500 -3850 50 
+F16 "~IRQSµC" I L -9650 -2550 50 
+F17 "~COND" I L -9650 -3550 50 
+F18 "FPD[0..7]" T R -8500 -2650 50 
+F19 "~FPµA0" I R -8500 -3050 50 
+F20 "~FPµC0" I R -8500 -2950 50 
+F21 "~FPµC1" I R -8500 -2850 50 
+F22 "~FPµC2" I R -8500 -2750 50 
+F23 "FPFETCH" O R -8500 -3150 50 
+F24 "IDX0" I L -9650 -3750 50 
+F25 "IDX1" I L -9650 -3650 50 
+F26 "IR7" I L -9650 -3450 50 
+F27 "IR8" I L -9650 -3350 50 
+F28 "IR9" I L -9650 -3250 50 
+F29 "IR10" I L -9650 -3150 50 
+F30 "IR11" I L -9650 -3050 50 
+F31 "IR12" I L -9650 -2950 50 
+F32 "IR13" I L -9650 -2850 50 
+F33 "IR14" I L -9650 -2750 50 
+F34 "IR15" I L -9650 -2650 50 
+F35 "CLK1" I L -9650 -4450 50 
+F36 "CLK2" I L -9650 -4350 50 
+F37 "~WAITING" I L -9650 -2450 50 
+F38 "CLK3" I L -9650 -4250 50 
 $EndSheet
 Wire Wire Line
 	-9650 -3750 -10250 -3750
@@ -1816,103 +1453,6 @@ Text Label -5200 -3850 2    50   ~ 0
 ~COND
 Text Label -10150 -2450 0    50   ~ 0
 ~WAITING
-NoConn ~ -1050 -2800
-Text Notes -1400 -2500 0    50   ~ 0
-Pull-downs above are for testing\nCTL board without other boards.
-$Comp
-L power:GND #PWR0102
-U 1 1 60407157
-P -100 -3750
-F 0 "#PWR0102" H -100 -4000 50  0001 C CNN
-F 1 "GND" H -95 -3923 50  0000 C CNN
-F 2 "" H -100 -3750 50  0001 C CNN
-F 3 "" H -100 -3750 50  0001 C CNN
-	1    -100 -3750
-	-1   0    0    -1  
-$EndComp
-Connection ~ -100 -5500
-Wire Wire Line
-	-200 -5500 -100 -5500
-Wire Wire Line
-	-100 -5600 -100 -5500
-Connection ~ -100 -5600
-Wire Wire Line
-	-200 -5600 -100 -5600
-Wire Wire Line
-	-100 -5800 -100 -5600
-Connection ~ -100 -5800
-Wire Wire Line
-	-200 -5800 -100 -5800
-Wire Wire Line
-	-100 -5900 -100 -5800
-Wire Wire Line
-	-200 -5900 -100 -5900
-$Comp
-L Device:R_Small R104
-U 1 1 60196662
-P -300 -5500
-F 0 "R104" V -350 -5350 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5650 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5500 50  0001 C CNN
-F 3 "~" H -300 -5500 50  0001 C CNN
-	1    -300 -5500
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R103
-U 1 1 6019665C
-P -300 -5600
-F 0 "R103" V -350 -5450 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5750 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5600 50  0001 C CNN
-F 3 "~" H -300 -5600 50  0001 C CNN
-	1    -300 -5600
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R102
-U 1 1 60185C13
-P -300 -5800
-F 0 "R102" V -350 -5650 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -5950 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5800 50  0001 C CNN
-F 3 "~" H -300 -5800 50  0001 C CNN
-	1    -300 -5800
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R101
-U 1 1 6018580D
-P -300 -5900
-F 0 "R101" V -350 -5750 50  0000 C CNN
-F 1 "4.7kΩ" V -400 -6050 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -300 -5900 50  0001 C CNN
-F 3 "~" H -300 -5900 50  0001 C CNN
-	1    -300 -5900
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	-1650 -5800 -400 -5800
-Wire Wire Line
-	-1650 -5900 -400 -5900
-Wire Wire Line
-	-1650 -5600 -400 -5600
-Wire Wire Line
-	-1650 -5500 -400 -5500
-Wire Wire Line
-	-1650 -6000 -1050 -6000
-Text Notes -1000 -3500 0    50   ~ 0
-Future expansion
-Text Notes -1000 -3400 0    50   ~ 0
-Future expansion
-Text Notes -1000 -3300 0    50   ~ 0
-Future expansion
-Text Notes -1000 -3200 0    50   ~ 0
-Future expansion
-Text Notes -1000 -3100 0    50   ~ 0
-Future expansion
-Text Notes -1000 -3000 0    50   ~ 0
-Future expansion
 Wire Bus Line
 	11000 -5850 10150 -5850
 Text Label 10150 -5850 0    50   ~ 0
@@ -2249,34 +1789,10 @@ Text Label -5200 -1350 2    50   ~ 0
 ~DECDR
 Text Label -5200 -1750 2    50   ~ 0
 ~IR-IDX
-$Sheet
-S -6950 -2050 1150 1050
-U 5F67D4B5
-F0 "Interrupt State Machine" 50
-F1 "cft_int_fsm.sch" 50
-F2 "~IRQ" I L -6950 -1100 50 
-F3 "~RESET" I L -6950 -1950 50 
-F4 "FI" O R -5800 -1950 50 
-F5 "~IRQS" O R -5800 -1200 50 
-F6 "~END" I L -6950 -1250 50 
-F7 "CLK4" I L -6950 -1750 50 
-F8 "~IRQSµC" O R -5800 -1100 50 
-F9 "IBUS15" I L -6950 -1450 50 
-F10 "~WRITE-FL" I L -6950 -1350 50 
-F11 "ACTION[0..3]" I L -6950 -1650 50 
-F12 "~IR-IDX" O R -5800 -1750 50 
-F13 "~ACTION-INCPC" O R -5800 -1550 50 
-F14 "~ACTION-DECDR" O R -5800 -1350 50 
-F15 "~ACTION-INCDR" O R -5800 -1450 50 
-F16 "CLK3" I L -6950 -1850 50 
-F17 "IDXEN" I R -5800 -1850 50 
-$EndSheet
 Text Label -5200 -1850 2    50   ~ 0
 ~IDXEN
 Wire Wire Line
-	-5800 -1850 -4900 -1850
-Wire Wire Line
-	-4900 -4550 -4900 -1850
+	-5800 -1850 -5200 -1850
 Wire Wire Line
 	-5800 -1750 -5200 -1750
 $Comp
@@ -2293,17 +1809,6 @@ F 5 "ctl-raddr-decode.jed" H -3350 100 50  0000 C CNN "Image Filename"
 	1    0    0    -1  
 $EndComp
 NoConn ~ -2900 2500
-$Comp
-L alexios:CFT-2021-Peripheral-Bus P2
-U 1 1 60987323
-P -2050 3750
-F 0 "P2" H -2050 3917 50  0000 C CNN
-F 1 "CFT-2021-Peripheral-Bus" H -2050 3826 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H -2175 2875 50  0001 C CNN
-F 3 "" H -2175 2875 50  0001 C CNN
-	1    -2050 3750
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 2 1 609EF5BD
@@ -2380,8 +1885,6 @@ Text Label -7350 4250 0    50   ~ 0
 CLK3
 Text Label -7350 4150 0    50   ~ 0
 CLK2
-Text Label -7350 4050 0    50   ~ 0
-CLK1
 Wire Wire Line
 	-5700 6750 -5700 6850
 Wire Wire Line
@@ -2452,8 +1955,6 @@ Text Label -5450 4250 2    50   ~ 0
 ~SKIPEXT
 Text Label -5450 4150 2    50   ~ 0
 ~ENDEXT
-Wire Wire Line
-	-7350 4050 -7000 4050
 Wire Wire Line
 	-7350 4150 -7000 4150
 Wire Wire Line
@@ -2557,10 +2058,6 @@ Wire Wire Line
 Wire Wire Line
 	-5250 4050 -4750 4050
 Wire Wire Line
-	-5250 3950 -4750 3950
-Wire Wire Line
-	-5250 3850 -4750 3850
-Wire Wire Line
 	-5250 5350 -4750 5350
 Wire Wire Line
 	-5250 5250 -4750 5250
@@ -2589,8 +2086,6 @@ Wire Wire Line
 Text Label -5450 3850 2    50   ~ 0
 16MHz
 NoConn ~ -5800 6650
-Wire Wire Line
-	-5250 4350 -4750 4350
 Text Label -5250 5050 0    50   ~ 0
 ~FPAEXT
 Text Label -10250 -4250 0    50   ~ 0
@@ -2714,8 +2209,6 @@ F 3 "" H 7050 -3200 50  0001 C CNN
 	1    7050 -3200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	-100 -5500 -100 -3750
 NoConn ~ -2900 2200
 NoConn ~ -2900 2300
 NoConn ~ -2900 2400
@@ -2726,11 +2219,11 @@ L power:+5V #PWR?
 U 1 1 610E4076
 P 8800 -1200
 AR Path="/5F67D4B5/610E4076" Ref="#PWR?"  Part="1" 
-AR Path="/610E4076" Ref="#PWR?"  Part="1" 
+AR Path="/610E4076" Ref="#PWR0182"  Part="1" 
 AR Path="/5D34E810/610E4076" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/610E4076" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/610E4076" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8800 -1350 50  0001 C CNN
+F 0 "#PWR0182" H 8800 -1350 50  0001 C CNN
 F 1 "+5V" H 8742 -1163 50  0000 R CNN
 F 2 "" H 8800 -1200 50  0001 C CNN
 F 3 "" H 8800 -1200 50  0001 C CNN
@@ -2742,11 +2235,11 @@ L power:GND #PWR?
 U 1 1 610E407C
 P 8800 -800
 AR Path="/5F67D4B5/610E407C" Ref="#PWR?"  Part="1" 
-AR Path="/610E407C" Ref="#PWR?"  Part="1" 
+AR Path="/610E407C" Ref="#PWR0183"  Part="1" 
 AR Path="/5D34E810/610E407C" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/610E407C" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/610E407C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8800 -1050 50  0001 C CNN
+F 0 "#PWR0183" H 8800 -1050 50  0001 C CNN
 F 1 "GND" H 8722 -837 50  0000 R CNN
 F 2 "" H 8800 -800 50  0001 C CNN
 F 3 "" H 8800 -800 50  0001 C CNN
@@ -2776,11 +2269,11 @@ L power:+5V #PWR?
 U 1 1 610E408A
 P 8350 -1200
 AR Path="/5F67D4B5/610E408A" Ref="#PWR?"  Part="1" 
-AR Path="/610E408A" Ref="#PWR?"  Part="1" 
+AR Path="/610E408A" Ref="#PWR0184"  Part="1" 
 AR Path="/5D34E810/610E408A" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/610E408A" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/610E408A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8350 -1350 50  0001 C CNN
+F 0 "#PWR0184" H 8350 -1350 50  0001 C CNN
 F 1 "+5V" H 8292 -1163 50  0000 R CNN
 F 2 "" H 8350 -1200 50  0001 C CNN
 F 3 "" H 8350 -1200 50  0001 C CNN
@@ -2792,11 +2285,11 @@ L power:GND #PWR?
 U 1 1 610E4090
 P 8350 -800
 AR Path="/5F67D4B5/610E4090" Ref="#PWR?"  Part="1" 
-AR Path="/610E4090" Ref="#PWR?"  Part="1" 
+AR Path="/610E4090" Ref="#PWR0185"  Part="1" 
 AR Path="/5D34E810/610E4090" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/610E4090" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/610E4090" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8350 -1050 50  0001 C CNN
+F 0 "#PWR0185" H 8350 -1050 50  0001 C CNN
 F 1 "GND" H 8272 -837 50  0000 R CNN
 F 2 "" H 8350 -800 50  0001 C CNN
 F 3 "" H 8350 -800 50  0001 C CNN
@@ -2821,8 +2314,130 @@ F 3 "~" H 8350 -1000 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8350 -900 8350 -800
-Wire Bus Line
-	-1200 -6850 -1200 -6200
+Text Label -7550 -1750 0    50   ~ 0
+CLK4
+Wire Wire Line
+	-6950 -1750 -7550 -1750
+$Sheet
+S -6950 -2050 1150 1050
+U 5F67D4B5
+F0 "Interrupt State Machine" 50
+F1 "cft_int_fsm.sch" 50
+F2 "~IRQ" I L -6950 -1100 50 
+F3 "~RESET" I L -6950 -1950 50 
+F4 "FI" O R -5800 -1950 50 
+F5 "~IRQS" O R -5800 -1200 50 
+F6 "~END" I L -6950 -1250 50 
+F7 "CLK4" I L -6950 -1750 50 
+F8 "~IRQSµC" O R -5800 -1100 50 
+F9 "IBUS15" I L -6950 -1450 50 
+F10 "~WRITE-FL" I L -6950 -1350 50 
+F11 "ACTION[0..3]" I L -6950 -1650 50 
+F12 "~IR-IDX" O R -5800 -1750 50 
+F13 "~ACTION-INCPC" O R -5800 -1550 50 
+F14 "~ACTION-DECDR" O R -5800 -1350 50 
+F15 "~ACTION-INCDR" O R -5800 -1450 50 
+F16 "CLK3" I L -6950 -1850 50 
+F17 "IDXEN" I R -5800 -1850 50 
+$EndSheet
+$Sheet
+S 14150 -4650 1150 1500
+U 5D46B22D
+F0 "Wait States & Write Strobes" 50
+F1 "cft_ws_busen.sch" 50
+F2 "T34" I L 14150 -4100 50 
+F3 "~RSTHOLD" I L 14150 -4500 50 
+F4 "CLK3" I L 14150 -4200 50 
+F5 "~MEM" I L 14150 -3850 50 
+F6 "~IO" I L 14150 -3750 50 
+F7 "~HALT" I L 14150 -4400 50 
+F8 "~WEN" I L 14150 -3550 50 
+F9 "~WS" I L 14150 -3400 50 
+F10 "~W" T R 15300 -3750 50 
+F11 "IBUS[0..15]" T L 14150 -3300 50 
+F12 "DB[0..15]" T R 15300 -3300 50 
+F13 "~WAITING" O R 15300 -3650 50 
+F14 "CLK1" I L 14150 -4300 50 
+F15 "~ABEN" O R 15300 -4400 50 
+F16 "~REN" I L 14150 -3650 50 
+F17 "~R" T R 15300 -3850 50 
+$EndSheet
+Text Label 13300 -4300 0    50   ~ 0
+CLK2
+$Sheet
+S -9650 -2100 1150 1300
+U 5D69F3FD
+F0 "Flag Unit" 50
+F1 "flag_unit.sch" 50
+F2 "FPD[0..7]" T R -8500 -950 50 
+F3 "IBUS[8..15]" T L -9650 -1650 50 
+F4 "~FPFLAGS" I L -9650 -950 50 
+F5 "FI" I L -9650 -1500 50 
+F6 "FV" I L -9650 -1400 50 
+F7 "FL" I L -9650 -1300 50 
+F8 "FZ" I L -9650 -1200 50 
+F9 "FN" I L -9650 -1100 50 
+F10 "~READ-FL" I R -8500 -1950 50 
+$EndSheet
+NoConn ~ -3000 6850
+NoConn ~ -3000 6950
+NoConn ~ -3000 7050
+NoConn ~ -3000 7150
+NoConn ~ -3000 7250
+NoConn ~ -3000 7350
+NoConn ~ -3000 7450
+NoConn ~ -3000 7550
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 61115B2C
+P -7100 3850
+F 0 "#FLG0101" H -7100 3925 50  0001 C CNN
+F 1 "PWR_FLAG" V -7100 3977 50  0000 L CNN
+F 2 "" H -7100 3850 50  0001 C CNN
+F 3 "~" H -7100 3850 50  0001 C CNN
+	1    -7100 3850
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	-7100 3850 -7050 3850
+Connection ~ -7050 3850
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 61150065
+P -5650 6750
+F 0 "#FLG0102" H -5650 6825 50  0001 C CNN
+F 1 "PWR_FLAG" V -5650 6878 50  0000 L CNN
+F 2 "" H -5650 6750 50  0001 C CNN
+F 3 "~" H -5650 6750 50  0001 C CNN
+	1    -5650 6750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-5700 6750 -5650 6750
+Connection ~ -5700 6750
+Wire Wire Line
+	-3550 4350 -3200 4350
+Wire Wire Line
+	-5250 4350 -4750 4350
+Wire Wire Line
+	-3000 4350 -2650 4350
+$Comp
+L alexios:CFT-2021-Peripheral-Bus P2
+U 1 1 60987323
+P -2050 3750
+F 0 "P2" H -2050 3917 50  0000 C CNN
+F 1 "CFT-2021-Peripheral-Bus" H -2050 3826 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H -2175 2875 50  0001 C CNN
+F 3 "" H -2175 2875 50  0001 C CNN
+	1    -2050 3750
+	1    0    0    -1  
+$EndComp
+Text Label -7350 4050 0    50   ~ 0
+CLK1
+Wire Wire Line
+	-7350 4050 -7000 4050
+NoConn ~ -4750 3850
+NoConn ~ -4750 3950
 Wire Bus Line
 	-10350 -3350 -10350 -2550
 $EndSCHEMATC

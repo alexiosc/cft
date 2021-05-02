@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 15 17
+Sheet 13 17
 Title "Microprogram Counter"
 Date ""
 Rev "2023"
@@ -64,10 +64,6 @@ F 3 "" H 7600 4350 50  0001 C CNN
 $EndComp
 Text Label 6750 5000 0    50   ~ 0
 ~RSTHOLD
-Text Label 3450 4700 2    50   ~ 0
-~HALT
-Text Label 3450 4800 2    50   ~ 0
-CLK4
 NoConn ~ 8650 4500
 $Comp
 L alexios:74HC161 U?
@@ -148,16 +144,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 8450 6250 50  0001 C CNN
 	2    8150 6000
 	1    0    0    -1  
 $EndComp
-Text Label 3450 4600 2    50   ~ 0
-~µPC-INH
-Wire Wire Line
-	3550 3650 1850 3650
-Wire Wire Line
-	3550 3750 1850 3750
-Text Label 3450 3750 2    50   ~ 0
-~END
-Text Label 3450 3650 2    50   ~ 0
-~ENDEXT
 Text Notes 5650 2850 0    50   ~ 0
 ~WAITING~\n\n   X\n   0\n   1\n   1\n   1
 Wire Notes Line width 12 style solid
@@ -178,88 +164,53 @@ Text Notes 6200 2850 0    50   ~ 0
 ~ENDEXT~\n\n   X\n   X\n   X\n   0\n   1
 Text Notes 5400 2850 0    50   ~ 0
 CLK4\n\n   1\n   0\n   0\n   0\n   0
-Wire Wire Line
-	3500 3450 3550 3450
-$Comp
-L power:GND #PWR?
-U 1 1 5F6F5967
-P 3500 3450
-AR Path="/5DEAC282/5F6F5967" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5F643CAF/5F6F5967" Ref="#PWR01904"  Part="1" 
-F 0 "#PWR01904" H 3500 3200 50  0001 C CNN
-F 1 "GND" V 3500 3300 50  0000 R CNN
-F 2 "" H 3500 3450 50  0001 C CNN
-F 3 "" H 3500 3450 50  0001 C CNN
-	1    3500 3450
-	0    1    1    0   
-$EndComp
 Text Notes 5350 3600 0    50   ~ 0
 Use an HC family mux configured as a 4-variable\nfunction generator. The use of an HC IC, and\nfeeding CLK4 to the mux gate with a pull-up makes\nthe signal a little slower. Hopefully slow enough\nthat it satisfies the µPC counter's hold requirements\nfor its ~PE~ input.
-Wire Wire Line
-	1850 4050 2400 4050
-Text HLabel 1850 4050 0    50   Input ~ 0
-CLK4
-Text HLabel -3500 3250 0    50   Input ~ 0
+Text HLabel 2100 4650 0    50   Input ~ 0
 ~ENDEXT
-Text HLabel -3500 2650 0    50   Input ~ 0
+Text HLabel 2100 4050 0    50   Input ~ 0
 ~END
-Text Label 3450 4050 2    50   ~ 0
-CLK4
-Wire Wire Line
-	2500 4600 2500 3850
-Connection ~ 2500 3850
-Wire Wire Line
-	2500 3850 3550 3850
-Wire Wire Line
-	2400 4800 2400 4050
-Connection ~ 2400 4050
-Wire Wire Line
-	2400 4050 3550 4050
-Text HLabel 1850 4700 0    50   Input ~ 0
+Text HLabel 2100 5200 0    50   Input ~ 0
 ~HALT
-Text HLabel 1850 5000 0    50   Input ~ 0
-~RSTHOLD
-Text Label 3450 5000 2    50   ~ 0
-~RSTHOLD
 $Comp
 L power:+5V #PWR?
 U 1 1 5F7457BB
-P 3550 5500
+P 3300 5850
 AR Path="/5DEAC282/5F7457BB" Ref="#PWR?"  Part="1" 
 AR Path="/5DEAC282/5F643CAF/5F7457BB" Ref="#PWR01906"  Part="1" 
-F 0 "#PWR01906" H 3550 5350 50  0001 C CNN
-F 1 "+5V" H 3565 5673 50  0000 C CNN
-F 2 "" H 3550 5500 50  0001 C CNN
-F 3 "" H 3550 5500 50  0001 C CNN
-	1    3550 5500
+F 0 "#PWR01906" H 3300 5700 50  0001 C CNN
+F 1 "+5V" H 3315 6023 50  0000 C CNN
+F 2 "" H 3300 5850 50  0001 C CNN
+F 3 "" H 3300 5850 50  0001 C CNN
+	1    3300 5850
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F7457C2
-P 3550 5700
+P 3300 6050
 AR Path="/5DEAC282/5F7457C2" Ref="#PWR?"  Part="1" 
 AR Path="/5DEAC282/5F643CAF/5F7457C2" Ref="#PWR01908"  Part="1" 
-F 0 "#PWR01908" H 3550 5450 50  0001 C CNN
-F 1 "GND" H 3555 5527 50  0000 C CNN
-F 2 "" H 3550 5700 50  0001 C CNN
-F 3 "" H 3550 5700 50  0001 C CNN
-	1    3550 5700
+F 0 "#PWR01908" H 3300 5800 50  0001 C CNN
+F 1 "GND" H 3305 5877 50  0000 C CNN
+F 2 "" H 3300 6050 50  0001 C CNN
+F 3 "" H 3300 6050 50  0001 C CNN
+	1    3300 6050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F7457C8
-P 3550 5600
+P 3300 5950
 AR Path="/5CC0D65F/5F7457C8" Ref="C?"  Part="1" 
 AR Path="/5F7457C8" Ref="C?"  Part="1" 
 AR Path="/5DEAC282/5F7457C8" Ref="C?"  Part="1" 
 AR Path="/5DEAC282/5F643CAF/5F7457C8" Ref="C1901"  Part="1" 
-F 0 "C1901" H 3459 5646 50  0000 R CNN
-F 1 "100nF" H 3459 5555 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3550 5600 50  0001 C CNN
-F 3 "~" H 3550 5600 50  0001 C CNN
-	1    3550 5600
+F 0 "C1901" H 3209 5996 50  0000 R CNN
+F 1 "100nF" H 3209 5905 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3300 5950 50  0001 C CNN
+F 3 "~" H 3300 5950 50  0001 C CNN
+	1    3300 5950
 	1    0    0    -1  
 $EndComp
 Text Notes 850  1850 0    50   ~ 0
@@ -268,83 +219,74 @@ Text Notes 850  950  0    100  ~ 20
 Microprogram Counter (µPC)
 Text Notes 6600 2850 0    50   ~ 0
 ~µPCCLR~\n\n  1\n  1\n  0\n  0\n  1
-Text HLabel -3500 3150 0    50   Input ~ 0
+Text HLabel 2100 4550 0    50   Input ~ 0
 ~WAITING
-Text Label 3450 3850 2    50   ~ 0
-~WAITING
-Wire Wire Line
-	2300 3850 2500 3850
-Wire Wire Line
-	1850 3850 2300 3850
-Connection ~ 2300 3850
-Wire Wire Line
-	2300 3300 2300 3850
 $Comp
 L alexios:16V8 U1901
 U 1 1 62250F79
-P -1900 2900
-F 0 "U1901" H -1900 3650 50  0000 C CNN
-F 1 "16V8" H -1900 3550 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H -1900 2900 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1900 2900 50  0001 C CNN
-F 4 "uPCGTE00" V -1900 2900 50  0000 C CNB "Signature"
-F 5 "upc-gate.jed" H -1900 2250 50  0000 C CNN "Image Filename"
-	1    -1900 2900
+P 3700 4300
+F 0 "U1901" H 3700 5050 50  0000 C CNN
+F 1 "16V8" H 3700 4950 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3700 4300 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3700 4300 50  0001 C CNN
+F 4 "uPCGTE00" V 3700 4300 50  0000 C CNB "Signature"
+F 5 "upc-gate.jed" H 3700 3650 50  0000 C CNN "Image Filename"
+	1    3700 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-1200 3050 -1450 3050
+	4400 4450 4150 4450
 Wire Wire Line
-	-1200 2950 -1450 2950
+	4400 4350 4150 4350
 Wire Wire Line
-	-1200 2850 -1450 2850
-Text Label -2700 2450 0    50   ~ 0
+	4400 4250 4150 4250
+Text Label 2900 3850 0    50   ~ 0
 CLK3
-Text Label -2700 2550 0    50   ~ 0
+Text Label 2900 3950 0    50   ~ 0
 ~RESET
-Text Label -2700 3800 0    50   ~ 0
+Text Label 2900 5200 0    50   ~ 0
 ~HALT
-Text Label -2700 3150 0    50   ~ 0
+Text Label 2900 4550 0    50   ~ 0
 ~WAITING
-Text Label -2700 2650 0    50   ~ 0
+Text Label 2900 4050 0    50   ~ 0
 ~END
-Text Label -2700 3250 0    50   ~ 0
+Text Label 2900 4650 0    50   ~ 0
 ~ENDEXT
-Text Label -1200 3050 2    50   ~ 0
+Text Label 4400 4450 2    50   ~ 0
 ~PE
-Text Label -1200 2850 2    50   ~ 0
+Text Label 4400 4250 2    50   ~ 0
 CET
-Text Label -1200 2950 2    50   ~ 0
+Text Label 4400 4350 2    50   ~ 0
 CEP
 Wire Wire Line
-	-3500 2450 -2350 2450
+	2100 3850 3250 3850
 Wire Wire Line
-	-3500 2550 -2350 2550
+	2100 3950 3250 3950
 Wire Wire Line
-	-3500 2650 -2350 2650
+	2100 4050 3250 4050
 Wire Wire Line
-	-3500 3150 -2350 3150
+	2100 4550 3250 4550
 $Comp
 L alexios:16V8 U1901
 U 2 1 6250072D
-P 3900 5600
-F 0 "U1901" H 4080 5646 50  0000 L CNN
-F 1 "16V8" H 4080 5555 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 3900 5600 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3900 5600 50  0001 C CNN
-F 4 "uPCGTE00" V 3900 5600 50  0001 C CNB "Signature"
-F 5 "upc-gate.jed" H 4080 5509 50  0001 L CNN "Image Filename"
-	2    3900 5600
+P 3650 5950
+F 0 "U1901" H 3830 5996 50  0000 L CNN
+F 1 "16V8" H 3830 5905 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3650 5950 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3650 5950 50  0001 C CNN
+F 4 "uPCGTE00" V 3650 5950 50  0001 C CNB "Signature"
+F 5 "upc-gate.jed" H 3830 5859 50  0001 L CNN "Image Filename"
+	2    3650 5950
 	1    0    0    -1  
 $EndComp
-Connection ~ 3550 5700
-Connection ~ 3550 5500
+Connection ~ 3300 6050
+Connection ~ 3300 5850
 Wire Wire Line
-	7650 4800 6750 4800
+	7650 4800 6650 4800
 Text Label 6750 4800 0    50   ~ 0
 CLK4
 Wire Wire Line
-	7650 5000 6750 5000
+	7650 5000 6650 5000
 Wire Wire Line
 	7650 4700 6750 4700
 Wire Wire Line
@@ -360,32 +302,36 @@ CET
 $Comp
 L power:GND #PWR0152
 U 1 1 625430D7
-P -2350 3350
-F 0 "#PWR0152" H -2350 3100 50  0001 C CNN
-F 1 "GND" H -2345 3177 50  0000 C CNN
-F 2 "" H -2350 3350 50  0001 C CNN
-F 3 "" H -2350 3350 50  0001 C CNN
-	1    -2350 3350
+P 3250 4750
+F 0 "#PWR0152" H 3250 4500 50  0001 C CNN
+F 1 "GND" H 3255 4577 50  0000 C CNN
+F 2 "" H 3250 4750 50  0001 C CNN
+F 3 "" H 3250 4750 50  0001 C CNN
+	1    3250 4750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-1400 3800 -1400 3150
+	4200 5200 4200 4550
 Wire Wire Line
-	-1400 3150 -1450 3150
+	4200 4550 4150 4550
 Wire Wire Line
-	-3500 3800 -1400 3800
-Text HLabel -3500 2550 0    50   Input ~ 0
+	2100 5200 4200 5200
+Text HLabel 2100 3950 0    50   Input ~ 0
 ~RESET
-Text HLabel -3500 2450 0    50   Input ~ 0
+Text HLabel 2100 3850 0    50   Input ~ 0
 CLK3
-NoConn ~ -1450 2450
-NoConn ~ -1450 2550
-NoConn ~ -1450 2650
-NoConn ~ -1450 2750
-NoConn ~ -2350 2750
-NoConn ~ -2350 2850
-NoConn ~ -2350 2950
-NoConn ~ -2350 3050
+NoConn ~ 4150 3850
+NoConn ~ 4150 3950
+NoConn ~ 4150 4050
+NoConn ~ 4150 4150
+NoConn ~ 3250 4150
+NoConn ~ 3250 4250
+NoConn ~ 3250 4350
+NoConn ~ 3250 4450
 Wire Wire Line
-	-3500 3250 -2350 3250
+	2100 4650 3250 4650
+Text HLabel 6650 5000 0    50   Input ~ 0
+~RSTHOLD
+Text HLabel 6650 4800 0    50   Input ~ 0
+CLK4
 $EndSCHEMATC

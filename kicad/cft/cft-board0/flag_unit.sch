@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 17
+Sheet 17 17
 Title "Flag Unit"
 Date ""
 Rev "2023"
@@ -109,8 +109,6 @@ Text HLabel 1900 5700 0    50   Input ~ 0
 ~FPFLAGS
 Text Label 7250 5700 0    50   ~ 0
 ~FPFLAGS
-Wire Wire Line
-	7600 5700 2500 5700
 $Comp
 L power:GND #PWR?
 U 1 1 5D676F48
@@ -510,11 +508,6 @@ F 3 "" H 2500 4650 50  0001 C CNN
 	1    2500 4650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2500 4850 2500 5700
-Connection ~ 2500 5700
-Wire Wire Line
-	2500 5700 1900 5700
 $Comp
 L power:GND #PWR?
 U 1 1 609C9CF9
@@ -571,8 +564,15 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 3050 6000 50  0001 C CNN
 	1    3050 6000
 	-1   0    0    1   
 $EndComp
+Wire Wire Line
+	1900 5700 2500 5700
+Wire Wire Line
+	2500 4850 2500 5700
 Wire Bus Line
 	9050 4900 9050 6150
 Wire Bus Line
 	9050 1550 9050 2850
+Connection ~ 2500 5700
+Wire Wire Line
+	2500 5700 7600 5700
 $EndSCHEMATC

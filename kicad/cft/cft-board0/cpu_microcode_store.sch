@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 17
+Sheet 11 17
 Title "Control Store (24×512k ROM)"
 Date ""
 Rev "2023"
@@ -1607,6 +1607,9 @@ Wire Wire Line
 Connection ~ 8550 3650
 Wire Wire Line
 	8550 3650 9150 3650
+Wire Wire Line
+	8950 3400 8950 3450
+NoConn ~ 8950 3450
 Wire Bus Line
 	8000 1900 8000 4050
 Wire Bus Line

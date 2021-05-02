@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 17
+Sheet 12 17
 Title "Microcode Front Panel Buffers"
 Date ""
 Rev "2023"
@@ -868,14 +868,14 @@ F 3 "" H 5850 3900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5850 4100 5850 4200
-Wire Bus Line
-	8400 1900 8400 4600
-Wire Bus Line
-	5250 1900 5250 4600
 Connection ~ 5850 2700
 Wire Wire Line
 	5850 2700 7000 2700
 Connection ~ 5850 4200
 Wire Wire Line
 	5850 4200 7000 4200
+Wire Bus Line
+	8400 1900 8400 4600
+Wire Bus Line
+	5250 1900 5250 4600
 $EndSCHEMATC
