@@ -568,11 +568,11 @@ Wire Wire Line
 	1900 5700 2500 5700
 Wire Wire Line
 	2500 4850 2500 5700
+Connection ~ 2500 5700
+Wire Wire Line
+	2500 5700 7600 5700
 Wire Bus Line
 	9050 4900 9050 6150
 Wire Bus Line
 	9050 1550 9050 2850
-Connection ~ 2500 5700
-Wire Wire Line
-	2500 5700 7600 5700
 $EndSCHEMATC

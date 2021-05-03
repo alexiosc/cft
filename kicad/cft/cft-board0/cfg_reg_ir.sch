@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 17
+Sheet 7 17
 Title "Instruction Register (IR)"
 Date ""
 Rev "2023"
@@ -889,13 +889,13 @@ Wire Wire Line
 	7000 2050 7000 2100
 Wire Wire Line
 	6950 2000 6950 2050
+Connection ~ 6950 2050
+Wire Wire Line
+	6950 2050 7000 2050
 Wire Bus Line
 	6700 3100 6700 6050
 Wire Bus Line
 	8750 3100 8750 5600
 Wire Bus Line
 	4650 2800 4650 5200
-Connection ~ 6950 2050
-Wire Wire Line
-	6950 2050 7000 2050
 $EndSCHEMATC

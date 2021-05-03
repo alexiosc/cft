@@ -1660,12 +1660,17 @@ Wire Wire Line
 	6600 1950 7750 1950
 Wire Wire Line
 	6250 1950 6600 1950
+Wire Wire Line
+	1150 2050 1800 2050
+Wire Wire Line
+	1800 2050 3400 2050
+Connection ~ 1800 2050
+Wire Wire Line
+	1800 1700 1800 2050
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
 	2150 2750 2150 3500
-Wire Bus Line
-	5100 1350 5100 2550
 Wire Bus Line
 	9800 4800 9800 5150
 Wire Bus Line
@@ -1674,11 +1679,6 @@ Wire Bus Line
 	9800 3400 9800 3850
 Wire Bus Line
 	9800 2700 9800 3150
-Wire Wire Line
-	1150 2050 1800 2050
-Wire Wire Line
-	1800 2050 3400 2050
-Connection ~ 1800 2050
-Wire Wire Line
-	1800 1700 1800 2050
+Wire Bus Line
+	5100 1350 5100 2550
 $EndSCHEMATC

@@ -9,7 +9,7 @@ Date ""
 Rev "2023"
 Comp ""
 Comment1 "MBU"
-Comment2 "MBU Revision 3 (SRAM reg file, CTX reg, no longed I/O-mapped)"
+Comment2 "MBU Revision 3 (SRAM reg file, CTX reg, no longer I/O-mapped)"
 Comment3 ""
 Comment4 "mbu.v"
 $EndDescr
@@ -1030,8 +1030,8 @@ F 0 "U602" H 6480 2537 50  0000 L CNN
 F 1 "16V8" H 6480 2446 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 6300 2400 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6300 2400 50  0001 C CNN
-F 4 "mbu-control.jed" H 6480 2355 50  0000 L CNN "Image Filename"
-F 5 "MBUCTL00" H 6480 2264 50  0000 L CNB "Signature"
+F 4 "mbu-control.jed" H 6480 2355 50  0001 L CNN "Image Filename"
+F 5 "MBUCTL00" H 6480 2264 50  0001 L CNB "Signature"
 	2    6300 2400
 	1    0    0    -1  
 $EndComp
