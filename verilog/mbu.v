@@ -191,7 +191,7 @@ module mbu (nrsthold,
    input [2:0] 	ir;
    input 	nir_idx;
    inout 	nfpram_rom;
-   inout [7:0] 	ibus;
+   inout [15:0] ibus;		// Real hardware only uses [7:0].
    
    output [7:0] aext; 
    output 	nwar;
@@ -277,6 +277,12 @@ module mbu (nrsthold,
    buffer_541 buf_mbu_in (.noe1(nwe), .noe2(1'b0), .a(ibus[7:0]), .y(aext));
    //buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(t34), .a(aext), .y(ibus[7:0]));
    buffer_541 buf_mbu_out (.noe1(nibusen), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
+
+   // Verilog only: to ease testing, drive the upper 8 bits of the IBUS here,
+   // too. On real hardware, we have bus hold but that's less predictable.
+   wire [7:0] 	hex54;
+   assign hex54 = 8'h54;
+   buffer_541 buf_mbu_out_hi (.noe1(nibusen), .noe2(1'b0), .a(hex54), .y(ibus[15:8]));
 
 
 

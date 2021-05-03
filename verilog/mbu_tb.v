@@ -343,7 +343,7 @@ module reg_mbu_tb();
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
 	    .nir_idx(nir_idx),
-	    .ibus(ibus_low),
+	    .ibus(ibus),
 	    .aext(aext),
 	    .nwar(nwar),
 	    .nfpram_rom(nfpram_rom_real)

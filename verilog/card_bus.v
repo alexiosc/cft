@@ -181,7 +181,7 @@ module card_bus(
 	    .clk2(clk2), .clk4(clk4), .t34(t34),
 	    .raddr(raddr),
 	    .waddr(waddr),
-	    .ibus(ibus[7:0]),
+	    .ibus(ibus),
 	    .nir_idx(nir_idx),
 	    .ir(ir2_0),
 	    .aext(aext),
