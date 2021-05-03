@@ -1946,4 +1946,8 @@ Wire Bus Line
 	9650 3550 9650 5900
 Wire Bus Line
 	7750 3900 7750 6350
+Text Notes 6400 2050 0    50   ~ 0
+Write pulse
+Text Notes 6400 1100 0    50   ~ 0
+Read pulse
 $EndSCHEMATC

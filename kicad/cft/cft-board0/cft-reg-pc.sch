@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 17
+Sheet 14 17
 Title "Program Counter (PC)"
 Date ""
 Rev "2047"
@@ -1719,6 +1719,9 @@ Wire Wire Line
 	1200 3750 1550 3750
 Wire Wire Line
 	1300 3650 1300 3900
+Connection ~ 1300 3900
+Wire Wire Line
+	1300 3900 1550 3900
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -1729,7 +1732,4 @@ Wire Bus Line
 	6350 750  6350 3200
 Wire Bus Line
 	4100 1150 4100 6950
-Connection ~ 1300 3900
-Wire Wire Line
-	1300 3900 1550 3900
 $EndSCHEMATC
