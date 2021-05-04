@@ -54,12 +54,12 @@ int main(int argc, char **argv)
 					snprintf(buf3, sizeof(buf3), "IR=%03x-", (hx & 0xff80) >> 4);
 					add(buf2, buf3);
 					
-					//if ((hx & 0x80) != 0) add(buf2, "(in_rsvd)");
-					if ((hx & 0x40) == 0) add(buf2, "cond=true");
+					if (hx & 0x80) add(buf2, "(in_rsvd)");
+					if (hx & 0x40) add(buf2, "cond=true");
 					
-					if ((hx & 0x30) == 3) add(buf2, "idx-stack");
-					if ((hx & 0x30) == 2) add(buf2, "idx-adec");
-					if ((hx & 0x30) == 1) add(buf2, "idx-ainc");
+					if ((hx & 0x30) == 0x30) add(buf2, "idx-stack");
+					if ((hx & 0x30) == 0x20) add(buf2, "idx-adec");
+					if ((hx & 0x30) == 0x10) add(buf2, "idx-ainc");
 				}
 			}
 

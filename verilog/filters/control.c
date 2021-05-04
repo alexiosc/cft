@@ -92,9 +92,9 @@ int main(int argc, char **argv)
 
 			if (IS_MEM(hx)) add(buf2, "mem");
 			if (IS_IO(hx)) add(buf2, "io");
-			if (IS_R(hx)) {
+			if (IS_REN(hx)) {
 				strcpy(col, "?green4?");
-				add(buf2, "r");
+				add(buf2, "ren");
 			}
 			if (IS_WEN(hx)) {
 				strcpy(col, "?orange4?");
