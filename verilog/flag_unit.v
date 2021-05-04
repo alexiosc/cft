@@ -61,44 +61,30 @@ module flag_unit (clk4, waddr, raddr,
 
    wire [7:0] 	  wy, ry, ay;
 
-   demux_138 demux_write (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(wy));
-   demux_138 demux_read  (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .y(ry));
+   // Interim solution: duplicate the decoding of the RADDR GAL so as
+   // not to change the test harnesses etc.
+   
+   // demux_138 demux_write (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(wy));
+   // demux_138 demux_read  (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .y(ry));
 
    // Decode the write signals, generate nwrite_fl.
-   wire 	  nwrite_mbp_flags, nwrite_flags;
-   assign nwrite_mbp_flags = wy[5];
-   assign nwrite_flags = wy[6];
-   assign #7 nwrite_fl = (nwrite_mbp_flags & nwrite_flags) | clk4; // Writing only happens during T4
-   assign nwrite_ir = wy[7];
+   wire 	  nwrite_flags, nread_flags;
+   // assign nwrite_flags = wy[5];
+   // assign nwrite_flags = wy[6];
+   // assign #7 nwrite_fl = (nwrite_flags & nwrite_flags) | clk4; // Writing only happens during T4
+   // assign nwrite_ir = wy[7];
 
-   // Decode the read signals, generate nflagoe.
+   assign #7 nwrite_flags = (clk4 == 1'b0 && (waddr == 5'b11110 || waddr == 5'b11111)) ? 1'b0 : 1'b1;
+   assign #7 nread_flags = (raddr == 5'b11110) ? 1'b0 : 1'b1;
+   assign nwrite_fl = nwrite_flags;
 
-   // Note: (2020-01-05): removed nread_mbp and nread_flags, we just use
-   // nread_mbp_flags and use whichever part we need. This simplifies decoding,
-   // microcode and simulation and has no adverse effects.
-
-   // wire 	  nread_mbp_flags, nread_flags, nflagoe;
-   // assign nread_mbp_flags = ry[5];
-   // assign nread_flags = ry[6];
-   // assign #7 nflagoe = nread_mbp_flags & nread_flags;
-   wire 	  nflagoe;
-   assign nflagoe = ry[5];
-   assign nread_agl = ry[7];
-
-   // Note: (2019-01-06): the ALU decodes its own CPL/CLL signals. The
-   // interrupt state machine decodes STI/CLI. This is no longer
-   // needed here.
-
-   // // The action decoder for flag-related actions is here too.
-   // demux_138 demux_action (.a(action[2:0]), .g1(1'b1), .ng2a(action[3]), .ng2b(1'b0), .y(ay));
-   // assign naction_cpl = ay[1];
-   // assign naction_cll = ay[2];
-   // assign naction_sti = ay[3];
-   // assign naction_cli = ay[4];
+   // Also this one (for now)
+   assign #7 nwrite_ir = (clk4 == 0 && waddr == 5'b01111) ? 1'b0 : 1'b1;
+   assign #7 nread_agl = (raddr == 5'b01111) ? 1'b0 : 1'b1;
 
    // Note: we don't model the three RSVDxx signals here, we just use 0.
    buffer_541 buf_ibus (.a({fi, 1'b0, fv, fl, fz, fn, 2'b00}), .y(ibus[15:8]),
-	       .noe1(nflagoe), .noe2(1'b0));
+	       .noe1(nread_flags), .noe2(1'b0));
 
    // Now: *WRITING* to flags isn't implemented here. We only generate the
    // nwrite_fl strobe, and flag circuitry that can be set this way (currently,

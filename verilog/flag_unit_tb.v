@@ -135,7 +135,7 @@ module flag_unit_tb();
       #35 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (raddr === 5'b01101) begin
+	 if (raddr === 5'b11110) begin
 	    if (ibus[15:8] !== { fi, 1'b0, fv, fl, fz, fn, 2'b00 }) begin
 	       $sformat(msg, "raddr=%b but ibus[15:8]=%b (should be %b)",
 			raddr, ibus[15:8], { fi, 1'b0, fv, fl, fz, fn, 2'b00 });
@@ -147,11 +147,11 @@ module flag_unit_tb();
 		     raddr, nread_agl);
 	 end
 
-	 // Purposefully not else-if!
-	 if (raddr !== 5'b01111 && nread_agl !== 1'b1) begin
-	    $sformat(msg, "nread_agl decode error: raddr=%b but nread_agl=%b (should be 1)",
-		     raddr, nread_agl);
-	 end
+	 // // Purposefully not else-if!
+	 // if (raddr !== 5'b01111 && nread_agl !== 1'b1) begin
+	 //    $sformat(msg, "nread_agl decode error: raddr=%b but nread_agl=%b (should be 1)",
+	 // 	     raddr, nread_agl);
+	 // end
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
@@ -169,7 +169,7 @@ module flag_unit_tb();
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (clk4 === 1'b0 && (waddr === 5'b01101 || waddr === 5'b01110)) begin
+	 if (clk4 === 1'b0 && (waddr === 5'b11110 || waddr === 5'b11111)) begin
 	    if (nwrite_fl !== 0) begin
 	       $sformat(msg, "waddr=%b but nwrite_fl=%b (should be 0)",
 			waddr, nwrite_fl);
@@ -177,20 +177,21 @@ module flag_unit_tb();
 	 end
 
 	 else if (nwrite_fl === 0) begin
-	       $sformat(msg, "waddr=%b but nwrite_fl=%b (should be 1)",
-			waddr, nwrite_fl);
+	       $sformat(msg, "clk4=%b, waddr=%b but nwrite_fl=%b (should be 1)",
+			clk4, waddr, nwrite_fl);
 	 end
 
-	 else if (waddr === 5'b01111 && nwrite_ir !== 1'b0) begin
-	    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 0)",
-		     waddr, nwrite_ir);
-	 end
+	 // else if (waddr === 5'b01111 && nwrite_ir !== 1'b0) begin
+	 //    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 0)",
+	 // 	     waddr, nwrite_ir);
+	 // end
 
 	 // Purposefully not else-if!
-	 if (waddr !== 5'b01111 && nwrite_ir !== 1'b1) begin
-	    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 1)",
-		     waddr, nwrite_ir);
-	 end
+	 // if (waddr !== 5'b01111 && nwrite_ir !== 1'b1) begin
+	 //    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 1)",
+	 // 	     waddr, nwrite_ir);
+	 // end
+
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
    	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
