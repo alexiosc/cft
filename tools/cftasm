@@ -62,6 +62,8 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    SCT     &0980            ; 0000:1:0:011:-------  Set Context Register
 .equ    LMB     &0a00            ; 0000:1:0:100:----LLL  Read Memory Bank
 .equ    SMB     &0a80            ; 0000:1:0:101:----LLL  Set Memory Bank
+.equ    NCT     &0b00            ; 0000:1:0:110:-------  Initialise New Context
+.equ    ECT     &0b80            ; 0000:1:0:111:LLLLLLL  Enter Context
 .equ    JPA     &0c00            ; 0000:1:1:000:-------  Jump to Accumulator
 .equ    JSA     &0c80            ; 0000:1:1:001:-------  Jump to Subroutine at Accumulator
 .equ    PEEK    &0d00            ; 0000:1:1:010:-------  Peek top of Stack
