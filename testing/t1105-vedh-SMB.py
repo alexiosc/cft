@@ -44,6 +44,7 @@ def test_SMB(framework, capsys, tmpdir):
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBZ

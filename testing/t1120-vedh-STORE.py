@@ -132,7 +132,7 @@ def test_STORE_R(framework, capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
 
-    MAX=1017                       # 1-1017
+    MAX=1015                      # 1-1015
 
     source += "        JMP start\n".format(MAX)
 

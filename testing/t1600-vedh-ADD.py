@@ -164,6 +164,7 @@ def test_ADD(framework, capsys, tmpdir, max_test=10):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -243,6 +244,7 @@ def test_ADD_R(framework, capsys, tmpdir, max_test=10):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier

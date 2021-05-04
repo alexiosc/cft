@@ -30,6 +30,7 @@ def test_PHF(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS

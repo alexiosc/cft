@@ -25,6 +25,7 @@ def test_PHA(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MB0
             LI &07
             SMB mbu.MBS
@@ -88,6 +89,7 @@ def test_PHA_long(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MB0
             LI &07
             SMB mbu.MBS

@@ -147,6 +147,7 @@ def _test_bop(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             SMB mbu.MBD
             LI &00        ; Configure essential MBRs and enable.
@@ -191,6 +192,7 @@ def _test_bop_R(framework, capsys, tmpdir, instr, validator_fx):
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -233,6 +235,7 @@ def _test_bop_I(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -279,6 +282,7 @@ def _test_bop_I_R(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -324,6 +328,7 @@ def _test_bop_I_R_autoinc(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -372,6 +377,7 @@ def _test_bop_I_R_autodec(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -422,6 +428,7 @@ def _test_bop_I_R_stack(framework, capsys, tmpdir, instr, validator_fx):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier

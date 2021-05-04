@@ -33,6 +33,7 @@ def test_IOT(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS
@@ -87,6 +88,7 @@ def test_IOT_I(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
 
@@ -141,6 +143,7 @@ def test_IOT_I_R(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -207,6 +210,7 @@ def test_IOT_I_R_autoinc(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -297,6 +301,7 @@ def test_IOT_I_R_autodec(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -389,6 +394,7 @@ def test_IOT_I_R_stack(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier

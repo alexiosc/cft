@@ -24,6 +24,7 @@ def test_NOP(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS
@@ -61,6 +62,7 @@ def test_SKIP(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS
@@ -103,6 +105,7 @@ def _test_SKP_subinstr(framework, capsys, tmpdir, instr, skip_taken):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS
@@ -312,6 +315,7 @@ def _test_SNP_long(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00
             SMB mbu.MBS

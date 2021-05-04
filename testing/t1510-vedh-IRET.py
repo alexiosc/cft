@@ -28,6 +28,7 @@ def test_IRET(framework, capsys, tmpdir):
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -142,6 +143,7 @@ def test_IRET_int(framework, capsys, tmpdir):
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier

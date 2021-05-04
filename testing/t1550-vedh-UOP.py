@@ -161,6 +161,7 @@ def test_UOP(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -292,6 +293,7 @@ def test_NOT(framework, capsys, tmpdir, numtests=10):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -381,6 +383,7 @@ def test_NEG(framework, capsys, tmpdir, numtests=10):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ;
             SMB mbu.MBZ   ;
@@ -463,6 +466,7 @@ def test_INC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ;
             SMB mbu.MBZ   ;
@@ -557,6 +561,7 @@ def test_DEC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ;
             SMB mbu.MBZ   ;
@@ -649,6 +654,7 @@ def test_IFL(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -792,6 +798,7 @@ def test_IFV(framework, capsys, tmpdir):
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
+            SCT
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier

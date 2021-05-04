@@ -27,7 +27,8 @@ def test_mbu_asm(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
 
-    &0:     SMB 0
+    &0:     SCT
+            SMB 0
             SMB 1
             SMB 2
             SMB 3

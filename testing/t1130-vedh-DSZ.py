@@ -28,6 +28,7 @@ def test_DSZ(framework, capsys, tmpdir):
 
     &0:
            LI           &80
+           SCT
            SMB          mbu.MBP
            LI           &00
            SMB          mbu.MBD
@@ -79,6 +80,7 @@ def test_DSZ_R(framework, capsys, tmpdir):
 
     &0:
            LI           &80
+           SCT
            SMB          mbu.MBP
            LI           &00
            SMB          mbu.MBD
@@ -128,6 +130,7 @@ def test_DSZ_I(framework, capsys, tmpdir):
 
     &0:
            LI           &80
+           SCT
            SMB          mbu.MBP
            SMB          mbu.MBD
            SMB          mbu.MBS
@@ -182,6 +185,7 @@ def test_DSZ_I_R(framework, capsys, tmpdir):
 
     &0:
            LI           &80
+           SCT
            SMB          mbu.MBP
            LI           1
            SMB          mbu.MBD

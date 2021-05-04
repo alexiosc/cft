@@ -28,6 +28,7 @@ def test_IND(framework, capsys, tmpdir):
 
     &0:
            LI           &80
+           SCT
            SMB          mbu.MBP
 
     """
