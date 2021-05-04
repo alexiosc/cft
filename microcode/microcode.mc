@@ -72,6 +72,10 @@
 //
 //   Version 7g: (2021-02-21) added context register. Moved RADDRs and WADDRs
 //   around to fit.
+//
+//   Version 7h: (2021-05-04) added NCT instruction to initialise new
+//   contexts, and ECT to enter them (context switching).
+
 
 
 // ADDRESSING MODES
@@ -561,8 +565,8 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define SCT    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Store AC into CTX
 #define LMB    _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Load MBn into AC
 #define SMB    _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Write MBn into AC
-//#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
-//#define      _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // This is available
+#define NCT    _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // Init context in AC and switch to it
+#define ECT    _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // Set context and jump to 0000.
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
@@ -866,7 +870,7 @@ start PHF;
 // FORMAT:   :-------
 //
 // Decrements the SP and loads the Flags from the memory location pointed to by
-// the SP. The Z and N flags will not be updated. The lower 8 bits are ignored soup.
+// the SP. The Z and N flags will not be updated. The lower 8 bits are ignored.
 
 start PPF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -1882,6 +1886,61 @@ start LMB;
 start SMB;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE NCT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: NCT
+// NAME:     Initialise New Context
+// DESC:     Transfers the AC to the 8-bit CTX register and sets the MBP
+//           to the current one.
+// GROUP:    Memory Management
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :-------
+//
+// Transfers the least significant eight bits of the AC into the CTX
+// register. The MBP of the previous context is copied to the new
+// one. The value of the DR is overwritten in the process.
+
+start NCT;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(dr, mbp);				// 02 DR ← MBP
+      SET(ctx, ac);				// 03 CTX ← AC
+      SET(mbp, dr), END;			// 04 MBP ← DR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE ECT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: ECT
+// NAME:     Enter Context
+// DESC:     Disables interrupts, and enters the specified context.
+// GROUP:    Memory Management
+// MODE:     Implied
+// FLAGS:    ---i-
+// FORMAT:   :LLLLLLL
+//
+// Clears the interrupt flag, disabling interrupts. Transfers the
+// least significant eight bits of the AC into the CTX register and
+// jumps to address 0000 in that context. The literal value used in
+// this instruction is transferred to the AC. (only the least
+// significant 7 bits are valid) The previous context is stored in the
+// DR. (only the least significant 8 bits are valid)
+
+start ECT;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(dr, ctx), action_cli;			// 02 DR ← CTX, CLI
+      SET(ctx, ac);				// 03 CTX ← AC
+      SET(pc, cs_rstvec);			// 03 PC ← 0000
+      SET(ac, agl), END;			// 04 AC ← AGL
 
 
 ///////////////////////////////////////////////////////////////////////////////
