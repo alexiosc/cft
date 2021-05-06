@@ -760,7 +760,7 @@ F 1 "16V8" H 4900 2350 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 4900 1700 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4900 1700 50  0001 C CNN
 F 4 "SIGNTR" V 4900 1700 50  0000 C CNB "Signature"
-F 5 "filename.jed" H 4900 1075 50  0000 C CNN "Image Filename"
+F 5 "bus-control.jed" H 4900 1075 50  0000 C CNN "Image Filename"
 	1    4900 1700
 	1    0    0    -1  
 $EndComp
@@ -1942,12 +1942,12 @@ Wire Wire Line
 Connection ~ 3950 2150
 Wire Wire Line
 	3950 2150 4450 2150
-Wire Bus Line
-	9650 3550 9650 5900
-Wire Bus Line
-	7750 3900 7750 6350
 Text Notes 6400 2050 0    50   ~ 0
 Write pulse
 Text Notes 6400 1100 0    50   ~ 0
 Read pulse
+Wire Bus Line
+	9650 3550 9650 5900
+Wire Bus Line
+	7750 3900 7750 6350
 $EndSCHEMATC
