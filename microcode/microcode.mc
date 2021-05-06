@@ -267,11 +267,11 @@ signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
 signal write_flags     = ..............11111.....; // Write flags
 
 // Convenient aliases for the constants in the Constant Store
-#define read_cs_rstvec     read_cs0 // We reset to XX:0000. XX is either 00 or 0x80.
-#define read_cs_isrvec_pc  read_cs3 // The ISR is at 00:0003
-#define read_cs_isrvec_mb  read_cs0
-#define read_cs_softisr_pc read_cs2 // The Soft ISR is at 00:0002
-#define read_cs_softisr_mb read_cs0
+#define read_cs_rstvec      read_cs0 // We reset to XX:0000. XX is either 00 or 0x80.
+#define read_cs_isrvec_pc   read_cs3 // The ISR is at 00:0003
+#define read_cs_isrvec_ctx  read_cs0 // The ISR uses context 0
+#define read_cs_softisr_pc  read_cs2 // The Soft ISR is at 00:0002
+#define read_cs_softisr_ctx read_cs1 // TRAPs etc use context 1
 
 // COND FIELD (UNDER REDESIGN)
 // TODO: Rearrange the upper eight ones?
@@ -479,7 +479,7 @@ start RST=X, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 ///////////////////////////////////////////////////////////////////////////////
 
 start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      SET(pc,cs_rstvec), action_cli, END;  // 00
+      SET(pc,cs0), action_cli, END;        // 00 PC←0, CLI
       hold;                                // 01
       hold;                                // 02
       hold;                                // 03
@@ -522,8 +522,8 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
-      SET(ctx, cs_isrvec_mb), END;		// 07 CTX ← 00
+      SET(pc, cs3);				// 06 PC ← 0003
+      SET(ctx, cs0), END;			// 07 CTX ← 00
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -786,8 +786,8 @@ start TRAP;
       action_cli, STACK_PUSH(ctx_flags);        // 02 mem[MBS:SP++] ← <flags,CTX>; CLI
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
-      SET(pc, cs_softisr_pc);                   // 08 PC ← 0002
-      SET(ctx, cs_softisr_mb);                  // 09 CTX ← 00
+      SET(pc, cs2);				// 08 PC ← 0002
+      SET(ctx, cs1);				// 09 CTX ← 01
       SET(ac, agl), END;                        // 10 AC ← AGL
 
 
@@ -998,8 +998,8 @@ start WAIT, INT=0;
       STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
-      SET(ctx, cs_isrvec_mb);                   // 07 CTX ← 00
+      SET(pc, cs3);				// 06 PC ← 0003
+      SET(ctx, cs0);				// 07 CTX ← 00
       MEMREAD(mbp, pc, ir), END;                // 08 IR ← [MBP:PC]
 
 
@@ -1939,7 +1939,7 @@ start ECT;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ctx), action_cli;			// 02 DR ← CTX, CLI
       SET(ctx, ac);				// 03 CTX ← AC
-      SET(pc, cs_rstvec);			// 03 PC ← 0000
+      SET(pc, cs0);				// 03 PC ← 0000
       SET(ac, agl), END;			// 04 AC ← AGL
 
 
