@@ -26,22 +26,27 @@ def test_TRAP(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &800000:
-            LI &80        ; Configure essential MBRs and enable.
-            SCT
+            JMP boot
+
+    &800100:
+    boot:
+            LI &1         ; Set up context 1 (the TRAP context)
+            NCT
+            LI &82
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
             LI &01        ; Configure essential MBRs and enable.
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LOAD isr0     ; Install the THR
-            STORE R 2
-            LOAD @isr0+1
-            STORE R 3
-            LOAD @isr0+2
-            STORE R 4
-            LOAD @isr0+3
-            STORE R 5
+            LI &0         ; Set up context 0 (the reset context, and ours)
+            NCT
+            LI &80
+            SMB mbu.MBP
+            LI &00        ; Configure essential MBRs and enable.
+            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
+            LI &01        ; Configure essential MBRs and enable.
+            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
             LI &42
             dfp.PRINTH
@@ -50,12 +55,15 @@ def test_TRAP(framework, capsys, tmpdir):
             FAIL
             HALT
 
-    isr0:   LJMP 4        ; 00:0002:
+    &820000:
+            NOP           ; Reset vector
+            NOP           ; 
+            LJMP 4        ; 00:0002: Soft interrupts
             HALT          ; 00:0003: Don't allow hardware interrupts.
             .data thr     ; 00:0004: Trap Handler Routine Address
             .data &82     ; 00:0005: THR memory bank
 
-    &828000:
+    &821000:
     thr:    dfp.PRINTH
             PPA
             dfp.PRINTH
@@ -72,7 +80,7 @@ def test_TRAP(framework, capsys, tmpdir):
                               [ 340, "PRINTH", "0042" ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192, timeout=10000, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
