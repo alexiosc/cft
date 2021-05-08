@@ -23,7 +23,7 @@ def test_ASR(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &0:        LI &80
-               NCT
+               SCT
                SMB mbu.MBP
                CLL CLA
     
@@ -195,7 +195,7 @@ def test_ASR_slow(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &0:        LI &80
-               NCT
+               SCT
                SMB mbu.MBP
                LI 0
                SMB mbu.MBZ

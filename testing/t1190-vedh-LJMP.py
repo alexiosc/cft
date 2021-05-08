@@ -56,7 +56,7 @@ def test_LJMP(framework, capsys, tmpdir):
     &878000:   .fill 32768 SENTINEL
 
     &800000:   LI &80
-               NCT
+               SCT
                SMB mbu.MBP
     """.rstrip(" ")
 

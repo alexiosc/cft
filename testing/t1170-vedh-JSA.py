@@ -38,7 +38,7 @@ def test_JSA(framework, capsys, tmpdir):
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
-           NCT
+           SCT
            SMB mbu.MBP
            LI &0
            SMB mbu.MBZ

@@ -31,7 +31,7 @@ def test_TRAP(framework, capsys, tmpdir):
     &800100:
     boot:
             LI &1         ; Set up context 1 (the TRAP context)
-            NCT
+            SCT
             LI &82
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
@@ -40,7 +40,7 @@ def test_TRAP(framework, capsys, tmpdir):
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
             LI &0         ; Set up context 0 (the reset context, and ours)
-            NCT
+            SCT
             LI &80
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
