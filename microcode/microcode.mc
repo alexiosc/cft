@@ -565,7 +565,7 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define SCT    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Store AC into CTX
 #define LMB    _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Load MBn into AC
 #define SMB    _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Write MBn into AC
-#define NCT    _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // Init context in AC and switch to it
+#define NCT    _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // Init context in AC
 #define ECT    _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // Set context and jump to 0000.
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
@@ -1903,15 +1903,24 @@ start SMB;
 // FLAGS:    -----
 // FORMAT:   :-------
 //
-// Transfers the least significant eight bits of the AC into the CTX
-// register. The MBP of the previous context is copied to the new
-// one. The value of the DR is overwritten in the process.
+// Initialises a new context by setting its MBP. Put the desired 8-bit context
+// in the AC, and the desired value for the MBP in the DR, then execute this
+// instruction. Only the MBP will be set. The context should set up its own
+// registers once entered.
+//
+// Example:
+//
+//     LOAD new_mbp
+//     TAD
+//     LOAD new_context
+//     NCT
 
 start NCT;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(dr, mbp);				// 02 DR ← MBP
+      SET(alu_b, ctx);				// 02 B ← CTX
       SET(ctx, ac);				// 03 CTX ← AC
-      SET(mbp, dr), END;			// 04 MBP ← DR
+      SET(mbp, dr);				// 04 MBP ← DR
+      SET(ctx, alu_b), END;			// 05 CTX ← B
 
 
 ///////////////////////////////////////////////////////////////////////////////
