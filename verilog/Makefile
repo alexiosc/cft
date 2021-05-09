@@ -50,7 +50,7 @@ IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		comparator.v   comparator_688_tb.v comparator_85_tb.v \
 		counter.v      counter_191_tb.v counter_193_tb.v counter_590_tb.v \
 		demux.v        demux_138_tb.v demux_139_tb.v demux_139h_tb.v demux_238_tb.v \
-		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
+		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v mux_257_tb.v \
 		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v \
                                flipflop_574_tb.v flipflop_564_tb.v \
                 latch.v        latch_1g373_tb.v latch_373_tb.v latch_573_tb.v \
@@ -231,6 +231,10 @@ test_251:	mux_251_tb.o mux.o
 test_253:	mux_253_tb.o mux.o
 		./mux_253_tb.o
 		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
+
+test_257:	mux_257_tb.o mux.o
+		./mux_257_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_257_tb.vcd $(SAVDIR)/mux_257_tb.sav
 
 # Decoders/Demultiplexers
 

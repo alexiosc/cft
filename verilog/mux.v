@@ -73,24 +73,24 @@ endmodule // mux_253h
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_257 (sel, i1, i2, oe, y);
+module mux_257 (sel, i1, i2, noe, y);
    parameter delay = 20;
 
    input        sel;		// The signal selector
    input [3:0]  i1, i2;		// Input signals.
-   input        oe;	        // Active low tri-state output enables.
+   input        noe;	        // Active low tri-state output enables.
    output [3:0] y;		// Outputs.
 
    wire        sel;
    wire [3:0]  i1, i2;
-   wire        oe;
+   wire        noe;
    wire [3:0]  y;
 
    initial begin
       // $display("BOM: 74x257");
    end
    
-   assign #delay y = oe ? 1'bz : (sel == 0? i1 : i2);
+   assign #delay y = noe ? 4'bzzzz : (sel == 0? i1 : i2);
 
 endmodule // mux_257
 
@@ -98,19 +98,20 @@ endmodule // mux_257
 //
 // Function: 74x157 8-to-4 line data selector/multiplexer.
 //
-// Notes:
+// Notes: NOT A THREE-STATE DEVICE! The output Y is always *LOW* when
+//        ng is high. (deasserted)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_157 (sel, a, b, noe, y);
+module mux_157 (sel, a, b, ng, y);
    parameter delay = 20;
 
    input        sel;		// The signal selector
    input [3:0]  a, b;		// Input signals.
-   input        noe;	        // Active low tri-state output enables.
+   input        ng;	        // Active low gate.
    output [3:0] y;		// Outputs.
 
-   assign #delay y = noe ? 4'bzzzz : (sel == 0? a : b);
+   assign #delay y = ng ? 4'b0000 : (sel == 0? a : b);
 
 endmodule // mux_157
 
@@ -148,7 +149,7 @@ endmodule // mux_157
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_1g157 (sel, a, b, ng, y);
+module mux_1g157 (sel, a, b, y);
    parameter delay = 4;
 
    input        sel;		// The signal selector
@@ -165,7 +166,7 @@ module mux_1g157 (sel, a, b, ng, y);
       // $display("BOM: 74x1G157");
    end
 
-   assign #delay y = ng ? 1'bz : (sel == 0? a : b);
+   assign #delay y = sel == 0? a : b;
 
 endmodule // mux_1G157
 
