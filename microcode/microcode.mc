@@ -520,7 +520,7 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <CTX,flags>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs3);				// 06 PC ← 0003
+      SET(pc, cs2);				// 06 PC ← 0002
       SET(ctx, cs0), END;			// 07 CTX ← 00
 
 
@@ -784,7 +784,7 @@ start TRAP;
       action_cli, STACK_PUSH(ctx_flags);        // 02 mem[MBS:SP++] ← <flags,CTX>; CLI
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
-      SET(pc, cs2);				// 08 PC ← 0002
+      SET(pc, cs3);				// 08 PC ← 0003
       SET(ctx, cs1);				// 09 CTX ← 01
       SET(ac, agl), END;                        // 10 AC ← AGL
 
