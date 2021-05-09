@@ -3,7 +3,7 @@
 CC		=	gcc
 CFLAGS		=	-Wall -pedantic -O3 -s
 
-PROGRAMS	=	control disasm uaddr
+PROGRAMS	=	control disasm uaddr mbu_a
 TARGETS		=	$(PROGRAMS) disasm_ir10
 
 .PHONY:	clean
