@@ -73,7 +73,7 @@
 //   Version 7g: (2021-02-21) added context register. Moved RADDRs and WADDRs
 //   around to fit.
 //
-//   Version 7h: (2021-05-04) added NCT instruction to initialise new
+//   Version 7h: (2021-05-04) added NMB instruction to help initialise new
 //   contexts, and ECT to enter them (context switching).
 
 
@@ -504,11 +504,9 @@ start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 ///////////////////////////////////////////////////////////////////////////////
 
 
-// TODO: FIX THIS!!! NO CTX SUPPORT
-
 // Interrupt handling algorithm:
 //
-// Push MBP+flags onto stack.
+// Push the <CTX,flags> vector onto the stack.
 // Mask interrupts as early as possible after saving flags.
 // Push PC onto stack.
 // Push AC onto stack.
@@ -519,7 +517,7 @@ start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
+      STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <CTX,flags>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs3);				// 06 PC ← 0003
@@ -564,8 +562,8 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define LCT    _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Load CTX into AC
 #define SCT    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Store AC into CTX
 #define LMB    _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Load MBn into AC
-#define SMB    _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Write MBn into AC
-#define NCT    _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // Init context in AC
+#define SMB    _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Write AC to MBn from AC
+#define NMB    _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // Write AC to MBn (CTX in DR)
 #define ECT    _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // Set context and jump to 0000.
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
@@ -774,10 +772,10 @@ start TDA;
 // FLAGS:    ---i-
 // FORMAT:   :LLLLLLL
 //
-// Calls the Interrupt Service Routine. The 7-bit value in the operand is
-// written to the AC. An ISR can use this to implement custom software
-// interrupts or traps. The PC will jump to long address 00:0002. Note that
-// hardware interrupts jump to 00:0003.
+// Calls a trap (software interrupt). The 7-bit value in the operand is written
+// to the AC. An ISR can use this to implement custom software interrupts or
+// traps. The PC will jump to long address 00:0002. Note that hardware
+// interrupts jump to 00:0003.
 
 
 // TODO: now we have a context register, this can be rewritten to be more efficient.
@@ -1874,7 +1872,7 @@ start LMB;
 // MNEMONIC: SMB
 // NAME:     Set Memory Bank
 // DESC:     Transfers the AC to a Memory Bank Register.
-// GROUP:    Transfers
+// GROUP:    Memory Management
 // MODE:     Literal (3-bit)
 // FLAGS:    -----
 // FORMAT:   :----LLL
@@ -1890,36 +1888,46 @@ start SMB;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE NCT INSTRUCTION
+// THE NMB INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// MNEMONIC: NCT
-// NAME:     Initialise New Context
-// DESC:     Transfers the AC to the 8-bit CTX register and sets the MBP
-//           to the current one.
+// MNEMONIC: NMB
+// NAME:     Write MBR for other context
+// DESC:     
 // GROUP:    Memory Management
-// MODE:     Implied
+// MODE:     Literal (3-bit)
 // FLAGS:    -----
-// FORMAT:   :-------
+// FORMAT:   :----LLL
 //
-// Initialises a new context by setting its MBP. Put the desired 8-bit context
-// in the AC, and the desired value for the MBP in the DR, then execute this
-// instruction. Only the MBP will be set. The context should set up its own
-// registers once entered.
+// Sets an MBR for a different context. The MBR is specified in the
+// operand field (least significant three bits). The context must be
+// in the DR's least significant 8 bits. The value for the MBR should
+// be in the AC.
 //
-// Example:
+// This is used to initialise contexts before entering them.
 //
-//     LOAD new_mbp
+// Example: 
+//
+//     LI &81     ; Context to set
 //     TAD
-//     LOAD new_context
-//     NCT
+//     LI &00
+//     NMB MBP    ; CTX[&81].mbp = &00
+//     LI &01
+//     NMB MBD    ; CTX[&81].mbd = &01
+//     LMB MBS
+//     NMB MBS    ; Share the stack between this context and context &81.
+//     LMB MBZ
+//     NMB MBZ    ; Share page zero between this context and context &81.
+//
+// The ALU B port is used as scratch space during this instruction and
+// its contents are destroyed.
 
-start NCT;
+start NMB;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(alu_b, ctx);				// 02 B ← CTX
-      SET(ctx, ac);				// 03 CTX ← AC
-      SET(mbp, dr);				// 04 MBP ← DR
+      SET(ctx, dr);				// 03 CTX ← DR
+      SET(mbn, ac);				// 04 MBn ← AC
       SET(ctx, alu_b), END;			// 05 CTX ← B
 
 
