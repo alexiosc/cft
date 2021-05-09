@@ -60,20 +60,14 @@ def test_TRAP(framework, capsys, tmpdir):
             HALT
 
     &820000:
-            JMP ctxinit   ; Context init vector
-            NOP           ; 
-            LJMP 4        ; 00:0002: Soft interrupts
-            HALT          ; 00:0003: Don't allow hardware interrupts.
-            .data thr     ; 00:0004: Trap Handler Routine Address
-            .data &82     ; 00:0005: THR memory bank
+            SENTINEL      ; 82:0002: Reset vector
+            SENTINEL      ; 82:0001: Not used
+            SENTINEL      ; 82:0002: Don't allow hardware interrupts.
+            LJMP @+1      ; 82:0003: Soft interrupts
+            .data thr     ; 82:0004: Trap Handler Routine Address
+            .data &84     ; 82:0005: THR memory bank
 
-   ctxinit: LI &00        ; Configure essential MBRs and enable.
-            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
-            LI &01        ; Configure essential MBRs and enable.
-            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
-
-
-    &821000:
+    &848000:
     thr:    dfp.PRINTH
             PPA
             dfp.PRINTH

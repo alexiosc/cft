@@ -1,23 +1,24 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun May  9 12:14:43 2021
+[*] Sun May  9 14:47:06 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Sun May  9 12:12:01 2021"
-[dumpfile_size] 87886
+[dumpfile_mtime] "Sun May  9 14:46:44 2021"
+[dumpfile_size] 731255
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
-[timestart] 16714000
-[size] 1920 1019
-[pos] -225 -27
-*-18.379257 18793000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 0
+[size] 2048 1123
+[pos] 4099 0
+*-25.614803 151800000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
 [treeopen] card_ctl_tb.card_ctl.microcode_sequencer.
+[treeopen] card_ctl_tb.card_ctl.microcode_sequencer.control_store.
 [sst_width] 258
 [signals_width] 341
 [sst_expanded] 1
-[sst_vpaned_height] 309
+[sst_vpaned_height] 347
 @820
 card_ctl_tb.status[800:0]
 @200
@@ -32,8 +33,17 @@ card_ctl_tb.powerok
 card_ctl_tb.nfpreset
 @200
 -
-@22
+@c00022
 card_ctl_tb.card_ctl.pc[15:10]
+@28
+(0)card_ctl_tb.card_ctl.pc[15:10]
+(1)card_ctl_tb.card_ctl.pc[15:10]
+(2)card_ctl_tb.card_ctl.pc[15:10]
+(3)card_ctl_tb.card_ctl.pc[15:10]
+(4)card_ctl_tb.card_ctl.pc[15:10]
+(5)card_ctl_tb.card_ctl.pc[15:10]
+@1401200
+-group_end
 @200
 -
 -Clock
@@ -54,12 +64,21 @@ card_ctl_tb.fpclk
 card_ctl_tb.nfpclk_or_clk
 @200
 -
+@22
+card_ctl_tb.card_ctl.microcode_sequencer.raddr[4:0]
+card_ctl_tb.card_ctl.microcode_sequencer.waddr[4:0]
+card_ctl_tb.card_ctl.microcode_sequencer.action[3:0]
+card_ctl_tb.card_ctl.microcode_sequencer.cond[4:0]
 @28
 card_ctl_tb.nmem
 card_ctl_tb.nio
-@29
 card_ctl_tb.nr
+@29
+card_ctl_tb.card_ctl.microcode_sequencer.nend
+@28
+card_ctl_tb.card_ctl.microcode_sequencer.ncse
 @200
+-
 -µPC
 @28
 [color] 1
@@ -78,7 +97,7 @@ card_ctl_tb.card_ctl.microcode_sequencer.upc[3:0]
 @200
 -
 -IR
-@800022
+@c00022
 card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 @28
 (0)card_ctl_tb.card_ctl.reg_ir.ir[15:0]
@@ -97,12 +116,18 @@ card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 (13)card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 (14)card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 (15)card_ctl_tb.card_ctl.reg_ir.ir[15:0]
-@1001200
+@1401200
 -group_end
 @200
 -
 -Control
 @28
 card_ctl_tb.card_ctl.microcode_sequencer.nrsthold
+card_ctl_tb.card_ctl.reg_ir.nwir
+card_ctl_tb.card_ctl.reg_ir.nwrite_ir
+card_ctl_tb.card_ctl.microcode_sequencer.control_store.clk
+card_ctl_tb.card_ctl.microcode_sequencer.control_store.noe
+@22
+card_ctl_tb.card_ctl.microcode_sequencer.control_store.ucontrol[23:0]
 [pattern_trace] 1
 [pattern_trace] 0
