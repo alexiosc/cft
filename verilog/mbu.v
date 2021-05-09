@@ -282,7 +282,7 @@ module mbu (nrsthold,
    // too. On real hardware, we have bus hold but that's less predictable.
    wire [7:0] 	hex54;
    assign hex54 = 8'h54;
-   buffer_541 buf_mbu_out_hi (.noe1(nibusen), .noe2(1'b0), .a(hex54), .y(ibus[15:8]));
+   buffer_541 buf_mbu_out_hi (.noe1(nibusen & nrctx), .noe2(1'b0), .a(hex54), .y(ibus[15:8]));
 
 
 
