@@ -89,7 +89,7 @@ module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
    input        nfpuc2;
    output [7:0] fpd;
 
-   // These are pulled high/lowo here.
+   // These are pulled high/low here.
    tri1 	nmem, nio, nr, nwen;
    tri0 [4:0] 	raddr;
    tri0 [4:0] 	waddr;
