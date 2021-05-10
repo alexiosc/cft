@@ -78,8 +78,8 @@ def test_IRET(framework, capsys, tmpdir):
     &820000:
             SENTINEL
             SENTINEL
-            SENTINEL      ; 00:0002: Soft interrupts
-            LJMP addr     ; 00:0003: Don't allow hardware interrupts.
+            SENTINEL      ; 00:0002: Hardware interrupts
+            LJMP addr     ; 00:0003: Software interrupts.
     addr:   .data thr     ; 00:0004: Trap Handler Routine Address
             .data &82     ; 00:0005: THR memory bank
 
@@ -145,7 +145,7 @@ def test_IRET_int(framework, capsys, tmpdir):
             JMP start     ; 82:0000: Reset vector
             SENTINEL      ; 82:0001: Not used
             LJMP isr      ; 82:0002: Hardware interrupts
-            SENTINEL      ; 82:0003: Don't allow soft interrupts.
+            SENTINEL      ; 82:0003: Software interrupts.
     isr:    .data thr
             .data &80
     start:  LI &0
