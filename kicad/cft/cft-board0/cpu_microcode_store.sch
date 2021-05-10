@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 11 17
 Title "Control Store (24×512k ROM)"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -1640,7 +1640,7 @@ U 2 1 61049C93
 P 9700 2400
 F 0 "U1704" H 9880 2446 50  0000 L CNN
 F 1 "74AC257" H 9880 2355 50  0000 L CNN
-F 2 "" H 9700 2300 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9700 2300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS257" H 9700 2300 50  0001 C CNN
 	2    9700 2400
 	1    0    0    -1  

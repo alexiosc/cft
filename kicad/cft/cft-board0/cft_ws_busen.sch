@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 16 17
 Title "Data Bus & Wait States"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "BUS"
 Comment2 ""

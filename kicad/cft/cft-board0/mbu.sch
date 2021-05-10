@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 5 17
 Title "Memory Bank Unit"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "MBU"
 Comment2 "MBU Revision 3 (SRAM reg file, CTX reg, no longer I/O-mapped)"

@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 14 17
 Title "Program Counter (PC)"
 Date ""
-Rev "2047"
+Rev "2119"
 Comp ""
 Comment1 "REG"
 Comment2 ""

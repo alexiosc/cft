@@ -6,9 +6,9 @@ encoding utf-8
 Sheet 1 17
 Title "Control Unit Board"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
-Comment1 "CTL"
+Comment1 "B0"
 Comment2 ""
 Comment3 ""
 Comment4 ""

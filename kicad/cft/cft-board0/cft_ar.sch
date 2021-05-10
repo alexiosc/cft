@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 3 17
 Title "24-bit Address Register (AR)"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "BUS"
 Comment2 ""
@@ -983,18 +983,16 @@ Wire Wire Line
 	7650 1700 7650 1650
 Text Notes 7300 2550 0    63   ~ 13
 I/O Address Decoder
-Text Notes 7900 2100 0    50   ~ 0
-Decodes I/O addresses AR=0000'00nn'nnnn
 Wire Notes Line
-	6700 700  6700 2950
+	6700 700  6700 3050
 Wire Notes Line
-	6700 2950 11050 2950
+	6700 3050 11050 3050
 Wire Notes Line
-	11050 2950 11050 700 
+	11050 3050 11050 700 
 Wire Notes Line
 	11050 700  6700 700 
-Text Notes 7300 2800 0    50   ~ 0
-The I/O address decoder simplifies building I/O devices by partially\ndecoding the most significant 8 bits of the I/O address.
+Text Notes 7300 2950 0    50   ~ 0
+The I/O address decoder simplifies building I/O devices by partially\ndecoding the most significant 8 bits of the I/O address. I/O space is\nonly specified for 1024 addresses, so signals AB23–AB11 don't\nneed to be decoded.
 Entry Wire Line
 	4850 1950 4950 1850
 Entry Wire Line

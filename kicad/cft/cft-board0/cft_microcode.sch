@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 10 17
 Title "Microcode Sequencer"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -1436,7 +1436,7 @@ U 1 1 5F129456
 P 6050 2100
 F 0 "JP1603" V 6200 2150 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged23" H 6050 2210 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 2100 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged23_RoundedPad1.0x1.5mm" H 6050 2100 50  0001 C CNN
 F 3 "~" H 6050 2100 50  0001 C CNN
 	1    6050 2100
 	0    -1   1    0   
@@ -1447,7 +1447,7 @@ U 1 1 5F12A1A9
 P 5750 1950
 F 0 "JP1602" V 6050 2000 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged12" H 5750 2060 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5750 1950 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5750 1950 50  0001 C CNN
 F 3 "~" H 5750 1950 50  0001 C CNN
 	1    5750 1950
 	0    -1   1    0   
@@ -1458,7 +1458,7 @@ U 1 1 5F125CF7
 P 5450 1850
 F 0 "JP1601" V 5850 1900 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged23" H 5450 1960 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1850 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged23_RoundedPad1.0x1.5mm" H 5450 1850 50  0001 C CNN
 F 3 "~" H 5450 1850 50  0001 C CNN
 	1    5450 1850
 	0    -1   1    0   
@@ -1508,22 +1508,8 @@ Wire Wire Line
 	4800 6850 4750 6850
 Wire Wire Line
 	4750 6850 4750 6750
-$Comp
-L power:+5V #PWR0164
-U 1 1 60A2242D
-P 4750 6400
-F 0 "#PWR0164" H 4750 6250 50  0001 C CNN
-F 1 "+5V" H 4765 6573 50  0000 C CNN
-F 2 "" H 4750 6400 50  0001 C CNN
-F 3 "" H 4750 6400 50  0001 C CNN
-	1    4750 6400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4800 6550 4750 6550
-Connection ~ 4750 6550
-Wire Wire Line
-	4750 6550 4750 6400
 Wire Wire Line
 	4800 6650 4750 6650
 Connection ~ 4750 6650
@@ -1672,6 +1658,8 @@ Wire Bus Line
 Wire Bus Line
 	2150 2750 2150 3500
 Wire Bus Line
+	5100 1350 5100 2550
+Wire Bus Line
 	9800 4800 9800 5150
 Wire Bus Line
 	9800 4100 9800 4550
@@ -1679,6 +1667,18 @@ Wire Bus Line
 	9800 3400 9800 3850
 Wire Bus Line
 	9800 2700 9800 3150
-Wire Bus Line
-	5100 1350 5100 2550
+Connection ~ 4750 6550
+Wire Wire Line
+	4750 6550 4750 6400
+$Comp
+L power:+5V #PWR0164
+U 1 1 60A2242D
+P 4750 6400
+F 0 "#PWR0164" H 4750 6250 50  0001 C CNN
+F 1 "+5V" H 4765 6573 50  0000 C CNN
+F 2 "" H 4750 6400 50  0001 C CNN
+F 3 "" H 4750 6400 50  0001 C CNN
+	1    4750 6400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
