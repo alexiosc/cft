@@ -990,13 +990,15 @@ start WAIT, INT=1;
       hold;                           // 14 
       hold;                           // 15 
 
-// To make this work, WAIT needs its own interrupt service microprogram. (see
-// note above)
+// To make this work, WAIT needs its own interrupt service microprogram. This
+// is nearly identical to the normal one, except it also performs an
+// instruction fetch so the IR can be overwritten and we jump out of the WAIT
+// loop. Note: the IR will then be fetched *again*.
 start WAIT, INT=0;
       STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs3);				// 06 PC ← 0003
+      SET(pc, cs2);				// 06 PC ← 0002
       SET(ctx, cs0);				// 07 CTX ← 00
       MEMREAD(mbp, pc, ir), END;                // 08 IR ← [MBP:PC]
 
