@@ -314,7 +314,6 @@ def test_basic_assembly(framework, capsys, tmpdir):
     &0:    JMP start
 
     start: LI 0
-           SCT
            SMB MBP
            SMB MBD
            SMB MBS
@@ -461,8 +460,7 @@ def test_include(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &0:     SCT
-            SMB
+    &0:     SMB
             LMB
             SCT
             LCT

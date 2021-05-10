@@ -27,7 +27,17 @@ def test_mbu_asm(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
 
-    &0:     SCT
+    &0:     LCT
+            SCT
+            ECT
+            NMB 0
+            NMB 1
+            NMB 2
+            NMB 3
+            NMB 4
+            NMB 5
+            NMB 6
+            NMB 7
             SMB 0
             SMB 1
             SMB 2
@@ -70,15 +80,18 @@ def test_mbu_asm(framework, capsys, tmpdir):
         "Wrong object size generated (2048W expected)"
 
     # Only read the first 32W.
-    assembled_data = read_cft_bin_file(fname, 32)
+    assembled_data = read_cft_bin_file(fname, 43)
     
     expected_data = array.array('H', [
+        0x0900, 0x0980, 0x0b80,
+        0x0b00, 0x0b01, 0x0b02, 0x0b03, 0x0b04, 0x0b05, 0x0b06, 0x0b07,
+        
         0x0a80, 0x0a81, 0x0a82, 0x0a83, 0x0a84, 0x0a85, 0x0a86, 0x0a87,
         0x0a00, 0x0a01, 0x0a02, 0x0a03, 0x0a04, 0x0a05, 0x0a06, 0x0a07,
         0x0a80, 0x0a81, 0x0a82, 0x0a83, 0x0a84, 0x0a85, 0x0a86, 0x0a87,
         0x0a00, 0x0a01, 0x0a02, 0x0a03, 0x0a04, 0x0a05, 0x0a06, 0x0a07,
         ])
-    # assert len(assembled_data) == 32
+    assert len(assembled_data) == len(expected_data)
     assert assembled_data == expected_data, "Assembled string did not match"
 
 
