@@ -146,6 +146,49 @@ data = [
 
 
 
+@pytest.mark.cftasm
+@pytest.mark.UOP
+@pytest.mark.IFL
+@pytest.mark.IFV
+@pytest.mark.NEG
+def test_00_UOP_opcodes(framework, capsys, tmpdir):
+    """I have reason to believe the automatic assembler opcode generator messes up with IFL and IFV,
+    so check to make sure the opcodes are correct."""
+
+    code="""
+    UOP
+    IFL
+    IFV
+    NEG
+    IFL NEG
+    IFV NEG
+    """.strip()
+
+    assemble(tmpdir, code, args=["--blocksize", "0"])
+    correct_num_words = len(code.split("\n"))
+
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == correct_num_words * 2, \
+        "Wrong object size generated ({}W expected)".format(correct_num_words)
+
+    assembled_data = read_cft_bin_file(fname, correct_num_words)
+
+    print(assembled_data)
+
+    # Data is byte-swapped when Python reads it a 16-bit ints.
+    expected_data = [
+        "0e00",
+        "0e80",
+        "0f00",
+        "0e0c",
+        "0e8c",
+        "0f0c",
+    ]
+    assert len(assembled_data) == correct_num_words
+    assert [ "%04x" % x for x in assembled_data ] == expected_data, "CFTASM bitmap builtins may be broken"
+
+
+
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
