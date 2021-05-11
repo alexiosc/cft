@@ -80,7 +80,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
-.equ    IFL     &0e8c            ; IFL bitmap instruction
+.equ    IFL     &0e80            ; IFL bitmap instruction
 
 ; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
 ; are available with IFL. Use them as IFL NEG.
@@ -94,7 +94,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 ; .equ  DEC     IFL     #0000010 ; 0000:1:1:101:-----1-  Decrement Accumulator If Link Set
 ; .equ  CPL     IFL     #0000001 ; 0000:1:1:101:------1  Complement Link If Link Set ***
 
-.equ  IFV     &0f0c            ; IFV bitmap instruction
+.equ  IFV     &0f00            ; IFV bitmap instruction
 
 ; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
 ; are available with IFL. Use them as IFL NEG.
