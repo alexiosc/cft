@@ -1358,22 +1358,14 @@ Text Notes 3500 4400 2    50   ~ 10
 NOTE: '574 pins are out of order for easier routing!
 Text Label 3800 5350 0    50   ~ 0
 µCV10
-Text HLabel 5500 5150 2    50   Output ~ 0
-COND2
 Text HLabel 5500 5050 2    50   Output ~ 0
-COND1
-Text Label 5400 5050 2    50   ~ 0
+COND2
+Text HLabel 5500 5150 2    50   Output ~ 0
 COND1
 Text Label 5400 5150 2    50   ~ 0
+COND1
+Text Label 5400 5050 2    50   ~ 0
 COND2
-Text Label 3800 5150 0    50   ~ 0
-µCV12
-Text Label 3800 5050 0    50   ~ 0
-µCV11
-Wire Wire Line
-	3750 5150 4050 5150
-Wire Wire Line
-	3750 5050 4050 5050
 Text Label 3800 4950 0    50   ~ 0
 µCV14
 Text Label 3800 4850 0    50   ~ 0
@@ -1441,9 +1433,9 @@ Wire Wire Line
 Wire Wire Line
 	5050 4950 5500 4950
 Wire Wire Line
-	5050 5050 5500 5050
-Wire Wire Line
 	5050 5150 5500 5150
+Wire Wire Line
+	5050 5050 5500 5050
 Wire Wire Line
 	5050 5250 5500 5250
 Wire Wire Line
@@ -1655,6 +1647,14 @@ Wire Wire Line
 	8750 3400 8750 3900
 Wire Wire Line
 	8850 3400 8850 3600
+Text Label 3800 5050 0    50   ~ 0
+µCV12
+Text Label 3800 5150 0    50   ~ 0
+µCV11
+Wire Wire Line
+	3750 5050 4050 5050
+Wire Wire Line
+	3750 5150 4050 5150
 Wire Bus Line
 	8000 1900 8000 4050
 Wire Bus Line
