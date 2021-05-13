@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 11
+Sheet 3 20
 Title "ALU Port A"
 Date "2019-11-17"
 Rev "2020"
@@ -238,13 +238,13 @@ AC10
 Text Label 5000 4350 0    50   ~ 0
 AC11
 Text Label 5000 4450 0    50   ~ 0
-AC12
-Text Label 5000 4550 0    50   ~ 0
-AC13
-Text Label 5000 4650 0    50   ~ 0
 AC14
-Text Label 5000 4750 0    50   ~ 0
+Text Label 5000 4550 0    50   ~ 0
 AC15
+Text Label 5000 4650 0    50   ~ 0
+AC12
+Text Label 5000 4750 0    50   ~ 0
+AC13
 Text Label 6450 2550 0    50   ~ 0
 A0
 Text Label 6450 2650 0    50   ~ 0
@@ -270,13 +270,13 @@ A10
 Text Label 6450 4350 0    50   ~ 0
 A11
 Text Label 6450 4450 0    50   ~ 0
-A12
-Text Label 6450 4550 0    50   ~ 0
-A13
-Text Label 6450 4650 0    50   ~ 0
 A14
-Text Label 6450 4750 0    50   ~ 0
+Text Label 6450 4550 0    50   ~ 0
 A15
+Text Label 6450 4650 0    50   ~ 0
+A12
+Text Label 6450 4750 0    50   ~ 0
+A13
 Entry Bus Bus
 	4650 2200 4750 2300
 Entry Bus Bus

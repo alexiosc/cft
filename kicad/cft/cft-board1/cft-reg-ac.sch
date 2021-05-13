@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 11
+Sheet 10 20
 Title "Accumulator (AC)"
 Date ""
 Rev "2047"
@@ -1333,36 +1333,36 @@ Entry Wire Line
 Entry Wire Line
 	6750 1900 6650 2000
 Wire Wire Line
-	7200 2600 6750 2600
-Wire Wire Line
-	7200 2500 6750 2500
+	7200 2300 6750 2300
 Wire Wire Line
 	7200 2400 6750 2400
 Wire Wire Line
-	7200 2300 6750 2300
+	7200 2500 6750 2500
+Wire Wire Line
+	7200 2600 6750 2600
 Wire Wire Line
 	7200 2200 6750 2200
 Wire Wire Line
 	7200 2100 6750 2100
 Wire Wire Line
-	7200 2000 6750 2000
-Wire Wire Line
 	7200 1900 6750 1900
-Text Label 6850 1900 0    50   ~ 0
-AC0
+Wire Wire Line
+	7200 2000 6750 2000
 Text Label 6850 2000 0    50   ~ 0
+AC0
+Text Label 6850 1900 0    50   ~ 0
 AC1
 Text Label 6850 2100 0    50   ~ 0
 AC2
 Text Label 6850 2200 0    50   ~ 0
 AC3
-Text Label 6850 2300 0    50   ~ 0
-AC4
-Text Label 6850 2400 0    50   ~ 0
-AC5
-Text Label 6850 2500 0    50   ~ 0
-AC6
 Text Label 6850 2600 0    50   ~ 0
+AC4
+Text Label 6850 2500 0    50   ~ 0
+AC5
+Text Label 6850 2400 0    50   ~ 0
+AC6
+Text Label 6850 2300 0    50   ~ 0
 AC7
 Entry Wire Line
 	6750 5200 6650 5300
