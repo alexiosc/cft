@@ -270,7 +270,7 @@ AR Path="/5D9672D4/5DE45C4C" Ref="U1008"  Part="2"
 AR Path="/5D9746C5/5DE45C4C" Ref="U?"  Part="2" 
 F 0 "U1008" H 10650 4300 50  0000 L CNN
 F 1 "74HCT541" H 10650 4200 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 4550 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 4550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 4550 50  0001 C CNN
 	2    10800 4550
 	1    0    0    -1  
@@ -288,7 +288,7 @@ AR Path="/5D9672D4/5D96D432" Ref="U1006"  Part="2"
 AR Path="/5D9746C5/5D96D432" Ref="U?"  Part="2" 
 F 0 "U1006" H 10650 3600 50  0000 L CNN
 F 1 "74HCT541" H 10650 3500 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 3850 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 3850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 3850 50  0001 C CNN
 	2    10800 3850
 	1    0    0    -1  
@@ -306,7 +306,7 @@ AR Path="/5D9672D4/5D96D439" Ref="U1002"  Part="2"
 AR Path="/5D9746C5/5D96D439" Ref="U?"  Part="2" 
 F 0 "U1002" H 10650 2200 50  0000 L CNN
 F 1 "74HCT541" H 10650 2100 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 2450 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 2450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 2450 50  0001 C CNN
 	2    10800 2450
 	1    0    0    -1  
@@ -426,7 +426,7 @@ AR Path="/5D9672D4/5D96D4B6" Ref="U1008"  Part="1"
 AR Path="/5D9746C5/5D96D4B6" Ref="U?"  Part="1" 
 F 0 "U1008" H 5400 7017 50  0000 C CNN
 F 1 "74HCT541" H 5400 6926 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 6250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 6250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 6250 50  0001 C CNN
 	1    5400 6250
 	1    0    0    -1  
@@ -478,7 +478,7 @@ AR Path="/5D9672D4/5D96D4DE" Ref="U1005"  Part="1"
 AR Path="/5D9746C5/5D96D4DE" Ref="U?"  Part="1" 
 F 0 "U1005" H 5400 3867 50  0000 C CNN
 F 1 "74HCT541" H 5400 3776 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 3100 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 3100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 3100 50  0001 C CNN
 	1    5400 3100
 	1    0    0    -1  
@@ -598,7 +598,7 @@ AR Path="/5D9672D4/5DE45C51" Ref="U1002"  Part="1"
 AR Path="/5D9746C5/5DE45C51" Ref="U?"  Part="1" 
 F 0 "U1002" H 5400 2317 50  0000 C CNN
 F 1 "74HCT541" H 5400 2226 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 1550 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 1550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 1550 50  0001 C CNN
 	1    5400 1550
 	1    0    0    -1  
@@ -731,7 +731,7 @@ AR Path="/5D9672D4/5DE45C58" Ref="U1009"  Part="2"
 AR Path="/5D9746C5/5DE45C58" Ref="U?"  Part="2" 
 F 0 "U1009" H 9750 4500 50  0000 L CNN
 F 1 "74HC193" H 9750 4400 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 4650 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 4650 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 4650 50  0001 C CNN
 	2    9900 4650
 	1    0    0    -1  
@@ -770,7 +770,7 @@ AR Path="/5D9672D4/5D96D561" Ref="U1007"  Part="2"
 AR Path="/5D9746C5/5D96D561" Ref="U?"  Part="2" 
 F 0 "U1007" H 9750 3800 50  0000 L CNN
 F 1 "74HC193" H 9750 3700 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 3950 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 3950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 3950 50  0001 C CNN
 	2    9900 3950
 	1    0    0    -1  
@@ -809,7 +809,7 @@ AR Path="/5D9672D4/5DE45C5C" Ref="U1004"  Part="2"
 AR Path="/5D9746C5/5DE45C5C" Ref="U?"  Part="2" 
 F 0 "U1004" H 9750 3100 50  0000 L CNN
 F 1 "74HC193" H 9750 3000 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 3250 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 3250 50  0001 C CNN
 	2    9900 3250
 	1    0    0    -1  
@@ -848,7 +848,7 @@ AR Path="/5D9672D4/5D96D57D" Ref="U1001"  Part="1"
 AR Path="/5D9746C5/5D96D57D" Ref="U?"  Part="1" 
 F 0 "U1001" H 3000 2117 50  0000 C CNN
 F 1 "74HC193" H 3000 2026 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 1450 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 1450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 1450 50  0001 C CNN
 	1    3000 1450
 	1    0    0    -1  
@@ -903,7 +903,7 @@ AR Path="/5D9672D4/5D96D596" Ref="U1009"  Part="1"
 AR Path="/5D9746C5/5D96D596" Ref="U?"  Part="1" 
 F 0 "U1009" H 3000 6867 50  0000 C CNN
 F 1 "74HC193" H 3000 6776 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 6200 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 6200 50  0001 C CNN
 	1    3000 6200
 	1    0    0    -1  
@@ -954,7 +954,7 @@ AR Path="/5D9672D4/5D96D5AD" Ref="U1007"  Part="1"
 AR Path="/5D9746C5/5D96D5AD" Ref="U?"  Part="1" 
 F 0 "U1007" H 3000 5267 50  0000 C CNN
 F 1 "74HC193" H 3000 5176 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 4600 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 4600 50  0001 C CNN
 	1    3000 4600
 	1    0    0    -1  
@@ -1005,7 +1005,7 @@ AR Path="/5D9672D4/5DE45C61" Ref="U1004"  Part="1"
 AR Path="/5D9746C5/5DE45C61" Ref="U?"  Part="1" 
 F 0 "U1004" H 3000 3667 50  0000 C CNN
 F 1 "74HC193" H 3000 3576 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 3000 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 3000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 3000 50  0001 C CNN
 	1    3000 3000
 	1    0    0    -1  
@@ -1141,7 +1141,7 @@ AR Path="/5D9672D4/5DE45C62" Ref="U1006"  Part="1"
 AR Path="/5D9746C5/5DE45C62" Ref="U?"  Part="1" 
 F 0 "U1006" H 5400 5467 50  0000 C CNN
 F 1 "74HCT541" H 5400 5376 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 4700 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 4700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 4700 50  0001 C CNN
 	1    5400 4700
 	1    0    0    -1  
@@ -1220,7 +1220,7 @@ AR Path="/5D9672D4/5D96D65E" Ref="U1003"  Part="1"
 AR Path="/5D9746C5/5D96D65E" Ref="U?"  Part="1" 
 F 0 "U1003" H 7700 3967 50  0000 C CNN
 F 1 "74HC688" H 7700 3876 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7700 2800 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 7700 2800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 7700 2800 50  0001 C CNN
 	1    7700 2800
 	1    0    0    -1  
@@ -1420,7 +1420,7 @@ AR Path="/5D9672D4/5D96D6C9" Ref="U1010"  Part="1"
 AR Path="/5D9746C5/5D96D6C9" Ref="U?"  Part="1" 
 F 0 "U1010" H 7700 6567 50  0000 C CNN
 F 1 "74HC688" H 7700 6476 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7700 5400 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 7700 5400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 7700 5400 50  0001 C CNN
 	1    7700 5400
 	1    0    0    -1  
@@ -1439,7 +1439,7 @@ AR Path="/5D9672D4/5D96D6D7" Ref="U1003"  Part="2"
 AR Path="/5D9746C5/5D96D6D7" Ref="U?"  Part="2" 
 F 0 "U1003" H 9750 5000 50  0000 L CNN
 F 1 "74HC688" H 9750 4900 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 9900 5250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 9900 5250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 9900 5250 50  0001 C CNN
 	2    9900 5250
 	1    0    0    -1  
@@ -1452,7 +1452,7 @@ AR Path="/5D9672D4/5D96D6DE" Ref="U1010"  Part="2"
 AR Path="/5D9746C5/5D96D6DE" Ref="U?"  Part="2" 
 F 0 "U1010" H 10650 5000 50  0000 L CNN
 F 1 "74HC688" H 10650 4900 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 5250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 5250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 10800 5250 50  0001 C CNN
 	2    10800 5250
 	1    0    0    -1  
@@ -1630,7 +1630,7 @@ AR Path="/5D9672D4/5D96D71D" Ref="U1005"  Part="2"
 AR Path="/5D9746C5/5D96D71D" Ref="U?"  Part="2" 
 F 0 "U1005" H 10650 2900 50  0000 L CNN
 F 1 "74HCT541" H 10650 2800 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 3150 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 3150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 3150 50  0001 C CNN
 	2    10800 3150
 	1    0    0    -1  
@@ -1651,7 +1651,7 @@ AR Path="/5D9672D4/5D96D726" Ref="U1001"  Part="2"
 AR Path="/5D9746C5/5D96D726" Ref="U?"  Part="2" 
 F 0 "U1001" H 9750 2400 50  0000 L CNN
 F 1 "74HC193" H 9750 2300 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 2550 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 2550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 2550 50  0001 C CNN
 	2    9900 2550
 	1    0    0    -1  

@@ -274,7 +274,7 @@ AR Path="/5D9746D0/5D9BFFBB" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9BFFBB" Ref="U?"  Part="2" 
 F 0 "U1107" H 10650 4300 50  0000 L CNN
 F 1 "74HCT541" H 10650 4200 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 4550 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 4550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 4550 50  0001 C CNN
 	2    10800 4550
 	1    0    0    -1  
@@ -294,7 +294,7 @@ AR Path="/5D9746D0/5D9BFFC2" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9BFFC2" Ref="U?"  Part="2" 
 F 0 "U1105" H 10650 3600 50  0000 L CNN
 F 1 "74HCT541" H 10650 3500 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 3850 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 3850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 3850 50  0001 C CNN
 	2    10800 3850
 	1    0    0    -1  
@@ -314,7 +314,7 @@ AR Path="/5D9746D0/5D9BFFC9" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9BFFC9" Ref="U?"  Part="2" 
 F 0 "U1102" H 10650 2200 50  0000 L CNN
 F 1 "74HCT541" H 10650 2100 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 2450 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 2450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 2450 50  0001 C CNN
 	2    10800 2450
 	1    0    0    -1  
@@ -339,12 +339,6 @@ Text HLabel 1100 1050 0    50   Input ~ 0
 ~WRITE
 Entry Bus Bus
 	1600 650  1700 750 
-Text Label 1550 900  2    50   ~ 0
-RESET
-Wire Wire Line
-	1100 900  1550 900 
-Text HLabel 1100 900  0    50   Input ~ 0
-RESET
 Text Label 6350 2300 1    50   ~ 0
 IBUS[0..15]
 Entry Wire Line
@@ -442,7 +436,7 @@ AR Path="/5D9746D0/5D9C0036" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C0036" Ref="U?"  Part="1" 
 F 0 "U1107" H 5400 7017 50  0000 C CNN
 F 1 "74HCT541" H 5400 6926 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 6250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 6250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 6250 50  0001 C CNN
 	1    5400 6250
 	1    0    0    -1  
@@ -494,7 +488,7 @@ AR Path="/5D9746D0/5D9C005E" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C005E" Ref="U?"  Part="1" 
 F 0 "U1104" H 5400 3867 50  0000 C CNN
 F 1 "74HCT541" H 5400 3776 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 3100 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 3100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 3100 50  0001 C CNN
 	1    5400 3100
 	1    0    0    -1  
@@ -539,18 +533,6 @@ Wire Wire Line
 	3650 1750 3650 2250
 Wire Wire Line
 	3500 1750 3650 1750
-Wire Wire Line
-	2250 6700 2500 6700
-Text Label 2250 6700 0    50   ~ 0
-RESET
-Wire Wire Line
-	2250 5100 2500 5100
-Text Label 2250 5100 0    50   ~ 0
-RESET
-Wire Wire Line
-	2250 3500 2500 3500
-Text Label 2250 3500 0    50   ~ 0
-RESET
 Text Label 2250 6300 0    50   ~ 0
 ~WRITE
 Wire Wire Line
@@ -563,10 +545,6 @@ Text Label 2250 1550 0    50   ~ 0
 ~WRITE
 Wire Wire Line
 	2250 1750 2500 1750
-Wire Wire Line
-	2250 1950 2500 1950
-Text Label 2250 1950 0    50   ~ 0
-RESET
 Text Label 2250 1750 0    50   ~ 0
 ~INC
 Wire Wire Line
@@ -630,7 +608,7 @@ AR Path="/5D9746D0/5D9C00A8" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C00A8" Ref="U?"  Part="1" 
 F 0 "U1102" H 5400 2317 50  0000 C CNN
 F 1 "74HCT541" H 5400 2226 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 1550 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 1550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 1550 50  0001 C CNN
 	1    5400 1550
 	1    0    0    -1  
@@ -777,7 +755,7 @@ AR Path="/5D9746D0/5D9C00D3" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9C00D3" Ref="U?"  Part="2" 
 F 0 "U1108" H 9750 4500 50  0000 L CNN
 F 1 "74HC193" H 9750 4400 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 4650 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 4650 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 4650 50  0001 C CNN
 	2    9900 4650
 	1    0    0    -1  
@@ -820,7 +798,7 @@ AR Path="/5D9746D0/5D9C00E1" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9C00E1" Ref="U?"  Part="2" 
 F 0 "U1106" H 9750 3800 50  0000 L CNN
 F 1 "74HC193" H 9750 3700 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 3950 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 3950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 3950 50  0001 C CNN
 	2    9900 3950
 	1    0    0    -1  
@@ -863,7 +841,7 @@ AR Path="/5D9746D0/5D9C00EF" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9C00EF" Ref="U?"  Part="2" 
 F 0 "U1103" H 9750 3100 50  0000 L CNN
 F 1 "74HC193" H 9750 3000 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 3250 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 3250 50  0001 C CNN
 	2    9900 3250
 	1    0    0    -1  
@@ -906,7 +884,7 @@ AR Path="/5D9746D0/5D9C00FD" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C00FD" Ref="U?"  Part="1" 
 F 0 "U1101" H 3000 2117 50  0000 C CNN
 F 1 "74HC193" H 3000 2026 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 1450 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 1450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 1450 50  0001 C CNN
 	1    3000 1450
 	1    0    0    -1  
@@ -963,7 +941,7 @@ AR Path="/5D9746D0/5D9C0116" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C0116" Ref="U?"  Part="1" 
 F 0 "U1108" H 3000 6867 50  0000 C CNN
 F 1 "74HC193" H 3000 6776 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 6200 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 6200 50  0001 C CNN
 	1    3000 6200
 	1    0    0    -1  
@@ -1016,7 +994,7 @@ AR Path="/5D9746D0/5D9C012D" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C012D" Ref="U?"  Part="1" 
 F 0 "U1106" H 3000 5267 50  0000 C CNN
 F 1 "74HC193" H 3000 5176 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 4600 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 4600 50  0001 C CNN
 	1    3000 4600
 	1    0    0    -1  
@@ -1069,7 +1047,7 @@ AR Path="/5D9746D0/5D9C0144" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C0144" Ref="U?"  Part="1" 
 F 0 "U1103" H 3000 3667 50  0000 C CNN
 F 1 "74HC193" H 3000 3576 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3000 3000 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3000 3000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3000 3000 50  0001 C CNN
 	1    3000 3000
 	1    0    0    -1  
@@ -1205,7 +1183,7 @@ AR Path="/5D9746D0/5D9C01AD" Ref="U?"  Part="1"
 AR Path="/5D9BD2A8/5D9C01AD" Ref="U?"  Part="1" 
 F 0 "U1105" H 5400 5467 50  0000 C CNN
 F 1 "74HCT541" H 5400 5376 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5400 4700 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5400 4700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 5400 4700 50  0001 C CNN
 	1    5400 4700
 	1    0    0    -1  
@@ -1255,7 +1233,7 @@ AR Path="/5D9746D0/5D9C029D" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9C029D" Ref="U?"  Part="2" 
 F 0 "U1104" H 10650 2900 50  0000 L CNN
 F 1 "74HCT541" H 10650 2800 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10800 3150 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10800 3150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10800 3150 50  0001 C CNN
 	2    10800 3150
 	1    0    0    -1  
@@ -1278,7 +1256,7 @@ AR Path="/5D9746D0/5D9C02A6" Ref="U?"  Part="2"
 AR Path="/5D9BD2A8/5D9C02A6" Ref="U?"  Part="2" 
 F 0 "U1101" H 9750 2400 50  0000 L CNN
 F 1 "74HC193" H 9750 2300 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 9900 2550 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9900 2550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 9900 2550 50  0001 C CNN
 	2    9900 2550
 	1    0    0    -1  
@@ -1691,6 +1669,66 @@ F 3 "~" H 10450 4550 50  0001 C CNN
 $EndComp
 Connection ~ 10450 4450
 Connection ~ 10450 4650
+$Comp
+L power:GND #PWR0143
+U 1 1 6423CDC1
+P 2450 2000
+F 0 "#PWR0143" H 2450 1750 50  0001 C CNN
+F 1 "GND" H 2300 2050 50  0000 C CNN
+F 2 "" H 2450 2000 50  0001 C CNN
+F 3 "" H 2450 2000 50  0001 C CNN
+	1    2450 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 1950 2450 1950
+Wire Wire Line
+	2450 1950 2450 2000
+$Comp
+L power:GND #PWR0144
+U 1 1 6424FFC8
+P 2450 3550
+F 0 "#PWR0144" H 2450 3300 50  0001 C CNN
+F 1 "GND" H 2300 3600 50  0000 C CNN
+F 2 "" H 2450 3550 50  0001 C CNN
+F 3 "" H 2450 3550 50  0001 C CNN
+	1    2450 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 3500 2450 3500
+Wire Wire Line
+	2450 3500 2450 3550
+$Comp
+L power:GND #PWR0145
+U 1 1 642594D3
+P 2450 5150
+F 0 "#PWR0145" H 2450 4900 50  0001 C CNN
+F 1 "GND" H 2300 5200 50  0000 C CNN
+F 2 "" H 2450 5150 50  0001 C CNN
+F 3 "" H 2450 5150 50  0001 C CNN
+	1    2450 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 5100 2450 5100
+Wire Wire Line
+	2450 5100 2450 5150
+$Comp
+L power:GND #PWR0146
+U 1 1 64262A57
+P 2450 6750
+F 0 "#PWR0146" H 2450 6500 50  0001 C CNN
+F 1 "GND" H 2300 6800 50  0000 C CNN
+F 2 "" H 2450 6750 50  0001 C CNN
+F 3 "" H 2450 6750 50  0001 C CNN
+	1    2450 6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 6700 2450 6700
+Wire Wire Line
+	2450 6700 2450 6750
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
