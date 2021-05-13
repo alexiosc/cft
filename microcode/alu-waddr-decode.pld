@@ -1,0 +1,46 @@
+GAL16V8         ; this is the GAL type
+ALWDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+CLK4    WA0     WA1	WA2	WA3	WA4	NC7	NC8	NC9	GND
+NC11	WB	WAC	WSP	NC15	NC16	NC17	NC18	NC19	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/WB =		/CLK4 *  WA4 *  WA3 * /WA2 * /WA1 *  WA0
+
+/WAC =          /CLK4 * /WA4 *  WA3 * /WA2 *  WA1 * /WA0
+
+/WSP =          /CLK4 * /WA4 *  WA3 * /WA2 *  WA1 *  WA0
+
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+WADDR    -- The read address
+
+Outputs: (all active low)
+
+; The addresses we need are like this:
+
+// 01010     AC          AC
+// 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
+// -------------------------------------------------------------------------------
+// 10000     ALU:ADD                  Start calculating addition (value will be incorrect)
+// 10001     ALU:AND                  Read AND result.
+// 10010     ALU:OR                   Read OR result.
+// 10011     ALU:XOR                  Read XOR result.
+// 10100     ALU:NOT                  Read NOT result.
+// 10101                              Reserved for ALU.
+// 10110                              Reserved for ALU.
+// 10111                              Reserved for ALU.
+// -------------------------------------------------------------------------------
+// 11000     ALU:Y                    Read result of last ALU operation
+// 11001     ALU:B       ALU:B        Currently only used by the SRU.                              
+
+; End of file.
