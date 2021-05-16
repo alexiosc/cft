@@ -27,22 +27,25 @@ def test_CLI_int(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &000000:
-            SUCCESS
-            SUCCESS
-            HALT
-            LJMP 4
-            .data thr
-            .data &82
-
     &800000:
-            LI &80        ; Configure essential MBRs and enable.
-            SCT
-            SMB mbu.MBP
-            LI &00        ; Configure essential MBRs and enable.
-            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
-            LI &01        ; Configure essential MBRs and enable.
-            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+            JMP start
+            SENTINEL
+            LJMP addr     ; 00:0002: Hardware interrupts
+            SENTINEL      ; 00:0003: Software interrupts
+
+    addr:   .data thr     ; 00:0004: Trap Handler Routine Address
+            .data &80     ; 00:0005: THR memory bank
+
+    start:  LI &0         ; Set up context 0 (the reset context, and ours)
+            SCT           ; This is possible because the MBU is still disabled
+            LI &80        ; &80 is this bank.
+            SMB mbu.MBP   ; This enables the MBU, so we must immediately set it up.
+            LI &80        ; 
+            SMB mbu.MBD   ; 
+            LI &01        ; 
+            SMB mbu.MBS   ; 
+            LI &00        ; 
+            SMB mbu.MBZ   ; 
 
             LI 30
             STORE R 1
@@ -67,7 +70,7 @@ def test_CLI_int(framework, capsys, tmpdir):
             SUCCESS
             HALT
 
-    &828000:
+    &80F000:
     thr:    LOAD R 1
             SNZ
             IRET

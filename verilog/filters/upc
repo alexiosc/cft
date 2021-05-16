@@ -1,7 +1,7 @@
 # Colour-code the UPC.
-0 ?red4?0
+0 0
 1 1
-2 2
+2 ?green4?2
 3 ?green4?3
 4 ?green4?4
 5 ?green4?5

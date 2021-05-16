@@ -358,7 +358,6 @@ module card_ctl(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // Connect DUT to test bench
    int_fsm ism (.nreset(nrsthold),
 		.clk3(clk3),
 		.clk4(clk4),

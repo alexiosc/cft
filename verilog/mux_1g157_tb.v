@@ -51,13 +51,11 @@ module mux_1g157_tb();
       a = 0;
       b = 0;
       sel = 0;
-      ng = 0;
 
-      for (i = 0; i < 16; i = i + 1) begin
+      for (i = 0; i < 8; i = i + 1) begin
 	 #100 a = i[0];
 	 b = i[1];
 	 sel = i[2];
-	 ng = i[3];
       end
 
       #200 $display("345 OK");
@@ -65,24 +63,15 @@ module mux_1g157_tb();
    end
    
    // Connect DUT to test bench
-   mux_1g157 mux_1g157 (.sel(sel), .a(a), .b(b), .ng(ng), .y(y));
+   mux_1g157 mux_1g157 (.sel(sel), .a(a), .b(b), .y(y));
 
    // Verify our findings.
    reg [8191:0] msg;
-   always @ (a, b, sel, ng) begin
+   always @ (a, b, sel) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (ng === 1) begin
-	    // If the gate is high, the Y output is always low.
-	    if (y !== 1'bz) $sformat(msg, "ng=%b but y=%b (should be y=0, ny=1)", ng, y);
-	 end
-
-	 else if (ng !== 0) begin
-	    if (y !== a) $sformat(msg, "testbench but, ng=%b", ng);
-	 end
-
-	 else if (sel === 0) begin
+	 if (sel === 0) begin
 	    if (y !== a) $sformat(msg, "ng=%b, a=%b, b=%b, sel=%b but y=%b (should be same as a)", ng, a, b, sel);
 	 end
 

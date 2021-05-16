@@ -92,9 +92,10 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
       endcase
    end
 
-   // Clock source multiplexer
+   // Clock source multiplexer. The hardware uses a quarter of a 74AC157, with
+   // its gate pin tied to ground. This behaves the same way a as a '157.
    wire clkin;
-   mux_1g157 clksource (.sel(nfpclk_or_clk), .a(fpclk), .b(clk), .ng(1'b0), .y(clkin));
+   mux_1g157 clksource (.sel(nfpclk_or_clk), .a(fpclk), .b(clk), .y(clkin));
 
    // Two phase clock counters.
    wire [3:0] q;

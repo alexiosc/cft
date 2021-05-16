@@ -121,8 +121,10 @@ module alu_sru(nreset, nrsthold,
    // The counter may reset to any value. If that value is non-zero, it'll
    // start counting down (and driving the IBus). This will cause bus contention
    // during reset. So disable the IBus drivers while nrsthold is asserted (0).
+
+   // TODO: VERIFY THIS
    wire 	nen;
-   mux_1g157 reset_interlock (.sel(nrsthold), .ng(1'b0), .a(1'b1), .b(tc), .y(nen));
+   mux_1g157 reset_interlock (.sel(nrsthold), .a(1'b1), .b(tc), .y(nen));
 
    initial begin
       #100 ctr_state.q <= 6;
@@ -148,7 +150,8 @@ module alu_sru(nreset, nrsthold,
    // flipflop_74h #(5,5) fi_fl    (.d(flout), .clk(flcp_sru), .nset(1'b1), .nrst(nreset), .q(flout_sru));
 
    // Generate the L output
-   mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout_sru));
+   // TODO: VERIFY THIS.
+   mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .y(flout_sru));
    // mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout));
 
 endmodule // alu_sru

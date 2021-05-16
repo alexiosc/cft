@@ -23,6 +23,7 @@ def test_SHR(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &0:        LI &80
+               SCT
                SMB mbu.MBP
                CLL CLA
     
@@ -145,6 +146,7 @@ def test_SHR_slow(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &0:        LI &80
+               SCT
                SMB mbu.MBP
                LI 0
                SMB mbu.MBZ

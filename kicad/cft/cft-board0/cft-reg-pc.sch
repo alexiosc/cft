@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 17
+Sheet 17 17
 Title "Program Counter (PC)"
 Date ""
-Rev "2047"
+Rev "2119"
 Comp ""
 Comment1 "REG"
 Comment2 ""
@@ -327,12 +327,6 @@ Wire Wire Line
 	1100 1050 1550 1050
 Entry Bus Bus
 	1600 650  1700 750 
-Text Label 1550 900  2    50   ~ 0
-RESET
-Wire Wire Line
-	1100 900  1550 900 
-Text HLabel 1100 900  0    50   Input ~ 0
-RESET
 Text Label 6350 2300 1    50   ~ 0
 IBUS[0..15]
 Entry Wire Line
@@ -539,18 +533,6 @@ Wire Wire Line
 	3650 1750 3650 2250
 Wire Wire Line
 	3500 1750 3650 1750
-Wire Wire Line
-	2250 6700 2500 6700
-Text Label 2250 6700 0    50   ~ 0
-RESET
-Wire Wire Line
-	2250 5100 2500 5100
-Text Label 2250 5100 0    50   ~ 0
-RESET
-Wire Wire Line
-	2250 3500 2500 3500
-Text Label 2250 3500 0    50   ~ 0
-RESET
 Text Label 2250 6300 0    50   ~ 0
 ~WRITE
 Wire Wire Line
@@ -563,10 +545,6 @@ Text Label 2250 1550 0    50   ~ 0
 ~WRITE
 Wire Wire Line
 	2250 1750 2500 1750
-Wire Wire Line
-	2250 1950 2500 1950
-Text Label 2250 1950 0    50   ~ 0
-RESET
 Text Label 2250 1750 0    50   ~ 0
 ~INC
 Wire Wire Line
@@ -1722,6 +1700,66 @@ Wire Wire Line
 Connection ~ 1300 3900
 Wire Wire Line
 	1300 3900 1550 3900
+$Comp
+L power:GND #PWR0139
+U 1 1 620ACB9A
+P 2450 2000
+F 0 "#PWR0139" H 2450 1750 50  0001 C CNN
+F 1 "GND" H 2350 2050 50  0000 C CNN
+F 2 "" H 2450 2000 50  0001 C CNN
+F 3 "" H 2450 2000 50  0001 C CNN
+	1    2450 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 2000 2450 1950
+Wire Wire Line
+	2450 1950 2500 1950
+$Comp
+L power:GND #PWR0140
+U 1 1 620B9841
+P 2450 3550
+F 0 "#PWR0140" H 2450 3300 50  0001 C CNN
+F 1 "GND" H 2350 3600 50  0000 C CNN
+F 2 "" H 2450 3550 50  0001 C CNN
+F 3 "" H 2450 3550 50  0001 C CNN
+	1    2450 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 3550 2450 3500
+Wire Wire Line
+	2450 3500 2500 3500
+$Comp
+L power:GND #PWR0189
+U 1 1 620C2DC9
+P 2450 5150
+F 0 "#PWR0189" H 2450 4900 50  0001 C CNN
+F 1 "GND" H 2350 5200 50  0000 C CNN
+F 2 "" H 2450 5150 50  0001 C CNN
+F 3 "" H 2450 5150 50  0001 C CNN
+	1    2450 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 5150 2450 5100
+Wire Wire Line
+	2450 5100 2500 5100
+$Comp
+L power:GND #PWR0190
+U 1 1 620DF3F9
+P 2450 6750
+F 0 "#PWR0190" H 2450 6500 50  0001 C CNN
+F 1 "GND" H 2350 6800 50  0000 C CNN
+F 2 "" H 2450 6750 50  0001 C CNN
+F 3 "" H 2450 6750 50  0001 C CNN
+	1    2450 6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 6750 2450 6700
+Wire Wire Line
+	2450 6700 2500 6700
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line

@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 8 17
 Title "Addressing Modes"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "CTL"
 Comment2 ""

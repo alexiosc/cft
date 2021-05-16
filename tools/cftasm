@@ -62,7 +62,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    SCT     &0980            ; 0000:1:0:011:-------  Set Context Register
 .equ    LMB     &0a00            ; 0000:1:0:100:----LLL  Read Memory Bank
 .equ    SMB     &0a80            ; 0000:1:0:101:----LLL  Set Memory Bank
-.equ    NCT     &0b00            ; 0000:1:0:110:-------  Initialise New Context
+.equ    NMB     &0b00            ; 0000:1:0:110:----LLL  Write MBR for other context
 .equ    ECT     &0b80            ; 0000:1:0:111:LLLLLLL  Enter Context
 .equ    JPA     &0c00            ; 0000:1:1:000:-------  Jump to Accumulator
 .equ    JSA     &0c80            ; 0000:1:1:001:-------  Jump to Subroutine at Accumulator
@@ -80,7 +80,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
-.equ    IFL     &0e8c            ; IFL bitmap instruction
+.equ    IFL     &0e80            ; IFL bitmap instruction
 
 ; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
 ; are available with IFL. Use them as IFL NEG.
@@ -94,7 +94,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 ; .equ  DEC     IFL     #0000010 ; 0000:1:1:101:-----1-  Decrement Accumulator If Link Set
 ; .equ  CPL     IFL     #0000001 ; 0000:1:1:101:------1  Complement Link If Link Set ***
 
-.equ  IFV     &0f0c            ; IFV bitmap instruction
+.equ  IFV     &0f00            ; IFV bitmap instruction
 
 ; Bitmap sub-instructions NEG, SEL, CLA, CLL, NOT, INC, DEC and CPL
 ; are available with IFL. Use them as IFL NEG.

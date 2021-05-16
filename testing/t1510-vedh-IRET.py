@@ -27,22 +27,27 @@ def test_IRET(framework, capsys, tmpdir):
     .include "dfp2.asm"
 
     &800000:
-            LI &80        ; Configure essential MBRs and enable.
-            SCT
-            SMB mbu.MBP
-            LI &00        ; Configure essential MBRs and enable.
-            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
-            LI &01        ; Configure essential MBRs and enable.
-            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+            LI &0         ; Set up context 0 (the reset context, and ours)
+            SCT           ; This is possible because the MBU is still disabled
+            LI &80        ; &80 is this bank.
+            SMB mbu.MBP   ; This enables the MBU, so we must immediately set it up.
+            LI &80        ; 
+            SMB mbu.MBD   ; 
+            LI &01        ; 
+            SMB mbu.MBS   ; 
+            LI &00        ; 
+            SMB mbu.MBZ   ; 
 
-            LOAD isr0     ; Install the THR
-            STORE R 2
-            LOAD @isr0+1
-            STORE R 3
-            LOAD @isr0+2
-            STORE R 4
-            LOAD @isr0+3
-            STORE R 5
+            LI &1
+            TAD
+            LI &82        ; Set up context 1 (the TRAP context)
+            NMB mbu.MBP   ; MBP is &82
+            LMB mbu.MBD   ; Share the other banks with this context
+            NMB mbu.MBD
+            LMB mbu.MBS
+            NMB mbu.MBS
+            LMB mbu.MBZ
+            NMB mbu.MBZ
 
             LI &42
             dfp.PRINTH
@@ -70,9 +75,12 @@ def test_IRET(framework, capsys, tmpdir):
 
             HALT
 
-    isr0:   LJMP 4        ; 00:0002:
-            HALT          ; 00:0003: Don't allow hardware interrupts.
-            .data thr     ; 00:0004: Trap Handler Routine Address
+    &820000:
+            SENTINEL
+            SENTINEL
+            SENTINEL      ; 00:0002: Hardware interrupts
+            LJMP addr     ; 00:0003: Software interrupts.
+    addr:   .data thr     ; 00:0004: Trap Handler Routine Address
             .data &82     ; 00:0005: THR memory bank
 
     &828000:
@@ -133,17 +141,16 @@ def test_IRET_int(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &000000:
-            SUCCESS
-            SUCCESS
-            HALT
-            LJMP 4
-            .data thr
-            .data &82
-
     &800000:
-            LI &80        ; Configure essential MBRs and enable.
+            JMP start     ; 82:0000: Reset vector
+            SENTINEL      ; 82:0001: Not used
+            LJMP isr      ; 82:0002: Hardware interrupts
+            SENTINEL      ; 82:0003: Software interrupts.
+    isr:    .data thr
+            .data &80
+    start:  LI &0
             SCT
+            LI &80        ; Configure essential MBRs and enable.
             SMB mbu.MBP
             LI &00        ; Configure essential MBRs and enable.
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
@@ -162,7 +169,7 @@ def test_IRET_int(framework, capsys, tmpdir):
             SUCCESS
             HALT
 
-    &828000:
+    &808000:
     thr:    LOAD R 1
             SNZ
             IRET

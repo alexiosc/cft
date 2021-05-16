@@ -36,6 +36,7 @@ def test_RET(framework, capsys, tmpdir):
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
+           SCT
            SMB mbu.MBP
            LI &1
            SMB mbu.MBS

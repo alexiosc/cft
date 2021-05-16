@@ -89,6 +89,12 @@ module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
    input        nfpuc2;
    output [7:0] fpd;
 
+   // These are pulled high/low here.
+   tri1 	nmem, nio, nr, nwen;
+   tri0 [4:0] 	raddr;
+   tri0 [4:0] 	waddr;
+   tri0 [4:0] 	cond;
+   tri0 [3:0] 	action;
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -128,7 +134,7 @@ module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
 		   upc[3:0]	   // bits 3-0
 		   };
 
-   wire        nmem0, nio0, nr0, nwen0;
+   tri1        nmem0, nio0, nr0, nwen0;
 
    // Break out the Micro-Control Vector
    assign {
@@ -164,8 +170,8 @@ module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
    // The reset interlock multiplexer disables bus transaction strobes during
    // reset. This is to avoid glitches causing side-effects right after
    // reset. Use AC family and assume worst case.
-   mux_157 #13.5 reset_interlock (.sel(nrsthold), .a(4'b1111),
-				  .b({nio0, nwen0, nr0, nmem0}), .noe(1'b0),
+   mux_257 #13.5 reset_interlock (.sel(nrsthold), .i1(4'b1111),
+				  .i2({nio0, nwen0, nr0, nmem0}), .noe(ncse),
 				  .y({nio, nwen, nr, nmem}));
 
    ///////////////////////////////////////////////////////////////////////////////

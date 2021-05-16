@@ -37,6 +37,7 @@ def test_JPA(framework, capsys, tmpdir):
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
+           SCT
            SMB mbu.MBP
     """.rstrip(" ")
 

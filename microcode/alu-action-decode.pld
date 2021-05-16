@@ -1,0 +1,47 @@
+GAL16V8         ; this is the GAL type
+ALADEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+CLK4    ACT0    ACT1	ACT2	ACT3	NC6	NC7	NC8	NC9	GND
+NC11	CPL	CLL	SRU	INCAC	DECAC	INCSP	DECSP	NC19	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/CPL   =  /CLK4 * /ACT3 * /ACT2 * /ACT1 *  ACT0
+
+/CLL   =  /CLK4 * /ACT3 * /ACT2 *  ACT1 * /ACT0
+
+/SRU   =  /CLK4 * /ACT3 *  ACT2 *  ACT1 *  ACT0
+
+/DECAC =  /CLK4 *  ACT3 *  ACT2 * /ACT1 *  ACT0
+
+/INCAC =  /CLK4 *  ACT3 *  ACT2 * /ACT1 * /ACT0
+
+/DECSP =  /CLK4 *  ACT3 *  ACT2 *  ACT1 *  ACT0
+
+/INCSP =  /CLK4 *  ACT3 *  ACT2 *  ACT1 * /ACT0
+
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+ACTDDR    -- The read address
+
+Outputs: (all active low)
+
+; The addresses we need are like this:
+
+signal action_incac    = .....1100...............; // Increment AC
+signal action_decac    = .....1101...............; // Increment AC
+signal action_incsp    = .....1110...............; // Increment SP
+signal action_decsp    = .....1111...............; // Increment SP
+signal action_cpl      = .....0001...............; // Complement L
+signal action_cll      = .....0010...............; // Clear L flag
+signal action_sru      = .....0111...............; // Start the shift/roll engine
+
+; End of file.

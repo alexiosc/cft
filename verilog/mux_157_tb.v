@@ -35,7 +35,7 @@ module mux_157_tb();
    reg        sel;
    reg [3:0]  a;
    reg [3:0]  b;
-   reg        noe;
+   reg        ng;
    
    wire [3:0] y;
 
@@ -44,17 +44,17 @@ module mux_157_tb();
    // Initialize all variables
    initial begin
       // $display ("time\t oe1 sel i1  y1   oe2 sel i2   y2");
-      $monitor ("t: %7d | %b %b %b %b > %b", $time, a, b, sel, noe, y);
+      $monitor ("t: %7d | %b %b %b %b > %b", $time, a, b, sel, ng, y);
       $dumpfile ("vcd/mux_157_tb.vcd");
       $dumpvars (0, mux_157_tb);
 
       a = 0;
       b = 0;
       sel = 0;
-      noe = 0;
+      ng = 0;
 
       for (i = 0; i < 1024; i = i + 1) begin
-	 #100 { noe, sel, b, a } = i;
+	 #100 { ng, sel, b, a } = i;
       end
 
       #200 $display("345 OK");
@@ -62,29 +62,29 @@ module mux_157_tb();
    end
    
    // Connect DUT to test bench
-   mux_157 mux_157 (.sel(sel), .a(a), .b(b), .noe(noe), .y(y));
+   mux_157 mux_157 (.sel(sel), .a(a), .b(b), .ng(ng), .y(y));
 
    // Verify our findings.
    reg [8191:0] msg;
-   always @ (a, b, sel, noe) begin
+   always @ (a, b, sel, ng) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (noe === 1) begin
+	 if (ng === 1) begin
 	    // If the gate is high, the Y output is always low.
-	    if (y !== 4'bz) $sformat(msg, "noe=%b but y=%b (should be y=0)", noe, y);
+	    if (y !== 4'b0000) $sformat(msg, "ng=%b but y=%b (should be y=0000)", ng, y);
 	 end
 
-	 else if (noe !== 0) begin
-	    if (y !== a) $sformat(msg, "testbench but, noe=%b", noe);
+	 else if (ng !== 0) begin
+	    if (y !== a) $sformat(msg, "testbench but, ng=%b", ng);
 	 end
 
 	 else if (sel === 0) begin
-	    if (y !== a) $sformat(msg, "noe=%b, a=%b, b=%b, sel=%b but y=%b (should be same as a)", noe, a, b, sel);
+	    if (y !== a) $sformat(msg, "ng=%b, a=%b, b=%b, sel=%b but y=%b (should be same as a)", ng, a, b, sel);
 	 end
 
 	 else if (sel === 1) begin
-	    if (y !== b) $sformat(msg, "noe=%b, a=%b, b=%b, sel=%b but y=%b (should be same as b)", noe, a, b, sel);
+	    if (y !== b) $sformat(msg, "ng=%b, a=%b, b=%b, sel=%b but y=%b (should be same as b)", ng, a, b, sel);
 	 end
 
 	 else $sformat(msg, "testbench bug, sel=%b", sel);

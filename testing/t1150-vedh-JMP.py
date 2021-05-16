@@ -47,6 +47,7 @@ def test_JMP(framework, capsys, tmpdir):
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
+           SCT
            SMB mbu.MBP
     """
 
@@ -80,6 +81,7 @@ def test_JMP_R(framework, capsys, tmpdir):
     &0:    .fill 32768 SENTINEL
     &0:    JMP &3FF
     &3FF:  LI &80 ; Also skips to page 1
+           SCT
            SMB mbu.MBP
            LI 0
            SMB mbu.MBZ
@@ -115,6 +117,7 @@ def test_JMP_I(framework, capsys, tmpdir):
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
     &0:     LI &80
+            SCT
             SMB mbu.MBP
     """.rstrip(" ")
 
@@ -151,6 +154,7 @@ def test_JMP_I_R(framework, capsys, tmpdir):
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
     &800000:    LI &80
+                SCT
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
@@ -195,6 +199,7 @@ def test_JMP_I_R_bank_relative(framework, capsys, tmpdir):
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
     &800000:    LI &80
+                SCT
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
@@ -257,6 +262,7 @@ def test_JMP_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
     &800000:    LI &80
+                SCT
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
@@ -315,6 +321,7 @@ def test_JMP_I_R_autodec_double_indirect(framework, capsys, tmpdir):
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
     &800000:    LI &80
+                SCT
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
@@ -372,6 +379,7 @@ def test_JMP_I_R_stack(framework, capsys, tmpdir):
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
     &800000:    LI &80
+                SCT
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ

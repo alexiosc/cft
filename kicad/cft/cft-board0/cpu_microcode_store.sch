@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 11 17
 Title "Control Store (24×512k ROM)"
 Date ""
-Rev "2023"
+Rev "2119"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -702,14 +702,6 @@ Entry Wire Line
 Entry Wire Line
 	6200 5250 6100 5150
 Entry Wire Line
-	6200 5150 6100 5050
-Entry Wire Line
-	6200 5050 6100 4950
-Entry Wire Line
-	6200 4950 6100 4850
-Entry Wire Line
-	6200 4850 6100 4750
-Entry Wire Line
 	6200 4750 6100 4650
 Entry Bus Bus
 	6100 4250 6200 4150
@@ -1015,14 +1007,6 @@ Wire Wire Line
 Wire Wire Line
 	6500 5350 6200 5350
 Wire Wire Line
-	6500 5150 6200 5150
-Wire Wire Line
-	6500 5050 6200 5050
-Wire Wire Line
-	6500 4950 6200 4950
-Wire Wire Line
-	6500 4850 6200 4850
-Wire Wire Line
 	6500 4750 6200 4750
 Text Label 6250 5450 0    50   ~ 0
 µCV16
@@ -1030,14 +1014,6 @@ Text Label 6250 5250 0    50   ~ 0
 µCV17
 Text Label 6250 5350 0    50   ~ 0
 µCV18
-Text Label 6250 5150 0    50   ~ 0
-µCV19
-Text Label 6250 5050 0    50   ~ 0
-µCV20
-Text Label 6250 4950 0    50   ~ 0
-µCV21
-Text Label 6250 4850 0    50   ~ 0
-µCV22
 Text Label 6250 4750 0    50   ~ 0
 µCV23
 Wire Wire Line
@@ -1056,20 +1032,6 @@ Text Label 3800 4750 0    50   ~ 0
 µCV15
 Text Label 3100 3350 1    50   ~ 0
 µCV[0..7]
-Text HLabel 10600 3100 2    50   Output ~ 0
-~WEN
-Text HLabel 10600 3300 2    50   Output ~ 0
-~IO
-Text HLabel 10600 3200 2    50   Output ~ 0
-~MEM
-Text Label 8150 3650 0    50   ~ 0
-~MEM0
-Text Label 8150 3750 0    50   ~ 0
-~IO0
-Text Label 8150 3850 0    50   ~ 0
-~REN0
-Text Label 8150 3550 0    50   ~ 0
-~WEN0
 Text Notes 9000 1950 0    50   ~ 0
 The '157 mux disables bus transactions\nduring ~NRSTHOLD~ to ensure undefined\ncontrol signals don't have unforeseen\nside effects on peripherals.
 Entry Bus Bus
@@ -1113,21 +1075,6 @@ F 3 "~" H 9350 2400 50  0001 C CNN
 	1    9350 2400
 	1    0    0    -1  
 $EndComp
-Connection ~ 9350 2300
-Connection ~ 9350 2500
-$Comp
-L power:+5V #PWR01703
-U 1 1 5F3FDE6E
-P 9100 2900
-F 0 "#PWR01703" H 9100 2750 50  0001 C CNN
-F 1 "+5V" H 9115 3073 50  0000 C CNN
-F 2 "" H 9100 2900 50  0001 C CNN
-F 3 "" H 9100 2900 50  0001 C CNN
-	1    9100 2900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9100 2900 9100 2950
 Wire Wire Line
 	9100 3400 9150 3400
 Wire Wire Line
@@ -1146,33 +1093,9 @@ Connection ~ 9100 3300
 Wire Wire Line
 	9100 3300 9100 3400
 Wire Wire Line
-	9150 4000 8800 4000
-Text Label 8800 4000 0    50   ~ 0
+	9150 4100 8800 4100
+Text Label 8800 4100 0    50   ~ 0
 ~RSTHOLD
-Text HLabel 10600 3400 2    50   Output ~ 0
-~REN
-$Comp
-L alexios:74AC157 U1704
-U 2 1 5F2BA5E3
-P 9700 2900
-F 0 "U1704" H 9880 3446 50  0000 L CNN
-F 1 "74AC157" H 9880 3355 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 9700 2900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 9700 2900 50  0001 C CNN
-	2    9700 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AC157 U1704
-U 1 1 5EF0EC27
-P 9650 3700
-F 0 "U1704" H 9650 4567 50  0000 C CNN
-F 1 "74AC157" H 9650 4476 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 9650 3700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 9650 3700 50  0001 C CNN
-	1    9650 3700
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:AT27C020 U1701
 U 1 1 5F938C57
@@ -1431,42 +1354,18 @@ Text Label 7850 5250 2    50   ~ 0
 ACTION2
 Text Label 7850 5350 2    50   ~ 0
 ACTION3
-Wire Wire Line
-	7500 4850 7850 4850
-Wire Wire Line
-	7500 4950 7850 4950
-Wire Wire Line
-	7500 5050 7850 5050
-Wire Wire Line
-	7500 5150 7850 5150
-Text Label 7850 4850 2    50   ~ 0
-~WEN0
-Text Label 7850 4950 2    50   ~ 0
-~REN0
-Text Label 7850 5050 2    50   ~ 0
-~IO0
-Text Label 7850 5150 2    50   ~ 0
-~MEM0
 Text Notes 3500 4400 2    50   ~ 10
 NOTE: '574 pins are out of order for easier routing!
 Text Label 3800 5350 0    50   ~ 0
 µCV10
-Text HLabel 5500 5150 2    50   Output ~ 0
-COND2
 Text HLabel 5500 5050 2    50   Output ~ 0
-COND1
-Text Label 5400 5050 2    50   ~ 0
+COND2
+Text HLabel 5500 5150 2    50   Output ~ 0
 COND1
 Text Label 5400 5150 2    50   ~ 0
+COND1
+Text Label 5400 5050 2    50   ~ 0
 COND2
-Text Label 3800 5150 0    50   ~ 0
-µCV12
-Text Label 3800 5050 0    50   ~ 0
-µCV11
-Wire Wire Line
-	3750 5150 4050 5150
-Wire Wire Line
-	3750 5050 4050 5050
 Text Label 3800 4950 0    50   ~ 0
 µCV14
 Text Label 3800 4850 0    50   ~ 0
@@ -1534,9 +1433,9 @@ Wire Wire Line
 Wire Wire Line
 	5050 4950 5500 4950
 Wire Wire Line
-	5050 5050 5500 5050
-Wire Wire Line
 	5050 5150 5500 5150
+Wire Wire Line
+	5050 5050 5500 5050
 Wire Wire Line
 	5050 5250 5500 5250
 Wire Wire Line
@@ -1544,21 +1443,48 @@ Wire Wire Line
 Wire Wire Line
 	5050 5450 5500 5450
 Wire Wire Line
-	10150 3200 10600 3200
-Wire Wire Line
-	10150 3300 10600 3300
-Wire Wire Line
-	10150 3400 10600 3400
-Wire Wire Line
-	10150 3100 10600 3100
-Wire Wire Line
 	7500 4750 7900 4750
 Text HLabel 7900 4750 2    50   Output ~ 0
 ~END
 Wire Wire Line
-	9150 4100 8800 4100
-Text Label 8800 4100 0    50   ~ 0
+	9150 4200 8800 4200
+Text Label 8800 4200 0    50   ~ 0
 ~OE
+$Comp
+L power:+5V #PWR01703
+U 1 1 5F3FDE6E
+P 9100 2900
+F 0 "#PWR01703" H 9100 2750 50  0001 C CNN
+F 1 "+5V" H 9115 3073 50  0000 C CNN
+F 2 "" H 9100 2900 50  0001 C CNN
+F 3 "" H 9100 2900 50  0001 C CNN
+	1    9100 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 2950 9100 3100
+Wire Wire Line
+	9100 2900 9100 2950
+Connection ~ 9100 2950
+Wire Wire Line
+	8950 2950 9100 2950
+Wire Wire Line
+	8950 3000 8950 2950
+Wire Wire Line
+	8850 3600 9150 3600
+Connection ~ 8850 3600
+Wire Wire Line
+	8750 3900 9150 3900
+Connection ~ 8750 3900
+Wire Wire Line
+	8650 3800 9150 3800
+Connection ~ 8650 3800
+Wire Wire Line
+	8550 3700 9150 3700
+Connection ~ 8550 3700
+Wire Wire Line
+	8950 3400 8950 3450
+NoConn ~ 8950 3450
 $Comp
 L Device:R_Network05 RN?
 U 1 1 62C78DB0
@@ -1573,43 +1499,162 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8750 3200 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	8950 3000 8950 2950
+	8150 3900 8750 3900
 Wire Wire Line
-	8950 2950 9100 2950
-Connection ~ 9100 2950
+	8150 3800 8650 3800
 Wire Wire Line
-	9100 2950 9100 3100
+	8150 3700 8550 3700
 Wire Wire Line
-	8150 3550 8850 3550
+	8150 3600 8850 3600
+Text Label 8150 3900 0    50   ~ 0
+~REN0
+Text Label 8150 3600 0    50   ~ 0
+~WEN0
+Text Label 8150 3700 0    50   ~ 0
+~MEM0
+Text Label 8150 3800 0    50   ~ 0
+~IO0
 Wire Wire Line
-	8150 3650 8550 3650
+	7500 4850 7850 4850
 Wire Wire Line
-	8150 3750 8650 3750
+	7500 4950 7850 4950
 Wire Wire Line
-	8150 3850 8750 3850
+	7500 5050 7850 5050
 Wire Wire Line
-	8850 3400 8850 3550
-Connection ~ 8850 3550
+	7500 5150 7850 5150
+Text Label 7850 4850 2    50   ~ 0
+~WEN0
+Text Label 7850 4950 2    50   ~ 0
+~REN0
+Text Label 7850 5050 2    50   ~ 0
+~IO0
+Text Label 7850 5150 2    50   ~ 0
+~MEM0
 Wire Wire Line
-	8850 3550 9150 3550
+	10150 3100 10500 3100
 Wire Wire Line
-	8750 3400 8750 3850
-Connection ~ 8750 3850
+	10150 3400 10400 3400
 Wire Wire Line
-	8750 3850 9150 3850
+	10150 3300 10300 3300
 Wire Wire Line
-	8650 3400 8650 3750
-Connection ~ 8650 3750
+	10150 3200 10200 3200
+Text HLabel 10750 3400 2    50   Output ~ 0
+~REN
+Text HLabel 10750 3200 2    50   Output ~ 0
+~MEM
+Text HLabel 10750 3300 2    50   Output ~ 0
+~IO
+Text HLabel 10750 3100 2    50   Output ~ 0
+~WEN
+Entry Wire Line
+	6200 5150 6100 5050
+Entry Wire Line
+	6200 5050 6100 4950
+Entry Wire Line
+	6200 4950 6100 4850
+Entry Wire Line
+	6200 4850 6100 4750
+Text Label 6250 4850 0    50   ~ 0
+µCV22
+Text Label 6250 4950 0    50   ~ 0
+µCV21
+Text Label 6250 5050 0    50   ~ 0
+µCV20
+Text Label 6250 5150 0    50   ~ 0
+µCV19
 Wire Wire Line
-	8650 3750 9150 3750
+	6500 4850 6200 4850
 Wire Wire Line
-	8550 3400 8550 3650
-Connection ~ 8550 3650
+	6500 4950 6200 4950
 Wire Wire Line
-	8550 3650 9150 3650
+	6500 5050 6200 5050
 Wire Wire Line
-	8950 3400 8950 3450
-NoConn ~ 8950 3450
+	6500 5150 6200 5150
+$Comp
+L power:+5V #PWR0188
+U 1 1 60F8CBC2
+P 10600 2600
+F 0 "#PWR0188" H 10600 2450 50  0001 C CNN
+F 1 "+5V" H 10615 2773 50  0000 C CNN
+F 2 "" H 10600 2600 50  0001 C CNN
+F 3 "" H 10600 2600 50  0001 C CNN
+	1    10600 2600
+	1    0    0    -1  
+$EndComp
+NoConn ~ 10600 3000
+Wire Wire Line
+	10500 3000 10500 3100
+Connection ~ 10500 3100
+Wire Wire Line
+	10500 3100 10750 3100
+Wire Wire Line
+	10400 3000 10400 3400
+Connection ~ 10400 3400
+Wire Wire Line
+	10400 3400 10750 3400
+Wire Wire Line
+	10300 3000 10300 3300
+Connection ~ 10300 3300
+Wire Wire Line
+	10300 3300 10750 3300
+Wire Wire Line
+	10200 3000 10200 3200
+Connection ~ 10200 3200
+Wire Wire Line
+	10200 3200 10750 3200
+$Comp
+L Device:R_Network05 RN?
+U 1 1 60F33581
+P 10400 2800
+AR Path="/5DEAC282/60F33581" Ref="RN?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/60F33581" Ref="RN1702"  Part="1" 
+F 0 "RN1702" H 10687 2846 50  0000 L CNN
+F 1 "10kΩ" H 10687 2755 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP6" V 10775 2800 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 10400 2800 50  0001 C CNN
+	1    10400 2800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC257 U1704
+U 1 1 61045AF3
+P 9650 3600
+F 0 "U1704" H 9650 4367 50  0000 C CNN
+F 1 "74AC257" H 9650 4276 50  0000 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9650 3500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS257" H 9650 3500 50  0001 C CNN
+	1    9650 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC257 U1704
+U 2 1 61049C93
+P 9700 2400
+F 0 "U1704" H 9880 2446 50  0000 L CNN
+F 1 "74AC257" H 9880 2355 50  0000 L CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 9700 2300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS257" H 9700 2300 50  0001 C CNN
+	2    9700 2400
+	1    0    0    -1  
+$EndComp
+Connection ~ 9350 2300
+Connection ~ 9350 2500
+Wire Wire Line
+	8550 3400 8550 3700
+Wire Wire Line
+	8650 3400 8650 3800
+Wire Wire Line
+	8750 3400 8750 3900
+Wire Wire Line
+	8850 3400 8850 3600
+Text Label 3800 5050 0    50   ~ 0
+µCV12
+Text Label 3800 5150 0    50   ~ 0
+µCV11
+Wire Wire Line
+	3750 5050 4050 5050
+Wire Wire Line
+	3750 5150 4050 5150
 Wire Bus Line
 	8000 1900 8000 4050
 Wire Bus Line
