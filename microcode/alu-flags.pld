@@ -1,0 +1,84 @@
+GAL16V8         ; this is the GAL type
+ALUFLG00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+CPL	CLL	RSTHOLD	FLAGWE	FLROM	SVROM	SLROM	FVROM	IBUS12	GND
+IBUS13	NC12	NC13	NC14	FL	SETV	SETL	CLRV	CLRL	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+; Clear the L register when:
+;   * RSTHOLD is asserted, or
+;   * CLL is asserted, or
+;   * FL is set, and ACTION-CPL is asserted, or
+;   * IBUS12 is clear and FLAGWE is asserted, or
+;   * FLROM is set and SLROM is asserted and FL is set (FL toggle), or
+;   * FLSRU is clear and SLSRU is asserted.
+
+; Set the L register when:
+;   * FL is set, and ACTION-CPL is asserted, or
+;   * IBUS12 is set and FLAGWE is asserted, or
+;   * FLROM is set and SLROM is asserted and FL is clear (FL toggle), or
+;   * FLSRU is set and SLSRU is asserted.
+
+/CLRL =         /RSTHOLD  +  /CLL  +  FL * /CPL  +  /IBUS12 * /FLAGWE  +   FL * /FLROM * /SLROM
+
+/SETL =                              /FL * /CPL  +   IBUS12 * /FLAGWE  +  /FL *  FLROM * /SLROM
+
+
+/CLRV =         /RSTHOLD  +  /IBUS13 * /FLAGWE  +  /FVROM * /SVROM
+
+/SETV =                       IBUS13 * /FLAGWE  +   FVROM * /SVROM
+
+
+
+DESCRIPTION
+
+// The Link Register is a complex register:
+//
+// * It can acquire its value from the ALU ROM as a result of addition.
+// * It can acquire its value from the SRU (shifts and rotations)
+// * It can acquire its value from the Flag Unit (IBUS12)
+// * It can be cleared by the Control Unit.
+// * It can be toggled by the Control Unit.
+//
+// Slow paths: ACTION_CLL, ACTION_CPL, NFLAGWE
+// Fast paths: ALU ROM, SRU
+//
+// The SRU is the most critical, fastest path and is given special dispensation
+// in the schematics. (e.g. it's the ‘default’ value for the multiplexer)
+//
+// This makes the logic quite complicated and the L register currently has a
+// chip count of seven.
+//   ________                                ______          ___   ___
+//   SETL-ROM    FLOUT-ROM  BCP  FLOUT-SRU   FLAGWE   IBUS   CLL   CPL  |   FF IN    CLKSEL
+//      0            0       X        X         X       X     X     X   |     0      SETL-ROM
+//      0            1       X        X         X       X     X     X   |     1      SETL-ROM
+//      1            X       0        0         X       X     X     X   |     0      BCP
+//      1            X       0        1         X       X     X     X   |     1      BCP
+//      1            X       1        X         0       0     X     X   |     0      #WRITE-FLAGS
+//      1            X       1        X         0       1     X     X   |     1      #WRITE-FLAGS
+//      1            X       1        X         1       X     0     X   |     0      #CLL
+//      1            X       1        X         1       X     1     0   |     #FL    #CPL
+//
+// Default: BCP
+// If #READ-ALU-ADD:
+//     * select #SETL-ROM for clock
+//     * select FLOUT-ROM for data
+// Else if #WRITE-FLAGS:
+//     * select #WRITE-FLAGS for clock
+//     * select IBUS12 for data
+// Else:
+//     * select BCP for clock
+//     * select FLIN-SRU for data
+
+// Clock = and(READ-ALU-ADD, WRITE-FLAGS, BCP)
+// Data = mux(FLIN-ADD, FLIN-SRU, IBUS)
+// #CLL & CPL: combine into #PRE/#CLR ff inputs.
+//
+// #PRE = #CPL OR Q
+// #CLR = #RESET AND #CLL AND (#CPL OR #Q)
+// But: what happens after Q changes as a result of setting or clearing?
+// (use a second FF that clocks on raising edge of CLK4?)
+
+; End of file.

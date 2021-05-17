@@ -1,15 +1,16 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Apr  6 18:19:35 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat May 15 08:40:30 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_l_tb.vcd"
-[dumpfile_mtime] "Mon Apr  6 18:18:17 2020"
-[dumpfile_size] 14442
+[dumpfile_mtime] "Sat May 15 08:40:20 2021"
+[dumpfile_size] 9298
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_l_tb.sav"
-[timestart] 10539000
+[timestart] 0
 [size] 1920 1019
-[pos] 0 0
-*-20.283524 15733000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 519 64
+*-21.283524 1437500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_l_tb.
 [treeopen] reg_l_tb.reg_l.
 [sst_width] 258
@@ -17,6 +18,7 @@
 [sst_expanded] 1
 [sst_vpaned_height] 280
 @28
+reg_l_tb.nrsthold
 reg_l_tb.clk4
 @200
 -
@@ -38,16 +40,12 @@ reg_l_tb.ibus12
 -
 -Adder Output
 @28
-reg_l_tb.nread_alu_add
 reg_l_tb.flin_add
 @200
 -
 -Shifter Output
 @28
-reg_l_tb.reg_l.nsru_run
-@29
 reg_l_tb.flin_sru
-@28
 reg_l_tb.reg_l.bcp
 @200
 -
@@ -59,14 +57,12 @@ reg_l_tb.flfast
 -
 -Debugging
 @28
+reg_l_tb.reg_l.nclrl
+reg_l_tb.reg_l.nsetl
 [color] 1
 reg_l_tb.flin_sru
 [color] 2
 reg_l_tb.reg_l.bcp
-[color] 3
-reg_l_tb.reg_l.ld
-[color] 4
-reg_l_tb.reg_l.clkl
 [color] 5
 reg_l_tb.flfast
 [pattern_trace] 1

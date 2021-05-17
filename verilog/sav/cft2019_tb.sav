@@ -1,28 +1,27 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Mon May 10 07:52:02 2021
+[*] Tue May 11 09:40:22 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon May 10 07:47:27 2021"
-[dumpfile_size] 488278
+[dumpfile_mtime] "Tue May 11 09:20:14 2021"
+[dumpfile_size] 3881095
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 48833000
+[timestart] 157514000
 [size] 2048 1123
-[pos] 2047 -1
-*-20.467333 56675000 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 6143 0
+*-19.653919 156339000 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_alu.decoder.
+[treeopen] cft2019_tb.cft.card_alu.
 [treeopen] cft2019_tb.cft.card_alu.reg_l.
-[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.flag_unit.
 [treeopen] cft2019_tb.cft.card_ctl.reg_ir.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
-[treeopen] cft2019_tb.cft.card_mem.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
+[treeopen] cft2019_tb.cft.card_reg.
 [sst_width] 372
-[signals_width] 419
+[signals_width] 479
 [sst_expanded] 1
 [sst_vpaned_height] 616
 @c00200
@@ -69,7 +68,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[17:0]
 @22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
-@c00022
+@c00023
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @28
@@ -105,7 +104,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1401200
+@1401201
 -group_end
 @c04022
 [color] 1
@@ -146,6 +145,40 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -group_end
+@28
+cft2019_tb.cft.card_alu.decoder.nalu_op
+@c04022
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+@28
+(0)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(1)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(2)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(3)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(4)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(5)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(6)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(7)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(8)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(9)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(10)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(11)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(12)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(13)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(14)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(15)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(16)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(17)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(18)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(19)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(20)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(21)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(22)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+(23)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
+@1401200
+-group_end
+@28
+cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 @22
 [color] 3
 +{dr[15:0]} cft2019_tb.cft.card_reg.reg_dr.out[15:0]
@@ -154,6 +187,8 @@ cft2019_tb.cft.fl
 @22
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
+@28
+cft2019_tb.cft.card_reg.naction_incac
 @24
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
@@ -211,7 +246,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 @1401200
 -group_end
-@23
+@22
 cft2019_tb.cft.card_verilog_test.ab[23:0]
 @c00200
 -MBR
@@ -429,7 +464,6 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -
 @28
 cft2019_tb.cft.nskipext
-cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 cft2019_tb.cft.card_ctl.nirqsuc
 @200
 -

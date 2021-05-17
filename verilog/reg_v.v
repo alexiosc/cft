@@ -13,7 +13,7 @@ module reg_v(nreset, clk4,
 	     ibus13, nflagwe,
 	     fv);
    // Declare inputs as regs and outputs as wires
-   input  nreset;
+   input  nreset;		// This should probably be connected to nRSTHOLD instead.
    input  clk4;
    input  fvout_rom;
    input  nsetv_rom;
@@ -30,19 +30,34 @@ module reg_v(nreset, clk4,
    wire   nflagwe;
    wire   fv, fv0, vd, vd0;
 
-   // Source multiplexer for input data, with a 21ns delay line so
-   // flip flop hold times aren't violated.
-   mux_2g157 vd_mux (.sel(nflagwe), .a(ibus13), .b(fvout_rom), .ng(1'b0), .y(vd0));
+   // // Source multiplexer for input data, with a 21ns delay line so
+   // // flip flop hold times aren't violated.
+   // mux_2g157 vd_mux (.sel(nflagwe), .a(ibus13), .b(fvout_rom), .ng(1'b0), .y(vd0));
 
-   // 3× 74hc32 used as a delay line.
-   assign #21 vd = vd0;
+   // // 3× 74hc32 used as a delay line.
+   // assign #21 vd = vd0;
 
-   // The FF is clocked on the rising edge of nflagwe or nread_alu_add.
-   wire   clkv;
-   assign #3 clkv = nflagwe & nsetv_rom;
+   // // The FF is clocked on the rising edge of nflagwe or nread_alu_add.
+   // wire   clkv;
+   // assign #3 clkv = nflagwe & nsetv_rom;
 
-   // Finally, the V flip flop.
-   flipflop_74h vff1 (.d(vd), .clk(clkv), .nset(1'b1), .nrst(nreset), .q(fv0));
+   // // Finally, the V flip flop.
+   // flipflop_74h vff1 (.d(vd), .clk(clkv), .nset(1'b1), .nrst(nreset), .q(fv0));
+
+
+   // This implements the FV part of the flag GAL in lieu of the more
+   // complicated description above. Chip count is now three for both FL and
+   // FV.
+
+   wire   nclrv, nsetv;
+   assign #15 nclrv = (nreset == 1'b0 ||
+		       (ibus13 == 1'b0 && nflagwe == 1'b0) ||
+		       (fvout_rom == 1'b0 && nsetv_rom == 1'b0)) ? 1'b0 : 1'b1;
+   
+   assign #15 nsetv = ((ibus13 == 1'b1 && nflagwe == 1'b0) ||
+		       (fvout_rom == 1'b1 && nsetv_rom == 1'b0)) ? 1'b0 : 1'b1;
+   
+   flipflop_74h vff1 (.d(1'b1), .clk(1'b1), .nset(nsetv), .nrst(nclrv), .q(fv0));
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.

@@ -103,42 +103,60 @@ module reg_l(nrsthold, clk4,
 
    wire   nfl;
 
-   // U19: toggle FL when the ROM requests it.
-   assign flin_add_toggle = flin_add ^ fl;
+   // // U19: toggle FL when the ROM requests it.
+   // assign flin_add_toggle = flin_add ^ fl;
    
-   // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
-   // so flip flop hold times aren't violated.
-   wire   ld, ld0;
+   // // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
+   // // so flip flop hold times aren't violated.
+   // wire   ld, ld0;
+   // // mux_253h ld_mux (.sel({nflagwe, nsetl_rom}),
+   // // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   // // 		    .noe(1'b0), .y(ld0));
    // mux_253h ld_mux (.sel({nflagwe, nsetl_rom}),
-   // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   // 		    .i({flin_sru, flin_add_toggle, ibus12, ibus12}),
    // 		    .noe(1'b0), .y(ld0));
-   mux_253h ld_mux (.sel({nflagwe, nsetl_rom}),
-   		    .i({flin_sru, flin_add_toggle, ibus12, ibus12}),
-   		    .noe(1'b0), .y(ld0));
-   assign #21 ld = ld0;
+   // assign #21 ld = ld0;
 
-   wire   nsetl, nclrl0, nclrl;
+   // wire   nsetl, nclrl0, nclrl;
 
-   // These implement CPL (toggle L. CPL is driven to both asynchronous SET and
-   // CLR signals on the flip flop, but one of these is masked depending on the
-   // FF state).
-   assign #6 nsetl = fl | naction_cpl;   // Mask #CPL when FL is 1.
-   assign #6 nclrl0 = nfl | naction_cpl; // Mask #CPL when FL is 0.
+   // // These implement CPL (toggle L. CPL is driven to both asynchronous SET and
+   // // CLR signals on the flip flop, but one of these is masked depending on the
+   // // FF state).
+   // assign #6 nsetl = fl | naction_cpl;   // Mask #CPL when FL is 1.
+   // assign #6 nclrl0 = nfl | naction_cpl; // Mask #CPL when FL is 0.
 
-   // The FF is cleared when nrsthold, naction_cll, or nclrl0 are asserted (low).
-   assign #4 nclrl = nclrl0 & nrsthold & naction_cll;
+   // // The FF is cleared when nrsthold, naction_cll, or nclrl0 are asserted (low).
+   // assign #4 nclrl = nclrl0 & nrsthold & naction_cll;
 
-   // The clock
-   // wire   clkl0, clkl;
-   // assign #0.5 clkl0 = nflagwe & nsetl_rom;
-   // assign #0.5 clkl = clkl0 & bcp;
-   wire   clkl;
-   assign #4 clkl = nflagwe & nsetl_rom & bcp;
+   // // The clock
+   // // wire   clkl0, clkl;
+   // // assign #0.5 clkl0 = nflagwe & nsetl_rom;
+   // // assign #0.5 clkl = clkl0 & bcp;
+   // wire   clkl;
+   // assign #4 clkl = nflagwe & nsetl_rom & bcp;
 
-   // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
-   // (which can be 4× the rest of the processor's). Note: use AC family here,
-   // 10ns propagation delays at 5V.
-   flipflop_74h #(10,10) flfast_ff (.d(ld), .clk(clkl), .nset(nsetl), .nrst(nclrl), .q(flfast));
+   // // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
+   // // (which can be 4× the rest of the processor's). Note: use AC family here,
+   // // 10ns propagation delays at 5V.
+   // flipflop_74h #(10,10) flfast_ff (.d(ld), .clk(clkl), .nset(nsetl), .nrst(nclrl), .q(flfast));
+
+
+   // This implements the FL part of the flag GAL in lieu of the more
+   // complicated description above. Chip count is now three or four for both
+   // FL and FV.
+
+   wire   nclrl, nsetl;
+   assign #15 nclrl = (nrsthold == 1'b0 ||
+		       naction_cll == 1'b0 ||
+		       (fl == 1'b1 && naction_cpl == 1'b0) ||
+		       (ibus12 == 1'b0 && nflagwe == 1'b0) ||
+		       (fl == 1'b1 && flin_add == 1'b1 && nsetl_rom == 1'b0)) ? 1'b0 : 1'b1;
+   
+   assign #15 nsetl = ((fl == 1'b0 && naction_cpl == 1'b0) ||
+		       (ibus12 == 1'b1 && nflagwe == 1'b0) ||
+		       (fl == 1'b0 && flin_add == 1'b1 && nsetl_rom == 1'b0)) ? 1'b0 : 1'b1;
+   
+   flipflop_74h #(10,10) flfast_ff (.d(flin_sru), .clk(bcp), .nset(nsetl), .nrst(nclrl), .q(flfast));
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.
