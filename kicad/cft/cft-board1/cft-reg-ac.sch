@@ -2144,6 +2144,12 @@ Wire Wire Line
 	2500 6700 2450 6700
 Wire Wire Line
 	2450 6700 2450 6750
+Text HLabel 8700 4650 2    50   Output ~ 0
+FN
+Wire Wire Line
+	8700 4650 8300 4650
+Text Label 8300 4650 0    50   ~ 0
+AC15
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
