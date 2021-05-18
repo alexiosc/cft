@@ -266,8 +266,8 @@ AR Path="/5DC89E19/5CF23BD4/5E42E1EE" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5E42E1EE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E42E1EE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E42E1EE" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5E42E1EE" Ref="C502"  Part="1" 
-F 0 "C502" H 7209 4946 50  0000 R CNN
+AR Path="/5DE3C078/5E42E1EE" Ref="C503"  Part="1" 
+F 0 "C503" H 7209 4946 50  0000 R CNN
 F 1 "100nF" H 7209 4855 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 4900 50  0001 C CNN
 F 3 "~" H 7300 4900 50  0001 C CNN
@@ -321,8 +321,8 @@ AR Path="/5DC89E19/5CF23BD4/5E434AC6" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5E434AC6" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E434AC6" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E434AC6" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5E434AC6" Ref="C505"  Part="1" 
-F 0 "C505" H 7209 5646 50  0000 R CNN
+AR Path="/5DE3C078/5E434AC6" Ref="C507"  Part="1" 
+F 0 "C507" H 7209 5646 50  0000 R CNN
 F 1 "100nF" H 7209 5555 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 5600 50  0001 C CNN
 F 3 "~" H 7300 5600 50  0001 C CNN
@@ -376,8 +376,8 @@ AR Path="/5DC89E19/5CF23BD4/5E43A775" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5E43A775" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E43A775" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E43A775" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5E43A775" Ref="C508"  Part="1" 
-F 0 "C508" H 7209 6346 50  0000 R CNN
+AR Path="/5DE3C078/5E43A775" Ref="C510"  Part="1" 
+F 0 "C510" H 7209 6346 50  0000 R CNN
 F 1 "100nF" H 7209 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 6300 50  0001 C CNN
 F 3 "~" H 7300 6300 50  0001 C CNN
@@ -434,14 +434,14 @@ Text Label 9500 1000 0    50   ~ 0
 FVOUT
 Text HLabel 10550 1000 2    50   Output ~ 0
 FVOUT-ROM
-Text HLabel 10550 1200 2    50   Output ~ 0
+Text HLabel 10550 1850 2    50   Output ~ 0
 ~SETV-ROM
-Text HLabel 10550 1700 2    50   Output ~ 0
-FLOUT-ROM
-Text HLabel 10550 2200 2    50   Output ~ 0
+Text HLabel 10550 1100 2    50   Output ~ 0
+FLCPL-ROM
+Text HLabel 10550 1950 2    50   Output ~ 0
 ~SETL-ROM
 Text Label 6550 5850 2    50   ~ 0
-FLOUT
+FLCPL
 Text Label 6550 5650 2    50   ~ 0
 FVOUT
 Text Label 4650 2250 0    50   ~ 0
@@ -709,8 +709,8 @@ AR Path="/5DC89E19/5CF23BD4/5E1F0362" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5E1F0362" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E1F0362" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E1F0362" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5E1F0362" Ref="C506"  Part="1" 
-F 0 "C506" H 8559 5646 50  0000 R CNN
+AR Path="/5DE3C078/5E1F0362" Ref="C502"  Part="1" 
+F 0 "C502" H 8559 5646 50  0000 R CNN
 F 1 "100nF" H 8559 5555 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8650 5600 50  0001 C CNN
 F 3 "~" H 8650 5600 50  0001 C CNN
@@ -777,8 +777,8 @@ AR Path="/5DC89E19/5CF23BD4/5E1F960A" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5E1F960A" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E1F960A" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E1F960A" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5E1F960A" Ref="C509"  Part="1" 
-F 0 "C509" H 8559 6346 50  0000 R CNN
+AR Path="/5DE3C078/5E1F960A" Ref="C506"  Part="1" 
+F 0 "C506" H 8559 6346 50  0000 R CNN
 F 1 "100nF" H 8559 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8650 6300 50  0001 C CNN
 F 3 "~" H 8650 6300 50  0001 C CNN
@@ -825,44 +825,8 @@ Connection ~ 8650 6400
 Connection ~ 8650 6200
 Text Notes 1700 1700 0    50   ~ 0
 X-IN is reserved for future\nexpansion, and wired to\nallow this. It can be cascaded\nlike carry using X0 and X1, or\nindependent of them.
-$Comp
-L alexios:74LVC1G32 U501
-U 1 1 5EB2EB3A
-P 10200 1200
-F 0 "U501" H 10250 1025 50  0000 C CNN
-F 1 "74LVC1G32" H 10250 934 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 10310 1180 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10310 1180 50  0001 C CNN
-	1    10200 1200
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U504
-U 1 1 5EB2F744
-P 10200 2200
-F 0 "U504" H 10250 2025 50  0000 C CNN
-F 1 "74LVC1G32" H 10250 1934 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 10310 2180 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10310 2180 50  0001 C CNN
-	1    10200 2200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10500 1200 10550 1200
-Wire Wire Line
-	10500 2200 10550 2200
-Text Label 9500 1150 0    50   ~ 0
+Text Label 9500 1850 0    50   ~ 0
 ~SETV
-Text Label 9500 1250 0    50   ~ 0
-~READ-ALU-Y
-Wire Wire Line
-	9500 2150 10000 2150
-Wire Wire Line
-	9500 1150 10000 1150
-Wire Wire Line
-	9500 1250 10000 1250
-Wire Wire Line
-	9500 2250 10000 2250
 Connection ~ 10000 6200
 Connection ~ 10000 6400
 $Comp
@@ -925,8 +889,8 @@ AR Path="/5DC89E19/5CF23BD4/5EBD9722" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5EBD9722" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5EBD9722" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EBD9722" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5EBD9722" Ref="C510"  Part="1" 
-F 0 "C510" H 9909 6346 50  0000 R CNN
+AR Path="/5DE3C078/5EBD9722" Ref="C504"  Part="1" 
+F 0 "C504" H 9909 6346 50  0000 R CNN
 F 1 "100nF" H 9909 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 6300 50  0001 C CNN
 F 3 "~" H 10000 6300 50  0001 C CNN
@@ -980,8 +944,8 @@ AR Path="/5DC89E19/5CF23BD4/5EBCD345" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5EBCD345" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5EBCD345" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EBCD345" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5EBCD345" Ref="C507"  Part="1" 
-F 0 "C507" H 9909 5646 50  0000 R CNN
+AR Path="/5DE3C078/5EBCD345" Ref="C501"  Part="1" 
+F 0 "C501" H 9909 5646 50  0000 R CNN
 F 1 "100nF" H 9909 5555 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 5600 50  0001 C CNN
 F 3 "~" H 10000 5600 50  0001 C CNN
@@ -999,10 +963,8 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10510 5330 50  0001 C CNN
 	2    10400 5350
 	1    0    0    -1  
 $EndComp
-Text Label 9500 2150 0    50   ~ 0
+Text Label 9500 1950 0    50   ~ 0
 ~SETL
-Text Label 9500 2250 0    50   ~ 0
-~READ-ALU-Y
 $Comp
 L alexios:29W010 U?
 U 1 1 5EB0EF1B
@@ -1202,25 +1164,6 @@ Text Label 3550 2450 2    50   ~ 0
 OP1
 Text Label 3550 2550 2    50   ~ 0
 OP2
-Text HLabel 1250 7350 0    50   Input ~ 0
-~READ-ALU-Y
-Wire Wire Line
-	1650 7350 1250 7350
-Wire Wire Line
-	1250 7450 1650 7450
-Text HLabel 1250 7450 0    50   Input ~ 0
-~ALU-OP
-$Comp
-L alexios:74LVC1G08 U509
-U 1 1 5EE5511B
-P 1950 7400
-F 0 "U509" H 1875 7667 50  0000 C CNN
-F 1 "74LVC1G08" H 1875 7576 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1600 7400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1600 7400 50  0001 C CNN
-	1    1950 7400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6850 1850 6850 3400
 Wire Wire Line
@@ -1432,8 +1375,8 @@ Y14
 Text Label 7100 3200 2    50   ~ 0
 Y15
 Wire Wire Line
-	2100 7400 6850 7400
-Text Label 2200 7400 0    50   ~ 0
+	1050 7400 6850 7400
+Text Label 1150 7400 0    50   ~ 0
 ~ALUOE
 Text Label 6850 4600 1    50   ~ 0
 ~ALUOE
@@ -1645,8 +1588,8 @@ AR Path="/5DC89E19/5CF23BD4/5EBBCF50" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5EBBCF50" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5EBBCF50" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EBBCF50" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5EBBCF50" Ref="C504"  Part="1" 
-F 0 "C504" H 9909 4946 50  0000 R CNN
+AR Path="/5DE3C078/5EBBCF50" Ref="C505"  Part="1" 
+F 0 "C505" H 9909 4946 50  0000 R CNN
 F 1 "100nF" H 9909 4855 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 4900 50  0001 C CNN
 F 3 "~" H 10000 4900 50  0001 C CNN
@@ -1711,8 +1654,8 @@ AR Path="/5DC89E19/5CF23BD4/5F9A4A27" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5F9A4A27" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5F9A4A27" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5F9A4A27" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5F9A4A27" Ref="C501"  Part="1" 
-F 0 "C501" H 7209 4271 50  0000 R CNN
+AR Path="/5DE3C078/5F9A4A27" Ref="C509"  Part="1" 
+F 0 "C509" H 7209 4271 50  0000 R CNN
 F 1 "100nF" H 7209 4180 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 4225 50  0001 C CNN
 F 3 "~" H 7300 4225 50  0001 C CNN
@@ -1751,17 +1694,6 @@ F 4 "Yes" H 9925 4400 50  0001 C CNN "Verified"
 $EndComp
 Connection ~ 10000 5000
 Connection ~ 10000 4800
-$Comp
-L alexios:74LVC1G74 U508
-U 1 1 5EDD7582
-P 2000 4100
-F 0 "U508" H 2000 4517 50  0000 C CNN
-F 1 "74LVC1G74" H 2000 4426 50  0000 C CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 2450 4100 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 2450 4100 50  0001 C CNN
-	1    2000 4100
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1900 3050 2350 3050
 NoConn ~ 2450 4250
@@ -1812,17 +1744,6 @@ Wire Wire Line
 Text Label 2500 3950 0    50   ~ 0
 REGLE
 $Comp
-L alexios:74LVC1G74 U508
-U 2 1 5EFA221D
-P 9000 4900
-F 0 "U508" H 9180 4946 50  0000 L CNN
-F 1 "74LVC1G74" H 9180 4855 50  0000 L CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 9450 4900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 9450 4900 50  0001 C CNN
-	2    9000 4900
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5EFA3463
 P 8650 4800
@@ -1869,20 +1790,18 @@ AR Path="/5DC89E19/5CF23BD4/5EFA346F" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5CF5A95E/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EFA346F" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5EFA346F" Ref="C503"  Part="1" 
-F 0 "C503" H 8559 4946 50  0000 R CNN
+AR Path="/5DE3C078/5EFA346F" Ref="C508"  Part="1" 
+F 0 "C508" H 8559 4946 50  0000 R CNN
 F 1 "100nF" H 8559 4855 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8650 4900 50  0001 C CNN
 F 3 "~" H 8650 4900 50  0001 C CNN
 	1    8650 4900
 	1    0    0    -1  
 $EndComp
-Connection ~ 8650 4800
-Connection ~ 8650 5000
-Text Label 9500 1700 0    50   ~ 0
-FLOUT
+Text Label 9500 1100 0    50   ~ 0
+FLCPL
 Wire Wire Line
-	9500 1700 10550 1700
+	9500 1100 10550 1100
 Wire Notes Line
 	1225 4500 1225 5375
 Text Notes 1275 5325 0    50   ~ 0
@@ -1903,8 +1822,8 @@ Wire Notes Line width 20 style solid
 	700  4500 2550 4500
 Text Notes 1000 5325 0    50   ~ 0
 Instr\n\nADD\nAND\nOR\nNOT\nXOR\nN/A\nN/A\nN/A
-Text Notes 9500 1850 0    50   ~ 10
-FLOUT toggles L on carry out.
+Text Notes 9500 1250 0    50   ~ 0
+FLCPL toggles L on carry out.
 Wire Notes Line width 20 style solid
 	800  7000 3500 7000
 Wire Notes Line width 20 style solid
@@ -1959,6 +1878,81 @@ Wire Wire Line
 	3850 1800 3900 1800
 Wire Wire Line
 	3700 1900 3700 2150
+Wire Wire Line
+	9500 1850 10550 1850
+Wire Wire Line
+	9500 1950 10550 1950
+Text Notes 9500 1700 0    50   ~ 0
+These enable reading flag output\nfrom the ALU ROM when ~READ-ALY-Y~\nis asserted.
+$Comp
+L alexios:74HC74 U508
+U 1 1 60EBC4FD
+P 2000 4100
+F 0 "U508" H 2000 4517 50  0000 C CNN
+F 1 "74HC74" H 2000 4426 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 1950 4250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 1950 4250 50  0001 C CNN
+	1    2000 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U508
+U 2 1 60EBD199
+P -1050 6300
+F 0 "U508" H -1050 6717 50  0000 C CNN
+F 1 "74HC74" H -1050 6626 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H -1100 6450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H -1100 6450 50  0001 C CNN
+	2    -1050 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1500 6450 -1550 6450
+Wire Wire Line
+	-1550 6450 -1550 6350
+$Comp
+L power:+5V #PWR0147
+U 1 1 60EDB6D7
+P -1550 6050
+F 0 "#PWR0147" H -1550 5900 50  0001 C CNN
+F 1 "+5V" H -1535 6223 50  0000 C CNN
+F 2 "" H -1550 6050 50  0001 C CNN
+F 3 "" H -1550 6050 50  0001 C CNN
+	1    -1550 6050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1550 6150 -1500 6150
+Connection ~ -1550 6150
+Wire Wire Line
+	-1550 6150 -1550 6050
+Wire Wire Line
+	-1550 6250 -1500 6250
+Connection ~ -1550 6250
+Wire Wire Line
+	-1550 6250 -1550 6150
+Wire Wire Line
+	-1550 6350 -1500 6350
+Connection ~ -1550 6350
+Wire Wire Line
+	-1550 6350 -1550 6250
+NoConn ~ -600 6150
+NoConn ~ -600 6450
+$Comp
+L alexios:74HC74 U508
+U 3 1 60F274D2
+P 9000 4900
+F 0 "U508" H 9180 4946 50  0000 L CNN
+F 1 "74HC74" H 9180 4855 50  0000 L CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 8950 5050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 8950 5050 50  0001 C CNN
+	3    9000 4900
+	1    0    0    -1  
+$EndComp
+Connection ~ 8650 4800
+Connection ~ 8650 5000
+Text HLabel 1050 7400 0    50   Input ~ 0
+~ALUOE
 Wire Bus Line
 	8650 750  8650 3100
 Wire Bus Line

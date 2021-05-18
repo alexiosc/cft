@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 20
+Sheet 20 20
 Title "The L Register"
 Date "2019-11-17"
 Rev "2020"
@@ -540,105 +540,105 @@ Wire Wire Line
 Wire Wire Line
 	4900 3400 4900 2300
 Wire Wire Line
-	2350 3400 4900 3400
-Text Label 2400 3300 0    50   ~ 0
+	1650 3400 4900 3400
+Text Label 1700 3300 0    50   ~ 0
 FLOUT-SRU
 Wire Wire Line
 	4800 3300 4800 2200
 Wire Wire Line
-	2350 3300 4800 3300
-Text HLabel 2350 3400 0    50   Input ~ 0
+	1650 3300 4800 3300
+Text HLabel 1650 3400 0    50   Input ~ 0
 BCP
-Text HLabel 2350 3300 0    50   Input ~ 0
+Text HLabel 1650 3300 0    50   Input ~ 0
 FLOUT-SRU
 Wire Wire Line
-	3850 2300 4400 2300
-Text HLabel 2350 3000 0    50   Input ~ 0
+	3150 2300 3700 2300
+Text HLabel 1650 3000 0    50   Input ~ 0
 IBUS13
-Text Label 4400 2300 2    50   ~ 0
+Text Label 3700 2300 2    50   ~ 0
 ~SETL
-Text Label 4400 2100 2    50   ~ 0
+Text Label 3700 2100 2    50   ~ 0
 ~CLRL
-Text Label 4400 2400 2    50   ~ 0
+Text Label 3700 2400 2    50   ~ 0
 ~SETV
-Text Label 4400 2200 2    50   ~ 0
+Text Label 3700 2200 2    50   ~ 0
 ~CLRV
-Text Label 2400 2800 0    50   ~ 0
+Text Label 1700 2800 0    50   ~ 0
 FVROM
-Text Label 2400 2600 0    50   ~ 0
+Text Label 1700 2600 0    50   ~ 0
 ~SVROM
-Text Label 4400 2500 2    50   ~ 0
+Text Label 3700 2500 2    50   ~ 0
 FL
-Text Label 2400 2200 0    50   ~ 0
+Text Label 1700 2200 0    50   ~ 0
 ~ACTION-CLL
-Text Label 2400 2400 0    50   ~ 0
+Text Label 1700 2400 0    50   ~ 0
 ~FLAGWE
-Text Label 2400 2700 0    50   ~ 0
+Text Label 1700 2700 0    50   ~ 0
 ~SLROM
-Text Label 2400 2500 0    50   ~ 0
+Text Label 1700 2500 0    50   ~ 0
 FLROM
-Text Label 2400 3000 0    50   ~ 0
+Text Label 1700 3000 0    50   ~ 0
 IBUS13
-Text Label 2400 2900 0    50   ~ 0
+Text Label 1700 2900 0    50   ~ 0
 IBUS12
 Wire Wire Line
-	3850 2500 4400 2500
+	3150 2500 3700 2500
 Wire Wire Line
-	3850 2200 4400 2200
+	3150 2200 3700 2200
 Wire Wire Line
-	3850 2400 4400 2400
+	3150 2400 3700 2400
 Wire Wire Line
-	3850 2100 4400 2100
+	3150 2100 3700 2100
 Wire Wire Line
-	2350 2200 2950 2200
+	1650 2200 2250 2200
 Wire Wire Line
-	2350 2400 2950 2400
+	1650 2400 2250 2400
 Wire Wire Line
-	2350 2700 2950 2700
+	1650 2700 2250 2700
 Wire Wire Line
-	2350 2500 2950 2500
+	1650 2500 2250 2500
 Wire Wire Line
-	2350 3000 2950 3000
+	1650 3000 2250 3000
 Wire Wire Line
-	2350 2900 2950 2900
+	1650 2900 2250 2900
 Wire Wire Line
-	2350 2100 2950 2100
-Text Label 2400 2100 0    50   ~ 0
+	1650 2100 2250 2100
+Text Label 1700 2100 0    50   ~ 0
 ~ACTION-CPL
-Text Label 2400 2300 0    50   ~ 0
+Text Label 1700 2300 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	2950 2300 2350 2300
+	2250 2300 1650 2300
 $Comp
 L alexios:ATF16V8B U?
 U 1 1 61156997
-P 3400 2550
+P 2700 2550
 AR Path="/5E1C970B/61156997" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/61156997" Ref="U801"  Part="1" 
-F 0 "U801" H 3400 3300 50  0000 C CNN
-F 1 "ATF16V8B" H 3400 3200 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 3400 2550 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3400 2550 50  0001 C CNN
-F 4 "ALUFLG00" V 3400 2550 50  0000 C CNB "Signature"
-F 5 "alu-flags.jed" H 3400 1900 50  0000 C CNN "Image Filename"
-	1    3400 2550
+F 0 "U801" H 2700 3300 50  0000 C CNN
+F 1 "ATF16V8B" H 2700 3200 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2700 2550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2700 2550 50  0001 C CNN
+F 4 "ALUFLG00" V 2700 2550 50  0000 C CNB "Signature"
+F 5 "alu-flags.jed" H 2700 1900 50  0000 C CNN "Image Filename"
+	1    2700 2550
 	1    0    0    -1  
 $EndComp
-Text HLabel 2350 2100 0    50   Input ~ 0
+Text HLabel 1650 2100 0    50   Input ~ 0
 ~ACTION-CPL
-Text HLabel 2350 2400 0    50   Input ~ 0
+Text HLabel 1650 2400 0    50   Input ~ 0
 ~FLAGWE
-Text HLabel 2350 2700 0    50   Input ~ 0
+Text HLabel 1650 2700 0    50   Input ~ 0
 ~SETL-ROM
-Text HLabel 2350 2500 0    50   Input ~ 0
-FLOUT-ROM
-Text HLabel 2350 2900 0    50   Input ~ 0
+Text HLabel 1650 2500 0    50   Input ~ 0
+FLCPL-ROM
+Text HLabel 1650 2900 0    50   Input ~ 0
 IBUS12
-Text HLabel 2350 2200 0    50   Input ~ 0
+Text HLabel 1650 2200 0    50   Input ~ 0
 ~ACTION-CLL
-Text HLabel 2350 2300 0    50   Input ~ 0
+Text HLabel 1650 2300 0    50   Input ~ 0
 ~RSTHOLD
-Text Label 2400 3400 0    50   ~ 0
+Text Label 1700 3400 0    50   ~ 0
 BCP
 NoConn ~ 9500 3450
 $Comp
@@ -698,15 +698,20 @@ F 3 "74xx/74hc_hct74.pdf" H 6050 4600 50  0001 C CNN
 	3    6100 4450
 	1    0    0    -1  
 $EndComp
-NoConn ~ 3850 2800
+NoConn ~ 3150 2800
 Wire Wire Line
-	2350 2800 2950 2800
-Text HLabel 2350 2800 0    50   Input ~ 0
+	1650 2800 2250 2800
+Text HLabel 1650 2800 0    50   Input ~ 0
 FVOUT-ROM
 Wire Wire Line
-	2350 2600 2950 2600
-Text HLabel 2350 2600 0    50   Input ~ 0
+	1650 2600 2250 2600
+Text HLabel 1650 2600 0    50   Input ~ 0
 ~SETV-ROM
-NoConn ~ 3850 2600
-NoConn ~ 3850 2700
+NoConn ~ 3150 2600
+Wire Wire Line
+	3150 2700 3750 2700
+Text Label 3700 2700 2    50   ~ 0
+~READ-ALU-Y
+Text HLabel 3750 2700 2    50   Input ~ 0
+~READ-ALU-Y
 $EndSCHEMATC

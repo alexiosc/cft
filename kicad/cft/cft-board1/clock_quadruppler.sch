@@ -1329,4 +1329,91 @@ Wire Notes Line
 	4050 2450 4050 5700
 Wire Notes Line
 	8000 5700 8000 2450
+$Comp
+L alexios:CXO_DIP8 X?
+U 1 1 60A9A739
+P 8800 5500
+F 0 "X?" H 8900 5867 50  0000 C CNN
+F 1 "CXO_DIP8" H 8900 5776 50  0000 C CNN
+F 2 "Oscillator:Oscillator_DIP-8" H 8950 5100 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 8900 5450 50  0001 C CNN
+	1    8800 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC74 U?
+U 1 1 60A9D4D3
+P 10400 5500
+F 0 "U?" H 10400 5917 50  0000 C CNN
+F 1 "74AC74" H 10400 5826 50  0000 C CNN
+F 2 "" H 10350 5650 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 10350 5650 50  0001 C CNN
+	1    10400 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9950 5450 9850 5450
+Wire Wire Line
+	9850 5450 9850 5000
+Wire Wire Line
+	9850 5000 11000 5000
+Wire Wire Line
+	11000 5000 11000 5650
+Wire Wire Line
+	11000 5650 10850 5650
+$Comp
+L power:+5V #PWR?
+U 1 1 60AB727D
+P 8450 5300
+F 0 "#PWR?" H 8450 5150 50  0001 C CNN
+F 1 "+5V" H 8465 5473 50  0000 C CNN
+F 2 "" H 8450 5300 50  0001 C CNN
+F 3 "" H 8450 5300 50  0001 C CNN
+	1    8450 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 5300 8450 5400
+Wire Wire Line
+	8450 5400 8500 5400
+$Comp
+L power:GND #PWR?
+U 1 1 60AC2902
+P 8450 5750
+F 0 "#PWR?" H 8450 5500 50  0001 C CNN
+F 1 "GND" H 8455 5577 50  0000 C CNN
+F 2 "" H 8450 5750 50  0001 C CNN
+F 3 "" H 8450 5750 50  0001 C CNN
+	1    8450 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 5700 8450 5700
+Wire Wire Line
+	8450 5700 8450 5750
+$Comp
+L Device:C_Small C?
+U 1 1 60ACF0CA
+P 8450 5550
+AR Path="/5CC0D65F/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/5EF76914/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/6A313729/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/5DF75CDE/60ACF0CA" Ref="C?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60ACF0CA" Ref="C?"  Part="1" 
+F 0 "C?" H 8359 5596 50  0000 R CNN
+F 1 "100nF" H 8359 5505 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8450 5550 50  0001 C CNN
+F 3 "~" H 8450 5550 50  0001 C CNN
+	1    8450 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 5400 8450 5450
+Connection ~ 8450 5400
+Wire Wire Line
+	8450 5650 8450 5700
+Connection ~ 8450 5700
 $EndSCHEMATC

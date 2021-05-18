@@ -280,7 +280,6 @@ Text Label 5400 1500 2    50   ~ 0
 Text Label 5400 1400 2    50   ~ 0
 ~READ-SP
 NoConn ~ 4850 1200
-NoConn ~ 4850 1300
 Text Label 3650 1300 0    50   ~ 0
 RADDR0
 Text Label 3650 1400 0    50   ~ 0
@@ -492,4 +491,10 @@ Text HLabel 5500 4100 2    50   Output ~ 0
 ~WRITE-AC
 Text HLabel 5500 4200 2    50   Output ~ 0
 ~WRITE-ALU-B
+Wire Wire Line
+	4850 1300 5500 1300
+Text Label 5400 1300 2    50   ~ 0
+~ALUOE
+Text HLabel 5500 1300 2    50   Output ~ 0
+~ALUOE
 $EndSCHEMATC

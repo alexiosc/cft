@@ -563,7 +563,7 @@ CLK3
 Text Label 1300 1000 0    50   ~ 0
 DIST[0..3]
 Text Label 10550 4700 2    50   ~ 0
-FLOUT
+FLOUT-SRU
 $Comp
 L alexios:74AUC1G74 U?
 U 1 1 6A1AE895
@@ -886,7 +886,7 @@ TC
 Text Label 4750 3050 0    50   ~ 0
 ~START-SYNC
 Text Label 7550 4700 0    50   ~ 0
-FLOUT
+FLOUT-SRU
 Wire Wire Line
 	5900 5400 6600 5400
 Wire Wire Line
