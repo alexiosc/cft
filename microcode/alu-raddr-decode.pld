@@ -4,7 +4,7 @@ ALRDEC00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 T34     RA0     RA1	RA2	RA3	RA4	NC7	NC8	NC9	GND
-NC11	ALUOP	ACP	RY	RB	RAC	RSP	NC18	NC19	VCC
+NC11	ALUOP	ACP	RY	RB	RAC	RSP	ALUOE	NC19	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -19,6 +19,14 @@ ACP =  		        RA4 * /RA3
 /RAC =          /T34 * /RA4 *  RA3 * /RA2 *  RA1 * /RA0
 
 /RSP =          /T34 * /RA4 *  RA3 * /RA2 *  RA1 *  RA0
+
+
+; ALU output is enabled when either ALUOP or READ-ALU-Y are
+; asserted. Let's derive this here, it only needs an additional output
+; pin and saves a gate.
+
+/ALUOE =                RA4 * /RA3    +    /T34 *  RA4 *  RA3 * /RA2 * /RA1 * /RA0
+
 
 
 

@@ -71,6 +71,7 @@ $(BUILDDIR)/alu-rom%list $(BUILDDIR)/alu-rom%bin:
 $(BUILDDIR)/%.jed:	%.pld
 			$(GALASM) $<
 			mv *.chp *.fus *.jed *.pin $(BUILDDIR)
+			cat $(@:.jed=).chp
 
 # $(BUILDDIR)/mbu-rom%list $(BUILDDIR)/mbu-rom%bin:
 # 			cd $(BUILDDIR); ../$(MKMBUROM)
