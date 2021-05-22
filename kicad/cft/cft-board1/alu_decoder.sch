@@ -49,19 +49,6 @@ Wire Wire Line
 	1200 1350 1800 1350
 $Comp
 L alexios:ATF16V8B U202
-U 1 1 63A0056E
-P 4400 3950
-F 0 "U202" H 4400 4700 50  0000 C CNN
-F 1 "ATF16V8B" H 4400 4600 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4400 3950 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4400 3950 50  0001 C CNN
-F 4 "ALWDEC00" V 4400 3950 50  0000 C CNB "Signature"
-F 5 "alu-waddr-decode.jed" H 4400 3300 50  0000 C CNN "Image Filename"
-	1    4400 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:ATF16V8B U202
 U 2 1 63A04AA0
 P 7000 3600
 F 0 "U202" H 7180 3646 50  0000 L CNN
@@ -298,7 +285,6 @@ Text Label 5400 4000 2    50   ~ 0
 ~WRITE-SP
 NoConn ~ 4850 3700
 NoConn ~ 4850 3800
-NoConn ~ 4850 3900
 $Comp
 L alexios:ATF16V8B U203
 U 1 1 63A656B3
@@ -497,4 +483,18 @@ Text Label 5400 1300 2    50   ~ 0
 ~ALUOE
 Text HLabel 5500 1300 2    50   Output ~ 0
 ~ALUOE
+$Comp
+L alexios:ATF16V8B U202
+U 1 1 63A0056E
+P 4400 3950
+F 0 "U202" H 4400 4700 50  0000 C CNN
+F 1 "ATF16V8B" H 4400 4600 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4400 3950 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4400 3950 50  0001 C CNN
+F 4 "ALWDEC00" V 4400 3950 50  0000 C CNB "Signature"
+F 5 "alu-waddr-decode.jed" H 4400 3300 50  0000 C CNN "Image Filename"
+	1    4400 3950
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4850 3900
 $EndSCHEMATC
