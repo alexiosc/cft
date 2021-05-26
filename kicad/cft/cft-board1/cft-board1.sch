@@ -3383,6 +3383,19 @@ Wire Wire Line
 	1600 9150 1050 9150
 Text Label 1050 9150 0    50   ~ 0
 BCP
+$Comp
+L alexios:74LS283 U?
+U 1 1 60BA181A
+P 15050 6750
+AR Path="/5D967A8B/60BA181A" Ref="U?"  Part="1" 
+AR Path="/60BA181A" Ref="U?"  Part="1" 
+F 0 "U?" H 15050 7517 50  0000 C CNN
+F 1 "74LS283" H 15050 7426 50  0000 C CNN
+F 2 "" H 15050 7150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS283" H 15050 7150 50  0001 C CNN
+	1    15050 6750
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line
@@ -3393,4 +3406,43 @@ Wire Bus Line
 	9300 8600 9300 9250
 Wire Bus Line
 	9300 10750 9300 12350
+$Comp
+L alexios:74LS283 U?
+U 1 1 60BEDFD8
+P 15050 8200
+AR Path="/5D967A8B/60BEDFD8" Ref="U?"  Part="1" 
+AR Path="/60BEDFD8" Ref="U?"  Part="1" 
+F 0 "U?" H 15050 8967 50  0000 C CNN
+F 1 "74LS283" H 15050 8876 50  0000 C CNN
+F 2 "" H 15050 8600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS283" H 15050 8600 50  0001 C CNN
+	1    15050 8200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LS283 U?
+U 1 1 60BEF155
+P 15050 9650
+AR Path="/5D967A8B/60BEF155" Ref="U?"  Part="1" 
+AR Path="/60BEF155" Ref="U?"  Part="1" 
+F 0 "U?" H 15050 10417 50  0000 C CNN
+F 1 "74LS283" H 15050 10326 50  0000 C CNN
+F 2 "" H 15050 10050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS283" H 15050 10050 50  0001 C CNN
+	1    15050 9650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LS283 U?
+U 1 1 60BF0AAE
+P 15050 11100
+AR Path="/5D967A8B/60BF0AAE" Ref="U?"  Part="1" 
+AR Path="/60BF0AAE" Ref="U?"  Part="1" 
+F 0 "U?" H 15050 11867 50  0000 C CNN
+F 1 "74LS283" H 15050 11776 50  0000 C CNN
+F 2 "" H 15050 11500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS283" H 15050 11500 50  0001 C CNN
+	1    15050 11100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

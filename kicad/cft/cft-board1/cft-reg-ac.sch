@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 20
+Sheet 8 20
 Title "Accumulator (AC)"
 Date ""
 Rev "2047"
@@ -2147,9 +2147,24 @@ Wire Wire Line
 Text HLabel 8700 4650 2    50   Output ~ 0
 FN
 Wire Wire Line
-	8700 4650 8300 4650
-Text Label 8300 4650 0    50   ~ 0
+	8300 4650 8050 4650
+Text Label 8050 4650 0    50   ~ 0
 AC15
+$Comp
+L Device:R_Small R?
+U 1 1 60C5FEDD
+P 8400 4650
+AR Path="/60BB0546/60C5FEDD" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/60C5FEDD" Ref="R1001"  Part="1" 
+F 0 "R1001" V 8504 4650 50  0000 C CNN
+F 1 "30Ω" V 8595 4650 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8400 4650 50  0001 C CNN
+F 3 "~" H 8400 4650 50  0001 C CNN
+	1    8400 4650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8500 4650 8700 4650
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -2162,4 +2177,6 @@ Wire Bus Line
 	6650 1050 6650 6950
 Wire Bus Line
 	4100 1150 4100 6950
+Text Label 8550 4650 0    50   ~ 0
+FN
 $EndSCHEMATC
