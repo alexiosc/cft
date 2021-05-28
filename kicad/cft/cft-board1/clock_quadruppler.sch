@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 20
+Sheet 20 20
 Title "16 MHz Shifter Clock"
 Date ""
 Rev "2020"
