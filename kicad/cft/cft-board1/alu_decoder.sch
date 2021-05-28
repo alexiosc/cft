@@ -149,7 +149,6 @@ NoConn ~ 3950 4200
 NoConn ~ 3950 4300
 NoConn ~ 3950 4400
 NoConn ~ 4850 3500
-NoConn ~ 4850 3600
 $Comp
 L alexios:ATF16V8B U201
 U 1 1 63A46035
@@ -277,27 +276,14 @@ Text Label 3650 1600 0    50   ~ 0
 RADDR3
 Text Label 3650 1700 0    50   ~ 0
 RADDR4
-Text Label 5400 4200 2    50   ~ 0
-~WRITE-B
 Text Label 5400 4100 2    50   ~ 0
+~WRITE-B
+Text Label 5400 3600 2    50   ~ 0
 ~WRITE-AC
-Text Label 5400 4000 2    50   ~ 0
+Text Label 5400 4200 2    50   ~ 0
 ~WRITE-SP
 NoConn ~ 4850 3700
 NoConn ~ 4850 3800
-$Comp
-L alexios:ATF16V8B U203
-U 1 1 63A656B3
-P 4400 6350
-F 0 "U203" H 4400 7100 50  0000 C CNN
-F 1 "ATF16V8B" H 4400 7000 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4400 6350 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4400 6350 50  0001 C CNN
-F 4 "ALADEC00" V 4400 6350 50  0000 C CNB "Signature"
-F 5 "alu-action-decode.jed" H 4400 5700 50  0000 C CNN "Image Filename"
-	1    4400 6350
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:ATF16V8B U203
 U 2 1 63A656BB
@@ -466,16 +452,16 @@ Text HLabel 5500 1900 2    50   Output ~ 0
 Text Label 1800 1950 2    50   ~ 0
 ACTION[0..3]
 Wire Wire Line
-	4850 4000 5500 4000
+	4850 4200 5500 4200
+Wire Wire Line
+	4850 3600 5500 3600
 Wire Wire Line
 	4850 4100 5500 4100
-Wire Wire Line
-	4850 4200 5500 4200
-Text HLabel 5500 4000 2    50   Output ~ 0
-~WRITE-SP
-Text HLabel 5500 4100 2    50   Output ~ 0
-~WRITE-AC
 Text HLabel 5500 4200 2    50   Output ~ 0
+~WRITE-SP
+Text HLabel 5500 3600 2    50   Output ~ 0
+~WRITE-AC
+Text HLabel 5500 4100 2    50   Output ~ 0
 ~WRITE-ALU-B
 Wire Wire Line
 	4850 1300 5500 1300
@@ -497,4 +483,18 @@ F 5 "alu-waddr-decode.jed" H 4400 3300 50  0000 C CNN "Image Filename"
 	1    0    0    -1  
 $EndComp
 NoConn ~ 4850 3900
+NoConn ~ 4850 4000
+$Comp
+L alexios:ATF16V8B U203
+U 1 1 63A656B3
+P 4400 6350
+F 0 "U203" H 4400 7100 50  0000 C CNN
+F 1 "ATF16V8B" H 4400 7000 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4400 6350 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4400 6350 50  0001 C CNN
+F 4 "ALADEC00" V 4400 6350 50  0000 C CNB "Signature"
+F 5 "alu-action-decode.jed" H 4400 5700 50  0000 C CNN "Image Filename"
+	1    4400 6350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

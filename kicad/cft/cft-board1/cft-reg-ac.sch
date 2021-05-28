@@ -2165,6 +2165,8 @@ F 3 "~" H 8400 4650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8500 4650 8700 4650
+Text Label 8550 4650 0    50   ~ 0
+FN
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -2177,6 +2179,4 @@ Wire Bus Line
 	6650 1050 6650 6950
 Wire Bus Line
 	4100 1150 4100 6950
-Text Label 8550 4650 0    50   ~ 0
-FN
 $EndSCHEMATC
