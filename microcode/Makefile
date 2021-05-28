@@ -48,6 +48,7 @@ PLDS =			$(BUILDDIR)/mbu-control.jed \
 			$(BUILDDIR)/alu-waddr-decode.jed \
 			$(BUILDDIR)/alu-action-decode.jed \
 			$(BUILDDIR)/alu-flags.jed \
+			$(BUILDDIR)/alu-sru.jed \
 
 
 #.PHONY: 		all clean microcode alu-binary alu-unary

@@ -1,0 +1,54 @@
+GAL16V8         ; this is the GAL type
+ALUSRU00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+X4CLK	RESET	STRTSNC	WB	L	TC	ARITH   ROT     RIGHT   GND
+B0	B15	ENL	ENR	MSB	LSB	BCP	LOUT	NC19	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+; Enable left output when we're not resetting, the terminal count hasn't been
+; reached yet, and we're operating leftwards. (RIGHT is low) Similarly for
+; right enables (but we enable when RIGHT is high).
+
+
+/ENL =	RESET * /TC * /RIGHT
+/ENR =	RESET * /TC *  RIGHT
+
+; MSB/LSB multiplexer
+;
+; ROT ARITH   MSB LSB    What
+;  0    0      0   0     Bitwise shift
+;  0    1     B15  0     Arithmetic shift (sign extend)
+;  1    0      L   L     Bitwise rotate <L,AC>
+;  1    1     B0  B15    Bitwise rotate AC only
+
+MSB = /ROT *  ARITH * B15   +   ROT * /ARITH * L   +   ROT * ARITH * B0
+LSB =                           ROT * /ARITH * L   +   ROT * ARITH * B15
+
+; Whether rotating or shifting, the Link register gets bits shifted off the
+; Accumulator. Here, we select the next value of L: use B15 if operating left,
+; use B0 if operating right.
+
+LOUT = /RIGHT * B15   +   RIGHT * B0
+
+; And this asserts BCP in two cases:
+;
+; 1. The Control Unit asserts write_alu_b (WB is asserted)
+; 2. If START-SYNC (STRTSNC) is low and terminal count (TC) has not been
+;    reached, BCP is the fast clock (X4CLK)
+;
+; We interlock to survive bugs where write_alu_b is asserted while the SRU is
+; running.
+;
+; Note that the signal is declared active low.
+
+/BCP =  RESET * /WB   +   RESET * WB * /TC * STRTSNC * /X4CLK
+
+
+
+DESCRIPTION
+
+
+; End of file.
