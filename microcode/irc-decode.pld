@@ -1,0 +1,57 @@
+GAL16V8         ; this is the GAL type
+IRCDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+AB3	AB4	AB5	AB6	AB7	SYSDEV	R	W	NC9	GND
+NC11	HIEN	RIER	WIER	NC15	NC16	NC17	NC18	RISR	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/WIER	=	/W *  R * /SYSDEV * /AB7 * /AB6 * /AB5 * /AB4
+
+/RIER   =        W * /R * /SYSDEV * /AB7 * /AB6 * /AB5 * /AB4 * /AB3
+/RISR   =        W * /R * /SYSDEV * /AB7 * /AB6 * /AB5 * /AB4 *  AB3
+/HIEN	=	 W * /R * /SYSDEV * /AB7 * /AB6 * /AB5 * /AB4
+
+
+
+DESCRIPTION
+
+The IER is an address-bus-mapped '259 IC, so writing to it needs 16
+addresses: 1 for the interrupt enable/disable control, three to select
+the interrupt. The address mapping is done to make working with
+interrupts faster. The value of the AC is immmaterial, so we save a LI
+0 or LI 1 intruction.
+
+Reading the IER returns all eight interrupts.
+
+The ISR is read-only.
+
+Because both IER and ISR are 8 bits wide, an additional buffer is
+enabled for output via HIEN when either IER or ISR are read.
+
+Port map:
+
+Address		Read		Write
+------------------------------------------------------------
+ &000		IER*		Disable/acknowledge IRQ0
+ &001		IER		Disable/acknowledge IRQ1
+ &002		IER		Disable/acknowledge IRQ2
+ &003		IER		Disable/acknowledge IRQ3
+ &004		IER		Disable/acknowledge IRQ4
+ &005		IER		Disable/acknowledge IRQ5
+ &006		IER		Disable/acknowledge IRQ6
+ &007		IER		Disable/acknowledge IRQ7
+ &008		ISR*		Enable IRQ0
+ &009		ISR		Enable IRQ1
+ &00a		ISR		Enable IRQ2
+ &00b		ISR		Enable IRQ3
+ &00c		ISR		Enable IRQ4
+ &00d		ISR		Enable IRQ5
+ &00e		ISR		Enable IRQ6
+ &00f		ISR		Enable IRQ7
+
+* Canonical copies
+
+; End of file.
