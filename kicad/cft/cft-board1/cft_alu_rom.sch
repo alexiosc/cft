@@ -1663,10 +1663,10 @@ U 1 1 5F119A09
 P 3700 1800
 F 0 "JP501" H 3700 1913 50  0000 C CNN
 F 1 "SolderJumper_3_Bridged12" H 3700 1910 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm_NumberLabels" H 3700 1800 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 3700 1800 50  0001 C CNN
 F 3 "~" H 3700 1800 50  0001 C CNN
 	1    3700 1800
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	3450 1800 3550 1800

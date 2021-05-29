@@ -1150,40 +1150,8 @@ Wire Wire Line
 	4650 3500 4900 3500
 Wire Wire Line
 	4650 5100 4900 5100
-$Comp
-L alexios:74AHC1G08 U1011
-U 1 1 5D96D636
-P 3800 6550
-AR Path="/5D9672D4/5D96D636" Ref="U1011"  Part="1" 
-AR Path="/5D9746C5/5D96D636" Ref="U?"  Part="1" 
-F 0 "U1011" H 3725 6817 50  0000 C CNN
-F 1 "74AHC1G08" H 3725 6726 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3450 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3450 6550 50  0001 C CNN
-	1    3800 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AHC1G08 U1011
-U 2 1 5D96D63D
-P 10000 5900
-AR Path="/5D9672D4/5D96D63D" Ref="U1011"  Part="2" 
-AR Path="/5D9746C5/5D96D63D" Ref="U?"  Part="2" 
-F 0 "U1011" H 9750 5550 50  0000 L CNN
-F 1 "74AHC1G08" H 9750 5450 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 9650 5900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9650 5900 50  0001 C CNN
-	2    10000 5900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3950 6550 3950 7250
-Wire Wire Line
-	3950 7250 6450 7250
-Text Label 5100 7250 0    50   ~ 0
-~REGCPL
-Text HLabel 6450 7250 2    50   Output ~ 0
-~REGCPL
+Text HLabel 3650 6500 2    50   Output ~ 0
+~ACCPL1
 Entry Bus Bus
 	6500 750  6600 650 
 Wire Bus Line
@@ -1577,46 +1545,8 @@ F 3 "" H 10450 5350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 10450 5350
-$Comp
-L power:+5V #PWR?
-U 1 1 5D96D70F
-P 9550 5900
-AR Path="/5CE16E65/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D54E677/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5D96D70F" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5D96D70F" Ref="#PWR01028"  Part="1" 
-AR Path="/5D9746C5/5D96D70F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01028" H 9550 5750 50  0001 C CNN
-F 1 "+5V" H 9565 6073 50  0000 C CNN
-F 2 "" H 9550 5900 50  0001 C CNN
-F 3 "" H 9550 5900 50  0001 C CNN
-	1    9550 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D96D715
-P 9550 6100
-AR Path="/5CE16E65/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D54E677/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D62E1DC/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D79EA4B/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D892D5E/5D96D715" Ref="#PWR?"  Part="1" 
-AR Path="/5D9672D4/5D96D715" Ref="#PWR01029"  Part="1" 
-AR Path="/5D9746C5/5D96D715" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01029" H 9550 5850 50  0001 C CNN
-F 1 "GND" H 9555 5927 50  0000 C CNN
-F 2 "" H 9550 6100 50  0001 C CNN
-F 3 "" H 9550 6100 50  0001 C CNN
-	1    9550 6100
-	1    0    0    -1  
-$EndComp
-Text Notes 6650 7450 2    50   ~ 0
-~ACCPL~ toggles the L register whenever the Accumulator wraps around.
+Text Notes 2700 7350 0    50   ~ 0
+~ACCPL1–2~ toggle the L register\nwhenever the Accumulator wraps around\ndue to increments or decrements.
 $Comp
 L alexios:74HCT541 U?
 U 2 1 5D96D71D
@@ -1806,28 +1736,6 @@ Text Label 6800 950  0    50   ~ 0
 AC[0..15]
 Text HLabel 8700 950  2    50   Output ~ 0
 AC[0..15]
-$Comp
-L Device:C_Small C?
-U 1 1 5DE162AF
-P 9550 6000
-AR Path="/5CC0D65F/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5D54E677/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5DE162AF" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5DE162AF" Ref="C1011"  Part="1" 
-AR Path="/5D9746C5/5DE162AF" Ref="C?"  Part="1" 
-F 0 "C1011" H 9459 6046 50  0000 R CNN
-F 1 "100nF" H 9459 5955 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9550 6000 50  0001 C CNN
-F 3 "~" H 9550 6000 50  0001 C CNN
-	1    9550 6000
-	1    0    0    -1  
-$EndComp
-Connection ~ 9550 5900
-Connection ~ 9550 6100
 Wire Wire Line
 	4900 3300 4200 3300
 Wire Wire Line
@@ -2167,6 +2075,12 @@ Wire Wire Line
 	8500 4650 8700 4650
 Text Label 8550 4650 0    50   ~ 0
 FN
+Wire Wire Line
+	3500 6500 3650 6500
+Wire Wire Line
+	3500 6600 3650 6600
+Text HLabel 3650 6600 2    50   Output ~ 0
+~ACCPL2
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
