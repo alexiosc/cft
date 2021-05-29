@@ -4,26 +4,30 @@ ALUFLG00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 CPL	CLL	RSTHOLD	FLAGWE	FLROM	SVROM	SLROM	FVROM	IBUS12	GND
-IBUS13	NC12	RALUY	NC14	FL	SETV	SETL	CLRV	CLRL	VCC
+IBUS13	SETV	ACCPL1	ACCPL2	RALUY	FL	SETL	CLRV	CLRL	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 ; Clear the L register when:
 ;   * RSTHOLD is asserted, or
 ;   * CLL is asserted, or
 ;   * FL is set, and ACTION-CPL is asserted, or
+;   * FL is set, and ACCPL1 is asserted, or
+;   * FL is set, and ACCPL2 is asserted, or
 ;   * IBUS12 is clear and FLAGWE is asserted, or
 ;   * FLROM is set and SLROM is asserted and FL is set (FL toggle), or
 ;   * FLSRU is clear and SLSRU is asserted.
 
 ; Set the L register when:
-;   * FL is set, and ACTION-CPL is asserted, or
+;   * FL is clear, and ACTION-CPL is asserted, or
+;   * FL is clear, and ACCPL1 is asserted, or
+;   * FL is clear, and ACCPL2 is asserted, or
 ;   * IBUS12 is set and FLAGWE is asserted, or
 ;   * FLROM is set and SLROM is asserted and FL is clear (FL toggle), or
 ;   * FLSRU is set and SLSRU is asserted.
 
-/CLRL =         /RSTHOLD  +  /CLL  +  FL * /CPL  +  /IBUS12 * /FLAGWE  +   FL * /FLROM * /SLROM * /RALUY
+/CLRL =         /RSTHOLD  +  /CLL  +  FL * /CPL  +  FL * /ACCPL1  +  FL * /ACCPL2  +  /IBUS12 * /FLAGWE  +   FL * /FLROM * /SLROM * /RALUY
 
-/SETL =                              /FL * /CPL  +   IBUS12 * /FLAGWE  +  /FL *  FLROM * /SLROM * /RALUY
+/SETL =                              /FL * /CPL  + /FL * /ACCPL1  + /FL * /ACCPL2  +   IBUS12 * /FLAGWE  +  /FL *  FLROM * /SLROM * /RALUY
 
 
 /CLRV =         /RSTHOLD  +  /IBUS13 * /FLAGWE  +  /FVROM * /SVROM * /RALUY
