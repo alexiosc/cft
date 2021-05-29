@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 20
+Sheet 20 20
 Title ""
 Date ""
 Rev ""
@@ -91,25 +91,6 @@ Wire Wire Line
 	4000 2700 4000 2750
 Wire Wire Line
 	4000 2750 4050 2750
-$Comp
-L alexios:74HC138 U?
-U 1 1 60AF2A23
-P 4550 2550
-AR Path="/5F3EA987/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/5F67D4B5/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/60AA2B43/60AF2A23" Ref="U38"  Part="1" 
-AR Path="/61C2F29F/60AF2A23" Ref="U2003"  Part="1" 
-F 0 "U2003" H 4550 3217 50  0000 C CNN
-F 1 "74HC138" H 4550 3126 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 4550 2550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4550 2550 50  0001 C CNN
-	1    4550 2550
-	1    0    0    -1  
-$EndComp
 Text Label 3750 2150 0    50   ~ 0
 AB2
 Text Label 3750 2250 0    50   ~ 0
