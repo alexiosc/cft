@@ -772,8 +772,6 @@ Wire Bus Line
 	8300 4700 10400 4700
 Wire Bus Line
 	10400 4700 10500 4600
-Wire Wire Line
-	10350 4550 10650 4550
 Connection ~ 10350 4550
 Text HLabel 10850 4550 2    50   3State ~ 0
 ~IRQ
@@ -1550,24 +1548,6 @@ Text Label 8550 4150 0    50   ~ 0
 Wire Wire Line
 	8850 4150 8550 4150
 $Comp
-L Connector:TestPoint TP1201
-U 1 1 5FD736F3
-P 10700 4350
-F 0 "TP1201" V 10700 4538 50  0000 L CNN
-F 1 "TestPoint" V 10745 4538 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 10900 4350 50  0001 C CNN
-F 3 "~" H 10900 4350 50  0001 C CNN
-	1    10700 4350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	10700 4350 10650 4350
-Wire Wire Line
-	10650 4350 10650 4550
-Connection ~ 10650 4550
-Wire Wire Line
-	10650 4550 10850 4550
-$Comp
 L alexios:ATF16V8B U?
 U 1 1 61662F3D
 P -2000 600
@@ -1769,4 +1749,6 @@ Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line
 	5550 4200 5550 6500
+Wire Wire Line
+	10350 4550 10850 4550
 $EndSCHEMATC

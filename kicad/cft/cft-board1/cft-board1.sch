@@ -87,50 +87,8 @@ F18 "~ALUOE" I L 4650 9100 50
 $EndSheet
 Text Notes 700  -6550 0    197  ~ 39
 Decoders
-Wire Wire Line
-	1250 -4800 900  -4800
-Wire Wire Line
-	1250 -4700 900  -4700
-Wire Wire Line
-	1250 -3350 900  -3350
-Wire Wire Line
-	1250 -3250 900  -3250
-Wire Wire Line
-	1250 -3950 900  -3950
-Wire Wire Line
-	1250 -3850 900  -3850
-Wire Wire Line
-	1250 -3750 900  -3750
 Text Notes 1800 -3250 1    50   ~ 10
 WADDR=010xx
-Text Label 950  -4800 0    50   ~ 0
-RADDR3
-Text Label 950  -4700 0    50   ~ 0
-RADDR4
-Text Label 950  -3950 0    50   ~ 0
-WADDR0
-Text Label 950  -3850 0    50   ~ 0
-WADDR1
-Text Label 950  -3750 0    50   ~ 0
-WADDR2
-Text Label 950  -3250 0    50   ~ 0
-WADDR4
-Text Label 950  -3350 0    50   ~ 0
-WADDR3
-Entry Wire Line
-	800  -4900 900  -4800
-Entry Wire Line
-	800  -4800 900  -4700
-Entry Wire Line
-	800  -4050 900  -3950
-Entry Wire Line
-	800  -3950 900  -3850
-Entry Wire Line
-	800  -3850 900  -3750
-Entry Wire Line
-	800  -3450 900  -3350
-Entry Wire Line
-	800  -3350 900  -3250
 Text Label 2850 -3850 2    50   ~ 0
 ~WRITE-DR
 NoConn ~ 2250 -5000
@@ -141,33 +99,12 @@ NoConn ~ 2250 -3550
 NoConn ~ 2250 -3450
 NoConn ~ 2250 -3350
 NoConn ~ 2250 -3250
-Text Label 800  -3450 1    50   ~ 0
-WADDR[4..0]
 Wire Wire Line
 	2250 -3950 2850 -3950
 Wire Wire Line
 	2250 -3850 2850 -3850
 Text Label 2850 -3950 2    50   ~ 0
 ~WRITE-PC
-Text Label 800  -6050 0    50   ~ 0
-~RESET
-Wire Wire Line
-	1350 -6050 800  -6050
-$Comp
-L alexios:74LVC1G04 U101
-U 1 1 5DAE39EC
-P 1650 -6050
-F 0 "U101" H 1600 -5783 50  0000 C CNN
-F 1 "74LVC1G04" H 1600 -5874 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1650 -6050 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 1650 -6050 50  0001 C CNN
-	1    1650 -6050
-	1    0    0    -1  
-$EndComp
-Text Label 2350 -6050 2    50   ~ 0
-RESET
-Wire Wire Line
-	1850 -6050 2350 -6050
 Text Notes 2550 -4300 0    50   ~ 0
 [RW]ADDR\n\n01000\n01001\n01010\n01011
 Text Notes 3100 -4300 0    50   ~ 0
@@ -184,68 +121,8 @@ Wire Notes Line style solid
 	2500 -4650 3300 -4650
 Wire Notes Line
 	3050 -4825 3050 -4250
-Text Label 1250 -3150 2    50   ~ 0
-CLK4'
 Text Notes 1500 -700 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
-Wire Wire Line
-	1000 -4600 900  -4600
-Wire Wire Line
-	900  -4600 900  -4550
-$Comp
-L power:GND #PWR0101
-U 1 1 5D9C912E
-P 900 -4550
-F 0 "#PWR0101" H 900 -4800 50  0001 C CNN
-F 1 "GND" H 905 -4723 50  0000 C CNN
-F 2 "" H 900 -4550 50  0001 C CNN
-F 3 "" H 900 -4550 50  0001 C CNN
-	1    900  -4550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1200 -4600 1250 -4600
-$Comp
-L Device:Jumper_NC_Small JP101
-U 1 1 60284772
-P 1100 -4600
-F 0 "JP101" H 1100 -4693 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 1100 -4479 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1100 -4600 50  0001 C CNN
-F 3 "~" H 1100 -4600 50  0001 C CNN
-	1    1100 -4600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	650  -3350 250  -3350
-$Comp
-L power:GND #PWR0103
-U 1 1 5EEF256F
-P 650 -2950
-F 0 "#PWR0103" H 650 -3200 50  0001 C CNN
-F 1 "GND" H 655 -3123 50  0000 C CNN
-F 2 "" H 650 -2950 50  0001 C CNN
-F 3 "" H 650 -2950 50  0001 C CNN
-	1    650  -2950
-	1    0    0    -1  
-$EndComp
-Text Label 250  -3350 0    50   ~ 0
-CLK4
-Text Notes 850  -2750 0    50   ~ 0
-1-2: Normal Operation\n2-3: Standalone REG Board Testing
-$Comp
-L Jumper:SolderJumper_3_Open JP102
-U 1 1 5EF00BEB
-P 650 -3150
-F 0 "JP102" V 650 -3082 50  0000 L CNN
-F 1 "SolderJumper_3_Open" V 695 -3083 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 650 -3150 50  0001 C CNN
-F 3 "~" H 650 -3150 50  0001 C CNN
-	1    650  -3150
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	800  -3150 1250 -3150
 $Comp
 L power:+5V #PWR?
 U 1 1 5DF0FF82
@@ -745,136 +622,10 @@ Wire Wire Line
 	-1750 -5150 -1750 -5050
 Wire Wire Line
 	-1850 -5150 -1750 -5150
-$Comp
-L Device:R_Small R110
-U 1 1 601C6ACC
-P -1950 -4150
-F 0 "R110" V -2000 -4000 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4300 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4150 50  0001 C CNN
-F 3 "~" H -1950 -4150 50  0001 C CNN
-	1    -1950 -4150
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R109
-U 1 1 601C6AC6
-P -1950 -4250
-F 0 "R109" V -2000 -4100 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4400 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4250 50  0001 C CNN
-F 3 "~" H -1950 -4250 50  0001 C CNN
-	1    -1950 -4250
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R108
-U 1 1 601B696E
-P -1950 -4350
-F 0 "R108" V -2000 -4200 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4500 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4350 50  0001 C CNN
-F 3 "~" H -1950 -4350 50  0001 C CNN
-	1    -1950 -4350
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R107
-U 1 1 601B6968
-P -1950 -4450
-F 0 "R107" V -2000 -4300 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4600 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4450 50  0001 C CNN
-F 3 "~" H -1950 -4450 50  0001 C CNN
-	1    -1950 -4450
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R106
-U 1 1 601A6784
-P -1950 -4550
-F 0 "R106" V -2000 -4400 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4700 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4550 50  0001 C CNN
-F 3 "~" H -1950 -4550 50  0001 C CNN
-	1    -1950 -4550
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R105
-U 1 1 601A677E
-P -1950 -4650
-F 0 "R105" V -2000 -4500 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4800 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4650 50  0001 C CNN
-F 3 "~" H -1950 -4650 50  0001 C CNN
-	1    -1950 -4650
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R104
-U 1 1 60196662
-P -1950 -4750
-F 0 "R104" V -2000 -4600 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -4900 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4750 50  0001 C CNN
-F 3 "~" H -1950 -4750 50  0001 C CNN
-	1    -1950 -4750
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R103
-U 1 1 6019665C
-P -1950 -4850
-F 0 "R103" V -2000 -4700 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -5000 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -4850 50  0001 C CNN
-F 3 "~" H -1950 -4850 50  0001 C CNN
-	1    -1950 -4850
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R102
-U 1 1 60185C13
-P -1950 -5050
-F 0 "R102" V -2000 -4900 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -5200 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -5050 50  0001 C CNN
-F 3 "~" H -1950 -5050 50  0001 C CNN
-	1    -1950 -5050
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R101
-U 1 1 6018580D
-P -1950 -5150
-F 0 "R101" V -2000 -5000 50  0000 C CNN
-F 1 "4.7kΩ" V -2050 -5300 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1950 -5150 50  0001 C CNN
-F 3 "~" H -1950 -5150 50  0001 C CNN
-	1    -1950 -5150
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	-3300 -5050 -2050 -5050
 Wire Wire Line
 	-3300 -5150 -2050 -5150
-Wire Wire Line
-	-3300 -4850 -2050 -4850
-Wire Wire Line
-	-3300 -4750 -2050 -4750
-Wire Wire Line
-	-3300 -4650 -2050 -4650
-Wire Wire Line
-	-3300 -4550 -2050 -4550
-Wire Wire Line
-	-3300 -4450 -2050 -4450
-Wire Wire Line
-	-3300 -4350 -2050 -4350
-Wire Wire Line
-	-3300 -4250 -2050 -4250
-Wire Wire Line
-	-3300 -4150 -2050 -4150
 Wire Wire Line
 	-3300 -5250 -2700 -5250
 Text Notes -2650 -2750 0    50   ~ 0
@@ -3421,8 +3172,6 @@ Text Label 6650 5500 0    50   ~ 0
 ~SYSDEV
 Wire Bus Line
 	6400 8750 6400 12000
-Wire Bus Line
-	800  -4150 800  -3350
 Wire Bus Line
 	-2850 -6100 -2850 -5450
 Wire Bus Line
