@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 20
+Sheet 11 19
 Title ""
 Date ""
 Rev ""
@@ -13,8 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 1050 4950 0    50   Input ~ 0
-~RIER
 Text HLabel 6050 6600 2    50   3State ~ 0
 FPD[0..7]
 Text Label 3300 1800 2    50   ~ 0
@@ -115,10 +113,6 @@ Text Label 3900 4800 0    50   ~ 0
 IRF7
 Text HLabel 1050 1900 0    50   Input ~ 0
 ~RESET
-Text HLabel 1050 1700 0    50   Input ~ 0
-~WIER
-Wire Wire Line
-	1700 6600 2050 6600
 $Comp
 L alexios:74HC541 U?
 U 1 1 5F173A3D
@@ -151,7 +145,7 @@ Wire Wire Line
 	2050 5050 2000 5050
 Wire Wire Line
 	2000 5050 2000 5100
-Text Label 1400 4950 0    50   ~ 0
+Text Label 1850 4950 0    50   ~ 0
 ~RIER
 Wire Wire Line
 	2000 6700 2000 6750
@@ -188,15 +182,15 @@ $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5F1739C7
-P 2000 5600
+P 2000 5650
 AR Path="/5F1739C7" Ref="#PWR?"  Part="1" 
 AR Path="/5F160E7C/5F1739C7" Ref="#PWR036"  Part="1" 
 AR Path="/60BB0546/5F1739C7" Ref="#PWR01211"  Part="1" 
-F 0 "#PWR01211" H 2000 5450 50  0001 C CNN
-F 1 "+5V" H 2015 5773 50  0000 C CNN
-F 2 "" H 2000 5600 50  0001 C CNN
-F 3 "" H 2000 5600 50  0001 C CNN
-	1    2000 5600
+F 0 "#PWR01211" H 2000 5500 50  0001 C CNN
+F 1 "+5V" H 2015 5823 50  0000 C CNN
+F 2 "" H 2000 5650 50  0001 C CNN
+F 3 "" H 2000 5650 50  0001 C CNN
+	1    2000 5650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -206,16 +200,12 @@ Wire Wire Line
 Connection ~ 2000 5900
 Wire Wire Line
 	2000 5900 2000 6000
-Connection ~ 2000 6700
 Wire Wire Line
 	2050 6300 2000 6300
 Wire Wire Line
 	2000 6300 2000 6400
 Wire Wire Line
 	2050 6400 2000 6400
-Connection ~ 2000 6400
-Wire Wire Line
-	2000 6400 2000 6700
 Wire Wire Line
 	3050 3250 3250 3250
 Wire Wire Line
@@ -264,7 +254,7 @@ Wire Wire Line
 	2050 3550 2000 3550
 Wire Wire Line
 	2000 3550 2000 3600
-Text Label 1400 3450 0    50   ~ 0
+Text Label 1850 3450 0    50   ~ 0
 ~RISR
 Wire Wire Line
 	2050 2550 1850 2550
@@ -273,31 +263,23 @@ Wire Wire Line
 Wire Wire Line
 	2050 2750 1850 2750
 Wire Wire Line
-	2050 2850 1850 2850
-Wire Wire Line
 	2050 2950 1850 2950
 Wire Wire Line
 	2050 3050 1850 3050
 Wire Wire Line
 	2050 3150 1850 3150
-Wire Wire Line
-	2050 3250 1850 3250
 Text Label 1850 2550 0    50   ~ 0
 IRF0
 Text Label 1850 2650 0    50   ~ 0
 IRF1
 Text Label 1850 2750 0    50   ~ 0
 IRF2
-Text Label 1850 2850 0    50   ~ 0
-IRF3
 Text Label 1850 2950 0    50   ~ 0
 IRF4
 Text Label 1850 3050 0    50   ~ 0
 IRF5
 Text Label 1850 3150 0    50   ~ 0
 IRF6
-Text Label 1850 3250 0    50   ~ 0
-IRF7
 Text Label 3250 2550 2    50   ~ 0
 DB0
 Text Label 3250 2650 2    50   ~ 0
@@ -314,25 +296,21 @@ Text Label 3250 3150 2    50   ~ 0
 DB6
 Text Label 3250 3250 2    50   ~ 0
 DB7
-Text Label 1850 1500 0    50   ~ 0
-DB3
-Text Label 1850 1400 0    50   ~ 0
-DB2
-Text Label 1850 1300 0    50   ~ 0
-DB1
 Text Label 1850 1100 0    50   ~ 0
-DB0
+AB3
+Text Label 1850 1500 0    50   ~ 0
+AB2
+Text Label 1850 1400 0    50   ~ 0
+AB1
+Wire Wire Line
+	2050 1100 1850 1100
 Wire Wire Line
 	2050 1500 1850 1500
 Wire Wire Line
 	2050 1400 1850 1400
-Wire Wire Line
-	2050 1300 1850 1300
-Wire Wire Line
-	2050 1100 1850 1100
-Text Label 2050 1700 2    50   ~ 0
+Text Label 1850 1700 0    50   ~ 0
 ~WIER
-Text Label 2050 1900 2    50   ~ 0
+Text Label 1850 1900 0    50   ~ 0
 ~RESET
 $Comp
 L alexios:74HC259 U?
@@ -396,15 +374,15 @@ Entry Wire Line
 	5450 4700 5550 4800
 Entry Wire Line
 	5450 4800 5550 4900
-Text Label 3250 4750 2    50   ~ 0
-DB7
-Text Label 3250 4650 2    50   ~ 0
-DB6
-Text Label 3250 4550 2    50   ~ 0
-DB5
-Text Label 3250 4450 2    50   ~ 0
-DB4
 Text Label 3250 4350 2    50   ~ 0
+DB7
+Text Label 3250 4550 2    50   ~ 0
+DB6
+Text Label 3250 4650 2    50   ~ 0
+DB5
+Text Label 3250 4750 2    50   ~ 0
+DB4
+Text Label 3250 4450 2    50   ~ 0
 DB3
 Text Label 3250 4250 2    50   ~ 0
 DB2
@@ -419,15 +397,15 @@ Wire Wire Line
 Wire Wire Line
 	3050 4250 3250 4250
 Wire Wire Line
-	3050 4350 3250 4350
-Wire Wire Line
 	3050 4450 3250 4450
 Wire Wire Line
-	3050 4550 3250 4550
+	3050 4750 3250 4750
 Wire Wire Line
 	3050 4650 3250 4650
 Wire Wire Line
-	3050 4750 3250 4750
+	3050 4550 3250 4550
+Wire Wire Line
+	3050 4350 3250 4350
 Text Label 3250 6400 2    50   ~ 0
 DB15
 Text Label 3250 6300 2    50   ~ 0
@@ -461,33 +439,15 @@ Wire Wire Line
 Wire Wire Line
 	3050 6400 3250 6400
 Wire Wire Line
-	1050 1700 2050 1700
+	1850 1700 2050 1700
 Wire Wire Line
 	1050 1900 2050 1900
 Wire Wire Line
-	2050 3450 1650 3450
-Text HLabel 1050 3450 0    50   Input ~ 0
-~RISR
-Wire Wire Line
-	1050 4950 1750 4950
+	2050 3450 1850 3450
 Text Label 3900 5000 0    50   ~ 0
 ~FPIRF
 Wire Wire Line
 	3850 5000 4150 5000
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5F173AB8
-P 1700 6300
-AR Path="/5F173AB8" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/5F173AB8" Ref="U15"  Part="1" 
-AR Path="/60BB0546/5F173AB8" Ref="U1207"  Part="1" 
-F 0 "U1207" V 1550 6150 50  0000 R CNN
-F 1 "74LVC1G08" V 1650 6150 50  0000 R CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1350 6300 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1350 6300 50  0001 C CNN
-	1    1700 6300
-	0    1    1    0   
-$EndComp
 Text HLabel 3850 5000 0    50   Input ~ 0
 ~FPIRF
 $Sheet
@@ -501,7 +461,6 @@ F4 "CLK2" I L 6550 1450 50
 F5 "CLK3" I L 6550 1550 50 
 F6 "~IRQ" T R 7700 1850 50 
 F7 "~IRQn" I L 6550 1750 50 
-F8 "~IRQni" I L 6550 1850 50 
 $EndSheet
 Wire Wire Line
 	6250 1450 6550 1450
@@ -524,7 +483,6 @@ F4 "CLK2" I L 6550 2250 50
 F5 "CLK3" I L 6550 2350 50 
 F6 "~IRQ" T R 7700 2650 50 
 F7 "~IRQn" I L 6550 2550 50 
-F8 "~IRQni" I L 6550 2650 50 
 $EndSheet
 Wire Wire Line
 	6250 2250 6550 2250
@@ -573,7 +531,6 @@ F4 "CLK2" I L 8850 1450 50
 F5 "CLK3" I L 8850 1550 50 
 F6 "~IRQ" T R 10000 1850 50 
 F7 "~IRQn" I L 8850 1750 50 
-F8 "~IRQni" I L 8850 1850 50 
 $EndSheet
 $Sheet
 S 8850 2150 1150 600 
@@ -586,7 +543,6 @@ F4 "CLK2" I L 8850 2250 50
 F5 "CLK3" I L 8850 2350 50 
 F6 "~IRQ" T R 10000 2650 50 
 F7 "~IRQn" I L 8850 2550 50 
-F8 "~IRQni" I L 8850 2650 50 
 $EndSheet
 $Sheet
 S 8850 2950 1150 600 
@@ -599,7 +555,6 @@ F4 "CLK2" I L 8850 3050 50
 F5 "CLK3" I L 8850 3150 50 
 F6 "~IRQ" T R 10000 3450 50 
 F7 "~IRQn" I L 8850 3350 50 
-F8 "~IRQni" I L 8850 3450 50 
 $EndSheet
 $Sheet
 S 8850 3750 1150 600 
@@ -612,7 +567,6 @@ F4 "CLK2" I L 8850 3850 50
 F5 "CLK3" I L 8850 3950 50 
 F6 "~IRQ" T R 10000 4250 50 
 F7 "~IRQn" I L 8850 4150 50 
-F8 "~IRQni" I L 8850 4250 50 
 $EndSheet
 Entry Wire Line
 	8100 1450 8200 1550
@@ -824,21 +778,21 @@ Connection ~ 10350 4550
 Text HLabel 10850 4550 2    50   3State ~ 0
 ~IRQ
 Wire Wire Line
-	4500 1150 5000 1150
+	4500 1150 4800 1150
 Wire Wire Line
-	4500 1250 5000 1250
+	4500 1250 4800 1250
 Wire Wire Line
-	4500 1350 5000 1350
+	4500 1350 4800 1350
 Wire Wire Line
-	4500 1450 5000 1450
+	4500 1450 4800 1450
 Wire Wire Line
-	4500 1550 5000 1550
+	4500 1550 4800 1550
 Wire Wire Line
-	4500 1650 5000 1650
+	4500 1650 4800 1650
 Wire Wire Line
-	4500 1750 5000 1750
+	4500 1750 4800 1750
 Wire Wire Line
-	4500 1850 5000 1850
+	4500 1850 4800 1850
 Text Label 4500 1150 0    50   ~ 0
 ~IRQ0
 Text Label 4500 1250 0    50   ~ 0
@@ -871,38 +825,17 @@ F 3 "" H 5450 1100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5450 1100 5450 1150
-Connection ~ 5450 1150
-Wire Wire Line
-	5450 1150 5450 1250
-Connection ~ 5450 1250
-Wire Wire Line
-	5450 1250 5450 1350
-Connection ~ 5450 1350
-Wire Wire Line
-	5450 1350 5450 1450
-Connection ~ 5450 1450
-Wire Wire Line
-	5450 1450 5450 1550
-Connection ~ 5450 1550
-Connection ~ 5450 1650
-Wire Wire Line
-	5450 1650 5450 1750
-Connection ~ 5450 1750
-Wire Wire Line
-	5450 1750 5450 1850
-Wire Wire Line
-	5450 1550 5450 1650
 Text Label 9550 4700 2    50   ~ 0
 IRF[0..7]
-Text Label 1850 4750 0    50   ~ 0
-IEN7
-Text Label 1850 4650 0    50   ~ 0
-IEN6
-Text Label 1850 4550 0    50   ~ 0
-IEN5
-Text Label 1850 4450 0    50   ~ 0
-IEN4
 Text Label 1850 4350 0    50   ~ 0
+IEN7
+Text Label 1850 4550 0    50   ~ 0
+IEN6
+Text Label 1850 4650 0    50   ~ 0
+IEN5
+Text Label 1850 4750 0    50   ~ 0
+IEN4
+Text Label 1850 4450 0    50   ~ 0
 IEN3
 Text Label 1850 4250 0    50   ~ 0
 IEN2
@@ -917,20 +850,15 @@ Wire Wire Line
 Wire Wire Line
 	1850 4250 2050 4250
 Wire Wire Line
-	1850 4350 2050 4350
-Wire Wire Line
 	1850 4450 2050 4450
-Wire Wire Line
-	1850 4550 2050 4550
-Wire Wire Line
-	1850 4650 2050 4650
 Wire Wire Line
 	1850 4750 2050 4750
 Wire Wire Line
-	1650 3450 1650 5700
-Connection ~ 1650 3450
+	1850 4650 2050 4650
 Wire Wire Line
-	1650 3450 1050 3450
+	1850 4550 2050 4550
+Wire Wire Line
+	1850 4350 2050 4350
 Wire Wire Line
 	2000 6000 2000 6100
 Wire Wire Line
@@ -942,28 +870,13 @@ Connection ~ 2000 6100
 Wire Wire Line
 	2000 6100 2000 6200
 Wire Wire Line
-	1700 6450 1700 6600
-Connection ~ 1750 4950
+	1850 4950 2050 4950
 Wire Wire Line
-	1750 4950 2050 4950
+	2050 5700 2000 5700
 Wire Wire Line
-	2050 5700 1650 5700
-Connection ~ 1650 5700
+	2000 5650 2000 5700
 Wire Wire Line
-	1650 5700 1650 6000
-Wire Wire Line
-	1750 6000 1750 5800
-Wire Wire Line
-	2000 5600 2000 5900
-Wire Wire Line
-	2050 5800 1750 5800
-Connection ~ 1750 5800
-Wire Wire Line
-	1750 5800 1750 4950
-Text Label 1650 5550 1    50   ~ 0
-~RISR
-Text Label 1750 5550 1    50   ~ 0
-~RIER
+	2050 5800 2000 5800
 Text Notes 9750 5650 0    50   ~ 0
 MSB patterns for IRC\nautodetection:\n\nISR: MSB = 00111110\nIER: MSB = 00111101
 Wire Notes Line width 12 style solid
@@ -996,15 +909,15 @@ Text HLabel 3850 6500 0    50   Input ~ 0
 ~FPIEN
 Wire Wire Line
 	4150 6500 3850 6500
-Text Label 3900 6300 0    50   ~ 0
-IEN7
-Text Label 3900 6200 0    50   ~ 0
-IEN6
-Text Label 3900 6100 0    50   ~ 0
-IEN5
-Text Label 3900 6000 0    50   ~ 0
-IEN4
 Text Label 3900 5900 0    50   ~ 0
+IEN7
+Text Label 3900 6100 0    50   ~ 0
+IEN6
+Text Label 3900 6200 0    50   ~ 0
+IEN5
+Text Label 3900 6300 0    50   ~ 0
+IEN4
+Text Label 3900 6000 0    50   ~ 0
 IEN3
 Text Label 3900 5800 0    50   ~ 0
 IEN2
@@ -1015,30 +928,30 @@ IEN0
 Text Label 3900 6500 0    50   ~ 0
 ~FPIEN
 Wire Wire Line
-	3900 6300 4150 6300
-Wire Wire Line
-	3900 6200 4150 6200
+	3900 5900 4150 5900
 Wire Wire Line
 	3900 6100 4150 6100
 Wire Wire Line
-	3900 6000 4150 6000
+	3900 6200 4150 6200
 Wire Wire Line
-	3900 5900 4150 5900
+	3900 6300 4150 6300
+Wire Wire Line
+	3900 6000 4150 6000
 Wire Wire Line
 	3900 5800 4150 5800
 Wire Wire Line
 	3900 5700 4150 5700
 Wire Wire Line
 	3900 5600 4150 5600
-Text Label 5400 6300 2    50   ~ 0
-FPD7
-Text Label 5400 6200 2    50   ~ 0
-FPD6
-Text Label 5400 6100 2    50   ~ 0
-FPD5
-Text Label 5400 6000 2    50   ~ 0
-FPD4
 Text Label 5400 5900 2    50   ~ 0
+FPD7
+Text Label 5400 6100 2    50   ~ 0
+FPD6
+Text Label 5400 6200 2    50   ~ 0
+FPD5
+Text Label 5400 6300 2    50   ~ 0
+FPD4
+Text Label 5400 6000 2    50   ~ 0
 FPD3
 Text Label 5400 5800 2    50   ~ 0
 FPD2
@@ -1053,15 +966,15 @@ Wire Wire Line
 Wire Wire Line
 	5150 5800 5450 5800
 Wire Wire Line
-	5150 5900 5450 5900
-Wire Wire Line
 	5150 6000 5450 6000
 Wire Wire Line
-	5150 6100 5450 6100
+	5150 6300 5450 6300
 Wire Wire Line
 	5150 6200 5450 6200
 Wire Wire Line
-	5150 6300 5450 6300
+	5150 6100 5450 6100
+Wire Wire Line
+	5150 5900 5450 5900
 Entry Wire Line
 	5450 5600 5550 5700
 Entry Wire Line
@@ -1526,68 +1439,6 @@ F 3 "" H 8650 5850 50  0001 C CNN
 	1    8650 5850
 	1    0    0    -1  
 $EndComp
-Connection ~ 1000 7350
-Connection ~ 1000 7150
-$Comp
-L power:+5V #PWR?
-U 1 1 617D9A98
-P 1000 7100
-AR Path="/617D9A98" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/617D9A98" Ref="#PWR045"  Part="1" 
-AR Path="/60BB0546/617D9A98" Ref="#PWR01220"  Part="1" 
-F 0 "#PWR01220" H 1000 6950 50  0001 C CNN
-F 1 "+5V" H 1015 7273 50  0000 C CNN
-F 2 "" H 1000 7100 50  0001 C CNN
-F 3 "" H 1000 7100 50  0001 C CNN
-	1    1000 7100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 617D9A90
-P 1000 7400
-AR Path="/617D9A90" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/617D9A90" Ref="#PWR046"  Part="1" 
-AR Path="/60BB0546/617D9A90" Ref="#PWR01221"  Part="1" 
-F 0 "#PWR01221" H 1000 7150 50  0001 C CNN
-F 1 "GND" H 1005 7227 50  0000 C CNN
-F 2 "" H 1000 7400 50  0001 C CNN
-F 3 "" H 1000 7400 50  0001 C CNN
-	1    1000 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1000 7350 1000 7400
-Wire Wire Line
-	1000 7100 1000 7150
-$Comp
-L Device:C_Small C?
-U 1 1 617D9A88
-P 1000 7250
-AR Path="/617D9A88" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/617D9A88" Ref="C16"  Part="1" 
-AR Path="/60BB0546/617D9A88" Ref="C1207"  Part="1" 
-F 0 "C1207" H 909 7296 50  0000 R CNN
-F 1 "100nF" H 909 7205 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7250 50  0001 C CNN
-F 3 "~" H 1000 7250 50  0001 C CNN
-	1    1000 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G08 U?
-U 2 1 614EA882
-P 1450 7150
-AR Path="/614EA882" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/614EA882" Ref="U15"  Part="2" 
-AR Path="/60BB0546/614EA882" Ref="U1207"  Part="2" 
-F 0 "U1207" H 1530 7096 50  0000 L CNN
-F 1 "74LVC1G08" H 1530 7005 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1100 7150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1100 7150 50  0001 C CNN
-	2    1450 7150
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:74HC541 U?
 U 1 1 618C97DD
@@ -1662,110 +1513,6 @@ Text HLabel 1050 750  0    50   Input ~ 0
 CLK2
 Text HLabel 1050 850  0    50   Input ~ 0
 CLK3
-$Comp
-L Device:R_Small R1201
-U 1 1 5F999C06
-P 5100 1150
-F 0 "R1201" V 5050 1300 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1100 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1150 50  0001 C CNN
-F 3 "~" H 5100 1150 50  0001 C CNN
-	1    5100 1150
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5200 1150 5450 1150
-Wire Wire Line
-	5200 1250 5450 1250
-Wire Wire Line
-	5200 1350 5450 1350
-Wire Wire Line
-	5200 1450 5450 1450
-Wire Wire Line
-	5200 1550 5450 1550
-Wire Wire Line
-	5200 1650 5450 1650
-Wire Wire Line
-	5200 1750 5450 1750
-Wire Wire Line
-	5200 1850 5450 1850
-$Comp
-L Device:R_Small R1202
-U 1 1 5FA2402A
-P 5100 1250
-F 0 "R1202" V 5050 1400 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1050 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1250 50  0001 C CNN
-F 3 "~" H 5100 1250 50  0001 C CNN
-	1    5100 1250
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1203
-U 1 1 5FA24CD5
-P 5100 1350
-F 0 "R1203" V 5050 1500 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1150 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1350 50  0001 C CNN
-F 3 "~" H 5100 1350 50  0001 C CNN
-	1    5100 1350
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1204
-U 1 1 5FA24E45
-P 5100 1450
-F 0 "R1204" V 5050 1600 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1250 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1450 50  0001 C CNN
-F 3 "~" H 5100 1450 50  0001 C CNN
-	1    5100 1450
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1205
-U 1 1 5FA24FC4
-P 5100 1550
-F 0 "R1205" V 5050 1700 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1350 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1550 50  0001 C CNN
-F 3 "~" H 5100 1550 50  0001 C CNN
-	1    5100 1550
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1206
-U 1 1 5FA25138
-P 5100 1650
-F 0 "R1206" V 5050 1800 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1450 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1650 50  0001 C CNN
-F 3 "~" H 5100 1650 50  0001 C CNN
-	1    5100 1650
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1207
-U 1 1 5FA2524B
-P 5100 1750
-F 0 "R1207" V 5050 1900 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1550 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1750 50  0001 C CNN
-F 3 "~" H 5100 1750 50  0001 C CNN
-	1    5100 1750
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R1208
-U 1 1 5FA253BF
-P 5100 1850
-F 0 "R1208" V 5050 2000 50  0000 C CNN
-F 1 "4.7kΩ" V 5000 1650 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1850 50  0001 C CNN
-F 3 "~" H 5100 1850 50  0001 C CNN
-	1    5100 1850
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	6550 1650 6250 1650
 Text Label 6250 1750 0    50   ~ 0
@@ -1774,14 +1521,6 @@ Text Label 6250 1650 0    50   ~ 0
 IEN0
 Wire Wire Line
 	6550 1750 6250 1750
-Wire Wire Line
-	5950 1850 6550 1850
-Text HLabel 5950 1850 0    50   Input ~ 0
-~IRQ0i
-Wire Wire Line
-	6550 2650 5950 2650
-Text HLabel 5950 2650 0    50   Input ~ 0
-~IRQ1i
 $Sheet
 S 6550 2950 1150 600 
 U 5FD6EACB
@@ -1793,12 +1532,7 @@ F4 "CLK2" I L 6550 3050 50
 F5 "CLK3" I L 6550 3150 50 
 F6 "~IRQ" T R 7700 3450 50 
 F7 "~IRQn" I L 6550 3350 50 
-F8 "~IRQni" I L 6550 3450 50 
 $EndSheet
-Wire Wire Line
-	6550 3450 5950 3450
-Text HLabel 5950 3450 0    50   Input ~ 0
-~IRQ2i
 $Sheet
 S 6550 3750 1150 600 
 U 5FD6EADF
@@ -1810,30 +1544,11 @@ F4 "CLK2" I L 6550 3850 50
 F5 "CLK3" I L 6550 3950 50 
 F6 "~IRQ" T R 7700 4250 50 
 F7 "~IRQn" I L 6550 4150 50 
-F8 "~IRQni" I L 6550 4250 50 
 $EndSheet
-Text Label 8550 1850 0    50   ~ 0
-~IRQ4i
-Text Label 8550 2650 0    50   ~ 0
-~IRQ5i
-Text Label 8550 3450 0    50   ~ 0
-~IRQ6i
 Text Label 8550 4150 0    50   ~ 0
 ~IRQ7
 Wire Wire Line
 	8850 4150 8550 4150
-Text Label 8550 4250 0    50   ~ 0
-~IRQ7i
-Wire Wire Line
-	8550 1850 8850 1850
-Wire Wire Line
-	8550 2650 8850 2650
-Wire Wire Line
-	8550 3450 8850 3450
-Wire Wire Line
-	8550 4250 8850 4250
-Text Label 6250 4250 0    50   ~ 0
-~IRQ3i
 $Comp
 L Connector:TestPoint TP1201
 U 1 1 5FD736F3
@@ -1852,10 +1567,196 @@ Wire Wire Line
 Connection ~ 10650 4550
 Wire Wire Line
 	10650 4550 10850 4550
-Text HLabel 5950 4250 0    50   Input ~ 0
-~IRQ3i
+$Comp
+L alexios:ATF16V8B U?
+U 1 1 61662F3D
+P -2000 600
+AR Path="/5E1C970B/61662F3D" Ref="U?"  Part="1" 
+AR Path="/5D121AA3/61662F3D" Ref="U?"  Part="1" 
+AR Path="/60BB0546/61662F3D" Ref="U1210"  Part="1" 
+F 0 "U1210" H -2000 1350 50  0000 C CNN
+F 1 "ATF16V8B" H -2000 1250 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -2000 600 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -2000 600 50  0001 C CNN
+F 4 "IRCDEC00" V -2000 600 50  0000 C CNB "Signature"
+F 5 "irc-decode.jed" H -2000 -50 50  0000 C CNN "Image Filename"
+	1    -2000 600 
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	5950 4250 6550 4250
+	-1550 850  -1150 850 
+Wire Wire Line
+	-1550 150  -1150 150 
+Wire Wire Line
+	-1550 650  -1150 650 
+Wire Wire Line
+	-1550 750  -1150 750 
+Wire Wire Line
+	-2900 650  -2450 650 
+Wire Wire Line
+	-2900 750  -2450 750 
+Wire Wire Line
+	-2900 850  -2450 850 
+Wire Wire Line
+	-2850 150  -2450 150 
+Wire Wire Line
+	-2850 250  -2450 250 
+Wire Wire Line
+	-2850 350  -2450 350 
+Wire Wire Line
+	-2850 450  -2450 450 
+Text Label -2850 650  0    50   ~ 0
+~SYSDEV
+Text Label -2850 750  0    50   ~ 0
+~R
+Text Label -2850 850  0    50   ~ 0
+~W
+Text Label -2850 150  0    50   ~ 0
+AB3
+Text Label -2850 250  0    50   ~ 0
+AB4
+Text Label -2850 350  0    50   ~ 0
+AB5
+Text Label -2850 450  0    50   ~ 0
+AB6
+Text Label -2850 550  0    50   ~ 0
+AB7
+Wire Wire Line
+	-2850 550  -2450 550 
+Text Label -1150 850  2    50   ~ 0
+~HIEN
+Text Label -1150 150  2    50   ~ 0
+~RISR
+Text Label -1150 650  2    50   ~ 0
+~WIER
+Text Label -1150 750  2    50   ~ 0
+~RIER
+$Comp
+L power:GND #PWR?
+U 1 1 61A09A13
+P 2000 6400
+AR Path="/61A09A13" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61A09A13" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61A09A13" Ref="#PWR0148"  Part="1" 
+F 0 "#PWR0148" H 2000 6150 50  0001 C CNN
+F 1 "GND" H 1850 6400 50  0000 C CNN
+F 2 "" H 2000 6400 50  0001 C CNN
+F 3 "" H 2000 6400 50  0001 C CNN
+	1    2000 6400
+	1    0    0    -1  
+$EndComp
+Connection ~ 2000 6400
+Text Label 1850 6600 0    50   ~ 0
+~HIEN
+Wire Wire Line
+	1850 6600 2050 6600
+Connection ~ 2000 5700
+Wire Wire Line
+	2000 5700 2000 5800
+Connection ~ 2000 5800
+Wire Wire Line
+	2000 5800 2000 5900
+$Comp
+L Device:R_Network08 RN801
+U 1 1 61AE8602
+P 5000 1550
+F 0 "RN801" V 4383 1550 50  0000 C CNN
+F 1 "10kΩ" V 4474 1550 50  0000 C CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 5475 1550 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 5000 1550 50  0001 C CNN
+	1    5000 1550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5200 1150 5450 1150
+Wire Wire Line
+	2050 1300 1850 1300
+Text Label 1850 1300 0    50   ~ 0
+AB0
+Text HLabel -2950 -550 0    50   Input ~ 0
+AB[0..15]
+Wire Bus Line
+	-2950 -550 -2350 -550
+Text Label -2350 -550 2    50   ~ 0
+AB[0..15]
+$Comp
+L alexios:ATF16V8B U?
+U 2 1 60BEE894
+P -2000 2250
+AR Path="/5E1C970B/60BEE894" Ref="U?"  Part="1" 
+AR Path="/5D121AA3/60BEE894" Ref="U?"  Part="1" 
+AR Path="/60BB0546/60BEE894" Ref="U1210"  Part="2" 
+F 0 "U1210" H -1820 2296 50  0000 L CNN
+F 1 "ATF16V8B" H -1820 2205 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -2000 2250 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -2000 2250 50  0001 C CNN
+F 4 "IRCDEC00" V -2000 2250 50  0001 C CNB "Signature"
+F 5 "irc-decode.jed" H -2000 1600 50  0001 C CNN "Image Filename"
+	2    -2000 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 60BF05BC
+P -2350 2250
+AR Path="/60BF05BC" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/60BF05BC" Ref="C?"  Part="1" 
+AR Path="/60BB0546/60BF05BC" Ref="C1210"  Part="1" 
+F 0 "C1210" H -2441 2296 50  0000 R CNN
+F 1 "100nF" H -2441 2205 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2350 2250 50  0001 C CNN
+F 3 "~" H -2350 2250 50  0001 C CNN
+	1    -2350 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-2350 2100 -2350 2150
+Wire Wire Line
+	-2350 2350 -2350 2400
+$Comp
+L power:GND #PWR?
+U 1 1 60BF05C4
+P -2350 2400
+AR Path="/60BF05C4" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/60BF05C4" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/60BF05C4" Ref="#PWR0149"  Part="1" 
+F 0 "#PWR0149" H -2350 2150 50  0001 C CNN
+F 1 "GND" H -2345 2227 50  0000 C CNN
+F 2 "" H -2350 2400 50  0001 C CNN
+F 3 "" H -2350 2400 50  0001 C CNN
+	1    -2350 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60BF05CC
+P -2350 2100
+AR Path="/60BF05CC" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/60BF05CC" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/60BF05CC" Ref="#PWR0166"  Part="1" 
+F 0 "#PWR0166" H -2350 1950 50  0001 C CNN
+F 1 "+5V" H -2335 2273 50  0000 C CNN
+F 2 "" H -2350 2100 50  0001 C CNN
+F 3 "" H -2350 2100 50  0001 C CNN
+	1    -2350 2100
+	1    0    0    -1  
+$EndComp
+Connection ~ -2350 2150
+Connection ~ -2350 2350
+Text HLabel -2900 650  0    50   Input ~ 0
+~SYSDEV
+Text HLabel -2900 750  0    50   Input ~ 0
+~R
+Text HLabel -2900 850  0    50   Input ~ 0
+~W
+Text Label 1850 3250 0    50   ~ 0
+IRF7
+Wire Wire Line
+	2050 3250 1850 3250
+Text Label 1850 2850 0    50   ~ 0
+IRF3
+Wire Wire Line
+	2050 2850 1850 2850
 Wire Bus Line
 	10500 1550 10500 4600
 Wire Bus Line
