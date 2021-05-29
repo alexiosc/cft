@@ -2484,10 +2484,6 @@ Text Label 19600 -2550 2    50   ~ 0
 16MHz
 Text Label 19800 -1350 0    50   ~ 0
 ~FPAEXT
-Wire Wire Line
-	23600 -2150 23950 -2150
-Text Label 23950 -2150 2    50   ~ 0
-T34
 Text Label 19800 -1250 0    50   ~ 0
 ~FPPCL
 Text Label 19800 -1150 0    50   ~ 0
@@ -3170,6 +3166,7 @@ Text Label 6650 5400 0    50   ~ 0
 ~W
 Text Label 6650 5500 0    50   ~ 0
 ~SYSDEV
+NoConn ~ 23600 -2150
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line
