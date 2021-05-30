@@ -350,7 +350,7 @@ IBUS[0..15]
 Wire Wire Line
 	4500 2850 5900 2850
 Wire Wire Line
-	2750 1350 4300 1350
+	2750 1350 3500 1350
 Wire Wire Line
 	4300 1350 4300 2100
 Wire Wire Line
@@ -961,8 +961,6 @@ Wire Wire Line
 	6350 2300 6500 2300
 Wire Wire Line
 	6350 3800 6500 3800
-Text HLabel 3350 3900 2    50   Output ~ 0
-BCP
 Text HLabel 1150 1550 0    50   Input ~ 0
 CLK3
 Wire Wire Line
@@ -1002,7 +1000,7 @@ Wire Notes Line width 20 style solid
 	11000 5700 8500 5700
 Wire Notes Line width 20 style solid
 	8500 5700 8500 5050
-Text Notes 2900 1700 0    100  ~ 20
+Text Notes 1850 750  0    100  ~ 20
 State Machine
 Text Notes 6950 6650 0    50   ~ 0
 The Shift and Rotate Unit performs 16- and 17-bit rolls as well as arithmetic and bitwise shifts for\nbit distances 0–15. It does this serially, one bit at a time to reduce chip count. To speed things up,\nit runs on a quadruppled clock, performing 16 million operations per second. In practice, the\nControl Unit has to wait several cycles for the SRU to complete its operation. The SRU operates on\nthe ALU's B Register, which it uses as a scratch register, updating it on every step.
@@ -1038,19 +1036,13 @@ F 5 "alu-sru.jed" H 2350 3500 50  0000 C CNN "Image Filename"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1900 3700 1350 3700
-Wire Wire Line
-	1900 3900 1350 3900
-Wire Wire Line
-	1900 4200 1350 4200
+	1900 3700 1800 3700
 Wire Wire Line
 	1900 4300 1150 4300
 Wire Wire Line
 	1900 4600 1350 4600
 Wire Wire Line
-	3350 3800 2800 3800
-Wire Wire Line
-	3350 3900 2800 3900
+	3850 3800 2800 3800
 Wire Wire Line
 	3300 4000 2800 4000
 Wire Wire Line
@@ -1085,7 +1077,7 @@ Text Label 3300 4100 2    50   ~ 0
 MSB
 Text Label 3300 4000 2    50   ~ 0
 LSB
-Text Label 3300 3900 2    50   ~ 0
+Text Label 3800 3900 2    50   ~ 0
 BCP
 Text Label 3300 3800 2    50   ~ 0
 FLOUT-SRU
@@ -1217,7 +1209,7 @@ Text Label 1350 4100 0    50   ~ 0
 FLFAST
 Wire Wire Line
 	1150 1350 1850 1350
-Text HLabel 3350 3800 2    50   Output ~ 0
+Text HLabel 3850 3800 2    50   Output ~ 0
 FLOUT-SRU
 Wire Wire Line
 	6500 2400 6450 2400
@@ -1284,7 +1276,7 @@ F 3 "" H 8600 2450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2850 2500 4750 2500
+	2850 2500 3600 2500
 $Comp
 L alexios:74AC541 U?
 U 2 1 616917BF
@@ -1423,6 +1415,58 @@ F 3 "~" H 3750 7200 50  0001 C CNN
 	1    3750 7200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:R_Small R602
+U 1 1 60BACB04
+P 3500 3900
+AR Path="/5DF75CDE/60BACB04" Ref="R602"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60BACB04" Ref="R?"  Part="1" 
+F 0 "R602" V 3600 3900 50  0000 C CNN
+F 1 "30Ω" V 3700 3900 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3500 3900 50  0001 C CNN
+F 3 "~" H 3500 3900 50  0001 C CNN
+	1    3500 3900
+	0    1    1    0   
+$EndComp
+Text HLabel 3850 3900 2    50   Output ~ 0
+BCP
+Wire Wire Line
+	3850 3900 3600 3900
+Wire Wire Line
+	2800 3900 3400 3900
+Wire Wire Line
+	1800 3700 1800 3300
+Wire Wire Line
+	1800 3300 3600 3300
+Wire Wire Line
+	3600 3300 3600 2500
+Connection ~ 1800 3700
+Wire Wire Line
+	1800 3700 1350 3700
+Connection ~ 3600 2500
+Wire Wire Line
+	3600 2500 4750 2500
+Wire Wire Line
+	1300 3900 1300 3200
+Wire Wire Line
+	1300 3200 3500 3200
+Wire Wire Line
+	3500 3200 3500 1350
+Wire Wire Line
+	1300 3900 1900 3900
+Connection ~ 3500 1350
+Wire Wire Line
+	3500 1350 4300 1350
+Wire Wire Line
+	4500 2850 4500 3100
+Wire Wire Line
+	4500 3100 1200 3100
+Wire Wire Line
+	1200 3100 1200 4200
+Wire Wire Line
+	1200 4200 1900 4200
+Connection ~ 4500 2850
+NoConn ~ 2800 3700
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line

@@ -1737,6 +1737,8 @@ Text Label 1850 2850 0    50   ~ 0
 IRF3
 Wire Wire Line
 	2050 2850 1850 2850
+Wire Wire Line
+	10350 4550 10850 4550
 Wire Bus Line
 	10500 1550 10500 4600
 Wire Bus Line
@@ -1749,6 +1751,4 @@ Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line
 	5550 4200 5550 6500
-Wire Wire Line
-	10350 4550 10850 4550
 $EndSCHEMATC

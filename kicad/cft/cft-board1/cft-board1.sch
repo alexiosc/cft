@@ -702,110 +702,6 @@ F 3 "~" H 9000 16550 50  0001 C CNN
 	1    9000 16550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7700 8950 7150 8950
-Wire Wire Line
-	7700 9050 7150 9050
-Wire Wire Line
-	7700 9150 7150 9150
-Wire Wire Line
-	7700 9250 7150 9250
-Wire Wire Line
-	7700 8850 7150 8850
-Wire Wire Line
-	7700 10150 7150 10150
-Wire Wire Line
-	7700 10250 7150 10250
-Wire Wire Line
-	7700 10350 7150 10350
-Wire Wire Line
-	7700 9850 7150 9850
-Wire Wire Line
-	7700 10650 7150 10650
-Wire Wire Line
-	7700 10750 7150 10750
-Wire Wire Line
-	7700 10850 7150 10850
-Wire Wire Line
-	7700 10950 7150 10950
-Wire Wire Line
-	7700 10550 7150 10550
-Wire Wire Line
-	7700 10450 7150 10450
-Wire Wire Line
-	7700 11250 7150 11250
-Wire Wire Line
-	7700 11350 7150 11350
-Wire Wire Line
-	7700 11150 7150 11150
-Wire Wire Line
-	7700 11050 7150 11050
-Text Label 7150 9850 0    50   ~ 0
-~IRQ
-Wire Wire Line
-	7700 9650 7150 9650
-Wire Bus Line
-	7150 8750 7700 8750
-Text Label 7150 8750 0    50   ~ 0
-IBUS[0..15]
-Text Label 7150 8850 0    50   ~ 0
-~RESET
-Text Label 7150 8950 0    50   ~ 0
-CLK1
-Text Label 7150 9050 0    50   ~ 0
-CLK2
-Text Label 7150 9150 0    50   ~ 0
-CLK3
-Text Label 7150 9250 0    50   ~ 0
-CLK4
-Wire Wire Line
-	7700 9950 7150 9950
-Text Label 7150 9950 0    50   ~ 0
-~IRQS
-Text Label 7150 10150 0    50   ~ 0
-~RSTHOLD
-Text Label 7150 10250 0    50   ~ 0
-~SYSDEV
-Text Label 7150 10350 0    50   ~ 0
-~IODEV1xx
-Text Label 7150 10450 0    50   ~ 0
-~IODEV2xx
-Text Label 7150 10550 0    50   ~ 0
-~IODEV3xx
-Text Label 7150 10650 0    50   ~ 0
-~MEM
-Text Label 7150 10750 0    50   ~ 0
-~IO
-Text Label 7150 10850 0    50   ~ 0
-~R
-Text Label 7150 11050 0    50   ~ 0
-~WS
-Text Label 7150 11150 0    50   ~ 0
-~ENDEXT
-Text Label 7150 11250 0    50   ~ 0
-~SKIPEXT
-Text Label 7150 11350 0    50   ~ 0
-~HALT
-Text Label 7150 11650 0    50   ~ 0
-ACTION[0..3]
-Text Label 7150 11750 0    50   ~ 0
-WADDR[0..4]
-Text Label 7150 11850 0    50   ~ 0
-RADDR[0..4]
-Wire Bus Line
-	7700 11650 7150 11650
-Wire Bus Line
-	7700 11750 7150 11750
-Wire Bus Line
-	7700 11850 7150 11850
-Wire Bus Line
-	7150 11950 7700 11950
-Text Label 7150 11950 0    50   ~ 0
-RSVD[1..4]
-Text Notes 8450 11100 1    100  ~ 20
-Backplane Slot
-Text Label 7150 10950 0    50   ~ 0
-~W
 $Comp
 L power:+5V #PWR?
 U 1 1 6084E503
@@ -906,166 +802,6 @@ F 3 "~" H 9750 13400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9750 13500 9750 13600
-Text Label 9200 10950 2    50   ~ 0
-AC0
-Text Label 9200 11050 2    50   ~ 0
-AC1
-Text Label 9200 11150 2    50   ~ 0
-AC2
-Text Label 9200 11250 2    50   ~ 0
-AC3
-Text Label 9200 11350 2    50   ~ 0
-AC4
-Text Label 9200 11450 2    50   ~ 0
-AC5
-Text Label 9200 11550 2    50   ~ 0
-AC6
-Text Label 9200 11650 2    50   ~ 0
-AC7
-Text Label 9200 11750 2    50   ~ 0
-AC8
-Text Label 9200 11850 2    50   ~ 0
-AC9
-Text Label 9200 11950 2    50   ~ 0
-AC10
-Text Label 9200 12050 2    50   ~ 0
-AC11
-Text Label 9200 12150 2    50   ~ 0
-AC12
-Text Label 9200 12250 2    50   ~ 0
-AC13
-Text Label 9200 12350 2    50   ~ 0
-AC14
-Text Label 9200 12450 2    50   ~ 0
-AC15
-Wire Wire Line
-	8850 10950 9200 10950
-Wire Wire Line
-	8850 11050 9200 11050
-Wire Wire Line
-	8850 11150 9200 11150
-Wire Wire Line
-	8850 11250 9200 11250
-Wire Wire Line
-	8850 11350 9200 11350
-Wire Wire Line
-	8850 11450 9200 11450
-Wire Wire Line
-	8850 11550 9200 11550
-Wire Wire Line
-	8850 11650 9200 11650
-Wire Wire Line
-	8850 11750 9200 11750
-Wire Wire Line
-	8850 11850 9200 11850
-Wire Wire Line
-	8850 11950 9200 11950
-Wire Wire Line
-	8850 12050 9200 12050
-Wire Wire Line
-	8850 12150 9200 12150
-Wire Wire Line
-	8850 12250 9200 12250
-Wire Wire Line
-	8850 12350 9200 12350
-Wire Wire Line
-	8850 12450 9200 12450
-Wire Wire Line
-	8850 9650 9200 9650
-NoConn ~ 7150 8950
-NoConn ~ 7150 9850
-NoConn ~ 7150 9950
-NoConn ~ 7150 10250
-NoConn ~ 7150 10350
-NoConn ~ 7150 10450
-NoConn ~ 7150 10550
-NoConn ~ 7150 10650
-NoConn ~ 7150 10750
-NoConn ~ 7150 10850
-NoConn ~ 7150 10950
-NoConn ~ 7150 11050
-NoConn ~ 7150 11150
-NoConn ~ 7150 11250
-NoConn ~ 7150 11350
-NoConn ~ 7150 11950
-Wire Wire Line
-	8850 9550 9200 9550
-Wire Wire Line
-	8850 9450 9400 9450
-Wire Wire Line
-	8850 10850 8900 10850
-Wire Wire Line
-	8850 8750 9200 8750
-Wire Wire Line
-	8850 8850 9200 8850
-Wire Wire Line
-	8850 8950 9200 8950
-Wire Wire Line
-	8850 9050 9200 9050
-Wire Wire Line
-	8850 9150 9200 9150
-Wire Wire Line
-	8850 9250 9200 9250
-Wire Wire Line
-	8850 9350 9200 9350
-Text Label 9200 8750 2    50   ~ 0
-IR0
-Text Label 9200 8850 2    50   ~ 0
-IR1
-Text Label 9200 8950 2    50   ~ 0
-IR2
-Text Label 9200 9050 2    50   ~ 0
-IR3
-Text Label 9200 9150 2    50   ~ 0
-IR4
-Text Label 9200 9250 2    50   ~ 0
-IR5
-Text Label 9200 9350 2    50   ~ 0
-IR6
-Entry Wire Line
-	9200 9350 9300 9250
-Entry Wire Line
-	9200 9250 9300 9150
-Entry Wire Line
-	9200 9150 9300 9050
-Entry Wire Line
-	9200 9050 9300 8950
-Entry Wire Line
-	9200 8950 9300 8850
-Entry Wire Line
-	9200 8850 9300 8750
-Entry Wire Line
-	9200 8750 9300 8650
-Entry Bus Bus
-	9300 8600 9400 8500
-Wire Bus Line
-	9400 8500 9700 8500
-Text Label 9700 8500 2    50   ~ 0
-IR[0..6]
-Text Label 9200 9650 2    50   ~ 0
-~FLAGWE
-Text Label 9400 9450 2    50   ~ 0
-FL-OFFBOARD
-Text Label 9200 9550 2    50   ~ 0
-FV
-Text Notes 9400 9450 0    50   ~ 0
-→ Control Unit
-Text Notes 9400 9550 0    50   ~ 0
-→ Control Unit
-Text Notes 9400 9350 0    50   ~ 0
-← Control Unit
-Text Notes 9400 9250 0    50   ~ 0
-← Control Unit
-Text Notes 9400 9150 0    50   ~ 0
-← Control Unit
-Text Notes 9400 9050 0    50   ~ 0
-← Control Unit
-Text Notes 9400 8950 0    50   ~ 0
-← Control Unit
-Text Notes 9400 8850 0    50   ~ 0
-← Control Unit
-Text Notes 9400 8750 0    50   ~ 0
-← Control Unit
 Wire Bus Line
 	5800 9000 6300 9000
 Text Label 6300 9000 2    50   ~ 0
@@ -1156,36 +892,16 @@ Text Label 3300 8850 2    50   ~ 0
 ~READ-ALU-B
 Text Label 3300 8950 2    50   ~ 0
 ~WRITE-ALU-B
-Text Label 4150 13800 0    50   ~ 0
-~FLAGWE
-Text Label 4150 13300 0    50   ~ 0
-CLK4
-Text Label 4150 13150 0    50   ~ 0
-~RSTHOLD
-Wire Wire Line
-	4150 13800 4650 13800
-Text Label 6350 13150 2    50   ~ 0
-FV
-Wire Wire Line
-	5800 13150 6350 13150
 Text Label 3800 13150 2    50   ~ 0
 FL
 Text Label 950  13850 0    50   ~ 0
 ~FLAGWE
-Text Label 4150 13900 0    50   ~ 0
-IBUS13
-Wire Wire Line
-	4650 13900 4150 13900
 Text Label 950  13950 0    50   ~ 0
 IBUS12
 Wire Wire Line
 	1650 13950 950  13950
 Text Label 950  13350 0    50   ~ 0
 CLK4
-Wire Wire Line
-	4650 13300 4150 13300
-Wire Wire Line
-	4650 13150 4150 13150
 Text Label 950  13150 0    50   ~ 0
 ~RSTHOLD
 Text Notes 0    13150 0    100  ~ 20
@@ -1274,46 +990,6 @@ Wire Bus Line
 	3500 10950 3500 8950
 Wire Bus Line
 	3500 8950 3700 8750
-Text Notes 9450 11800 1    50   ~ 0
-Input From REG Board
-Entry Wire Line
-	9300 10850 9200 10950
-Entry Wire Line
-	9300 10950 9200 11050
-Entry Wire Line
-	9300 11050 9200 11150
-Entry Wire Line
-	9300 11150 9200 11250
-Entry Wire Line
-	9300 11250 9200 11350
-Entry Wire Line
-	9300 11350 9200 11450
-Entry Wire Line
-	9300 11450 9200 11550
-Entry Wire Line
-	9300 11550 9200 11650
-Entry Wire Line
-	9300 11650 9200 11750
-Entry Wire Line
-	9300 11750 9200 11850
-Entry Wire Line
-	9300 11850 9200 11950
-Entry Wire Line
-	9300 11950 9200 12050
-Entry Wire Line
-	9300 12050 9200 12150
-Entry Wire Line
-	9300 12150 9200 12250
-Entry Wire Line
-	9300 12250 9200 12350
-Entry Wire Line
-	9300 12350 9200 12450
-Text Label 9450 10650 0    50   ~ 0
-AC[0..15]
-Wire Bus Line
-	9400 10650 9800 10650
-Entry Bus Bus
-	9300 10750 9400 10650
 Wire Wire Line
 	4050 12300 4650 12300
 Text Label 3300 8550 2    50   ~ 0
@@ -1342,8 +1018,6 @@ Wire Wire Line
 	4050 12300 4050 13250
 Wire Wire Line
 	2800 13250 4050 13250
-Wire Wire Line
-	2800 13150 2900 13150
 Wire Bus Line
 	3800 9450 4650 9450
 Wire Bus Line
@@ -1352,14 +1026,6 @@ Text Label 3950 12900 1    50   ~ 0
 FL
 Text Label 4050 12900 1    50   ~ 0
 FLFAST
-Wire Wire Line
-	4650 13500 4150 13500
-Wire Wire Line
-	4650 13600 4150 13600
-Text Label 4150 13500 0    50   ~ 0
-~SETV-ROM
-Text Label 4150 13600 0    50   ~ 0
-FVOUT-ROM
 Text Label 6300 9750 2    50   ~ 0
 FLCPL-ROM
 Text Label 6300 9650 2    50   ~ 0
@@ -1378,137 +1044,10 @@ Wire Wire Line
 	2750 9050 3300 9050
 Wire Wire Line
 	1650 14150 950  14150
-Text Notes 9400 9650 0    50   ~ 0
-← Control Unit
-Wire Wire Line
-	8850 12550 9200 12550
-Wire Wire Line
-	8850 12650 9200 12650
-NoConn ~ 9200 12550
-NoConn ~ 9200 12650
-Wire Wire Line
-	8850 9750 9200 9750
-Wire Wire Line
-	8850 9850 9200 9850
-Wire Wire Line
-	8850 9950 9200 9950
-Wire Wire Line
-	8850 10050 9200 10050
-Wire Wire Line
-	8850 10150 9200 10150
-Wire Wire Line
-	8850 10250 9200 10250
-Wire Wire Line
-	8850 10550 8900 10550
-Wire Wire Line
-	8850 10650 9200 10650
-Wire Wire Line
-	8850 10350 9200 10350
-Wire Wire Line
-	8850 10450 9200 10450
-NoConn ~ 9200 10650
-Text Notes 10000 9750 3    50   ~ 0
-For ROM Expansion
-Text Label 7700 13400 0    50   ~ 0
-~ACTION-110
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DCFA7A8
-P 8450 13400
-AR Path="/5DF75CDE/5DCFA7A8" Ref="TP?"  Part="1" 
-AR Path="/5DCFA7A8" Ref="TP105"  Part="1" 
-F 0 "TP105" V 8450 13588 50  0000 L CNN
-F 1 "TestPoint" H 8508 13427 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 8650 13400 50  0001 C CNN
-F 3 "~" H 8650 13400 50  0001 C CNN
-	1    8450 13400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	8450 13400 7700 13400
-Text Notes 7700 13250 0    50   ~ 0
-Actions for future expansion
-$Comp
-L Connector:TestPoint TP103
-U 1 1 5DD216FF
-P 8900 10750
-F 0 "TP103" V 8900 10938 50  0000 L CNN
-F 1 "TestPoint" V 8945 10938 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9100 10750 50  0001 C CNN
-F 3 "~" H 9100 10750 50  0001 C CNN
-	1    8900 10750
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP101
-U 1 1 5DCAA8B1
-P 9200 10350
-F 0 "TP101" V 9200 10538 50  0000 L CNN
-F 1 "TestPoint" V 9245 10538 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9400 10350 50  0001 C CNN
-F 3 "~" H 9400 10350 50  0001 C CNN
-	1    9200 10350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	8850 10750 8900 10750
-$Comp
-L Connector:TestPoint TP102
-U 1 1 5DCF8FE6
-P 8900 10550
-F 0 "TP102" V 8900 10738 50  0000 L CNN
-F 1 "TestPoint" V 8945 10738 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9100 10550 50  0001 C CNN
-F 3 "~" H 9100 10550 50  0001 C CNN
-	1    8900 10550
-	0    1    1    0   
-$EndComp
-NoConn ~ 9200 9750
-NoConn ~ 9200 9850
-NoConn ~ 9200 9950
-NoConn ~ 9200 10050
-NoConn ~ 9200 10150
-NoConn ~ 9200 10250
-NoConn ~ 9200 10450
-$Comp
-L Connector:TestPoint TP104
-U 1 1 5DE16EEE
-P 8900 10850
-F 0 "TP104" V 8900 11038 50  0000 L CNN
-F 1 "TestPoint" V 8945 11038 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9100 10850 50  0001 C CNN
-F 3 "~" H 9100 10850 50  0001 C CNN
-	1    8900 10850
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R111
-U 1 1 5DCC470D
-P 3050 13000
-F 0 "R111" V 2854 13000 50  0000 C CNN
-F 1 "30Ω" V 2945 13000 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3050 13000 50  0001 C CNN
-F 3 "~" H 3050 13000 50  0001 C CNN
-	1    3050 13000
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2950 13000 2900 13000
-Wire Wire Line
-	2900 13000 2900 13150
-Connection ~ 2900 13150
-Wire Wire Line
-	2900 13150 3950 13150
-Wire Wire Line
-	3150 13000 3800 13000
-Text Label 3800 13000 2    50   ~ 0
-FL-OFFBOARD
 Wire Wire Line
 	4650 10750 4050 10750
 Text Label 4050 10750 0    50   ~ 0
 ~RSTHOLD
-Text Label 7150 9650 0    50   ~ 0
-T34
 Wire Bus Line
 	950  12200 1600 12200
 Wire Wire Line
@@ -1537,9 +1076,6 @@ Wire Wire Line
 	4650 9200 4050 9200
 Text Label 4050 9200 0    50   ~ 0
 T34
-Connection ~ 3950 13150
-Wire Wire Line
-	3950 13150 3950 13200
 Text Label 4050 9800 0    50   ~ 0
 RADDR0
 Text Label 4050 9900 0    50   ~ 0
@@ -1586,14 +1122,6 @@ Text Notes 2750 14600 2    79   ~ 16
 L & V
 Text Notes 5750 10100 2    79   ~ 16
 ROM
-Wire Notes Line
-	7600 13100 8900 13100
-Wire Notes Line
-	8900 13100 8900 13550
-Wire Notes Line
-	8900 13550 7600 13550
-Wire Notes Line
-	7600 13550 7600 13100
 Wire Wire Line
 	1050 8550 1600 8550
 Text Label 1050 8550 0    50   ~ 0
@@ -3167,12 +2695,10 @@ Text Label 6650 5400 0    50   ~ 0
 Text Label 6650 5500 0    50   ~ 0
 ~SYSDEV
 NoConn ~ 23600 -2150
+Wire Wire Line
+	2800 13150 3950 13150
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line
 	-2850 -6100 -2850 -5450
-Wire Bus Line
-	9300 8600 9300 9250
-Wire Bus Line
-	9300 10750 9300 12350
 $EndSCHEMATC

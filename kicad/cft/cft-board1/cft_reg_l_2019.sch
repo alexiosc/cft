@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 20 19
+Sheet 10 19
 Title "The L Register"
 Date "2019-11-17"
 Rev "2020"
@@ -171,15 +171,13 @@ Text Label 6900 3450 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	7200 3450 6900 3450
-Text Label 9750 3150 2    50   ~ 0
+Text Label 10250 3150 2    50   ~ 0
 FV
-Text HLabel 9800 3150 2    50   Output ~ 0
+Text HLabel 10300 3150 2    50   Output ~ 0
 FV
-Wire Wire Line
-	9500 2100 9800 2100
-Text HLabel 9800 2100 2    50   Input ~ 0
+Text HLabel 10300 2100 2    50   Input ~ 0
 FL
-Text Label 9750 2100 2    50   ~ 0
+Text Label 10250 2100 2    50   ~ 0
 FL
 NoConn ~ 9500 2400
 NoConn ~ 6500 2400
@@ -482,8 +480,6 @@ Connection ~ 6800 2100
 Text Label 9750 1750 2    50   ~ 0
 FLFAST
 Wire Wire Line
-	9500 3150 9800 3150
-Wire Wire Line
 	8250 3350 8600 3350
 Text Label 8400 3350 0    50   ~ 0
 CLK1
@@ -736,4 +732,40 @@ Text Label 3700 2050 2    50   ~ 0
 ~READ-ALU-Y
 Wire Wire Line
 	3150 2050 4100 2050
+$Comp
+L Device:R_Small R?
+U 1 1 60C45379
+P 9750 2100
+AR Path="/5DF75CDE/60C45379" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60C45379" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/60C45379" Ref="R801"  Part="1" 
+F 0 "R801" V 9554 2100 50  0000 C CNN
+F 1 "30Ω" V 9645 2100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 2100 50  0001 C CNN
+F 3 "~" H 9750 2100 50  0001 C CNN
+	1    9750 2100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60C473CC
+P 9750 3150
+AR Path="/5DF75CDE/60C473CC" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60C473CC" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/60C473CC" Ref="R802"  Part="1" 
+F 0 "R802" V 9554 3150 50  0000 C CNN
+F 1 "30Ω" V 9645 3150 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 3150 50  0001 C CNN
+F 3 "~" H 9750 3150 50  0001 C CNN
+	1    9750 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9500 2100 9650 2100
+Wire Wire Line
+	9850 2100 10300 2100
+Wire Wire Line
+	9500 3150 9650 3150
+Wire Wire Line
+	9850 3150 10300 3150
 $EndSCHEMATC
