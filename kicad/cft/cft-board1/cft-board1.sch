@@ -1708,34 +1708,12 @@ Text Label 23950 -1350 2    50   ~ 0
 ~IRQ
 Text Label 23950 -1250 2    50   ~ 0
 ~IRQS
-Text Label 19800 -650 0    50   ~ 0
-~FPRESET
-Text Label 19800 -2350 0    50   ~ 0
-FPCLK
-Text Label 19800 -2250 0    50   ~ 0
-~FPCLK~⁄CLK
-Text Label 19800 -550 0    50   ~ 0
-POWEROK
-Text Label 19800 -750 0    50   ~ 0
-FPFETCH
 Text Notes 750  850  0    100  ~ 20
 Board 1: ALU, Registers (Part 2), and Interrupts
 Text Notes 750  1650 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Text Label 19800 -1650 0    50   ~ 0
-~FPµC2
-Text Label 19800 -1750 0    50   ~ 0
-~FPµC1
 Text Label 19800 -1850 0    50   ~ 0
-~FPµC0
-Text Label 19800 -1950 0    50   ~ 0
-~FPµA0
-Text Label 19800 -2050 0    50   ~ 0
-~FPIRL
-Text Label 19800 -1550 0    50   ~ 0
-~FPIRH
-Text Label 19800 -1450 0    50   ~ 0
-~FPFLAGS
+~FPSPL
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 2 1 609EF5BD
@@ -2010,18 +1988,6 @@ Wire Wire Line
 	19250 -2550 19600 -2550
 Text Label 19600 -2550 2    50   ~ 0
 16MHz
-Text Label 19800 -1350 0    50   ~ 0
-~FPAEXT
-Text Label 19800 -1250 0    50   ~ 0
-~FPPCL
-Text Label 19800 -1150 0    50   ~ 0
-~FPPCH
-Text Label 19800 -1050 0    50   ~ 0
-~FPDRL
-Text Label 19800 -950 0    50   ~ 0
-~FPDRH
-Text Label 19800 -2150 0    50   ~ 0
-~FPCTX
 Wire Notes Line width 24 style solid
 	21500 3200 18700 3200
 Wire Notes Line width 24 style solid
@@ -2034,8 +2000,6 @@ Text Notes 18800 2750 0    63   ~ 13
 Note: IDX Registration
 Text Notes 18800 3100 0    50   ~ 0
 IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
-Text Label 19800 -850 0    50   ~ 0
-~FPRAM~∕ROM
 NoConn ~ 22050 450 
 NoConn ~ 22050 550 
 NoConn ~ 22050 650 
@@ -2647,29 +2611,6 @@ Wire Wire Line
 	8300 5550 8800 5550
 Text Label 8800 5550 2    50   ~ 0
 ~FPIEN
-$Sheet
-S 7150 4700 1150 1200
-U 60BB0546
-F0 "Interrupt Controller" 50
-F1 "irc.sch" 50
-F2 "FPD[0..7]" T R 8300 4950 50 
-F3 "~RESET" I L 7150 4800 50 
-F4 "~FPIRF" I R 8300 5350 50 
-F5 "~IRQ" T R 8300 5450 50 
-F6 "~FPIEN" I R 8300 5550 50 
-F7 "DB[0..15]" B L 7150 5750 50 
-F8 "~IRQ[0..7]" T R 8300 5750 50 
-F9 "CLK2" I L 7150 5000 50 
-F10 "CLK3" I L 7150 5100 50 
-F11 "AB[0..15]" I L 7150 5650 50 
-F12 "~IRQ0i" I R 8300 5100 50 
-F13 "~IRQ1i" I R 8300 5150 50 
-F14 "~IRQ2i" I R 8300 5200 50 
-F15 "~IRQ3i" I R 8300 5200 50 
-F16 "~SYSDEV" I L 7150 5500 50 
-F17 "~R" I L 7150 5300 50 
-F18 "~W" I L 7150 5400 50 
-$EndSheet
 Text Label 6650 5000 0    50   ~ 0
 CLK2
 Text Label 6650 5100 0    50   ~ 0
@@ -2697,8 +2638,37 @@ Text Label 6650 5500 0    50   ~ 0
 NoConn ~ 23600 -2150
 Wire Wire Line
 	2800 13150 3950 13150
+$Sheet
+S 7150 4700 1150 1200
+U 60BB0546
+F0 "Interrupt Controller" 50
+F1 "irc.sch" 50
+F2 "FPD[0..7]" T R 8300 4950 50 
+F3 "~RESET" I L 7150 4800 50 
+F4 "~FPIRF" I R 8300 5350 50 
+F5 "~IRQ" T R 8300 5450 50 
+F6 "~FPIEN" I R 8300 5550 50 
+F7 "DB[0..15]" B L 7150 5750 50 
+F8 "~IRQ[0..7]" T R 8300 5750 50 
+F9 "CLK2" I L 7150 5000 50 
+F10 "CLK3" I L 7150 5100 50 
+F11 "AB[0..15]" I L 7150 5650 50 
+F12 "~SYSDEV" I L 7150 5500 50 
+F13 "~R" I L 7150 5300 50 
+F14 "~W" I L 7150 5400 50 
+$EndSheet
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line
 	-2850 -6100 -2850 -5450
+Text Label 19800 -1750 0    50   ~ 0
+~FPACL
+Text Label 19800 -1050 0    50   ~ 0
+~FPSPH
+Text Label 19800 -950 0    50   ~ 0
+~FPACH
+Text Label 19800 -550 0    50   ~ 0
+~FPIRF
+Text Label 19800 -650 0    50   ~ 0
+~FPIEN
 $EndSCHEMATC
