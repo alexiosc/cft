@@ -1367,626 +1367,626 @@ Wire Notes Line
 Text Notes 13750 3700 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 Wire Wire Line
-	23600 450  23950 450 
+	10650 -1700 11000 -1700
 Wire Wire Line
-	23600 350  23950 350 
+	10650 -1800 11000 -1800
 Wire Wire Line
-	23600 250  23950 250 
+	10650 -1900 11000 -1900
 Wire Wire Line
-	23600 150  23950 150 
+	10650 -2000 11000 -2000
 Wire Wire Line
-	23600 50   23950 50  
+	10650 -2100 11000 -2100
 Wire Wire Line
-	23600 -50  23950 -50 
+	10650 -2200 11000 -2200
 Wire Wire Line
-	23600 -150 23950 -150
+	10650 -2300 11000 -2300
 Wire Wire Line
-	23600 -250 23950 -250
+	10650 -2400 11000 -2400
 Wire Wire Line
-	23600 -350 23950 -350
+	10650 -2500 11000 -2500
 Wire Wire Line
-	23600 -450 23950 -450
+	10650 -2600 11000 -2600
 Wire Wire Line
-	23600 -550 23950 -550
+	10650 -2700 11000 -2700
 Wire Wire Line
-	23600 -650 23950 -650
+	10650 -2800 11000 -2800
 Wire Wire Line
-	23600 -750 23950 -750
+	10650 -2900 11000 -2900
 Wire Wire Line
-	23600 -850 23950 -850
+	10650 -3000 11000 -3000
 Wire Wire Line
-	23600 -950 23950 -950
+	10650 -3100 11000 -3100
 Wire Wire Line
-	23600 -1050 23950 -1050
+	10650 -3200 11000 -3200
 Wire Wire Line
-	23600 -1250 23950 -1250
+	10650 -3400 11000 -3400
 Wire Wire Line
-	23600 -1350 23950 -1350
+	10650 -3500 11000 -3500
 Wire Wire Line
-	23600 -1450 23950 -1450
+	10650 -3600 11000 -3600
 Wire Wire Line
-	23600 -1550 23950 -1550
+	10650 -3700 11000 -3700
 Wire Wire Line
-	23600 -1650 23950 -1650
+	10650 -3800 11000 -3800
 Wire Wire Line
-	23600 -1750 23950 -1750
+	10650 -3900 11000 -3900
 Wire Wire Line
-	23600 -1850 23950 -1850
+	10650 -4000 11000 -4000
 Wire Wire Line
-	23600 -1950 23950 -1950
+	10650 -4100 11000 -4100
 Wire Wire Line
-	23600 -2050 23950 -2050
+	10650 -4200 11000 -4200
 Wire Wire Line
-	23600 -2250 23950 -2250
+	10650 -4400 11000 -4400
 Wire Wire Line
-	23600 -2350 23950 -2350
+	10650 -4500 11000 -4500
 Wire Wire Line
-	23600 -2450 23950 -2450
+	10650 -4600 11000 -4600
 Wire Wire Line
-	23600 -2550 23950 -2550
+	10650 -4700 11000 -4700
 Wire Wire Line
-	22050 1150 22400 1150
+	9100 -1000 9450 -1000
 Wire Wire Line
-	22050 1050 22400 1050
+	9100 -1100 9450 -1100
 Wire Wire Line
-	22050 950  22400 950 
+	9100 -1200 9450 -1200
 Wire Wire Line
-	22050 850  22400 850 
+	9100 -1300 9450 -1300
 Wire Wire Line
-	22050 750  22400 750 
+	9100 -1400 9450 -1400
 Wire Wire Line
-	22050 650  22400 650 
+	9100 -1500 9450 -1500
 Wire Wire Line
-	22050 550  22400 550 
+	9100 -1600 9450 -1600
 Wire Wire Line
-	22050 450  22400 450 
+	9100 -1700 9450 -1700
 Wire Wire Line
-	22050 250  22400 250 
+	9100 -1900 9450 -1900
 Wire Wire Line
-	22050 150  22400 150 
+	9100 -2000 9450 -2000
 Wire Wire Line
-	22050 50   22400 50  
+	9100 -2100 9450 -2100
 Wire Wire Line
-	22050 -50  22400 -50 
+	9100 -2200 9450 -2200
 Wire Wire Line
-	22050 -150 22400 -150
+	9100 -2300 9450 -2300
 Wire Wire Line
-	22050 -250 22400 -250
+	9100 -2400 9450 -2400
 Wire Wire Line
-	22050 -350 22400 -350
+	9100 -2500 9450 -2500
 Wire Wire Line
-	22050 -450 22400 -450
+	9100 -2600 9450 -2600
 Wire Wire Line
-	22050 -550 22400 -550
+	9100 -2700 9450 -2700
 Wire Wire Line
-	22050 -650 22400 -650
+	9100 -2800 9450 -2800
 Wire Wire Line
-	22050 -750 22400 -750
+	9100 -2900 9450 -2900
 Wire Wire Line
-	22050 -850 22400 -850
+	9100 -3000 9450 -3000
 Wire Wire Line
-	22050 -950 22400 -950
+	9100 -3100 9450 -3100
 Wire Wire Line
-	22050 -1050 22400 -1050
+	9100 -3200 9450 -3200
 Wire Wire Line
-	22050 -1150 22400 -1150
+	9100 -3300 9450 -3300
 Wire Wire Line
-	22050 -1250 22400 -1250
+	9100 -3400 9450 -3400
 Wire Wire Line
-	22050 -1350 22400 -1350
+	9100 -3500 9450 -3500
 Wire Wire Line
-	22050 -1450 22400 -1450
+	9100 -3600 9450 -3600
 Wire Wire Line
-	22050 -1550 22400 -1550
+	9100 -3700 9450 -3700
 Wire Wire Line
-	22050 -1650 22400 -1650
+	9100 -3800 9450 -3800
 Wire Wire Line
-	22050 -1750 22400 -1750
+	9100 -3900 9450 -3900
 Wire Wire Line
-	22050 -1850 22400 -1850
+	9100 -4000 9450 -4000
 Wire Wire Line
-	22050 -1950 22400 -1950
+	9100 -4100 9450 -4100
 Wire Wire Line
-	22050 -2250 22400 -2250
+	9100 -4400 9450 -4400
 Wire Wire Line
-	22050 -2350 22400 -2350
+	9100 -4500 9450 -4500
 Wire Wire Line
-	21500 -1850 21850 -1850
+	8550 -4000 8900 -4000
 Wire Wire Line
-	21500 -1950 21850 -1950
+	8550 -4100 8900 -4100
 Wire Wire Line
-	21500 -2150 21850 -2150
+	8550 -4300 8900 -4300
 Wire Wire Line
-	21500 -2250 21850 -2250
+	8550 -4400 8900 -4400
 Wire Wire Line
-	21500 -2350 21850 -2350
+	8550 -4500 8900 -4500
 Wire Wire Line
-	21500 -2450 21850 -2450
+	8550 -4600 8900 -4600
 Wire Wire Line
-	21500 -2550 21850 -2550
+	8550 -4700 8900 -4700
 Wire Wire Line
-	21850 -550 21500 -550
+	8900 -2700 8550 -2700
 Wire Wire Line
-	21850 -650 21500 -650
+	8900 -2800 8550 -2800
 Wire Wire Line
-	21850 -750 21500 -750
+	8900 -2900 8550 -2900
 Wire Wire Line
-	21850 -850 21500 -850
+	8900 -3000 8550 -3000
 Wire Wire Line
-	21850 -950 21500 -950
+	8900 -3100 8550 -3100
 Wire Wire Line
-	21850 -1050 21500 -1050
+	8900 -3200 8550 -3200
 Wire Wire Line
-	21850 -1150 21500 -1150
+	8900 -3300 8550 -3300
 Wire Wire Line
-	21850 -1250 21500 -1250
-Text Label 21850 -2550 2    50   ~ 0
+	8900 -3400 8550 -3400
+Text Label 8900 -4700 2    50   ~ 0
 FPD0
-Text Label 21850 -2450 2    50   ~ 0
+Text Label 8900 -4600 2    50   ~ 0
 FPD1
-Text Label 21850 -2350 2    50   ~ 0
+Text Label 8900 -4500 2    50   ~ 0
 FPD2
-Text Label 21850 -2250 2    50   ~ 0
+Text Label 8900 -4400 2    50   ~ 0
 FPD3
-Text Label 21850 -2150 2    50   ~ 0
+Text Label 8900 -4300 2    50   ~ 0
 FPD4
-Text Label 21850 -2050 2    50   ~ 0
+Text Label 8900 -4200 2    50   ~ 0
 FPD5
-Text Label 21850 -1950 2    50   ~ 0
+Text Label 8900 -4100 2    50   ~ 0
 FPD6
-Text Label 21850 -1850 2    50   ~ 0
+Text Label 8900 -4000 2    50   ~ 0
 FPD7
 $Comp
 L power:GND #PWR0107
 U 1 1 62FAE63D
-P 23700 1250
-F 0 "#PWR0107" H 23700 1000 50  0001 C CNN
-F 1 "GND" H 23705 1077 50  0000 C CNN
-F 2 "" H 23700 1250 50  0001 C CNN
-F 3 "" H 23700 1250 50  0001 C CNN
-	1    23700 1250
+P 10750 -900
+F 0 "#PWR0107" H 10750 -1150 50  0001 C CNN
+F 1 "GND" H 10755 -1073 50  0000 C CNN
+F 2 "" H 10750 -900 50  0001 C CNN
+F 3 "" H 10750 -900 50  0001 C CNN
+	1    10750 -900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	23600 1150 23700 1150
+	10650 -1000 10750 -1000
 Wire Wire Line
-	23700 1150 23700 1250
-Text Label 23950 -1050 2    50   ~ 0
+	10750 -1000 10750 -900
+Text Label 11000 -3200 2    50   ~ 0
 DB0
-Text Label 23950 -950 2    50   ~ 0
+Text Label 11000 -3100 2    50   ~ 0
 DB1
-Text Label 23950 -850 2    50   ~ 0
+Text Label 11000 -3000 2    50   ~ 0
 DB2
-Text Label 23950 -750 2    50   ~ 0
+Text Label 11000 -2900 2    50   ~ 0
 DB3
-Text Label 23950 -650 2    50   ~ 0
+Text Label 11000 -2800 2    50   ~ 0
 DB4
-Text Label 23950 -550 2    50   ~ 0
+Text Label 11000 -2700 2    50   ~ 0
 DB5
-Text Label 23950 -450 2    50   ~ 0
+Text Label 11000 -2600 2    50   ~ 0
 DB6
-Text Label 23950 -350 2    50   ~ 0
+Text Label 11000 -2500 2    50   ~ 0
 DB7
-Text Label 23950 -250 2    50   ~ 0
+Text Label 11000 -2400 2    50   ~ 0
 DB8
-Text Label 23950 -150 2    50   ~ 0
+Text Label 11000 -2300 2    50   ~ 0
 DB9
-Text Label 23950 -50  2    50   ~ 0
+Text Label 11000 -2200 2    50   ~ 0
 DB10
-Text Label 23950 50   2    50   ~ 0
+Text Label 11000 -2100 2    50   ~ 0
 DB11
-Text Label 23950 150  2    50   ~ 0
+Text Label 11000 -2000 2    50   ~ 0
 DB12
-Text Label 23950 250  2    50   ~ 0
+Text Label 11000 -1900 2    50   ~ 0
 DB13
-Text Label 23950 350  2    50   ~ 0
+Text Label 11000 -1800 2    50   ~ 0
 DB14
-Text Label 23950 450  2    50   ~ 0
+Text Label 11000 -1700 2    50   ~ 0
 DB15
 $Comp
 L power:+5V #PWR0105
 U 1 1 62FAE63E
-P 22350 -2600
-F 0 "#PWR0105" H 22350 -2750 50  0001 C CNN
-F 1 "+5V" H 22365 -2427 50  0000 C CNN
-F 2 "" H 22350 -2600 50  0001 C CNN
-F 3 "" H 22350 -2600 50  0001 C CNN
-	1    22350 -2600
+P 9400 -4750
+F 0 "#PWR0105" H 9400 -4900 50  0001 C CNN
+F 1 "+5V" H 9415 -4577 50  0000 C CNN
+F 2 "" H 9400 -4750 50  0001 C CNN
+F 3 "" H 9400 -4750 50  0001 C CNN
+	1    9400 -4750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	22400 -2550 22350 -2550
+	9450 -4700 9400 -4700
 Wire Wire Line
-	22350 -2550 22350 -2600
-Text Label 21850 -1250 2    50   ~ 0
+	9400 -4700 9400 -4750
+Text Label 8900 -3400 2    50   ~ 0
 IR0
-Text Label 21850 -1150 2    50   ~ 0
+Text Label 8900 -3300 2    50   ~ 0
 IR1
-Text Label 21850 -1050 2    50   ~ 0
+Text Label 8900 -3200 2    50   ~ 0
 IR2
-Text Label 21850 -950 2    50   ~ 0
+Text Label 8900 -3100 2    50   ~ 0
 IR3
-Text Label 21850 -850 2    50   ~ 0
+Text Label 8900 -3000 2    50   ~ 0
 IR4
-Text Label 21850 -750 2    50   ~ 0
+Text Label 8900 -2900 2    50   ~ 0
 IR5
-Text Label 21850 -650 2    50   ~ 0
+Text Label 8900 -2800 2    50   ~ 0
 IR6
-Text Label 21850 -550 2    50   ~ 0
+Text Label 8900 -2700 2    50   ~ 0
 IR7
-Text Label 22050 -2350 0    50   ~ 0
+Text Label 9100 -4500 0    50   ~ 0
 ~RESET
-Text Label 22050 -2250 0    50   ~ 0
+Text Label 9100 -4400 0    50   ~ 0
 ~RSTHOLD
-Text Label 22050 -2050 0    50   ~ 0
+Text Label 9100 -4200 0    50   ~ 0
 AB0
-Text Label 22050 -1950 0    50   ~ 0
+Text Label 9100 -4100 0    50   ~ 0
 AB1
-Text Label 22050 -1850 0    50   ~ 0
+Text Label 9100 -4000 0    50   ~ 0
 AB2
-Text Label 22050 -1750 0    50   ~ 0
+Text Label 9100 -3900 0    50   ~ 0
 AB3
-Text Label 22050 -1650 0    50   ~ 0
+Text Label 9100 -3800 0    50   ~ 0
 AB4
-Text Label 22050 -1550 0    50   ~ 0
+Text Label 9100 -3700 0    50   ~ 0
 AB5
-Text Label 22050 -1450 0    50   ~ 0
+Text Label 9100 -3600 0    50   ~ 0
 AB6
-Text Label 22050 -1350 0    50   ~ 0
+Text Label 9100 -3500 0    50   ~ 0
 AB7
-Text Label 22050 -1250 0    50   ~ 0
+Text Label 9100 -3400 0    50   ~ 0
 AB8
-Text Label 22050 -1150 0    50   ~ 0
+Text Label 9100 -3300 0    50   ~ 0
 AB9
-Text Label 22050 -1050 0    50   ~ 0
+Text Label 9100 -3200 0    50   ~ 0
 AB10
-Text Label 22050 -950 0    50   ~ 0
+Text Label 9100 -3100 0    50   ~ 0
 AB11
-Text Label 22050 -850 0    50   ~ 0
+Text Label 9100 -3000 0    50   ~ 0
 AB12
-Text Label 22050 -750 0    50   ~ 0
+Text Label 9100 -2900 0    50   ~ 0
 AB13
-Text Label 22050 -650 0    50   ~ 0
+Text Label 9100 -2800 0    50   ~ 0
 AB14
-Text Label 22050 -550 0    50   ~ 0
+Text Label 9100 -2700 0    50   ~ 0
 AB15
-Text Label 22050 -450 0    50   ~ 0
+Text Label 9100 -2600 0    50   ~ 0
 AB16
-Text Label 22050 -350 0    50   ~ 0
+Text Label 9100 -2500 0    50   ~ 0
 AB17
-Text Label 22050 -250 0    50   ~ 0
+Text Label 9100 -2400 0    50   ~ 0
 AB18
-Text Label 22050 -150 0    50   ~ 0
+Text Label 9100 -2300 0    50   ~ 0
 AB19
-Text Label 22050 -50  0    50   ~ 0
+Text Label 9100 -2200 0    50   ~ 0
 AB20
-Text Label 22050 50   0    50   ~ 0
+Text Label 9100 -2100 0    50   ~ 0
 AB21
-Text Label 22050 150  0    50   ~ 0
+Text Label 9100 -2000 0    50   ~ 0
 AB22
-Text Label 22050 250  0    50   ~ 0
+Text Label 9100 -1900 0    50   ~ 0
 AB23
-Text Label 22050 450  0    50   ~ 0
+Text Label 9100 -1700 0    50   ~ 0
 ~IRQ0
-Text Label 22050 550  0    50   ~ 0
+Text Label 9100 -1600 0    50   ~ 0
 ~IRQ1
-Text Label 22050 650  0    50   ~ 0
+Text Label 9100 -1500 0    50   ~ 0
 ~IRQ2
-Text Label 22050 750  0    50   ~ 0
+Text Label 9100 -1400 0    50   ~ 0
 ~IRQ3
-Text Label 22050 850  0    50   ~ 0
+Text Label 9100 -1300 0    50   ~ 0
 ~IRQ4
-Text Label 22050 950  0    50   ~ 0
+Text Label 9100 -1200 0    50   ~ 0
 ~IRQ5
-Text Label 22050 1050 0    50   ~ 0
+Text Label 9100 -1100 0    50   ~ 0
 ~IRQ6
-Text Label 22050 1150 0    50   ~ 0
+Text Label 9100 -1000 0    50   ~ 0
 ~IRQ7
-Text Label 23950 -2550 2    50   ~ 0
+Text Label 11000 -4700 2    50   ~ 0
 ~MEM
-Text Label 23950 -2450 2    50   ~ 0
+Text Label 11000 -4600 2    50   ~ 0
 ~IO
-Text Label 23950 -2350 2    50   ~ 0
+Text Label 11000 -4500 2    50   ~ 0
 ~R
-Text Label 23950 -2250 2    50   ~ 0
+Text Label 11000 -4400 2    50   ~ 0
 ~W
-Text Label 23950 -2050 2    50   ~ 0
+Text Label 11000 -4200 2    50   ~ 0
 ~SYSDEV
-Text Label 23950 -1950 2    50   ~ 0
+Text Label 11000 -4100 2    50   ~ 0
 ~IODEV1XX
-Text Label 23950 -1850 2    50   ~ 0
+Text Label 11000 -4000 2    50   ~ 0
 ~IODEV2XX
-Text Label 23950 -1750 2    50   ~ 0
+Text Label 11000 -3900 2    50   ~ 0
 ~IODEV3XX
-Text Label 23950 -1650 2    50   ~ 0
+Text Label 11000 -3800 2    50   ~ 0
 ~WS
-Text Label 23950 -1550 2    50   ~ 0
+Text Label 11000 -3700 2    50   ~ 0
 ~WAITING
-Text Label 23950 -1450 2    50   ~ 0
+Text Label 11000 -3600 2    50   ~ 0
 ~HALT
-Text Label 23950 -1350 2    50   ~ 0
+Text Label 11000 -3500 2    50   ~ 0
 ~IRQ
-Text Label 23950 -1250 2    50   ~ 0
+Text Label 11000 -3400 2    50   ~ 0
 ~IRQS
 Text Notes 750  850  0    100  ~ 20
 Board 1: ALU, Registers (Part 2), and Interrupts
 Text Notes 750  1650 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Text Label 19800 -1850 0    50   ~ 0
+Text Label 6850 -4000 0    50   ~ 0
 ~FPSPL
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 2 1 609EF5BD
-P 20900 -2650
-F 0 "P1" H 20900 -2483 50  0000 C CNN
-F 1 "CFT-2021-Processor-Bus" H 20900 -2574 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H 20850 -3550 50  0001 C CNN
-F 3 "" H 20850 -3550 50  0001 C CNN
-	2    20900 -2650
+P 7950 -4800
+F 0 "P1" H 7950 -4633 50  0000 C CNN
+F 1 "CFT-2021-Processor-Bus" H 7950 -4724 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H 7900 -5700 50  0001 C CNN
+F 3 "" H 7900 -5700 50  0001 C CNN
+	2    7950 -4800
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 1 1 62FAE63B
-P 18650 -2650
-F 0 "P1" H 18650 -2483 50  0000 C CNN
-F 1 "CFT-2021-Processor-Bus" H 18650 -2574 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H 18600 -3550 50  0001 C CNN
-F 3 "" H 18600 -3550 50  0001 C CNN
-	1    18650 -2650
+P 5700 -4800
+F 0 "P1" H 5700 -4633 50  0000 C CNN
+F 1 "CFT-2021-Processor-Bus" H 5700 -4724 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H 5650 -5700 50  0001 C CNN
+F 3 "" H 5650 -5700 50  0001 C CNN
+	1    5700 -4800
 	1    0    0    -1  
 $EndComp
-Text Label 19600 -2350 2    50   ~ 0
+Text Label 6650 -4500 2    50   ~ 0
 ~END
 Wire Wire Line
-	19250 -2350 19600 -2350
-Text Label 17700 350  0    50   ~ 0
+	6300 -4500 6650 -4500
+Text Label 4750 -1800 0    50   ~ 0
 ~WRITE-FL
-Text Label 17700 250  0    50   ~ 0
+Text Label 4750 -1900 0    50   ~ 0
 FN
-Text Label 17700 150  0    50   ~ 0
+Text Label 4750 -2000 0    50   ~ 0
 FZ
-Text Label 17700 50   0    50   ~ 0
+Text Label 4750 -2100 0    50   ~ 0
 FL
-Text Label 17700 -50  0    50   ~ 0
+Text Label 4750 -2200 0    50   ~ 0
 FV
-Text Label 17700 -250 0    50   ~ 0
+Text Label 4750 -2400 0    50   ~ 0
 IBUS15
-Text Label 17700 -350 0    50   ~ 0
+Text Label 4750 -2500 0    50   ~ 0
 IBUS14
-Text Label 17700 -450 0    50   ~ 0
+Text Label 4750 -2600 0    50   ~ 0
 IBUS13
-Text Label 17700 -550 0    50   ~ 0
+Text Label 4750 -2700 0    50   ~ 0
 IBUS12
-Text Label 17700 -650 0    50   ~ 0
+Text Label 4750 -2800 0    50   ~ 0
 IBUS11
-Text Label 17700 -750 0    50   ~ 0
+Text Label 4750 -2900 0    50   ~ 0
 IBUS10
-Text Label 17700 -850 0    50   ~ 0
+Text Label 4750 -3000 0    50   ~ 0
 IBUS9
-Text Label 17700 -950 0    50   ~ 0
+Text Label 4750 -3100 0    50   ~ 0
 IBUS8
-Text Label 17700 -1050 0    50   ~ 0
+Text Label 4750 -3200 0    50   ~ 0
 IBUS7
-Text Label 17700 -1150 0    50   ~ 0
+Text Label 4750 -3300 0    50   ~ 0
 IBUS6
-Text Label 17700 -1250 0    50   ~ 0
+Text Label 4750 -3400 0    50   ~ 0
 IBUS5
-Text Label 17700 -1350 0    50   ~ 0
+Text Label 4750 -3500 0    50   ~ 0
 IBUS4
-Text Label 17700 -1450 0    50   ~ 0
+Text Label 4750 -3600 0    50   ~ 0
 IBUS3
-Text Label 17700 -1550 0    50   ~ 0
+Text Label 4750 -3700 0    50   ~ 0
 IBUS2
-Text Label 17700 -1650 0    50   ~ 0
+Text Label 4750 -3800 0    50   ~ 0
 IBUS1
-Text Label 17700 -1750 0    50   ~ 0
+Text Label 4750 -3900 0    50   ~ 0
 IBUS0
-Text Label 17700 -1950 0    50   ~ 0
+Text Label 4750 -4100 0    50   ~ 0
 T34
-Text Label 17700 -2050 0    50   ~ 0
+Text Label 4750 -4200 0    50   ~ 0
 CLK4
-Text Label 17700 -2150 0    50   ~ 0
+Text Label 4750 -4300 0    50   ~ 0
 CLK3
-Text Label 17700 -2250 0    50   ~ 0
+Text Label 4750 -4400 0    50   ~ 0
 CLK2
 Wire Wire Line
-	19350 350  19350 450 
+	6400 -1800 6400 -1700
 Wire Wire Line
-	19250 350  19350 350 
+	6300 -1800 6400 -1800
 $Comp
 L power:GND #PWR0106
 U 1 1 61C7A92A
-P 19350 450
-F 0 "#PWR0106" H 19350 200 50  0001 C CNN
-F 1 "GND" H 19355 277 50  0000 C CNN
-F 2 "" H 19350 450 50  0001 C CNN
-F 3 "" H 19350 450 50  0001 C CNN
-	1    19350 450 
+P 6400 -1700
+F 0 "#PWR0106" H 6400 -1950 50  0001 C CNN
+F 1 "GND" H 6405 -1873 50  0000 C CNN
+F 2 "" H 6400 -1700 50  0001 C CNN
+F 3 "" H 6400 -1700 50  0001 C CNN
+	1    6400 -1700
 	1    0    0    -1  
 $EndComp
-Text Label 19600 50   2    50   ~ 0
+Text Label 6650 -2100 2    50   ~ 0
 COND3
-Text Label 19600 -50  2    50   ~ 0
+Text Label 6650 -2200 2    50   ~ 0
 COND2
-Text Label 19600 -150 2    50   ~ 0
+Text Label 6650 -2300 2    50   ~ 0
 COND1
-Text Label 19600 -250 2    50   ~ 0
+Text Label 6650 -2400 2    50   ~ 0
 COND0
-Text Label 19600 -450 2    50   ~ 0
+Text Label 6650 -2600 2    50   ~ 0
 ACTION3
-Text Label 19600 -550 2    50   ~ 0
+Text Label 6650 -2700 2    50   ~ 0
 ACTION2
-Text Label 19600 -650 2    50   ~ 0
+Text Label 6650 -2800 2    50   ~ 0
 ACTION1
-Text Label 19600 -750 2    50   ~ 0
+Text Label 6650 -2900 2    50   ~ 0
 ACTION0
-Text Label 19600 -950 2    50   ~ 0
+Text Label 6650 -3100 2    50   ~ 0
 WADDR4
-Text Label 19600 -1050 2    50   ~ 0
+Text Label 6650 -3200 2    50   ~ 0
 WADDR3
-Text Label 19600 -1150 2    50   ~ 0
+Text Label 6650 -3300 2    50   ~ 0
 WADDR2
-Text Label 19600 -1250 2    50   ~ 0
+Text Label 6650 -3400 2    50   ~ 0
 WADDR1
-Text Label 19600 -1350 2    50   ~ 0
+Text Label 6650 -3500 2    50   ~ 0
 WADDR0
-Text Label 19600 -1550 2    50   ~ 0
+Text Label 6650 -3700 2    50   ~ 0
 RADDR4
-Text Label 19600 -1650 2    50   ~ 0
+Text Label 6650 -3800 2    50   ~ 0
 RADDR3
-Text Label 19600 -1750 2    50   ~ 0
+Text Label 6650 -3900 2    50   ~ 0
 RADDR2
-Text Label 19600 -1850 2    50   ~ 0
+Text Label 6650 -4000 2    50   ~ 0
 RADDR1
-Text Label 19600 -1950 2    50   ~ 0
+Text Label 6650 -4100 2    50   ~ 0
 RADDR0
 Wire Wire Line
-	18000 -2550 18000 -2600
+	5050 -4700 5050 -4750
 Wire Wire Line
-	18050 -2550 18000 -2550
+	5100 -4700 5050 -4700
 $Comp
 L power:+5V #PWR0104
 U 1 1 62FAE63C
-P 18000 -2600
-F 0 "#PWR0104" H 18000 -2750 50  0001 C CNN
-F 1 "+5V" H 18015 -2427 50  0000 C CNN
-F 2 "" H 18000 -2600 50  0001 C CNN
-F 3 "" H 18000 -2600 50  0001 C CNN
-	1    18000 -2600
+P 5050 -4750
+F 0 "#PWR0104" H 5050 -4900 50  0001 C CNN
+F 1 "+5V" H 5065 -4577 50  0000 C CNN
+F 2 "" H 5050 -4750 50  0001 C CNN
+F 3 "" H 5050 -4750 50  0001 C CNN
+	1    5050 -4750
 	1    0    0    -1  
 $EndComp
-Text Label 19600 -2150 2    50   ~ 0
+Text Label 6650 -4300 2    50   ~ 0
 ~SKIPEXT
-Text Label 19600 -2250 2    50   ~ 0
+Text Label 6650 -4400 2    50   ~ 0
 ~ENDEXT
 Wire Wire Line
-	17700 -2250 18050 -2250
+	4750 -4400 5100 -4400
 Wire Wire Line
-	17700 -2150 18050 -2150
+	4750 -4300 5100 -4300
 Wire Wire Line
-	17700 -2050 18050 -2050
+	4750 -4200 5100 -4200
 Wire Wire Line
-	17700 -1950 18050 -1950
+	4750 -4100 5100 -4100
 Wire Wire Line
-	17700 -1750 18050 -1750
+	4750 -3900 5100 -3900
 Wire Wire Line
-	17700 -1650 18050 -1650
+	4750 -3800 5100 -3800
 Wire Wire Line
-	17700 -1550 18050 -1550
+	4750 -3700 5100 -3700
 Wire Wire Line
-	17700 -1450 18050 -1450
+	4750 -3600 5100 -3600
 Wire Wire Line
-	17700 -1350 18050 -1350
+	4750 -3500 5100 -3500
 Wire Wire Line
-	17700 -1250 18050 -1250
+	4750 -3400 5100 -3400
 Wire Wire Line
-	17700 -1150 18050 -1150
+	4750 -3300 5100 -3300
 Wire Wire Line
-	17700 -1050 18050 -1050
+	4750 -3200 5100 -3200
 Wire Wire Line
-	17700 -950 18050 -950
+	4750 -3100 5100 -3100
 Wire Wire Line
-	17700 -850 18050 -850
+	4750 -3000 5100 -3000
 Wire Wire Line
-	17700 -750 18050 -750
+	4750 -2900 5100 -2900
 Wire Wire Line
-	17700 -650 18050 -650
+	4750 -2800 5100 -2800
 Wire Wire Line
-	17700 -550 18050 -550
+	4750 -2700 5100 -2700
 Wire Wire Line
-	17700 -450 18050 -450
+	4750 -2600 5100 -2600
 Wire Wire Line
-	17700 -350 18050 -350
+	4750 -2500 5100 -2500
 Wire Wire Line
-	17700 -250 18050 -250
+	4750 -2400 5100 -2400
 Wire Wire Line
-	17700 -50  18050 -50 
+	4750 -2200 5100 -2200
 Wire Wire Line
-	17700 50   18050 50  
+	4750 -2100 5100 -2100
 Wire Wire Line
-	17700 150  18050 150 
+	4750 -2000 5100 -2000
 Wire Wire Line
-	17700 250  18050 250 
+	4750 -1900 5100 -1900
 Wire Wire Line
-	19250 -2250 19600 -2250
+	6300 -4400 6650 -4400
 Wire Wire Line
-	19250 -2150 19600 -2150
+	6300 -4300 6650 -4300
 Wire Wire Line
-	19250 -1950 19600 -1950
+	6300 -4100 6650 -4100
 Wire Wire Line
-	19250 -1850 19600 -1850
+	6300 -4000 6650 -4000
 Wire Wire Line
-	19250 -1750 19600 -1750
+	6300 -3900 6650 -3900
 Wire Wire Line
-	19250 -1650 19600 -1650
+	6300 -3800 6650 -3800
 Wire Wire Line
-	19250 -1550 19600 -1550
+	6300 -3700 6650 -3700
 Wire Wire Line
-	19250 -1350 19600 -1350
+	6300 -3500 6650 -3500
 Wire Wire Line
-	19250 -1250 19600 -1250
+	6300 -3400 6650 -3400
 Wire Wire Line
-	19250 -1150 19600 -1150
+	6300 -3300 6650 -3300
 Wire Wire Line
-	19250 -1050 19600 -1050
+	6300 -3200 6650 -3200
 Wire Wire Line
-	19250 -950 19600 -950
+	6300 -3100 6650 -3100
 Wire Wire Line
-	19250 -750 19600 -750
+	6300 -2900 6650 -2900
 Wire Wire Line
-	19250 -650 19600 -650
+	6300 -2800 6650 -2800
 Wire Wire Line
-	19250 -550 19600 -550
+	6300 -2700 6650 -2700
 Wire Wire Line
-	19250 -450 19600 -450
+	6300 -2600 6650 -2600
 Wire Wire Line
-	19250 -250 19600 -250
+	6300 -2400 6650 -2400
 Wire Wire Line
-	19250 -150 19600 -150
+	6300 -2300 6650 -2300
 Wire Wire Line
-	19250 -50  19600 -50 
+	6300 -2200 6650 -2200
 Wire Wire Line
-	19250 50   19600 50  
+	6300 -2100 6650 -2100
 Wire Wire Line
-	19800 -1750 20300 -1750
+	6850 -3900 7350 -3900
 Wire Wire Line
-	19800 -1850 20300 -1850
+	6850 -4000 7350 -4000
 Wire Wire Line
-	19800 -1950 20300 -1950
+	6850 -4100 7350 -4100
 Wire Wire Line
-	19800 -2150 20300 -2150
+	6850 -4300 7350 -4300
 Wire Wire Line
-	19800 -2250 20300 -2250
+	6850 -4400 7350 -4400
 Wire Wire Line
-	19800 -2350 20300 -2350
+	6850 -4500 7350 -4500
 Wire Wire Line
-	19800 -1050 20300 -1050
+	6850 -3200 7350 -3200
 Wire Wire Line
-	19800 -1150 20300 -1150
+	6850 -3300 7350 -3300
 Wire Wire Line
-	19800 -1250 20300 -1250
+	6850 -3400 7350 -3400
 Wire Wire Line
-	19800 -1350 20300 -1350
+	6850 -3500 7350 -3500
 Wire Wire Line
-	19800 -1450 20300 -1450
+	6850 -3600 7350 -3600
 Wire Wire Line
-	19800 -1550 20300 -1550
+	6850 -3700 7350 -3700
 Wire Wire Line
-	19800 -1650 20300 -1650
+	6850 -3800 7350 -3800
 Wire Wire Line
-	20300 -950 19800 -950
+	7350 -3100 6850 -3100
 Wire Wire Line
-	20300 -850 19800 -850
+	7350 -3000 6850 -3000
 Wire Wire Line
-	20300 -750 19800 -750
+	7350 -2900 6850 -2900
 Wire Wire Line
-	20300 -650 19800 -650
+	7350 -2800 6850 -2800
 Wire Wire Line
-	20300 -550 19800 -550
+	7350 -2700 6850 -2700
 Wire Wire Line
-	19250 -2550 19600 -2550
-Text Label 19600 -2550 2    50   ~ 0
+	6300 -4700 6650 -4700
+Text Label 6650 -4700 2    50   ~ 0
 16MHz
 Wire Notes Line width 24 style solid
 	21500 3200 18700 3200
@@ -2000,70 +2000,62 @@ Text Notes 18800 2750 0    63   ~ 13
 Note: IDX Registration
 Text Notes 18800 3100 0    50   ~ 0
 IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
-NoConn ~ 22050 450 
-NoConn ~ 22050 550 
-NoConn ~ 22050 650 
-NoConn ~ 22050 750 
-NoConn ~ 22050 850 
-NoConn ~ 22050 950 
-NoConn ~ 22050 1050
-NoConn ~ 22050 1150
 $Comp
 L power:PWR_FLAG #FLG0101
 U 1 1 61115B2C
-P 17950 -2550
-F 0 "#FLG0101" H 17950 -2475 50  0001 C CNN
-F 1 "PWR_FLAG" V 17950 -2423 50  0000 L CNN
-F 2 "" H 17950 -2550 50  0001 C CNN
-F 3 "~" H 17950 -2550 50  0001 C CNN
-	1    17950 -2550
+P 5000 -4700
+F 0 "#FLG0101" H 5000 -4625 50  0001 C CNN
+F 1 "PWR_FLAG" V 5000 -4573 50  0000 L CNN
+F 2 "" H 5000 -4700 50  0001 C CNN
+F 3 "~" H 5000 -4700 50  0001 C CNN
+	1    5000 -4700
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	17950 -2550 18000 -2550
-Connection ~ 18000 -2550
+	5000 -4700 5050 -4700
+Connection ~ 5050 -4700
 $Comp
 L power:PWR_FLAG #FLG0102
 U 1 1 61150065
-P 19400 350
-F 0 "#FLG0102" H 19400 425 50  0001 C CNN
-F 1 "PWR_FLAG" V 19400 478 50  0000 L CNN
-F 2 "" H 19400 350 50  0001 C CNN
-F 3 "~" H 19400 350 50  0001 C CNN
-	1    19400 350 
+P 6450 -1800
+F 0 "#FLG0102" H 6450 -1725 50  0001 C CNN
+F 1 "PWR_FLAG" V 6450 -1672 50  0000 L CNN
+F 2 "" H 6450 -1800 50  0001 C CNN
+F 3 "~" H 6450 -1800 50  0001 C CNN
+	1    6450 -1800
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	19350 350  19400 350 
-Connection ~ 19350 350 
+	6400 -1800 6450 -1800
+Connection ~ 6400 -1800
 Wire Wire Line
-	21500 -2050 21850 -2050
+	8550 -4200 8900 -4200
 Wire Wire Line
-	19800 -2050 20300 -2050
+	6850 -4200 7350 -4200
 Wire Wire Line
-	22050 -2050 22400 -2050
+	9100 -4200 9450 -4200
 $Comp
 L alexios:CFT-2021-Peripheral-Bus P2
 U 1 1 60987323
-P 23000 -2650
-F 0 "P2" H 23000 -2483 50  0000 C CNN
-F 1 "CFT-2021-Peripheral-Bus" H 23000 -2574 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H 22875 -3525 50  0001 C CNN
-F 3 "" H 22875 -3525 50  0001 C CNN
-	1    23000 -2650
+P 10050 -4800
+F 0 "P2" H 10050 -4633 50  0000 C CNN
+F 1 "CFT-2021-Peripheral-Bus" H 10050 -4724 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H 9925 -5675 50  0001 C CNN
+F 3 "" H 9925 -5675 50  0001 C CNN
+	1    10050 -4800
 	1    0    0    -1  
 $EndComp
-Text Label 17700 -2350 0    50   ~ 0
+Text Label 4750 -4500 0    50   ~ 0
 CLK1
 Wire Wire Line
-	17700 -2350 18050 -2350
-NoConn ~ 20300 -2550
-NoConn ~ 20300 -2450
-Text Notes 17700 -3000 0    100  ~ 20
+	4750 -4500 5100 -4500
+NoConn ~ 7350 -4700
+NoConn ~ 7350 -4600
+Text Notes 4750 -5150 0    100  ~ 20
 Processor Bus
-Text Notes 20500 -3000 0    100  ~ 20
+Text Notes 7550 -5150 0    100  ~ 20
 Local Bus
-Text Notes 22450 -3000 0    100  ~ 20
+Text Notes 9500 -5150 0    100  ~ 20
 Peripheral Bus
 $Sheet
 S 7150 1550 1150 1450
@@ -2443,15 +2435,15 @@ Wire Wire Line
 Text Label 8800 2400 2    50   ~ 0
 FN
 Wire Wire Line
-	17800 350  17800 650 
+	4850 -1800 4850 -1500
 Wire Wire Line
-	17700 350  17800 350 
-Connection ~ 17800 350 
+	4750 -1800 4850 -1800
+Connection ~ 4850 -1800
 Wire Wire Line
-	17800 350  18050 350 
+	4850 -1800 5100 -1800
 Wire Wire Line
-	17800 650  18100 650 
-Text Label 18100 650  2    50   ~ 0
+	4850 -1500 5150 -1500
+Text Label 5150 -1500 2    50   ~ 0
 ~FLAGWE
 Wire Wire Line
 	2800 13350 3800 13350
@@ -2635,7 +2627,7 @@ Text Label 6650 5400 0    50   ~ 0
 ~W
 Text Label 6650 5500 0    50   ~ 0
 ~SYSDEV
-NoConn ~ 23600 -2150
+NoConn ~ 10650 -4300
 Wire Wire Line
 	2800 13150 3950 13150
 $Sheet
@@ -2657,18 +2649,49 @@ F12 "~SYSDEV" I L 7150 5500 50
 F13 "~R" I L 7150 5300 50 
 F14 "~W" I L 7150 5400 50 
 $EndSheet
+Text Label 6850 -3900 0    50   ~ 0
+~FPACL
+Text Label 6850 -3200 0    50   ~ 0
+~FPSPH
+Text Label 6850 -3100 0    50   ~ 0
+~FPACH
+Text Label 6850 -2700 0    50   ~ 0
+~FPIRF
+Text Label 6850 -2800 0    50   ~ 0
+~FPIEN
+NoConn ~ 8900 -2700
+NoConn ~ 9100 -2600
+NoConn ~ 9100 -2500
+NoConn ~ 9100 -2400
+NoConn ~ 9100 -2300
+NoConn ~ 9100 -2200
+NoConn ~ 9100 -2100
+NoConn ~ 9100 -2000
+NoConn ~ 9100 -1900
+NoConn ~ 9100 -3400
+NoConn ~ 9100 -3300
+NoConn ~ 9100 -3200
+NoConn ~ 9100 -3100
+NoConn ~ 9100 -3000
+NoConn ~ 9100 -2900
+NoConn ~ 9100 -2800
+NoConn ~ 9100 -2700
+NoConn ~ 11000 -3800
+NoConn ~ 11000 -3700
+NoConn ~ 11000 -3600
+NoConn ~ 11000 -4100
+NoConn ~ 11000 -4000
+NoConn ~ 11000 -3900
+NoConn ~ 11000 -4700
+NoConn ~ 11000 -4600
+NoConn ~ 6650 -4400
+NoConn ~ 6650 -4300
+NoConn ~ 6650 -2400
+NoConn ~ 6650 -2300
+NoConn ~ 6650 -2200
+NoConn ~ 6650 -2100
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line
 	-2850 -6100 -2850 -5450
-Text Label 19800 -1750 0    50   ~ 0
-~FPACL
-Text Label 19800 -1050 0    50   ~ 0
-~FPSPH
-Text Label 19800 -950 0    50   ~ 0
-~FPACH
-Text Label 19800 -550 0    50   ~ 0
-~FPIRF
-Text Label 19800 -650 0    50   ~ 0
-~FPIEN
 $EndSCHEMATC
