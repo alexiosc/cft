@@ -102,7 +102,12 @@ cpu_init()
         // BUS: Bus control
         cpu.ar = rand() & 0xffffff;
         srand(time(NULL));
-        for (int i = 0; i < 8; i++) cpu.mbr[i] = (rand() & 0xff) << 16;
+
+        // MBU: Memory Banking Unit
+        cpu.ctx = rand() & (0xff << 3);
+        for (int i = 0; i < sizeof(cpu.mbr); i++) {
+                cpu.mbr[i] = rand() & 0xff0000;
+        }
         cpu.mbrdis = 0x800000;
         cpu.mbuen = 0;
 
@@ -529,14 +534,14 @@ _dummy_iow(longaddr_t ab, word db)
 void
 mbu_set_ram_rom(int have_rom)
 {
-        cpu.mbrdis = have_rom ? 0x80 : 0x00;
+        cpu.mbrdis = have_rom ? 0x800000 : 0;
 }
 
 
 inline longaddr_t
 get_mbr(int mbr)
 {
-        return cpu.mbuen ? cpu.mbr[mbr & 7] : cpu.mbrdis;
+        return cpu.mbuen ? cpu.mbr[cpu.ctx | (mbr & 7)] : cpu.mbrdis;
 }
 
 
@@ -544,6 +549,7 @@ get_mbr(int mbr)
 int
 mbu_read(longaddr_t a, word *d)
 {
+#error "Rewrite this for the new MBU"
         // Note that the RMB instruction only drives the lower 8 bits. On real
         // hardware, Bus Hold would make the MSB equal to the last memory operation,
         // which will almost certainly be an instruction fetch, so &54 would be
@@ -552,7 +558,7 @@ mbu_read(longaddr_t a, word *d)
         assert(d != NULL);
         if (a >= 0x008 && a <= 0x00f) {
                 *d = 0x5400 | (get_mbr(a & 7) >> 16);
-                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
+                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%0xd] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
                 return 1;
         }
         return 0;
@@ -562,6 +568,7 @@ mbu_read(longaddr_t a, word *d)
 int
 mbu_write(longaddr_t a, word d)
 {
+#error "Rewrite this for the new MBU"
         if (a >= 0x008 && a <= 0x00f) {
                 cpu.mbr[a & 7] = (d & 0xff) << 16;
                 int enabling = cpu.mbuen == 0;
@@ -743,16 +750,6 @@ read_from_ibus_unit(int raddr)
                 debug3("IBUS ← SP (%04x)", cpu.sp);
                 return cpu.sp;
 
-        case FIELD_READ_MBP_FLAGS:
-                tmp = (get_mbr(MBR_MBP) >> 16) | // bits 0-7: MBP
-                        cpu.fn << 10 |               // bit 10 (0x0400): N
-                        cpu.fz << 11 |               // bit 11 (0x0800): Z
-                        cpu.fl << 12 |               // bit 12 (0x1000): L
-                        cpu.fv << 13 |               // bit 13 (0x2000): V
-                        cpu.fi << 15;                // bit 15 (0x8000): I
-                debug3("IBUS ← MBP+FLAGS (%04x)", tmp);
-                return tmp;
-
         case FIELD_READ_AGL:
                 tmp = MAKE_SHORT_ADDRESS(get_r(cpu.ir) ? 0 : cpu.agl_page, cpu.ir);
                 debug3("IBUS ← AGL (%04x)", tmp);
@@ -802,6 +799,32 @@ read_from_ibus_unit(int raddr)
                 debug3("IBUS ← ALU B (%04x)", cpu.alu_b);
                 return cpu.alu_b;
         
+        case FIELD_READ_MBN:
+                tmp = cpu.mbr[cpu.ctx | (cpu.ir & 7)];
+                debug3("IBUS ← MB[%02x:%d] (%02x)", cpu.ctx >> 3, cpu.ir & 7, tmp);
+                return tmp;
+        
+        case FIELD_READ_MBP:
+                tmp = cpu.mbr[cpu.ctx];
+                debug3("IBUS ← MB[%02x:0] (%02x)", cpu.ctx >> 3, tmp);
+                return tmp;
+        
+        case FIELD_READ_CTX:
+                tmp = cpu.ctx >> 3;
+                debug3("IBUS ← CTX (%02x)", tmp);
+                return tmp;
+
+        case FIELD_READ_CTX_FLAGS:
+                tmp = ((cpu.ctx >> 3) & 0xff) | // bits 0-7 (0x00ff): CTX
+                        cpu.fn << 10 |          // bit 10 (0x0400): N
+                        cpu.fz << 11 |          // bit 11 (0x0800): Z
+                        cpu.fl << 12 |          // bit 12 (0x1000): L
+                        cpu.fv << 13 |          // bit 13 (0x2000): V
+                        cpu.fi << 15;           // bit 15 (0x8000): I
+                        
+                debug3("IBUS ← CTX+FLAGS (%04x)", tmp);
+                return tmp;
+
         default:
                 fatal("Unknown RADDR %x.", raddr)
                         }
@@ -895,26 +918,6 @@ write_to_ibus_unit(int waddr)
                 debug3("SP ← IBUS (%04x)", cpu.ibus);
                 return;
 
-        case FIELD_WRITE_MBP:
-                cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-                debug3("MBP ← IBUS (%02x)", cpu.ibus & 0xff);
-                return;
-
-        case FIELD_WRITE_MBP_FLAGS:
-                cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
-                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
-                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
-                debug3("MBP+FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
-                return;
-        
-        case FIELD_WRITE_FLAGS:
-                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
-                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
-                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
-                debug3("FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
-                return;
-
         case FIELD_WRITE_IR:
                 cpu.ir = cpu.ibus;
                 debug3("IR ← IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
@@ -925,6 +928,36 @@ write_to_ibus_unit(int waddr)
                 debug3("ALU B ← IBUS (%04x)", cpu.ibus);
                 return;
         
+        case FIELD_WRITE_MBN:
+                cpu.mbr[cpu.ctx | (cpu.ir & 7)] = (cpu.ibus & 0xff) << 16;
+                debug3("MB[%02x:%d] ← IBUS (%02x)", cpu.ctx >> 3, cpu.ir & 7, cpu.ibus & 0xff);
+                return;
+
+        case FIELD_WRITE_MBP:
+                cpu.mbr[cpu.ctx] = (cpu.ibus & 0xff) << 16;
+                debug3("MB[%02x:0] ← IBUS (%02x)", cpu.ctx >> 3, cpu.ibus & 0xff);
+                return;
+
+        case FIELD_WRITE_CTX:
+                cpu.ctx = (cpu.ibus & 0xff) << 3;
+                debug3("CTX ← IBUS (%02x)", cpu.ibus & 0xff);
+                return;
+
+        case FIELD_WRITE_CTX_FLAGS:
+                cpu.ctx = (cpu.ibus & 0xff) << 3;
+                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
+                debug3("CTX+FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+                return;
+        
+        case FIELD_WRITE_FLAGS:
+                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
+                debug3("FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+                return;
+
         default:
                 fatal("Unknown WADDR %x.", waddr);
         }
@@ -1031,7 +1064,7 @@ cpu_run()
 
                 int mem = IS_MEM(cpu.ucv);
                 int io = IS_IO(cpu.ucv);
-                int r = IS_R(cpu.ucv);
+                int r = IS_REN(cpu.ucv);
                 int w = IS_WEN(cpu.ucv);
                 int end = IS_END(cpu.ucv);
 

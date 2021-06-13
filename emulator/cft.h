@@ -21,52 +21,56 @@
 
 typedef __microcode_conds_t_lsb_1st ustate_t; // microcode state
 
+#define NCTX 256
+#define NMBR 8
+
 // The Machine State contains the processor and a bunch of other units.
 
 typedef struct state_t {
-        longaddr_t ar;              // 24-bit Address Register
-        word       ir;              // Instruction Register
-        word       pc;              // Program Counter
-        word       dr;              // Data Register
-        word       ac;              // Accumulator
-        word       sp;              // Stack Pointer
+        longaddr_t ar;               // 24-bit Address Register
+        word       ir;               // Instruction Register
+        word       pc;               // Program Counter
+        word       dr;               // Data Register
+        word       ac;               // Accumulator
+        word       sp;               // Stack Pointer
 
-        word       agl_page;        // Pre-increment value of the PC's page
+        word       agl_page;         // Pre-increment value of the PC's page
 
-        longaddr_t mbr[8];          // Memory Bank Registers (shifted 16 bits left)
-        longaddr_t mbrdis;          // MBRs before MBU is enabled.
-        bit        mbuen;           // Is the MBU enabled?
+        uint8_t    ctx;              // The current context, (shifted 3 bits left)
+        longaddr_t mbr[NCTX * NMBR]; // Memory Bank Registers (shifted 16 bits left)
+        longaddr_t mbrdis;           // Value of all MBRs before MBU is enabled.
+        bit        mbuen;            // Is the MBU enabled?
 
-        word       dbus;            // The Data Bus
-        word       ibus;            // The IBus
+        word       dbus;             // The Data Bus
+        word       ibus;             // The IBus
 
-        word       alu_a;           // ALU Port A
-        word       alu_b;           // ALU Port B
-        word       alu_y;           // ALU Port Y (result)
+        word       alu_a;            // ALU Port A
+        word       alu_b;            // ALU Port B
+        word       alu_y;            // ALU Port Y (result)
 
-        bit        fl;              // The Link Register
-        bit        fi;              // The Interrupt Register
-        bit        fv;              // The Overflow Flag
-        bit        fn;              // The Negative Flag
-        bit        fz;              // The Zero Flag
+        bit        fl;               // The Link Register
+        bit        fi;               // The Interrupt Register
+        bit        fv;               // The Overflow Flag
+        bit        fn;               // The Negative Flag
+        bit        fz;               // The Zero Flag
         
-        bit        irq;             // Interrupt requested (0 = yes, 1 = no)
+        bit        irq;              // Interrupt requested (0 = yes, 1 = no)
 
-        ustate_t   uav;             // Last Micro-address vector
-        uint32_t   uaddr;           // Microcode EPROM address for uAV above.
-        uint32_t   ucv;             // Last Micro-control vector read
+        ustate_t   uav;              // Last Micro-address vector
+        uint32_t   uaddr;            // Microcode EPROM address for uAV above.
+        uint32_t   ucv;              // Last Micro-control vector read
 
-        bit        resetting;       // Simulated RSTHOLD
-        bit        skipext;         // IOT skip
-        bit        endext;          // External END
+        bit        resetting;        // Simulated RSTHOLD
+        bit        skipext;          // IOT skip
+        bit        endext;           // External END
 
-        bit        halt;            // Halted?
-        bit        pause;           // Paused.
-        bit        wait;            // Wait states (not really implemented)
-        bit        quit;            // Quit requested
+        bit        halt;             // Halted?
+        bit        pause;            // Paused.
+        bit        wait;             // Wait states (not really implemented)
+        bit        quit;             // Quit requested
 
-        int        rst_hold;        // Reset pulse (-1 = not resetting)
-        uint32_t   tick;            // Emulator tick counter
+        int        rst_hold;         // Reset pulse (-1 = not resetting)
+        uint32_t   tick;             // Emulator tick counter
 
         // Callbacks for bus transactions
 
