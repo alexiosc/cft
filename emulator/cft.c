@@ -51,6 +51,7 @@ int nvram = 0;
 //#define sbu_debug debug // (msg, ...) log_msg (LOG_DEBUG, log_sbu, msg, ## __VA_ARGS__)
 
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // FORWARD DEFINITIONS
@@ -105,7 +106,7 @@ cpu_init()
 
         // MBU: Memory Banking Unit
         cpu.ctx = rand() & (0xff << 3);
-        for (int i = 0; i < sizeof(cpu.mbr); i++) {
+        for (int i = 0; i < (NCTX * NMBR); i++) {
                 cpu.mbr[i] = rand() & 0xff0000;
         }
         cpu.mbrdis = 0x800000;
@@ -545,16 +546,13 @@ get_mbr(int mbr)
 }
 
 
+#if 0
 // Reading from the MBU 
 int
 mbu_read(longaddr_t a, word *d)
 {
-#error "Rewrite this for the new MBU"
-        // Note that the RMB instruction only drives the lower 8 bits. On real
-        // hardware, Bus Hold would make the MSB equal to the last memory operation,
-        // which will almost certainly be an instruction fetch, so &54 would be
-        // returned. We do this here by adding an MSB buffer, which SHOULD NOT be
-        // present in real hardware.
+        // Note that the LMB instruction only drives the lower 8 bits of the
+        // IBus. We randomise the upper 8 bits here.
         assert(d != NULL);
         if (a >= 0x008 && a <= 0x00f) {
                 *d = 0x5400 | (get_mbr(a & 7) >> 16);
@@ -583,6 +581,7 @@ mbu_write(longaddr_t a, word d)
         }
         return 0;
 }
+#endif
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -929,11 +928,23 @@ write_to_ibus_unit(int waddr)
                 return;
         
         case FIELD_WRITE_MBN:
+                // Enable the MBU on the first write. This will usually be the
+                // first SMB instruction.
+                if (!cpu.mbuen) {
+                        cpu.mbuen = 1;
+                        debug3("Enabling MBU. CTX: %02x MBRs: %02x %02x %02x %02x %02x %02x %02x %02x",
+                               cpu.ctx >> 3,
+                               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+                               get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
+                }
+
+                // Get the number of the register from the IR (LS 3 bits)
                 cpu.mbr[cpu.ctx | (cpu.ir & 7)] = (cpu.ibus & 0xff) << 16;
                 debug3("MB[%02x:%d] ← IBUS (%02x)", cpu.ctx >> 3, cpu.ir & 7, cpu.ibus & 0xff);
                 return;
 
         case FIELD_WRITE_MBP:
+                // Writing directly to the MBP doesn't enable the MBU.
                 cpu.mbr[cpu.ctx] = (cpu.ibus & 0xff) << 16;
                 debug3("MB[%02x:0] ← IBUS (%02x)", cpu.ctx >> 3, cpu.ibus & 0xff);
                 return;

@@ -54,8 +54,12 @@ iodev_t iodevs[] = {
                 .name = "Memory Banking Unit",
                 .code = "MBU",
                 .enabled = 1,
-                .read = mbu_read,
-                .write = mbu_write,
+                // The MBU is now accessible directly by the control unit. It's
+                // no longer an I/O mapped device.
+                // .read = mbu_read,
+                // .write = mbu_write,
+
+                // Why is this here? (probably a leftover temporary change)
                 .nttys = 1,
                 .ttys = {
                         {
