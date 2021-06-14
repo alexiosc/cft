@@ -1554,6 +1554,7 @@ P -2000 600
 AR Path="/5E1C970B/61662F3D" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/61662F3D" Ref="U?"  Part="1" 
 AR Path="/60BB0546/61662F3D" Ref="U1210"  Part="1" 
+AR Path="/61662F3D" Ref="U1210"  Part="1" 
 F 0 "U1210" H -2000 1350 50  0000 C CNN
 F 1 "ATF16V8B" H -2000 1250 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H -2000 600 50  0001 C CNN
@@ -1666,6 +1667,7 @@ P -2000 2250
 AR Path="/5E1C970B/60BEE894" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/60BEE894" Ref="U?"  Part="1" 
 AR Path="/60BB0546/60BEE894" Ref="U1210"  Part="2" 
+AR Path="/60BEE894" Ref="U1210"  Part="2" 
 F 0 "U1210" H -1820 2296 50  0000 L CNN
 F 1 "ATF16V8B" H -1820 2205 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H -2000 2250 50  0001 C CNN
@@ -1739,6 +1741,688 @@ Wire Wire Line
 	2050 2850 1850 2850
 Wire Wire Line
 	10350 4550 10850 4550
+$Comp
+L power:GND #PWR?
+U 1 1 60D4C26F
+P -5000 4950
+AR Path="/60D4C26F" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/60D4C26F" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/60D4C26F" Ref="#PWR0101"  Part="1" 
+F 0 "#PWR0101" H -5000 4700 50  0001 C CNN
+F 1 "GND" V -4995 4822 50  0000 R CNN
+F 2 "" H -5000 4950 50  0001 C CNN
+F 3 "" H -5000 4950 50  0001 C CNN
+	1    -5000 4950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4950 4050 -5150 4050
+Wire Wire Line
+	-4950 4150 -5150 4150
+Wire Wire Line
+	-4950 4250 -5150 4250
+Wire Wire Line
+	-4950 4450 -5150 4450
+Wire Wire Line
+	-4950 4550 -5150 4550
+Wire Wire Line
+	-4950 4650 -5150 4650
+Text Label -5150 4050 0    50   ~ 0
+IRF0
+Text Label -5150 4150 0    50   ~ 0
+IRF1
+Text Label -5150 4250 0    50   ~ 0
+IRF2
+Text Label -5150 4450 0    50   ~ 0
+IRF4
+Text Label -5150 4550 0    50   ~ 0
+IRF5
+Text Label -5150 4650 0    50   ~ 0
+IRF6
+Text Label -5150 4750 0    50   ~ 0
+IRF7
+Wire Wire Line
+	-4950 4750 -5150 4750
+Text Label -5150 4350 0    50   ~ 0
+IRF3
+Wire Wire Line
+	-4950 4350 -5150 4350
+Wire Wire Line
+	-4950 4950 -5000 4950
+$Comp
+L power:GND #PWR0103
+U 1 1 619991B7
+P -1550 4850
+F 0 "#PWR0103" H -1550 4600 50  0001 C CNN
+F 1 "GND" H -1545 4677 50  0000 C CNN
+F 2 "" H -1550 4850 50  0001 C CNN
+F 3 "" H -1550 4850 50  0001 C CNN
+	1    -1550 4850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1550 4750 -1550 4850
+Connection ~ -1550 4750
+Wire Wire Line
+	-1600 4750 -1550 4750
+Wire Wire Line
+	-1550 4650 -1550 4750
+Connection ~ -1550 4650
+Wire Wire Line
+	-1600 4650 -1550 4650
+Wire Wire Line
+	-1550 4550 -1550 4650
+Connection ~ -1550 4550
+Wire Wire Line
+	-1600 4550 -1550 4550
+Wire Wire Line
+	-1550 4450 -1550 4550
+Connection ~ -1550 4450
+Wire Wire Line
+	-1600 4450 -1550 4450
+Wire Wire Line
+	-1550 4350 -1550 4450
+Connection ~ -1550 4350
+Wire Wire Line
+	-1600 4350 -1550 4350
+Wire Wire Line
+	-1550 4250 -1550 4350
+Connection ~ -1550 4250
+Wire Wire Line
+	-1600 4250 -1550 4250
+Wire Wire Line
+	-1550 4150 -1550 4250
+Connection ~ -1550 4150
+Wire Wire Line
+	-1600 4150 -1550 4150
+Wire Wire Line
+	-1550 4050 -1550 4150
+Wire Wire Line
+	-1600 4050 -1550 4050
+Wire Wire Line
+	-2450 4750 -1800 4750
+Wire Wire Line
+	-2200 4650 -1800 4650
+Wire Wire Line
+	-2450 4550 -1800 4550
+Wire Wire Line
+	-2200 4450 -1800 4450
+Wire Wire Line
+	-2450 4350 -1800 4350
+Wire Wire Line
+	-2200 4250 -1800 4250
+Wire Wire Line
+	-2450 4150 -1800 4150
+Wire Wire Line
+	-2200 4050 -1800 4050
+$Comp
+L Device:R_Small R?
+U 1 1 60EAC967
+P -1700 4050
+AR Path="/5DF75CDE/60EAC967" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60EAC967" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60EAC967" Ref="R1201"  Part="1" 
+F 0 "R1201" V -1750 3950 50  0000 R CNN
+F 1 "1kΩ" V -1800 4050 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4050 50  0001 C CNN
+F 3 "~" H -1700 4050 50  0001 C CNN
+	1    -1700 4050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F56A04
+P -1700 4150
+AR Path="/5DF75CDE/60F56A04" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F56A04" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F56A04" Ref="R1202"  Part="1" 
+F 0 "R1202" V -1750 4050 50  0000 R CNN
+F 1 "1kΩ" V -1800 4150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4150 50  0001 C CNN
+F 3 "~" H -1700 4150 50  0001 C CNN
+	1    -1700 4150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F56CDA
+P -1700 4250
+AR Path="/5DF75CDE/60F56CDA" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F56CDA" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F56CDA" Ref="R1203"  Part="1" 
+F 0 "R1203" V -1750 4150 50  0000 R CNN
+F 1 "1kΩ" V -1800 4250 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4250 50  0001 C CNN
+F 3 "~" H -1700 4250 50  0001 C CNN
+	1    -1700 4250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F56FB3
+P -1700 4350
+AR Path="/5DF75CDE/60F56FB3" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F56FB3" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F56FB3" Ref="R1204"  Part="1" 
+F 0 "R1204" V -1750 4250 50  0000 R CNN
+F 1 "1kΩ" V -1800 4350 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4350 50  0001 C CNN
+F 3 "~" H -1700 4350 50  0001 C CNN
+	1    -1700 4350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F57253
+P -1700 4450
+AR Path="/5DF75CDE/60F57253" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F57253" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F57253" Ref="R1205"  Part="1" 
+F 0 "R1205" V -1750 4350 50  0000 R CNN
+F 1 "1kΩ" V -1800 4450 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4450 50  0001 C CNN
+F 3 "~" H -1700 4450 50  0001 C CNN
+	1    -1700 4450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F5736B
+P -1700 4550
+AR Path="/5DF75CDE/60F5736B" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F5736B" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F5736B" Ref="R1206"  Part="1" 
+F 0 "R1206" V -1750 4450 50  0000 R CNN
+F 1 "1kΩ" V -1800 4550 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4550 50  0001 C CNN
+F 3 "~" H -1700 4550 50  0001 C CNN
+	1    -1700 4550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F574F4
+P -1700 4650
+AR Path="/5DF75CDE/60F574F4" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F574F4" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F574F4" Ref="R1207"  Part="1" 
+F 0 "R1207" V -1750 4550 50  0000 R CNN
+F 1 "1kΩ" V -1800 4650 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4650 50  0001 C CNN
+F 3 "~" H -1700 4650 50  0001 C CNN
+	1    -1700 4650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60F57670
+P -1700 4750
+AR Path="/5DF75CDE/60F57670" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/60F57670" Ref="R?"  Part="1" 
+AR Path="/60BB0546/60F57670" Ref="R1208"  Part="1" 
+F 0 "R1208" V -1750 4650 50  0000 R CNN
+F 1 "1kΩ" V -1800 4750 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1700 4750 50  0001 C CNN
+F 3 "~" H -1700 4750 50  0001 C CNN
+	1    -1700 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D1207
+U 1 1 61550956
+P -2350 4650
+F 0 "D1207" H -1900 4600 50  0000 C CNN
+F 1 "LED_ALT" H -2357 4486 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2350 4650 50  0001 C CNN
+F 3 "~" H -2350 4650 50  0001 C CNN
+	1    -2350 4650
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1208
+U 1 1 6155094F
+P -2600 4750
+F 0 "D1208" H -2400 4700 50  0000 C CNN
+F 1 "LED_ALT" H -2607 4586 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2600 4750 50  0001 C CNN
+F 3 "~" H -2600 4750 50  0001 C CNN
+	1    -2600 4750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1205
+U 1 1 61533CCE
+P -2350 4450
+F 0 "D1205" H -1900 4400 50  0000 C CNN
+F 1 "LED_ALT" H -2357 4286 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2350 4450 50  0001 C CNN
+F 3 "~" H -2350 4450 50  0001 C CNN
+	1    -2350 4450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1206
+U 1 1 61533CC7
+P -2600 4550
+F 0 "D1206" H -2400 4500 50  0000 C CNN
+F 1 "LED_ALT" H -2607 4386 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2600 4550 50  0001 C CNN
+F 3 "~" H -2600 4550 50  0001 C CNN
+	1    -2600 4550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1203
+U 1 1 61517C81
+P -2350 4250
+F 0 "D1203" H -1900 4200 50  0000 C CNN
+F 1 "LED_ALT" H -2357 4086 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2350 4250 50  0001 C CNN
+F 3 "~" H -2350 4250 50  0001 C CNN
+	1    -2350 4250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1204
+U 1 1 61517C7A
+P -2600 4350
+F 0 "D1204" H -2400 4300 50  0000 C CNN
+F 1 "LED_ALT" H -2607 4186 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2600 4350 50  0001 C CNN
+F 3 "~" H -2600 4350 50  0001 C CNN
+	1    -2600 4350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1201
+U 1 1 613F3AD5
+P -2350 4050
+F 0 "D1201" H -1900 4000 50  0000 C CNN
+F 1 "LED_ALT" H -2357 3886 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2350 4050 50  0001 C CNN
+F 3 "~" H -2350 4050 50  0001 C CNN
+	1    -2350 4050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED_ALT D1202
+U 1 1 613F44A4
+P -2600 4150
+F 0 "D1202" H -2400 4100 50  0000 C CNN
+F 1 "LED_ALT" H -2607 3986 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2600 4150 50  0001 C CNN
+F 3 "~" H -2600 4150 50  0001 C CNN
+	1    -2600 4150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	-3950 4750 -3150 4750
+Wire Wire Line
+	-3950 4650 -3250 4650
+Wire Wire Line
+	-3950 4550 -3350 4550
+Wire Wire Line
+	-3950 4450 -3450 4450
+Wire Wire Line
+	-3950 4350 -3550 4350
+Wire Wire Line
+	-3950 4250 -3650 4250
+Wire Wire Line
+	-3950 4150 -3750 4150
+Wire Wire Line
+	-3950 4050 -3850 4050
+$Comp
+L alexios:74HC541 U?
+U 2 1 61A02CB4
+P -1800 5750
+AR Path="/61A02CB4" Ref="U?"  Part="1" 
+AR Path="/5F160E7C/61A02CB4" Ref="U?"  Part="1" 
+AR Path="/60BB0546/61A02CB4" Ref="U1207"  Part="2" 
+F 0 "U1207" H -1620 5796 50  0000 L CNN
+F 1 "74HC541" H -1620 5705 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1800 5750 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H -1800 5750 50  0001 C CNN
+	2    -1800 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61A050C6
+P -2150 5600
+AR Path="/61A050C6" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61A050C6" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61A050C6" Ref="#PWR0167"  Part="1" 
+F 0 "#PWR0167" H -2150 5450 50  0001 C CNN
+F 1 "+5V" H -2135 5773 50  0000 C CNN
+F 2 "" H -2150 5600 50  0001 C CNN
+F 3 "" H -2150 5600 50  0001 C CNN
+	1    -2150 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61A050C0
+P -2150 5900
+AR Path="/61A050C0" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61A050C0" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61A050C0" Ref="#PWR0168"  Part="1" 
+F 0 "#PWR0168" H -2150 5650 50  0001 C CNN
+F 1 "GND" H -2145 5727 50  0000 C CNN
+F 2 "" H -2150 5900 50  0001 C CNN
+F 3 "" H -2150 5900 50  0001 C CNN
+	1    -2150 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-2150 5850 -2150 5900
+Wire Wire Line
+	-2150 5600 -2150 5650
+$Comp
+L Device:C_Small C?
+U 1 1 61A050B8
+P -2150 5750
+AR Path="/61A050B8" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/61A050B8" Ref="C?"  Part="1" 
+AR Path="/60BB0546/61A050B8" Ref="C1207"  Part="1" 
+F 0 "C1207" H -2241 5796 50  0000 R CNN
+F 1 "100nF" H -2241 5705 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2150 5750 50  0001 C CNN
+F 3 "~" H -2150 5750 50  0001 C CNN
+	1    -2150 5750
+	1    0    0    -1  
+$EndComp
+Connection ~ -2150 5850
+Connection ~ -2150 5650
+$Comp
+L alexios:74HC541 U?
+U 1 1 60D4C269
+P -4450 4550
+AR Path="/60D4C269" Ref="U?"  Part="1" 
+AR Path="/5F160E7C/60D4C269" Ref="U?"  Part="1" 
+AR Path="/60BB0546/60D4C269" Ref="U1207"  Part="1" 
+F 0 "U1207" H -4450 5317 50  0000 C CNN
+F 1 "74HC541" H -4450 5226 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4450 4550 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H -4450 4550 50  0001 C CNN
+	1    -4450 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4950 6500 -5000 6500
+$Comp
+L alexios:74HC541 U?
+U 1 1 61B4DB29
+P -4450 6100
+AR Path="/61B4DB29" Ref="U?"  Part="1" 
+AR Path="/5F160E7C/61B4DB29" Ref="U?"  Part="1" 
+AR Path="/60BB0546/61B4DB29" Ref="U1208"  Part="1" 
+F 0 "U1208" H -4450 6867 50  0000 C CNN
+F 1 "74HC541" H -4450 6776 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4450 6100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H -4450 6100 50  0001 C CNN
+	1    -4450 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-3950 5600 -3850 5600
+Wire Wire Line
+	-3850 5600 -3850 4050
+Connection ~ -3850 4050
+Wire Wire Line
+	-3850 4050 -2500 4050
+Wire Wire Line
+	-3950 5700 -3750 5700
+Wire Wire Line
+	-3750 5700 -3750 4150
+Connection ~ -3750 4150
+Wire Wire Line
+	-3750 4150 -2750 4150
+Wire Wire Line
+	-3950 5800 -3650 5800
+Wire Wire Line
+	-3650 5800 -3650 4250
+Connection ~ -3650 4250
+Wire Wire Line
+	-3650 4250 -2500 4250
+Wire Wire Line
+	-3950 5900 -3550 5900
+Wire Wire Line
+	-3550 5900 -3550 4350
+Connection ~ -3550 4350
+Wire Wire Line
+	-3550 4350 -2750 4350
+Wire Wire Line
+	-3950 6000 -3450 6000
+Wire Wire Line
+	-3450 6000 -3450 4450
+Connection ~ -3450 4450
+Wire Wire Line
+	-3450 4450 -2500 4450
+Wire Wire Line
+	-3950 6100 -3350 6100
+Wire Wire Line
+	-3350 6100 -3350 4550
+Connection ~ -3350 4550
+Wire Wire Line
+	-3350 4550 -2750 4550
+Wire Wire Line
+	-3950 6200 -3250 6200
+Wire Wire Line
+	-3250 6200 -3250 4650
+Connection ~ -3250 4650
+Wire Wire Line
+	-3250 4650 -2500 4650
+Wire Wire Line
+	-3950 6300 -3150 6300
+Wire Wire Line
+	-3150 6300 -3150 4750
+Connection ~ -3150 4750
+Wire Wire Line
+	-3150 4750 -2750 4750
+Text Label -5150 5900 0    50   ~ 0
+IEN7
+Text Label -5150 6100 0    50   ~ 0
+IEN6
+Text Label -5150 6200 0    50   ~ 0
+IEN5
+Text Label -5150 6300 0    50   ~ 0
+IEN4
+Text Label -5150 6000 0    50   ~ 0
+IEN3
+Text Label -5150 5800 0    50   ~ 0
+IEN2
+Text Label -5150 5700 0    50   ~ 0
+IEN1
+Text Label -5150 5600 0    50   ~ 0
+IEN0
+Wire Wire Line
+	-5150 5600 -4950 5600
+Wire Wire Line
+	-5150 5700 -4950 5700
+Wire Wire Line
+	-5150 5800 -4950 5800
+Wire Wire Line
+	-5150 6000 -4950 6000
+Wire Wire Line
+	-5150 6300 -4950 6300
+Wire Wire Line
+	-5150 6200 -4950 6200
+Wire Wire Line
+	-5150 6100 -4950 6100
+Wire Wire Line
+	-5150 5900 -4950 5900
+$Comp
+L power:GND #PWR?
+U 1 1 61CCBA86
+P -5000 6500
+AR Path="/61CCBA86" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61CCBA86" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61CCBA86" Ref="#PWR0169"  Part="1" 
+F 0 "#PWR0169" H -5000 6250 50  0001 C CNN
+F 1 "GND" V -4995 6372 50  0000 R CNN
+F 2 "" H -5000 6500 50  0001 C CNN
+F 3 "" H -5000 6500 50  0001 C CNN
+	1    -5000 6500
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:Jumper_3_Bridged12 JP1201
+U 1 1 61CF276F
+P -5600 5400
+F 0 "JP1201" V -5600 5467 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H -5600 5510 50  0001 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_1x03_P2.00mm_Horizontal" H -5600 5400 50  0001 C CNN
+F 3 "~" H -5600 5400 50  0001 C CNN
+	1    -5600 5400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-5600 5150 -5600 5050
+Wire Wire Line
+	-5600 5050 -4950 5050
+Wire Wire Line
+	-5600 5650 -5600 6600
+Wire Wire Line
+	-5600 6600 -5500 6600
+$Comp
+L Device:R_Small R?
+U 1 1 61D6348F
+P -5600 4900
+AR Path="/5DF75CDE/61D6348F" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/61D6348F" Ref="R?"  Part="1" 
+AR Path="/60BB0546/61D6348F" Ref="R1209"  Part="1" 
+F 0 "R1209" H -5659 4854 50  0000 R CNN
+F 1 "4.7kΩ" H -5659 4945 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -5600 4900 50  0001 C CNN
+F 3 "~" H -5600 4900 50  0001 C CNN
+	1    -5600 4900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	-5600 5000 -5600 5050
+Connection ~ -5600 5050
+$Comp
+L power:+5V #PWR0170
+U 1 1 61D8ABE0
+P -5600 4750
+F 0 "#PWR0170" H -5600 4600 50  0001 C CNN
+F 1 "+5V" H -5585 4923 50  0000 C CNN
+F 2 "" H -5600 4750 50  0001 C CNN
+F 3 "" H -5600 4750 50  0001 C CNN
+	1    -5600 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-5600 4750 -5600 4800
+$Comp
+L Device:R_Small R?
+U 1 1 61DB1BF6
+P -5500 6400
+AR Path="/5DF75CDE/61DB1BF6" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/61DB1BF6" Ref="R?"  Part="1" 
+AR Path="/60BB0546/61DB1BF6" Ref="R1210"  Part="1" 
+F 0 "R1210" H -5550 6300 50  0000 R CNN
+F 1 "4.7kΩ" H -5550 6400 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -5500 6400 50  0001 C CNN
+F 3 "~" H -5500 6400 50  0001 C CNN
+	1    -5500 6400
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR0171
+U 1 1 61DB1BFC
+P -5500 6250
+F 0 "#PWR0171" H -5500 6100 50  0001 C CNN
+F 1 "+5V" H -5485 6423 50  0000 C CNN
+F 2 "" H -5500 6250 50  0001 C CNN
+F 3 "" H -5500 6250 50  0001 C CNN
+	1    -5500 6250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-5500 6250 -5500 6300
+Wire Wire Line
+	-5500 6500 -5500 6600
+Connection ~ -5500 6600
+Wire Wire Line
+	-5500 6600 -4950 6600
+$Comp
+L power:GND #PWR0172
+U 1 1 61DFDC96
+P -5800 5450
+F 0 "#PWR0172" H -5800 5200 50  0001 C CNN
+F 1 "GND" H -5795 5277 50  0000 C CNN
+F 2 "" H -5800 5450 50  0001 C CNN
+F 3 "" H -5800 5450 50  0001 C CNN
+	1    -5800 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-5750 5400 -5800 5400
+Wire Wire Line
+	-5800 5400 -5800 5450
+$Comp
+L alexios:74HC541 U?
+U 2 1 61E51744
+P -1800 6550
+AR Path="/61E51744" Ref="U?"  Part="1" 
+AR Path="/5F160E7C/61E51744" Ref="U?"  Part="1" 
+AR Path="/60BB0546/61E51744" Ref="U1208"  Part="2" 
+F 0 "U1208" H -1620 6596 50  0000 L CNN
+F 1 "74HC541" H -1620 6505 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1800 6550 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H -1800 6550 50  0001 C CNN
+	2    -1800 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61E5174A
+P -2150 6400
+AR Path="/61E5174A" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61E5174A" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61E5174A" Ref="#PWR0173"  Part="1" 
+F 0 "#PWR0173" H -2150 6250 50  0001 C CNN
+F 1 "+5V" H -2135 6573 50  0000 C CNN
+F 2 "" H -2150 6400 50  0001 C CNN
+F 3 "" H -2150 6400 50  0001 C CNN
+	1    -2150 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61E51750
+P -2150 6700
+AR Path="/61E51750" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/61E51750" Ref="#PWR?"  Part="1" 
+AR Path="/60BB0546/61E51750" Ref="#PWR0174"  Part="1" 
+F 0 "#PWR0174" H -2150 6450 50  0001 C CNN
+F 1 "GND" H -2145 6527 50  0000 C CNN
+F 2 "" H -2150 6700 50  0001 C CNN
+F 3 "" H -2150 6700 50  0001 C CNN
+	1    -2150 6700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-2150 6650 -2150 6700
+Wire Wire Line
+	-2150 6400 -2150 6450
+$Comp
+L Device:C_Small C?
+U 1 1 61E51758
+P -2150 6550
+AR Path="/61E51758" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/61E51758" Ref="C?"  Part="1" 
+AR Path="/60BB0546/61E51758" Ref="C1208"  Part="1" 
+F 0 "C1208" H -2241 6596 50  0000 R CNN
+F 1 "100nF" H -2241 6505 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2150 6550 50  0001 C CNN
+F 3 "~" H -2150 6550 50  0001 C CNN
+	1    -2150 6550
+	1    0    0    -1  
+$EndComp
+Connection ~ -2150 6650
+Connection ~ -2150 6450
 Wire Bus Line
 	10500 1550 10500 4600
 Wire Bus Line
