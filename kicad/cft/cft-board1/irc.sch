@@ -2271,7 +2271,7 @@ U 1 1 61CF276F
 P -5600 5400
 F 0 "JP1201" V -5600 5467 50  0000 L CNN
 F 1 "Jumper_3_Bridged12" H -5600 5510 50  0001 C CNN
-F 2 "Connector_PinHeader_2.00mm:PinHeader_1x03_P2.00mm_Horizontal" H -5600 5400 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H -5600 5400 50  0001 C CNN
 F 3 "~" H -5600 5400 50  0001 C CNN
 	1    -5600 5400
 	0    1    1    0   
