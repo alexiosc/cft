@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 15 17
+Sheet 14 17
 Title "Interrupt State Machine"
 Date ""
 Rev "2119"
@@ -516,6 +516,8 @@ $Comp
 L alexios:16V8 U1401
 U 2 1 6077605B
 P 1350 7200
+AR Path="/6077605B" Ref="U1401"  Part="2" 
+AR Path="/5F67D4B5/6077605B" Ref="U1401"  Part="2" 
 F 0 "U1401" H 1530 7246 50  0000 L CNN
 F 1 "16V8" H 1530 7155 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 1350 7200 50  0001 C CNN
@@ -743,6 +745,8 @@ $Comp
 L alexios:16V8 U1401
 U 1 1 6077549F
 P 3000 3350
+AR Path="/6077549F" Ref="U1401"  Part="1" 
+AR Path="/5F67D4B5/6077549F" Ref="U1401"  Part="1" 
 F 0 "U1401" H 3000 4100 50  0000 C CNN
 F 1 "16V8" H 3000 4000 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 3000 3350 50  0001 C CNN
