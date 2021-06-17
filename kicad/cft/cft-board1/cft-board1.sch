@@ -125,44 +125,6 @@ Text Notes 1500 -700 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 $Comp
 L power:+5V #PWR?
-U 1 1 5DF0FF82
-P 9450 16350
-AR Path="/5F67D4B5/5DF0FF82" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FF82" Ref="#PWR0132"  Part="1" 
-AR Path="/5D34E810/5DF0FF82" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/5DF0FF82" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DF0FF82" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/5DF0FF82" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0132" H 9450 16200 50  0001 C CNN
-F 1 "+5V" H 9392 16387 50  0000 R CNN
-F 2 "" H 9450 16350 50  0001 C CNN
-F 3 "" H 9450 16350 50  0001 C CNN
-	1    9450 16350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DF0FF88
-P 9450 16750
-AR Path="/5F67D4B5/5DF0FF88" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FF88" Ref="#PWR0135"  Part="1" 
-AR Path="/5D34E810/5DF0FF88" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/5DF0FF88" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DF0FF88" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/5DF0FF88" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0135" H 9450 16500 50  0001 C CNN
-F 1 "GND" H 9372 16713 50  0000 R CNN
-F 2 "" H 9450 16750 50  0001 C CNN
-F 3 "" H 9450 16750 50  0001 C CNN
-	1    9450 16750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9450 16350 9450 16450
-Wire Wire Line
-	9450 16650 9450 16750
-$Comp
-L power:+5V #PWR?
 U 1 1 5DF0FF96
 P 9000 16350
 AR Path="/5F67D4B5/5DF0FF96" Ref="#PWR?"  Part="1" 
@@ -673,21 +635,6 @@ F 3 "~" H 9900 16550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP_Small C113
-U 1 1 62FAE633
-P 9450 16550
-AR Path="/62FAE633" Ref="C113"  Part="1" 
-AR Path="/5D34E810/62FAE633" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE633" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/62FAE633" Ref="C?"  Part="1" 
-F 0 "C113" H 9362 16596 50  0000 R CNN
-F 1 "47µF" H 9362 16505 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9450 16550 50  0001 C CNN
-F 3 "~" H 9450 16550 50  0001 C CNN
-	1    9450 16550
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:CP_Small C112
 U 1 1 62FAE636
 P 9000 16550
@@ -1176,112 +1123,6 @@ F 3 "~" H 9300 13400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9300 13500 9300 13600
-Wire Wire Line
-	7600 14850 7600 14950
-$Comp
-L Device:CP_Small C107
-U 1 1 62FAE630
-P 7600 14750
-AR Path="/62FAE630" Ref="C107"  Part="1" 
-AR Path="/5D34E810/62FAE630" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE630" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/62FAE630" Ref="C?"  Part="1" 
-F 0 "C107" H 7512 14796 50  0000 R CNN
-F 1 "47µF" H 7512 14705 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7600 14750 50  0001 C CNN
-F 3 "~" H 7600 14750 50  0001 C CNN
-	1    7600 14750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7600 14550 7600 14650
-$Comp
-L power:GND #PWR?
-U 1 1 62FAE62F
-P 7600 14950
-AR Path="/5F67D4B5/62FAE62F" Ref="#PWR?"  Part="1" 
-AR Path="/62FAE62F" Ref="#PWR0126"  Part="1" 
-AR Path="/5D34E810/62FAE62F" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/62FAE62F" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE62F" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/62FAE62F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0126" H 7600 14700 50  0001 C CNN
-F 1 "GND" H 7522 14913 50  0000 R CNN
-F 2 "" H 7600 14950 50  0001 C CNN
-F 3 "" H 7600 14950 50  0001 C CNN
-	1    7600 14950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 62FAE62E
-P 7600 14550
-AR Path="/5F67D4B5/62FAE62E" Ref="#PWR?"  Part="1" 
-AR Path="/62FAE62E" Ref="#PWR0121"  Part="1" 
-AR Path="/5D34E810/62FAE62E" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/62FAE62E" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE62E" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/62FAE62E" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0121" H 7600 14400 50  0001 C CNN
-F 1 "+5V" H 7542 14587 50  0000 R CNN
-F 2 "" H 7600 14550 50  0001 C CNN
-F 3 "" H 7600 14550 50  0001 C CNN
-	1    7600 14550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8050 14850 8050 14950
-$Comp
-L Device:CP_Small C108
-U 1 1 62FAE62D
-P 8050 14750
-AR Path="/62FAE62D" Ref="C108"  Part="1" 
-AR Path="/5D34E810/62FAE62D" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE62D" Ref="C?"  Part="1" 
-AR Path="/5DD3D79F/62FAE62D" Ref="C?"  Part="1" 
-F 0 "C108" H 7962 14796 50  0000 R CNN
-F 1 "47µF" H 7962 14705 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8050 14750 50  0001 C CNN
-F 3 "~" H 8050 14750 50  0001 C CNN
-	1    8050 14750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8050 14550 8050 14650
-$Comp
-L power:GND #PWR?
-U 1 1 62FAE62C
-P 8050 14950
-AR Path="/5F67D4B5/62FAE62C" Ref="#PWR?"  Part="1" 
-AR Path="/62FAE62C" Ref="#PWR0127"  Part="1" 
-AR Path="/5D34E810/62FAE62C" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/62FAE62C" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/62FAE62C" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/62FAE62C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0127" H 8050 14700 50  0001 C CNN
-F 1 "GND" H 7972 14913 50  0000 R CNN
-F 2 "" H 8050 14950 50  0001 C CNN
-F 3 "" H 8050 14950 50  0001 C CNN
-	1    8050 14950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5DD552A0
-P 8050 14550
-AR Path="/5F67D4B5/5DD552A0" Ref="#PWR?"  Part="1" 
-AR Path="/5DD552A0" Ref="#PWR0122"  Part="1" 
-AR Path="/5D34E810/5DD552A0" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/5DD552A0" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DD552A0" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/5DD552A0" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0122" H 8050 14400 50  0001 C CNN
-F 1 "+5V" H 7992 14587 50  0000 R CNN
-F 2 "" H 8050 14550 50  0001 C CNN
-F 3 "" H 8050 14550 50  0001 C CNN
-	1    8050 14550
-	1    0    0    -1  
-$EndComp
 Text Notes 7050 1250 0    197  ~ 39
 Registers
 Text Label 6650 1700 0    50   ~ 0
@@ -2515,6 +2356,8 @@ F15 "~RSTHOLD" I L 4650 10750 50
 F16 "CLK3" I L 4650 10950 50 
 F17 "16MHz" I L 4650 11150 50 
 F18 "~WRITE-ALU-B" I L 4650 11300 50 
+F19 "TC-LED" O R 5800 11900 50 
+F20 "SRU-LED" O R 5800 11800 50 
 $EndSheet
 Wire Wire Line
 	4650 11300 4050 11300
@@ -2690,6 +2533,413 @@ NoConn ~ 6650 -2400
 NoConn ~ 6650 -2300
 NoConn ~ 6650 -2200
 NoConn ~ 6650 -2100
+Wire Wire Line
+	5800 11900 6300 11900
+Text Label 6300 11900 2    50   ~ 0
+TC-LED
+$Comp
+L alexios:74HC541 U120
+U 1 1 60F5843D
+P 8800 11250
+F 0 "U120" H 8800 12017 50  0000 C CNN
+F 1 "74HC541" H 8800 11926 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8800 11250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8800 11250 50  0001 C CNN
+	1    8800 11250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 10750 7900 10750
+Wire Wire Line
+	8300 10850 7900 10850
+Wire Wire Line
+	8300 10950 7900 10950
+Wire Wire Line
+	8300 11050 7900 11050
+Wire Wire Line
+	8300 11150 7900 11150
+Wire Wire Line
+	8300 11650 8250 11650
+Wire Wire Line
+	8250 11650 8250 11750
+$Comp
+L power:GND #PWR0103
+U 1 1 61138048
+P 8250 11800
+F 0 "#PWR0103" H 8250 11550 50  0001 C CNN
+F 1 "GND" H 8255 11627 50  0000 C CNN
+F 2 "" H 8250 11800 50  0001 C CNN
+F 3 "" H 8250 11800 50  0001 C CNN
+	1    8250 11800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 11750 8250 11750
+Connection ~ 8250 11750
+Wire Wire Line
+	8250 11750 8250 11800
+Wire Wire Line
+	9500 11050 9300 11050
+Text Label 7900 10750 0    50   ~ 0
+FL
+Text Label 7900 10850 0    50   ~ 0
+FV
+Text Label 7900 10950 0    50   ~ 0
+FZ
+Text Label 7900 11150 0    50   ~ 0
+TC-LED
+Wire Wire Line
+	5800 11800 6300 11800
+Text Label 6300 11800 2    50   ~ 0
+SRU-LED
+Text Label 7900 11050 0    50   ~ 0
+SRU-LED
+$Comp
+L Device:LED_ALT D?
+U 1 1 6122CBB7
+P 10350 10750
+AR Path="/60BB0546/6122CBB7" Ref="D?"  Part="1" 
+AR Path="/5D121AA3/6122CBB7" Ref="D?"  Part="1" 
+AR Path="/5DF75CDE/6122CBB7" Ref="D?"  Part="1" 
+AR Path="/6122CBB7" Ref="D101"  Part="1" 
+F 0 "D101" H 10200 10800 50  0000 C CNN
+F 1 "LED_ALT" H 10343 10586 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 10750 50  0001 C CNN
+F 3 "~" H 10350 10750 50  0001 C CNN
+	1    10350 10750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9850 10750 10200 10750
+Wire Wire Line
+	9300 10750 9650 10750
+Wire Wire Line
+	10500 10750 10700 10750
+Wire Wire Line
+	10700 10750 10700 10850
+$Comp
+L power:GND #PWR0101
+U 1 1 612DE777
+P 10700 11250
+F 0 "#PWR0101" H 10700 11000 50  0001 C CNN
+F 1 "GND" H 10705 11077 50  0000 C CNN
+F 2 "" H 10700 11250 50  0001 C CNN
+F 3 "" H 10700 11250 50  0001 C CNN
+	1    10700 11250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED_ALT D?
+U 1 1 6131933E
+P 9950 10850
+AR Path="/60BB0546/6131933E" Ref="D?"  Part="1" 
+AR Path="/5D121AA3/6131933E" Ref="D?"  Part="1" 
+AR Path="/5DF75CDE/6131933E" Ref="D?"  Part="1" 
+AR Path="/6131933E" Ref="D102"  Part="1" 
+F 0 "D102" H 9800 10900 50  0000 C CNN
+F 1 "LED_ALT" H 9943 10686 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 10850 50  0001 C CNN
+F 3 "~" H 9950 10850 50  0001 C CNN
+	1    9950 10850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9500 10850 9300 10850
+Wire Wire Line
+	9700 10850 9800 10850
+Wire Wire Line
+	10100 10850 10700 10850
+Connection ~ 10700 10850
+Wire Wire Line
+	10700 10850 10700 10950
+$Comp
+L Device:R_Small R?
+U 1 1 613CAF7C
+P 9750 10950
+AR Path="/5DF75CDE/613CAF7C" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/613CAF7C" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/613CAF7C" Ref="R?"  Part="1" 
+AR Path="/613CAF7C" Ref="R103"  Part="1" 
+F 0 "R103" V 9700 10700 50  0000 R CNN
+F 1 "1kΩ" V 9645 10950 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 10950 50  0001 C CNN
+F 3 "~" H 9750 10950 50  0001 C CNN
+	1    9750 10950
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D?
+U 1 1 613CC13B
+P 10350 10950
+AR Path="/60BB0546/613CC13B" Ref="D?"  Part="1" 
+AR Path="/5D121AA3/613CC13B" Ref="D?"  Part="1" 
+AR Path="/5DF75CDE/613CC13B" Ref="D?"  Part="1" 
+AR Path="/613CC13B" Ref="D103"  Part="1" 
+F 0 "D103" H 10200 11000 50  0000 C CNN
+F 1 "LED_ALT" H 10343 10786 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 10950 50  0001 C CNN
+F 3 "~" H 10350 10950 50  0001 C CNN
+	1    10350 10950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9850 10950 10200 10950
+Wire Wire Line
+	9300 10950 9650 10950
+$Comp
+L Device:LED_ALT D?
+U 1 1 614F68F0
+P 9950 11050
+AR Path="/60BB0546/614F68F0" Ref="D?"  Part="1" 
+AR Path="/5D121AA3/614F68F0" Ref="D?"  Part="1" 
+AR Path="/5DF75CDE/614F68F0" Ref="D?"  Part="1" 
+AR Path="/614F68F0" Ref="D104"  Part="1" 
+F 0 "D104" H 9800 11100 50  0000 C CNN
+F 1 "LED_ALT" H 9943 10886 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 11050 50  0001 C CNN
+F 3 "~" H 9950 11050 50  0001 C CNN
+	1    9950 11050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 614F68F7
+P 9600 11050
+AR Path="/5DF75CDE/614F68F7" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/614F68F7" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/614F68F7" Ref="R?"  Part="1" 
+AR Path="/614F68F7" Ref="R104"  Part="1" 
+F 0 "R104" V 9550 10950 50  0000 R CNN
+F 1 "1kΩ" V 9495 11050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9600 11050 50  0001 C CNN
+F 3 "~" H 9600 11050 50  0001 C CNN
+	1    9600 11050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9700 11050 9800 11050
+Wire Wire Line
+	10100 11050 10700 11050
+Connection ~ 10700 11050
+Wire Wire Line
+	10700 11050 10700 11150
+$Comp
+L Device:R_Small R?
+U 1 1 615EBB8E
+P 9750 11150
+AR Path="/5DF75CDE/615EBB8E" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/615EBB8E" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/615EBB8E" Ref="R?"  Part="1" 
+AR Path="/615EBB8E" Ref="R105"  Part="1" 
+F 0 "R105" V 9700 10900 50  0000 R CNN
+F 1 "1kΩ" V 9645 11150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 11150 50  0001 C CNN
+F 3 "~" H 9750 11150 50  0001 C CNN
+	1    9750 11150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D?
+U 1 1 615EBB94
+P 10350 11150
+AR Path="/60BB0546/615EBB94" Ref="D?"  Part="1" 
+AR Path="/5D121AA3/615EBB94" Ref="D?"  Part="1" 
+AR Path="/5DF75CDE/615EBB94" Ref="D?"  Part="1" 
+AR Path="/615EBB94" Ref="D105"  Part="1" 
+F 0 "D105" H 10200 11200 50  0000 C CNN
+F 1 "LED_ALT" H 10343 10986 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 11150 50  0001 C CNN
+F 3 "~" H 10350 11150 50  0001 C CNN
+	1    10350 11150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9850 11150 10200 11150
+Wire Wire Line
+	9300 11150 9650 11150
+Wire Wire Line
+	10500 10950 10700 10950
+Connection ~ 10700 10950
+Wire Wire Line
+	10700 10950 10700 11050
+Wire Wire Line
+	10500 11150 10700 11150
+Connection ~ 10700 11150
+NoConn ~ 9300 11450
+NoConn ~ 9300 11350
+Wire Wire Line
+	8300 11350 8250 11350
+Wire Wire Line
+	8250 11350 8250 11450
+Connection ~ 8250 11650
+Wire Wire Line
+	8300 11450 8250 11450
+Connection ~ 8250 11450
+Wire Wire Line
+	8250 11450 8250 11650
+Wire Wire Line
+	10700 11150 10700 11250
+NoConn ~ 9300 11250
+Wire Wire Line
+	8300 11250 8250 11250
+Wire Wire Line
+	8250 11250 8250 11350
+Connection ~ 8250 11350
+$Comp
+L Device:R_Small R?
+U 1 1 612689D7
+P 9600 10850
+AR Path="/5DF75CDE/612689D7" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/612689D7" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/612689D7" Ref="R?"  Part="1" 
+AR Path="/612689D7" Ref="R102"  Part="1" 
+F 0 "R102" V 9550 10750 50  0000 R CNN
+F 1 "1kΩ" V 9495 10850 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9600 10850 50  0001 C CNN
+F 3 "~" H 9600 10850 50  0001 C CNN
+	1    9600 10850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 6122CBB1
+P 9750 10750
+AR Path="/5DF75CDE/6122CBB1" Ref="R?"  Part="1" 
+AR Path="/5DF75CDE/5EF12B5A/6122CBB1" Ref="R?"  Part="1" 
+AR Path="/5D121AA3/6122CBB1" Ref="R?"  Part="1" 
+AR Path="/6122CBB1" Ref="R101"  Part="1" 
+F 0 "R101" V 9700 10500 50  0000 R CNN
+F 1 "1kΩ" V 9645 10750 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 10750 50  0001 C CNN
+F 3 "~" H 9750 10750 50  0001 C CNN
+	1    9750 10750
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:74HC541 U120
+U 2 1 619C88C2
+P 10000 11700
+F 0 "U120" H 10180 11746 50  0000 L CNN
+F 1 "74HC541" H 10180 11655 50  0000 L CNN
+F 2 "" H 10000 11700 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10000 11700 50  0001 C CNN
+	2    10000 11700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 619CDBA8
+P 9650 11700
+AR Path="/5CC0D65F/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/619CDBA8" Ref="C120"  Part="1" 
+AR Path="/5F597FD4/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/619CDBA8" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/619CDBA8" Ref="C?"  Part="1" 
+F 0 "C120" H 9559 11746 50  0000 R CNN
+F 1 "100nF" H 9559 11655 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9650 11700 50  0001 C CNN
+F 3 "~" H 9650 11700 50  0001 C CNN
+	1    9650 11700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0177
+U 1 1 619CDBAE
+P 9650 11800
+AR Path="/619CDBAE" Ref="#PWR0177"  Part="1" 
+AR Path="/5F597FD4/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/619CDBAE" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/619CDBAE" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0177" H 9650 11550 50  0001 C CNN
+F 1 "GND" H 9655 11627 50  0000 C CNN
+F 2 "" H 9650 11800 50  0001 C CNN
+F 3 "" H 9650 11800 50  0001 C CNN
+	1    9650 11800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0178
+U 1 1 619CDBB4
+P 9650 11600
+AR Path="/619CDBB4" Ref="#PWR0178"  Part="1" 
+AR Path="/5F597FD4/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/619CDBB4" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/619CDBB4" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0178" H 9650 11450 50  0001 C CNN
+F 1 "+5V" H 9665 11773 50  0000 C CNN
+F 2 "" H 9650 11600 50  0001 C CNN
+F 3 "" H 9650 11600 50  0001 C CNN
+	1    9650 11600
+	1    0    0    -1  
+$EndComp
+Connection ~ 9650 11600
+Connection ~ 9650 11800
+NoConn ~ 6650 -4500
+$Comp
+L Device:CP_Small C113
+U 1 1 62FAE633
+P 9450 16550
+AR Path="/62FAE633" Ref="C113"  Part="1" 
+AR Path="/5D34E810/62FAE633" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/62FAE633" Ref="C?"  Part="1" 
+AR Path="/5DD3D79F/62FAE633" Ref="C?"  Part="1" 
+F 0 "C113" H 9362 16596 50  0000 R CNN
+F 1 "47µF" H 9362 16505 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9450 16550 50  0001 C CNN
+F 3 "~" H 9450 16550 50  0001 C CNN
+	1    9450 16550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 16650 9450 16750
+Wire Wire Line
+	9450 16350 9450 16450
+$Comp
+L power:GND #PWR?
+U 1 1 5DF0FF88
+P 9450 16750
+AR Path="/5F67D4B5/5DF0FF88" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FF88" Ref="#PWR0135"  Part="1" 
+AR Path="/5D34E810/5DF0FF88" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/5DF0FF88" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5DF0FF88" Ref="#PWR?"  Part="1" 
+AR Path="/5DD3D79F/5DF0FF88" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0135" H 9450 16500 50  0001 C CNN
+F 1 "GND" H 9372 16713 50  0000 R CNN
+F 2 "" H 9450 16750 50  0001 C CNN
+F 3 "" H 9450 16750 50  0001 C CNN
+	1    9450 16750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DF0FF82
+P 9450 16350
+AR Path="/5F67D4B5/5DF0FF82" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FF82" Ref="#PWR0132"  Part="1" 
+AR Path="/5D34E810/5DF0FF82" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/5DF0FF82" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5DF0FF82" Ref="#PWR?"  Part="1" 
+AR Path="/5DD3D79F/5DF0FF82" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0132" H 9450 16200 50  0001 C CNN
+F 1 "+5V" H 9392 16387 50  0000 R CNN
+F 2 "" H 9450 16350 50  0001 C CNN
+F 3 "" H 9450 16350 50  0001 C CNN
+	1    9450 16350
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	6400 8750 6400 12000
 Wire Bus Line

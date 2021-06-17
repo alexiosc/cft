@@ -14,16 +14,16 @@ Comment3 ""
 Comment4 "reg_ac.v"
 $EndDescr
 Wire Wire Line
-	1100 1900 1550 1900
-Text HLabel 1100 1900 0    50   Input ~ 0
+	1100 2450 1250 2450
+Text HLabel 1100 2450 0    50   Input ~ 0
 ~FPH
 Wire Wire Line
-	1100 1750 1550 1750
-Text HLabel 1100 1750 0    50   Input ~ 0
+	1100 2300 1150 2300
+Text HLabel 1100 2300 0    50   Input ~ 0
 ~FPL
-Text Label 1550 1900 2    50   ~ 0
+Text Label 1550 2450 2    50   ~ 0
 ~FPH
-Text Label 1550 1750 2    50   ~ 0
+Text Label 1550 2300 2    50   ~ 0
 ~FPL
 $Comp
 L power:GND #PWR?
@@ -2081,6 +2081,61 @@ Wire Wire Line
 	3500 6600 3650 6600
 Text HLabel 3650 6600 2    50   Output ~ 0
 ~ACCPL2
+$Comp
+L Device:R_Small R?
+U 1 1 61D00F52
+P 1150 2100
+AR Path="/60BB0546/61D00F52" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/61D00F52" Ref="R1002"  Part="1" 
+F 0 "R1002" H 1209 2054 50  0000 L CNN
+F 1 "10kΩ" H 1209 2145 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1150 2100 50  0001 C CNN
+F 3 "~" H 1150 2100 50  0001 C CNN
+	1    1150 2100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 61D12E96
+P 1250 2100
+AR Path="/60BB0546/61D12E96" Ref="R?"  Part="1" 
+AR Path="/5D9672D4/61D12E96" Ref="R1003"  Part="1" 
+F 0 "R1003" H 1191 2054 50  0000 R CNN
+F 1 "10kΩ" H 1191 2145 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1250 2100 50  0001 C CNN
+F 3 "~" H 1250 2100 50  0001 C CNN
+	1    1250 2100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1150 2000 1150 1950
+Wire Wire Line
+	1150 1950 1200 1950
+Wire Wire Line
+	1250 1950 1250 2000
+$Comp
+L power:+5V #PWR0601
+U 1 1 61D2563D
+P 1200 1900
+F 0 "#PWR0601" H 1200 1750 50  0001 C CNN
+F 1 "+5V" H 1215 2073 50  0000 C CNN
+F 2 "" H 1200 1900 50  0001 C CNN
+F 3 "" H 1200 1900 50  0001 C CNN
+	1    1200 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 1900 1200 1950
+Connection ~ 1200 1950
+Wire Wire Line
+	1200 1950 1250 1950
+Wire Wire Line
+	1150 2200 1150 2300
+Connection ~ 1150 2300
+Wire Wire Line
+	1150 2300 1550 2300
+Wire Wire Line
+	1250 2200 1250 2450
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -2093,4 +2148,7 @@ Wire Bus Line
 	6650 1050 6650 6950
 Wire Bus Line
 	4100 1150 4100 6950
+Connection ~ 1250 2450
+Wire Wire Line
+	1250 2450 1550 2450
 $EndSCHEMATC

@@ -4,7 +4,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 10 19
-Title "The L Register"
+Title "The L & V Registers"
 Date "2019-11-17"
 Rev "2020"
 Comp ""
@@ -13,7 +13,7 @@ Comment2 ""
 Comment3 ""
 Comment4 "reg_l.v"
 $EndDescr
-Text HLabel 9800 1750 2    50   Output ~ 0
+Text HLabel 10300 1750 2    50   Output ~ 0
 FLFAST
 Text HLabel 5600 2650 0    50   Input ~ 0
 CLK4
@@ -179,7 +179,6 @@ Text HLabel 10300 2100 2    50   Input ~ 0
 FL
 Text Label 10250 2100 2    50   ~ 0
 FL
-NoConn ~ 9500 2400
 NoConn ~ 6500 2400
 NoConn ~ 6500 3450
 Text Label 5650 2650 0    50   ~ 0
@@ -475,9 +474,9 @@ Connection ~ 8600 4550
 Wire Wire Line
 	6800 2100 6800 1750
 Wire Wire Line
-	6800 1750 9800 1750
+	6800 1750 10300 1750
 Connection ~ 6800 2100
-Text Label 9750 1750 2    50   ~ 0
+Text Label 10250 1750 2    50   ~ 0
 FLFAST
 Wire Wire Line
 	8250 3350 8600 3350
@@ -549,7 +548,6 @@ Text HLabel 1650 3300 0    50   Input ~ 0
 FLOUT-SRU
 Text Label 1700 3400 0    50   ~ 0
 BCP
-NoConn ~ 9500 3450
 $Comp
 L alexios:ATF16V8B U?
 U 2 1 6115A75F
@@ -770,4 +768,8 @@ Wire Wire Line
 	9500 3150 9650 3150
 Wire Wire Line
 	9850 3150 10300 3150
+NoConn ~ 8100 2400
+NoConn ~ 8100 3450
+NoConn ~ 9500 2400
+NoConn ~ 9500 3450
 $EndSCHEMATC

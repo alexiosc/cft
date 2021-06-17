@@ -164,8 +164,8 @@ AR Path="/5CE09726/6A1AE7A5" Ref="#PWR?"  Part="1"
 AR Path="/6A313729/6A1AE7A5" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/6A1AE7A5" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/6A1AE7A5" Ref="#PWR?"  Part="1" 
-AR Path="/5DF75CDE/6A1AE7A5" Ref="#PWR0601"  Part="1" 
-F 0 "#PWR0601" H 1850 1500 50  0001 C CNN
+AR Path="/5DF75CDE/6A1AE7A5" Ref="#PWR0179"  Part="1" 
+F 0 "#PWR0179" H 1850 1500 50  0001 C CNN
 F 1 "+5V" V 1865 1778 50  0000 L CNN
 F 2 "" H 1850 1650 50  0001 C CNN
 F 3 "" H 1850 1650 50  0001 C CNN
@@ -174,7 +174,6 @@ F 3 "" H 1850 1650 50  0001 C CNN
 $EndComp
 Text Label 3250 1350 2    50   ~ 0
 ~START-SYNC
-NoConn ~ 2750 1650
 Wire Wire Line
 	1150 1550 1850 1550
 Wire Wire Line
@@ -349,8 +348,6 @@ Text HLabel 10650 3900 2    50   BiDi ~ 0
 IBUS[0..15]
 Wire Wire Line
 	4500 2850 5900 2850
-Wire Wire Line
-	2750 1350 3500 1350
 Wire Wire Line
 	4300 1350 4300 2100
 Wire Wire Line
@@ -1451,14 +1448,9 @@ Wire Wire Line
 Wire Wire Line
 	1300 3900 1300 3200
 Wire Wire Line
-	1300 3200 3500 3200
-Wire Wire Line
-	3500 3200 3500 1350
+	1300 3200 3700 3200
 Wire Wire Line
 	1300 3900 1900 3900
-Connection ~ 3500 1350
-Wire Wire Line
-	3500 1350 4300 1350
 Wire Wire Line
 	4500 2850 4500 3100
 Wire Wire Line
@@ -1469,6 +1461,35 @@ Wire Wire Line
 	1200 4200 1900 4200
 Connection ~ 4500 2850
 NoConn ~ 2800 3700
+Connection ~ 3700 1350
+Wire Wire Line
+	3700 1350 4300 1350
+Wire Wire Line
+	2750 1350 3700 1350
+Wire Wire Line
+	3700 1350 3700 3200
+Text HLabel 5550 3100 2    50   Output ~ 0
+TC-LED
+Wire Wire Line
+	2750 1650 2900 1650
+Text HLabel 2900 1650 2    50   Output ~ 0
+SRU-LED
+Wire Wire Line
+	5000 3100 4500 3100
+Connection ~ 4500 3100
+$Comp
+L Device:R_Small R603
+U 1 1 61B3CA69
+P 5100 3100
+F 0 "R603" V 5204 3100 50  0000 C CNN
+F 1 "30Ω" V 5295 3100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 3100 50  0001 C CNN
+F 3 "~" H 5100 3100 50  0001 C CNN
+	1    5100 3100
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	5200 3100 5550 3100
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
