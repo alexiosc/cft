@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 19
+Sheet 16 19
 Title "ALU Operation Table"
 Date "2019-11-17"
 Rev "2020"
@@ -1621,16 +1621,16 @@ Instr\n\nADD\nAND\nOR\nNOT\nXOR\nN/A\nN/A\nN/A
 Text Notes 9500 1250 0    50   ~ 0
 FLCPL toggles L on carry out.
 Wire Notes Line width 20 style solid
-	800  7000 3500 7000
+	700  7100 3400 7100
 Wire Notes Line width 20 style solid
-	3500 7000 3500 5550
+	3400 7100 3400 5650
 Wire Notes Line width 20 style solid
-	3500 5550 800  5550
+	3400 5650 700  5650
 Wire Notes Line width 20 style solid
-	800  5550 800  7000
-Text Notes 900  6900 0    50   ~ 0
+	700  5650 700  7100
+Text Notes 800  7000 0    50   ~ 0
 55 ns ROMs must be used. These are the fastest 1Mbit 5V\nparallel devices in existence, but carry propagation triples\ntheir access time when calculationg addition.\n\nTo mitigate the problem, the circuit fully buffers the ROMs'\naddresses and separate buffers isolate them from the IBus.\n\nMicrocode is structured carefully to first perform a dummy read\nfrom the ALU. This latches the operation, and then a full\n250 ns cycle later the microcode reads the ALU Y port value to\ncomplete the operation. This is only necessary for ADD—bitwise\noperations cascade no bits and the result is available within\none cycle.
-Text Notes 900  5750 0    66   ~ 13
+Text Notes 800  5850 0    66   ~ 13
 Timing
 Text Notes 5900 750  2    63   ~ 13
 55 ns devices!
@@ -1694,46 +1694,46 @@ $EndComp
 $Comp
 L alexios:74HC74 U508
 U 2 1 60EBD199
-P -1050 6300
-F 0 "U508" H -1050 6717 50  0000 C CNN
-F 1 "74HC74" H -1050 6626 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H -1100 6450 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H -1100 6450 50  0001 C CNN
-	2    -1050 6300
+P 10400 6250
+F 0 "U508" H 10400 6667 50  0000 C CNN
+F 1 "74HC74" H 10400 6576 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 10350 6400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 10350 6400 50  0001 C CNN
+	2    10400 6250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-1500 6450 -1550 6450
+	9950 6400 9900 6400
 Wire Wire Line
-	-1550 6450 -1550 6350
+	9900 6400 9900 6300
 $Comp
 L power:+5V #PWR0147
 U 1 1 60EDB6D7
-P -1550 6050
-F 0 "#PWR0147" H -1550 5900 50  0001 C CNN
-F 1 "+5V" H -1535 6223 50  0000 C CNN
-F 2 "" H -1550 6050 50  0001 C CNN
-F 3 "" H -1550 6050 50  0001 C CNN
-	1    -1550 6050
+P 9900 6000
+F 0 "#PWR0147" H 9900 5850 50  0001 C CNN
+F 1 "+5V" H 9915 6173 50  0000 C CNN
+F 2 "" H 9900 6000 50  0001 C CNN
+F 3 "" H 9900 6000 50  0001 C CNN
+	1    9900 6000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-1550 6150 -1500 6150
-Connection ~ -1550 6150
+	9900 6100 9950 6100
+Connection ~ 9900 6100
 Wire Wire Line
-	-1550 6150 -1550 6050
+	9900 6100 9900 6000
 Wire Wire Line
-	-1550 6250 -1500 6250
-Connection ~ -1550 6250
+	9900 6200 9950 6200
+Connection ~ 9900 6200
 Wire Wire Line
-	-1550 6250 -1550 6150
+	9900 6200 9900 6100
 Wire Wire Line
-	-1550 6350 -1500 6350
-Connection ~ -1550 6350
+	9900 6300 9950 6300
+Connection ~ 9900 6300
 Wire Wire Line
-	-1550 6350 -1550 6250
-NoConn ~ -600 6150
-NoConn ~ -600 6450
+	9900 6300 9900 6200
+NoConn ~ 10850 6100
+NoConn ~ 10850 6400
 $Comp
 L alexios:74HC74 U508
 U 3 1 60F274D2
