@@ -3301,4 +3301,34 @@ Text Label 15900 6300 2    50   ~ 0
 ~MEM
 Text Label 3100 10650 0    50   ~ 0
 ~CS21
+$Comp
+L alexios:Jumper_3_Bridged12 JP7
+U 1 1 60E9D3CF
+P 12050 3600
+F 0 "JP7" V 12050 3667 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 12050 3710 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal" H 12050 3600 50  0001 C CNN
+F 3 "~" H 12050 3600 50  0001 C CNN
+	1    12050 3600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	11900 3600 11550 3600
+Wire Wire Line
+	12050 3850 11550 3850
+Text Label 11550 3600 0    50   ~ 0
+~ROMW
+$Comp
+L power:+5V #PWR0143
+U 1 1 60F986FD
+P 12050 3350
+F 0 "#PWR0143" H 12050 3200 50  0001 C CNN
+F 1 "+5V" H 12065 3523 50  0000 C CNN
+F 2 "" H 12050 3350 50  0001 C CNN
+F 3 "" H 12050 3350 50  0001 C CNN
+	1    12050 3350
+	1    0    0    -1  
+$EndComp
+Text Label 11550 3850 0    50   ~ 0
+~W
 $EndSCHEMATC
