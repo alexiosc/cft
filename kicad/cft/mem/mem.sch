@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 22
+Sheet 1 19
 Title "ALU/Interrupt Board"
 Date ""
 Rev "2023"
@@ -153,20 +153,6 @@ F 3 "" H 7550 10900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7550 10500 7550 10600
-$Comp
-L Device:CP_Small C103
-U 1 1 6084E505
-P 7550 10700
-AR Path="/6084E505" Ref="C103"  Part="1" 
-AR Path="/5D34E810/6084E505" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/6084E505" Ref="C?"  Part="1" 
-F 0 "C103" H 7462 10746 50  0000 R CNN
-F 1 "47µF" H 7462 10655 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7550 10700 50  0001 C CNN
-F 3 "~" H 7550 10700 50  0001 C CNN
-	1    7550 10700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7550 10800 7550 10900
 $Comp
@@ -203,20 +189,6 @@ F 3 "" H 7100 10900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7100 10500 7100 10600
-$Comp
-L Device:CP_Small C102
-U 1 1 5D8C8453
-P 7100 10700
-AR Path="/5D8C8453" Ref="C102"  Part="1" 
-AR Path="/5D34E810/5D8C8453" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5D8C8453" Ref="C?"  Part="1" 
-F 0 "C102" H 7012 10746 50  0000 R CNN
-F 1 "47µF" H 7012 10655 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7100 10700 50  0001 C CNN
-F 3 "~" H 7100 10700 50  0001 C CNN
-	1    7100 10700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7100 10800 7100 10900
 $Comp
@@ -253,20 +225,6 @@ F 3 "" H 6650 10900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6650 10500 6650 10600
-$Comp
-L Device:CP_Small C101
-U 1 1 5F91D05A
-P 6650 10700
-AR Path="/5F91D05A" Ref="C101"  Part="1" 
-AR Path="/5D34E810/5F91D05A" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5F91D05A" Ref="C?"  Part="1" 
-F 0 "C101" H 6562 10746 50  0000 R CNN
-F 1 "47µF" H 6562 10655 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6650 10700 50  0001 C CNN
-F 3 "~" H 6650 10700 50  0001 C CNN
-	1    6650 10700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6650 10800 6650 10900
 Wire Wire Line
@@ -574,8 +532,6 @@ Text Label 14000 9900 0    50   ~ 0
 ~IRQ6
 Text Label 14000 10000 0    50   ~ 0
 ~IRQ7
-Text Label 15900 6300 2    50   ~ 0
-~MEM
 Text Label 15900 6400 2    50   ~ 0
 ~IO
 Text Label 15900 6500 2    50   ~ 0
@@ -1071,20 +1027,6 @@ F 3 "" H 8000 10900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8000 10500 8000 10600
-$Comp
-L Device:CP_Small C104
-U 1 1 634E8C5A
-P 8000 10700
-AR Path="/634E8C5A" Ref="C104"  Part="1" 
-AR Path="/5D34E810/634E8C5A" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/634E8C5A" Ref="C?"  Part="1" 
-F 0 "C104" H 7912 10746 50  0000 R CNN
-F 1 "47µF" H 7912 10655 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8000 10700 50  0001 C CNN
-F 3 "~" H 8000 10700 50  0001 C CNN
-	1    8000 10700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8000 10800 8000 10900
 $Comp
@@ -1260,29 +1202,12 @@ Text Label 11750 8300 0    50   ~ 0
 Text Label 11750 8200 0    50   ~ 0
 ~FPIEN
 NoConn ~ 13800 8300
-NoConn ~ 14000 8400
-NoConn ~ 14000 8500
-NoConn ~ 14000 8600
-NoConn ~ 14000 8700
-NoConn ~ 14000 8800
-NoConn ~ 14000 8900
-NoConn ~ 14000 9000
-NoConn ~ 14000 9100
-NoConn ~ 14000 7600
-NoConn ~ 14000 7700
-NoConn ~ 14000 7800
-NoConn ~ 14000 7900
-NoConn ~ 14000 8000
-NoConn ~ 14000 8100
-NoConn ~ 14000 8200
-NoConn ~ 14000 8300
 NoConn ~ 15900 7200
 NoConn ~ 15900 7300
 NoConn ~ 15900 7400
 NoConn ~ 15900 6900
 NoConn ~ 15900 7000
 NoConn ~ 15900 7100
-NoConn ~ 15900 6300
 NoConn ~ 15900 6400
 NoConn ~ 11550 6600
 NoConn ~ 11550 6700
@@ -1704,19 +1629,6 @@ Text Notes 9050 3350 2    100  ~ 20
 Diagnostic LEDs
 Text Notes 12000 5550 0    197  ~ 39
 Backplane
-$Comp
-L alexios:74HC138 U?
-U 1 1 65B2AEAB
-P -11500 1500
-AR Path="/60F438E4/65B2AEAB" Ref="U?"  Part="1" 
-AR Path="/65B2AEAB" Ref="U102"  Part="1" 
-F 0 "U102" H -11500 2167 50  0000 C CNN
-F 1 "74HC138" H -11500 2076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -11500 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -11500 1500 50  0001 C CNN
-	1    -11500 1500
-	1    0    0    -1  
-$EndComp
 Text Label -6950 7050 0    50   ~ 0
 AB18
 Text Label -6950 6950 0    50   ~ 0
@@ -1902,362 +1814,279 @@ DB14
 Text Label -7350 5950 2    50   ~ 0
 DB15
 Wire Wire Line
-	-14100 1100 -14500 1100
+	-2700 2600 -3100 2600
 Wire Wire Line
-	-14100 1200 -14500 1200
+	-2700 2700 -3100 2700
 Wire Wire Line
-	-14100 1300 -14500 1300
+	-2700 2800 -3100 2800
 Wire Wire Line
-	-14100 1800 -14500 1800
+	-2700 3200 -3100 3200
 Wire Wire Line
-	-14100 1900 -14500 1900
-Text Label -14500 1900 0    50   ~ 0
-AB23
+	-2700 3300 -3100 3300
 Wire Wire Line
-	-12700 1100 -13100 1100
+	-3100 2900 -2700 2900
 Wire Wire Line
-	-12700 1200 -13100 1200
+	-3100 3000 -2700 3000
 Wire Wire Line
-	-12700 1300 -13100 1300
-Wire Wire Line
-	-12700 1700 -13100 1700
-Wire Wire Line
-	-12700 1800 -13100 1800
-Wire Wire Line
-	-12000 1200 -12400 1200
-Wire Wire Line
-	-12000 1300 -12400 1300
-Wire Wire Line
-	-12000 1700 -12400 1700
-Text Label -12400 1700 0    50   ~ 0
-AB23
-Wire Wire Line
-	-13100 1400 -12700 1400
-Wire Wire Line
-	-13100 1500 -12700 1500
-Wire Wire Line
-	-13100 1600 -12700 1600
-$Comp
-L alexios:74HC138 U?
-U 1 1 65B2AF1F
-P -13600 1500
-AR Path="/60F438E4/65B2AF1F" Ref="U?"  Part="1" 
-AR Path="/65B2AF1F" Ref="U101"  Part="1" 
-F 0 "U101" H -13600 2167 50  0000 C CNN
-F 1 "74HC138" H -13600 2076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -13600 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -13600 1500 50  0001 C CNN
-	1    -13600 1500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-10600 1100 -11000 1100
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2AF26
-P -14100 1700
-AR Path="/60F438E4/65B2AF26" Ref="#PWR?"  Part="1" 
-AR Path="/65B2AF26" Ref="#PWR0102"  Part="1" 
-F 0 "#PWR0102" H -14100 1550 50  0001 C CNN
-F 1 "+5V" H -14085 1873 50  0000 C CNN
-F 2 "" H -14100 1700 50  0001 C CNN
-F 3 "" H -14100 1700 50  0001 C CNN
-	1    -14100 1700
-	1    0    0    -1  
-$EndComp
-Text Label -14500 1800 0    50   ~ 0
-AB22
-Text Label -14500 1300 0    50   ~ 0
-AB21
-Text Label -14500 1200 0    50   ~ 0
-AB20
-Text Label -14500 1100 0    50   ~ 0
-AB19
-Wire Wire Line
-	-12000 1800 -12400 1800
-Text Label -12400 1800 0    50   ~ 0
-AB22
-$Comp
-L power:GND #PWR?
-U 1 1 65B2AF32
-P -12000 1900
-AR Path="/60F438E4/65B2AF32" Ref="#PWR?"  Part="1" 
-AR Path="/65B2AF32" Ref="#PWR0108"  Part="1" 
-F 0 "#PWR0108" H -12000 1650 50  0001 C CNN
-F 1 "GND" H -11995 1727 50  0000 C CNN
-F 2 "" H -12000 1900 50  0001 C CNN
-F 3 "" H -12000 1900 50  0001 C CNN
-	1    -12000 1900
-	1    0    0    -1  
-$EndComp
-Text Label -12400 1300 0    50   ~ 0
-AB21
-Text Label -12400 1200 0    50   ~ 0
-AB20
-Text Label -12400 1100 0    50   ~ 0
-AB19
-Wire Wire Line
-	-12000 1100 -12400 1100
-Text Label -10600 1100 2    50   ~ 0
-~ROMCS
+	-3100 3100 -2700 3100
 Wire Bus Line
-	-13850 4800 -14300 4800
+	5650 12900 5200 12900
 Wire Bus Line
-	-12850 4800 -12400 4800
-Text Label -14300 4800 0    50   ~ 0
+	6650 12900 7100 12900
+Text Label 5200 12900 0    50   ~ 0
 AB[0..18]
-Text Label -12400 4800 2    50   ~ 0
+Text Label 7100 12900 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 4700 1000 600 
+S 5650 12800 1000 600 
 U 65B2AF42
 F0 "sheet65B2AE92" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 4800 50 
-F3 "~CE" I L -13850 5000 50 
-F4 "~R" I L -13850 5100 50 
-F5 "~W" I L -13850 5200 50 
-F6 "~DB[0..15]" T R -12850 4800 50 
+F2 "AB[0..18]" I L 5650 12900 50 
+F3 "~CE" I L 5650 13100 50 
+F4 "~R" I L 5650 13200 50 
+F5 "~W" I L 5650 13300 50 
+F6 "~DB[0..15]" T R 6650 12900 50 
 $EndSheet
 Wire Wire Line
-	-13850 5000 -14300 5000
+	5650 13100 5200 13100
 Wire Wire Line
-	-13850 5100 -14300 5100
+	5650 13200 5200 13200
 Wire Wire Line
-	-13850 5200 -14300 5200
-Text Label -14300 5200 0    50   ~ 0
-~MEMW
+	5650 13300 5200 13300
+Text Label 5200 13300 0    50   ~ 0
+~W
 Wire Bus Line
-	-13850 5700 -14300 5700
+	5650 13800 5200 13800
 Wire Bus Line
-	-12850 5700 -12400 5700
-Text Label -14300 5700 0    50   ~ 0
+	6650 13800 7100 13800
+Text Label 5200 13800 0    50   ~ 0
 AB[0..18]
-Text Label -12400 5700 2    50   ~ 0
+Text Label 7100 13800 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 5600 1000 600 
+S 5650 13700 1000 600 
 U 65B2AF51
 F0 "sheet65B2AE93" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 5700 50 
-F3 "~CE" I L -13850 5900 50 
-F4 "~R" I L -13850 6000 50 
-F5 "~W" I L -13850 6100 50 
-F6 "~DB[0..15]" T R -12850 5700 50 
+F2 "AB[0..18]" I L 5650 13800 50 
+F3 "~CE" I L 5650 14000 50 
+F4 "~R" I L 5650 14100 50 
+F5 "~W" I L 5650 14200 50 
+F6 "~DB[0..15]" T R 6650 13800 50 
 $EndSheet
 Wire Wire Line
-	-13850 5900 -14300 5900
+	5650 14000 5200 14000
 Wire Bus Line
-	-13850 6600 -14300 6600
+	5650 14700 5200 14700
 Wire Bus Line
-	-12850 6600 -12400 6600
-Text Label -14300 6600 0    50   ~ 0
+	6650 14700 7100 14700
+Text Label 5200 14700 0    50   ~ 0
 AB[0..18]
-Text Label -12400 6600 2    50   ~ 0
+Text Label 7100 14700 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 6500 1000 600 
+S 5650 14600 1000 600 
 U 65B2AF5D
 F0 "sheet65B2AE94" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 6600 50 
-F3 "~CE" I L -13850 6800 50 
-F4 "~R" I L -13850 6900 50 
-F5 "~W" I L -13850 7000 50 
-F6 "~DB[0..15]" T R -12850 6600 50 
+F2 "AB[0..18]" I L 5650 14700 50 
+F3 "~CE" I L 5650 14900 50 
+F4 "~R" I L 5650 15000 50 
+F5 "~W" I L 5650 15100 50 
+F6 "~DB[0..15]" T R 6650 14700 50 
 $EndSheet
 Wire Wire Line
-	-13850 6800 -14300 6800
+	5650 14900 5200 14900
 Wire Bus Line
-	-13850 7500 -14300 7500
+	5650 15600 5200 15600
 Wire Bus Line
-	-12850 7500 -12400 7500
-Text Label -14300 7500 0    50   ~ 0
+	6650 15600 7100 15600
+Text Label 5200 15600 0    50   ~ 0
 AB[0..18]
-Text Label -12400 7500 2    50   ~ 0
+Text Label 7100 15600 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 7400 1000 600 
+S 5650 15500 1000 600 
 U 65B2AF69
 F0 "sheet65B2AE95" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 7500 50 
-F3 "~CE" I L -13850 7700 50 
-F4 "~R" I L -13850 7800 50 
-F5 "~W" I L -13850 7900 50 
-F6 "~DB[0..15]" T R -12850 7500 50 
+F2 "AB[0..18]" I L 5650 15600 50 
+F3 "~CE" I L 5650 15800 50 
+F4 "~R" I L 5650 15900 50 
+F5 "~W" I L 5650 16000 50 
+F6 "~DB[0..15]" T R 6650 15600 50 
 $EndSheet
 Wire Wire Line
-	-13850 7700 -14300 7700
+	5650 15800 5200 15800
 Wire Bus Line
-	-13850 8400 -14300 8400
+	5650 16500 5200 16500
 Wire Bus Line
-	-12850 8400 -12400 8400
-Text Label -14300 8400 0    50   ~ 0
+	6650 16500 7100 16500
+Text Label 5200 16500 0    50   ~ 0
 AB[0..18]
-Text Label -12400 8400 2    50   ~ 0
+Text Label 7100 16500 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 8300 1000 600 
+S 5650 16400 1000 600 
 U 65B2AF75
 F0 "sheet65B2AE96" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 8400 50 
-F3 "~CE" I L -13850 8600 50 
-F4 "~R" I L -13850 8700 50 
-F5 "~W" I L -13850 8800 50 
-F6 "~DB[0..15]" T R -12850 8400 50 
+F2 "AB[0..18]" I L 5650 16500 50 
+F3 "~CE" I L 5650 16700 50 
+F4 "~R" I L 5650 16800 50 
+F5 "~W" I L 5650 16900 50 
+F6 "~DB[0..15]" T R 6650 16500 50 
 $EndSheet
 Wire Wire Line
-	-13850 8600 -14300 8600
+	5650 16700 5200 16700
 Wire Bus Line
-	-13850 9300 -14300 9300
+	5650 17400 5200 17400
 Wire Bus Line
-	-12850 9300 -12400 9300
-Text Label -14300 9300 0    50   ~ 0
+	6650 17400 7100 17400
+Text Label 5200 17400 0    50   ~ 0
 AB[0..18]
-Text Label -12400 9300 2    50   ~ 0
+Text Label 7100 17400 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -13850 9200 1000 600 
+S 5650 17300 1000 600 
 U 65B2AF81
 F0 "sheet65B2AE97" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 9300 50 
-F3 "~CE" I L -13850 9500 50 
-F4 "~R" I L -13850 9600 50 
-F5 "~W" I L -13850 9700 50 
-F6 "~DB[0..15]" T R -12850 9300 50 
+F2 "AB[0..18]" I L 5650 17400 50 
+F3 "~CE" I L 5650 17600 50 
+F4 "~R" I L 5650 17700 50 
+F5 "~W" I L 5650 17800 50 
+F6 "~DB[0..15]" T R 6650 17400 50 
 $EndSheet
 Wire Wire Line
-	-13850 9500 -14300 9500
+	5650 17600 5200 17600
 Wire Bus Line
-	-11650 4800 -12100 4800
+	7850 12900 7400 12900
 Wire Bus Line
-	-10650 4800 -10200 4800
-Text Label -12100 4800 0    50   ~ 0
+	8850 12900 9300 12900
+Text Label 7400 12900 0    50   ~ 0
 AB[0..18]
-Text Label -10200 4800 2    50   ~ 0
+Text Label 9300 12900 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 4700 1000 600 
+S 7850 12800 1000 600 
 U 65B2AF8D
 F0 "sheet65B2AE98" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 4800 50 
-F3 "~CE" I L -11650 5000 50 
-F4 "~R" I L -11650 5100 50 
-F5 "~W" I L -11650 5200 50 
-F6 "~DB[0..15]" T R -10650 4800 50 
+F2 "AB[0..18]" I L 7850 12900 50 
+F3 "~CE" I L 7850 13100 50 
+F4 "~R" I L 7850 13200 50 
+F5 "~W" I L 7850 13300 50 
+F6 "~DB[0..15]" T R 8850 12900 50 
 $EndSheet
 Wire Wire Line
-	-11650 5000 -12100 5000
+	7850 13100 7400 13100
 Wire Bus Line
-	-11650 5700 -12100 5700
+	7850 13800 7400 13800
 Wire Bus Line
-	-10650 5700 -10200 5700
-Text Label -12100 5700 0    50   ~ 0
+	8850 13800 9300 13800
+Text Label 7400 13800 0    50   ~ 0
 AB[0..18]
-Text Label -10200 5700 2    50   ~ 0
+Text Label 9300 13800 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 5600 1000 600 
+S 7850 13700 1000 600 
 U 65B2AF99
 F0 "sheet65B2AE99" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 5700 50 
-F3 "~CE" I L -11650 5900 50 
-F4 "~R" I L -11650 6000 50 
-F5 "~W" I L -11650 6100 50 
-F6 "~DB[0..15]" T R -10650 5700 50 
+F2 "AB[0..18]" I L 7850 13800 50 
+F3 "~CE" I L 7850 14000 50 
+F4 "~R" I L 7850 14100 50 
+F5 "~W" I L 7850 14200 50 
+F6 "~DB[0..15]" T R 8850 13800 50 
 $EndSheet
 Wire Wire Line
-	-11650 5900 -12100 5900
+	7850 14000 7400 14000
 Wire Bus Line
-	-11650 6600 -12100 6600
+	7850 14700 7400 14700
 Wire Bus Line
-	-10650 6600 -10200 6600
-Text Label -12100 6600 0    50   ~ 0
+	8850 14700 9300 14700
+Text Label 7400 14700 0    50   ~ 0
 AB[0..18]
-Text Label -10200 6600 2    50   ~ 0
+Text Label 9300 14700 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 6500 1000 600 
+S 7850 14600 1000 600 
 U 65B2AFA5
 F0 "sheet65B2AE9A" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 6600 50 
-F3 "~CE" I L -11650 6800 50 
-F4 "~R" I L -11650 6900 50 
-F5 "~W" I L -11650 7000 50 
-F6 "~DB[0..15]" T R -10650 6600 50 
+F2 "AB[0..18]" I L 7850 14700 50 
+F3 "~CE" I L 7850 14900 50 
+F4 "~R" I L 7850 15000 50 
+F5 "~W" I L 7850 15100 50 
+F6 "~DB[0..15]" T R 8850 14700 50 
 $EndSheet
 Wire Wire Line
-	-11650 6800 -12100 6800
+	7850 14900 7400 14900
 Wire Bus Line
-	-11650 7500 -12100 7500
+	7850 15600 7400 15600
 Wire Bus Line
-	-10650 7500 -10200 7500
-Text Label -12100 7500 0    50   ~ 0
+	8850 15600 9300 15600
+Text Label 7400 15600 0    50   ~ 0
 AB[0..18]
-Text Label -10200 7500 2    50   ~ 0
+Text Label 9300 15600 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 7400 1000 600 
+S 7850 15500 1000 600 
 U 65B2AFB1
 F0 "sheet65B2AE9B" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 7500 50 
-F3 "~CE" I L -11650 7700 50 
-F4 "~R" I L -11650 7800 50 
-F5 "~W" I L -11650 7900 50 
-F6 "~DB[0..15]" T R -10650 7500 50 
+F2 "AB[0..18]" I L 7850 15600 50 
+F3 "~CE" I L 7850 15800 50 
+F4 "~R" I L 7850 15900 50 
+F5 "~W" I L 7850 16000 50 
+F6 "~DB[0..15]" T R 8850 15600 50 
 $EndSheet
 Wire Wire Line
-	-11650 7700 -12100 7700
+	7850 15800 7400 15800
 Wire Bus Line
-	-11650 8400 -12100 8400
+	7850 16500 7400 16500
 Wire Bus Line
-	-10650 8400 -10200 8400
-Text Label -12100 8400 0    50   ~ 0
+	8850 16500 9300 16500
+Text Label 7400 16500 0    50   ~ 0
 AB[0..18]
-Text Label -10200 8400 2    50   ~ 0
+Text Label 9300 16500 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 8300 1000 600 
+S 7850 16400 1000 600 
 U 65B2AFBD
 F0 "sheet65B2AE9C" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 8400 50 
-F3 "~CE" I L -11650 8600 50 
-F4 "~R" I L -11650 8700 50 
-F5 "~W" I L -11650 8800 50 
-F6 "~DB[0..15]" T R -10650 8400 50 
+F2 "AB[0..18]" I L 7850 16500 50 
+F3 "~CE" I L 7850 16700 50 
+F4 "~R" I L 7850 16800 50 
+F5 "~W" I L 7850 16900 50 
+F6 "~DB[0..15]" T R 8850 16500 50 
 $EndSheet
 Wire Wire Line
-	-11650 8600 -12100 8600
+	7850 16700 7400 16700
 Wire Bus Line
-	-11650 9300 -12100 9300
+	7850 17400 7400 17400
 Wire Bus Line
-	-10650 9300 -10200 9300
-Text Label -12100 9300 0    50   ~ 0
+	8850 17400 9300 17400
+Text Label 7400 17400 0    50   ~ 0
 AB[0..18]
-Text Label -10200 9300 2    50   ~ 0
+Text Label 9300 17400 2    50   ~ 0
 DB[0..15]
 $Sheet
-S -11650 9200 1000 600 
+S 7850 17300 1000 600 
 U 65B2AFC9
 F0 "sheet65B2AE9D" 50
 F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 9300 50 
-F3 "~CE" I L -11650 9500 50 
-F4 "~R" I L -11650 9600 50 
-F5 "~W" I L -11650 9700 50 
-F6 "~DB[0..15]" T R -10650 9300 50 
+F2 "AB[0..18]" I L 7850 17400 50 
+F3 "~CE" I L 7850 17600 50 
+F4 "~R" I L 7850 17700 50 
+F5 "~W" I L 7850 17800 50 
+F6 "~DB[0..15]" T R 8850 17400 50 
 $EndSheet
 Wire Wire Line
-	-11650 9500 -12100 9500
+	7850 17600 7400 17600
 $Comp
 L power:+5V #PWR?
 U 1 1 65B2AFD0
@@ -2300,7 +2129,7 @@ $EndComp
 Wire Wire Line
 	-7650 6150 -7350 6150
 Text Label -7350 6250 2    50   ~ 0
-~MEMR
+~R
 Wire Wire Line
 	-7650 6250 -7350 6250
 Wire Wire Line
@@ -2309,552 +2138,120 @@ Text Label -7350 6150 2    50   ~ 0
 ~ROMCS
 Text Label -7350 6350 2    50   ~ 0
 ~ROMW
-Text Label -12700 1100 2    50   ~ 0
+Text Label 5200 13100 0    50   ~ 0
 ~CS0
-Text Label -12700 1200 2    50   ~ 0
+Text Label 7400 13100 0    50   ~ 0
 ~CS1
-Text Label -12700 1300 2    50   ~ 0
+Text Label 5200 14000 0    50   ~ 0
 ~CS2
-Text Label -12700 1400 2    50   ~ 0
+Text Label 7400 14000 0    50   ~ 0
 ~CS3
-Text Label -12700 1500 2    50   ~ 0
+Text Label 5200 14900 0    50   ~ 0
 ~CS4
-Text Label -12700 1600 2    50   ~ 0
+Text Label 7400 14900 0    50   ~ 0
 ~CS5
-Text Label -12700 1700 2    50   ~ 0
+Text Label 5200 15800 0    50   ~ 0
 ~CS6
-Text Label -12700 1800 2    50   ~ 0
+Text Label 7400 15800 0    50   ~ 0
 ~CS7
-Text Label -14300 5000 0    50   ~ 0
-~CS0
-Text Label -12100 5000 0    50   ~ 0
-~CS1
-Text Label -14300 5900 0    50   ~ 0
-~CS2
-Text Label -12100 5900 0    50   ~ 0
-~CS3
-Text Label -14300 6800 0    50   ~ 0
-~CS4
-Text Label -12100 6800 0    50   ~ 0
-~CS5
-Text Label -14300 7700 0    50   ~ 0
-~CS6
-Text Label -12100 7700 0    50   ~ 0
-~CS7
-Text Label -14300 8600 0    50   ~ 0
+Text Label 5200 16700 0    50   ~ 0
 ~CS8
-Wire Wire Line
-	-14100 2700 -14500 2700
-Wire Wire Line
-	-14100 2800 -14500 2800
-Wire Wire Line
-	-14100 2900 -14500 2900
-Wire Wire Line
-	-14100 3300 -14500 3300
-Wire Wire Line
-	-14100 3400 -14500 3400
-Text Label -14500 3400 0    50   ~ 0
-AB23
-Wire Wire Line
-	-12700 2700 -13100 2700
-Wire Wire Line
-	-12700 2800 -13100 2800
-Wire Wire Line
-	-12700 2900 -13100 2900
-Wire Wire Line
-	-13100 3000 -12700 3000
-Text Label -14500 3300 0    50   ~ 0
-AB22
-Text Label -14500 2900 0    50   ~ 0
-AB21
-Text Label -14500 2800 0    50   ~ 0
-AB20
-Text Label -14500 2700 0    50   ~ 0
-AB19
-$Comp
-L alexios:74HC138 U?
-U 1 1 65B2B007
-P -13600 3100
-AR Path="/60F438E4/65B2B007" Ref="U?"  Part="1" 
-AR Path="/65B2B007" Ref="U104"  Part="1" 
-F 0 "U104" H -13600 3767 50  0000 C CNN
-F 1 "74HC138" H -13600 3676 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -13600 3100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -13600 3100 50  0001 C CNN
-	1    -13600 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B00D
-P -14100 3500
-AR Path="/60F438E4/65B2B00D" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B00D" Ref="#PWR0127"  Part="1" 
-F 0 "#PWR0127" H -14100 3250 50  0001 C CNN
-F 1 "GND" H -14095 3327 50  0000 C CNN
-F 2 "" H -14100 3500 50  0001 C CNN
-F 3 "" H -14100 3500 50  0001 C CNN
-	1    -14100 3500
-	1    0    0    -1  
-$EndComp
-Text Notes -14200 750  0    50   ~ 0
-AB=00AAAxxx:xxxxxxxx:xxxxxxxx\n(0–4096K, chunks of 512K)
-Text Notes -14200 2350 0    50   ~ 0
-AB=01AAAxxx:xxxxxxxx:xxxxxxxx\n(4096–8192K, chunks of 512K)
-Text Label -12700 2700 2    50   ~ 0
-~CS8
-Text Label -12700 2800 2    50   ~ 0
+Text Label 7400 16700 0    50   ~ 0
 ~CS9
-Text Label -12700 2900 2    50   ~ 0
+Text Label 5200 17600 0    50   ~ 0
 ~CS10
-Text Label -12700 3000 2    50   ~ 0
+Text Label 7400 17600 0    50   ~ 0
 ~CS11
-NoConn ~ -13100 3100
-NoConn ~ -13100 3200
-NoConn ~ -13100 3300
-NoConn ~ -13100 3400
-Text Label -12100 8600 0    50   ~ 0
-~CS9
-Text Label -14300 9500 0    50   ~ 0
-~CS10
-Text Label -12100 9500 0    50   ~ 0
-~CS11
-$Comp
-L alexios:74HC138 U?
-U 2 1 65B2B020
-P -11500 2600
-AR Path="/60F438E4/65B2B020" Ref="U?"  Part="2" 
-AR Path="/65B2B020" Ref="U101"  Part="2" 
-F 0 "U101" H -11321 2646 50  0000 L CNN
-F 1 "74HC138" H -11321 2555 50  0000 L CNN
-F 2 "alexios:SOIC-16" H -11500 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -11500 2600 50  0001 C CNN
-	2    -11500 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 2 1 65B2B026
-P -10150 2600
-AR Path="/60F438E4/65B2B026" Ref="U?"  Part="2" 
-AR Path="/65B2B026" Ref="U102"  Part="2" 
-F 0 "U102" H -9971 2646 50  0000 L CNN
-F 1 "74HC138" H -9971 2555 50  0000 L CNN
-F 2 "alexios:SOIC-16" H -10150 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -10150 2600 50  0001 C CNN
-	2    -10150 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 2 1 65B2B02C
-P -11500 3350
-AR Path="/60F438E4/65B2B02C" Ref="U?"  Part="2" 
-AR Path="/65B2B02C" Ref="U104"  Part="2" 
-F 0 "U104" H -11321 3396 50  0000 L CNN
-F 1 "74HC138" H -11321 3305 50  0000 L CNN
-F 2 "alexios:SOIC-16" H -11500 3350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -11500 3350 50  0001 C CNN
-	2    -11500 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 65B2B032
-P -11850 2600
-AR Path="/5E94D03A/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC68F14/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC75B87/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC75B97/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC8475C/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC8476C/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC8477C/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5EC8478C/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECB980E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECB981E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECCD509/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECCD519/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECCD529/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECCD539/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECDEC4E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECDEC5E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECDEC6E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/5ECDEC7E/65B2B032" Ref="C?"  Part="1" 
-AR Path="/65B2B032" Ref="C107"  Part="1" 
-AR Path="/60F438E4/65B2B032" Ref="C?"  Part="1" 
-F 0 "C107" H -11941 2646 50  0000 R CNN
-F 1 "100nF" H -11941 2555 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -11850 2600 50  0001 C CNN
-F 3 "~" H -11850 2600 50  0001 C CNN
-	1    -11850 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 65B2B038
-P -10500 2600
-AR Path="/5E94D03A/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC68F14/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC75B87/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC75B97/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC8475C/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC8476C/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC8477C/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5EC8478C/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECB980E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECB981E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECCD509/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECCD519/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECCD529/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECCD539/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECDEC4E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECDEC5E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECDEC6E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/5ECDEC7E/65B2B038" Ref="C?"  Part="1" 
-AR Path="/65B2B038" Ref="C108"  Part="1" 
-AR Path="/60F438E4/65B2B038" Ref="C?"  Part="1" 
-F 0 "C108" H -10591 2646 50  0000 R CNN
-F 1 "100nF" H -10591 2555 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -10500 2600 50  0001 C CNN
-F 3 "~" H -10500 2600 50  0001 C CNN
-	1    -10500 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 65B2B03E
-P -11850 3350
-AR Path="/5E94D03A/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC68F14/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC75B87/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC75B97/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC8475C/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC8476C/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC8477C/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5EC8478C/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECB980E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECB981E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECCD509/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECCD519/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECCD529/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECCD539/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECDEC4E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECDEC5E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECDEC6E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/5ECDEC7E/65B2B03E" Ref="C?"  Part="1" 
-AR Path="/65B2B03E" Ref="C116"  Part="1" 
-AR Path="/60F438E4/65B2B03E" Ref="C?"  Part="1" 
-F 0 "C116" H -11941 3396 50  0000 R CNN
-F 1 "100nF" H -11941 3305 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -11850 3350 50  0001 C CNN
-F 3 "~" H -11850 3350 50  0001 C CNN
-	1    -11850 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2B044
-P -11850 3250
-AR Path="/60F438E4/65B2B044" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B044" Ref="#PWR0137"  Part="1" 
-F 0 "#PWR0137" H -11850 3100 50  0001 C CNN
-F 1 "+5V" H -11835 3423 50  0000 C CNN
-F 2 "" H -11850 3250 50  0001 C CNN
-F 3 "" H -11850 3250 50  0001 C CNN
-	1    -11850 3250
-	1    0    0    -1  
-$EndComp
-Connection ~ -11850 3250
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2B04B
-P -10500 2500
-AR Path="/60F438E4/65B2B04B" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B04B" Ref="#PWR0138"  Part="1" 
-F 0 "#PWR0138" H -10500 2350 50  0001 C CNN
-F 1 "+5V" H -10485 2673 50  0000 C CNN
-F 2 "" H -10500 2500 50  0001 C CNN
-F 3 "" H -10500 2500 50  0001 C CNN
-	1    -10500 2500
-	1    0    0    -1  
-$EndComp
-Connection ~ -10500 2500
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2B052
-P -11850 2500
-AR Path="/60F438E4/65B2B052" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B052" Ref="#PWR0139"  Part="1" 
-F 0 "#PWR0139" H -11850 2350 50  0001 C CNN
-F 1 "+5V" H -11835 2673 50  0000 C CNN
-F 2 "" H -11850 2500 50  0001 C CNN
-F 3 "" H -11850 2500 50  0001 C CNN
-	1    -11850 2500
-	1    0    0    -1  
-$EndComp
-Connection ~ -11850 2500
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B059
-P -11850 2700
-AR Path="/60F438E4/65B2B059" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B059" Ref="#PWR0140"  Part="1" 
-F 0 "#PWR0140" H -11850 2450 50  0001 C CNN
-F 1 "GND" H -11845 2527 50  0000 C CNN
-F 2 "" H -11850 2700 50  0001 C CNN
-F 3 "" H -11850 2700 50  0001 C CNN
-	1    -11850 2700
-	1    0    0    -1  
-$EndComp
-Connection ~ -11850 2700
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B060
-P -11850 3450
-AR Path="/60F438E4/65B2B060" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B060" Ref="#PWR0141"  Part="1" 
-F 0 "#PWR0141" H -11850 3200 50  0001 C CNN
-F 1 "GND" H -11845 3277 50  0000 C CNN
-F 2 "" H -11850 3450 50  0001 C CNN
-F 3 "" H -11850 3450 50  0001 C CNN
-	1    -11850 3450
-	1    0    0    -1  
-$EndComp
-Connection ~ -11850 3450
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B067
-P -10500 2700
-AR Path="/60F438E4/65B2B067" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B067" Ref="#PWR0142"  Part="1" 
-F 0 "#PWR0142" H -10500 2450 50  0001 C CNN
-F 1 "GND" H -10495 2527 50  0000 C CNN
-F 2 "" H -10500 2700 50  0001 C CNN
-F 3 "" H -10500 2700 50  0001 C CNN
-	1    -10500 2700
-	1    0    0    -1  
-$EndComp
-Connection ~ -10500 2700
-$Comp
-L alexios:74AC32 U?
-U 5 1 65B2B06E
-P -7250 2750
-AR Path="/60F438E4/65B2B06E" Ref="U?"  Part="5" 
-AR Path="/65B2B06E" Ref="U103"  Part="5" 
-F 0 "U103" H -7070 2496 50  0000 L CNN
-F 1 "74AC32" H -7070 2405 50  0000 L CNN
-F 2 "alexios:SOIC-14" H -7250 2750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H -7250 2750 50  0001 C CNN
-	5    -7250 2750
-	1    0    0    -1  
-$EndComp
+Text Label 5200 13200 0    50   ~ 0
+~R
 Wire Wire Line
-	-8450 3200 -8550 3200
+	7850 13200 7400 13200
 Wire Wire Line
-	-8550 3200 -8550 3300
+	7850 13300 7400 13300
+Text Label 7400 13300 0    50   ~ 0
+~W
+Text Label 7400 13200 0    50   ~ 0
+~R
 Wire Wire Line
-	-8450 3300 -8550 3300
-Connection ~ -8550 3300
+	5650 14100 5200 14100
 Wire Wire Line
-	-8550 3300 -8550 3350
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B079
-P -8550 3350
-AR Path="/60F438E4/65B2B079" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B079" Ref="#PWR0143"  Part="1" 
-F 0 "#PWR0143" H -8550 3100 50  0001 C CNN
-F 1 "GND" H -8545 3177 50  0000 C CNN
-F 2 "" H -8550 3350 50  0001 C CNN
-F 3 "" H -8550 3350 50  0001 C CNN
-	1    -8550 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 65B2B07F
-P -7600 3050
-AR Path="/5E94D03A/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC68F14/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC75B87/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC75B97/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC8475C/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC8476C/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC8477C/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5EC8478C/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECB980E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECB981E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECCD509/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECCD519/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECCD529/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECCD539/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECDEC4E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECDEC5E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECDEC6E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/5ECDEC7E/65B2B07F" Ref="C?"  Part="1" 
-AR Path="/65B2B07F" Ref="C115"  Part="1" 
-AR Path="/60F438E4/65B2B07F" Ref="C?"  Part="1" 
-F 0 "C115" H -7691 3096 50  0000 R CNN
-F 1 "100nF" H -7691 3005 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -7600 3050 50  0001 C CNN
-F 3 "~" H -7600 3050 50  0001 C CNN
-	1    -7600 3050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 65B2B085
-P -7600 3150
-AR Path="/60F438E4/65B2B085" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B085" Ref="#PWR0144"  Part="1" 
-F 0 "#PWR0144" H -7600 2900 50  0001 C CNN
-F 1 "GND" H -7595 2977 50  0000 C CNN
-F 2 "" H -7600 3150 50  0001 C CNN
-F 3 "" H -7600 3150 50  0001 C CNN
-	1    -7600 3150
-	1    0    0    -1  
-$EndComp
-Connection ~ -7600 3150
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2B08C
-P -7600 2950
-AR Path="/60F438E4/65B2B08C" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B08C" Ref="#PWR0145"  Part="1" 
-F 0 "#PWR0145" H -7600 2800 50  0001 C CNN
-F 1 "+5V" H -7585 3123 50  0000 C CNN
-F 2 "" H -7600 2950 50  0001 C CNN
-F 3 "" H -7600 2950 50  0001 C CNN
-	1    -7600 2950
-	1    0    0    -1  
-$EndComp
-Connection ~ -7600 2950
-Text Label -14300 5100 0    50   ~ 0
-~MEMR
+	5650 14200 5200 14200
+Text Label 5200 14200 0    50   ~ 0
+~W
+Text Label 5200 14100 0    50   ~ 0
+~R
 Wire Wire Line
-	-11650 5100 -12100 5100
+	5650 15000 5200 15000
 Wire Wire Line
-	-11650 5200 -12100 5200
-Text Label -12100 5200 0    50   ~ 0
-~MEMW
-Text Label -12100 5100 0    50   ~ 0
-~MEMR
+	5650 15100 5200 15100
+Text Label 5200 15100 0    50   ~ 0
+~W
+Text Label 5200 15000 0    50   ~ 0
+~R
 Wire Wire Line
-	-13850 6000 -14300 6000
+	5650 15900 5200 15900
 Wire Wire Line
-	-13850 6100 -14300 6100
-Text Label -14300 6100 0    50   ~ 0
-~MEMW
-Text Label -14300 6000 0    50   ~ 0
-~MEMR
+	5650 16000 5200 16000
+Text Label 5200 16000 0    50   ~ 0
+~W
+Text Label 5200 15900 0    50   ~ 0
+~R
 Wire Wire Line
-	-13850 6900 -14300 6900
+	5650 16800 5200 16800
 Wire Wire Line
-	-13850 7000 -14300 7000
-Text Label -14300 7000 0    50   ~ 0
-~MEMW
-Text Label -14300 6900 0    50   ~ 0
-~MEMR
+	5650 16900 5200 16900
+Text Label 5200 16900 0    50   ~ 0
+~W
+Text Label 5200 16800 0    50   ~ 0
+~R
 Wire Wire Line
-	-13850 7800 -14300 7800
+	5650 17700 5200 17700
 Wire Wire Line
-	-13850 7900 -14300 7900
-Text Label -14300 7900 0    50   ~ 0
-~MEMW
-Text Label -14300 7800 0    50   ~ 0
-~MEMR
+	5650 17800 5200 17800
+Text Label 5200 17800 0    50   ~ 0
+~W
+Text Label 5200 17700 0    50   ~ 0
+~R
 Wire Wire Line
-	-13850 8700 -14300 8700
+	7850 17700 7400 17700
 Wire Wire Line
-	-13850 8800 -14300 8800
-Text Label -14300 8800 0    50   ~ 0
-~MEMW
-Text Label -14300 8700 0    50   ~ 0
-~MEMR
+	7850 17800 7400 17800
+Text Label 7400 17800 0    50   ~ 0
+~W
+Text Label 7400 17700 0    50   ~ 0
+~R
 Wire Wire Line
-	-13850 9600 -14300 9600
+	7850 16800 7400 16800
 Wire Wire Line
-	-13850 9700 -14300 9700
-Text Label -14300 9700 0    50   ~ 0
-~MEMW
-Text Label -14300 9600 0    50   ~ 0
-~MEMR
+	7850 16900 7400 16900
+Text Label 7400 16900 0    50   ~ 0
+~W
+Text Label 7400 16800 0    50   ~ 0
+~R
 Wire Wire Line
-	-11650 9600 -12100 9600
+	7850 15900 7400 15900
 Wire Wire Line
-	-11650 9700 -12100 9700
-Text Label -12100 9700 0    50   ~ 0
-~MEMW
-Text Label -12100 9600 0    50   ~ 0
-~MEMR
+	7850 16000 7400 16000
+Text Label 7400 16000 0    50   ~ 0
+~W
+Text Label 7400 15900 0    50   ~ 0
+~R
 Wire Wire Line
-	-11650 8700 -12100 8700
+	7850 15000 7400 15000
 Wire Wire Line
-	-11650 8800 -12100 8800
-Text Label -12100 8800 0    50   ~ 0
-~MEMW
-Text Label -12100 8700 0    50   ~ 0
-~MEMR
+	7850 15100 7400 15100
+Text Label 7400 15100 0    50   ~ 0
+~W
+Text Label 7400 15000 0    50   ~ 0
+~R
 Wire Wire Line
-	-11650 7800 -12100 7800
+	7850 14100 7400 14100
 Wire Wire Line
-	-11650 7900 -12100 7900
-Text Label -12100 7900 0    50   ~ 0
-~MEMW
-Text Label -12100 7800 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 6900 -12100 6900
-Wire Wire Line
-	-11650 7000 -12100 7000
-Text Label -12100 7000 0    50   ~ 0
-~MEMW
-Text Label -12100 6900 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 6000 -12100 6000
-Wire Wire Line
-	-11650 6100 -12100 6100
-Text Label -12100 6100 0    50   ~ 0
-~MEMW
-Text Label -12100 6000 0    50   ~ 0
-~MEMR
-Connection ~ -8550 3200
-Wire Wire Line
-	-8550 2850 -8550 3200
-Wire Wire Line
-	-8450 2850 -8550 2850
-Connection ~ -8550 2850
-Wire Wire Line
-	-8550 2750 -8550 2850
-Wire Wire Line
-	-8450 2750 -8550 2750
-$Comp
-L alexios:74AC32 U?
-U 3 1 65B2B0C6
-P -8200 2600
-AR Path="/60F438E4/65B2B0C6" Ref="U?"  Part="3" 
-AR Path="/65B2B0C6" Ref="U103"  Part="3" 
-F 0 "U103" H -8200 2675 50  0000 C CNN
-F 1 "74AC32" H -8200 2584 50  0000 C CNN
-F 2 "alexios:SOIC-14" H -8200 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H -8200 2600 50  0001 C CNN
-	3    -8200 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AC32 U?
-U 4 1 65B2B0CC
-P -8200 3050
-AR Path="/60F438E4/65B2B0CC" Ref="U?"  Part="4" 
-AR Path="/65B2B0CC" Ref="U103"  Part="4" 
-F 0 "U103" H -8200 3125 50  0000 C CNN
-F 1 "74AC32" H -8200 3034 50  0000 C CNN
-F 2 "alexios:SOIC-14" H -8200 3050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H -8200 3050 50  0001 C CNN
-	4    -8200 3050
-	1    0    0    -1  
-$EndComp
+	7850 14200 7400 14200
+Text Label 7400 14200 0    50   ~ 0
+~W
+Text Label 7400 14100 0    50   ~ 0
+~R
 Text Label -5200 6350 2    50   ~ 0
 ~ROMW
 Text Label -5200 6150 2    50   ~ 0
@@ -2864,7 +2261,7 @@ Wire Wire Line
 Wire Wire Line
 	-5500 6250 -5200 6250
 Text Label -5200 6250 2    50   ~ 0
-~MEMR
+~R
 Wire Wire Line
 	-5500 6150 -5200 6150
 Wire Wire Line
@@ -2904,8 +2301,8 @@ L alexios:29W040 U?
 U 1 1 65B2B0E8
 P -6050 6050
 AR Path="/60F438E4/65B2B0E8" Ref="U?"  Part="1" 
-AR Path="/65B2B0E8" Ref="U106"  Part="1" 
-F 0 "U106" H -6050 7117 50  0000 C CNN
+AR Path="/65B2B0E8" Ref="U5"  Part="1" 
+F 0 "U5" H -6050 7117 50  0000 C CNN
 F 1 "29W040" H -6050 7026 50  0000 C CNN
 F 2 "alexios:PLCC32" H -6050 6050 50  0001 C CNN
 F 3 "" H -6050 6050 50  0001 C CNN
@@ -2917,8 +2314,8 @@ L alexios:29W040 U?
 U 1 1 65B2B0EE
 P -8200 6050
 AR Path="/60F438E4/65B2B0EE" Ref="U?"  Part="1" 
-AR Path="/65B2B0EE" Ref="U105"  Part="1" 
-F 0 "U105" H -8200 7117 50  0000 C CNN
+AR Path="/65B2B0EE" Ref="U4"  Part="1" 
+F 0 "U4" H -8200 7117 50  0000 C CNN
 F 1 "29W040" H -8200 7026 50  0000 C CNN
 F 2 "alexios:PLCC32" H -8200 6050 50  0001 C CNN
 F 3 "" H -8200 6050 50  0001 C CNN
@@ -2930,8 +2327,8 @@ L alexios:29W040 U?
 U 2 1 65B2B0F4
 P -6050 7600
 AR Path="/60F438E4/65B2B0F4" Ref="U?"  Part="2" 
-AR Path="/65B2B0F4" Ref="U105"  Part="2" 
-F 0 "U105" H -5870 7646 50  0000 L CNN
+AR Path="/65B2B0F4" Ref="U5"  Part="2" 
+F 0 "U5" H -5870 7646 50  0000 L CNN
 F 1 "29W040" H -5870 7555 50  0000 L CNN
 F 2 "alexios:PLCC32" H -6050 7600 50  0001 C CNN
 F 3 "" H -6050 7600 50  0001 C CNN
@@ -2943,8 +2340,8 @@ L alexios:29W040 U?
 U 2 1 65B2B0FA
 P -8200 7650
 AR Path="/60F438E4/65B2B0FA" Ref="U?"  Part="2" 
-AR Path="/65B2B0FA" Ref="U106"  Part="2" 
-F 0 "U106" H -8020 7696 50  0000 L CNN
+AR Path="/65B2B0FA" Ref="U4"  Part="2" 
+F 0 "U4" H -8020 7696 50  0000 L CNN
 F 1 "29W040" H -8020 7605 50  0000 L CNN
 F 2 "alexios:PLCC32" H -8200 7650 50  0001 C CNN
 F 3 "" H -8200 7650 50  0001 C CNN
@@ -2964,6 +2361,813 @@ F 3 "" H -8550 7550 50  0001 C CNN
 	1    -8550 7550
 	1    0    0    -1  
 $EndComp
+Connection ~ -6400 7500
+Connection ~ -6400 7700
+Connection ~ -8550 7550
+Connection ~ -8550 7750
+Text Notes -14200 500  0    197  ~ 39
+Address Decoders
+Text Notes 5300 12500 0    197  ~ 39
+1–20× 512Kw Static RAM
+Text Notes -9100 4400 0    197  ~ 39
+512kW ROM (Flash RAM)
+Text Notes -3450 1300 0    50   ~ 0
+All devices are 512K which eases decoding. There is space for 24\n512K×8 SRAM packages which provide between 512 kW and 6 MW.\nAll chips except the lowest bank are optional.\n\nROM is mapped to 80:0000₁₆.
+Text Notes -3450 700  0    100  ~ 20
+Notes
+Text Notes -9600 500  0    197  ~ 39
+Read/Write Decoding
+Wire Notes Line width 12 style solid
+	-3700 300  -3700 1550
+Wire Notes Line width 12 style solid
+	-3700 1550 -600 1550
+Wire Notes Line width 12 style solid
+	-600 1550 -600 300 
+Wire Notes Line width 12 style solid
+	-600 300  -3700 300 
+Wire Bus Line
+	5650 18300 5200 18300
+Wire Bus Line
+	6650 18300 7100 18300
+Text Label 5200 18300 0    50   ~ 0
+AB[0..18]
+Text Label 7100 18300 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 5650 18200 1000 600 
+U 65B2B182
+F0 "sheet65B2AE9E" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 5650 18300 50 
+F3 "~CE" I L 5650 18500 50 
+F4 "~R" I L 5650 18600 50 
+F5 "~W" I L 5650 18700 50 
+F6 "~DB[0..15]" T R 6650 18300 50 
+$EndSheet
+Wire Wire Line
+	5650 18500 5200 18500
+Wire Bus Line
+	5650 19200 5200 19200
+Wire Bus Line
+	6650 19200 7100 19200
+Text Label 5200 19200 0    50   ~ 0
+AB[0..18]
+Text Label 7100 19200 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 5650 19100 1000 600 
+U 65B2B18E
+F0 "sheet65B2AE9F" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 5650 19200 50 
+F3 "~CE" I L 5650 19400 50 
+F4 "~R" I L 5650 19500 50 
+F5 "~W" I L 5650 19600 50 
+F6 "~DB[0..15]" T R 6650 19200 50 
+$EndSheet
+Wire Wire Line
+	5650 19400 5200 19400
+Wire Bus Line
+	7850 18300 7400 18300
+Wire Bus Line
+	8850 18300 9300 18300
+Text Label 7400 18300 0    50   ~ 0
+AB[0..18]
+Text Label 9300 18300 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 7850 18200 1000 600 
+U 65B2B19A
+F0 "sheet65B2AEA0" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 7850 18300 50 
+F3 "~CE" I L 7850 18500 50 
+F4 "~R" I L 7850 18600 50 
+F5 "~W" I L 7850 18700 50 
+F6 "~DB[0..15]" T R 8850 18300 50 
+$EndSheet
+Wire Wire Line
+	7850 18500 7400 18500
+Wire Bus Line
+	7850 19200 7400 19200
+Wire Bus Line
+	8850 19200 9300 19200
+Text Label 7400 19200 0    50   ~ 0
+AB[0..18]
+Text Label 9300 19200 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 7850 19100 1000 600 
+U 65B2B1A6
+F0 "sheet65B2AEA1" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 7850 19200 50 
+F3 "~CE" I L 7850 19400 50 
+F4 "~R" I L 7850 19500 50 
+F5 "~W" I L 7850 19600 50 
+F6 "~DB[0..15]" T R 8850 19200 50 
+$EndSheet
+Wire Wire Line
+	7850 19400 7400 19400
+Text Label 5200 18500 0    50   ~ 0
+~CS12
+Text Label 7400 18500 0    50   ~ 0
+~CS13
+Text Label 5200 19400 0    50   ~ 0
+~CS14
+Text Label 7400 19400 0    50   ~ 0
+~CS15
+Wire Wire Line
+	5650 18600 5200 18600
+Wire Wire Line
+	5650 18700 5200 18700
+Text Label 5200 18700 0    50   ~ 0
+~W
+Text Label 5200 18600 0    50   ~ 0
+~R
+Wire Wire Line
+	5650 19500 5200 19500
+Wire Wire Line
+	5650 19600 5200 19600
+Text Label 5200 19600 0    50   ~ 0
+~W
+Text Label 5200 19500 0    50   ~ 0
+~R
+Wire Wire Line
+	7850 19500 7400 19500
+Wire Wire Line
+	7850 19600 7400 19600
+Text Label 7400 19600 0    50   ~ 0
+~W
+Text Label 7400 19500 0    50   ~ 0
+~R
+Wire Wire Line
+	7850 18600 7400 18600
+Wire Wire Line
+	7850 18700 7400 18700
+Text Label 7400 18700 0    50   ~ 0
+~W
+Text Label 7400 18600 0    50   ~ 0
+~R
+Wire Bus Line
+	5650 20050 5200 20050
+Wire Bus Line
+	6650 20050 7100 20050
+Text Label 5200 20050 0    50   ~ 0
+AB[0..18]
+Text Label 7100 20050 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 5650 19950 1000 600 
+U 65B2B1C6
+F0 "sheet65B2AEA2" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 5650 20050 50 
+F3 "~CE" I L 5650 20250 50 
+F4 "~R" I L 5650 20350 50 
+F5 "~W" I L 5650 20450 50 
+F6 "~DB[0..15]" T R 6650 20050 50 
+$EndSheet
+Wire Wire Line
+	5650 20250 5200 20250
+Wire Bus Line
+	7850 20050 7400 20050
+Wire Bus Line
+	8850 20050 9300 20050
+Text Label 7400 20050 0    50   ~ 0
+AB[0..18]
+Text Label 9300 20050 2    50   ~ 0
+DB[0..15]
+$Sheet
+S 7850 19950 1000 600 
+U 65B2B1DE
+F0 "sheet65B2AEA4" 50
+F1 "rambank.sch" 50
+F2 "AB[0..18]" I L 7850 20050 50 
+F3 "~CE" I L 7850 20250 50 
+F4 "~R" I L 7850 20350 50 
+F5 "~W" I L 7850 20450 50 
+F6 "~DB[0..15]" T R 8850 20050 50 
+$EndSheet
+Wire Wire Line
+	7850 20250 7400 20250
+Text Label 5200 20250 0    50   ~ 0
+~CS20
+Wire Wire Line
+	5650 20350 5200 20350
+Wire Wire Line
+	5650 20450 5200 20450
+Text Label 5200 20450 0    50   ~ 0
+~W
+Text Label 5200 20350 0    50   ~ 0
+~R
+Wire Wire Line
+	7850 20350 7400 20350
+Wire Wire Line
+	7850 20450 7400 20450
+Text Label 7400 20450 0    50   ~ 0
+~W
+Text Label 7400 20350 0    50   ~ 0
+~R
+Wire Wire Line
+	-2700 4300 -3100 4300
+Wire Wire Line
+	-2700 4400 -3100 4400
+Wire Wire Line
+	-2700 4500 -3100 4500
+Wire Wire Line
+	-3100 4600 -2700 4600
+Wire Wire Line
+	-3100 4700 -2700 4700
+Wire Wire Line
+	-3100 4800 -2700 4800
+Wire Wire Line
+	-3100 4900 -2700 4900
+Wire Wire Line
+	-3100 5000 -2700 5000
+Wire Wire Line
+	-2700 5850 -3100 5850
+Wire Wire Line
+	-2700 5950 -3100 5950
+Wire Wire Line
+	-2700 6050 -3100 6050
+Wire Wire Line
+	-3100 6150 -2700 6150
+Wire Wire Line
+	-3100 6250 -2700 6250
+Wire Wire Line
+	-3100 6350 -2700 6350
+Wire Wire Line
+	-3100 6450 -2700 6450
+Wire Wire Line
+	-3100 6550 -2700 6550
+Wire Wire Line
+	-4000 2600 -4400 2600
+Wire Wire Line
+	-4000 2700 -4400 2700
+Wire Wire Line
+	-4000 2800 -4400 2800
+Wire Wire Line
+	-4000 2900 -4400 2900
+Wire Wire Line
+	-4000 3000 -4400 3000
+Text Label -4400 3000 0    50   ~ 0
+AB23
+Text Label -4400 2900 0    50   ~ 0
+AB22
+Text Label -4400 2800 0    50   ~ 0
+AB21
+Text Label -4400 2700 0    50   ~ 0
+AB20
+Text Label -4400 2600 0    50   ~ 0
+AB19
+Wire Wire Line
+	-4000 3100 -4400 3100
+Text Label -4400 3100 0    50   ~ 0
+~MEM
+Wire Wire Line
+	-4000 4300 -4400 4300
+Wire Wire Line
+	-4000 4400 -4400 4400
+Wire Wire Line
+	-4000 4500 -4400 4500
+Wire Wire Line
+	-4000 4600 -4400 4600
+Wire Wire Line
+	-4000 4700 -4400 4700
+Text Label -4400 4700 0    50   ~ 0
+AB23
+Text Label -4400 4600 0    50   ~ 0
+AB22
+Text Label -4400 4500 0    50   ~ 0
+AB21
+Text Label -4400 4400 0    50   ~ 0
+AB20
+Text Label -4400 4300 0    50   ~ 0
+AB19
+Wire Wire Line
+	-4000 4800 -4400 4800
+Text Label -4400 4800 0    50   ~ 0
+~MEM
+Wire Wire Line
+	-4000 5850 -4400 5850
+Wire Wire Line
+	-4000 5950 -4400 5950
+Wire Wire Line
+	-4000 6050 -4400 6050
+Wire Wire Line
+	-4000 6150 -4400 6150
+Wire Wire Line
+	-4000 6250 -4400 6250
+Text Label -4400 6250 0    50   ~ 0
+AB23
+Text Label -4400 6150 0    50   ~ 0
+AB22
+Text Label -4400 6050 0    50   ~ 0
+AB21
+Text Label -4400 5950 0    50   ~ 0
+AB20
+Text Label -4400 5850 0    50   ~ 0
+AB19
+Wire Wire Line
+	-4000 6350 -4400 6350
+Text Label -4400 6350 0    50   ~ 0
+~MEM
+Text Label -2700 2600 2    50   ~ 0
+~CS0
+Text Label -2700 2700 2    50   ~ 0
+~CS1
+Text Label -2700 2800 2    50   ~ 0
+~CS2
+Text Label -2700 2900 2    50   ~ 0
+~CS3
+Text Label -2700 3000 2    50   ~ 0
+~CS4
+Text Label -2700 3100 2    50   ~ 0
+~CS5
+Text Label -2700 3200 2    50   ~ 0
+~CS6
+Text Label -2700 3300 2    50   ~ 0
+~CS7
+Text Label -2700 4300 2    50   ~ 0
+~CS8
+Text Label -2700 4400 2    50   ~ 0
+~CS9
+Text Label -2700 4500 2    50   ~ 0
+~CS10
+Text Label -2700 4600 2    50   ~ 0
+~CS11
+Text Label -2700 4700 2    50   ~ 0
+~CS12
+Text Label -2700 4800 2    50   ~ 0
+~CS13
+Text Label -2700 4900 2    50   ~ 0
+~CS14
+Text Label -2700 5000 2    50   ~ 0
+~CS15
+Text Label -2700 5850 2    50   ~ 0
+~CS16
+Text Label -2700 5950 2    50   ~ 0
+~CS17
+Text Label -2700 6050 2    50   ~ 0
+~CS18
+Text Label -2700 6150 2    50   ~ 0
+~CS19
+Text Label -2700 6250 2    50   ~ 0
+~CS20
+Text Label -2700 6350 2    50   ~ 0
+~CS21
+Text Label -2700 6450 2    50   ~ 0
+~CS22
+Text Label -2700 6550 2    50   ~ 0
+~CS23
+$Comp
+L alexios:ATF16V8B U1
+U 1 1 65BDD2B0
+P -3550 3050
+F 0 "U1" H -3550 3800 50  0000 C CNN
+F 1 "ATF16V8B" H -3550 3700 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -3550 3050 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -3550 3050 50  0001 C CNN
+F 4 "MEMDEC00" V -3550 3100 50  0000 C CNB "Signature"
+F 5 "mem-decoder.jed" H -3550 2400 50  0000 C CNN "Image Filename"
+	1    -3550 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U3
+U 1 1 6790CC6A
+P -3550 4750
+F 0 "U3" H -3550 5500 50  0000 C CNN
+F 1 "ATF16V8B" H -3550 5400 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -3550 4750 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -3550 4750 50  0001 C CNN
+F 4 "MEMDEC00" V -3550 4800 50  0000 C CNB "Signature"
+F 5 "mem-decoder.jed" H -3550 4100 50  0000 C CNN "Image Filename"
+	1    -3550 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U2
+U 1 1 6790D79A
+P -3550 6300
+F 0 "U2" H -3550 7050 50  0000 C CNN
+F 1 "ATF16V8B" H -3550 6950 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -3550 6300 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -3550 6300 50  0001 C CNN
+F 4 "MEMDEC00" V -3550 6350 50  0000 C CNB "Signature"
+F 5 "mem-decoder.jed" H -3550 5650 50  0000 C CNN "Image Filename"
+	1    -3550 6300
+	1    0    0    -1  
+$EndComp
+NoConn ~ -4000 3400
+NoConn ~ -4000 3500
+NoConn ~ -4000 5100
+NoConn ~ -4000 5200
+NoConn ~ -4000 6650
+NoConn ~ -4000 6750
+$Comp
+L Jumper:SolderJumper_2_Bridged JP1
+U 1 1 67BC8A3C
+P -4200 3200
+F 0 "JP1" H -4500 3250 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H -4200 3314 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H -4200 3200 50  0001 C CNN
+F 3 "~" H -4200 3200 50  0001 C CNN
+	1    -4200 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 3200 -4000 3200
+$Comp
+L Jumper:SolderJumper_2_Bridged JP2
+U 1 1 67CBDAB3
+P -4200 3300
+F 0 "JP2" H -4500 3350 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H -4200 3414 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H -4200 3300 50  0001 C CNN
+F 3 "~" H -4200 3300 50  0001 C CNN
+	1    -4200 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 3300 -4000 3300
+Wire Wire Line
+	-4350 3200 -4400 3200
+Wire Wire Line
+	-4400 3200 -4400 3300
+$Comp
+L power:GND #PWR0102
+U 1 1 67D633DC
+P -4400 3350
+F 0 "#PWR0102" H -4400 3100 50  0001 C CNN
+F 1 "GND" H -4395 3177 50  0000 C CNN
+F 2 "" H -4400 3350 50  0001 C CNN
+F 3 "" H -4400 3350 50  0001 C CNN
+	1    -4400 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4400 3300 -4350 3300
+Connection ~ -4400 3300
+Wire Wire Line
+	-4400 3300 -4400 3350
+Wire Wire Line
+	-4050 4900 -4000 4900
+Wire Wire Line
+	-4050 5000 -4000 5000
+Wire Wire Line
+	-4350 4900 -4400 4900
+Wire Wire Line
+	-4400 4900 -4400 5000
+$Comp
+L power:GND #PWR0108
+U 1 1 67E5BABB
+P -4400 5050
+F 0 "#PWR0108" H -4400 4800 50  0001 C CNN
+F 1 "GND" H -4395 4877 50  0000 C CNN
+F 2 "" H -4400 5050 50  0001 C CNN
+F 3 "" H -4400 5050 50  0001 C CNN
+	1    -4400 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4400 5000 -4350 5000
+Connection ~ -4400 5000
+Wire Wire Line
+	-4400 5000 -4400 5050
+Wire Wire Line
+	-4050 6450 -4000 6450
+$Comp
+L Jumper:SolderJumper_2_Bridged JP6
+U 1 1 67EAFA90
+P -4200 6550
+F 0 "JP6" H -4500 6600 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H -4200 6664 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H -4200 6550 50  0001 C CNN
+F 3 "~" H -4200 6550 50  0001 C CNN
+	1    -4200 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 6550 -4000 6550
+Wire Wire Line
+	-4350 6450 -4400 6450
+Wire Wire Line
+	-4400 6450 -4400 6550
+$Comp
+L power:GND #PWR0127
+U 1 1 67EAFA99
+P -4400 6600
+F 0 "#PWR0127" H -4400 6350 50  0001 C CNN
+F 1 "GND" H -4395 6427 50  0000 C CNN
+F 2 "" H -4400 6600 50  0001 C CNN
+F 3 "" H -4400 6600 50  0001 C CNN
+	1    -4400 6600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4400 6550 -4350 6550
+Connection ~ -4400 6550
+Wire Wire Line
+	-4400 6550 -4400 6600
+$Comp
+L Jumper:SolderJumper_2_Bridged JP3
+U 1 1 67E5BAAB
+P -4200 4900
+F 0 "JP3" H -4500 4950 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H -4200 5014 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H -4200 4900 50  0001 C CNN
+F 3 "~" H -4200 4900 50  0001 C CNN
+	1    -4200 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP4
+U 1 1 67F05347
+P -4200 5000
+F 0 "JP4" H -4500 5050 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H -4200 5114 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H -4200 5000 50  0001 C CNN
+F 3 "~" H -4200 5000 50  0001 C CNN
+	1    -4200 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP5
+U 1 1 67F089E5
+P -4200 6450
+F 0 "JP5" H -4500 6500 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H -4200 6564 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H -4200 6450 50  0001 C CNN
+F 3 "~" H -4200 6450 50  0001 C CNN
+	1    -4200 6450
+	1    0    0    -1  
+$EndComp
+Text Notes -2600 2600 0    50   ~ 0
+00:0000 – 07:FFFF
+Text Notes -2600 2700 0    50   ~ 0
+08:0000 – 0F:FFFF
+Text Notes -2600 2800 0    50   ~ 0
+10:0000 – 17:FFFF
+Text Notes -2600 2900 0    50   ~ 0
+18:0000 – 1F:FFFF
+Text Notes -2600 3000 0    50   ~ 0
+20:0000 – 27:FFFF
+Text Notes -2600 3100 0    50   ~ 0
+28:0000 – 2F:FFFF
+Text Notes -2600 3200 0    50   ~ 0
+30:0000 – 37:FFFF
+Text Notes -2600 3300 0    50   ~ 0
+38:0000 – 3F:FFFF
+Text Notes -2600 4300 0    50   ~ 0
+40:0000 – 47:FFFF
+Text Notes -2600 4400 0    50   ~ 0
+48:0000 – 4F:FFFF
+Text Notes -2600 4500 0    50   ~ 0
+50:0000 – 57:FFFF
+Text Notes -2600 4600 0    50   ~ 0
+58:0000 – 5F:FFFF
+Text Notes -2600 4700 0    50   ~ 0
+60:0000 – 67:FFFF
+Text Notes -2600 4800 0    50   ~ 0
+68:0000 – 6F:FFFF
+Text Notes -2600 4900 0    50   ~ 0
+70:0000 – 77:FFFF
+Text Notes -2600 5000 0    50   ~ 0
+78:0000 – 7F:FFFF
+Text Notes -2600 5850 0    50   ~ 0
+80:0000 – 87:FFFF — ROM
+Text Notes -2600 5950 0    50   ~ 0
+88:0000 – 8F:FFFF
+Text Notes -2600 6050 0    50   ~ 0
+90:0000 – 97:FFFF
+Text Notes -2600 6150 0    50   ~ 0
+98:0000 – 9F:FFFF
+Text Notes -2600 6250 0    50   ~ 0
+A0:0000 – A7:FFFF
+Text Notes -2600 6350 0    50   ~ 0
+A8:0000 – AF:FFFF
+Text Notes -2600 6450 0    50   ~ 0
+B0:0000 – B7:FFFF
+Text Notes -2600 6550 0    50   ~ 0
+B8:0000 – BF:FFFF
+$Comp
+L alexios:ATF16V8B U1
+U 2 1 6805CCD0
+P -1050 2950
+F 0 "U1" H -870 2996 50  0000 L CNN
+F 1 "ATF16V8B" H -870 2905 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1050 2950 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1050 2950 50  0001 C CNN
+F 4 "MEMDEC00" V -1050 3000 50  0001 C CNB "Signature"
+F 5 "mem-decoder.jed" H -1050 2300 50  0001 C CNN "Image Filename"
+	2    -1050 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6805ECA1
+P -1400 2850
+AR Path="/60F438E4/6805ECA1" Ref="#PWR?"  Part="1" 
+AR Path="/6805ECA1" Ref="#PWR0137"  Part="1" 
+F 0 "#PWR0137" H -1400 2700 50  0001 C CNN
+F 1 "+5V" H -1385 3023 50  0000 C CNN
+F 2 "" H -1400 2850 50  0001 C CNN
+F 3 "" H -1400 2850 50  0001 C CNN
+	1    -1400 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6805ECA7
+P -1400 3050
+AR Path="/60F438E4/6805ECA7" Ref="#PWR?"  Part="1" 
+AR Path="/6805ECA7" Ref="#PWR0138"  Part="1" 
+F 0 "#PWR0138" H -1400 2800 50  0001 C CNN
+F 1 "GND" H -1395 2877 50  0000 C CNN
+F 2 "" H -1400 3050 50  0001 C CNN
+F 3 "" H -1400 3050 50  0001 C CNN
+	1    -1400 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6805ECB3
+P -1400 2950
+AR Path="/5E94D03A/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC68F14/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC75B87/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC75B97/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC8475C/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC8476C/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC8477C/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5EC8478C/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECB980E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECB981E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECCD509/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECCD519/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECCD529/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECCD539/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECDEC4E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECDEC5E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECDEC6E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/5ECDEC7E/6805ECB3" Ref="C?"  Part="1" 
+AR Path="/6805ECB3" Ref="C1"  Part="1" 
+AR Path="/60F438E4/6805ECB3" Ref="C?"  Part="1" 
+F 0 "C1" H -1491 2996 50  0000 R CNN
+F 1 "100nF" H -1491 2905 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1400 2950 50  0001 C CNN
+F 3 "~" H -1400 2950 50  0001 C CNN
+	1    -1400 2950
+	1    0    0    -1  
+$EndComp
+Connection ~ -1400 3050
+Connection ~ -1400 2850
+$Comp
+L alexios:ATF16V8B U2
+U 2 1 6810B3EB
+P -1050 4500
+F 0 "U2" H -870 4546 50  0000 L CNN
+F 1 "ATF16V8B" H -870 4455 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1050 4500 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1050 4500 50  0001 C CNN
+F 4 "MEMDEC00" V -1050 4550 50  0001 C CNB "Signature"
+F 5 "mem-decoder.jed" H -1050 3850 50  0001 C CNN "Image Filename"
+	2    -1050 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6810B3F1
+P -1400 4400
+AR Path="/60F438E4/6810B3F1" Ref="#PWR?"  Part="1" 
+AR Path="/6810B3F1" Ref="#PWR0139"  Part="1" 
+F 0 "#PWR0139" H -1400 4250 50  0001 C CNN
+F 1 "+5V" H -1385 4573 50  0000 C CNN
+F 2 "" H -1400 4400 50  0001 C CNN
+F 3 "" H -1400 4400 50  0001 C CNN
+	1    -1400 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6810B3F7
+P -1400 4600
+AR Path="/60F438E4/6810B3F7" Ref="#PWR?"  Part="1" 
+AR Path="/6810B3F7" Ref="#PWR0140"  Part="1" 
+F 0 "#PWR0140" H -1400 4350 50  0001 C CNN
+F 1 "GND" H -1395 4427 50  0000 C CNN
+F 2 "" H -1400 4600 50  0001 C CNN
+F 3 "" H -1400 4600 50  0001 C CNN
+	1    -1400 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6810B3FD
+P -1400 4500
+AR Path="/5E94D03A/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC68F14/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC75B87/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC75B97/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC8475C/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC8476C/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC8477C/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5EC8478C/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECB980E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECB981E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECCD509/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECCD519/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECCD529/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECCD539/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECDEC4E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECDEC5E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECDEC6E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/5ECDEC7E/6810B3FD" Ref="C?"  Part="1" 
+AR Path="/6810B3FD" Ref="C2"  Part="1" 
+AR Path="/60F438E4/6810B3FD" Ref="C?"  Part="1" 
+F 0 "C2" H -1491 4546 50  0000 R CNN
+F 1 "100nF" H -1491 4455 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1400 4500 50  0001 C CNN
+F 3 "~" H -1400 4500 50  0001 C CNN
+	1    -1400 4500
+	1    0    0    -1  
+$EndComp
+Connection ~ -1400 4600
+Connection ~ -1400 4400
+$Comp
+L alexios:ATF16V8B U3
+U 2 1 6816157A
+P -1050 6200
+F 0 "U3" H -870 6246 50  0000 L CNN
+F 1 "ATF16V8B" H -870 6155 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1050 6200 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1050 6200 50  0001 C CNN
+F 4 "MEMDEC00" V -1050 6250 50  0001 C CNB "Signature"
+F 5 "mem-decoder.jed" H -1050 5550 50  0001 C CNN "Image Filename"
+	2    -1050 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 68161580
+P -1400 6100
+AR Path="/60F438E4/68161580" Ref="#PWR?"  Part="1" 
+AR Path="/68161580" Ref="#PWR0141"  Part="1" 
+F 0 "#PWR0141" H -1400 5950 50  0001 C CNN
+F 1 "+5V" H -1385 6273 50  0000 C CNN
+F 2 "" H -1400 6100 50  0001 C CNN
+F 3 "" H -1400 6100 50  0001 C CNN
+	1    -1400 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 68161586
+P -1400 6300
+AR Path="/60F438E4/68161586" Ref="#PWR?"  Part="1" 
+AR Path="/68161586" Ref="#PWR0142"  Part="1" 
+F 0 "#PWR0142" H -1400 6050 50  0001 C CNN
+F 1 "GND" H -1395 6127 50  0000 C CNN
+F 2 "" H -1400 6300 50  0001 C CNN
+F 3 "" H -1400 6300 50  0001 C CNN
+	1    -1400 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6816158C
+P -1400 6200
+AR Path="/5E94D03A/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC68F14/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC75B87/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC75B97/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC8475C/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC8476C/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC8477C/6816158C" Ref="C?"  Part="1" 
+AR Path="/5EC8478C/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECB980E/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECB981E/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECCD509/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECCD519/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECCD529/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECCD539/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECDEC4E/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECDEC5E/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECDEC6E/6816158C" Ref="C?"  Part="1" 
+AR Path="/5ECDEC7E/6816158C" Ref="C?"  Part="1" 
+AR Path="/6816158C" Ref="C3"  Part="1" 
+AR Path="/60F438E4/6816158C" Ref="C?"  Part="1" 
+F 0 "C3" H -1491 6246 50  0000 R CNN
+F 1 "100nF" H -1491 6155 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1400 6200 50  0001 C CNN
+F 3 "~" H -1400 6200 50  0001 C CNN
+	1    -1400 6200
+	1    0    0    -1  
+$EndComp
+Connection ~ -1400 6300
+Connection ~ -1400 6100
 $Comp
 L Device:C_Small C?
 U 1 1 65B2B106
@@ -2986,17 +3190,15 @@ AR Path="/5ECDEC4E/65B2B106" Ref="C?"  Part="1"
 AR Path="/5ECDEC5E/65B2B106" Ref="C?"  Part="1" 
 AR Path="/5ECDEC6E/65B2B106" Ref="C?"  Part="1" 
 AR Path="/5ECDEC7E/65B2B106" Ref="C?"  Part="1" 
-AR Path="/65B2B106" Ref="C117"  Part="1" 
+AR Path="/65B2B106" Ref="C5"  Part="1" 
 AR Path="/60F438E4/65B2B106" Ref="C?"  Part="1" 
-F 0 "C117" H -6491 7646 50  0000 R CNN
+F 0 "C5" H -6491 7646 50  0000 R CNN
 F 1 "100nF" H -6491 7555 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -6400 7600 50  0001 C CNN
 F 3 "~" H -6400 7600 50  0001 C CNN
 	1    -6400 7600
 	1    0    0    -1  
 $EndComp
-Connection ~ -6400 7500
-Connection ~ -6400 7700
 $Comp
 L Device:C_Small C?
 U 1 1 65B2B10E
@@ -3019,382 +3221,84 @@ AR Path="/5ECDEC4E/65B2B10E" Ref="C?"  Part="1"
 AR Path="/5ECDEC5E/65B2B10E" Ref="C?"  Part="1" 
 AR Path="/5ECDEC6E/65B2B10E" Ref="C?"  Part="1" 
 AR Path="/5ECDEC7E/65B2B10E" Ref="C?"  Part="1" 
-AR Path="/65B2B10E" Ref="C118"  Part="1" 
+AR Path="/65B2B10E" Ref="C4"  Part="1" 
 AR Path="/60F438E4/65B2B10E" Ref="C?"  Part="1" 
-F 0 "C118" H -8641 7696 50  0000 R CNN
+F 0 "C4" H -8641 7696 50  0000 R CNN
 F 1 "100nF" H -8641 7605 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -8550 7650 50  0001 C CNN
 F 3 "~" H -8550 7650 50  0001 C CNN
 	1    -8550 7650
 	1    0    0    -1  
 $EndComp
-Connection ~ -8550 7550
-Connection ~ -8550 7750
-Text Notes -14200 500  0    197  ~ 39
-Address Decoders
-Text Notes -14200 4400 0    197  ~ 39
-1–20× 512Kw Static RAM
-Text Notes -9100 4400 0    197  ~ 39
-512kW ROM (Flash RAM)
-Text Notes -3450 1300 0    50   ~ 0
-All devices are 512K which eases decoding. There is space for 24\n512K×8 SRAM packages which provide between 512 kW and 6 MW.\nAll chips except the lowest bank are optional.\n\nROM is mapped to 80:0000₁₆.
-Text Notes -3450 700  0    100  ~ 20
-Notes
-NoConn ~ -7950 2800
-NoConn ~ -7950 3250
-NoConn ~ -11000 1200
-NoConn ~ -11000 1300
-NoConn ~ -11000 1400
-NoConn ~ -11000 1500
-NoConn ~ -11000 1600
-NoConn ~ -11000 1700
-NoConn ~ -11000 1800
-Text Notes -9600 500  0    197  ~ 39
-Read/Write Decoding
-Wire Wire Line
-	-7900 2300 -7450 2300
-Connection ~ -7900 2300
-Wire Wire Line
-	-7900 1650 -7900 2300
-Wire Wire Line
-	-7950 1850 -7450 1850
-Wire Wire Line
-	-8950 1800 -8450 1800
-Text Label -8950 2250 0    50   ~ 0
-~W
-Text Label -8950 1900 0    50   ~ 0
+$Comp
+L Device:CP_Small C104
+U 1 1 634E8C5A
+P 8000 10700
+AR Path="/634E8C5A" Ref="C104"  Part="1" 
+AR Path="/5D34E810/634E8C5A" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/634E8C5A" Ref="C?"  Part="1" 
+F 0 "C104" H 7912 10746 50  0000 R CNN
+F 1 "47µF" H 7912 10655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8000 10700 50  0001 C CNN
+F 3 "~" H 8000 10700 50  0001 C CNN
+	1    8000 10700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C103
+U 1 1 6084E505
+P 7550 10700
+AR Path="/6084E505" Ref="C103"  Part="1" 
+AR Path="/5D34E810/6084E505" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/6084E505" Ref="C?"  Part="1" 
+F 0 "C103" H 7462 10746 50  0000 R CNN
+F 1 "47µF" H 7462 10655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7550 10700 50  0001 C CNN
+F 3 "~" H 7550 10700 50  0001 C CNN
+	1    7550 10700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C102
+U 1 1 5D8C8453
+P 7100 10700
+AR Path="/5D8C8453" Ref="C102"  Part="1" 
+AR Path="/5D34E810/5D8C8453" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5D8C8453" Ref="C?"  Part="1" 
+F 0 "C102" H 7012 10746 50  0000 R CNN
+F 1 "47µF" H 7012 10655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7100 10700 50  0001 C CNN
+F 3 "~" H 7100 10700 50  0001 C CNN
+	1    7100 10700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C101
+U 1 1 5F91D05A
+P 6650 10700
+AR Path="/5F91D05A" Ref="C101"  Part="1" 
+AR Path="/5D34E810/5F91D05A" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5F91D05A" Ref="C?"  Part="1" 
+F 0 "C101" H 6562 10746 50  0000 R CNN
+F 1 "47µF" H 6562 10655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6650 10700 50  0001 C CNN
+F 3 "~" H 6650 10700 50  0001 C CNN
+	1    6650 10700
+	1    0    0    -1  
+$EndComp
+NoConn ~ 14000 9300
+NoConn ~ 14000 9400
+NoConn ~ 14000 9500
+NoConn ~ 14000 9600
+NoConn ~ 14000 9700
+NoConn ~ 14000 9800
+NoConn ~ 14000 9900
+NoConn ~ 14000 10000
+NoConn ~ 15900 6800
+NoConn ~ 15900 7500
+NoConn ~ 15900 7600
+Text Label 15900 6300 2    50   ~ 0
 ~MEM
-Text Label -8950 1800 0    50   ~ 0
-~R
-Wire Wire Line
-	-8450 2250 -8950 2250
-Wire Wire Line
-	-8550 1900 -8950 1900
-Connection ~ -8550 1900
-Wire Wire Line
-	-8550 2350 -8450 2350
-Wire Wire Line
-	-8550 1900 -8550 2350
-Wire Wire Line
-	-8450 1900 -8550 1900
-Text Label -7450 2300 2    50   ~ 0
-~MEMW
-Wire Wire Line
-	-7950 2300 -7900 2300
-Text Label -7450 1850 2    50   ~ 0
-~MEMR
-$Comp
-L alexios:74AC32 U?
-U 2 1 65B2B15E
-P -8200 2100
-AR Path="/60F438E4/65B2B15E" Ref="U?"  Part="2" 
-AR Path="/65B2B15E" Ref="U103"  Part="2" 
-F 0 "U103" H -8200 2175 50  0000 C CNN
-F 1 "74AC32" H -8200 2084 50  0000 C CNN
-F 2 "alexios:SOIC-14" H -8200 2100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H -8200 2100 50  0001 C CNN
-	2    -8200 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AC32 U?
-U 1 1 65B2B164
-P -8200 1650
-AR Path="/60F438E4/65B2B164" Ref="U?"  Part="1" 
-AR Path="/65B2B164" Ref="U103"  Part="1" 
-F 0 "U103" H -8200 1725 50  0000 C CNN
-F 1 "74AC32" H -8200 1634 50  0000 C CNN
-F 2 "alexios:SOIC-14" H -8200 1650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H -8200 1650 50  0001 C CNN
-	1    -8200 1650
-	1    0    0    -1  
-$EndComp
-Text Notes -7350 1400 0    50   ~ 0
-1-2: ROMs are write-protected.\n2-3: Allow in-circuit programming of the ROMs.
-$Comp
-L alexios:Jumper_3_Bridged12 JP?
-U 1 1 65B2B16B
-P -7900 1400
-AR Path="/60F438E4/65B2B16B" Ref="JP?"  Part="1" 
-AR Path="/65B2B16B" Ref="JP101"  Part="1" 
-F 0 "JP101" V -7900 1467 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H -7900 1510 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H -7900 1400 50  0001 C CNN
-F 3 "~" H -7900 1400 50  0001 C CNN
-	1    -7900 1400
-	0    -1   1    0   
-$EndComp
-Text Label -7450 1400 2    50   ~ 0
-~ROMW
-Wire Wire Line
-	-7750 1400 -7450 1400
-$Comp
-L power:+5V #PWR?
-U 1 1 65B2B173
-P -7900 1150
-AR Path="/60F438E4/65B2B173" Ref="#PWR?"  Part="1" 
-AR Path="/65B2B173" Ref="#PWR0147"  Part="1" 
-F 0 "#PWR0147" H -7900 1000 50  0001 C CNN
-F 1 "+5V" H -7885 1323 50  0000 C CNN
-F 2 "" H -7900 1150 50  0001 C CNN
-F 3 "" H -7900 1150 50  0001 C CNN
-	1    -7900 1150
-	1    0    0    -1  
-$EndComp
-Wire Notes Line width 12 style solid
-	-3700 300  -3700 1550
-Wire Notes Line width 12 style solid
-	-3700 1550 -600 1550
-Wire Notes Line width 12 style solid
-	-600 1550 -600 300 
-Wire Notes Line width 12 style solid
-	-600 300  -3700 300 
-Wire Bus Line
-	-13850 10200 -14300 10200
-Wire Bus Line
-	-12850 10200 -12400 10200
-Text Label -14300 10200 0    50   ~ 0
-AB[0..18]
-Text Label -12400 10200 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -13850 10100 1000 600 
-U 65B2B182
-F0 "sheet65B2AE9E" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 10200 50 
-F3 "~CE" I L -13850 10400 50 
-F4 "~R" I L -13850 10500 50 
-F5 "~W" I L -13850 10600 50 
-F6 "~DB[0..15]" T R -12850 10200 50 
-$EndSheet
-Wire Wire Line
-	-13850 10400 -14300 10400
-Wire Bus Line
-	-13850 11100 -14300 11100
-Wire Bus Line
-	-12850 11100 -12400 11100
-Text Label -14300 11100 0    50   ~ 0
-AB[0..18]
-Text Label -12400 11100 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -13850 11000 1000 600 
-U 65B2B18E
-F0 "sheet65B2AE9F" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 11100 50 
-F3 "~CE" I L -13850 11300 50 
-F4 "~R" I L -13850 11400 50 
-F5 "~W" I L -13850 11500 50 
-F6 "~DB[0..15]" T R -12850 11100 50 
-$EndSheet
-Wire Wire Line
-	-13850 11300 -14300 11300
-Wire Bus Line
-	-11650 10200 -12100 10200
-Wire Bus Line
-	-10650 10200 -10200 10200
-Text Label -12100 10200 0    50   ~ 0
-AB[0..18]
-Text Label -10200 10200 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -11650 10100 1000 600 
-U 65B2B19A
-F0 "sheet65B2AEA0" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 10200 50 
-F3 "~CE" I L -11650 10400 50 
-F4 "~R" I L -11650 10500 50 
-F5 "~W" I L -11650 10600 50 
-F6 "~DB[0..15]" T R -10650 10200 50 
-$EndSheet
-Wire Wire Line
-	-11650 10400 -12100 10400
-Wire Bus Line
-	-11650 11100 -12100 11100
-Wire Bus Line
-	-10650 11100 -10200 11100
-Text Label -12100 11100 0    50   ~ 0
-AB[0..18]
-Text Label -10200 11100 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -11650 11000 1000 600 
-U 65B2B1A6
-F0 "sheet65B2AEA1" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 11100 50 
-F3 "~CE" I L -11650 11300 50 
-F4 "~R" I L -11650 11400 50 
-F5 "~W" I L -11650 11500 50 
-F6 "~DB[0..15]" T R -10650 11100 50 
-$EndSheet
-Wire Wire Line
-	-11650 11300 -12100 11300
-Text Label -14300 10400 0    50   ~ 0
-~CS8
-Text Label -12100 10400 0    50   ~ 0
-~CS9
-Text Label -14300 11300 0    50   ~ 0
-~CS10
-Text Label -12100 11300 0    50   ~ 0
-~CS11
-Wire Wire Line
-	-13850 10500 -14300 10500
-Wire Wire Line
-	-13850 10600 -14300 10600
-Text Label -14300 10600 0    50   ~ 0
-~MEMW
-Text Label -14300 10500 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-13850 11400 -14300 11400
-Wire Wire Line
-	-13850 11500 -14300 11500
-Text Label -14300 11500 0    50   ~ 0
-~MEMW
-Text Label -14300 11400 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 11400 -12100 11400
-Wire Wire Line
-	-11650 11500 -12100 11500
-Text Label -12100 11500 0    50   ~ 0
-~MEMW
-Text Label -12100 11400 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 10500 -12100 10500
-Wire Wire Line
-	-11650 10600 -12100 10600
-Text Label -12100 10600 0    50   ~ 0
-~MEMW
-Text Label -12100 10500 0    50   ~ 0
-~MEMR
-Wire Bus Line
-	-13850 11950 -14300 11950
-Wire Bus Line
-	-12850 11950 -12400 11950
-Text Label -14300 11950 0    50   ~ 0
-AB[0..18]
-Text Label -12400 11950 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -13850 11850 1000 600 
-U 65B2B1C6
-F0 "sheet65B2AEA2" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 11950 50 
-F3 "~CE" I L -13850 12150 50 
-F4 "~R" I L -13850 12250 50 
-F5 "~W" I L -13850 12350 50 
-F6 "~DB[0..15]" T R -12850 11950 50 
-$EndSheet
-Wire Wire Line
-	-13850 12150 -14300 12150
-Wire Bus Line
-	-13850 12850 -14300 12850
-Wire Bus Line
-	-12850 12850 -12400 12850
-Text Label -14300 12850 0    50   ~ 0
-AB[0..18]
-Text Label -12400 12850 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -13850 12750 1000 600 
-U 65B2B1D2
-F0 "sheet65B2AEA3" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -13850 12850 50 
-F3 "~CE" I L -13850 13050 50 
-F4 "~R" I L -13850 13150 50 
-F5 "~W" I L -13850 13250 50 
-F6 "~DB[0..15]" T R -12850 12850 50 
-$EndSheet
-Wire Wire Line
-	-13850 13050 -14300 13050
-Wire Bus Line
-	-11650 11950 -12100 11950
-Wire Bus Line
-	-10650 11950 -10200 11950
-Text Label -12100 11950 0    50   ~ 0
-AB[0..18]
-Text Label -10200 11950 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -11650 11850 1000 600 
-U 65B2B1DE
-F0 "sheet65B2AEA4" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 11950 50 
-F3 "~CE" I L -11650 12150 50 
-F4 "~R" I L -11650 12250 50 
-F5 "~W" I L -11650 12350 50 
-F6 "~DB[0..15]" T R -10650 11950 50 
-$EndSheet
-Wire Wire Line
-	-11650 12150 -12100 12150
-Wire Bus Line
-	-11650 12850 -12100 12850
-Wire Bus Line
-	-10650 12850 -10200 12850
-Text Label -12100 12850 0    50   ~ 0
-AB[0..18]
-Text Label -10200 12850 2    50   ~ 0
-DB[0..15]
-$Sheet
-S -11650 12750 1000 600 
-U 65B2B1EA
-F0 "sheet65B2AEA5" 50
-F1 "rambank.sch" 50
-F2 "AB[0..18]" I L -11650 12850 50 
-F3 "~CE" I L -11650 13050 50 
-F4 "~R" I L -11650 13150 50 
-F5 "~W" I L -11650 13250 50 
-F6 "~DB[0..15]" T R -10650 12850 50 
-$EndSheet
-Wire Wire Line
-	-11650 13050 -12100 13050
-Text Label -14300 12150 0    50   ~ 0
-~CS8
-Text Label -12100 12150 0    50   ~ 0
-~CS9
-Text Label -14300 13050 0    50   ~ 0
-~CS10
-Text Label -12100 13050 0    50   ~ 0
-~CS11
-Wire Wire Line
-	-13850 12250 -14300 12250
-Wire Wire Line
-	-13850 12350 -14300 12350
-Text Label -14300 12350 0    50   ~ 0
-~MEMW
-Text Label -14300 12250 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-13850 13150 -14300 13150
-Wire Wire Line
-	-13850 13250 -14300 13250
-Text Label -14300 13250 0    50   ~ 0
-~MEMW
-Text Label -14300 13150 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 13150 -12100 13150
-Wire Wire Line
-	-11650 13250 -12100 13250
-Text Label -12100 13250 0    50   ~ 0
-~MEMW
-Text Label -12100 13150 0    50   ~ 0
-~MEMR
-Wire Wire Line
-	-11650 12250 -12100 12250
-Wire Wire Line
-	-11650 12350 -12100 12350
-Text Label -12100 12350 0    50   ~ 0
-~MEMW
-Text Label -12100 12250 0    50   ~ 0
-~MEMR
+Text Label 7400 20250 0    50   ~ 0
+~CS21
 $EndSCHEMATC
