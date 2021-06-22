@@ -1,0 +1,58 @@
+GAL16V8         ; this is the GAL type
+MEMDEC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+A19	A20	A21	A22	A23	MEM	S0	S1	NC9	GND
+NC11	CS7	CS6	CS5	CS4	CS3	CS2	CS1	CS0	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+;       CONFIG0 (0-4M)                                          CONFIG1 (4-8M)                                        CONFIG2 (8-12M)                                       CONFIG3 (12-16M)
+/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 * /A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 * /A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 * /A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 * /A20 * /A19
+/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 * /A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 * /A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 * /A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 * /A20 *  A19
+/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 * /A19
+/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 *  A19
+/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 * /A19
+/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 *  A19
+/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 * /A19
+/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 *  A19
+
+
+DESCRIPTION
+
+Truth table:
+
+___                                 ___ ___ ___ ___ ___ ___ ___ ___
+MEM  S0 S1  A23 A22 A21 A20 A19  |  CS0 CS1 CS2 CS3 CS4 CS5 CS6 CS7
+-------------------------------------------------------------------
+ 1    X  X   X   X   X   X   X   |   1   1   1   1   1   1   1   1
+---------------------------------|---------------------------------
+ 0    a  b   a   b   0   0   0   |   0   1   1   1   1   1   1   1
+ 0    a  b   a   b   0   0   1   |   1   0   1   1   1   1   1   1
+ 0    a  b   a   b   0   1   0   |   1   1   1   1   1   1   1   1
+ 0    a  b   a   b   0   1   1   |   1   1   1   0   1   1   1   1
+ 0    a  b   a   b   1   0   0   |   1   1   1   1   0   1   1   1
+ 0    a  b   a   b   1   0   1   |   1   1   1   1   1   0   1   1
+ 0    a  b   a   b   1   1   0   |   1   1   1   1   1   1   0   1
+ 0    a  b   a   b   1   1   1   |   1   1   1   1   1   1   1   0
+
+Note: a and b are variables. The decoding is enabled when A[23:22] ==
+S[1:0]. S selects the bank the decoder responds to.
+
+The equations refer to CONFIG0–CONFIG3:
+
+S0 S1  ADDRESSES
+---------------------------------
+ 0  0  CONFIG0: 00:0000 – 3F:FFFF
+ 0  1  CONFIG1: 40:0000 – 7F:FFFF
+ 1  0  CONFIG2: 80:0000 – BF:FFFF
+ 1  1  CONFIG3: C0:0000 – FF:FFFF
+
+The decoder is disabled when /MEM is deasserted (high). When disabled,
+all CS outputs are high.
+
+There are three identical decoder ICs on the MEM board, mapped to
+0-12M. The high 4M is reserved for memory-mapped hardware.
+
+; End of file.
