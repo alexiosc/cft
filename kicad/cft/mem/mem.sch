@@ -560,8 +560,6 @@ Text Notes 800  950  0    100  ~ 20
 Board 1: ALU, Registers (Part 2), and Interrupts
 Text Notes 800  2350 0    50   ~ 0
 The CFT's ALU is probably among the most complex units of the processor. The 2019\nedition uses three ROMs containing all binary and unary operations except shifts and\nrolls. (the original ALU used 6 larger ROMs). The ROMs can perform two's complement\naddition (with carry and overflow), and bitwise AND, OR, XOR and NOT. Three of the\neight possible operations are still undefined.\n\nA separate unit can perform rolls, bitwise shifts and sign-extending (arithmethic) right\nshifts. This is a serial unit, not a barrel shifter, so the longer the bit distance the\nlonger it takes to calculate it. It's still better than having to wait several clock cycles for\na single bit though.\n\nAlso present here are unts that need to be colocated with the ALU: the L register;\nthe overflow (V) flag; and the second half of the REG board: the Accumulator (AC)\nand Stack Pointer (SP).\n\nThe remaining space is taken up by the 8-channle Interrupt Controller (IRC) board.
-Text Label 11750 7000 0    50   ~ 0
-~FPSPL
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 2 1 609EF5BD
@@ -797,42 +795,6 @@ Wire Wire Line
 Wire Wire Line
 	11200 8900 11550 8900
 Wire Wire Line
-	11750 7100 12250 7100
-Wire Wire Line
-	11750 7000 12250 7000
-Wire Wire Line
-	11750 6900 12250 6900
-Wire Wire Line
-	11750 6700 12250 6700
-Wire Wire Line
-	11750 6600 12250 6600
-Wire Wire Line
-	11750 6500 12250 6500
-Wire Wire Line
-	11750 7800 12250 7800
-Wire Wire Line
-	11750 7700 12250 7700
-Wire Wire Line
-	11750 7600 12250 7600
-Wire Wire Line
-	11750 7500 12250 7500
-Wire Wire Line
-	11750 7400 12250 7400
-Wire Wire Line
-	11750 7300 12250 7300
-Wire Wire Line
-	11750 7200 12250 7200
-Wire Wire Line
-	12250 7900 11750 7900
-Wire Wire Line
-	12250 8000 11750 8000
-Wire Wire Line
-	12250 8100 11750 8100
-Wire Wire Line
-	12250 8200 11750 8200
-Wire Wire Line
-	12250 8300 11750 8300
-Wire Wire Line
 	11200 6300 11550 6300
 Text Label 11550 6300 2    50   ~ 0
 16MHz
@@ -867,8 +829,6 @@ Connection ~ 11300 9200
 Wire Wire Line
 	13450 6800 13800 6800
 Wire Wire Line
-	11750 6800 12250 6800
-Wire Wire Line
 	14000 6800 14350 6800
 $Comp
 L alexios:CFT-2021-Peripheral-Bus P2
@@ -887,7 +847,7 @@ Wire Wire Line
 	9650 6500 10000 6500
 NoConn ~ 12250 6300
 NoConn ~ 12250 6400
-Text Notes 9650 5850 0    100  ~ 20
+Text Notes 9650 5700 0    100  ~ 20
 Processor Bus
 Text Notes 12450 5850 0    100  ~ 20
 Local Bus
@@ -1179,28 +1139,7 @@ F 3 "~" H 9350 10700 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9350 10800 9350 10900
-Wire Wire Line
-	9750 9200 9750 9500
-Wire Wire Line
-	9650 9200 9750 9200
-Connection ~ 9750 9200
-Wire Wire Line
-	9750 9200 10000 9200
-Wire Wire Line
-	9750 9500 10050 9500
-Text Label 10050 9500 2    50   ~ 0
-~FLAGWE
 NoConn ~ 15550 6700
-Text Label 11750 7100 0    50   ~ 0
-~FPACL
-Text Label 11750 7800 0    50   ~ 0
-~FPSPH
-Text Label 11750 7900 0    50   ~ 0
-~FPACH
-Text Label 11750 8300 0    50   ~ 0
-~FPIRF
-Text Label 11750 8200 0    50   ~ 0
-~FPIEN
 NoConn ~ 13800 8300
 NoConn ~ 15900 7200
 NoConn ~ 15900 7300
@@ -3331,4 +3270,85 @@ F 3 "" H 12050 3350 50  0001 C CNN
 $EndComp
 Text Label 11550 3850 0    50   ~ 0
 ~W
+NoConn ~ 12250 6500
+NoConn ~ 12250 6600
+NoConn ~ 12250 6700
+NoConn ~ 12250 6800
+NoConn ~ 12250 6900
+NoConn ~ 12250 7000
+NoConn ~ 12250 7100
+NoConn ~ 12250 7200
+NoConn ~ 12250 7300
+NoConn ~ 12250 7400
+NoConn ~ 12250 7500
+NoConn ~ 12250 7600
+NoConn ~ 12250 7700
+NoConn ~ 12250 7800
+NoConn ~ 12250 7900
+NoConn ~ 12250 8000
+NoConn ~ 12250 8100
+NoConn ~ 12250 8200
+NoConn ~ 12250 8300
+NoConn ~ 11550 6300
+NoConn ~ 11550 6900
+NoConn ~ 11550 7000
+NoConn ~ 11550 7100
+NoConn ~ 11550 7200
+NoConn ~ 11550 7300
+NoConn ~ 11550 7500
+NoConn ~ 11550 7600
+NoConn ~ 11550 7700
+NoConn ~ 11550 7800
+NoConn ~ 11550 7900
+NoConn ~ 11550 8100
+NoConn ~ 11550 8200
+NoConn ~ 11550 8300
+NoConn ~ 11550 8400
+NoConn ~ 9650 6500
+NoConn ~ 9650 6600
+NoConn ~ 9650 6700
+NoConn ~ 9650 6800
+NoConn ~ 9650 6900
+NoConn ~ 9650 7100
+NoConn ~ 9650 7200
+NoConn ~ 9650 7300
+NoConn ~ 9650 7400
+NoConn ~ 9650 7500
+NoConn ~ 9650 7600
+NoConn ~ 9650 7700
+NoConn ~ 9650 7800
+NoConn ~ 9650 7900
+NoConn ~ 9650 8000
+NoConn ~ 9650 8100
+NoConn ~ 9650 8200
+NoConn ~ 9650 8300
+NoConn ~ 9650 8400
+NoConn ~ 9650 8500
+NoConn ~ 9650 8600
+NoConn ~ 9650 8800
+NoConn ~ 9650 8900
+NoConn ~ 9650 9000
+NoConn ~ 9650 9100
+NoConn ~ 9650 9200
+Wire Wire Line
+	9650 9200 10000 9200
+Text Notes 9650 5900 0    50   ~ 0
+Processor bus connector used only for\npower and board stability.
+NoConn ~ 13800 7600
+NoConn ~ 13800 7700
+NoConn ~ 13800 7800
+NoConn ~ 13800 7900
+NoConn ~ 13800 8000
+NoConn ~ 13800 8100
+NoConn ~ 13800 8200
+NoConn ~ 13800 6300
+NoConn ~ 13800 6400
+NoConn ~ 13800 6500
+NoConn ~ 13800 6600
+NoConn ~ 13800 6700
+NoConn ~ 13800 6800
+NoConn ~ 13800 6900
+NoConn ~ 13800 7000
+NoConn ~ 14000 6500
+NoConn ~ 14000 6600
 $EndSCHEMATC
