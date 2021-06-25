@@ -1,9 +1,8 @@
 GAL16V8         ; this is the GAL type
 MEMDEC00        ; this is the signature
 
-
 ; 1     2       3       4       5       6       7       8       9       10
-A19	A20	A21	A22	A23	MEM	S0	S1	NC9	GND
+A19	A20	A21	A22	A23	MEM	S1	S0	NC9	GND
 NC11	CS7	CS6	CS5	CS4	CS3	CS2	CS1	CS0	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
@@ -11,12 +10,12 @@ NC11	CS7	CS6	CS5	CS4	CS3	CS2	CS1	CS0	VCC
 ;       CONFIG0 (0-4M)                                          CONFIG1 (4-8M)                                        CONFIG2 (8-12M)                                       CONFIG3 (12-16M)
 /CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 * /A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 * /A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 * /A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 * /A20 * /A19
 /CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 * /A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 * /A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 * /A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 * /A20 *  A19
-/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 * /A19
-/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 *  A19
-/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 * /A19
-/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 *  A19
-/CS0 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 * /A19
-/CS1 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 *  A19
+/CS2 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 * /A19
+/CS3 = 	/MEM * /S0 * /S1 * /A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 * /A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 * /A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 * /A21 *  A20 *  A19
+/CS4 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 * /A19
+/CS5 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 * /A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 * /A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 * /A20 *  A19
+/CS6 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 * /A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 * /A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 * /A19
+/CS7 = 	/MEM * /S0 * /S1 * /A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * S0 * /S1 * A23 * /A22 *  A21 *  A20 *  A19  +  /MEM * /S0 * S1 * /A23 * A22 *  A21 *  A20 *  A19  +  /MEM * S0 * S1 * A23 * A22 *  A21 *  A20 *  A19
 
 
 DESCRIPTION
