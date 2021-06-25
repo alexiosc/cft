@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 19
+Sheet 15 19
 Title "16 MHz Shifter Clock"
 Date ""
 Rev "2020"
@@ -1244,4 +1244,6 @@ Wire Wire Line
 	5850 4300 5900 4300
 Wire Wire Line
 	5900 4300 5900 4200
+Text Notes 8600 3900 0    50   ~ 0
+TODO: Disable clock when HALTED!
 $EndSCHEMATC

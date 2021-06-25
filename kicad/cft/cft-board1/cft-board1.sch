@@ -1758,7 +1758,7 @@ U 2 1 619C88C2
 P 9600 4650
 F 0 "U120" H 9780 4696 50  0000 L CNN
 F 1 "74HC541" H 9780 4605 50  0000 L CNN
-F 2 "" H 9600 4650 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 9600 4650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 9600 4650 50  0001 C CNN
 	2    9600 4650
 	1    0    0    -1  
@@ -1965,18 +1965,19 @@ F5 "~SHIFT~∕ROTATE" I L 4950 6750 50
 F6 "~LOGIC~∕ARITH" I L 4950 6600 50 
 F7 "~LEFT~∕RIGHT" I L 4950 6450 50 
 F8 "B[0..15]" I L 4950 7050 50 
-F9 "~RESET" I L 4950 5500 50 
+F9 "~RESET" I L 4950 5400 50 
 F10 "IBUS[0..15]" B R 6100 6950 50 
 F11 "FLOUT-SRU" O R 6100 7150 50 
 F12 "FLFAST" I L 4950 7150 50 
 F13 "BCP" O R 6100 7050 50 
 F14 "~START" I L 4950 6900 50 
-F15 "~RSTHOLD" I L 4950 5600 50 
+F15 "~RSTHOLD" I L 4950 5500 50 
 F16 "CLK3" I L 4950 5800 50 
 F17 "16MHz" I L 4950 6000 50 
 F18 "~WRITE-ALU-B" I L 4950 6150 50 
 F19 "TC-LED" O R 6100 6750 50 
 F20 "SRU-LED" O R 6100 6650 50 
+F21 "~HALT" I L 4950 5600 50 
 $EndSheet
 Text Label 4350 6000 0    50   ~ 0
 16MHz
@@ -2130,7 +2131,7 @@ Wire Wire Line
 	1900 7150 1250 7150
 Wire Bus Line
 	1250 7050 1900 7050
-Text Label 4350 5600 0    50   ~ 0
+Text Label 4350 5500 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4950 5600 4350 5600
@@ -2320,7 +2321,7 @@ Text Label 4400 7150 0    50   ~ 0
 FLFAST
 Text Label 4350 5700 0    50   ~ 0
 CLK2
-Text Label 4350 5500 0    50   ~ 0
+Text Label 4350 5400 0    50   ~ 0
 ~RESET
 Text Label 6600 7050 2    50   ~ 0
 BCP
@@ -2333,7 +2334,7 @@ Wire Wire Line
 Wire Wire Line
 	4950 5900 4350 5900
 Wire Wire Line
-	4350 5500 4950 5500
+	4350 5400 4950 5400
 Text Label 4350 6750 0    50   ~ 0
 IR6
 Text Label 4350 6600 0    50   ~ 0
@@ -2654,8 +2655,6 @@ Wire Notes Line width 8
 	7550 1150 7700 1150
 Wire Notes Line width 8
 	7950 1150 8150 1150
-Wire Bus Line
-	6700 3600 6700 6850
 Wire Notes Line width 12 style solid
 	7700 1550 7150 1550
 Text Notes 5900 3300 2    100  ~ 20
@@ -2668,4 +2667,10 @@ Text Notes 7150 2450 0    50   ~ 0
 The Control Unit performs NOPs while\nthe SRU is running, allowing it to\nmaster the IBus.
 Text Notes 4850 2550 0    50   ~ 0
 The A Port latches the Accumulator during ALU\nopertions. Port B needs to be written with in a\nseparate microstep. The result is read from Port Y\n1-2 microsteps later.
+Text Label 4350 5600 0    50   ~ 0
+~HALT
+Wire Wire Line
+	4350 5500 4950 5500
+Wire Bus Line
+	6700 3600 6700 6850
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 19
+Sheet 14 19
 Title "Shift and Rotate Unit"
 Date "2019-11-17"
 Rev "2020"
@@ -172,7 +172,7 @@ F 3 "" H 1850 1650 50  0001 C CNN
 	1    1850 1650
 	0    -1   -1   0   
 $EndComp
-Text Label 3250 1350 2    50   ~ 0
+Text Label 3750 1200 0    50   ~ 0
 ~START-SYNC
 Wire Wire Line
 	1150 1550 1850 1550
@@ -348,8 +348,6 @@ Text HLabel 10650 3900 2    50   BiDi ~ 0
 IBUS[0..15]
 Wire Wire Line
 	4500 2850 5900 2850
-Wire Wire Line
-	4300 1350 4300 2100
 Wire Wire Line
 	4300 2100 4750 2100
 Wire Wire Line
@@ -1087,8 +1085,8 @@ $Comp
 L alexios:74AC74 U602
 U 1 1 6136E5DF
 P 2300 1500
-F 0 "U602" H 2300 1917 50  0000 C CNN
-F 1 "74AC74" H 2300 1826 50  0000 C CNN
+F 0 "U602" H 2300 1200 50  0000 C CNN
+F 1 "74AC74" H 2300 1100 50  0000 C CNN
 F 2 "alexios:DIP-14_W7.62mm_Socket" H 2250 1650 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 2250 1650 50  0001 C CNN
 	1    2300 1500
@@ -1208,8 +1206,6 @@ Text Label 1350 4100 0    50   ~ 0
 FLFAST
 Wire Wire Line
 	1150 1350 1850 1350
-Text HLabel 3850 3800 2    50   Output ~ 0
-FLOUT-SRU
 Wire Wire Line
 	6500 2400 6450 2400
 Wire Wire Line
@@ -1461,13 +1457,6 @@ Wire Wire Line
 	1200 4200 1900 4200
 Connection ~ 4500 2850
 NoConn ~ 2800 3700
-Connection ~ 3700 1350
-Wire Wire Line
-	3700 1350 4300 1350
-Wire Wire Line
-	2750 1350 3700 1350
-Wire Wire Line
-	3700 1350 3700 3200
 Text HLabel 5550 3100 2    50   Output ~ 0
 TC-LED
 Wire Wire Line
@@ -1490,6 +1479,103 @@ F 3 "~" H 5100 3100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5200 3100 5550 3100
+Text HLabel 3850 3800 2    50   Output ~ 0
+FLOUT-SRU
+$Comp
+L alexios:74LVC1G32 U608
+U 1 1 61517E9A
+P 3150 1200
+F 0 "U608" H 3200 1025 50  0000 C CNN
+F 1 "74LVC1G32" H 3200 934 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 3260 1180 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3260 1180 50  0001 C CNN
+	1    3150 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 1150 1150 1150
+Text HLabel 1150 1150 0    50   Input ~ 0
+~HALT
+Wire Wire Line
+	2750 1350 2850 1350
+Wire Wire Line
+	2850 1350 2850 1250
+Wire Wire Line
+	2850 1250 2950 1250
+Wire Wire Line
+	3450 1200 3700 1200
+Connection ~ 3700 1200
+Wire Wire Line
+	3700 1200 4300 1200
+Wire Wire Line
+	3700 1200 3700 3200
+Wire Wire Line
+	4300 1200 4300 2100
+$Comp
+L alexios:74LVC1G32 U608
+U 2 1 61553D03
+P 5450 6100
+F 0 "U608" H 5580 5896 50  0000 L CNN
+F 1 "74LVC1G32" H 5580 5805 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5560 6080 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5560 6080 50  0001 C CNN
+	2    5450 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 615569B5
+P 5050 6250
+AR Path="/615569B5" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/615569B5" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/615569B5" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/615569B5" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/615569B5" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/615569B5" Ref="#PWR0102"  Part="1" 
+F 0 "#PWR0102" H 5050 6100 50  0001 C CNN
+F 1 "+5V" H 5065 6423 50  0000 C CNN
+F 2 "" H 5050 6250 50  0001 C CNN
+F 3 "" H 5050 6250 50  0001 C CNN
+	1    5050 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 615569BB
+P 5050 6450
+AR Path="/615569BB" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/615569BB" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/615569BB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/615569BB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/615569BB" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/615569BB" Ref="#PWR0121"  Part="1" 
+F 0 "#PWR0121" H 5050 6200 50  0001 C CNN
+F 1 "GND" H 5055 6277 50  0000 C CNN
+F 2 "" H 5050 6450 50  0001 C CNN
+F 3 "" H 5050 6450 50  0001 C CNN
+	1    5050 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 615569C3
+P 5050 6350
+AR Path="/5CC0D65F/615569C3" Ref="C?"  Part="1" 
+AR Path="/615569C3" Ref="C?"  Part="1" 
+AR Path="/5EF76914/615569C3" Ref="C?"  Part="1" 
+AR Path="/6A313729/615569C3" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/615569C3" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/615569C3" Ref="C?"  Part="1" 
+AR Path="/5DF75CDE/615569C3" Ref="C608"  Part="1" 
+F 0 "C608" H 4959 6396 50  0000 R CNN
+F 1 "100nF" H 4959 6305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5050 6350 50  0001 C CNN
+F 3 "~" H 5050 6350 50  0001 C CNN
+	1    5050 6350
+	1    0    0    -1  
+$EndComp
+Connection ~ 5050 6250
+Connection ~ 5050 6450
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
