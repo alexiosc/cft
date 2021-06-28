@@ -1,4 +1,4 @@
-(module DIN41612_C_3x32_Female_Vertical_THT (layer F.Cu) (tedit 601F0656)
+(module DIN41612_C_3x32_Female_Vertical_THT (layer F.Cu) (tedit 60D8AEEC)
   (descr "DIN41612 connector, type C, Vertical, 3 rows 32 pins wide, https://www.erni-x-press.com/de/downloads/kataloge/englische_kataloge/erni-din41612-iec60603-2-e.pdf")
   (tags "DIN 41612 IEC 60603 C")
   (fp_text reference REF** (at 2.54 -9.13) (layer F.SilkS)
@@ -141,7 +141,12 @@
   (pad C32 thru_hole circle (at 5.08 78.74) (size 1.55 1.55) (drill 1) (layers *.Cu *.Mask))
   (pad "" np_thru_hole circle (at 2.24 -5.63) (size 2.85 2.85) (drill 2.85) (layers *.Cu *.Mask))
   (pad "" np_thru_hole circle (at 2.24 84.37) (size 2.85 2.85) (drill 2.85) (layers *.Cu *.Mask))
-  (model ${KISYS3DMOD}/Connector_DIN.3dshapes/DIN41612_C_3x32_Female_Vertical_THT.wrl
+  (model ${KI3DMOD_ALEXIOS}/DIN_41612/DIN41612_C_3x32_Female_Vertical_THT.wrl
+    (offset (xyz 2.25 -39.35 5.9))
+    (scale (xyz 394 394 394))
+    (rotate (xyz -90 0 -90))
+  )
+  (model ${KI3DMOD_ALEXIOS}/DIN_41612/DIN41612-c-96-M-RA-1.wrl
     (at (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
