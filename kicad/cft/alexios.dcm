@@ -1468,6 +1468,12 @@ K Crystal Clock Oscillator
 F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
 $ENDCMP
 #
+$CMP DIN-41612-3x32-Bauform-C
+D Connector Europe, 96 contacts, ranges A,B,C
+K connector
+F  ~
+$ENDCMP
+#
 $CMP DS1023
 D Programmable Digital Delay Line
 K serial parallel digital delay programmable
