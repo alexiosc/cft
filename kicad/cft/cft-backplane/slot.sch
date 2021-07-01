@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 13
+Sheet 3 13
 Title ""
 Date ""
 Rev ""
@@ -157,17 +157,13 @@ AR Path="/85A73EB4/66BD4109" Ref="J9"  Part="1"
 AR Path="/85A8707D/66BD4109" Ref="J10"  Part="1" 
 AR Path="/85A9A356/66BD4109" Ref="J11"  Part="1" 
 AR Path="/85AAD6B0/66BD4109" Ref="J12"  Part="1" 
-F 0 "J1" H 4950 5100 50  0000 C CNN
+F 0 "J2" H 4950 5100 50  0000 C CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 4800 1600 50  0000 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 4925 0   50  0001 C CNN
 F 3 " ~" H 4925 0   50  0001 C CNN
 	1    4950 3400
 	1    0    0    -1  
 $EndComp
-Text Label 4500 5000 0    50   ~ 0
-A32
-Text Label 4500 4900 0    50   ~ 0
-A31
 Text Label 4500 4800 0    50   ~ 0
 A30
 Text Label 4500 4700 0    50   ~ 0
@@ -308,7 +304,7 @@ AR Path="/85A73EB4/6DF9D4CB" Ref="J9"  Part="3"
 AR Path="/85A8707D/6DF9D4CB" Ref="J10"  Part="3" 
 AR Path="/85A9A356/6DF9D4CB" Ref="J11"  Part="3" 
 AR Path="/85AAD6B0/6DF9D4CB" Ref="J12"  Part="3" 
-F 0 "J1" H 7250 5100 50  0000 L CNN
+F 0 "J2" H 7250 5100 50  0000 L CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 7530 3305 50  0001 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 7325 0   50  0001 C CNN
 F 3 " ~" H 7325 0   50  0001 C CNN
@@ -395,17 +391,13 @@ AR Path="/85A73EB4/6D6BB2B9" Ref="J9"  Part="2"
 AR Path="/85A8707D/6D6BB2B9" Ref="J10"  Part="2" 
 AR Path="/85A9A356/6D6BB2B9" Ref="J11"  Part="2" 
 AR Path="/85AAD6B0/6D6BB2B9" Ref="J12"  Part="2" 
-F 0 "J1" H 6150 5100 50  0000 C CNN
+F 0 "J2" H 6150 5100 50  0000 C CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 6330 3305 50  0001 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 6125 0   50  0001 C CNN
 F 3 " ~" H 6125 0   50  0001 C CNN
 	2    6150 3400
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4500 5000 4650 5000
-Wire Wire Line
-	4500 4900 4650 4900
 Wire Wire Line
 	4500 4800 4650 4800
 Wire Wire Line
@@ -524,12 +516,6 @@ Entry Wire Line
 	4400 4500 4500 4600
 Entry Wire Line
 	4400 4600 4500 4700
-Entry Wire Line
-	4400 4700 4500 4800
-Entry Wire Line
-	4400 4800 4500 4900
-Entry Wire Line
-	4400 4900 4500 5000
 Entry Wire Line
 	5600 1800 5700 1900
 Entry Wire Line
@@ -676,10 +662,116 @@ Text HLabel 5350 1500 0    50   UnSpc ~ 0
 B[1..32]
 Text HLabel 6550 1500 0    50   UnSpc ~ 0
 C[1..32]
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 85E2059E
+P 9050 2050
+AR Path="/6199673B/85E2059E" Ref="H1"  Part="1" 
+AR Path="/859EF273/85E2059E" Ref="H3"  Part="1" 
+AR Path="/85A02236/85E2059E" Ref="H5"  Part="1" 
+AR Path="/85A150E4/85E2059E" Ref="H7"  Part="1" 
+AR Path="/85A27F74/85E2059E" Ref="H9"  Part="1" 
+AR Path="/85A3ADD9/85E2059E" Ref="H11"  Part="1" 
+AR Path="/85A4DD82/85E2059E" Ref="H13"  Part="1" 
+AR Path="/85A60DD6/85E2059E" Ref="H15"  Part="1" 
+AR Path="/85A73EB4/85E2059E" Ref="H17"  Part="1" 
+AR Path="/85A8707D/85E2059E" Ref="H19"  Part="1" 
+AR Path="/85A9A356/85E2059E" Ref="H21"  Part="1" 
+AR Path="/85AAD6B0/85E2059E" Ref="H23"  Part="1" 
+F 0 "H3" H 9150 2099 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9150 2008 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2050 50  0001 C CNN
+F 3 "~" H 9050 2050 50  0001 C CNN
+	1    9050 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 85E20FCF
+P 9050 2150
+AR Path="/6199673B/85E20FCF" Ref="#PWR05"  Part="1" 
+AR Path="/859EF273/85E20FCF" Ref="#PWR07"  Part="1" 
+AR Path="/85A02236/85E20FCF" Ref="#PWR09"  Part="1" 
+AR Path="/85A150E4/85E20FCF" Ref="#PWR011"  Part="1" 
+AR Path="/85A27F74/85E20FCF" Ref="#PWR013"  Part="1" 
+AR Path="/85A3ADD9/85E20FCF" Ref="#PWR015"  Part="1" 
+AR Path="/85A4DD82/85E20FCF" Ref="#PWR017"  Part="1" 
+AR Path="/85A60DD6/85E20FCF" Ref="#PWR019"  Part="1" 
+AR Path="/85A73EB4/85E20FCF" Ref="#PWR021"  Part="1" 
+AR Path="/85A8707D/85E20FCF" Ref="#PWR023"  Part="1" 
+AR Path="/85A9A356/85E20FCF" Ref="#PWR025"  Part="1" 
+AR Path="/85AAD6B0/85E20FCF" Ref="#PWR027"  Part="1" 
+F 0 "#PWR07" H 9050 1900 50  0001 C CNN
+F 1 "GND" H 9055 1977 50  0000 C CNN
+F 2 "" H 9050 2150 50  0001 C CNN
+F 3 "" H 9050 2150 50  0001 C CNN
+	1    9050 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 85E2263F
+P 9050 2550
+AR Path="/6199673B/85E2263F" Ref="H2"  Part="1" 
+AR Path="/859EF273/85E2263F" Ref="H4"  Part="1" 
+AR Path="/85A02236/85E2263F" Ref="H6"  Part="1" 
+AR Path="/85A150E4/85E2263F" Ref="H8"  Part="1" 
+AR Path="/85A27F74/85E2263F" Ref="H10"  Part="1" 
+AR Path="/85A3ADD9/85E2263F" Ref="H12"  Part="1" 
+AR Path="/85A4DD82/85E2263F" Ref="H14"  Part="1" 
+AR Path="/85A60DD6/85E2263F" Ref="H16"  Part="1" 
+AR Path="/85A73EB4/85E2263F" Ref="H18"  Part="1" 
+AR Path="/85A8707D/85E2263F" Ref="H20"  Part="1" 
+AR Path="/85A9A356/85E2263F" Ref="H22"  Part="1" 
+AR Path="/85AAD6B0/85E2263F" Ref="H24"  Part="1" 
+F 0 "H4" H 9150 2599 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9150 2508 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2550 50  0001 C CNN
+F 3 "~" H 9050 2550 50  0001 C CNN
+	1    9050 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 85E22645
+P 9050 2650
+AR Path="/6199673B/85E22645" Ref="#PWR06"  Part="1" 
+AR Path="/859EF273/85E22645" Ref="#PWR08"  Part="1" 
+AR Path="/85A02236/85E22645" Ref="#PWR010"  Part="1" 
+AR Path="/85A150E4/85E22645" Ref="#PWR012"  Part="1" 
+AR Path="/85A27F74/85E22645" Ref="#PWR014"  Part="1" 
+AR Path="/85A3ADD9/85E22645" Ref="#PWR016"  Part="1" 
+AR Path="/85A4DD82/85E22645" Ref="#PWR018"  Part="1" 
+AR Path="/85A60DD6/85E22645" Ref="#PWR020"  Part="1" 
+AR Path="/85A73EB4/85E22645" Ref="#PWR022"  Part="1" 
+AR Path="/85A8707D/85E22645" Ref="#PWR024"  Part="1" 
+AR Path="/85A9A356/85E22645" Ref="#PWR026"  Part="1" 
+AR Path="/85AAD6B0/85E22645" Ref="#PWR028"  Part="1" 
+F 0 "#PWR08" H 9050 2400 50  0001 C CNN
+F 1 "GND" H 9055 2477 50  0000 C CNN
+F 2 "" H 9050 2650 50  0001 C CNN
+F 3 "" H 9050 2650 50  0001 C CNN
+	1    9050 2650
+	1    0    0    -1  
+$EndComp
+Entry Wire Line
+	4400 4700 4500 4800
 Wire Bus Line
-	4400 1600 4400 4900
+	6800 1600 6800 4900
 Wire Bus Line
 	5600 1600 5600 4900
 Wire Bus Line
-	6800 1600 6800 4900
+	4400 1600 4400 4900
+Entry Wire Line
+	4400 4800 4500 4900
+Entry Wire Line
+	4400 4900 4500 5000
+Wire Wire Line
+	4500 4900 4650 4900
+Wire Wire Line
+	4500 5000 4650 5000
+Text Label 4500 4900 0    50   ~ 0
+A31
+Text Label 4500 5000 0    50   ~ 0
+A32
 $EndSCHEMATC

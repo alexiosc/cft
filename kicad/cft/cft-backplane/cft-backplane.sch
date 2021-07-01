@@ -1971,9 +1971,9 @@ Text Notes 12950 4900 0    50   ~ 0
 GND
 Text Notes 12950 5000 0    50   ~ 0
 GND
-Text Notes 14100 4900 0    50   ~ 0
+Text Notes 14200 4900 0    50   ~ 0
 GND
-Text Notes 14100 5000 0    50   ~ 0
+Text Notes 14200 5000 0    50   ~ 0
 GND
 Text Notes 11750 2100 0    50   ~ 0
 ~RESET
@@ -2049,4 +2049,135 @@ Text Notes 12950 4700 0    50   ~ 0
 AB High
 Text Notes 12950 4800 0    50   ~ 0
 AB High
+$Comp
+L power:GND #PWR0101
+U 1 1 60EAC7C6
+P 1400 10500
+F 0 "#PWR0101" H 1400 10250 50  0001 C CNN
+F 1 "GND" H 1405 10327 50  0000 C CNN
+F 2 "" H 1400 10500 50  0001 C CNN
+F 3 "" H 1400 10500 50  0001 C CNN
+	1    1400 10500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 10500 1400 10450
+Wire Wire Line
+	1200 9950 1400 9950
+Connection ~ 1400 10050
+Wire Wire Line
+	1400 10050 1400 9950
+Wire Wire Line
+	1200 10050 1400 10050
+Connection ~ 1400 10150
+Wire Wire Line
+	1400 10150 1400 10050
+Wire Wire Line
+	1200 10150 1400 10150
+Connection ~ 1400 10250
+Wire Wire Line
+	1400 10250 1400 10150
+Wire Wire Line
+	1200 10250 1400 10250
+Connection ~ 1400 10350
+Wire Wire Line
+	1400 10350 1400 10250
+Wire Wire Line
+	1200 10350 1400 10350
+Connection ~ 1400 10450
+Wire Wire Line
+	1400 10450 1400 10350
+Wire Wire Line
+	1200 10450 1400 10450
+Text Label 1200 9950 0    50   ~ 0
+A31
+Text Label 1200 10050 0    50   ~ 0
+A32
+Text Label 1200 10150 0    50   ~ 0
+B31
+Text Label 1200 10250 0    50   ~ 0
+B32
+Text Label 1200 10350 0    50   ~ 0
+C31
+Text Label 1200 10450 0    50   ~ 0
+C32
+$Comp
+L power:+5V #PWR0102
+U 1 1 60F81028
+P 900 9850
+F 0 "#PWR0102" H 900 9700 50  0001 C CNN
+F 1 "+5V" H 915 10023 50  0000 C CNN
+F 2 "" H 900 9850 50  0001 C CNN
+F 3 "" H 900 9850 50  0001 C CNN
+	1    900  9850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	900  9850 900  10050
+Wire Wire Line
+	900  10450 1100 10450
+Wire Wire Line
+	1100 10050 900  10050
+Connection ~ 900  10050
+Wire Wire Line
+	900  10050 900  10250
+Wire Wire Line
+	1100 10250 900  10250
+Connection ~ 900  10250
+Wire Wire Line
+	900  10250 900  10450
+Text Label 1100 10050 2    50   ~ 0
+A1
+Text Label 1100 10250 2    50   ~ 0
+B1
+Text Label 1100 10450 2    50   ~ 0
+C1
+Text Notes 14200 2200 0    50   ~ 0
+AB
+Text Notes 14200 2300 0    50   ~ 0
+AB
+Text Notes 14200 2400 0    50   ~ 0
+AB
+Text Notes 14200 2500 0    50   ~ 0
+AB
+Text Notes 14200 2600 0    50   ~ 0
+AB
+Text Notes 14200 2700 0    50   ~ 0
+AB
+Text Notes 14200 2800 0    50   ~ 0
+AB
+Text Notes 14200 2900 0    50   ~ 0
+AB
+Text Notes 14200 3300 0    50   ~ 0
+AB
+Text Notes 14200 3400 0    50   ~ 0
+AB
+Text Notes 14200 3500 0    50   ~ 0
+AB
+Text Notes 14200 3600 0    50   ~ 0
+AB
+Text Notes 14200 3700 0    50   ~ 0
+AB
+Text Notes 14200 3800 0    50   ~ 0
+AB
+Text Notes 14200 3900 0    50   ~ 0
+AB
+Text Notes 14200 4000 0    50   ~ 0
+AB
+Text Notes 14200 4100 0    50   ~ 0
+~IRQ0
+Text Notes 14200 4200 0    50   ~ 0
+~IRQ1
+Text Notes 14200 4300 0    50   ~ 0
+~IRQ2
+Text Notes 14200 4400 0    50   ~ 0
+~IRQ3
+Text Notes 14200 4500 0    50   ~ 0
+~IRQ4
+Text Notes 14200 4600 0    50   ~ 0
+~IRQ5
+Text Notes 14200 4700 0    50   ~ 0
+~IRQ6
+Text Notes 14200 4800 0    50   ~ 0
+~IRQ7
 $EndSCHEMATC
