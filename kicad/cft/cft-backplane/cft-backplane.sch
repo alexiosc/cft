@@ -1265,53 +1265,6 @@ Text Notes 6900 3600 0    100  ~ 20
 Local Bus
 Text Notes 8850 3600 0    100  ~ 20
 Peripheral Bus
-$Comp
-L alexios:SN74ACT1073 U?
-U 1 1 857F76D4
-P 5000 8050
-AR Path="/6199673B/857F76D4" Ref="U?"  Part="1" 
-AR Path="/857F76D4" Ref="U1"  Part="1" 
-F 0 "U1" H 5330 7846 50  0000 L CNN
-F 1 "SN74ACT1073" H 5330 7755 50  0000 L CNN
-F 2 "" H 4700 8400 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 4700 8400 50  0001 C CNN
-	1    5000 8050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4500 7550 4100 7550
-Wire Wire Line
-	4500 7650 4100 7650
-Wire Wire Line
-	4500 7750 4100 7750
-Wire Wire Line
-	4500 7850 4100 7850
-Wire Wire Line
-	4500 7950 4100 7950
-Wire Wire Line
-	4500 8050 4100 8050
-Wire Wire Line
-	4500 8150 4100 8150
-Wire Wire Line
-	4500 8250 4100 8250
-Wire Wire Line
-	4500 8350 4100 8350
-Wire Wire Line
-	4500 8450 4100 8450
-Wire Wire Line
-	4500 8550 4100 8550
-Wire Wire Line
-	4500 8650 4100 8650
-Wire Wire Line
-	4500 8750 4100 8750
-Wire Wire Line
-	4500 8850 4100 8850
-Wire Wire Line
-	4500 8950 4100 8950
-Wire Wire Line
-	4500 9050 4100 9050
-Text Label 4100 7550 0    50   ~ 0
-X45
 Wire Bus Line
 	1050 2450 650  2450
 Wire Bus Line
@@ -1583,10 +1536,6 @@ Text Notes 11000 3100 0    50   ~ 0
 A13
 Text Notes 11000 3200 0    50   ~ 0
 A14
-Text Notes 11000 3300 0    50   ~ 0
-A15
-Text Notes 11000 3400 0    50   ~ 0
-A16
 Text Notes 11000 3500 0    50   ~ 0
 A17
 Text Notes 11000 3600 0    50   ~ 0
@@ -1619,169 +1568,169 @@ Text Notes 11000 4900 0    50   ~ 0
 A31
 Text Notes 11000 5000 0    50   ~ 0
 A32
-Text Notes 13400 5000 0    50   ~ 0
+Text Notes 13700 5000 0    50   ~ 0
 C32
-Text Notes 13400 4900 0    50   ~ 0
+Text Notes 13700 4900 0    50   ~ 0
 C31
-Text Notes 13400 4800 0    50   ~ 0
+Text Notes 13700 4800 0    50   ~ 0
 C30
-Text Notes 13400 4700 0    50   ~ 0
+Text Notes 13700 4700 0    50   ~ 0
 C29
-Text Notes 13400 4600 0    50   ~ 0
+Text Notes 13700 4600 0    50   ~ 0
 C28
-Text Notes 13400 4500 0    50   ~ 0
+Text Notes 13700 4500 0    50   ~ 0
 C27
-Text Notes 13400 4400 0    50   ~ 0
+Text Notes 13700 4400 0    50   ~ 0
 C26
-Text Notes 13400 4300 0    50   ~ 0
+Text Notes 13700 4300 0    50   ~ 0
 C25
-Text Notes 13400 4200 0    50   ~ 0
+Text Notes 13700 4200 0    50   ~ 0
 C24
-Text Notes 13400 4100 0    50   ~ 0
+Text Notes 13700 4100 0    50   ~ 0
 C23
-Text Notes 13400 4000 0    50   ~ 0
+Text Notes 13700 4000 0    50   ~ 0
 C22
-Text Notes 13400 3900 0    50   ~ 0
+Text Notes 13700 3900 0    50   ~ 0
 C21
-Text Notes 13400 3800 0    50   ~ 0
+Text Notes 13700 3800 0    50   ~ 0
 C20
-Text Notes 13400 3700 0    50   ~ 0
+Text Notes 13700 3700 0    50   ~ 0
 C19
-Text Notes 13400 3600 0    50   ~ 0
+Text Notes 13700 3600 0    50   ~ 0
 C18
-Text Notes 13400 3500 0    50   ~ 0
+Text Notes 13700 3500 0    50   ~ 0
 C17
-Text Notes 13400 3400 0    50   ~ 0
+Text Notes 13700 3400 0    50   ~ 0
 C16
-Text Notes 13400 3300 0    50   ~ 0
+Text Notes 13700 3300 0    50   ~ 0
 C15
-Text Notes 13400 3200 0    50   ~ 0
+Text Notes 13700 3200 0    50   ~ 0
 C14
-Text Notes 13400 3100 0    50   ~ 0
+Text Notes 13700 3100 0    50   ~ 0
 C13
-Text Notes 13400 3000 0    50   ~ 0
+Text Notes 13700 3000 0    50   ~ 0
 C12
-Text Notes 13400 2900 0    50   ~ 0
+Text Notes 13700 2900 0    50   ~ 0
 C11
-Text Notes 13400 2800 0    50   ~ 0
+Text Notes 13700 2800 0    50   ~ 0
 C10
-Text Notes 13400 2700 0    50   ~ 0
+Text Notes 13700 2700 0    50   ~ 0
 C9
-Text Notes 13400 2600 0    50   ~ 0
+Text Notes 13700 2600 0    50   ~ 0
 C8
-Text Notes 13400 2500 0    50   ~ 0
+Text Notes 13700 2500 0    50   ~ 0
 C7
-Text Notes 13400 2400 0    50   ~ 0
+Text Notes 13700 2400 0    50   ~ 0
 C6
-Text Notes 13400 2300 0    50   ~ 0
+Text Notes 13700 2300 0    50   ~ 0
 C5
-Text Notes 13400 2200 0    50   ~ 0
+Text Notes 13700 2200 0    50   ~ 0
 C4
-Text Notes 13400 2100 0    50   ~ 0
+Text Notes 13700 2100 0    50   ~ 0
 C3
-Text Notes 13400 2000 0    50   ~ 0
+Text Notes 13700 2000 0    50   ~ 0
 C2
-Text Notes 13400 1900 0    50   ~ 0
+Text Notes 13700 1900 0    50   ~ 0
 C1
-Text Notes 12200 5000 0    50   ~ 0
+Text Notes 12350 5000 0    50   ~ 0
 B32
-Text Notes 12200 4900 0    50   ~ 0
+Text Notes 12350 4900 0    50   ~ 0
 B31
-Text Notes 12200 4800 0    50   ~ 0
+Text Notes 12350 4800 0    50   ~ 0
 B30
-Text Notes 12200 4700 0    50   ~ 0
+Text Notes 12350 4700 0    50   ~ 0
 B29
-Text Notes 12200 4600 0    50   ~ 0
+Text Notes 12350 4600 0    50   ~ 0
 B28
-Text Notes 12200 4500 0    50   ~ 0
+Text Notes 12350 4500 0    50   ~ 0
 B27
-Text Notes 12200 4400 0    50   ~ 0
+Text Notes 12350 4400 0    50   ~ 0
 B26
-Text Notes 12200 4300 0    50   ~ 0
+Text Notes 12350 4300 0    50   ~ 0
 B25
-Text Notes 12200 4200 0    50   ~ 0
+Text Notes 12350 4200 0    50   ~ 0
 B24
-Text Notes 12200 4100 0    50   ~ 0
+Text Notes 12350 4100 0    50   ~ 0
 B23
-Text Notes 12200 4000 0    50   ~ 0
+Text Notes 12350 4000 0    50   ~ 0
 B22
-Text Notes 12200 3900 0    50   ~ 0
+Text Notes 12350 3900 0    50   ~ 0
 B21
-Text Notes 12200 3800 0    50   ~ 0
+Text Notes 12350 3800 0    50   ~ 0
 B20
-Text Notes 12200 3700 0    50   ~ 0
+Text Notes 12350 3700 0    50   ~ 0
 B19
-Text Notes 12200 3600 0    50   ~ 0
+Text Notes 12350 3600 0    50   ~ 0
 B18
-Text Notes 12200 3500 0    50   ~ 0
+Text Notes 12350 3500 0    50   ~ 0
 B17
-Text Notes 12200 3400 0    50   ~ 0
+Text Notes 12350 3400 0    50   ~ 0
 B16
-Text Notes 12200 3300 0    50   ~ 0
+Text Notes 12350 3300 0    50   ~ 0
 B15
-Text Notes 12200 3200 0    50   ~ 0
+Text Notes 12350 3200 0    50   ~ 0
 B14
-Text Notes 12200 3100 0    50   ~ 0
+Text Notes 12350 3100 0    50   ~ 0
 B13
-Text Notes 12200 3000 0    50   ~ 0
+Text Notes 12350 3000 0    50   ~ 0
 B12
-Text Notes 12200 2900 0    50   ~ 0
+Text Notes 12350 2900 0    50   ~ 0
 B11
-Text Notes 12200 2800 0    50   ~ 0
+Text Notes 12350 2800 0    50   ~ 0
 B10
-Text Notes 12200 2700 0    50   ~ 0
+Text Notes 12350 2700 0    50   ~ 0
 B9
-Text Notes 12200 2600 0    50   ~ 0
+Text Notes 12350 2600 0    50   ~ 0
 B8
-Text Notes 12200 2500 0    50   ~ 0
+Text Notes 12350 2500 0    50   ~ 0
 B7
-Text Notes 12200 2400 0    50   ~ 0
+Text Notes 12350 2400 0    50   ~ 0
 B6
-Text Notes 12200 2300 0    50   ~ 0
+Text Notes 12350 2300 0    50   ~ 0
 B5
-Text Notes 12200 2200 0    50   ~ 0
+Text Notes 12350 2200 0    50   ~ 0
 B4
-Text Notes 12200 2100 0    50   ~ 0
+Text Notes 12350 2100 0    50   ~ 0
 B3
-Text Notes 12200 2000 0    50   ~ 0
+Text Notes 12350 2000 0    50   ~ 0
 B2
-Text Notes 12200 1900 0    50   ~ 0
+Text Notes 12350 1900 0    50   ~ 0
 B1
 Text Notes 11250 1800 0    50   ~ 0
 P1
 Text Notes 11750 1800 0    50   ~ 0
 P2
-Text Notes 12450 1800 0    50   ~ 0
+Text Notes 12600 1800 0    50   ~ 0
 P1
-Text Notes 12950 1800 0    50   ~ 0
+Text Notes 13100 1800 0    50   ~ 0
 P2
-Text Notes 13700 1800 0    50   ~ 0
+Text Notes 14000 1800 0    50   ~ 0
 P1
-Text Notes 14200 1800 0    50   ~ 0
+Text Notes 14500 1800 0    50   ~ 0
 P2
 Text Notes 11250 1900 0    50   ~ 0
 +5V
-Text Notes 12450 1900 0    50   ~ 0
+Text Notes 12600 1900 0    50   ~ 0
 +5V
 Text Notes 11750 1900 0    50   ~ 0
 +5V
-Text Notes 12950 1900 0    50   ~ 0
+Text Notes 13100 1900 0    50   ~ 0
 +5V
-Text Notes 13700 1900 0    50   ~ 0
+Text Notes 14000 1900 0    50   ~ 0
 +5V
-Text Notes 14200 1900 0    50   ~ 0
+Text Notes 14500 1900 0    50   ~ 0
 +5V
 Text Notes 11750 2000 0    50   ~ 0
 +5V
-Text Notes 12950 2000 0    50   ~ 0
+Text Notes 13100 2000 0    50   ~ 0
 +5V
-Text Notes 14200 2000 0    50   ~ 0
+Text Notes 14500 2000 0    50   ~ 0
 +5V
 Text Notes 11250 2000 0    50   ~ 0
 CLK1
-Text Notes 12450 2100 0    50   ~ 0
+Text Notes 12600 2100 0    50   ~ 0
 CLK2
-Text Notes 12450 2000 0    50   ~ 0
+Text Notes 12600 2000 0    50   ~ 0
 CLK3
 Text Notes 11250 2100 0    50   ~ 0
 Unbussed
@@ -1823,157 +1772,109 @@ Text Notes 11250 3900 0    50   ~ 0
 Unbussed
 Text Notes 11250 4000 0    50   ~ 0
 Unbussed
-Text Notes 11250 4100 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4200 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4300 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4400 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4500 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4600 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4700 0    50   ~ 0
-Bus (FPD)
-Text Notes 11250 4800 0    50   ~ 0
-Bus (FPD)
 Text Notes 11250 4900 0    50   ~ 0
 GND
 Text Notes 11250 5000 0    50   ~ 0
 GND
-Text Notes 12450 2200 0    50   ~ 0
+Text Notes 12600 2200 0    50   ~ 0
 GND
-Text Notes 12450 2300 0    50   ~ 0
+Text Notes 12600 2300 0    50   ~ 0
 GND
-Text Notes 12450 4100 0    50   ~ 0
+Text Notes 12600 4100 0    50   ~ 0
 Unbussed
-Text Notes 12450 4200 0    50   ~ 0
+Text Notes 12600 4200 0    50   ~ 0
 Unbussed
-Text Notes 12450 4300 0    50   ~ 0
+Text Notes 12600 4300 0    50   ~ 0
 Unbussed
-Text Notes 12450 4400 0    50   ~ 0
+Text Notes 12600 4400 0    50   ~ 0
 Unbussed
-Text Notes 12450 4500 0    50   ~ 0
+Text Notes 12600 4500 0    50   ~ 0
 Unbussed
-Text Notes 12450 4600 0    50   ~ 0
+Text Notes 12600 4600 0    50   ~ 0
 Unbussed
-Text Notes 12450 4700 0    50   ~ 0
+Text Notes 12600 4700 0    50   ~ 0
 Unbussed
-Text Notes 12450 4800 0    50   ~ 0
+Text Notes 12600 4800 0    50   ~ 0
 Unbussed
-Text Notes 12450 4900 0    50   ~ 0
+Text Notes 12600 4900 0    50   ~ 0
 GND
-Text Notes 12450 5000 0    50   ~ 0
+Text Notes 12600 5000 0    50   ~ 0
 GND
-Text Notes 13700 4900 0    50   ~ 0
+Text Notes 14000 4900 0    50   ~ 0
 GND
-Text Notes 13700 5000 0    50   ~ 0
+Text Notes 14000 5000 0    50   ~ 0
 GND
-Text Notes 12450 2400 0    50   ~ 0
+Text Notes 12600 2400 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 2500 0    50   ~ 0
+Text Notes 12600 2500 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 2600 0    50   ~ 0
+Text Notes 12600 2600 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 2700 0    50   ~ 0
+Text Notes 12600 2700 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 2800 0    50   ~ 0
+Text Notes 12600 2800 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 2900 0    50   ~ 0
+Text Notes 12600 2900 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3000 0    50   ~ 0
+Text Notes 12600 3000 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3100 0    50   ~ 0
+Text Notes 12600 3100 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3200 0    50   ~ 0
+Text Notes 12600 3200 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3300 0    50   ~ 0
+Text Notes 12600 3300 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3400 0    50   ~ 0
+Text Notes 12600 3400 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3500 0    50   ~ 0
+Text Notes 12600 3500 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3600 0    50   ~ 0
+Text Notes 12600 3600 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3700 0    50   ~ 0
+Text Notes 12600 3700 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3800 0    50   ~ 0
+Text Notes 12600 3800 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 3900 0    50   ~ 0
+Text Notes 12600 3900 0    50   ~ 0
 Bus (µCV)
-Text Notes 12450 4000 0    50   ~ 0
+Text Notes 12600 4000 0    50   ~ 0
 Bus (µCV)
-Text Notes 13700 2300 0    50   ~ 0
+Text Notes 14000 2300 0    50   ~ 0
 16 MHz
-Text Notes 13700 2000 0    50   ~ 0
+Text Notes 14000 2000 0    50   ~ 0
 CLK4
-Text Notes 13700 2100 0    50   ~ 0
+Text Notes 14000 2100 0    50   ~ 0
 T34
-Text Notes 13700 2200 0    50   ~ 0
+Text Notes 14000 2200 0    50   ~ 0
 Bus (µCV)
-Text Notes 13700 2400 0    50   ~ 0
+Text Notes 14000 2400 0    50   ~ 0
 Bus (µCV)
-Text Notes 13700 2500 0    50   ~ 0
-Fx
-Text Notes 13700 2600 0    50   ~ 0
-Fx
-Text Notes 13700 2700 0    50   ~ 0
-Fx
-Text Notes 13700 2800 0    50   ~ 0
-Fx
-Text Notes 13700 3000 0    50   ~ 0
+Text Notes 14000 2500 0    50   ~ 0
+FV
+Text Notes 14000 2600 0    50   ~ 0
+FL
+Text Notes 14000 2700 0    50   ~ 0
+FZ
+Text Notes 14000 2800 0    50   ~ 0
+FN
+Text Notes 14000 3000 0    50   ~ 0
 Unbussed
-Text Notes 13700 2900 0    50   ~ 0
-Fx
-Text Notes 13700 3100 0    50   ~ 0
+Text Notes 14000 2900 0    50   ~ 0
+~WRITEFL
+Text Notes 14000 3100 0    50   ~ 0
 Bussed
-Text Notes 13700 3200 0    50   ~ 0
+Text Notes 14000 3200 0    50   ~ 0
 Bussed
-Text Notes 13700 3300 0    50   ~ 0
-IBus
-Text Notes 13700 3400 0    50   ~ 0
-IBus
-Text Notes 13700 3500 0    50   ~ 0
-IBus
-Text Notes 13700 3600 0    50   ~ 0
-IBus
-Text Notes 13700 3700 0    50   ~ 0
-IBus
-Text Notes 13700 3800 0    50   ~ 0
-IBus
-Text Notes 13700 3900 0    50   ~ 0
-IBus
-Text Notes 13700 4000 0    50   ~ 0
-IBus
-Text Notes 13700 4100 0    50   ~ 0
-IBus
-Text Notes 13700 4200 0    50   ~ 0
-IBus
-Text Notes 13700 4300 0    50   ~ 0
-IBus
-Text Notes 13700 4400 0    50   ~ 0
-IBus
-Text Notes 13700 4500 0    50   ~ 0
-IBus
-Text Notes 13700 4600 0    50   ~ 0
-IBus
-Text Notes 13700 4700 0    50   ~ 0
-IBus
-Text Notes 13700 4800 0    50   ~ 0
-IBus
 Text Notes 11750 4900 0    50   ~ 0
 GND
 Text Notes 11750 5000 0    50   ~ 0
 GND
-Text Notes 12950 4900 0    50   ~ 0
+Text Notes 13100 4900 0    50   ~ 0
 GND
-Text Notes 12950 5000 0    50   ~ 0
+Text Notes 13100 5000 0    50   ~ 0
 GND
-Text Notes 14200 4900 0    50   ~ 0
+Text Notes 14500 4900 0    50   ~ 0
 GND
-Text Notes 14200 5000 0    50   ~ 0
+Text Notes 14500 5000 0    50   ~ 0
 GND
 Text Notes 11750 2100 0    50   ~ 0
 ~RESET
@@ -1991,64 +1892,16 @@ Text Notes 11750 3100 0    50   ~ 0
 IODEVxx
 Text Notes 11750 3200 0    50   ~ 0
 ~WAITING
-Text Notes 11750 3300 0    50   ~ 0
-DB
-Text Notes 11750 3400 0    50   ~ 0
-DB
-Text Notes 11750 3500 0    50   ~ 0
-DB
-Text Notes 11750 3600 0    50   ~ 0
-DB
-Text Notes 11750 3700 0    50   ~ 0
-DB
-Text Notes 11750 3800 0    50   ~ 0
-DB
-Text Notes 11750 3900 0    50   ~ 0
-DB
-Text Notes 11750 4000 0    50   ~ 0
-DB
-Text Notes 11750 4100 0    50   ~ 0
-DB
-Text Notes 11750 4200 0    50   ~ 0
-DB
-Text Notes 11750 4300 0    50   ~ 0
-DB
-Text Notes 11750 4400 0    50   ~ 0
-DB
-Text Notes 11750 4500 0    50   ~ 0
-DB
-Text Notes 11750 4600 0    50   ~ 0
-DB
-Text Notes 11750 4700 0    50   ~ 0
-DB
-Text Notes 11750 4800 0    50   ~ 0
-DB
-Text Notes 12950 2100 0    50   ~ 0
+Text Notes 13100 2100 0    50   ~ 0
 ~HALT
-Text Notes 12950 2200 0    50   ~ 0
+Text Notes 13100 2200 0    50   ~ 0
 ~IRQ
-Text Notes 12950 2800 0    50   ~ 0
+Text Notes 13100 2800 0    50   ~ 0
 ~MEM
-Text Notes 12950 2900 0    50   ~ 0
+Text Notes 13100 2900 0    50   ~ 0
 ~IO
-Text Notes 12950 3200 0    50   ~ 0
+Text Notes 13100 3200 0    50   ~ 0
 ~IRQS
-Text Notes 12950 4100 0    50   ~ 0
-AB High
-Text Notes 12950 4200 0    50   ~ 0
-AB High
-Text Notes 12950 4300 0    50   ~ 0
-AB High
-Text Notes 12950 4400 0    50   ~ 0
-AB High
-Text Notes 12950 4500 0    50   ~ 0
-AB High
-Text Notes 12950 4600 0    50   ~ 0
-AB High
-Text Notes 12950 4700 0    50   ~ 0
-AB High
-Text Notes 12950 4800 0    50   ~ 0
-AB High
 $Comp
 L power:GND #PWR0101
 U 1 1 60EAC7C6
@@ -2132,52 +1985,1489 @@ Text Label 1100 10250 2    50   ~ 0
 B1
 Text Label 1100 10450 2    50   ~ 0
 C1
-Text Notes 14200 2200 0    50   ~ 0
-AB
-Text Notes 14200 2300 0    50   ~ 0
-AB
-Text Notes 14200 2400 0    50   ~ 0
-AB
-Text Notes 14200 2500 0    50   ~ 0
-AB
-Text Notes 14200 2600 0    50   ~ 0
-AB
-Text Notes 14200 2700 0    50   ~ 0
-AB
-Text Notes 14200 2800 0    50   ~ 0
-AB
-Text Notes 14200 2900 0    50   ~ 0
-AB
-Text Notes 14200 3300 0    50   ~ 0
-AB
-Text Notes 14200 3400 0    50   ~ 0
-AB
-Text Notes 14200 3500 0    50   ~ 0
-AB
-Text Notes 14200 3600 0    50   ~ 0
-AB
-Text Notes 14200 3700 0    50   ~ 0
-AB
-Text Notes 14200 3800 0    50   ~ 0
-AB
-Text Notes 14200 3900 0    50   ~ 0
-AB
-Text Notes 14200 4000 0    50   ~ 0
-AB
-Text Notes 14200 4100 0    50   ~ 0
+Text Notes 14500 3100 0    50   ~ 10
+~W
+Text Notes 14500 3200 0    50   ~ 0
+Bussed
+Text Notes 14500 4100 0    50   ~ 0
 ~IRQ0
-Text Notes 14200 4200 0    50   ~ 0
+Text Notes 14500 4200 0    50   ~ 0
 ~IRQ1
-Text Notes 14200 4300 0    50   ~ 0
+Text Notes 14500 4300 0    50   ~ 0
 ~IRQ2
-Text Notes 14200 4400 0    50   ~ 0
+Text Notes 14500 4400 0    50   ~ 0
 ~IRQ3
-Text Notes 14200 4500 0    50   ~ 0
+Text Notes 14500 4500 0    50   ~ 0
 ~IRQ4
-Text Notes 14200 4600 0    50   ~ 0
+Text Notes 14500 4600 0    50   ~ 0
 ~IRQ5
-Text Notes 14200 4700 0    50   ~ 0
+Text Notes 14500 4700 0    50   ~ 0
 ~IRQ6
-Text Notes 14200 4800 0    50   ~ 0
+Text Notes 14500 4800 0    50   ~ 0
 ~IRQ7
+Text Label 13400 7500 0    50   ~ 0
+POWERON
+$Comp
+L power:GND #PWR032
+U 1 1 60FE112B
+P 13750 7700
+F 0 "#PWR032" H 13750 7450 50  0001 C CNN
+F 1 "GND" H 13755 7527 50  0000 C CNN
+F 2 "" H 13750 7700 50  0001 C CNN
+F 3 "" H 13750 7700 50  0001 C CNN
+	1    13750 7700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13900 7600 13750 7600
+Wire Wire Line
+	13750 7600 13750 7700
+Wire Wire Line
+	13900 7500 13400 7500
+$Comp
+L Device:R_Small R1
+U 1 1 610BC2DF
+P 14050 8650
+F 0 "R1" V 13854 8650 50  0000 C CNN
+F 1 "1kΩ" V 13945 8650 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14050 8650 50  0001 C CNN
+F 3 "~" H 14050 8650 50  0001 C CNN
+	1    14050 8650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D1
+U 1 1 610BD748
+P 14350 8650
+F 0 "D1" H 14343 8395 50  0000 C CNN
+F 1 "LED_ALT" H 14343 8486 50  0000 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14350 8650 50  0001 C CNN
+F 3 "~" H 14350 8650 50  0001 C CNN
+	1    14350 8650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14150 8650 14200 8650
+Wire Wire Line
+	14500 8650 14550 8650
+Wire Wire Line
+	14550 8650 14550 8700
+$Comp
+L power:GND #PWR034
+U 1 1 610EE7A0
+P 14550 8700
+F 0 "#PWR034" H 14550 8450 50  0001 C CNN
+F 1 "GND" H 14555 8527 50  0000 C CNN
+F 2 "" H 14550 8700 50  0001 C CNN
+F 3 "" H 14550 8700 50  0001 C CNN
+	1    14550 8700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13950 8650 13850 8650
+Text Label 13500 9200 0    50   ~ 0
+POWEROK
+$Comp
+L Device:R_Small R2
+U 1 1 61121114
+P 14050 9200
+F 0 "R2" V 13854 9200 50  0000 C CNN
+F 1 "1kΩ" V 13945 9200 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14050 9200 50  0001 C CNN
+F 3 "~" H 14050 9200 50  0001 C CNN
+	1    14050 9200
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D2
+U 1 1 6112111A
+P 14350 9200
+F 0 "D2" H 14343 8945 50  0000 C CNN
+F 1 "LED_ALT" H 14343 9036 50  0000 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14350 9200 50  0001 C CNN
+F 3 "~" H 14350 9200 50  0001 C CNN
+	1    14350 9200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14150 9200 14200 9200
+Wire Wire Line
+	14500 9200 14550 9200
+Wire Wire Line
+	14550 9200 14550 9250
+$Comp
+L power:GND #PWR035
+U 1 1 61121123
+P 14550 9250
+F 0 "#PWR035" H 14550 9000 50  0001 C CNN
+F 1 "GND" H 14555 9077 50  0000 C CNN
+F 2 "" H 14550 9250 50  0001 C CNN
+F 3 "" H 14550 9250 50  0001 C CNN
+	1    14550 9250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13950 9200 13500 9200
+$Comp
+L Device:R_Small R3
+U 1 1 611A11D4
+P 14050 9750
+F 0 "R3" V 13854 9750 50  0000 C CNN
+F 1 "1kΩ" V 13945 9750 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14050 9750 50  0001 C CNN
+F 3 "~" H 14050 9750 50  0001 C CNN
+	1    14050 9750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED_ALT D3
+U 1 1 611A11DA
+P 14350 9750
+F 0 "D3" H 14343 9495 50  0000 C CNN
+F 1 "LED_ALT" H 14343 9586 50  0000 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14350 9750 50  0001 C CNN
+F 3 "~" H 14350 9750 50  0001 C CNN
+	1    14350 9750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14150 9750 14200 9750
+Wire Wire Line
+	14500 9750 14550 9750
+Wire Wire Line
+	14550 9750 14550 9800
+$Comp
+L power:GND #PWR036
+U 1 1 611A11E3
+P 14550 9800
+F 0 "#PWR036" H 14550 9550 50  0001 C CNN
+F 1 "GND" H 14555 9627 50  0000 C CNN
+F 2 "" H 14550 9800 50  0001 C CNN
+F 3 "" H 14550 9800 50  0001 C CNN
+	1    14550 9800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13950 9750 13500 9750
+Text Label 13500 9750 0    50   ~ 0
+STANDBY
+$Comp
+L power:+5V #PWR033
+U 1 1 611BACB9
+P 13850 8600
+F 0 "#PWR033" H 13850 8450 50  0001 C CNN
+F 1 "+5V" H 13865 8773 50  0000 C CNN
+F 2 "" H 13850 8600 50  0001 C CNN
+F 3 "" H 13850 8600 50  0001 C CNN
+	1    13850 8600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13850 8600 13850 8650
+$Comp
+L Connector_Generic:Conn_01x02 J14
+U 1 1 61218E72
+P 14100 7500
+F 0 "J14" H 14180 7492 50  0000 L CNN
+F 1 "Conn_01x02" H 14180 7401 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 14100 7500 50  0001 C CNN
+F 3 "~" H 14100 7500 50  0001 C CNN
+	1    14100 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR030
+U 1 1 60EAACFE
+P 13750 7000
+F 0 "#PWR030" H 13750 6750 50  0001 C CNN
+F 1 "GND" H 13755 6827 50  0000 C CNN
+F 2 "" H 13750 7000 50  0001 C CNN
+F 3 "" H 13750 7000 50  0001 C CNN
+	1    13750 7000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13900 6800 13750 6800
+Connection ~ 13750 6800
+Wire Wire Line
+	13750 6700 13750 6800
+Wire Wire Line
+	13900 6700 13750 6700
+Wire Wire Line
+	13750 5900 13750 5850
+Wire Wire Line
+	13900 5900 13750 5900
+$Comp
+L power:+5V #PWR029
+U 1 1 60E6696D
+P 13750 5850
+F 0 "#PWR029" H 13750 5700 50  0001 C CNN
+F 1 "+5V" H 13765 6023 50  0000 C CNN
+F 2 "" H 13750 5850 50  0001 C CNN
+F 3 "" H 13750 5850 50  0001 C CNN
+	1    13750 5850
+	1    0    0    -1  
+$EndComp
+Connection ~ 13750 5900
+Wire Wire Line
+	13750 6000 13750 5900
+Wire Wire Line
+	13900 6000 13750 6000
+Text Label 13500 8200 0    50   ~ 0
+POWEROK
+Wire Wire Line
+	13950 8200 13500 8200
+Wire Wire Line
+	14250 8200 14550 8200
+$Comp
+L Device:D_Schottky_ALT D4
+U 1 1 61427D60
+P 14100 8200
+F 0 "D4" H 14100 7983 50  0000 C CNN
+F 1 "D_Schottky_ALT" H 14100 8074 50  0000 C CNN
+F 2 "alexios:SOD-323" H 14100 8200 50  0001 C CNN
+F 3 "~" H 14100 8200 50  0001 C CNN
+	1    14100 8200
+	-1   0    0    1   
+$EndComp
+Text Label 14550 8200 2    50   ~ 0
+A3
+Text Notes 14600 8200 0    50   ~ 0
+(~RESET~ on Peripheral Bus)
+Wire Wire Line
+	13900 6100 13750 6100
+Wire Wire Line
+	13750 6100 13750 6000
+Connection ~ 13750 6000
+Wire Wire Line
+	13900 6600 13750 6600
+Wire Wire Line
+	13750 6600 13750 6700
+Connection ~ 13750 6700
+Text Label 13400 6200 0    50   ~ 0
+POWERON
+Wire Wire Line
+	13900 6300 13400 6300
+$Comp
+L Connector:Screw_Terminal_01x10 J13
+U 1 1 60EBF4DE
+P 14100 6400
+F 0 "J13" H 14180 6300 50  0000 L CNN
+F 1 "Phoenix 1766204" H 14180 6391 50  0000 L CNN
+F 2 "Connector_Phoenix_MC:PhoenixContact_MC_1,5_10-G-3.81_1x10_P3.81mm_Horizontal" H 14100 6400 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/324/4/1766204-1441427.pdf" H 14100 6400 50  0001 C CNN
+F 4 "651-1766204; €4.65" H 14100 6400 50  0001 C CNN "Mouser"
+	1    14100 6400
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	13900 6200 13400 6200
+Text Label 13400 6300 0    50   ~ 0
+POWEROK
+Wire Wire Line
+	13900 6400 13400 6400
+Text Label 13400 6400 0    50   ~ 0
+STANDBY
+Wire Wire Line
+	13400 6500 13900 6500
+Text Label 13400 6500 0    50   ~ 0
+SPARE
+$Comp
+L Device:CP_Small C10
+U 1 1 60F60F37
+P 13400 6800
+AR Path="/60F60F37" Ref="C10"  Part="1" 
+AR Path="/5D34E810/60F60F37" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/60F60F37" Ref="C?"  Part="1" 
+F 0 "C10" H 13312 6846 50  0000 R CNN
+F 1 "47µF" H 13312 6755 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 13400 6800 50  0001 C CNN
+F 3 "~" H 13400 6800 50  0001 C CNN
+	1    13400 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13400 6500 13400 6700
+Wire Wire Line
+	13750 6800 13750 7000
+Wire Wire Line
+	13400 6900 13400 7000
+$Comp
+L power:GND #PWR?
+U 1 1 60F60F30
+P 13400 7000
+AR Path="/5F67D4B5/60F60F30" Ref="#PWR?"  Part="1" 
+AR Path="/60F60F30" Ref="#PWR0103"  Part="1" 
+AR Path="/5D34E810/60F60F30" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/60F60F30" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/60F60F30" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0103" H 13400 6750 50  0001 C CNN
+F 1 "GND" H 13405 6827 50  0000 C CNN
+F 2 "" H 13400 7000 50  0001 C CNN
+F 3 "" H 13400 7000 50  0001 C CNN
+	1    13400 7000
+	1    0    0    -1  
+$EndComp
+Text Notes 14200 6550 0    50   ~ 0
+Mates with: 1827185, 1827033
+Wire Wire Line
+	13400 6500 13100 6500
+Connection ~ 13400 6500
+$Comp
+L Connector:TestPoint TP1
+U 1 1 610FE30F
+P 13100 6500
+F 0 "TP1" V 13295 6572 50  0000 C CNN
+F 1 "TestPoint" V 13204 6572 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Loop_D3.50mm_Drill1.4mm_Beaded" H 13300 6500 50  0001 C CNN
+F 3 "~" H 13300 6500 50  0001 C CNN
+	1    13100 6500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	20950 4650 20600 4650
+Wire Wire Line
+	20950 4750 20600 4750
+Wire Wire Line
+	20950 4850 20600 4850
+Wire Wire Line
+	20950 4950 20600 4950
+Wire Wire Line
+	20950 5450 20600 5450
+Wire Wire Line
+	20950 5550 20600 5550
+Wire Wire Line
+	20950 5650 20600 5650
+Wire Wire Line
+	20950 5750 20600 5750
+Wire Wire Line
+	20950 5850 20600 5850
+Wire Wire Line
+	20950 5950 20600 5950
+Wire Wire Line
+	20950 6050 20600 6050
+Wire Wire Line
+	20950 6150 20600 6150
+Wire Wire Line
+	20950 6250 20600 6250
+Wire Wire Line
+	20950 6350 20600 6350
+Wire Wire Line
+	20950 4450 20600 4450
+Wire Wire Line
+	20950 4550 20600 4550
+Wire Wire Line
+	23500 5900 23150 5900
+Wire Wire Line
+	23500 5100 23150 5100
+Wire Wire Line
+	23500 5800 23150 5800
+Wire Wire Line
+	23500 5700 23150 5700
+Wire Wire Line
+	23500 5500 23150 5500
+Wire Wire Line
+	23500 5400 23150 5400
+Wire Wire Line
+	23500 5000 23150 5000
+Wire Wire Line
+	18000 2450 17650 2450
+Wire Wire Line
+	18000 3250 17650 3250
+Wire Wire Line
+	20950 3350 20600 3350
+Wire Wire Line
+	20950 3250 20600 3250
+Wire Wire Line
+	20950 3150 20600 3150
+Wire Wire Line
+	20950 2750 20600 2750
+Wire Wire Line
+	20950 2850 20600 2850
+Wire Wire Line
+	19950 4100 19600 4100
+Wire Wire Line
+	18250 8100 17900 8100
+Wire Wire Line
+	18250 8200 17900 8200
+Wire Wire Line
+	18250 8300 17900 8300
+Wire Wire Line
+	18250 8400 17900 8400
+Wire Wire Line
+	18250 8500 17900 8500
+Wire Wire Line
+	18250 8600 17900 8600
+Wire Wire Line
+	18250 8700 17900 8700
+Wire Wire Line
+	18250 8800 17900 8800
+Wire Wire Line
+	18250 8900 17900 8900
+Wire Wire Line
+	18250 9000 17900 9000
+Wire Wire Line
+	18250 9100 17900 9100
+Wire Wire Line
+	18250 9200 17900 9200
+Wire Wire Line
+	18250 9300 17900 9300
+Wire Wire Line
+	18250 9400 17900 9400
+Wire Wire Line
+	18250 9500 17900 9500
+Wire Wire Line
+	18250 9600 17900 9600
+Wire Wire Line
+	18250 9950 17900 9950
+Wire Wire Line
+	18250 10050 17900 10050
+Wire Wire Line
+	18250 10150 17900 10150
+Wire Wire Line
+	18250 10250 17900 10250
+Wire Wire Line
+	18250 10350 17900 10350
+Wire Wire Line
+	18250 10450 17900 10450
+Wire Wire Line
+	18250 10550 17900 10550
+Wire Wire Line
+	18250 10650 17900 10650
+Wire Wire Line
+	18250 10750 17900 10750
+Wire Wire Line
+	18250 10850 17900 10850
+Wire Wire Line
+	18250 10950 17900 10950
+Wire Wire Line
+	18250 11050 17900 11050
+Wire Wire Line
+	18250 11150 17900 11150
+Wire Wire Line
+	18250 11250 17900 11250
+Wire Wire Line
+	18250 11350 17900 11350
+Wire Wire Line
+	18250 11450 17900 11450
+Text Label 20600 4650 0    50   ~ 0
+C15
+Text Label 20600 4750 0    50   ~ 0
+C16
+Text Label 20600 4850 0    50   ~ 0
+C17
+Text Label 20600 4950 0    50   ~ 0
+C18
+Text Label 20600 5450 0    50   ~ 0
+C21
+Text Label 20600 5550 0    50   ~ 0
+C22
+Text Label 20600 5650 0    50   ~ 0
+C23
+Text Label 20600 5750 0    50   ~ 0
+C24
+Text Label 20600 5850 0    50   ~ 0
+C25
+Text Label 20600 6050 0    50   ~ 0
+C27
+Text Label 20600 6150 0    50   ~ 0
+C28
+Text Label 20600 6250 0    50   ~ 0
+C29
+Text Label 20600 6350 0    50   ~ 0
+C30
+Text Label 20600 4450 0    50   ~ 0
+C13
+Text Label 20600 4550 0    50   ~ 0
+C14
+Text Label 23150 5100 0    50   ~ 0
+A25
+Text Label 23150 5800 0    50   ~ 0
+A26
+Text Label 23150 5700 0    50   ~ 0
+A27
+Text Label 23150 5500 0    50   ~ 0
+A29
+Text Label 23150 5400 0    50   ~ 0
+A30
+Text Label 17650 2450 0    50   ~ 0
+C4
+Text Label 17650 3250 0    50   ~ 0
+C6
+Text Label 20600 3350 0    50   ~ 0
+B10
+Text Label 20600 3250 0    50   ~ 0
+B11
+Text Label 20600 3150 0    50   ~ 0
+B12
+Text Label 20600 2750 0    50   ~ 0
+B13
+Text Label 20600 2850 0    50   ~ 0
+B14
+Text Label 19600 4100 0    50   ~ 0
+B15
+Text Notes 17900 1700 0    100  ~ 20
+Processor Bus: Bus Hold
+Text Notes 17850 4600 0    100  ~ 20
+Peripheral Bus: Bus Hold
+Text Label 17900 8100 0    50   ~ 0
+C4
+Text Label 17900 8200 0    50   ~ 0
+C5
+Text Label 17900 8300 0    50   ~ 0
+C6
+Text Label 17900 8400 0    50   ~ 0
+C7
+Text Label 17900 8500 0    50   ~ 0
+C8
+Text Label 17900 8600 0    50   ~ 0
+C9
+Text Label 17900 8700 0    50   ~ 0
+C10
+Text Label 17900 8800 0    50   ~ 0
+C11
+Text Label 17900 8900 0    50   ~ 0
+C15
+Text Label 17900 9000 0    50   ~ 0
+C16
+Text Label 17900 9100 0    50   ~ 0
+C17
+Text Label 17900 9200 0    50   ~ 0
+C18
+Text Label 17900 9300 0    50   ~ 0
+C19
+Text Label 17900 9400 0    50   ~ 0
+C20
+Text Label 17900 9500 0    50   ~ 0
+C21
+Text Label 17900 9600 0    50   ~ 0
+C22
+Text Label 17900 9950 0    50   ~ 0
+B23
+Text Label 17900 10050 0    50   ~ 0
+B24
+Text Label 17900 10150 0    50   ~ 0
+B25
+Text Label 17900 10250 0    50   ~ 0
+B26
+Text Label 17900 10350 0    50   ~ 0
+B27
+Text Label 17900 10450 0    50   ~ 0
+B28
+Text Label 17900 10550 0    50   ~ 0
+B29
+Text Label 17900 10650 0    50   ~ 0
+B30
+Text Label 17900 10750 0    50   ~ 0
+A15
+Text Label 17900 10850 0    50   ~ 0
+A16
+Text Label 17900 10950 0    50   ~ 0
+A17
+Text Label 17900 11050 0    50   ~ 0
+A18
+Text Label 17900 11150 0    50   ~ 0
+A19
+Text Label 17900 11250 0    50   ~ 0
+A20
+Text Label 17900 11350 0    50   ~ 0
+A21
+Text Label 17900 11450 0    50   ~ 0
+A22
+Text Label 23150 5000 0    50   ~ 0
+A23
+Text Notes 11000 3400 0    50   ~ 0
+A16
+Text Notes 11000 3300 0    50   ~ 0
+A15
+Text Notes 10850 3300 0    50   ~ 0
+BH
+Text Notes 10850 3400 0    50   ~ 0
+BH
+Text Notes 10850 3500 0    50   ~ 0
+BH
+Text Notes 10850 3600 0    50   ~ 0
+BH
+Text Notes 10850 3700 0    50   ~ 0
+BH
+Text Notes 10850 3800 0    50   ~ 0
+BH
+Text Notes 10850 3900 0    50   ~ 0
+BH
+Text Notes 10850 4000 0    50   ~ 0
+BH
+Text Notes 10850 4100 0    50   ~ 0
+BH
+Text Notes 10850 4200 0    50   ~ 0
+BH
+Text Notes 10850 4300 0    50   ~ 0
+BH
+Text Notes 10850 4400 0    50   ~ 0
+BH
+Text Notes 10850 4500 0    50   ~ 0
+BH
+Text Notes 10850 4600 0    50   ~ 0
+BH
+Text Notes 10850 4700 0    50   ~ 0
+BH
+Text Notes 10850 4800 0    50   ~ 0
+BH
+Text Notes 12200 2400 0    50   ~ 0
+BH
+Text Notes 12200 2500 0    50   ~ 0
+BH
+Text Notes 12200 2600 0    50   ~ 0
+BH
+Text Notes 12200 2700 0    50   ~ 0
+BH
+Text Notes 12200 2800 0    50   ~ 0
+BH
+Text Notes 12200 2900 0    50   ~ 0
+BH
+Text Notes 12200 3000 0    50   ~ 0
+BH
+Text Notes 12200 3100 0    50   ~ 0
+BH
+Text Notes 12200 3200 0    50   ~ 0
+BH
+Text Notes 12200 3300 0    50   ~ 0
+BH
+Text Notes 12200 3400 0    50   ~ 0
+BH
+Text Notes 12200 3500 0    50   ~ 0
+BH
+Text Notes 12200 3600 0    50   ~ 0
+BH
+Text Notes 12200 3700 0    50   ~ 0
+BH
+Text Notes 12200 3800 0    50   ~ 0
+BH
+Text Notes 12200 3900 0    50   ~ 0
+BH
+Text Notes 12200 4000 0    50   ~ 0
+BH
+Text Notes 12200 4100 0    50   ~ 0
+BH
+Text Notes 12200 4200 0    50   ~ 0
+BH
+Text Notes 12200 4300 0    50   ~ 0
+BH
+Text Notes 12200 4400 0    50   ~ 0
+BH
+Text Notes 12200 4500 0    50   ~ 0
+BH
+Text Notes 12200 4600 0    50   ~ 0
+BH
+Text Notes 12200 4700 0    50   ~ 0
+BH
+Text Notes 12200 4800 0    50   ~ 0
+BH
+Text Notes 13550 3300 0    50   ~ 0
+BH
+Text Notes 13550 3400 0    50   ~ 0
+BH
+Text Notes 13550 3500 0    50   ~ 0
+BH
+Text Notes 13550 3600 0    50   ~ 0
+BH
+Text Notes 13550 3700 0    50   ~ 0
+BH
+Text Notes 13550 3800 0    50   ~ 0
+BH
+Text Notes 13550 3900 0    50   ~ 0
+BH
+Text Notes 13550 4000 0    50   ~ 0
+BH
+Text Notes 13550 4100 0    50   ~ 0
+BH
+Text Notes 13550 4200 0    50   ~ 0
+BH
+Text Notes 13550 4300 0    50   ~ 0
+BH
+Text Notes 13550 4400 0    50   ~ 0
+BH
+Text Notes 13550 4500 0    50   ~ 0
+BH
+Text Notes 13550 4600 0    50   ~ 0
+BH
+Text Notes 13550 4700 0    50   ~ 0
+BH
+Text Notes 13550 4800 0    50   ~ 0
+BH
+Text Notes 13550 2500 0    50   ~ 0
+BH
+Text Notes 13550 2600 0    50   ~ 0
+BH
+Text Notes 13550 2700 0    50   ~ 0
+BH
+Text Notes 13550 2800 0    50   ~ 0
+BH
+Text Notes 13550 2900 0    50   ~ 0
+BH
+Text Notes 13550 3000 0    50   ~ 0
+BH
+Text Notes 13550 3100 0    50   ~ 0
+BH
+Text Notes 13550 3200 0    50   ~ 0
+BH
+Text Notes 14500 3000 0    50   ~ 10
+~R
+Text Notes 14500 3300 0    50   ~ 10
+AB8
+Text Notes 14500 3400 0    50   ~ 10
+AB9
+Text Notes 14500 3500 0    50   ~ 10
+AB10
+Text Notes 14500 3600 0    50   ~ 10
+AB11
+Text Notes 14500 3700 0    50   ~ 10
+AB12
+Text Notes 14500 3800 0    50   ~ 10
+AB13
+Text Notes 14500 3900 0    50   ~ 10
+AB14
+Text Notes 14500 4000 0    50   ~ 10
+AB15
+Text Notes 11250 4100 0    50   ~ 10
+FPD0
+Text Notes 11250 4200 0    50   ~ 10
+FPD1
+Text Notes 11250 4300 0    50   ~ 10
+FPD2
+Text Notes 11250 4400 0    50   ~ 10
+FPD3
+Text Notes 11250 4500 0    50   ~ 10
+FPD4
+Text Notes 11250 4600 0    50   ~ 10
+FPD5
+Text Notes 11250 4700 0    50   ~ 10
+FPD6
+Text Notes 11250 4800 0    50   ~ 10
+FPD7
+Text Notes 11750 3300 0    50   ~ 10
+DB0
+Text Notes 11750 3400 0    50   ~ 10
+DB1
+Text Notes 11750 3500 0    50   ~ 10
+DB2
+Text Notes 11750 3600 0    50   ~ 10
+DB3
+Text Notes 11750 3700 0    50   ~ 10
+DB4
+Text Notes 11750 3800 0    50   ~ 10
+DB5
+Text Notes 11750 3900 0    50   ~ 10
+DB6
+Text Notes 11750 4000 0    50   ~ 10
+DB7
+Text Notes 11750 4100 0    50   ~ 10
+DB8
+Text Notes 11750 4200 0    50   ~ 10
+DB9
+Text Notes 11750 4300 0    50   ~ 10
+DB10
+Text Notes 11750 4400 0    50   ~ 10
+DB11
+Text Notes 11750 4500 0    50   ~ 10
+DB12
+Text Notes 11750 4600 0    50   ~ 10
+DB13
+Text Notes 11750 4700 0    50   ~ 10
+DB14
+Text Notes 11750 4800 0    50   ~ 10
+DB15
+Text Notes 13100 4100 0    50   ~ 10
+AB16
+Text Notes 13100 4200 0    50   ~ 10
+AB17
+Text Notes 13100 4300 0    50   ~ 10
+AB18
+Text Notes 13100 4400 0    50   ~ 10
+AB19
+Text Notes 13100 4500 0    50   ~ 10
+AB20
+Text Notes 13100 4600 0    50   ~ 10
+AB21
+Text Notes 13100 4700 0    50   ~ 10
+AB22
+Text Notes 13100 4800 0    50   ~ 10
+AB23
+Text Notes 14000 3300 0    50   ~ 10
+IBUS0
+Text Notes 14000 3400 0    50   ~ 10
+IBUS1
+Text Notes 14000 3500 0    50   ~ 10
+IBUS2
+Text Notes 14000 3600 0    50   ~ 10
+IBUS3
+Text Notes 14000 3700 0    50   ~ 10
+IBUS4
+Text Notes 14000 3800 0    50   ~ 10
+IBUS5
+Text Notes 14000 3900 0    50   ~ 10
+IBUS6
+Text Notes 14000 4000 0    50   ~ 10
+IBUS7
+Text Notes 14000 4100 0    50   ~ 10
+IBUS8
+Text Notes 14000 4200 0    50   ~ 10
+IBUS9
+Text Notes 14000 4300 0    50   ~ 10
+IBUS10
+Text Notes 14000 4400 0    50   ~ 10
+IBUS11
+Text Notes 14000 4500 0    50   ~ 10
+IBUS12
+Text Notes 14000 4600 0    50   ~ 10
+IBUS13
+Text Notes 14000 4700 0    50   ~ 10
+IBUS14
+Text Notes 14000 4800 0    50   ~ 10
+IBUS15
+Text Notes 14500 2200 0    50   ~ 10
+AB0
+Text Notes 14500 2300 0    50   ~ 10
+AB1
+Text Notes 14500 2400 0    50   ~ 10
+AB2
+Text Notes 14500 2500 0    50   ~ 10
+AB3
+Text Notes 14500 2600 0    50   ~ 10
+AB4
+Text Notes 14500 2700 0    50   ~ 10
+AB5
+Text Notes 14500 2800 0    50   ~ 10
+AB6
+Text Notes 14500 2900 0    50   ~ 10
+AB7
+$Comp
+L alexios:SN74ACT1071 U1
+U 1 1 6246D5FB
+P 18500 2950
+F 0 "U1" H 18393 3717 50  0000 C CNN
+F 1 "SN74ACT1071" H 18393 3626 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 18200 3300 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 18200 3300 50  0001 C CNN
+	1    18500 2950
+	1    0    0    -1  
+$EndComp
+Text Label 20600 5150 0    50   ~ 0
+C20
+Text Label 20600 5050 0    50   ~ 0
+C19
+Wire Wire Line
+	20950 5150 20600 5150
+Wire Wire Line
+	20950 5050 20600 5050
+Text Label 17650 2550 0    50   ~ 0
+B6
+Wire Wire Line
+	18000 2550 17650 2550
+Wire Wire Line
+	18000 3150 17650 3150
+Wire Wire Line
+	18000 2750 17650 2750
+Text Label 17650 2750 0    50   ~ 0
+B8
+Wire Wire Line
+	18000 3350 17650 3350
+Text Label 17650 3350 0    50   ~ 0
+C5
+Wire Wire Line
+	18000 2650 17650 2650
+Text Label 17650 2650 0    50   ~ 0
+C7
+Wire Wire Line
+	18000 3050 17650 3050
+Text Label 17650 3050 0    50   ~ 0
+C8
+Text Label 17650 2950 0    50   ~ 0
+C9
+Wire Wire Line
+	18000 2950 17650 2950
+Text Label 17650 3150 0    50   ~ 0
+B7
+Wire Wire Line
+	18000 2850 17650 2850
+Text Label 17650 2850 0    50   ~ 0
+B9
+$Comp
+L alexios:SN74ACT1071 U1
+U 2 1 62AA17B3
+P 19600 3200
+F 0 "U1" H 19780 3559 50  0000 L CNN
+F 1 "SN74ACT1071" H 19780 3468 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 19300 3550 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 19300 3550 50  0001 C CNN
+	2    19600 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19250 2700 19200 2700
+Wire Wire Line
+	19250 2800 19200 2800
+Wire Wire Line
+	19250 3000 19200 3000
+Wire Wire Line
+	19250 3100 19200 3100
+$Comp
+L Device:C_Small C11
+U 1 1 62B21FA7
+P 19200 2900
+F 0 "C11" H 19291 2946 50  0000 L CNN
+F 1 "100nF" H 19291 2855 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 19200 2900 50  0001 C CNN
+F 3 "~" H 19200 2900 50  0001 C CNN
+	1    19200 2900
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	19200 2800 19200 2700
+Connection ~ 19200 2800
+Connection ~ 19200 2700
+Wire Wire Line
+	19200 2700 19200 2650
+$Comp
+L power:+5V #PWR031
+U 1 1 62B4D5B4
+P 19200 2650
+F 0 "#PWR031" H 19200 2500 50  0001 C CNN
+F 1 "+5V" H 19215 2823 50  0000 C CNN
+F 2 "" H 19200 2650 50  0001 C CNN
+F 3 "" H 19200 2650 50  0001 C CNN
+	1    19200 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19200 3000 19200 3100
+Connection ~ 19200 3000
+$Comp
+L power:GND #PWR037
+U 1 1 62BCE8F4
+P 19200 3150
+F 0 "#PWR037" H 19200 2900 50  0001 C CNN
+F 1 "GND" H 19205 2977 50  0000 C CNN
+F 2 "" H 19200 3150 50  0001 C CNN
+F 3 "" H 19200 3150 50  0001 C CNN
+	1    19200 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	19200 3100 19200 3150
+Connection ~ 19200 3100
+$Comp
+L alexios:SN74ACT1071 U2
+U 1 1 62C590E1
+P 21450 2950
+F 0 "U2" H 21343 3717 50  0000 C CNN
+F 1 "SN74ACT1071" H 21343 3626 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 21150 3300 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 21150 3300 50  0001 C CNN
+	1    21450 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U2
+U 2 1 62C590F7
+P 22550 3200
+F 0 "U2" H 22730 3559 50  0000 L CNN
+F 1 "SN74ACT1071" H 22730 3468 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 22250 3550 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 22250 3550 50  0001 C CNN
+	2    22550 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	22200 2700 22150 2700
+Wire Wire Line
+	22200 2800 22150 2800
+Wire Wire Line
+	22200 3000 22150 3000
+Wire Wire Line
+	22200 3100 22150 3100
+$Comp
+L Device:C_Small C12
+U 1 1 62C59101
+P 22150 2900
+F 0 "C12" H 22241 2946 50  0000 L CNN
+F 1 "100nF" H 22241 2855 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 22150 2900 50  0001 C CNN
+F 3 "~" H 22150 2900 50  0001 C CNN
+	1    22150 2900
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	22150 2800 22150 2700
+Connection ~ 22150 2800
+Connection ~ 22150 2700
+Wire Wire Line
+	22150 2700 22150 2650
+$Comp
+L power:+5V #PWR0104
+U 1 1 62C5910B
+P 22150 2650
+F 0 "#PWR0104" H 22150 2500 50  0001 C CNN
+F 1 "+5V" H 22165 2823 50  0000 C CNN
+F 2 "" H 22150 2650 50  0001 C CNN
+F 3 "" H 22150 2650 50  0001 C CNN
+	1    22150 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	22150 3000 22150 3100
+Connection ~ 22150 3000
+$Comp
+L power:GND #PWR0107
+U 1 1 62C59113
+P 22150 3150
+F 0 "#PWR0107" H 22150 2900 50  0001 C CNN
+F 1 "GND" H 22155 2977 50  0000 C CNN
+F 2 "" H 22150 3150 50  0001 C CNN
+F 3 "" H 22150 3150 50  0001 C CNN
+	1    22150 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	22150 3100 22150 3150
+Connection ~ 22150 3100
+Wire Wire Line
+	20950 2450 20600 2450
+Text Label 20600 2450 0    50   ~ 0
+C10
+Wire Wire Line
+	20950 2550 20600 2550
+Text Label 20600 2550 0    50   ~ 0
+C11
+Wire Wire Line
+	20600 2650 20950 2650
+Text Label 20600 2650 0    50   ~ 0
+C12
+Wire Wire Line
+	20600 2950 20950 2950
+Wire Wire Line
+	20600 3050 20950 3050
+Text Label 20600 3050 0    50   ~ 0
+C13
+Text Label 20600 2950 0    50   ~ 0
+C14
+Wire Wire Line
+	23850 3400 23500 3400
+Wire Wire Line
+	23850 3300 23500 3300
+Wire Wire Line
+	23850 3200 23500 3200
+Wire Wire Line
+	23850 2800 23500 2800
+Wire Wire Line
+	23850 2900 23500 2900
+Text Label 23500 3400 0    50   ~ 0
+B15
+Text Label 23500 3300 0    50   ~ 0
+B16
+Text Label 23500 3200 0    50   ~ 0
+B17
+Text Label 23500 2800 0    50   ~ 0
+B18
+Text Label 23500 2900 0    50   ~ 0
+B19
+Wire Wire Line
+	25100 2750 25050 2750
+Wire Wire Line
+	25100 2850 25050 2850
+Wire Wire Line
+	25100 3050 25050 3050
+Wire Wire Line
+	25100 3150 25050 3150
+$Comp
+L Device:C_Small C13
+U 1 1 630BA1BA
+P 25050 2950
+F 0 "C13" H 25141 2996 50  0000 L CNN
+F 1 "100nF" H 25141 2905 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 25050 2950 50  0001 C CNN
+F 3 "~" H 25050 2950 50  0001 C CNN
+	1    25050 2950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	25050 2850 25050 2750
+Connection ~ 25050 2850
+Connection ~ 25050 2750
+Wire Wire Line
+	25050 2750 25050 2700
+$Comp
+L power:+5V #PWR0111
+U 1 1 630BA1C4
+P 25050 2700
+F 0 "#PWR0111" H 25050 2550 50  0001 C CNN
+F 1 "+5V" H 25065 2873 50  0000 C CNN
+F 2 "" H 25050 2700 50  0001 C CNN
+F 3 "" H 25050 2700 50  0001 C CNN
+	1    25050 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	25050 3050 25050 3150
+Connection ~ 25050 3050
+$Comp
+L power:GND #PWR0119
+U 1 1 630BA1CC
+P 25050 3200
+F 0 "#PWR0119" H 25050 2950 50  0001 C CNN
+F 1 "GND" H 25055 3027 50  0000 C CNN
+F 2 "" H 25050 3200 50  0001 C CNN
+F 3 "" H 25050 3200 50  0001 C CNN
+	1    25050 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	25050 3150 25050 3200
+Connection ~ 25050 3150
+Wire Wire Line
+	23850 2500 23500 2500
+Text Label 23500 2500 0    50   ~ 0
+C15
+Wire Wire Line
+	23850 2600 23500 2600
+Text Label 23500 2600 0    50   ~ 0
+C16
+Wire Wire Line
+	23500 2700 23850 2700
+Text Label 23500 2700 0    50   ~ 0
+C17
+Wire Wire Line
+	23500 3000 23850 3000
+Wire Wire Line
+	23500 3100 23850 3100
+Text Label 23500 3100 0    50   ~ 0
+C18
+Text Label 23500 3000 0    50   ~ 0
+C19
+$Comp
+L alexios:SN74ACT1071 U3
+U 2 1 630BA1B0
+P 25450 3250
+F 0 "U3" H 25630 3609 50  0000 L CNN
+F 1 "SN74ACT1071" H 25630 3518 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 25150 3600 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 25150 3600 50  0001 C CNN
+	2    25450 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U3
+U 1 1 630BA1AA
+P 24350 3000
+F 0 "U3" H 24243 3767 50  0000 C CNN
+F 1 "SN74ACT1071" H 24243 3676 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 24050 3350 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 24050 3350 50  0001 C CNN
+	1    24350 3000
+	1    0    0    -1  
+$EndComp
+Text Label 20600 5950 0    50   ~ 0
+C26
+Wire Wire Line
+	26900 3400 26550 3400
+Wire Wire Line
+	26900 3300 26550 3300
+Wire Wire Line
+	26900 3200 26550 3200
+Wire Wire Line
+	26900 2800 26550 2800
+Wire Wire Line
+	26900 2900 26550 2900
+Text Label 26550 3400 0    50   ~ 0
+B20
+Text Label 26550 3300 0    50   ~ 0
+B21
+Text Label 26550 3200 0    50   ~ 0
+B22
+Text Label 26550 2800 0    50   ~ 0
+B23
+Text Label 26550 3100 0    50   ~ 0
+B24
+Wire Wire Line
+	28150 2750 28100 2750
+Wire Wire Line
+	28150 2850 28100 2850
+Wire Wire Line
+	28150 3050 28100 3050
+Wire Wire Line
+	28150 3150 28100 3150
+$Comp
+L Device:C_Small C14
+U 1 1 63100A54
+P 28100 2950
+F 0 "C14" H 28191 2996 50  0000 L CNN
+F 1 "100nF" H 28191 2905 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 28100 2950 50  0001 C CNN
+F 3 "~" H 28100 2950 50  0001 C CNN
+	1    28100 2950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	28100 2850 28100 2750
+Connection ~ 28100 2850
+Connection ~ 28100 2750
+Wire Wire Line
+	28100 2750 28100 2700
+$Comp
+L power:+5V #PWR0120
+U 1 1 63100A5E
+P 28100 2700
+F 0 "#PWR0120" H 28100 2550 50  0001 C CNN
+F 1 "+5V" H 28115 2873 50  0000 C CNN
+F 2 "" H 28100 2700 50  0001 C CNN
+F 3 "" H 28100 2700 50  0001 C CNN
+	1    28100 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	28100 3050 28100 3150
+Connection ~ 28100 3050
+$Comp
+L power:GND #PWR0121
+U 1 1 63100A66
+P 28100 3200
+F 0 "#PWR0121" H 28100 2950 50  0001 C CNN
+F 1 "GND" H 28105 3027 50  0000 C CNN
+F 2 "" H 28100 3200 50  0001 C CNN
+F 3 "" H 28100 3200 50  0001 C CNN
+	1    28100 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	28100 3150 28100 3200
+Connection ~ 28100 3150
+Wire Wire Line
+	26900 2500 26550 2500
+Text Label 26550 2500 0    50   ~ 0
+C20
+Wire Wire Line
+	26900 2600 26550 2600
+Text Label 26550 2600 0    50   ~ 0
+C21
+Wire Wire Line
+	26550 2700 26900 2700
+Text Label 26550 2700 0    50   ~ 0
+C22
+Wire Wire Line
+	26550 3000 26900 3000
+Wire Wire Line
+	26550 3100 26900 3100
+$Comp
+L alexios:SN74ACT1071 U4
+U 2 1 63100A78
+P 28500 3250
+F 0 "U4" H 28680 3609 50  0000 L CNN
+F 1 "SN74ACT1071" H 28680 3518 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 28200 3600 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 28200 3600 50  0001 C CNN
+	2    28500 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U4
+U 1 1 63100A7E
+P 27400 3000
+F 0 "U4" H 27293 3767 50  0000 C CNN
+F 1 "SN74ACT1071" H 27293 3676 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 27100 3350 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 27100 3350 50  0001 C CNN
+	1    27400 3000
+	1    0    0    -1  
+$EndComp
+Text Label 26550 2900 0    50   ~ 0
+B25
+Text Label 26550 3000 0    50   ~ 0
+B26
+$Comp
+L alexios:SN74ACT1071 U5
+U 1 1 631E8156
+P 24000 5500
+F 0 "U5" H 23893 6267 50  0000 C CNN
+F 1 "SN74ACT1071" H 23893 6176 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 23700 5850 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 23700 5850 50  0001 C CNN
+	1    24000 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U5
+U 2 1 631E816C
+P 25100 5750
+F 0 "U5" H 25280 6109 50  0000 L CNN
+F 1 "SN74ACT1071" H 25280 6018 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 24800 6100 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 24800 6100 50  0001 C CNN
+	2    25100 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	24750 5250 24700 5250
+Wire Wire Line
+	24750 5350 24700 5350
+Wire Wire Line
+	24750 5550 24700 5550
+Wire Wire Line
+	24750 5650 24700 5650
+$Comp
+L Device:C_Small C15
+U 1 1 631E8176
+P 24700 5450
+F 0 "C15" H 24791 5496 50  0000 L CNN
+F 1 "100nF" H 24791 5405 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 24700 5450 50  0001 C CNN
+F 3 "~" H 24700 5450 50  0001 C CNN
+	1    24700 5450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	24700 5350 24700 5250
+Connection ~ 24700 5350
+Connection ~ 24700 5250
+Wire Wire Line
+	24700 5250 24700 5200
+$Comp
+L power:+5V #PWR038
+U 1 1 631E8180
+P 24700 5200
+F 0 "#PWR038" H 24700 5050 50  0001 C CNN
+F 1 "+5V" H 24715 5373 50  0000 C CNN
+F 2 "" H 24700 5200 50  0001 C CNN
+F 3 "" H 24700 5200 50  0001 C CNN
+	1    24700 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	24700 5550 24700 5650
+Connection ~ 24700 5550
+$Comp
+L power:GND #PWR039
+U 1 1 631E8188
+P 24700 5700
+F 0 "#PWR039" H 24700 5450 50  0001 C CNN
+F 1 "GND" H 24705 5527 50  0000 C CNN
+F 2 "" H 24700 5700 50  0001 C CNN
+F 3 "" H 24700 5700 50  0001 C CNN
+	1    24700 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	24700 5650 24700 5700
+Connection ~ 24700 5650
+Text Label 23150 5900 0    50   ~ 0
+A24
+Text Label 23150 5600 0    50   ~ 0
+A28
+Wire Wire Line
+	23500 5600 23150 5600
+Wire Wire Line
+	27100 5900 26750 5900
+Wire Wire Line
+	27100 5100 26750 5100
+Wire Wire Line
+	27100 5800 26750 5800
+Wire Wire Line
+	27100 5700 26750 5700
+Wire Wire Line
+	27100 5500 26750 5500
+Wire Wire Line
+	27100 5400 26750 5400
+Wire Wire Line
+	27100 5000 26750 5000
+Text Label 26750 5100 0    50   ~ 0
+A17
+Text Label 26750 5800 0    50   ~ 0
+A18
+Text Label 26750 5700 0    50   ~ 0
+A19
+Text Label 26750 5400 0    50   ~ 0
+A22
+$Comp
+L alexios:SN74ACT1071 U6
+U 1 1 6342861D
+P 27600 5500
+F 0 "U6" H 27493 6267 50  0000 C CNN
+F 1 "SN74ACT1071" H 27493 6176 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 27300 5850 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 27300 5850 50  0001 C CNN
+	1    27600 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U6
+U 2 1 63428623
+P 28700 5750
+F 0 "U6" H 28880 6109 50  0000 L CNN
+F 1 "SN74ACT1071" H 28880 6018 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 28400 6100 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 28400 6100 50  0001 C CNN
+	2    28700 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	28350 5250 28300 5250
+Wire Wire Line
+	28350 5350 28300 5350
+Wire Wire Line
+	28350 5550 28300 5550
+Wire Wire Line
+	28350 5650 28300 5650
+$Comp
+L Device:C_Small C?
+U 1 1 6342862D
+P 28300 5450
+F 0 "C?" H 28391 5496 50  0000 L CNN
+F 1 "100nF" H 28391 5405 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 28300 5450 50  0001 C CNN
+F 3 "~" H 28300 5450 50  0001 C CNN
+	1    28300 5450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	28300 5350 28300 5250
+Connection ~ 28300 5350
+Connection ~ 28300 5250
+Wire Wire Line
+	28300 5250 28300 5200
+$Comp
+L power:+5V #PWR?
+U 1 1 63428637
+P 28300 5200
+F 0 "#PWR?" H 28300 5050 50  0001 C CNN
+F 1 "+5V" H 28315 5373 50  0000 C CNN
+F 2 "" H 28300 5200 50  0001 C CNN
+F 3 "" H 28300 5200 50  0001 C CNN
+	1    28300 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	28300 5550 28300 5650
+Connection ~ 28300 5550
+$Comp
+L power:GND #PWR?
+U 1 1 6342863F
+P 28300 5700
+F 0 "#PWR?" H 28300 5450 50  0001 C CNN
+F 1 "GND" H 28305 5527 50  0000 C CNN
+F 2 "" H 28300 5700 50  0001 C CNN
+F 3 "" H 28300 5700 50  0001 C CNN
+	1    28300 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	28300 5650 28300 5700
+Connection ~ 28300 5650
+Text Label 26750 5900 0    50   ~ 0
+A16
+Wire Wire Line
+	27100 5600 26750 5600
+Text Label 26750 5000 0    50   ~ 0
+A15
+Text Label 26750 5600 0    50   ~ 0
+A20
+Text Label 26750 5500 0    50   ~ 0
+A21
 $EndSCHEMATC
