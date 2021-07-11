@@ -839,10 +839,10 @@ Text Label 1950 2500 0    50   ~ 0
 Text Label 1950 4000 0    50   ~ 0
 ~R1
 $Comp
-L Connector:Conn_01x24_Male J2
+L Connector:Conn_01x24_Male P2
 U 1 1 605CF5EF
 P 10300 2550
-F 0 "J2" H 10272 2524 50  0000 R CNN
+F 0 "P2" H 10272 2524 50  0000 R CNN
 F 1 "Conn_01x24_Male" H 10272 2433 50  0000 R CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical" H 10300 2550 50  0001 C CNN
 F 3 "~" H 10300 2550 50  0001 C CNN
@@ -850,10 +850,10 @@ F 3 "~" H 10300 2550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x24_Male J1
+L Connector:Conn_01x24_Male P1
 U 1 1 605CB07D
 P 950 2150
-F 0 "J1" H 1000 3400 50  0000 R CNN
+F 0 "P1" H 1000 3400 50  0000 R CNN
 F 1 "Conn_01x24_Male" H 1450 3550 50  0001 R CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical" H 950 2150 50  0001 C CNN
 F 3 "~" H 950 2150 50  0001 C CNN
@@ -1045,21 +1045,19 @@ Text Label 9900 4700 0    50   ~ 0
 D6
 Text Label 9900 4800 0    50   ~ 0
 D7
-Text Label 9900 4900 0    50   ~ 0
-D8
-Text Label 9900 5000 0    50   ~ 0
-D9
 Text Label 9900 5100 0    50   ~ 0
-D10
-Text Label 9900 5200 0    50   ~ 0
-D11
+D8
 Text Label 9900 5300 0    50   ~ 0
-D12
+D10
 Text Label 9900 5400 0    50   ~ 0
-D13
+D11
 Text Label 9900 5500 0    50   ~ 0
-D14
+D12
 Text Label 9900 5600 0    50   ~ 0
+D13
+Text Label 9900 5700 0    50   ~ 0
+D14
+Text Label 9900 5800 0    50   ~ 0
 D15
 Wire Wire Line
 	9900 4100 10100 4100
@@ -1078,13 +1076,7 @@ Wire Wire Line
 Wire Wire Line
 	9900 4800 10100 4800
 Wire Wire Line
-	9900 4900 10100 4900
-Wire Wire Line
-	9900 5000 10100 5000
-Wire Wire Line
 	9900 5100 10100 5100
-Wire Wire Line
-	9900 5200 10100 5200
 Wire Wire Line
 	9900 5300 10100 5300
 Wire Wire Line
@@ -1093,6 +1085,10 @@ Wire Wire Line
 	9900 5500 10100 5500
 Wire Wire Line
 	9900 5600 10100 5600
+Wire Wire Line
+	9900 5700 10100 5700
+Wire Wire Line
+	9900 5800 10100 5800
 $Comp
 L alexios:74HC574 U1
 U 2 1 60B18F19
@@ -1449,17 +1445,6 @@ F 3 "~" H 950 6700 50  0001 C CNN
 $EndComp
 Connection ~ 950  6600
 Connection ~ 950  6800
-$Comp
-L Connector:Conn_01x16_Male J3
-U 1 1 61F7FFA3
-P 10300 4800
-F 0 "J3" H 10272 4774 50  0000 R CNN
-F 1 "Conn_01x16_Male" H 10272 4683 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 10300 4800 50  0001 C CNN
-F 3 "~" H 10300 4800 50  0001 C CNN
-	1    10300 4800
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	10100 2250 10000 2250
 Wire Wire Line
@@ -1570,10 +1555,10 @@ F 3 "~" H 10550 1650 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0109
 U 1 1 624D9C8E
 P 10550 1550
-F 0 "#PWR?" H 10550 1400 50  0001 C CNN
+F 0 "#PWR0109" H 10550 1400 50  0001 C CNN
 F 1 "+5V" H 10565 1723 50  0000 C CNN
 F 2 "" H 10550 1550 50  0001 C CNN
 F 3 "" H 10550 1550 50  0001 C CNN
@@ -1581,10 +1566,10 @@ F 3 "" H 10550 1550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0110
 U 1 1 624DA3A1
 P 10550 1750
-F 0 "#PWR?" H 10550 1500 50  0001 C CNN
+F 0 "#PWR0110" H 10550 1500 50  0001 C CNN
 F 1 "GND" H 10555 1577 50  0000 C CNN
 F 2 "" H 10550 1750 50  0001 C CNN
 F 3 "" H 10550 1750 50  0001 C CNN
@@ -1608,10 +1593,10 @@ F 3 "~" H 1700 1100 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0111
 U 1 1 624EF0C5
 P 1700 1000
-F 0 "#PWR?" H 1700 850 50  0001 C CNN
+F 0 "#PWR0111" H 1700 850 50  0001 C CNN
 F 1 "+5V" H 1715 1173 50  0000 C CNN
 F 2 "" H 1700 1000 50  0001 C CNN
 F 3 "" H 1700 1000 50  0001 C CNN
@@ -1619,16 +1604,58 @@ F 3 "" H 1700 1000 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0112
 U 1 1 624EF0CB
 P 1700 1200
-F 0 "#PWR?" H 1700 950 50  0001 C CNN
+F 0 "#PWR0112" H 1700 950 50  0001 C CNN
 F 1 "GND" H 1705 1027 50  0000 C CNN
 F 2 "" H 1700 1200 50  0001 C CNN
 F 3 "" H 1700 1200 50  0001 C CNN
 	1    1700 1200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x18_Male P3
+U 1 1 60F14A28
+P 10300 4900
+F 0 "P3" H 10272 4874 50  0000 R CNN
+F 1 "Conn_01x18_Male" H 10272 4783 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x09_P2.54mm_Vertical" H 10300 4900 50  0001 C CNN
+F 3 "~" H 10300 4900 50  0001 C CNN
+	1    10300 4900
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60F32DAD
+P 9700 5050
+AR Path="/5D78E680/60F32DAD" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/60F32DAD" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/60F32DAD" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/60F32DAD" Ref="#PWR?"  Part="1" 
+AR Path="/60F32DAD" Ref="#PWR0113"  Part="1" 
+F 0 "#PWR0113" H 9700 4800 50  0001 C CNN
+F 1 "GND" H 9705 4877 50  0000 C CNN
+F 2 "" H 9700 5050 50  0001 C CNN
+F 3 "" H 9700 5050 50  0001 C CNN
+	1    9700 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 5050 9700 5000
+Wire Wire Line
+	9700 5000 10000 5000
+Wire Wire Line
+	10100 4900 10000 4900
+Wire Wire Line
+	10000 4900 10000 5000
+Connection ~ 10000 5000
+Wire Wire Line
+	10000 5000 10100 5000
+Wire Wire Line
+	9900 5200 10100 5200
+Text Label 9900 5200 0    50   ~ 0
+D9
 Wire Bus Line
 	4750 850  8350 850 
 Wire Bus Line
