@@ -502,7 +502,7 @@ U 1 1 65FDCA9C
 P 2200 2550
 F 0 "U15" H 2200 3517 50  0000 C CNN
 F 1 "74HC154" H 2200 3426 50  0000 C CNN
-F 2 "alexios:SOIC-24W" H 2200 2550 50  0001 C CNN
+F 2 "alexios:DIP-24_W7.62mm_Socket" H 2200 2550 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 2200 2550 50  0001 C CNN
 	1    2200 2550
 	1    0    0    -1  
@@ -513,7 +513,7 @@ U 1 1 65FDD622
 P 2200 4500
 F 0 "U16" H 2200 5467 50  0000 C CNN
 F 1 "74HC154" H 2200 5376 50  0000 C CNN
-F 2 "alexios:SOIC-24W" H 2200 4500 50  0001 C CNN
+F 2 "alexios:DIP-24_W7.62mm_Socket" H 2200 4500 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 2200 4500 50  0001 C CNN
 	1    2200 4500
 	1    0    0    -1  
@@ -640,7 +640,7 @@ AR Path="/64FC7999/6549E394/6607EE46" Ref="U?"  Part="2"
 AR Path="/64FC7999/6607EE46" Ref="U17"  Part="1" 
 F 0 "U17" H 5050 3117 50  0000 C CNN
 F 1 "74HC541" H 5050 3026 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4750 2300 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4750 2300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4750 2300 50  0001 C CNN
 	1    5050 2350
 	1    0    0    -1  
@@ -659,7 +659,7 @@ AR Path="/64FC7999/6549E394/66080820" Ref="U?"  Part="2"
 AR Path="/64FC7999/66080820" Ref="U18"  Part="1" 
 F 0 "U18" H 5050 4567 50  0000 C CNN
 F 1 "74HC541" H 5050 4476 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4750 3750 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4750 3750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4750 3750 50  0001 C CNN
 	1    5050 3800
 	1    0    0    -1  
@@ -743,7 +743,7 @@ AR Path="/64FC7999/6549E394/6607C601" Ref="U?"  Part="2"
 AR Path="/64FC7999/6607C601" Ref="U21"  Part="1" 
 F 0 "U21" H 8450 6017 50  0000 C CNN
 F 1 "74HC541" H 8450 5926 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 8450 5250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8450 5250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8450 5250 50  0001 C CNN
 	1    8450 5250
 	1    0    0    -1  
@@ -757,7 +757,7 @@ AR Path="/64FC7999/6549E394/6607BC5E" Ref="U?"  Part="2"
 AR Path="/64FC7999/6607BC5E" Ref="U20"  Part="1" 
 F 0 "U20" H 8450 4567 50  0000 C CNN
 F 1 "74HC541" H 8450 4476 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 8450 3800 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8450 3800 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8450 3800 50  0001 C CNN
 	1    8450 3800
 	1    0    0    -1  
@@ -771,7 +771,7 @@ AR Path="/64FC7999/6549E394/66079B6F" Ref="U?"  Part="2"
 AR Path="/64FC7999/66079B6F" Ref="U19"  Part="1" 
 F 0 "U19" H 8450 3117 50  0000 C CNN
 F 1 "74HC541" H 8450 3026 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 8450 2350 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 8450 2350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8450 2350 50  0001 C CNN
 	1    8450 2350
 	1    0    0    -1  
@@ -1556,7 +1556,7 @@ AR Path="/64FC7999/6549E394/65780640" Ref="U?"  Part="2"
 AR Path="/64FC7999/65780640" Ref="U19"  Part="2" 
 F 0 "U19" H 10379 2296 50  0000 L CNN
 F 1 "74HC541" H 10379 2205 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10200 2250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10200 2250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10200 2250 50  0001 C CNN
 	2    10200 2250
 	1    0    0    -1  
@@ -1626,7 +1626,7 @@ AR Path="/64FC7999/6549E394/6579DDE7" Ref="U?"  Part="2"
 AR Path="/64FC7999/6579DDE7" Ref="U20"  Part="2" 
 F 0 "U20" H 10379 3746 50  0000 L CNN
 F 1 "74HC541" H 10379 3655 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10200 3700 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10200 3700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10200 3700 50  0001 C CNN
 	2    10200 3700
 	1    0    0    -1  
@@ -1696,7 +1696,7 @@ AR Path="/64FC7999/6549E394/657F6B81" Ref="U?"  Part="2"
 AR Path="/64FC7999/657F6B81" Ref="U21"  Part="2" 
 F 0 "U21" H 10379 5196 50  0000 L CNN
 F 1 "74HC541" H 10379 5105 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 10200 5150 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 10200 5150 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10200 5150 50  0001 C CNN
 	2    10200 5150
 	1    0    0    -1  
@@ -1769,7 +1769,7 @@ AR Path="/64FC7999/6549E394/6B515ACE" Ref="U?"  Part="2"
 AR Path="/64FC7999/6B515ACE" Ref="U17"  Part="2" 
 F 0 "U17" H 5230 5146 50  0000 L CNN
 F 1 "74HC541" H 5230 5055 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 4750 5050 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4750 5050 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4750 5050 50  0001 C CNN
 	2    5050 5100
 	1    0    0    -1  
@@ -1790,7 +1790,7 @@ AR Path="/64FC7999/6549E394/6B516CE1" Ref="U?"  Part="2"
 AR Path="/64FC7999/6B516CE1" Ref="U18"  Part="2" 
 F 0 "U18" H 5230 5846 50  0000 L CNN
 F 1 "74HC541" H 5230 5755 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 4750 5750 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4750 5750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4750 5750 50  0001 C CNN
 	2    5050 5800
 	1    0    0    -1  
@@ -1803,7 +1803,7 @@ U 2 1 6B5174C5
 P 2250 5800
 F 0 "U15" H 2430 5846 50  0000 L CNN
 F 1 "74HC154" H 2430 5755 50  0000 L CNN
-F 2 "alexios:SOIC-24W" H 2250 5800 50  0001 C CNN
+F 2 "alexios:DIP-24_W7.62mm_Socket" H 2250 5800 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 2250 5800 50  0001 C CNN
 	2    2250 5800
 	1    0    0    -1  
@@ -1818,7 +1818,7 @@ U 2 1 6B518DD0
 P 3550 5800
 F 0 "U16" H 3730 5846 50  0000 L CNN
 F 1 "74HC154" H 3730 5755 50  0000 L CNN
-F 2 "alexios:SOIC-24W" H 3550 5800 50  0001 C CNN
+F 2 "alexios:DIP-24_W7.62mm_Socket" H 3550 5800 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 3550 5800 50  0001 C CNN
 	2    3550 5800
 	1    0    0    -1  

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 15 13
+Sheet 13 13
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
@@ -21,7 +21,7 @@ AR Path="/61638474" Ref="U?"  Part="2"
 AR Path="/614F5B8D/61638474" Ref="U40"  Part="2" 
 F 0 "U40" H 1730 7146 50  0000 L CNN
 F 1 "74HC138" H 1730 7055 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1550 7100 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 1550 7100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1550 7100 50  0001 C CNN
 	2    1550 7100
 	1    0    0    -1  
@@ -34,7 +34,7 @@ AR Path="/6163847A" Ref="U?"  Part="3"
 AR Path="/614F5B8D/6163847A" Ref="U41"  Part="3" 
 F 0 "U41" H 3080 7546 50  0000 L CNN
 F 1 "74HC112" H 3080 7455 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 2900 6950 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 2900 6950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS112" H 2900 6950 50  0001 C CNN
 	3    3200 7300
 	1    0    0    -1  
@@ -181,7 +181,7 @@ AR Path="/660ABF30" Ref="U?"  Part="1"
 AR Path="/614F5B8D/660ABF30" Ref="U42"  Part="2" 
 F 0 "U42" H 4530 8146 50  0000 L CNN
 F 1 "74HC251" H 4530 8055 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 4350 7550 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 4350 7550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 4350 7550 50  0001 C CNN
 	2    4350 7600
 	1    0    0    -1  
@@ -405,7 +405,7 @@ AR Path="/616384C7" Ref="U?"  Part="1"
 AR Path="/614F5B8D/616384C7" Ref="U42"  Part="1" 
 F 0 "U42" H 6500 4967 50  0000 C CNN
 F 1 "74HC251" H 6500 4876 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 6500 4050 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 6500 4050 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 6500 4050 50  0001 C CNN
 	1    6500 4100
 	1    0    0    -1  
@@ -493,7 +493,7 @@ AR Path="/6163844D" Ref="U?"  Part="2"
 AR Path="/614F5B8D/6163844D" Ref="U41"  Part="2" 
 F 0 "U41" H 6475 2267 50  0000 C CNN
 F 1 "74HC112" H 6475 2176 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 6500 1700 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 6500 1700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS112" H 6500 1700 50  0001 C CNN
 	2    6800 2050
 	1    0    0    -1  
@@ -553,7 +553,7 @@ AR Path="/61638430" Ref="U?"  Part="1"
 AR Path="/614F5B8D/61638430" Ref="U41"  Part="1" 
 F 0 "U41" H 4925 2267 50  0000 C CNN
 F 1 "74HC112" H 4925 2176 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 4950 1700 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 4950 1700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS112" H 4950 1700 50  0001 C CNN
 	1    5250 2050
 	1    0    0    -1  
@@ -615,7 +615,7 @@ AR Path="/6163840E" Ref="U?"  Part="1"
 AR Path="/614F5B8D/6163840E" Ref="U40"  Part="1" 
 F 0 "U40" H 3050 3167 50  0000 C CNN
 F 1 "74HC138" H 3050 3076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3050 2500 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3050 2500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3050 2500 50  0001 C CNN
 	1    3050 2500
 	1    0    0    -1  

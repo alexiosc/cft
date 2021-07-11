@@ -426,59 +426,6 @@ Wire Wire Line
 	2850 6900 2850 7000
 Wire Wire Line
 	2850 7200 2850 7300
-$Comp
-L Device:CP_Small C22
-U 1 1 609CAF92
-P 3250 7100
-AR Path="/609CAF92" Ref="C22"  Part="1" 
-AR Path="/5D34E810/609CAF92" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/609CAF92" Ref="C?"  Part="1" 
-AR Path="/60757845/609CAF92" Ref="C?"  Part="1" 
-F 0 "C22" H 3162 7146 50  0000 R CNN
-F 1 "47µF" H 3162 7055 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3250 7100 50  0001 C CNN
-F 3 "~" H 3250 7100 50  0001 C CNN
-	1    3250 7100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 609CAF98
-P 3250 7300
-AR Path="/5F67D4B5/609CAF98" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF98" Ref="#PWR043"  Part="1" 
-AR Path="/5D34E810/609CAF98" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/609CAF98" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/609CAF98" Ref="#PWR?"  Part="1" 
-AR Path="/60757845/609CAF98" Ref="#PWR?"  Part="1" 
-F 0 "#PWR043" H 3250 7050 50  0001 C CNN
-F 1 "GND" H 3172 7263 50  0000 R CNN
-F 2 "" H 3250 7300 50  0001 C CNN
-F 3 "" H 3250 7300 50  0001 C CNN
-	1    3250 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 609CAF9E
-P 3250 6900
-AR Path="/5F67D4B5/609CAF9E" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF9E" Ref="#PWR042"  Part="1" 
-AR Path="/5D34E810/609CAF9E" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/609CAF9E" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/609CAF9E" Ref="#PWR?"  Part="1" 
-AR Path="/60757845/609CAF9E" Ref="#PWR?"  Part="1" 
-F 0 "#PWR042" H 3250 6750 50  0001 C CNN
-F 1 "+5V" H 3192 6937 50  0000 R CNN
-F 2 "" H 3250 6900 50  0001 C CNN
-F 3 "" H 3250 6900 50  0001 C CNN
-	1    3250 6900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3250 6900 3250 7000
-Wire Wire Line
-	3250 7200 3250 7300
 Text Label 8450 2400 2    50   ~ 0
 ~IO
 Text Label 8450 2300 2    50   ~ 0

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 13
+Sheet 11 13
 Title "CFT Clock Generator"
 Date ""
 Rev ""
@@ -21,7 +21,7 @@ AR Path="/6119F170" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F170" Ref="U30"  Part="1" 
 F 0 "U30" H 4350 4417 50  0000 C CNN
 F 1 "74HC139" H 4350 4326 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 4650 4000 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 4650 4000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4650 4000 50  0001 C CNN
 	1    4350 3650
 	1    0    0    -1  
@@ -34,7 +34,7 @@ AR Path="/6119F176" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F176" Ref="U31"  Part="1" 
 F 0 "U31" H 5600 3617 50  0000 C CNN
 F 1 "74HC139" H 5600 3526 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5600 3250 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 5600 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5600 3250 50  0001 C CNN
 	1    5600 3250
 	1    0    0    -1  
@@ -47,7 +47,7 @@ AR Path="/6119F17C" Ref="U?"  Part="2"
 AR Path="/61175D3B/6119F17C" Ref="U31"  Part="2" 
 F 0 "U31" H 5600 3475 50  0000 C CNN
 F 1 "74HC139" H 5600 3384 50  0001 C CNN
-F 2 "alexios:SOIC-16" H 5600 3850 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 5600 3850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5600 3850 50  0001 C CNN
 	2    5600 3850
 	1    0    0    -1  
@@ -223,7 +223,7 @@ AR Path="/6119F1EA" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F1EA" Ref="U32"  Part="1" 
 F 0 "U32" H 7650 4417 50  0000 C CNN
 F 1 "74HC541" H 7650 4326 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7650 3650 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 7650 3650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 7650 3650 50  0001 C CNN
 	1    7650 3650
 	1    0    0    -1  
@@ -534,7 +534,7 @@ AR Path="/6B626203" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B626203" Ref="U30"  Part="2" 
 F 0 "U30" H 3330 7996 50  0000 L CNN
 F 1 "74HC139" H 3330 7905 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 3450 7950 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 3450 7950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 3450 7950 50  0001 C CNN
 	2    3150 7600
 	1    0    0    -1  
@@ -549,7 +549,7 @@ AR Path="/6B628B09" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B628B09" Ref="U31"  Part="3" 
 F 0 "U31" H 4580 7296 50  0000 L CNN
 F 1 "74HC139" H 4580 7205 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 4400 7250 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 4400 7250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4400 7250 50  0001 C CNN
 	3    4400 7250
 	1    0    0    -1  
@@ -564,7 +564,7 @@ AR Path="/6B629A7A" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B629A7A" Ref="U32"  Part="2" 
 F 0 "U32" H 5880 7296 50  0000 L CNN
 F 1 "74HC541" H 5880 7205 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 5700 7250 50  0001 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5700 7250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5700 7250 50  0001 C CNN
 	2    5700 7250
 	1    0    0    -1  

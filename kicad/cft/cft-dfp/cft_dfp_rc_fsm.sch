@@ -21,7 +21,7 @@ AR Path="/5EEDDDB2" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEDDDB2" Ref="U11"  Part="1" 
 F 0 "U11" H 4600 3667 50  0000 C CNN
 F 1 "74HC74" H 4600 3576 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4550 3400 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4550 3400 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4550 3400 50  0001 C CNN
 	1    4600 3250
 	1    0    0    -1  
@@ -34,7 +34,7 @@ AR Path="/5EEDDDB8" Ref="U?"  Part="2"
 AR Path="/5ED99F01/5EEDDDB8" Ref="U11"  Part="2" 
 F 0 "U11" H 4600 4417 50  0000 C CNN
 F 1 "74HC74" H 4600 4326 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4550 4150 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4550 4150 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4550 4150 50  0001 C CNN
 	2    4600 4000
 	1    0    0    -1  
@@ -47,7 +47,7 @@ AR Path="/5EEDDDBE" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEDDDBE" Ref="U12"  Part="1" 
 F 0 "U12" H 4600 5167 50  0000 C CNN
 F 1 "74HC74" H 4600 5076 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4550 4900 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4550 4900 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4550 4900 50  0001 C CNN
 	1    4600 4750
 	1    0    0    -1  
@@ -60,7 +60,7 @@ AR Path="/5EEDDDC4" Ref="U?"  Part="2"
 AR Path="/5ED99F01/5EEDDDC4" Ref="U12"  Part="2" 
 F 0 "U12" H 4600 5917 50  0000 C CNN
 F 1 "74HC74" H 4600 5826 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4550 5650 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4550 5650 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4550 5650 50  0001 C CNN
 	2    4600 5500
 	1    0    0    -1  
@@ -325,7 +325,7 @@ AR Path="/5EEE2B84" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEE2B84" Ref="U11"  Part="3" 
 F 0 "U11" H 1530 7346 50  0000 L CNN
 F 1 "74HC74" H 1530 7255 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 1300 7450 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 1300 7450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 1300 7450 50  0001 C CNN
 	3    1350 7300
 	1    0    0    -1  
@@ -338,7 +338,7 @@ AR Path="/5EEE40AD" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEE40AD" Ref="U12"  Part="3" 
 F 0 "U12" H 2980 7346 50  0000 L CNN
 F 1 "74HC74" H 2980 7255 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 2750 7450 50  0001 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 2750 7450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 2750 7450 50  0001 C CNN
 	3    2800 7300
 	1    0    0    -1  
@@ -364,7 +364,7 @@ AR Path="/5EEE7B9D" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEE7B9D" Ref="U14"  Part="2" 
 F 0 "U14" H 5880 8546 50  0000 L CNN
 F 1 "74HC253" H 5880 8455 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 6000 8500 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 6000 8500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf" H 6000 8500 50  0001 C CNN
 	2    5700 7900
 	1    0    0    -1  
@@ -527,7 +527,7 @@ AR Path="/5EEDDE1A" Ref="U?"  Part="1"
 AR Path="/5ED99F01/5EEDDE1A" Ref="U14"  Part="1" 
 F 0 "U14" H 7150 4117 50  0000 C CNN
 F 1 "74HC253" H 7150 4026 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 7450 3750 50  0001 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 7450 3750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf" H 7450 3750 50  0001 C CNN
 	1    7150 3150
 	1    0    0    -1  
