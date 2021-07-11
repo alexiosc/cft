@@ -1804,6 +1804,40 @@ Text Notes 14000 4900 0    50   ~ 0
 GND
 Text Notes 14000 5000 0    50   ~ 0
 GND
+Text Notes 12600 2400 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 2500 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 2600 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 2700 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 2800 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 2900 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3000 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3100 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3200 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3300 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3400 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3500 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3600 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3700 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3800 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 3900 0    50   ~ 0
+Bus (µCV)
+Text Notes 12600 4000 0    50   ~ 0
+Bus (µCV)
 Text Notes 14000 2300 0    50   ~ 0
 16 MHz
 Text Notes 14000 2000 0    50   ~ 0
@@ -1862,11 +1896,11 @@ Text Notes 13100 2100 0    50   ~ 0
 ~HALT
 Text Notes 13100 2200 0    50   ~ 0
 ~IRQ
-Text Notes 13100 2800 0    50   ~ 10
+Text Notes 13100 2800 0    50   ~ 0
 ~MEM
-Text Notes 13100 2900 0    50   ~ 10
+Text Notes 13100 2900 0    50   ~ 0
 ~IO
-Text Notes 14500 3200 0    50   ~ 0
+Text Notes 13100 3200 0    50   ~ 0
 ~IRQS
 $Comp
 L power:GND #PWR0101
@@ -1953,6 +1987,8 @@ Text Label 1100 10450 2    50   ~ 0
 C1
 Text Notes 14500 3100 0    50   ~ 10
 ~W
+Text Notes 14500 3200 0    50   ~ 0
+Bussed
 Text Notes 14500 4100 0    50   ~ 0
 ~IRQ0
 Text Notes 14500 4200 0    50   ~ 0
@@ -2321,31 +2357,33 @@ Wire Wire Line
 Wire Wire Line
 	20950 4550 20600 4550
 Wire Wire Line
-	23500 5000 23150 5000
-Wire Wire Line
-	23500 6950 23150 6950
+	23500 5900 23150 5900
 Wire Wire Line
 	23500 5100 23150 5100
 Wire Wire Line
+	23500 5800 23150 5800
+Wire Wire Line
 	23500 5700 23150 5700
 Wire Wire Line
-	23500 5300 23150 5300
+	23500 5500 23150 5500
 Wire Wire Line
 	23500 5400 23150 5400
 Wire Wire Line
-	23500 7050 23150 7050
+	23500 5000 23150 5000
 Wire Wire Line
-	18000 3350 17650 3350
+	18000 2450 17650 2450
 Wire Wire Line
-	20950 2450 20600 2450
+	18000 3250 17650 3250
 Wire Wire Line
-	20950 2550 20600 2550
+	20950 3350 20600 3350
+Wire Wire Line
+	20950 3250 20600 3250
 Wire Wire Line
 	20950 3150 20600 3150
 Wire Wire Line
 	20950 2750 20600 2750
 Wire Wire Line
-	20950 2950 20600 2950
+	20950 2850 20600 2850
 Wire Wire Line
 	19950 4100 19600 4100
 Wire Wire Line
@@ -2442,25 +2480,29 @@ Text Label 20600 4450 0    50   ~ 0
 C13
 Text Label 20600 4550 0    50   ~ 0
 C14
-Text Label 23150 5000 0    50   ~ 0
-A25
 Text Label 23150 5100 0    50   ~ 0
+A25
+Text Label 23150 5800 0    50   ~ 0
 A26
-Text Label 23150 5400 0    50   ~ 0
-A29
+Text Label 23150 5700 0    50   ~ 0
+A27
 Text Label 23150 5500 0    50   ~ 0
+A29
+Text Label 23150 5400 0    50   ~ 0
 A30
-Text Label 17650 3350 0    50   ~ 0
+Text Label 17650 2450 0    50   ~ 0
 C4
-Text Label 20600 2450 0    50   ~ 0
+Text Label 17650 3250 0    50   ~ 0
+C6
+Text Label 20600 3350 0    50   ~ 0
 B10
-Text Label 20600 2550 0    50   ~ 0
+Text Label 20600 3250 0    50   ~ 0
 B11
 Text Label 20600 3150 0    50   ~ 0
 B12
-Text Label 20600 3050 0    50   ~ 0
+Text Label 20600 2750 0    50   ~ 0
 B13
-Text Label 20600 2950 0    50   ~ 0
+Text Label 20600 2850 0    50   ~ 0
 B14
 Text Label 19600 4100 0    50   ~ 0
 B15
@@ -2532,12 +2574,142 @@ Text Label 17900 11350 0    50   ~ 0
 A21
 Text Label 17900 11450 0    50   ~ 0
 A22
-Text Label 23150 7050 0    50   ~ 0
+Text Label 23150 5000 0    50   ~ 0
 A23
 Text Notes 11000 3400 0    50   ~ 0
 A16
 Text Notes 11000 3300 0    50   ~ 0
 A15
+Text Notes 10850 3300 0    50   ~ 0
+BH
+Text Notes 10850 3400 0    50   ~ 0
+BH
+Text Notes 10850 3500 0    50   ~ 0
+BH
+Text Notes 10850 3600 0    50   ~ 0
+BH
+Text Notes 10850 3700 0    50   ~ 0
+BH
+Text Notes 10850 3800 0    50   ~ 0
+BH
+Text Notes 10850 3900 0    50   ~ 0
+BH
+Text Notes 10850 4000 0    50   ~ 0
+BH
+Text Notes 10850 4100 0    50   ~ 0
+BH
+Text Notes 10850 4200 0    50   ~ 0
+BH
+Text Notes 10850 4300 0    50   ~ 0
+BH
+Text Notes 10850 4400 0    50   ~ 0
+BH
+Text Notes 10850 4500 0    50   ~ 0
+BH
+Text Notes 10850 4600 0    50   ~ 0
+BH
+Text Notes 10850 4700 0    50   ~ 0
+BH
+Text Notes 10850 4800 0    50   ~ 0
+BH
+Text Notes 12200 2400 0    50   ~ 0
+BH
+Text Notes 12200 2500 0    50   ~ 0
+BH
+Text Notes 12200 2600 0    50   ~ 0
+BH
+Text Notes 12200 2700 0    50   ~ 0
+BH
+Text Notes 12200 2800 0    50   ~ 0
+BH
+Text Notes 12200 2900 0    50   ~ 0
+BH
+Text Notes 12200 3000 0    50   ~ 0
+BH
+Text Notes 12200 3100 0    50   ~ 0
+BH
+Text Notes 12200 3200 0    50   ~ 0
+BH
+Text Notes 12200 3300 0    50   ~ 0
+BH
+Text Notes 12200 3400 0    50   ~ 0
+BH
+Text Notes 12200 3500 0    50   ~ 0
+BH
+Text Notes 12200 3600 0    50   ~ 0
+BH
+Text Notes 12200 3700 0    50   ~ 0
+BH
+Text Notes 12200 3800 0    50   ~ 0
+BH
+Text Notes 12200 3900 0    50   ~ 0
+BH
+Text Notes 12200 4000 0    50   ~ 0
+BH
+Text Notes 12200 4100 0    50   ~ 0
+BH
+Text Notes 12200 4200 0    50   ~ 0
+BH
+Text Notes 12200 4300 0    50   ~ 0
+BH
+Text Notes 12200 4400 0    50   ~ 0
+BH
+Text Notes 12200 4500 0    50   ~ 0
+BH
+Text Notes 12200 4600 0    50   ~ 0
+BH
+Text Notes 12200 4700 0    50   ~ 0
+BH
+Text Notes 12200 4800 0    50   ~ 0
+BH
+Text Notes 13550 3300 0    50   ~ 0
+BH
+Text Notes 13550 3400 0    50   ~ 0
+BH
+Text Notes 13550 3500 0    50   ~ 0
+BH
+Text Notes 13550 3600 0    50   ~ 0
+BH
+Text Notes 13550 3700 0    50   ~ 0
+BH
+Text Notes 13550 3800 0    50   ~ 0
+BH
+Text Notes 13550 3900 0    50   ~ 0
+BH
+Text Notes 13550 4000 0    50   ~ 0
+BH
+Text Notes 13550 4100 0    50   ~ 0
+BH
+Text Notes 13550 4200 0    50   ~ 0
+BH
+Text Notes 13550 4300 0    50   ~ 0
+BH
+Text Notes 13550 4400 0    50   ~ 0
+BH
+Text Notes 13550 4500 0    50   ~ 0
+BH
+Text Notes 13550 4600 0    50   ~ 0
+BH
+Text Notes 13550 4700 0    50   ~ 0
+BH
+Text Notes 13550 4800 0    50   ~ 0
+BH
+Text Notes 13550 2500 0    50   ~ 0
+BH
+Text Notes 13550 2600 0    50   ~ 0
+BH
+Text Notes 13550 2700 0    50   ~ 0
+BH
+Text Notes 13550 2800 0    50   ~ 0
+BH
+Text Notes 13550 2900 0    50   ~ 0
+BH
+Text Notes 13550 3000 0    50   ~ 0
+BH
+Text Notes 13550 3100 0    50   ~ 0
+BH
+Text Notes 13550 3200 0    50   ~ 0
+BH
 Text Notes 14500 3000 0    50   ~ 10
 ~R
 Text Notes 14500 3300 0    50   ~ 10
@@ -2687,26 +2859,38 @@ Wire Wire Line
 	20950 5150 20600 5150
 Wire Wire Line
 	20950 5050 20600 5050
-Text Label 17650 3250 0    50   ~ 0
+Text Label 17650 2550 0    50   ~ 0
 B6
 Wire Wire Line
-	18000 3250 17650 3250
+	18000 2550 17650 2550
 Wire Wire Line
 	18000 3150 17650 3150
 Wire Wire Line
-	18000 3050 17650 3050
-Text Label 17650 3050 0    50   ~ 0
+	18000 2750 17650 2750
+Text Label 17650 2750 0    50   ~ 0
 B8
+Wire Wire Line
+	18000 3350 17650 3350
+Text Label 17650 3350 0    50   ~ 0
+C5
 Wire Wire Line
 	18000 2650 17650 2650
 Text Label 17650 2650 0    50   ~ 0
 C7
 Wire Wire Line
-	18000 2750 17650 2750
-Text Label 17650 2750 0    50   ~ 0
+	18000 3050 17650 3050
+Text Label 17650 3050 0    50   ~ 0
 C8
+Text Label 17650 2950 0    50   ~ 0
+C9
+Wire Wire Line
+	18000 2950 17650 2950
 Text Label 17650 3150 0    50   ~ 0
 B7
+Wire Wire Line
+	18000 2850 17650 2850
+Text Label 17650 2850 0    50   ~ 0
+B9
 $Comp
 L alexios:SN74ACT1071 U1
 U 2 1 62AA17B3
@@ -2847,40 +3031,44 @@ Wire Wire Line
 	22150 3100 22150 3150
 Connection ~ 22150 3100
 Wire Wire Line
-	20950 3350 20600 3350
-Text Label 20600 3350 0    50   ~ 0
+	20950 2450 20600 2450
+Text Label 20600 2450 0    50   ~ 0
 C10
+Wire Wire Line
+	20950 2550 20600 2550
+Text Label 20600 2550 0    50   ~ 0
+C11
 Wire Wire Line
 	20600 2650 20950 2650
 Text Label 20600 2650 0    50   ~ 0
 C12
 Wire Wire Line
-	20600 2850 20950 2850
+	20600 2950 20950 2950
 Wire Wire Line
 	20600 3050 20950 3050
-Text Label 20600 2750 0    50   ~ 0
+Text Label 20600 3050 0    50   ~ 0
 C13
-Text Label 20600 2850 0    50   ~ 0
+Text Label 20600 2950 0    50   ~ 0
 C14
 Wire Wire Line
-	23850 2500 23500 2500
+	23850 3400 23500 3400
 Wire Wire Line
-	23850 2600 23500 2600
+	23850 3300 23500 3300
 Wire Wire Line
 	23850 3200 23500 3200
 Wire Wire Line
 	23850 2800 23500 2800
 Wire Wire Line
 	23850 2900 23500 2900
-Text Label 23500 2500 0    50   ~ 0
+Text Label 23500 3400 0    50   ~ 0
 B15
-Text Label 23500 2600 0    50   ~ 0
+Text Label 23500 3300 0    50   ~ 0
 B16
 Text Label 23500 3200 0    50   ~ 0
 B17
-Text Label 23500 3100 0    50   ~ 0
+Text Label 23500 2800 0    50   ~ 0
 B18
-Text Label 23500 3000 0    50   ~ 0
+Text Label 23500 2900 0    50   ~ 0
 B19
 Wire Wire Line
 	25100 2750 25050 2750
@@ -2936,12 +3124,12 @@ Wire Wire Line
 	25050 3150 25050 3200
 Connection ~ 25050 3150
 Wire Wire Line
-	23850 3400 23500 3400
-Text Label 23500 3400 0    50   ~ 0
+	23850 2500 23500 2500
+Text Label 23500 2500 0    50   ~ 0
 C15
 Wire Wire Line
-	23850 3300 23500 3300
-Text Label 23500 3300 0    50   ~ 0
+	23850 2600 23500 2600
+Text Label 23500 2600 0    50   ~ 0
 C16
 Wire Wire Line
 	23500 2700 23850 2700
@@ -2951,9 +3139,9 @@ Wire Wire Line
 	23500 3000 23850 3000
 Wire Wire Line
 	23500 3100 23850 3100
-Text Label 23500 2800 0    50   ~ 0
+Text Label 23500 3100 0    50   ~ 0
 C18
-Text Label 23500 2900 0    50   ~ 0
+Text Label 23500 3000 0    50   ~ 0
 C19
 $Comp
 L alexios:SN74ACT1071 U3
@@ -2980,20 +3168,24 @@ $EndComp
 Text Label 20600 5950 0    50   ~ 0
 C26
 Wire Wire Line
+	26900 3400 26550 3400
+Wire Wire Line
 	26900 3300 26550 3300
 Wire Wire Line
 	26900 3200 26550 3200
 Wire Wire Line
 	26900 2800 26550 2800
 Wire Wire Line
-	26900 3000 26550 3000
-Text Label 26550 2600 0    50   ~ 0
+	26900 2900 26550 2900
+Text Label 26550 3400 0    50   ~ 0
+B20
+Text Label 26550 3300 0    50   ~ 0
 B21
 Text Label 26550 3200 0    50   ~ 0
 B22
-Text Label 26550 3100 0    50   ~ 0
-B23
 Text Label 26550 2800 0    50   ~ 0
+B23
+Text Label 26550 3100 0    50   ~ 0
 B24
 Wire Wire Line
 	28150 2750 28100 2750
@@ -3050,18 +3242,18 @@ Wire Wire Line
 Connection ~ 28100 3150
 Wire Wire Line
 	26900 2500 26550 2500
-Text Label 26550 3400 0    50   ~ 0
+Text Label 26550 2500 0    50   ~ 0
 C20
 Wire Wire Line
 	26900 2600 26550 2600
-Text Label 26550 3300 0    50   ~ 0
+Text Label 26550 2600 0    50   ~ 0
 C21
 Wire Wire Line
 	26550 2700 26900 2700
 Text Label 26550 2700 0    50   ~ 0
 C22
 Wire Wire Line
-	26550 2900 26900 2900
+	26550 3000 26900 3000
 Wire Wire Line
 	26550 3100 26900 3100
 $Comp
@@ -3086,15 +3278,15 @@ F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 27100 3350 50  0001 C 
 	1    27400 3000
 	1    0    0    -1  
 $EndComp
-Text Label 26550 3000 0    50   ~ 0
-B25
 Text Label 26550 2900 0    50   ~ 0
+B25
+Text Label 26550 3000 0    50   ~ 0
 B26
 $Comp
-L alexios:SN74ACT1071 U6
+L alexios:SN74ACT1071 U5
 U 1 1 631E8156
 P 24000 5500
-F 0 "U6" H 23893 6267 50  0000 C CNN
+F 0 "U5" H 23893 6267 50  0000 C CNN
 F 1 "SN74ACT1071" H 23893 6176 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 23700 5850 50  0001 C CNN
 F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 23700 5850 50  0001 C CNN
@@ -3102,10 +3294,10 @@ F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 23700 5850 50  0001 C 
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:SN74ACT1071 U6
+L alexios:SN74ACT1071 U5
 U 2 1 631E816C
 P 25100 5750
-F 0 "U6" H 25280 6109 50  0000 L CNN
+F 0 "U5" H 25280 6109 50  0000 L CNN
 F 1 "SN74ACT1071" H 25280 6018 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 24800 6100 50  0001 C CNN
 F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 24800 6100 50  0001 C CNN
@@ -3165,440 +3357,117 @@ $EndComp
 Wire Wire Line
 	24700 5650 24700 5700
 Connection ~ 24700 5650
-Text Label 23150 6950 0    50   ~ 0
+Text Label 23150 5900 0    50   ~ 0
 A24
-Text Label 23150 5700 0    50   ~ 0
+Text Label 23150 5600 0    50   ~ 0
 A28
 Wire Wire Line
-	23500 5200 23150 5200
-Text Label 23150 6550 0    50   ~ 0
+	23500 5600 23150 5600
+Wire Wire Line
+	27100 5900 26750 5900
+Wire Wire Line
+	27100 5100 26750 5100
+Wire Wire Line
+	27100 5800 26750 5800
+Wire Wire Line
+	27100 5700 26750 5700
+Wire Wire Line
+	27100 5500 26750 5500
+Wire Wire Line
+	27100 5400 26750 5400
+Wire Wire Line
+	27100 5000 26750 5000
+Text Label 26750 5100 0    50   ~ 0
+A17
+Text Label 26750 5800 0    50   ~ 0
 A18
-Text Label 23150 7150 0    50   ~ 0
+Text Label 26750 5700 0    50   ~ 0
 A19
-Text Label 23150 6850 0    50   ~ 0
+Text Label 26750 5400 0    50   ~ 0
 A22
 $Comp
-L alexios:SN74ACT1071 U7
+L alexios:SN74ACT1071 U6
+U 1 1 6342861D
+P 27600 5500
+F 0 "U6" H 27493 6267 50  0000 C CNN
+F 1 "SN74ACT1071" H 27493 6176 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 27300 5850 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 27300 5850 50  0001 C CNN
+	1    27600 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U6
 U 2 1 63428623
-P 25100 7200
-F 0 "U7" H 25280 7559 50  0000 L CNN
-F 1 "SN74ACT1071" H 25280 7468 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 24800 7550 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 24800 7550 50  0001 C CNN
-	2    25100 7200
+P 28700 5750
+F 0 "U6" H 28880 6109 50  0000 L CNN
+F 1 "SN74ACT1071" H 28880 6018 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 28400 6100 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 28400 6100 50  0001 C CNN
+	2    28700 5750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	24750 6700 24700 6700
+	28350 5250 28300 5250
 Wire Wire Line
-	24750 6800 24700 6800
+	28350 5350 28300 5350
 Wire Wire Line
-	24750 7000 24700 7000
+	28350 5550 28300 5550
 Wire Wire Line
-	24750 7100 24700 7100
+	28350 5650 28300 5650
 $Comp
 L Device:C_Small C16
 U 1 1 6342862D
-P 24700 6900
-F 0 "C16" H 24791 6946 50  0000 L CNN
-F 1 "100nF" H 24791 6855 50  0000 L CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 24700 6900 50  0001 C CNN
-F 3 "~" H 24700 6900 50  0001 C CNN
-	1    24700 6900
+P 28300 5450
+F 0 "C16" H 28391 5496 50  0000 L CNN
+F 1 "100nF" H 28391 5405 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 28300 5450 50  0001 C CNN
+F 3 "~" H 28300 5450 50  0001 C CNN
+	1    28300 5450
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	24700 6800 24700 6700
-Connection ~ 24700 6800
-Connection ~ 24700 6700
+	28300 5350 28300 5250
+Connection ~ 28300 5350
+Connection ~ 28300 5250
 Wire Wire Line
-	24700 6700 24700 6650
+	28300 5250 28300 5200
 $Comp
 L power:+5V #PWR0122
 U 1 1 63428637
-P 24700 6650
-F 0 "#PWR0122" H 24700 6500 50  0001 C CNN
-F 1 "+5V" H 24715 6823 50  0000 C CNN
-F 2 "" H 24700 6650 50  0001 C CNN
-F 3 "" H 24700 6650 50  0001 C CNN
-	1    24700 6650
+P 28300 5200
+F 0 "#PWR0122" H 28300 5050 50  0001 C CNN
+F 1 "+5V" H 28315 5373 50  0000 C CNN
+F 2 "" H 28300 5200 50  0001 C CNN
+F 3 "" H 28300 5200 50  0001 C CNN
+	1    28300 5200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	24700 7000 24700 7100
-Connection ~ 24700 7000
+	28300 5550 28300 5650
+Connection ~ 28300 5550
 $Comp
 L power:GND #PWR0123
 U 1 1 6342863F
-P 24700 7150
-F 0 "#PWR0123" H 24700 6900 50  0001 C CNN
-F 1 "GND" H 24705 6977 50  0000 C CNN
-F 2 "" H 24700 7150 50  0001 C CNN
-F 3 "" H 24700 7150 50  0001 C CNN
-	1    24700 7150
+P 28300 5700
+F 0 "#PWR0123" H 28300 5450 50  0001 C CNN
+F 1 "GND" H 28305 5527 50  0000 C CNN
+F 2 "" H 28300 5700 50  0001 C CNN
+F 3 "" H 28300 5700 50  0001 C CNN
+	1    28300 5700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	24700 7100 24700 7150
-Connection ~ 24700 7100
-Text Label 23150 6450 0    50   ~ 0
+	28300 5650 28300 5700
+Connection ~ 28300 5650
+Text Label 26750 5900 0    50   ~ 0
 A16
-Text Label 23150 7350 0    50   ~ 0
+Wire Wire Line
+	27100 5600 26750 5600
+Text Label 26750 5000 0    50   ~ 0
 A15
-Text Label 23150 6650 0    50   ~ 0
+Text Label 26750 5600 0    50   ~ 0
 A20
-Text Label 23150 6750 0    50   ~ 0
+Text Label 26750 5500 0    50   ~ 0
 A21
-Wire Wire Line
-	23500 6650 23150 6650
-Wire Wire Line
-	23500 6750 23150 6750
-Wire Wire Line
-	23500 6850 23150 6850
-Wire Wire Line
-	23500 6550 23150 6550
-Wire Wire Line
-	23500 6450 23150 6450
-Wire Wire Line
-	23500 7250 23150 7250
-Wire Wire Line
-	23500 7150 23150 7150
-Wire Wire Line
-	23500 7350 23150 7350
-$Comp
-L alexios:SN74ACT1071 U7
-U 1 1 6342861D
-P 24000 6950
-F 0 "U7" H 23893 7717 50  0000 C CNN
-F 1 "SN74ACT1071" H 23893 7626 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 23700 7300 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 23700 7300 50  0001 C CNN
-	1    24000 6950
-	1    0    0    -1  
-$EndComp
-Text Label 23150 7250 0    50   ~ 0
-A17
-Text Label 17650 2450 0    50   ~ 0
-C5
-Wire Wire Line
-	18000 2450 17650 2450
-Text Label 17650 2550 0    50   ~ 0
-C6
-Wire Wire Line
-	18000 2550 17650 2550
-Text Label 17650 2950 0    50   ~ 0
-B9
-Wire Wire Line
-	18000 2950 17650 2950
-Wire Wire Line
-	18000 2850 17650 2850
-Text Label 17650 2850 0    50   ~ 0
-C9
-Text Label 20600 3250 0    50   ~ 0
-C11
-Wire Wire Line
-	20950 3250 20600 3250
-Text Label 26550 2500 0    50   ~ 0
-B20
-Wire Wire Line
-	26900 3400 26550 3400
-Text Notes 12600 2400 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 2500 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 2600 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 2700 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 2800 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 2900 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3000 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3100 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3200 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3300 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3400 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3500 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3600 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3700 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3800 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 3900 0    50   ~ 10
-Bus (µCV)
-Text Notes 12600 4000 0    50   ~ 10
-Bus (µCV)
-$Comp
-L alexios:SN74ACT1071 U5
-U 2 1 61BDE52B
-P 28500 4650
-F 0 "U5" H 28680 5009 50  0000 L CNN
-F 1 "SN74ACT1071" H 28680 4918 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 28200 5000 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 28200 5000 50  0001 C CNN
-	2    28500 4650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	28150 4150 28100 4150
-Wire Wire Line
-	28150 4250 28100 4250
-Wire Wire Line
-	28150 4450 28100 4450
-Wire Wire Line
-	28150 4550 28100 4550
-$Comp
-L Device:C_Small C17
-U 1 1 61BDE535
-P 28100 4350
-F 0 "C17" H 28191 4396 50  0000 L CNN
-F 1 "100nF" H 28191 4305 50  0000 L CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 28100 4350 50  0001 C CNN
-F 3 "~" H 28100 4350 50  0001 C CNN
-	1    28100 4350
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	28100 4250 28100 4150
-Connection ~ 28100 4250
-Connection ~ 28100 4150
-Wire Wire Line
-	28100 4150 28100 4100
-$Comp
-L power:+5V #PWR0124
-U 1 1 61BDE53F
-P 28100 4100
-F 0 "#PWR0124" H 28100 3950 50  0001 C CNN
-F 1 "+5V" H 28115 4273 50  0000 C CNN
-F 2 "" H 28100 4100 50  0001 C CNN
-F 3 "" H 28100 4100 50  0001 C CNN
-	1    28100 4100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	28100 4450 28100 4550
-Connection ~ 28100 4450
-$Comp
-L power:GND #PWR0125
-U 1 1 61BDE547
-P 28100 4600
-F 0 "#PWR0125" H 28100 4350 50  0001 C CNN
-F 1 "GND" H 28105 4427 50  0000 C CNN
-F 2 "" H 28100 4600 50  0001 C CNN
-F 3 "" H 28100 4600 50  0001 C CNN
-	1    28100 4600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	28100 4550 28100 4600
-Connection ~ 28100 4550
-Wire Wire Line
-	26900 4100 26550 4100
-Wire Wire Line
-	26900 4200 26550 4200
-Wire Wire Line
-	26900 4300 26550 4300
-Wire Wire Line
-	26900 4000 26550 4000
-Wire Wire Line
-	26900 3900 26550 3900
-Wire Wire Line
-	26900 4700 26550 4700
-Wire Wire Line
-	26900 4600 26550 4600
-Wire Wire Line
-	26900 4800 26550 4800
-$Comp
-L alexios:SN74ACT1071 U5
-U 1 1 61BDE55B
-P 27400 4400
-F 0 "U5" H 27293 5167 50  0000 C CNN
-F 1 "SN74ACT1071" H 27293 5076 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 27100 4750 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 27100 4750 50  0001 C CNN
-	1    27400 4400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	26900 4400 26550 4400
-Wire Wire Line
-	26900 4500 26550 4500
-Text Label 26550 4300 0    50   ~ 0
-C30
-Text Label 26550 4400 0    50   ~ 0
-C29
-Text Label 26550 4600 0    50   ~ 0
-C27
-Text Label 26550 4000 0    50   ~ 0
-C26
-Text Label 26550 4500 0    50   ~ 0
-C28
-Text Label 26550 3900 0    50   ~ 0
-C23
-Text Label 26550 4700 0    50   ~ 0
-C25
-Text Label 26550 4800 0    50   ~ 0
-C24
-Text Notes 13550 2200 0    50   ~ 0
-U1
-Text Notes 13550 2300 0    50   ~ 0
-U1
-Text Notes 13550 2400 0    50   ~ 0
-U1
-Text Notes 13550 2500 0    50   ~ 0
-U1
-Text Notes 13550 2600 0    50   ~ 0
-U1
-Text Notes 13550 2700 0    50   ~ 0
-U1
-Text Notes 12200 2400 0    50   ~ 0
-U1
-Text Notes 12200 2500 0    50   ~ 0
-U1
-Text Notes 12200 2600 0    50   ~ 0
-U1
-Text Notes 12200 2700 0    50   ~ 0
-U1
-Text Notes 12200 2800 0    50   ~ 0
-U2
-Text Notes 12200 2900 0    50   ~ 0
-U2
-Text Notes 12200 3000 0    50   ~ 0
-U2
-Text Notes 12200 3100 0    50   ~ 0
-U2
-Text Notes 12200 3200 0    50   ~ 0
-U2
-Text Notes 13550 2800 0    50   ~ 0
-U2
-Text Notes 13550 2900 0    50   ~ 0
-U2
-Text Notes 13550 3000 0    50   ~ 0
-U2
-Text Notes 13550 3100 0    50   ~ 0
-U2
-Text Notes 13550 3200 0    50   ~ 0
-U2
-Text Notes 12200 3300 0    50   ~ 0
-U3
-Text Notes 12200 3400 0    50   ~ 0
-U3
-Text Notes 12200 3500 0    50   ~ 0
-U3
-Text Notes 12200 3600 0    50   ~ 0
-U3
-Text Notes 12200 3700 0    50   ~ 0
-U3
-Text Notes 13550 3300 0    50   ~ 0
-U3
-Text Notes 13550 3400 0    50   ~ 0
-U3
-Text Notes 13550 3500 0    50   ~ 0
-U3
-Text Notes 13550 3600 0    50   ~ 0
-U3
-Text Notes 13550 3700 0    50   ~ 0
-U3
-Text Notes 12200 3800 0    50   ~ 0
-U4
-Text Notes 12200 3900 0    50   ~ 0
-U4
-Text Notes 12200 4000 0    50   ~ 0
-U4
-Text Notes 12200 4100 0    50   ~ 0
-U4
-Text Notes 12200 4200 0    50   ~ 0
-U4
-Text Notes 12200 4300 0    50   ~ 0
-U4
-Text Notes 12200 4400 0    50   ~ 0
-U4
-Text Notes 13550 3800 0    50   ~ 0
-U4
-Text Notes 13550 3900 0    50   ~ 0
-U4
-Text Notes 13550 4000 0    50   ~ 0
-U4
-Text Notes 13550 4100 0    50   ~ 0
-U5
-Text Notes 13550 4200 0    50   ~ 0
-U5
-Text Notes 13550 4300 0    50   ~ 0
-U5
-Text Notes 13550 4400 0    50   ~ 0
-U5
-Text Notes 13550 4500 0    50   ~ 0
-U5
-Text Notes 13550 4600 0    50   ~ 0
-U5
-Text Notes 13550 4700 0    50   ~ 0
-U5
-Text Notes 13550 4800 0    50   ~ 0
-U5
-Wire Wire Line
-	23500 5500 23150 5500
-Wire Wire Line
-	23500 5600 23150 5600
-Text Label 23150 5600 0    50   ~ 0
-B30
-Text Label 23150 5300 0    50   ~ 0
-B29
-Text Label 23150 5800 0    50   ~ 0
-A27
-Wire Wire Line
-	23150 5800 23500 5800
-Text Label 23150 5200 0    50   ~ 0
-B28
-Wire Wire Line
-	23500 5900 23150 5900
-Text Label 23150 5900 0    50   ~ 0
-B27
-Text Notes 12200 4500 0    50   ~ 0
-U6
-Text Notes 12200 4600 0    50   ~ 0
-U6
-Text Notes 12200 4700 0    50   ~ 0
-U6
-Text Notes 12200 4800 0    50   ~ 0
-U6
-Text Notes 10800 4300 0    50   ~ 0
-U6
-Text Notes 10800 4400 0    50   ~ 0
-U6
-Text Notes 10800 4500 0    50   ~ 0
-U6
-Text Notes 10800 4600 0    50   ~ 0
-U6
-Text Notes 10800 4700 0    50   ~ 0
-U6
-Text Notes 10800 4800 0    50   ~ 0
-U6
-Text Notes 10800 4200 0    50   ~ 0
-U7
-Text Notes 10800 4100 0    50   ~ 0
-U7
-Text Notes 10800 3300 0    50   ~ 0
-U7
-Text Notes 10800 3400 0    50   ~ 0
-U7
-Text Notes 10800 3500 0    50   ~ 0
-U7
-Text Notes 10800 3600 0    50   ~ 0
-U7
-Text Notes 10800 3700 0    50   ~ 0
-U7
-Text Notes 10800 3800 0    50   ~ 0
-U7
-Text Notes 10800 3900 0    50   ~ 0
-U7
-Text Notes 10800 4000 0    50   ~ 0
-U7
 $EndSCHEMATC
