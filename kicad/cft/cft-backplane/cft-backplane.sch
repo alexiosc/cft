@@ -3470,4 +3470,5 @@ Text Label 26750 5600 0    50   ~ 0
 A20
 Text Label 26750 5500 0    50   ~ 0
 A21
+NoConn ~ 8800 4150
 $EndSCHEMATC
