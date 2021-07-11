@@ -1456,6 +1456,10 @@ K AVR ISP Connector
 F  ~
 $ENDCMP
 #
+$CMP Arduino-Mega-2560
+F https://store.arduino.cc/arduino-mega-2560-rev3
+$ENDCMP
+#
 $CMP CXO
 D Crystal Clock Oscillator, 7×5mm SMT
 K crystal clock oscillator surface mount smd smt
