@@ -978,17 +978,6 @@ Wire Wire Line
 	11750 6800 12250 6800
 Wire Wire Line
 	14000 6800 14350 6800
-$Comp
-L alexios:CFT-2021-Peripheral-Bus P2
-U 1 1 60987323
-P 14950 6200
-F 0 "P2" H 14950 6367 50  0000 C CNN
-F 1 "CFT-2021-Peripheral-Bus" H 14950 6276 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H 14825 5325 50  0001 C CNN
-F 3 "" H 14825 5325 50  0001 C CNN
-	1    14950 6200
-	1    0    0    -1  
-$EndComp
 Text Label 9650 6500 0    50   ~ 0
 CLK1
 Wire Wire Line
@@ -2671,6 +2660,18 @@ Text Label 4350 5600 0    50   ~ 0
 ~HALT
 Wire Wire Line
 	4350 5500 4950 5500
+$Comp
+L alexios:CFT-2021-Peripheral-Bus P2
+U 1 1 612DFEE0
+P 14950 6200
+F 0 "P2" H 14950 6367 50  0000 C CNN
+F 1 "CFT-2021-Peripheral-Bus" H 14950 6276 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H 14825 5325 50  0001 C CNN
+F 3 "" H 14825 5325 50  0001 C CNN
+	1    14950 6200
+	1    0    0    -1  
+$EndComp
+NoConn ~ 14350 6400
 Wire Bus Line
 	6700 3600 6700 6850
 $EndSCHEMATC
