@@ -2941,4 +2941,5 @@ Text Notes 10775 4025 0    50   ~ 0
 FF:FFFF
 Text Notes 9200 1200 0    197  ~ 39
 Memory Map
+NoConn ~ 14350 6400
 $EndSCHEMATC
