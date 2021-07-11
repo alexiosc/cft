@@ -1536,6 +1536,99 @@ Wire Wire Line
 	10100 3750 10000 3750
 Wire Wire Line
 	10000 3750 10000 3800
+Connection ~ 10000 3750
+$Comp
+L power:GND #PWR?
+U 1 1 5FD3F36D
+P 10000 3800
+AR Path="/5D78E680/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5FD3F36D" Ref="#PWR0108"  Part="1" 
+F 0 "#PWR0108" H 10000 3550 50  0001 C CNN
+F 1 "GND" H 10005 3627 50  0000 C CNN
+F 2 "" H 10000 3800 50  0001 C CNN
+F 3 "" H 10000 3800 50  0001 C CNN
+	1    10000 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 624D88D3
+P 10550 1650
+AR Path="/5D78E680/624D88D3" Ref="C?"  Part="1" 
+AR Path="/5D363063/624D88D3" Ref="C?"  Part="1" 
+AR Path="/5D42FF4D/624D88D3" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/624D88D3" Ref="C?"  Part="1" 
+AR Path="/624D88D3" Ref="C7"  Part="1" 
+F 0 "C7" H 10458 1696 50  0000 R CNN
+F 1 "1uF" H 10458 1605 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10550 1650 50  0001 C CNN
+F 3 "~" H 10550 1650 50  0001 C CNN
+	1    10550 1650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 624D9C8E
+P 10550 1550
+F 0 "#PWR?" H 10550 1400 50  0001 C CNN
+F 1 "+5V" H 10565 1723 50  0000 C CNN
+F 2 "" H 10550 1550 50  0001 C CNN
+F 3 "" H 10550 1550 50  0001 C CNN
+	1    10550 1550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 624DA3A1
+P 10550 1750
+F 0 "#PWR?" H 10550 1500 50  0001 C CNN
+F 1 "GND" H 10555 1577 50  0000 C CNN
+F 2 "" H 10550 1750 50  0001 C CNN
+F 3 "" H 10550 1750 50  0001 C CNN
+	1    10550 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 624A1EE5
+P 1700 1100
+AR Path="/5D78E680/624A1EE5" Ref="C?"  Part="1" 
+AR Path="/5D363063/624A1EE5" Ref="C?"  Part="1" 
+AR Path="/5D42FF4D/624A1EE5" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/624A1EE5" Ref="C?"  Part="1" 
+AR Path="/624A1EE5" Ref="C6"  Part="1" 
+F 0 "C6" H 1608 1146 50  0000 R CNN
+F 1 "1uF" H 1608 1055 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1700 1100 50  0001 C CNN
+F 3 "~" H 1700 1100 50  0001 C CNN
+	1    1700 1100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 624EF0C5
+P 1700 1000
+F 0 "#PWR?" H 1700 850 50  0001 C CNN
+F 1 "+5V" H 1715 1173 50  0000 C CNN
+F 2 "" H 1700 1000 50  0001 C CNN
+F 3 "" H 1700 1000 50  0001 C CNN
+	1    1700 1000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 624EF0CB
+P 1700 1200
+F 0 "#PWR?" H 1700 950 50  0001 C CNN
+F 1 "GND" H 1705 1027 50  0000 C CNN
+F 2 "" H 1700 1200 50  0001 C CNN
+F 3 "" H 1700 1200 50  0001 C CNN
+	1    1700 1200
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	4750 850  8350 850 
 Wire Bus Line
@@ -1546,21 +1639,4 @@ Wire Bus Line
 	7350 1400 7350 4050
 Wire Bus Line
 	2800 950  2800 4050
-Connection ~ 10000 3750
-$Comp
-L power:GND #PWR?
-U 1 1 5FD3F36D
-P 10000 3800
-AR Path="/5D78E680/5FD3F36D" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5FD3F36D" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5FD3F36D" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5FD3F36D" Ref="#PWR?"  Part="1" 
-AR Path="/5FD3F36D" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 10000 3550 50  0001 C CNN
-F 1 "GND" H 10005 3627 50  0000 C CNN
-F 2 "" H 10000 3800 50  0001 C CNN
-F 3 "" H 10000 3800 50  0001 C CNN
-	1    10000 3800
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
