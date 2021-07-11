@@ -2121,4 +2121,5 @@ Text Notes 12350 5600 0    100  ~ 20
 Local Bus
 Text Notes 14300 5600 0    100  ~ 20
 Peripheral Bus
+NoConn ~ 14250 6150
 $EndSCHEMATC
