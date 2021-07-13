@@ -782,28 +782,6 @@ Wire Wire Line
 	4250 1450 4250 1700
 Connection ~ 4250 1700
 Wire Wire Line
-	4250 1700 4250 1950
-$Comp
-L Device:D_Schottky_ALT D1003
-U 1 1 5E091A41
-P 3900 1950
-F 0 "D1003" H 3900 1826 50  0000 C CNN
-F 1 "CUS520" H 3900 1735 50  0000 C CNN
-F 2 "alexios:SOD-323" H 3900 1950 50  0001 C CNN
-F 3 "~" H 3900 1950 50  0001 C CNN
-	1    3900 1950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1500 1950 3750 1950
-Wire Wire Line
-	4250 1950 4050 1950
-Text HLabel 1500 1950 0    50   Input ~ 0
-POWEROK
-Connection ~ 4250 1950
-Wire Wire Line
-	4250 1950 4250 2400
-Wire Wire Line
 	4050 2400 4250 2400
 Connection ~ 4250 2400
 Wire Wire Line
@@ -848,8 +826,6 @@ Text Label 1600 1450 0    50   ~ 0
 ~RESET
 Text Label 1600 1700 0    50   ~ 0
 ~FPRESET
-Text Label 1600 1950 0    50   ~ 0
-POWEROK
 Text Notes 1450 1250 0    50   ~ 0
 There are four reset sources for the ~RESET~ signal: devices\non the bus, the ~FPRESET~ from the DFP, the POWEROK signal\nfrom the PSU, and an optional tactile switch and/or 2-pin jumper.\nThese are ORred together with diode logic and fed back to the\nbus ~RESET~ signal. All ~RESET~ drivers are open drain, so that's\nokay.
 Wire Wire Line
@@ -1668,4 +1644,6 @@ Text Notes 3550 6000 0    63   ~ 13
 Optional
 Text Notes 3550 6100 0    50   ~ 0
 (Maybe)
+Wire Wire Line
+	4250 1700 4250 2400
 $EndSCHEMATC
