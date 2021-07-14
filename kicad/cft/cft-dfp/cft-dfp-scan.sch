@@ -2498,10 +2498,10 @@ Entry Wire Line
 Entry Bus Bus
 	3150 5450 3250 5550
 Wire Bus Line
-	3250 5550 7600 5500
-Text HLabel 7600 5500 2    50   Output ~ 0
+	3250 5550 7600 5550
+Text HLabel 7600 5550 2    50   Output ~ 0
 FPD[0..7]
-Text Label 7500 5500 2    50   ~ 0
+Text Label 7500 5550 2    50   ~ 0
 FPD[0..7]
 Wire Wire Line
 	4100 1100 4400 1100

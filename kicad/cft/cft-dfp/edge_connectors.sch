@@ -373,13 +373,9 @@ Text Label 6900 3700 0    50   ~ 0
 ~WS
 Text Label 6900 4000 0    50   ~ 0
 ~HALT
-Wire Wire Line
-	8600 1600 9200 1600
-Text Label 9200 1600 2    50   ~ 0
+Text Label 12200 9200 0    50   ~ 0
 FPCLKEN
-Wire Wire Line
-	8600 1800 9200 1800
-Text Label 9200 1800 2    50   ~ 0
+Text Label 12200 9100 0    50   ~ 0
 FPµSTEP
 $Comp
 L power:GND #PWR?
@@ -764,9 +760,9 @@ Wire Wire Line
 	4300 6400 3700 6400
 Text HLabel 4300 6400 2    50   Input ~ 0
 ~LTSON
-Text HLabel 9200 1600 2    50   Input ~ 0
+Text HLabel 12200 9200 0    50   Input ~ 0
 FPCLKEN
-Text HLabel 9200 1800 2    50   Input ~ 0
+Text HLabel 12200 9100 0    50   Input ~ 0
 FPµSTEP
 Text HLabel 9200 2000 2    50   Input ~ 0
 ~FPRESET
@@ -1157,21 +1153,21 @@ Wire Wire Line
 Wire Wire Line
 	12550 11100 12200 11100
 Wire Wire Line
-	14100 9100 13750 9100
+	14150 9100 13750 9100
 Wire Wire Line
-	14100 9200 13750 9200
+	14150 9200 13750 9200
 Wire Wire Line
-	14100 9300 13750 9300
+	14150 9300 13750 9300
 Wire Wire Line
-	14100 9400 13750 9400
+	14150 9400 13750 9400
 Wire Wire Line
-	14100 9500 13750 9500
+	14150 9500 13750 9500
 Wire Wire Line
-	14100 9600 13750 9600
+	14150 9600 13750 9600
 Wire Wire Line
-	14100 9700 13750 9700
+	14150 9700 13750 9700
 Wire Wire Line
-	14100 9800 13750 9800
+	14150 9800 13750 9800
 Wire Wire Line
 	14100 10400 13750 10400
 Wire Wire Line
@@ -1513,6 +1509,38 @@ NoConn ~ 12100 8000
 NoConn ~ 12100 8100
 NoConn ~ 12100 8200
 NoConn ~ 12100 8300
+Text Label 14150 9100 2    50   ~ 0
+CFT-FPD0
+Text Label 14150 9200 2    50   ~ 0
+CFT-FPD1
+Text Label 14150 9300 2    50   ~ 0
+CFT-FPD2
+Text Label 14150 9400 2    50   ~ 0
+CFT-FPD3
+Text Label 14150 9500 2    50   ~ 0
+CFT-FPD4
+Text Label 14150 9600 2    50   ~ 0
+CFT-FPD5
+Text Label 14150 9700 2    50   ~ 0
+CFT-FPD6
+Text Label 14150 9800 2    50   ~ 0
+CFT-FPD7
+Text Label 14100 10400 2    50   ~ 0
+IR0
+Text Label 14100 10500 2    50   ~ 0
+IR1
+Text Label 14100 10600 2    50   ~ 0
+IR2
+Text Label 14100 10700 2    50   ~ 0
+IR3
+Text Label 14100 10800 2    50   ~ 0
+IR4
+Text Label 14100 10900 2    50   ~ 0
+IR5
+Text Label 14100 11000 2    50   ~ 0
+IR6
+Text Label 14100 11100 2    50   ~ 0
+IR7
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line

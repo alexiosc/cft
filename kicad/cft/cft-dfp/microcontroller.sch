@@ -375,7 +375,7 @@ Wire Wire Line
 	3550 -4650 4550 -4650
 Wire Wire Line
 	3550 -4550 4550 -4550
-Text Notes 3800 1100 0    100  ~ 20
+Text Notes 1800 -5700 0    100  ~ 20
 DFP Microcontroller
 Wire Wire Line
 	9350 -3650 9350 -3600
@@ -426,7 +426,7 @@ P 8950 -3450
 AR Path="/613FD660" Ref="RN?"  Part="1" 
 AR Path="/60757845/613FD660" Ref="RN7"  Part="1" 
 F 0 "RN7" V 9000 -3050 50  0000 L CNN
-F 1 "30Ω" V 8900 -3050 50  0000 L CNN
+F 1 "10kΩ" V 8900 -3050 50  0000 L CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8950 -3370 50  0001 C CNN
 F 3 "~" V 8950 -3450 50  0001 C CNN
 	1    8950 -3450
