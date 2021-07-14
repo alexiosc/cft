@@ -909,14 +909,6 @@ Wire Wire Line
 Wire Wire Line
 	11750 7000 12250 7000
 Wire Wire Line
-	11750 6900 12250 6900
-Wire Wire Line
-	11750 6700 12250 6700
-Wire Wire Line
-	11750 6600 12250 6600
-Wire Wire Line
-	11750 6500 12250 6500
-Wire Wire Line
 	11750 7800 12250 7800
 Wire Wire Line
 	11750 7700 12250 7700
@@ -974,8 +966,6 @@ Wire Wire Line
 Connection ~ 11300 9200
 Wire Wire Line
 	13450 6800 13800 6800
-Wire Wire Line
-	11750 6800 12250 6800
 Wire Wire Line
 	14000 6800 14350 6800
 Text Label 9650 6500 0    50   ~ 0
@@ -2672,6 +2662,11 @@ F 3 "" H 14825 5325 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 14350 6400
+NoConn ~ 12250 6500
+NoConn ~ 12250 6600
+NoConn ~ 12250 6700
+NoConn ~ 12250 6800
+NoConn ~ 12250 6900
 Wire Bus Line
 	6700 3600 6700 6850
 $EndSCHEMATC
