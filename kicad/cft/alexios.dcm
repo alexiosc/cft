@@ -1602,6 +1602,12 @@ K R network parallel topology isolated
 F ~
 $ENDCMP
 #
+$CMP R_Pack08
+D 8 resistor network, parallel topology
+K R network parallel topology isolated
+F ~
+$ENDCMP
+#
 $CMP SN74ACT1071
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State
