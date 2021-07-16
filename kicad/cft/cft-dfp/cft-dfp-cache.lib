@@ -1427,8 +1427,8 @@ ENDDEF
 #
 # alexios_cft-dfp-pod
 #
-DEF alexios_cft-dfp-pod P 0 40 Y Y 1 F N
-F0 "P" 0 1225 50 H V C CNN
+DEF alexios_cft-dfp-pod J 0 40 Y Y 1 F N
+F0 "J" 0 1225 50 H V C CNN
 F1 "alexios_cft-dfp-pod" 0 1125 50 H I C CNN
 F2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" 0 -1350 50 H I C CNN
 F3 "" 0 -100 50 H I C CNN

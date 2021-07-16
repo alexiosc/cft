@@ -18,8 +18,8 @@ L alexios:cft-dfp-pod P?
 U 1 1 66D4CEA5
 P 3450 2300
 AR Path="/66D4CEA5" Ref="P?"  Part="1" 
-AR Path="/66CDCD87/66D4CEA5" Ref="P3"  Part="1" 
-F 0 "P3" H 3450 3426 50  0000 C CNN
+AR Path="/66CDCD87/66D4CEA5" Ref="J3"  Part="1" 
+F 0 "J3" H 3450 3426 50  0000 C CNN
 F 1 "cft-dfp-pod" H 3450 3500 50  0001 C CNN
 F 2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" H 3450 1000 50  0001 C CNN
 F 3 "" H 3450 2300 50  0001 C CNN
@@ -99,8 +99,8 @@ L alexios:cft-dfp-pod P?
 U 1 1 66D4CED7
 P 5950 2300
 AR Path="/66D4CED7" Ref="P?"  Part="1" 
-AR Path="/66CDCD87/66D4CED7" Ref="P5"  Part="1" 
-F 0 "P5" H 5950 3426 50  0000 C CNN
+AR Path="/66CDCD87/66D4CED7" Ref="J5"  Part="1" 
+F 0 "J5" H 5950 3426 50  0000 C CNN
 F 1 "cft-dfp-pod" H 5950 3500 50  0001 C CNN
 F 2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" H 5950 1000 50  0001 C CNN
 F 3 "" H 5950 2300 50  0001 C CNN
@@ -410,8 +410,8 @@ L alexios:cft-dfp-pod P?
 U 1 1 66D4CF7F
 P 8450 2300
 AR Path="/66D4CF7F" Ref="P?"  Part="1" 
-AR Path="/66CDCD87/66D4CF7F" Ref="P7"  Part="1" 
-F 0 "P7" H 8450 3426 50  0000 C CNN
+AR Path="/66CDCD87/66D4CF7F" Ref="J7"  Part="1" 
+F 0 "J7" H 8450 3426 50  0000 C CNN
 F 1 "cft-dfp-pod" H 8450 3500 50  0001 C CNN
 F 2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" H 8450 1000 50  0001 C CNN
 F 3 "" H 8450 2300 50  0001 C CNN
@@ -513,8 +513,8 @@ L alexios:cft-dfp-pod P?
 U 1 1 66D4CFB1
 P 3450 5700
 AR Path="/66D4CFB1" Ref="P?"  Part="1" 
-AR Path="/66CDCD87/66D4CFB1" Ref="P4"  Part="1" 
-F 0 "P4" H 3450 6826 50  0000 C CNN
+AR Path="/66CDCD87/66D4CFB1" Ref="J4"  Part="1" 
+F 0 "J4" H 3450 6826 50  0000 C CNN
 F 1 "cft-dfp-pod" H 3450 6900 50  0001 C CNN
 F 2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" H 3450 4400 50  0001 C CNN
 F 3 "" H 3450 5700 50  0001 C CNN
@@ -608,8 +608,8 @@ L alexios:cft-dfp-pod P?
 U 1 1 66D4CFDF
 P 5950 5700
 AR Path="/66D4CFDF" Ref="P?"  Part="1" 
-AR Path="/66CDCD87/66D4CFDF" Ref="P6"  Part="1" 
-F 0 "P6" H 5950 6826 50  0000 C CNN
+AR Path="/66CDCD87/66D4CFDF" Ref="J6"  Part="1" 
+F 0 "J6" H 5950 6826 50  0000 C CNN
 F 1 "cft-dfp-pod" H 5950 6900 50  0001 C CNN
 F 2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" H 5950 4400 50  0001 C CNN
 F 3 "" H 5950 5700 50  0001 C CNN
