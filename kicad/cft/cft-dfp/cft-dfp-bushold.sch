@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 13
+Sheet 9 12
 Title "Termination & Conditioning"
 Date "2019-11-17"
 Rev "2049"
@@ -908,7 +908,7 @@ Wire Wire Line
 	6050 4950 5700 4950
 Wire Wire Line
 	6050 4850 5700 4850
-Text HLabel 9750 4150 2    50   UnSpc ~ 0
+Text HLabel 9750 4150 2    50   Output ~ 0
 FP-FPD[0..7]
 Wire Bus Line
 	9750 4150 9550 4150
@@ -934,23 +934,23 @@ $Comp
 L alexios:PESD5V2S2UT D19
 U 1 1 5FE16E3D
 P 8750 5400
-F 0 "D19" H 8650 5250 50  0000 R CNN
+F 0 "D19" H 9000 5250 50  0000 R CNN
 F 1 "PESD5V2S2UT" H 8650 5150 50  0001 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8750 4800 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8650 5425 50  0001 C CNN
 	1    8750 5400
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
 L alexios:PESD5V2S2UT D20
 U 1 1 5FE16E43
 P 9150 5400
-F 0 "D20" H 9050 5250 50  0000 R CNN
+F 0 "D20" H 9400 5250 50  0000 R CNN
 F 1 "PESD5V2S2UT" H 9050 5150 50  0001 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 9150 4800 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 9050 5425 50  0001 C CNN
 	1    9150 5400
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0146
@@ -1167,99 +1167,20 @@ F 3 "~" V 7200 4750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7300 4450 8050 4450
+	7300 4550 8250 4550
 Wire Wire Line
-	7300 4550 8450 4550
-Wire Wire Line
-	7300 4650 7850 4650
-Wire Wire Line
-	7300 4750 8250 4750
-Wire Wire Line
-	7300 4950 9250 4950
-Wire Wire Line
-	7300 5050 8650 5050
-Wire Wire Line
-	7300 5150 9050 5150
-$Comp
-L alexios:PESD5V2S2UT D17
-U 1 1 5FDE6D00
-P 7950 5400
-F 0 "D17" H 7850 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 7850 5150 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7950 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 7850 5425 50  0001 C CNN
-	1    7950 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8050 5250 8050 4450
-Connection ~ 8050 4450
-Wire Wire Line
-	8050 4450 9350 4450
-Wire Wire Line
-	7850 5250 7850 4650
-Connection ~ 7850 4650
-Wire Wire Line
-	7850 4650 9350 4650
+	7300 4950 9050 4950
 $Comp
 L alexios:PESD5V2S2UT D18
 U 1 1 5FDFD084
 P 8350 5400
-F 0 "D18" H 8250 5250 50  0000 R CNN
+F 0 "D18" H 8600 5250 50  0000 R CNN
 F 1 "PESD5V2S2UT" H 8250 5150 50  0001 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 4800 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 5425 50  0001 C CNN
 	1    8350 5400
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	8250 5250 8250 4750
-Connection ~ 8250 4750
-Wire Wire Line
-	8250 4750 9350 4750
-Wire Wire Line
-	8450 5250 8450 4550
-Connection ~ 8450 4550
-Wire Wire Line
-	8450 4550 9350 4550
-Wire Wire Line
-	7300 4850 8850 4850
-Wire Wire Line
-	8650 5250 8650 5050
-Connection ~ 8650 5050
-Wire Wire Line
-	8650 5050 9350 5050
-Wire Wire Line
-	8850 5250 8850 4850
-Connection ~ 8850 4850
-Wire Wire Line
-	8850 4850 9350 4850
-Wire Wire Line
-	9050 5250 9050 5150
-Connection ~ 9050 5150
-Wire Wire Line
-	9050 5150 9350 5150
-Wire Wire Line
-	9250 5250 9250 4950
-Connection ~ 9250 4950
-Wire Wire Line
-	9250 4950 9350 4950
-Text Label 7400 4450 0    50   ~ 0
-FP-FDP0
-Text Label 7400 4550 0    50   ~ 0
-FP-FDP1
-Text Label 7400 4650 0    50   ~ 0
-FP-FDP2
-Text Label 7400 4750 0    50   ~ 0
-FP-FDP3
-Text Label 7400 4850 0    50   ~ 0
-FP-FDP4
-Text Label 7400 4950 0    50   ~ 0
-FP-FDP5
-Text Label 7400 5050 0    50   ~ 0
-FP-FDP6
-Text Label 7400 5150 0    50   ~ 0
-FP-FDP7
 Text Notes 2050 5450 0    50   ~ 0
 Optional; the backplane\nhas bus hold for FPD.
 $Comp
@@ -1434,10 +1355,89 @@ F 3 "" H 4100 5500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4100 5450 4100 5500
+Text Label 7400 4450 0    50   ~ 0
+FP-FPD0
+Text Label 7400 4550 0    50   ~ 0
+FP-FPD1
+Text Label 7400 4650 0    50   ~ 0
+FP-FPD2
+Text Label 7400 4750 0    50   ~ 0
+FP-FPD3
+Text Label 7400 4850 0    50   ~ 0
+FP-FPD4
+Text Label 7400 4950 0    50   ~ 0
+FP-FPD5
+Text Label 7400 5050 0    50   ~ 0
+FP-FPD6
+Text Label 7400 5150 0    50   ~ 0
+FP-FPD7
+Wire Wire Line
+	8050 4450 9350 4450
+Connection ~ 8050 4450
+Wire Wire Line
+	8050 5250 8050 4450
+Wire Wire Line
+	7300 4450 8050 4450
+Wire Wire Line
+	7300 4650 7850 4650
+Wire Wire Line
+	7850 4650 9350 4650
+Connection ~ 7850 4650
+Wire Wire Line
+	7850 5250 7850 4650
+$Comp
+L alexios:PESD5V2S2UT D17
+U 1 1 5FDE6D00
+P 7950 5400
+F 0 "D17" H 8250 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 8750 5400 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7950 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 7850 5425 50  0001 C CNN
+	1    7950 5400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4750 8450 4750
+Wire Wire Line
+	8250 5250 8250 4550
+Connection ~ 8250 4550
+Wire Wire Line
+	8250 4550 9350 4550
+Wire Wire Line
+	8450 5250 8450 4750
+Connection ~ 8450 4750
+Wire Wire Line
+	8450 4750 9350 4750
+Wire Wire Line
+	7300 4850 8850 4850
+Wire Wire Line
+	7300 5050 8650 5050
+Wire Wire Line
+	8650 5250 8650 5050
+Connection ~ 8650 5050
+Wire Wire Line
+	8650 5050 9350 5050
+Wire Wire Line
+	8850 5250 8850 4850
+Connection ~ 8850 4850
+Wire Wire Line
+	8850 4850 9350 4850
+Connection ~ 9050 4950
+Wire Wire Line
+	7300 5150 9250 5150
+Wire Wire Line
+	9050 4950 9050 5250
+Wire Wire Line
+	9050 4950 9350 4950
+Wire Wire Line
+	9250 5250 9250 5150
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
 	9450 4250 9450 5050
 Wire Bus Line
 	5600 4100 5600 5050
+Connection ~ 9250 5150
+Wire Wire Line
+	9250 5150 9350 5150
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 13
+Sheet 10 12
 Title ""
 Date ""
 Rev "2049"
@@ -584,40 +584,20 @@ Wire Wire Line
 NoConn ~ 9200 1500
 Wire Wire Line
 	3450 2500 2900 2500
-Wire Wire Line
-	4600 2400 5150 2400
-Wire Wire Line
-	4600 2300 5150 2300
-Wire Wire Line
-	4600 2200 5150 2200
-Wire Wire Line
-	4600 2100 5150 2100
-Wire Wire Line
-	4600 2000 5150 2000
-Wire Wire Line
-	4600 1900 5150 1900
-Wire Wire Line
-	4600 1800 5150 1800
-Text Label 5150 2500 2    50   ~ 0
+Text Label 9650 9450 2    50   ~ 0
 FP-FPD0
-Text Label 5150 2400 2    50   ~ 0
+Text Label 8450 9450 0    50   ~ 0
 FP-FPD1
-Text Label 5150 2300 2    50   ~ 0
+Text Label 9650 9350 2    50   ~ 0
 FP-FPD2
-Text Label 5150 2200 2    50   ~ 0
+Text Label 8450 9350 0    50   ~ 0
 FP-FPD3
-Text Label 5150 2100 2    50   ~ 0
+Text Label 9650 9250 2    50   ~ 0
 FP-FPD4
-Text Label 5150 2000 2    50   ~ 0
+Text Label 8450 9250 0    50   ~ 0
 FP-FPD5
-Text Label 5150 1900 2    50   ~ 0
+Text Label 9650 9150 2    50   ~ 0
 FP-FPD6
-Text Label 5150 1800 2    50   ~ 0
-FP-FPD7
-Wire Wire Line
-	4600 2500 5150 2500
-Text Notes 5350 2200 0    50   ~ 0
-Flipped to account for\nFront Panel Module\nlayout.
 Text Notes 2750 1050 0    100  ~ 20
 Processor/Memory Mapped Slots
 Text Notes 7300 1050 0    100  ~ 20
@@ -680,27 +660,9 @@ Text HLabel 2900 3600 0    50   UnSpc ~ 0
 ~W
 Text HLabel 2900 3700 0    50   UnSpc ~ 0
 ~WS
-Entry Wire Line
-	5150 1800 5250 1900
-Entry Wire Line
-	5150 1900 5250 2000
-Entry Wire Line
-	5150 2000 5250 2100
-Entry Wire Line
-	5150 2100 5250 2200
-Entry Wire Line
-	5150 2200 5250 2300
-Entry Wire Line
-	5150 2300 5250 2400
-Entry Wire Line
-	5150 2400 5250 2500
-Entry Wire Line
-	5150 2500 5250 2600
-Text Label 5250 1900 0    50   ~ 0
-FP-FPD[0..7]
 Wire Bus Line
-	3700 6000 4300 6000
-Text HLabel 4300 6000 2    50   Input ~ 0
+	7000 9800 7600 9800
+Text HLabel 7600 9800 2    50   Input ~ 0
 FPA[0..1]
 Entry Wire Line
 	5150 2600 5250 2700
@@ -714,25 +676,25 @@ Entry Wire Line
 	5150 3000 5250 3100
 Text Label 5250 2700 0    50   ~ 0
 ~ROW[1..5]
-Text Label 3700 6000 0    50   ~ 0
+Text Label 7000 9800 0    50   ~ 0
 FPA[0..1]
 Wire Bus Line
-	3700 6100 4300 6100
-Text HLabel 4300 6100 2    50   Input ~ 0
+	7000 9900 7600 9900
+Text HLabel 7600 9900 2    50   Input ~ 0
 ~ROW[1..5]
 Wire Bus Line
-	3700 6200 4300 6200
-Text HLabel 4300 6200 2    50   Input ~ 0
+	7000 10000 7600 10000
+Text HLabel 7600 10000 2    50   Input ~ 0
 SWA[0..3]
-Text Label 3700 6100 0    50   ~ 0
+Text Label 7000 9900 0    50   ~ 0
 ~ROW[1..5]
-Text Label 3700 6200 0    50   ~ 0
+Text Label 7000 10000 0    50   ~ 0
 SWA[0..3]
 Wire Bus Line
-	3700 6300 4300 6300
-Text HLabel 4300 6300 2    50   Input ~ 0
+	7000 10100 7600 10100
+Text HLabel 7600 10100 2    50   Input ~ 0
 SWD[0..3]
-Text Label 3700 6300 0    50   ~ 0
+Text Label 7000 10100 0    50   ~ 0
 SWD[0..3]
 Text HLabel 5150 5100 2    50   UnSpc ~ 0
 RXD
@@ -754,11 +716,11 @@ Text Label 2900 3900 0    50   ~ 0
 ~SKIPEXT
 Text HLabel 2900 3900 0    50   UnSpc ~ 0
 ~SKIPEXT
-Text Label 3700 6400 0    50   ~ 0
+Text Label 7000 10200 0    50   ~ 0
 ~LTSON
 Wire Wire Line
-	4300 6400 3700 6400
-Text HLabel 4300 6400 2    50   Input ~ 0
+	7600 10200 7000 10200
+Text HLabel 7600 10200 2    50   Input ~ 0
 ~LTSON
 Text HLabel 12200 9200 0    50   Input ~ 0
 FPCLKEN
@@ -813,10 +775,10 @@ Wire Wire Line
 Wire Wire Line
 	4600 4700 4750 4700
 Wire Bus Line
-	3700 5900 4300 5900
-Text HLabel 4300 5900 2    50   Output ~ 0
+	7000 9700 7600 9700
+Text HLabel 7600 9700 2    50   Input ~ 0
 FP-FPD[0..7]
-Text Label 3700 5900 0    50   ~ 0
+Text Label 7000 9700 0    50   ~ 0
 FP-FPD[0..7]
 Wire Wire Line
 	7450 3300 6900 3300
@@ -1541,6 +1503,226 @@ Text Label 14100 11000 2    50   ~ 0
 IR6
 Text Label 14100 11100 2    50   ~ 0
 IR7
+Wire Wire Line
+	8800 9050 8450 9050
+Wire Wire Line
+	8800 9150 8450 9150
+Wire Wire Line
+	8800 9250 8450 9250
+Wire Wire Line
+	8800 9350 8450 9350
+Wire Wire Line
+	8800 9450 8450 9450
+Wire Wire Line
+	8800 9550 8450 9550
+Wire Wire Line
+	8800 9650 8450 9650
+Wire Wire Line
+	8800 9750 8450 9750
+Wire Wire Line
+	8800 9850 8450 9850
+Wire Wire Line
+	8800 9950 8450 9950
+Wire Wire Line
+	8800 10050 8450 10050
+Wire Wire Line
+	8800 10150 8450 10150
+Wire Wire Line
+	9650 9050 9300 9050
+Wire Wire Line
+	9650 9150 9300 9150
+Wire Wire Line
+	9650 9250 9300 9250
+Wire Wire Line
+	9650 9350 9300 9350
+Wire Wire Line
+	9650 9450 9300 9450
+Wire Wire Line
+	9650 9550 9300 9550
+Wire Wire Line
+	9650 9650 9300 9650
+Wire Wire Line
+	9650 9750 9300 9750
+Wire Wire Line
+	9650 9850 9300 9850
+Wire Wire Line
+	9650 9950 9300 9950
+Wire Wire Line
+	9650 10050 9300 10050
+Wire Wire Line
+	9650 10150 9300 10150
+Text Label 8450 9050 0    50   ~ 0
+FPA0
+Text Label 9650 9050 2    50   ~ 0
+FPA1
+Text Label 8450 9150 0    50   ~ 0
+FP-FPD7
+Text Label 8450 9550 0    50   ~ 0
+~ROW1
+Text Label 9650 9550 2    50   ~ 0
+~ROW2
+Text Label 8450 9650 0    50   ~ 0
+~ROW3
+Text Label 9650 9650 2    50   ~ 0
+~ROW4
+Text Label 8450 9750 0    50   ~ 0
+~ROW5
+$Comp
+L power:+5V #PWR01
+U 1 1 61A879D6
+P 8750 8900
+F 0 "#PWR01" H 8750 8750 50  0001 C CNN
+F 1 "+5V" H 8765 9073 50  0000 C CNN
+F 2 "" H 8750 8900 50  0001 C CNN
+F 3 "" H 8750 8900 50  0001 C CNN
+	1    8750 8900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 8900 8750 8950
+Wire Wire Line
+	8750 8950 8800 8950
+$Comp
+L power:+5V #PWR02
+U 1 1 61AB4B50
+P 9350 8900
+F 0 "#PWR02" H 9350 8750 50  0001 C CNN
+F 1 "+5V" H 9365 9073 50  0000 C CNN
+F 2 "" H 9350 8900 50  0001 C CNN
+F 3 "" H 9350 8900 50  0001 C CNN
+	1    9350 8900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 8950 9350 8950
+Wire Wire Line
+	9350 8950 9350 8900
+Wire Wire Line
+	8800 10250 8450 10250
+$Comp
+L power:GND #PWR03
+U 1 1 61B106C5
+P 8750 10400
+F 0 "#PWR03" H 8750 10150 50  0001 C CNN
+F 1 "GND" H 8755 10227 50  0000 C CNN
+F 2 "" H 8750 10400 50  0001 C CNN
+F 3 "" H 8750 10400 50  0001 C CNN
+	1    8750 10400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 10400 8750 10350
+Wire Wire Line
+	8750 10350 8800 10350
+$Comp
+L power:GND #PWR04
+U 1 1 61B3CE62
+P 9350 10400
+F 0 "#PWR04" H 9350 10150 50  0001 C CNN
+F 1 "GND" H 9355 10227 50  0000 C CNN
+F 2 "" H 9350 10400 50  0001 C CNN
+F 3 "" H 9350 10400 50  0001 C CNN
+	1    9350 10400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 10250 9350 10250
+Wire Wire Line
+	9350 10250 9350 10350
+Wire Wire Line
+	9300 10350 9350 10350
+Connection ~ 9350 10350
+Wire Wire Line
+	9350 10350 9350 10400
+Text Label 9650 9750 2    50   ~ 0
+SWA0
+Text Label 8450 9850 0    50   ~ 0
+SWA1
+Text Label 9650 9850 2    50   ~ 0
+SWA2
+Text Label 8450 9950 0    50   ~ 0
+SWA3
+Text Label 9650 9950 2    50   ~ 0
+SWD0
+Text Label 8450 10050 0    50   ~ 0
+SWD1
+Text Label 9650 10050 2    50   ~ 0
+SWD2
+Text Label 8450 10150 0    50   ~ 0
+SWD3
+Text Label 9650 10150 2    50   ~ 0
+~LTSON
+Text Label 8450 10250 0    50   ~ 0
+POWER
+Text Notes 8250 11450 0    50   ~ 0
+Note: this is for front panel moduiles with\nrevision 1951 only! For newer revisions,\nthe order of FPD0-7 must be reversed\nwith a twist in the ribbon cable between\nwires 3 and 12.\n\nThe POWER input may not be needed if\nthe key switch is wired directly to the\npower supply.
+$Comp
+L Connector_Generic:Conn_02x15_Odd_Even J2
+U 1 1 615879D6
+P 9000 9650
+F 0 "J2" H 9050 10475 50  0000 C CNN
+F 1 "Conn_02x15_Odd_Even" H 9050 10476 50  0001 C CNN
+F 2 "Connector_IDC:IDC-Header_2x15_P2.54mm_Vertical" H 9000 9650 50  0001 C CNN
+F 3 "~" H 9000 9650 50  0001 C CNN
+	1    9000 9650
+	1    0    0    -1  
+$EndComp
+Entry Wire Line
+	8350 9050 8450 9150
+Wire Bus Line
+	8350 9050 8350 9700
+Text Label 8350 9700 1    50   ~ 0
+FP-FPD[0..7]
+Entry Wire Line
+	5150 2400 5250 2500
+Entry Wire Line
+	5150 2500 5250 2600
+Wire Wire Line
+	4600 2500 5150 2500
+Text Notes 5350 2200 0    50   ~ 0
+Flipped to account for\nFront Panel Module\nlayout.
+Entry Wire Line
+	5150 1800 5250 1900
+Entry Wire Line
+	5150 1900 5250 2000
+Entry Wire Line
+	5150 2000 5250 2100
+Entry Wire Line
+	5150 2100 5250 2200
+Entry Wire Line
+	5150 2200 5250 2300
+Entry Wire Line
+	5150 2300 5250 2400
+Text Label 5250 1900 0    50   ~ 0
+FP-FPD[0..7]
+Wire Wire Line
+	5150 1800 4600 1800
+Text Label 4600 1800 0    50   ~ 0
+FP-FPD0
+Text Label 4600 1900 0    50   ~ 0
+FP-FPD1
+Text Label 4600 2000 0    50   ~ 0
+FP-FPD2
+Text Label 4600 2100 0    50   ~ 0
+FP-FPD3
+Text Label 4600 2200 0    50   ~ 0
+FP-FPD4
+Text Label 4600 2300 0    50   ~ 0
+FP-FPD5
+Text Label 4600 2400 0    50   ~ 0
+FP-FPD6
+Wire Wire Line
+	5150 1900 4600 1900
+Wire Wire Line
+	5150 2000 4600 2000
+Wire Wire Line
+	5150 2100 4600 2100
+Wire Wire Line
+	5150 2200 4600 2200
+Wire Wire Line
+	5150 2300 4600 2300
+Wire Wire Line
+	5150 2400 4600 2400
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1548,11 +1730,13 @@ Wire Bus Line
 Wire Bus Line
 	5250 2700 5250 3100
 Wire Bus Line
-	5250 1900 5250 2600
-Wire Bus Line
 	12000 3950 12000 4650
+Wire Bus Line
+	5250 1900 5250 2600
 Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
+Text Label 4600 2500 0    50   ~ 0
+FP-FPD7
 $EndSCHEMATC

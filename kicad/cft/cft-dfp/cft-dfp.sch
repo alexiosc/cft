@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 13
+Sheet 1 12
 Title "Debugging Front Panel"
 Date "2019-11-17"
 Rev "2049"
@@ -998,9 +998,8 @@ F30 "MFD0" O R 2500 2500 50
 F31 "MFD1" O R 2500 2600 50 
 F32 "~WR" O R 2500 1200 50 
 F33 "~RD" O R 2500 1300 50 
-F34 "~LCLKEN" O L 1350 3250 50 
-F35 "~CLR" O R 2500 3250 50 
-F36 "~SCANCLR" I R 2500 3350 50 
+F34 "~CLR" O R 2500 3250 50 
+F35 "~SCANCLR" I R 2500 3350 50 
 $EndSheet
 Wire Wire Line
 	1350 2700 800  2700
@@ -1342,54 +1341,6 @@ Wire Wire Line
 	6100 4450 6750 4450
 Text Label 6100 4450 0    50   ~ 0
 ~LTSON
-$Sheet
-S 1350 3850 1150 700 
-U 61175D3B
-F0 "CFT Clock Generator" 50
-F1 "clock_generator.sch" 50
-F2 "CLK1" I R 2500 4000 50 
-F3 "CLK2" I R 2500 4100 50 
-F4 "CLK3" I R 2500 4200 50 
-F5 "CLK4" I R 2500 4300 50 
-F6 "T34" I R 2500 4400 50 
-F7 "CLK" I L 1350 4400 50 
-F8 "~LCLKEN" I L 1350 4000 50 
-F9 "~CLKEN" I L 1350 4200 50 
-$EndSheet
-Text Label 3050 4000 2    50   ~ 0
-CLK1
-Text Label 3050 4100 2    50   ~ 0
-CLK2
-Text Label 3050 4200 2    50   ~ 0
-CLK3
-Text Label 3050 4300 2    50   ~ 0
-CLK4
-Wire Wire Line
-	3050 4000 2500 4000
-Wire Wire Line
-	3050 4100 2500 4100
-Wire Wire Line
-	3050 4200 2500 4200
-Wire Wire Line
-	3050 4300 2500 4300
-Wire Wire Line
-	3050 4400 2500 4400
-Text Label 3050 4400 2    50   ~ 0
-T34
-Wire Wire Line
-	1350 4200 850  4200
-Text Label 850  4200 0    50   ~ 0
-FPCLKEN
-Wire Wire Line
-	1350 4400 850  4400
-Text Label 850  4400 0    50   ~ 0
-FPµSTEP
-Wire Wire Line
-	1350 3250 1250 3250
-Wire Wire Line
-	1250 3250 1250 4000
-Wire Wire Line
-	1250 4000 1350 4000
 $Sheet
 S 8550 4950 1150 1650
 U 65BD1B6F
