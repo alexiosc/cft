@@ -1,0 +1,52 @@
+GAL16V8         ; this is the GAL type
+DFPDEC00        ; this is the signature
+
+; 1     2       3       4       5       6       7       8       9       10
+A5	A6	A7	IODEV1	DBREQ	R	NC	NC	NC	GND
+NC	DBOE	NC	NC	NC	NC	NC	NC	DFPSEL	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+; The DFP is mapped at address &100–&11F, so IODEV1XX AND AB[7..4] == 000.
+/DFPSEL = /IODEV1 * /A7 * /A6 * /A5
+
+; Enable the Data Bus driver
+/DBOE = /IODEV1 * /A7 * /A6 * /A5 * /R   +  /DBREQ
+
+DESCRIPTION
+
+Truth table:
+
+___                                 ___ ___ ___ ___ ___ ___ ___ ___
+MEM  S0 S1  A23 A22 A21 A20 A19  |  CS0 CS1 CS2 CS3 CS4 CS5 CS6 CS7
+-------------------------------------------------------------------
+ 1    X  X   X   X   X   X   X   |   1   1   1   1   1   1   1   1
+---------------------------------|---------------------------------
+ 0    a  b   a   b   0   0   0   |   0   1   1   1   1   1   1   1
+ 0    a  b   a   b   0   0   1   |   1   0   1   1   1   1   1   1
+ 0    a  b   a   b   0   1   0   |   1   1   1   1   1   1   1   1
+ 0    a  b   a   b   0   1   1   |   1   1   1   0   1   1   1   1
+ 0    a  b   a   b   1   0   0   |   1   1   1   1   0   1   1   1
+ 0    a  b   a   b   1   0   1   |   1   1   1   1   1   0   1   1
+ 0    a  b   a   b   1   1   0   |   1   1   1   1   1   1   0   1
+ 0    a  b   a   b   1   1   1   |   1   1   1   1   1   1   1   0
+
+Note: a and b are variables. The decoding is enabled when A[23:22] ==
+S[1:0]. S selects the bank the decoder responds to.
+
+The equations refer to CONFIG0–CONFIG3:
+
+S0 S1  ADDRESSES
+---------------------------------
+ 0  0  CONFIG0: 00:0000 – 3F:FFFF
+ 0  1  CONFIG1: 40:0000 – 7F:FFFF
+ 1  0  CONFIG2: 80:0000 – BF:FFFF
+ 1  1  CONFIG3: C0:0000 – FF:FFFF
+
+The decoder is disabled when /MEM is deasserted (high). When disabled,
+all CS outputs are high.
+
+There are three identical decoder ICs on the MEM board, mapped to
+0-12M. The high 4M is reserved for memory-mapped hardware.
+
+; End of file.

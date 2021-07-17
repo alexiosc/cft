@@ -1,0 +1,48 @@
+GAL16V8         ; this is the GAL type
+DFPRST00        ; this is the signature
+
+; 1     2       3       4       5       6       7       8       9       10
+RESET	RSTHOLD	FPFETCH	CLKEN	USTEP	STPNG	USTPNG	NC	NC	GND
+NC	LEDWAIT	LEDEXEC	LEDFTCH	NC	NC	FPCLKEN	FPUSTEP WAIT	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+; Let the DFP know the run/stop state machine is still running the
+; computer. The DFP needs to wait until WAIT is low before becoming
+; available for commands again (e.g. when single-stepping with a very
+; slow clock).
+
+WAIT	= /RESET  +  /RSTHOLD  +  STPNG  +  USTPNG
+
+; Use a separate output for an LED.
+LEDWAIT	= /RESET  +  /RSTHOLD  +  STPNG  +  USTPNG
+
+
+; This outputs the clock signal (from the MCU) to the control board as
+; the slow clock. This is shared with the FPUSTEP signal because it's
+; basically the same thing.
+;
+; FPµSTEP and FPCLKEN are high during reset, so the reset circuitry
+; always runs at the fast clock. This is useful because the slow clock
+; might tick at 1Hz, and RSTHOLD may be asserted for 128 clock cycles.
+
+FPUSTEP = /RESET  +  /RSTHOLD  +  USTEP * STPNG   +  USTEP  * USTPNG
+
+; The fast clock enable signal from the MCU is routed to the control
+; board under the same conditions.
+
+FPCLKEN = /RESET  +  /RSTHOLD  +  CLKEN * STPNG   +  CLKEN * USTPNG
+
+
+; The Control Unit gives us an FPFETCH signal that's high during the
+; fetch state. We output an *inverted* version of this for the active
+; low FETCH LED, and also a *doubly* inverted version for the active low
+; EXEC LED. This saves a 74LVC1G gate.
+
+/LEDFTCH =  FPFETCH
+/LEDEXEC = /FPFETCH
+
+DESCRIPTION
+
+
+; End of file.
