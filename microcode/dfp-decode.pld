@@ -2,16 +2,30 @@ GAL16V8         ; this is the GAL type
 DFPDEC00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-A5	A6	A7	IODEV1	DBREQ	R	NC	NC	NC	GND
-NC	DBOE	NC	NC	NC	NC	NC	NC	DFPSEL	VCC
+A5	A6	A7	IODEV1	DBREQ	R	FPA6	FPA5	FPA4	GND
+FPA3	DBOE	WEN0	WEN1	REN1	REN0	NC	NC	DFPSEL	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
+
+; Function 1: decode CFT bus, select DFP for I/O.
 
 ; The DFP is mapped at address &100–&11F, so IODEV1XX AND AB[7..4] == 000.
 /DFPSEL = /IODEV1 * /A7 * /A6 * /A5
 
 ; Enable the Data Bus driver
 /DBOE = /IODEV1 * /A7 * /A6 * /A5 * /R   +  /DBREQ
+
+
+
+; Function 2: decode DFP XMEM bus, select one of four read/write
+; decoders.
+
+/WEN0 = FPA6 * /FPA5 * /FPA4 * /FPA3
+/WEN1 = FPA6 * /FPA5 * /FPA4 *  FPA3
+/REN0 = FPA6 * /FPA5 * /FPA4 * /FPA3
+/REN1 = FPA6 * /FPA5 * /FPA4 *  FPA3
+
+
 
 DESCRIPTION
 
