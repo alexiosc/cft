@@ -158,62 +158,8 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5875 7000 50  0001 C CNN
 	2    5800 7000
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC251 U?
-U 2 1 660ABF30
-P 4350 7600
-AR Path="/660ABF30" Ref="U?"  Part="1" 
-AR Path="/614F5B8D/660ABF30" Ref="U42"  Part="2" 
-F 0 "U42" H 4530 8146 50  0000 L CNN
-F 1 "74HC251" H 4530 8055 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4350 7550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 4350 7550 50  0001 C CNN
-	2    4350 7600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 660AEB8F
-P 4000 7100
-AR Path="/660AEB8F" Ref="C?"  Part="1" 
-AR Path="/614F5B8D/660AEB8F" Ref="C63"  Part="1" 
-F 0 "C63" H 4091 7054 50  0000 L CNN
-F 1 "100nF" H 4091 7145 50  0000 L CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4000 7100 50  0001 C CNN
-F 3 "~" H 4000 7100 50  0001 C CNN
-	1    4000 7100
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 660AEB95
-P 4000 7000
-AR Path="/660AEB95" Ref="#PWR?"  Part="1" 
-AR Path="/614F5B8D/660AEB95" Ref="#PWR0193"  Part="1" 
-F 0 "#PWR0193" H 4000 6850 50  0001 C CNN
-F 1 "+5V" H 4015 7173 50  0000 C CNN
-F 2 "" H 4000 7000 50  0001 C CNN
-F 3 "" H 4000 7000 50  0001 C CNN
-	1    4000 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 660AEB9B
-P 4000 7200
-AR Path="/660AEB9B" Ref="#PWR?"  Part="1" 
-AR Path="/614F5B8D/660AEB9B" Ref="#PWR0194"  Part="1" 
-F 0 "#PWR0194" H 4000 6950 50  0001 C CNN
-F 1 "GND" H 4005 7027 50  0000 C CNN
-F 2 "" H 4000 7200 50  0001 C CNN
-F 3 "" H 4000 7200 50  0001 C CNN
-	1    4000 7200
-	1    0    0    -1  
-$EndComp
 Connection ~ 5450 7000
 Connection ~ 5450 7200
-Connection ~ 4000 7000
-Connection ~ 4000 7200
 Text Notes 8600 1950 0    100  ~ 20
 Wait State Generator
 Text Notes 2250 3350 0    50   ~ 0
@@ -243,7 +189,7 @@ Entry Bus Bus
 	1650 1650 1750 1750
 Text HLabel 1200 2400 0    50   Input ~ 0
 ~IODEV1xx
-Text HLabel 1200 3500 0    50   Input ~ 0
+Text HLabel 1200 3700 0    50   Input ~ 0
 CLRWS
 Text HLabel 1200 2500 0    50   Input ~ 0
 ~DBOE0
@@ -256,7 +202,7 @@ Wire Wire Line
 	5500 1700 8000 1700
 Wire Wire Line
 	5500 2100 5500 1700
-Text Label 1250 3500 0    50   ~ 0
+Text Label 1250 3700 0    50   ~ 0
 CLRWS
 $Comp
 L alexios:74LVC1G07 U?
@@ -290,10 +236,8 @@ Text Label 5650 2100 0    50   ~ 0
 ~IOINT
 Text Label 5650 2300 0    50   ~ 0
 CLRWS
-Text Label 4800 3500 0    50   ~ 0
+Text Label 4800 3700 0    50   ~ 0
 CLRWS
-Wire Wire Line
-	5600 2300 5600 3500
 Wire Wire Line
 	6000 2300 5600 2300
 Connection ~ 5950 2400
@@ -346,9 +290,9 @@ Text Label 8050 2500 2    50   ~ 0
 Wire Wire Line
 	7850 2500 8100 2500
 Wire Wire Line
-	4150 2300 4450 2300
+	4300 2300 4450 2300
 Wire Wire Line
-	4150 2100 4150 2300
+	4300 2100 4300 2300
 $Comp
 L power:GND #PWR?
 U 1 1 61638441
@@ -447,19 +391,6 @@ Wire Wire Line
 	2450 2400 1200 2400
 Wire Wire Line
 	2450 2500 1200 2500
-$Comp
-L alexios:ATF16V8B U40
-U 1 1 60F2558F
-P 2900 2550
-F 0 "U40" H 2900 3300 50  0000 C CNN
-F 1 "ATF16V8B" H 2900 3200 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2900 2550 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2900 2550 50  0001 C CNN
-F 4 "DFPDEC" V 2900 2600 50  0000 C CNB "Signature"
-F 5 "dfp-decode.jed" H 2900 1900 50  0000 C CNN "Image Filename"
-	1    2900 2550
-	1    0    0    -1  
-$EndComp
 Text Label 1900 2400 0    50   ~ 0
 ~IODEV1xx
 Text Label 1900 2300 0    50   ~ 0
@@ -472,21 +403,11 @@ Text Label 1900 2500 0    50   ~ 0
 ~DBOE0
 Text Label 1900 2600 0    50   ~ 0
 ~R
-NoConn ~ 2450 2700
-NoConn ~ 2450 2800
-NoConn ~ 2450 2900
-NoConn ~ 2450 3000
-Text Label 3900 2100 2    50   ~ 0
+Text Label 3800 2100 2    50   ~ 0
 ~DFPSEL
-NoConn ~ 3350 2200
-NoConn ~ 3350 2300
-NoConn ~ 3350 2400
-NoConn ~ 3350 2500
-NoConn ~ 3350 2600
-NoConn ~ 3350 2700
 Wire Wire Line
-	3950 2800 3350 2800
-Text Label 3900 2800 2    50   ~ 0
+	3900 2800 3350 2800
+Text Label 3800 2800 2    50   ~ 0
 ~DBOE1
 Wire Wire Line
 	1200 2600 2450 2600
@@ -518,9 +439,9 @@ Wire Wire Line
 Wire Wire Line
 	1850 2300 2450 2300
 Wire Wire Line
-	3350 2100 4150 2100
+	3350 2100 4300 2100
 Wire Wire Line
-	1200 3500 5600 3500
+	1200 3700 5600 3700
 $Comp
 L Device:R_Small R14
 U 1 1 60F902A7
@@ -536,17 +457,96 @@ Wire Wire Line
 	4400 2750 4800 2750
 Text Notes 5900 3050 0    100  ~ 20
 Autonomic Data Bus Driver
-Text HLabel 3950 2800 2    50   Output ~ 0
+Text HLabel 3900 2800 2    50   Output ~ 0
 ~DBOE1
 Wire Wire Line
 	6950 2500 7000 2500
 Wire Wire Line
 	7000 2500 7000 2750
-Wire Bus Line
-	1750 1750 1750 2200
 Connection ~ 7000 2500
 Wire Wire Line
 	7000 2500 7050 2500
 Wire Wire Line
 	5000 2750 7000 2750
+Wire Wire Line
+	3350 2700 3900 2700
+Wire Wire Line
+	3350 2600 3900 2600
+Wire Wire Line
+	3350 2400 3900 2400
+Wire Wire Line
+	3350 2500 3900 2500
+Text Label 3800 2700 2    50   ~ 0
+~WEN0
+Text Label 3800 2600 2    50   ~ 0
+~WEN1
+Text Label 3800 2400 2    50   ~ 0
+~REN0
+Text Label 3800 2500 2    50   ~ 0
+~REN1
+Text HLabel 3900 2700 2    50   Output ~ 0
+~WEN0
+Text HLabel 3900 2600 2    50   Output ~ 0
+~WEN1
+Text HLabel 3900 2400 2    50   Output ~ 0
+~REN0
+Text HLabel 3900 2500 2    50   Output ~ 0
+~REN1
+Text Notes 2250 3550 0    50   ~ 0
+Also decodes µCU XMEM A6 line\nfor DFP reads/writes.
+Wire Wire Line
+	5600 2300 5600 3700
+$Comp
+L alexios:ATF16V8B U40
+U 1 1 60F2558F
+P 2900 2550
+F 0 "U40" H 2900 3300 50  0000 C CNN
+F 1 "ATF16V8B" H 2900 3200 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2900 2550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2900 2550 50  0001 C CNN
+F 4 "DFPDEC" V 2900 2600 50  0000 C CNB "Signature"
+F 5 "dfp-decode.jed" H 2900 1900 50  0000 C CNN "Image Filename"
+	1    2900 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 2700 1850 2700
+Wire Wire Line
+	2450 2800 1850 2800
+Wire Wire Line
+	2450 2900 1850 2900
+Wire Wire Line
+	2450 3000 1850 3000
+Text Label 1900 3000 0    50   ~ 0
+FPA3
+Text Label 1900 2900 0    50   ~ 0
+FPA4
+Text Label 1900 2800 0    50   ~ 0
+FPA5
+Text Label 1900 2700 0    50   ~ 0
+FPA6
+Entry Wire Line
+	1850 2900 1750 3000
+Entry Wire Line
+	1850 2800 1750 2900
+Entry Wire Line
+	1850 2700 1750 2800
+Entry Wire Line
+	1850 3000 1750 3100
+Entry Wire Line
+	1850 2900 1750 3000
+Entry Wire Line
+	1850 2800 1750 2900
+Text HLabel 1200 3450 0    50   Input ~ 0
+FPA[0..7]
+Text Label 1250 3450 0    50   ~ 0
+FPA[0..7]
+Wire Bus Line
+	1650 3450 1200 3450
+Entry Bus Bus
+	1650 3450 1750 3350
+Wire Bus Line
+	1750 1750 1750 2200
+Wire Bus Line
+	1750 2800 1750 3350
 $EndSCHEMATC

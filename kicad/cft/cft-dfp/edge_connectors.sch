@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 10
+Sheet 8 10
 Title ""
 Date ""
 Rev "2049"
@@ -1723,6 +1723,8 @@ Wire Wire Line
 	5150 2300 4600 2300
 Wire Wire Line
 	5150 2400 4600 2400
+Text Label 4600 2500 0    50   ~ 0
+FP-FPD7
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1737,6 +1739,4 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
-Text Label 4600 2500 0    50   ~ 0
-FP-FPD7
 $EndSCHEMATC

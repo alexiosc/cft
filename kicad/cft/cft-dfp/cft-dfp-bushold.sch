@@ -1434,12 +1434,6 @@ Wire Wire Line
 Connection ~ 9250 5150
 Wire Wire Line
 	9250 5150 9350 5150
-Wire Bus Line
-	3100 4100 3100 5050
-Wire Bus Line
-	9450 4250 9450 5050
-Wire Bus Line
-	5600 4100 5600 5050
 $Comp
 L alexios:PMV48XP T701
 U 1 1 613DCC00
@@ -1451,4 +1445,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/PMV48XP.pdf" H 4050 1250 5
 	1    4050 1250
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	3100 4100 3100 5050
+Wire Bus Line
+	9450 4250 9450 5050
+Wire Bus Line
+	5600 4100 5600 5050
 $EndSCHEMATC

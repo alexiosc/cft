@@ -833,6 +833,10 @@ F24 "FPD[0..7]" I L 3150 1000 50
 F25 "~ORHOE" I R 4300 3350 50 
 F26 "~ORLOE" I R 4300 3450 50 
 F27 "FPA[0..7]" I L 3150 1100 50 
+F28 "~WEN0" I L 3150 3550 50 
+F29 "~WEN1" I L 3150 3650 50 
+F30 "~REN0" I L 3150 3750 50 
+F31 "~REN1" I L 3150 3850 50 
 $EndSheet
 Text Notes 8550 4750 0    100  ~ 20
 Front Panel\nAddress Decoder
@@ -1473,28 +1477,35 @@ Wire Wire Line
 Text Label 6100 5150 2    50   ~ 0
 ~WS
 Wire Wire Line
-	5600 5300 6100 5300
-Text Label 6100 5300 2    50   ~ 0
+	5600 5250 6100 5250
+Text Label 6100 5250 2    50   ~ 0
 ~IOINT
 Wire Wire Line
-	5600 5750 6100 5750
-Text Label 6100 5750 2    50   ~ 0
+	5600 5450 6100 5450
+Text Label 6100 5450 2    50   ~ 0
 ~DBOE1
 Text Notes 4050 4850 0    100  ~ 20
 CFT Bus Address Decoder
 $Sheet
-S 4450 5000 1150 900 
+S 4450 5000 1150 1500
 U 614F5B8D
 F0 "Address Decoder & Wait States" 50
 F1 "cft_dfp_ws.sch" 50
 F2 "~WS" T R 5600 5150 50 
-F3 "~IOINT" O R 5600 5300 50 
-F4 "~DBOE1" O R 5600 5750 50 
+F3 "~IOINT" O R 5600 5250 50 
+F4 "~DBOE1" O R 5600 5450 50 
 F5 "~R" T L 4450 5150 50 
 F6 "~DBOE0" I L 4450 5750 50 
 F7 "CLRWS" I L 4450 5600 50 
 F8 "~IODEV1xx" I L 4450 5300 50 
 F9 "AB[5..7]" I L 4450 5450 50 
+F10 "FPA6" I L 4450 6150 50 
+F11 "~WEN0" O R 5600 5950 50 
+F12 "~WEN1" O R 5600 6050 50 
+F13 "~REN0" O R 5600 6150 50 
+F14 "~REN1" O R 5600 6250 50 
+F15 "~RD" I L 4450 5950 50 
+F16 "~WR" I L 4450 6050 50 
 $EndSheet
 Text Label 8500 3800 2    50   ~ 0
 FP-FPD[0..7]
@@ -1520,4 +1531,48 @@ Text Label 4850 3350 2    50   ~ 0
 ~ORLOE
 Text Label 4850 3450 2    50   ~ 0
 ~ORHOE
+Wire Wire Line
+	4450 5950 3950 5950
+Wire Wire Line
+	4450 6050 3950 6050
+Wire Wire Line
+	4450 6150 3950 6150
+Wire Wire Line
+	6100 5950 5600 5950
+Wire Wire Line
+	6100 6050 5600 6050
+Wire Wire Line
+	6100 6150 5600 6150
+Wire Wire Line
+	6100 6250 5600 6250
+Text Label 6100 5950 2    50   ~ 0
+~WEN0
+Text Label 6100 6050 2    50   ~ 0
+~WEN1
+Text Label 6100 6150 2    50   ~ 0
+~REN0
+Text Label 6100 6250 2    50   ~ 0
+~REN1
+Text Label 3950 5950 0    50   ~ 0
+~RD
+Text Label 3950 6050 0    50   ~ 0
+~WR
+Text Label 3950 6150 0    50   ~ 0
+FPA6
+Wire Wire Line
+	2650 3550 3150 3550
+Wire Wire Line
+	2650 3650 3150 3650
+Wire Wire Line
+	2650 3750 3150 3750
+Wire Wire Line
+	2650 3850 3150 3850
+Text Label 2650 3550 0    50   ~ 0
+~WEN0
+Text Label 2650 3650 0    50   ~ 0
+~WEN1
+Text Label 2650 3750 0    50   ~ 0
+~REN0
+Text Label 2650 3850 0    50   ~ 0
+~REN1
 $EndSCHEMATC

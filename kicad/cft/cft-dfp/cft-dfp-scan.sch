@@ -1658,22 +1658,22 @@ Module A, Row 2 (AEXT)
 Text Notes 7000 1100 0    50   ~ 0
 Module A, Row 1 (µCV high)
 Wire Wire Line
-	2800 1200 3100 1200
+	2150 1200 2450 1200
 Entry Wire Line
-	2700 1000 2800 1100
+	2050 1000 2150 1100
 Entry Wire Line
-	2700 1100 2800 1200
+	2050 1100 2150 1200
 Wire Wire Line
-	2800 1100 3100 1100
+	2150 1100 2450 1100
 Wire Wire Line
-	2800 1300 3100 1300
+	2150 1300 2450 1300
 Entry Wire Line
-	2700 1200 2800 1300
-Text Label 2900 1100 0    50   ~ 0
+	2050 1200 2150 1300
+Text Label 2250 1100 0    50   ~ 0
 FPA2
-Text Label 2900 1200 0    50   ~ 0
+Text Label 2250 1200 0    50   ~ 0
 FPA3
-Text Label 2900 1300 0    50   ~ 0
+Text Label 2250 1300 0    50   ~ 0
 FPA4
 Text Label 7050 5050 0    50   ~ 0
 ~ROW[1..5]
@@ -1747,51 +1747,51 @@ Text Notes 6950 4550 2    50   ~ 10
 1F
 Text Label 7500 4650 2    50   ~ 0
 ~FPOE20
-Text Label 1550 3150 2    50   ~ 0
+Text Label 900  3150 2    50   ~ 0
 ~PANELEN
-Text HLabel 1100 3150 0    50   Input ~ 0
+Text HLabel 450  3150 0    50   Input ~ 0
 ~PANELEN
 Entry Wire Line
-	2700 1700 2800 1800
+	2050 1700 2150 1800
 Entry Wire Line
-	2700 1800 2800 1900
+	2050 1800 2150 1900
 Wire Wire Line
-	2800 1800 3100 1800
+	2150 1800 2450 1800
 Wire Wire Line
-	2800 1900 3100 1900
-Text Label 2900 1900 0    50   ~ 0
+	2150 1900 2450 1900
+Text Label 2250 1900 0    50   ~ 0
 FPA7
-Text Label 2900 1800 0    50   ~ 0
+Text Label 2250 1800 0    50   ~ 0
 FPA6
-Text Notes 2950 2750 0    50   ~ 0
+Text Notes 2300 2750 0    50   ~ 0
 ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ~ROW~\nstrobes.
-Text Notes 2950 3800 0    50   ~ 0
+Text Notes 2300 3800 0    50   ~ 0
 When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
 Wire Wire Line
-	3100 1700 3050 1700
+	2450 1700 2400 1700
 Wire Notes Line width 24 style solid
-	2850 3000 1100 3000
+	2200 3000 450  3000
 Wire Notes Line width 24 style solid
-	1100 900  2850 900 
-Text Notes 1200 1750 0    63   ~ 13
+	450  900  2200 900 
+Text Notes 550  1750 0    63   ~ 13
 Erratum, rev. A (1930)
 Wire Notes Line width 24 style solid
-	1100 3000 1100 900 
-Text Label 1750 1450 0    50   ~ 0
+	450  3000 450  900 
+Text Label 1100 1450 0    50   ~ 0
 ~SCANEN
-Text Label 1750 1350 0    50   ~ 0
+Text Label 1100 1350 0    50   ~ 0
 ~WR
-Text HLabel 1650 1450 0    50   Input ~ 0
+Text HLabel 1000 1450 0    50   Input ~ 0
 ~SCANEN
-Text HLabel 1650 1350 0    50   Input ~ 0
+Text HLabel 1000 1350 0    50   Input ~ 0
 ~WR
 Wire Wire Line
-	2100 1450 1650 1450
+	1450 1450 1000 1450
 Wire Wire Line
-	2100 1350 1650 1350
+	1450 1350 1000 1350
 Wire Notes Line width 24 style solid
-	2850 3000 2850 900 
-Text Notes 1200 2900 0    50   ~ 0
+	2200 3000 2200 900 
+Text Notes 550  2900 0    50   ~ 0
 In XMem mode, the Atmega drives its\naddress bus all the time, but the '138\ndecoder in Rev. A of the board isn't\ngated, so the front panel shows the\ninner workings of the Atmega instead\nof the CFT!\n\nU1202 should be gated such that it\nstrobes ~ROWx~ when either ~SCANEN~ or\nthe Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused)\n‘snoop-update’ mode of the FP.
 Text Notes 6950 1100 2    50   ~ 10
 00
@@ -1950,16 +1950,16 @@ Entry Wire Line
 Entry Bus Bus
 	4500 700  4600 800 
 Wire Bus Line
-	2800 700  4500 700 
+	2150 700  4500 700 
 Entry Bus Bus
-	2600 700  2700 800 
-Text Label 1500 700  2    50   ~ 0
+	1950 700  2050 800 
+Text Label 850  700  2    50   ~ 0
 FPA[0..7]
 Entry Bus Bus
-	2800 700  2700 800 
+	2150 700  2050 800 
 Wire Bus Line
-	1100 700  2600 700 
-Text HLabel 1100 700  0    50   Input ~ 0
+	450  700  1950 700 
+Text HLabel 450  700  0    50   Input ~ 0
 FPA[0..7]
 Text Label 4700 2150 0    50   ~ 0
 FPA4
@@ -1976,7 +1976,7 @@ Wire Wire Line
 Wire Bus Line
 	7050 5050 7600 5050
 Wire Wire Line
-	1100 3150 4450 3150
+	450  3150 4450 3150
 Wire Wire Line
 	4450 3650 4450 3150
 Wire Wire Line
@@ -1987,13 +1987,12 @@ Wire Wire Line
 	4700 1700 5250 1700
 Text Label 4450 3050 1    50   ~ 0
 ~PANELEN
-NoConn ~ 4100 1600
-NoConn ~ 4100 1700
-NoConn ~ 4100 1800
+NoConn ~ 3450 1700
+NoConn ~ 3450 1800
 Wire Wire Line
-	2550 1400 3050 1400
+	1900 1400 2400 1400
 Wire Wire Line
-	3050 1400 3050 1700
+	2400 1400 2400 1700
 Text HLabel 1200 6450 0    50   Input ~ 0
 MFD0
 Text Notes 1600 6100 0    100  ~ 20
@@ -2227,24 +2226,12 @@ $EndComp
 $Comp
 L alexios:74LVC1G00 U33
 U 1 1 6AFE1F5D
-P 2400 1400
-F 0 "U33" H 2325 1667 50  0000 C CNN
-F 1 "74LVC1G00" H 2325 1576 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2050 1400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2050 1400 50  0001 C CNN
-	1    2400 1400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U34
-U 1 1 6AFE3EEE
-P 3600 1500
-F 0 "U34" H 3600 2167 50  0000 C CNN
-F 1 "74HC138" H 3600 2076 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 3600 1500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 3600 1500 50  0001 C CNN
-F 4 "Yes" H 3525 675 50  0001 C CNN "Verified"
-	1    3600 1500
+P 1750 1400
+F 0 "U33" H 1675 1667 50  0000 C CNN
+F 1 "74LVC1G00" H 1675 1576 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1400 1400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1400 1400 50  0001 C CNN
+	1    1750 1400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2503,25 +2490,15 @@ Text HLabel 7600 5550 2    50   Output ~ 0
 FPD[0..7]
 Text Label 7500 5550 2    50   ~ 0
 FPD[0..7]
-Wire Wire Line
-	4100 1100 4400 1100
-Wire Wire Line
-	4100 1200 4400 1200
-Wire Wire Line
-	4100 1300 4400 1300
-Wire Wire Line
-	4100 1400 4400 1400
-Wire Wire Line
-	4100 1500 4400 1500
-Text Label 4400 1100 2    50   ~ 0
+Text Label 4300 1100 2    50   ~ 0
 ~ROW1
-Text Label 4400 1200 2    50   ~ 0
+Text Label 4300 1200 2    50   ~ 0
 ~ROW2
-Text Label 4400 1300 2    50   ~ 0
+Text Label 4300 1300 2    50   ~ 0
 ~ROW3
-Text Label 4400 1400 2    50   ~ 0
+Text Label 4300 1400 2    50   ~ 0
 ~ROW4
-Text Label 4400 1500 2    50   ~ 0
+Text Label 4300 1500 2    50   ~ 0
 ~ROW5
 Text HLabel 1200 6550 0    50   Input ~ 0
 MFD1
@@ -2532,8 +2509,106 @@ Wire Wire Line
 Connection ~ 1300 6550
 Wire Wire Line
 	1300 6550 1800 6550
+NoConn ~ 3450 1600
+$Comp
+L alexios:74HC138 U34
+U 1 1 6AFE3EEE
+P 2950 1500
+F 0 "U34" H 2950 2167 50  0000 C CNN
+F 1 "74HC138" H 2950 2076 50  0000 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 2950 1500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 2950 1500 50  0001 C CNN
+F 4 "Yes" H 2875 675 50  0001 C CNN "Verified"
+	1    2950 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 1500 3550 1500
+Wire Wire Line
+	3450 1100 3550 1100
+Wire Wire Line
+	3450 1200 3550 1200
+Wire Wire Line
+	3450 1300 3550 1300
+Wire Wire Line
+	3450 1400 3550 1400
+$Comp
+L Device:R_Small R?
+U 1 1 64196A39
+P 3650 1100
+AR Path="/614F5B8D/64196A39" Ref="R?"  Part="1" 
+AR Path="/65BD1B6F/64196A39" Ref="R901"  Part="1" 
+F 0 "R901" V 3600 1200 50  0000 L CNN
+F 1 "1kΩ?" V 3550 1100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 1100 50  0001 C CNN
+F 3 "~" H 3650 1100 50  0001 C CNN
+	1    3650 1100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3750 1100 4300 1100
+$Comp
+L Device:R_Small R?
+U 1 1 642B7233
+P 3650 1200
+AR Path="/614F5B8D/642B7233" Ref="R?"  Part="1" 
+AR Path="/65BD1B6F/642B7233" Ref="R902"  Part="1" 
+F 0 "R902" V 3600 1300 50  0000 L CNN
+F 1 "1kΩ?" V 3550 1200 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 1200 50  0001 C CNN
+F 3 "~" H 3650 1200 50  0001 C CNN
+	1    3650 1200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3750 1200 4300 1200
+Wire Wire Line
+	3750 1300 4300 1300
+Wire Wire Line
+	3750 1400 4300 1400
+Wire Wire Line
+	3750 1500 4300 1500
+$Comp
+L Device:R_Small R?
+U 1 1 644F91ED
+P 3650 1300
+AR Path="/614F5B8D/644F91ED" Ref="R?"  Part="1" 
+AR Path="/65BD1B6F/644F91ED" Ref="R903"  Part="1" 
+F 0 "R903" V 3600 1400 50  0000 L CNN
+F 1 "1kΩ?" V 3550 1300 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 1300 50  0001 C CNN
+F 3 "~" H 3650 1300 50  0001 C CNN
+	1    3650 1300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 644F9382
+P 3650 1400
+AR Path="/614F5B8D/644F9382" Ref="R?"  Part="1" 
+AR Path="/65BD1B6F/644F9382" Ref="R904"  Part="1" 
+F 0 "R904" V 3600 1500 50  0000 L CNN
+F 1 "1kΩ?" V 3550 1400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 1400 50  0001 C CNN
+F 3 "~" H 3650 1400 50  0001 C CNN
+	1    3650 1400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 644F94C4
+P 3650 1500
+AR Path="/614F5B8D/644F94C4" Ref="R?"  Part="1" 
+AR Path="/65BD1B6F/644F94C4" Ref="R905"  Part="1" 
+F 0 "R905" V 3600 1600 50  0000 L CNN
+F 1 "1kΩ?" V 3550 1500 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 1500 50  0001 C CNN
+F 3 "~" H 3650 1500 50  0001 C CNN
+	1    3650 1500
+	0    1    1    0   
+$EndComp
 Wire Bus Line
-	2700 800  2700 1800
+	2050 800  2050 1800
 Wire Bus Line
 	3150 4700 3150 5450
 Wire Bus Line
