@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 12
+Sheet 7 10
 Title "Termination & Conditioning"
 Date "2019-11-17"
 Rev "2049"
@@ -1431,13 +1431,24 @@ Wire Wire Line
 	9050 4950 9350 4950
 Wire Wire Line
 	9250 5250 9250 5150
+Connection ~ 9250 5150
+Wire Wire Line
+	9250 5150 9350 5150
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
 	9450 4250 9450 5050
 Wire Bus Line
 	5600 4100 5600 5050
-Connection ~ 9250 5150
-Wire Wire Line
-	9250 5150 9350 5150
+$Comp
+L alexios:PMV48XP T701
+U 1 1 613DCC00
+P 4050 1250
+F 0 "T701" H 4255 1296 50  0000 L CNN
+F 1 "PMV48XP" H 4255 1205 50  0000 L CNN
+F 2 "alexios:SOT-23_HandSoldering" H 4250 1175 50  0001 L CIN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PMV48XP.pdf" H 4050 1250 50  0001 L CNN
+	1    4050 1250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

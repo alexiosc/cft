@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 12
+Sheet 4 10
 Title ""
 Date ""
 Rev "2049"
@@ -1213,14 +1213,6 @@ Wire Bus Line
 	1250 1300 2400 1300
 Text HLabel 1250 1300 0    50   BiDi ~ 0
 FPD[0..7]
-$Sheet
-S 8600 3950 500  400 
-U 60FF3530
-F0 "sheet60FF352C" 50
-F1 "cft_boardled.sch" 50
-F2 "~LED1" I L 8600 4100 50 
-F3 "~LED2" I L 8600 4200 50 
-$EndSheet
 Wire Wire Line
 	8600 4100 8300 4100
 Wire Wire Line
@@ -1229,14 +1221,6 @@ Text Label 8300 4100 0    50   ~ 0
 ~ABOE
 Text Label 8300 4200 0    50   ~ 0
 ~CVOE
-$Sheet
-S 8600 4700 500  400 
-U 610E2BBB
-F0 "sheet610E2BB7" 50
-F1 "cft_boardled.sch" 50
-F2 "~LED1" I L 8600 4850 50 
-F3 "~LED2" I L 8600 4950 50 
-$EndSheet
 Wire Wire Line
 	8600 4850 8300 4850
 Wire Wire Line

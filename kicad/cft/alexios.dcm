@@ -1590,6 +1590,12 @@ K diode
 F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
 $ENDCMP
 #
+$CMP PMV48XP
+D PMV48XP 20 V, 3.5 A P-channel Trench MOSFET
+K P-Channel trench MOSFET logic level
+F https://assets.nexperia.com/documents/data-sheet/PMV48XP.pdf
+$ENDCMP
+#
 $CMP R_Pack04
 D 4 resistor network, parallel topology, split
 K R network parallel topology isolated
