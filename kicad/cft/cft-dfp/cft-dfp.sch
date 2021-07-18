@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 10
+Sheet 1 20
 Title "Debugging Front Panel"
 Date "2019-11-17"
 Rev "2049"
@@ -867,7 +867,7 @@ AR Path="/60757845/65BD1BBF" Ref="TP?"  Part="1"
 AR Path="/64FC7999/65BD1BBF" Ref="TP?"  Part="1" 
 F 0 "TP2" H 9700 5550 50  0000 L CNN
 F 1 "TestPoint" V 10004 5472 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 10100 5400 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H 10100 5400 50  0001 C CNN
 F 3 "~" H 10100 5400 50  0001 C CNN
 	1    9900 5400
 	-1   0    0    1   
@@ -1018,7 +1018,7 @@ AR Path="/64333DF6" Ref="TP13"  Part="1"
 AR Path="/60757845/64333DF6" Ref="TP?"  Part="1" 
 F 0 "TP13" H 5450 7150 50  0000 L CNN
 F 1 "TestPoint" V 5654 7322 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 5750 7250 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H 5750 7250 50  0001 C CNN
 F 3 "~" H 5750 7250 50  0001 C CNN
 	1    5550 7250
 	-1   0    0    1   
@@ -1029,7 +1029,7 @@ Text Label 6650 7350 2    50   ~ 0
 Text Label 6650 7450 2    50   ~ 0
 ~IRQ7
 Text Label 6650 7250 2    50   ~ 0
-~IRQ
+~IRQ5
 Wire Wire Line
 	6250 7350 6650 7350
 Wire Wire Line

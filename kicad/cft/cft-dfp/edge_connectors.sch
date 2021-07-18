@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 10
+Sheet 18 20
 Title ""
 Date ""
 Rev "2049"
@@ -1662,7 +1662,7 @@ U 1 1 615879D6
 P 9000 9650
 F 0 "J2" H 9050 10475 50  0000 C CNN
 F 1 "Conn_02x15_Odd_Even" H 9050 10476 50  0001 C CNN
-F 2 "Connector_IDC:IDC-Header_2x15_P2.54mm_Vertical" H 9000 9650 50  0001 C CNN
+F 2 "Connector_IDC:IDC-Header_2x15_P2.54mm_Horizontal" H 9000 9650 50  0001 C CNN
 F 3 "~" H 9000 9650 50  0001 C CNN
 	1    9000 9650
 	1    0    0    -1  
@@ -1725,6 +1725,44 @@ Wire Wire Line
 	5150 2400 4600 2400
 Text Label 4600 2500 0    50   ~ 0
 FP-FPD7
+Text Label 12200 9300 0    50   ~ 0
+~FPOE0
+Text Label 12200 9400 0    50   ~ 0
+~FPOE1
+Text Label 12200 9500 0    50   ~ 0
+~FPOE2
+Text Label 12200 9600 0    50   ~ 0
+~FPOE3
+Text Label 12200 9700 0    50   ~ 0
+~FPOE4
+Text Label 12200 9800 0    50   ~ 0
+~FPOE5
+Text Label 12200 9900 0    50   ~ 0
+~FPOE6
+Text Label 12200 10000 0    50   ~ 0
+~FPOE7
+Text Label 12200 10100 0    50   ~ 0
+~FPOE8
+Text Label 12200 10200 0    50   ~ 0
+~FPOE9
+Text Label 12200 10300 0    50   ~ 0
+~FPOE10
+Text Label 12200 10400 0    50   ~ 0
+~FPOE11
+Text Label 12200 10500 0    50   ~ 0
+~FPOE12
+Text Label 12200 10600 0    50   ~ 0
+~FPOE13
+Text Label 12200 10700 0    50   ~ 0
+~FPOE14
+Text Label 12200 10800 0    50   ~ 0
+~FPOE15
+Text Label 12200 10900 0    50   ~ 0
+~FPOE16
+Text Label 12200 11000 0    50   ~ 0
+~FPOE17
+Text Label 12200 11100 0    50   ~ 0
+~FPOE18
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line

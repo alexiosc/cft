@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 10
+Sheet 17 20
 Title "Termination & Conditioning"
 Date "2019-11-17"
 Rev "2049"
@@ -384,19 +384,6 @@ Wire Wire Line
 Connection ~ 2500 2700
 Wire Wire Line
 	2500 2700 2500 2600
-$Comp
-L power:+5V #PWR0136
-U 1 1 6091143C
-P 2100 4400
-F 0 "#PWR0136" H 2100 4250 50  0001 C CNN
-F 1 "+5V" H 2115 4573 50  0000 C CNN
-F 2 "" H 2100 4400 50  0001 C CNN
-F 3 "" H 2100 4400 50  0001 C CNN
-	1    2100 4400
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	2150 4450 2100 4450
 Entry Bus Bus
 	3000 4000 3100 4100
 Text HLabel 1900 4000 0    50   Input ~ 0
@@ -498,27 +485,11 @@ Text Label 2900 4550 2    50   ~ 0
 CFT-FPD1
 Text Label 2900 4450 2    50   ~ 0
 CFT-FPD0
-Wire Wire Line
-	3200 4450 3900 4450
-Wire Wire Line
-	3200 4550 3900 4550
-Wire Wire Line
-	3200 4650 3900 4650
-Wire Wire Line
-	3200 4750 3900 4750
-Wire Wire Line
-	3200 4850 3900 4850
-Wire Wire Line
-	3200 4950 3900 4950
-Wire Wire Line
-	3200 5050 3900 5050
-Wire Wire Line
-	3200 5150 3900 5150
 Entry Bus Bus
 	5700 4000 5600 4100
 Wire Bus Line
-	9750 4000 5700 4000
-Text HLabel 9750 4000 2    50   UnSpc ~ 0
+	9850 4000 5700 4000
+Text HLabel 9850 4000 2    50   UnSpc ~ 0
 FPD[0..7]
 Wire Wire Line
 	1300 1000 2150 1000
@@ -528,156 +499,6 @@ Wire Wire Line
 	1300 1200 2150 1200
 Wire Wire Line
 	1300 1300 2150 1300
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 6096B7E4
-P 4050 4850
-AR Path="/6096B7E4" Ref="RN?"  Part="1" 
-AR Path="/60757845/6096B7E4" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/6096B7E4" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/6096B7E4" Ref="RN23"  Part="1" 
-F 0 "RN23" H 3650 4500 50  0000 L CNN
-F 1 "30Ω" H 4250 4450 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 4930 50  0001 C CNN
-F 3 "~" V 4050 4850 50  0001 C CNN
-	1    4050 4850
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 6096B7EA
-P 4050 4450
-AR Path="/6096B7EA" Ref="RN?"  Part="1" 
-AR Path="/60757845/6096B7EA" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/6096B7EA" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/6096B7EA" Ref="RN22"  Part="1" 
-F 0 "RN22" H 3900 4650 50  0000 L CNN
-F 1 "30Ω" H 4000 4550 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 4530 50  0001 C CNN
-F 3 "~" V 4050 4450 50  0001 C CNN
-	1    4050 4450
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 6096B7F0
-P 4050 4550
-AR Path="/6096B7F0" Ref="RN?"  Part="2" 
-AR Path="/60757845/6096B7F0" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/6096B7F0" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/6096B7F0" Ref="RN22"  Part="2" 
-F 0 "RN22" H 4150 4600 50  0001 L CNN
-F 1 "30Ω" H 4025 4656 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 4630 50  0001 C CNN
-F 3 "~" V 4050 4550 50  0001 C CNN
-	2    4050 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 6096B7F6
-P 4050 4650
-AR Path="/6096B7F6" Ref="RN?"  Part="3" 
-AR Path="/60757845/6096B7F6" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/6096B7F6" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/6096B7F6" Ref="RN22"  Part="3" 
-F 0 "RN22" H 4150 4700 50  0001 L CNN
-F 1 "30Ω" H 4025 4756 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 4730 50  0001 C CNN
-F 3 "~" V 4050 4650 50  0001 C CNN
-	3    4050 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 6096B7FC
-P 4050 4750
-AR Path="/6096B7FC" Ref="RN?"  Part="4" 
-AR Path="/60757845/6096B7FC" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/6096B7FC" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/6096B7FC" Ref="RN22"  Part="4" 
-F 0 "RN22" H 4150 4800 50  0001 L CNN
-F 1 "30Ω" H 4025 4856 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 4830 50  0001 C CNN
-F 3 "~" V 4050 4750 50  0001 C CNN
-	4    4050 4750
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 6096B802
-P 4050 4950
-AR Path="/6096B802" Ref="RN?"  Part="2" 
-AR Path="/60757845/6096B802" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/6096B802" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/6096B802" Ref="RN23"  Part="2" 
-F 0 "RN23" H 4150 5000 50  0001 L CNN
-F 1 "30Ω" H 4025 5056 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 5030 50  0001 C CNN
-F 3 "~" V 4050 4950 50  0001 C CNN
-	2    4050 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 6096B808
-P 4050 5050
-AR Path="/6096B808" Ref="RN?"  Part="3" 
-AR Path="/60757845/6096B808" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/6096B808" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/6096B808" Ref="RN23"  Part="3" 
-F 0 "RN23" H 4150 5100 50  0001 L CNN
-F 1 "30Ω" H 4025 5156 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 5130 50  0001 C CNN
-F 3 "~" V 4050 5050 50  0001 C CNN
-	3    4050 5050
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 6096B80E
-P 4050 5150
-AR Path="/6096B80E" Ref="RN?"  Part="4" 
-AR Path="/60757845/6096B80E" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/6096B80E" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/6096B80E" Ref="RN23"  Part="4" 
-F 0 "RN23" H 3950 5000 50  0001 L CNN
-F 1 "30Ω" H 3750 5200 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4050 5230 50  0001 C CNN
-F 3 "~" V 4050 5150 50  0001 C CNN
-	4    4050 5150
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 60C70DAF
-P 7200 5050
-AR Path="/60C70DAF" Ref="RN?"  Part="1" 
-AR Path="/60757845/60C70DAF" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/60C70DAF" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/60C70DAF" Ref="RN25"  Part="3" 
-F 0 "RN25" H 7100 5300 50  0001 L CNN
-F 1 "30Ω" H 7150 5150 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 5130 50  0001 C CNN
-F 3 "~" V 7200 5050 50  0001 C CNN
-	3    7200 5050
-	1    0    0    1   
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 60C70DB5
-P 7200 5150
-AR Path="/60C70DB5" Ref="RN?"  Part="2" 
-AR Path="/60757845/60C70DB5" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/60C70DB5" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/60C70DB5" Ref="RN25"  Part="4" 
-F 0 "RN25" H 7300 5250 50  0000 L CNN
-F 1 "30Ω" H 7175 5256 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 5230 50  0001 C CNN
-F 3 "~" V 7200 5150 50  0001 C CNN
-	4    7200 5150
-	1    0    0    1   
-$EndComp
 Text HLabel 9300 2550 0    50   UnSpc ~ 0
 ~IRQ
 Text Label 9400 2550 0    50   ~ 0
@@ -744,81 +565,6 @@ Connection ~ 10450 2550
 Wire Wire Line
 	10450 2550 10500 2550
 $Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 610E2605
-P 7200 4450
-AR Path="/610E2605" Ref="RN?"  Part="1" 
-AR Path="/60757845/610E2605" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/610E2605" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/610E2605" Ref="RN24"  Part="1" 
-F 0 "RN24" H 7050 4650 50  0000 L CNN
-F 1 "30Ω" H 7150 4550 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 4530 50  0001 C CNN
-F 3 "~" V 7200 4450 50  0001 C CNN
-	1    7200 4450
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 610E260B
-P 7200 4550
-AR Path="/610E260B" Ref="RN?"  Part="2" 
-AR Path="/60757845/610E260B" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/610E260B" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/610E260B" Ref="RN24"  Part="2" 
-F 0 "RN24" H 7300 4600 50  0001 L CNN
-F 1 "30Ω" H 7175 4656 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 4630 50  0001 C CNN
-F 3 "~" V 7200 4550 50  0001 C CNN
-	2    7200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 610E2611
-P 7200 4650
-AR Path="/610E2611" Ref="RN?"  Part="3" 
-AR Path="/60757845/610E2611" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/610E2611" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/610E2611" Ref="RN24"  Part="3" 
-F 0 "RN24" H 7300 4700 50  0001 L CNN
-F 1 "30Ω" H 7175 4756 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 4730 50  0001 C CNN
-F 3 "~" V 7200 4650 50  0001 C CNN
-	3    7200 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 610E2623
-P 7200 4850
-AR Path="/610E2623" Ref="RN?"  Part="3" 
-AR Path="/60757845/610E2623" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/610E2623" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/610E2623" Ref="RN25"  Part="1" 
-F 0 "RN25" H 7300 4900 50  0001 L CNN
-F 1 "30Ω" H 7175 4956 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 4930 50  0001 C CNN
-F 3 "~" V 7200 4850 50  0001 C CNN
-	1    7200 4850
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 610E2629
-P 7200 4950
-AR Path="/610E2629" Ref="RN?"  Part="4" 
-AR Path="/60757845/610E2629" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/610E2629" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/610E2629" Ref="RN25"  Part="2" 
-F 0 "RN25" H 7100 4800 50  0001 L CNN
-F 1 "30Ω" H 7200 4850 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 5030 50  0001 C CNN
-F 3 "~" V 7200 4950 50  0001 C CNN
-	2    7200 4950
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74HC541 U29
 U 1 1 610ECA86
 P 6550 4950
@@ -845,21 +591,21 @@ F 3 "" H 6000 5500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Entry Wire Line
-	9450 4350 9350 4450
+	9550 4350 9450 4450
 Entry Wire Line
-	9450 4450 9350 4550
+	9550 4450 9450 4550
 Entry Wire Line
-	9450 4550 9350 4650
+	9550 4550 9450 4650
 Entry Wire Line
-	9450 4650 9350 4750
+	9550 4650 9450 4750
 Entry Wire Line
-	9450 4750 9350 4850
+	9550 4750 9450 4850
 Entry Wire Line
-	9450 4850 9350 4950
+	9550 4850 9450 4950
 Entry Wire Line
-	9450 4950 9350 5050
+	9550 4950 9450 5050
 Entry Wire Line
-	9450 5050 9350 5150
+	9550 5050 9450 5150
 Entry Wire Line
 	5600 4350 5700 4450
 Entry Wire Line
@@ -908,12 +654,12 @@ Wire Wire Line
 	6050 4950 5700 4950
 Wire Wire Line
 	6050 4850 5700 4850
-Text HLabel 9750 4150 2    50   Output ~ 0
+Text HLabel 9850 4150 2    50   Output ~ 0
 FP-FPD[0..7]
 Wire Bus Line
-	9750 4150 9550 4150
+	9850 4150 9650 4150
 Entry Bus Bus
-	9550 4150 9450 4250
+	9650 4150 9550 4250
 Wire Wire Line
 	6000 5350 6000 5450
 Connection ~ 6000 5450
@@ -922,67 +668,67 @@ Wire Wire Line
 $Comp
 L power:GND #PWR0145
 U 1 1 5FDEF369
-P 7950 5500
-F 0 "#PWR0145" H 7950 5250 50  0001 C CNN
-F 1 "GND" H 7955 5327 50  0000 C CNN
-F 2 "" H 7950 5500 50  0001 C CNN
-F 3 "" H 7950 5500 50  0001 C CNN
-	1    7950 5500
+P 8050 5500
+F 0 "#PWR0145" H 8050 5250 50  0001 C CNN
+F 1 "GND" H 8055 5327 50  0000 C CNN
+F 2 "" H 8050 5500 50  0001 C CNN
+F 3 "" H 8050 5500 50  0001 C CNN
+	1    8050 5500
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:PESD5V2S2UT D19
 U 1 1 5FE16E3D
-P 8750 5400
-F 0 "D19" H 9000 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 8650 5150 50  0001 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8750 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8650 5425 50  0001 C CNN
-	1    8750 5400
+P 8850 5400
+F 0 "D19" H 9100 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 8750 5150 50  0001 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8850 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8750 5425 50  0001 C CNN
+	1    8850 5400
 	-1   0    0    -1  
 $EndComp
 $Comp
 L alexios:PESD5V2S2UT D20
 U 1 1 5FE16E43
-P 9150 5400
-F 0 "D20" H 9400 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 9050 5150 50  0001 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9150 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 9050 5425 50  0001 C CNN
-	1    9150 5400
+P 9250 5400
+F 0 "D20" H 9500 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 9150 5150 50  0001 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 9250 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 9150 5425 50  0001 C CNN
+	1    9250 5400
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0146
 U 1 1 5FE492B5
-P 8350 5500
-F 0 "#PWR0146" H 8350 5250 50  0001 C CNN
-F 1 "GND" H 8355 5327 50  0000 C CNN
-F 2 "" H 8350 5500 50  0001 C CNN
-F 3 "" H 8350 5500 50  0001 C CNN
-	1    8350 5500
+P 8450 5500
+F 0 "#PWR0146" H 8450 5250 50  0001 C CNN
+F 1 "GND" H 8455 5327 50  0000 C CNN
+F 2 "" H 8450 5500 50  0001 C CNN
+F 3 "" H 8450 5500 50  0001 C CNN
+	1    8450 5500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0147
 U 1 1 5FE49524
-P 8750 5500
-F 0 "#PWR0147" H 8750 5250 50  0001 C CNN
-F 1 "GND" H 8755 5327 50  0000 C CNN
-F 2 "" H 8750 5500 50  0001 C CNN
-F 3 "" H 8750 5500 50  0001 C CNN
-	1    8750 5500
+P 8850 5500
+F 0 "#PWR0147" H 8850 5250 50  0001 C CNN
+F 1 "GND" H 8855 5327 50  0000 C CNN
+F 2 "" H 8850 5500 50  0001 C CNN
+F 3 "" H 8850 5500 50  0001 C CNN
+	1    8850 5500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0148
 U 1 1 5FE4971B
-P 9150 5500
-F 0 "#PWR0148" H 9150 5250 50  0001 C CNN
-F 1 "GND" H 9155 5327 50  0000 C CNN
-F 2 "" H 9150 5500 50  0001 C CNN
-F 3 "" H 9150 5500 50  0001 C CNN
-	1    9150 5500
+P 9250 5500
+F 0 "#PWR0148" H 9250 5250 50  0001 C CNN
+F 1 "GND" H 9255 5327 50  0000 C CNN
+F 2 "" H 9250 5500 50  0001 C CNN
+F 3 "" H 9250 5500 50  0001 C CNN
+	1    9250 5500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1150,196 +896,22 @@ Wire Wire Line
 Wire Wire Line
 	3000 4450 2450 4450
 Wire Wire Line
-	2100 4400 2100 4450
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 610E2617
-P 7200 4750
-AR Path="/610E2617" Ref="RN?"  Part="4" 
-AR Path="/60757845/610E2617" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/610E2617" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/610E2617" Ref="RN24"  Part="4" 
-F 0 "RN24" H 7300 4800 50  0001 L CNN
-F 1 "30Ω" H 7175 4856 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7200 4830 50  0001 C CNN
-F 3 "~" V 7200 4750 50  0001 C CNN
-	4    7200 4750
-	1    0    0    -1  
-$EndComp
+	7500 4550 8350 4550
 Wire Wire Line
-	7300 4550 8250 4550
-Wire Wire Line
-	7300 4950 9050 4950
+	7500 4950 9150 4950
 $Comp
 L alexios:PESD5V2S2UT D18
 U 1 1 5FDFD084
-P 8350 5400
-F 0 "D18" H 8600 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 8250 5150 50  0001 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 5425 50  0001 C CNN
-	1    8350 5400
+P 8450 5400
+F 0 "D18" H 8700 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 8350 5150 50  0001 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8450 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8350 5425 50  0001 C CNN
+	1    8450 5400
 	-1   0    0    -1  
 $EndComp
 Text Notes 2050 5450 0    50   ~ 0
 Optional; the backplane\nhas bus hold for FPD.
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 629671C3
-P 2350 4850
-AR Path="/629671C3" Ref="RN?"  Part="1" 
-AR Path="/60757845/629671C3" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/629671C3" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/629671C3" Ref="RN901"  Part="2" 
-F 0 "RN901" H 1800 4550 50  0000 L CNN
-F 1 "10kΩ" H 2550 4450 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 4930 50  0001 C CNN
-F 3 "~" V 2350 4850 50  0001 C CNN
-	2    2350 4850
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 629671E1
-P 2350 4950
-AR Path="/629671E1" Ref="RN?"  Part="2" 
-AR Path="/60757845/629671E1" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/629671E1" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/629671E1" Ref="RN901"  Part="3" 
-F 0 "RN901" H 2450 5000 50  0001 L CNN
-F 1 "10kΩ" H 2325 5056 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 5030 50  0001 C CNN
-F 3 "~" V 2350 4950 50  0001 C CNN
-	3    2350 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 629671E7
-P 2350 5050
-AR Path="/629671E7" Ref="RN?"  Part="3" 
-AR Path="/60757845/629671E7" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/629671E7" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/629671E7" Ref="RN901"  Part="4" 
-F 0 "RN901" H 2450 5100 50  0001 L CNN
-F 1 "10kΩ" H 2325 5156 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 5130 50  0001 C CNN
-F 3 "~" V 2350 5050 50  0001 C CNN
-	4    2350 5050
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 629671ED
-P 2350 5150
-AR Path="/629671ED" Ref="RN?"  Part="4" 
-AR Path="/60757845/629671ED" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/629671ED" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/629671ED" Ref="RN902"  Part="1" 
-F 0 "RN902" H 2250 5000 50  0001 L CNN
-F 1 "10kΩ" H 2000 5250 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 5230 50  0001 C CNN
-F 3 "~" V 2350 5150 50  0001 C CNN
-	1    2350 5150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2200 4450 2150 4450
-Wire Wire Line
-	2150 4450 2150 4550
-Wire Wire Line
-	2150 5150 2200 5150
-Wire Wire Line
-	2200 4550 2150 4550
-Connection ~ 2150 4550
-Wire Wire Line
-	2150 4550 2150 4650
-Wire Wire Line
-	2200 4650 2150 4650
-Connection ~ 2150 4650
-Wire Wire Line
-	2150 4650 2150 4750
-Wire Wire Line
-	2200 4750 2150 4750
-Connection ~ 2150 4750
-Wire Wire Line
-	2150 4750 2150 4850
-Wire Wire Line
-	2200 4850 2150 4850
-Connection ~ 2150 4850
-Wire Wire Line
-	2150 4850 2150 4950
-Wire Wire Line
-	2200 4950 2150 4950
-Connection ~ 2150 4950
-Wire Wire Line
-	2150 4950 2150 5050
-Wire Wire Line
-	2200 5050 2150 5050
-Connection ~ 2150 5050
-Wire Wire Line
-	2150 5050 2150 5150
-Connection ~ 2150 4450
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 629F41C5
-P 2350 4450
-AR Path="/629F41C5" Ref="RN?"  Part="1" 
-AR Path="/60757845/629F41C5" Ref="RN?"  Part="1" 
-AR Path="/64FC7999/629F41C5" Ref="RN?"  Part="1" 
-AR Path="/60A2F3C0/629F41C5" Ref="RN903"  Part="1" 
-F 0 "RN903" H 1800 4150 50  0000 L CNN
-F 1 "10kΩ" H 2550 4050 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 4530 50  0001 C CNN
-F 3 "~" V 2350 4450 50  0001 C CNN
-	1    2350 4450
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 629F41CB
-P 2350 4550
-AR Path="/629F41CB" Ref="RN?"  Part="2" 
-AR Path="/60757845/629F41CB" Ref="RN?"  Part="2" 
-AR Path="/64FC7999/629F41CB" Ref="RN?"  Part="2" 
-AR Path="/60A2F3C0/629F41CB" Ref="RN903"  Part="2" 
-F 0 "RN903" H 2450 4600 50  0001 L CNN
-F 1 "10kΩ" H 2325 4656 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 4630 50  0001 C CNN
-F 3 "~" V 2350 4550 50  0001 C CNN
-	2    2350 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 629F41D1
-P 2350 4650
-AR Path="/629F41D1" Ref="RN?"  Part="3" 
-AR Path="/60757845/629F41D1" Ref="RN?"  Part="3" 
-AR Path="/64FC7999/629F41D1" Ref="RN?"  Part="3" 
-AR Path="/60A2F3C0/629F41D1" Ref="RN903"  Part="3" 
-F 0 "RN903" H 2450 4700 50  0001 L CNN
-F 1 "10kΩ" H 2325 4756 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 4730 50  0001 C CNN
-F 3 "~" V 2350 4650 50  0001 C CNN
-	3    2350 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 629F41D7
-P 2350 4750
-AR Path="/629F41D7" Ref="RN?"  Part="4" 
-AR Path="/60757845/629F41D7" Ref="RN?"  Part="4" 
-AR Path="/64FC7999/629F41D7" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/629F41D7" Ref="RN903"  Part="4" 
-F 0 "RN903" H 2250 4600 50  0001 L CNN
-F 1 "10kΩ" H 2000 4850 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 2350 4830 50  0001 C CNN
-F 3 "~" V 2350 4750 50  0001 C CNN
-	4    2350 4750
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3600 5350 4150 5350
 $Comp
@@ -1355,85 +927,85 @@ F 3 "" H 4100 5500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4100 5450 4100 5500
-Text Label 7400 4450 0    50   ~ 0
+Text Label 7500 4450 0    50   ~ 0
 FP-FPD0
-Text Label 7400 4550 0    50   ~ 0
+Text Label 7500 4550 0    50   ~ 0
 FP-FPD1
-Text Label 7400 4650 0    50   ~ 0
+Text Label 7500 4650 0    50   ~ 0
 FP-FPD2
-Text Label 7400 4750 0    50   ~ 0
+Text Label 7500 4750 0    50   ~ 0
 FP-FPD3
-Text Label 7400 4850 0    50   ~ 0
+Text Label 7500 4850 0    50   ~ 0
 FP-FPD4
-Text Label 7400 4950 0    50   ~ 0
+Text Label 7500 4950 0    50   ~ 0
 FP-FPD5
-Text Label 7400 5050 0    50   ~ 0
+Text Label 7500 5050 0    50   ~ 0
 FP-FPD6
-Text Label 7400 5150 0    50   ~ 0
+Text Label 7500 5150 0    50   ~ 0
 FP-FPD7
 Wire Wire Line
-	8050 4450 9350 4450
-Connection ~ 8050 4450
+	8150 4450 9450 4450
+Connection ~ 8150 4450
 Wire Wire Line
-	8050 5250 8050 4450
+	8150 5250 8150 4450
 Wire Wire Line
-	7300 4450 8050 4450
+	7500 4450 8150 4450
 Wire Wire Line
-	7300 4650 7850 4650
+	7500 4650 7950 4650
 Wire Wire Line
-	7850 4650 9350 4650
-Connection ~ 7850 4650
+	7950 4650 9450 4650
+Connection ~ 7950 4650
 Wire Wire Line
-	7850 5250 7850 4650
+	7950 5250 7950 4650
 $Comp
 L alexios:PESD5V2S2UT D17
 U 1 1 5FDE6D00
-P 7950 5400
-F 0 "D17" H 8250 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 8750 5400 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7950 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 7850 5425 50  0001 C CNN
-	1    7950 5400
+P 8050 5400
+F 0 "D17" H 8350 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 8850 5400 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8050 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 7950 5425 50  0001 C CNN
+	1    8050 5400
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	7300 4750 8450 4750
+	7500 4750 8550 4750
 Wire Wire Line
-	8250 5250 8250 4550
-Connection ~ 8250 4550
+	8350 5250 8350 4550
+Connection ~ 8350 4550
 Wire Wire Line
-	8250 4550 9350 4550
+	8350 4550 9450 4550
 Wire Wire Line
-	8450 5250 8450 4750
-Connection ~ 8450 4750
+	8550 5250 8550 4750
+Connection ~ 8550 4750
 Wire Wire Line
-	8450 4750 9350 4750
+	8550 4750 9450 4750
 Wire Wire Line
-	7300 4850 8850 4850
+	7500 4850 8950 4850
 Wire Wire Line
-	7300 5050 8650 5050
+	7500 5050 8750 5050
 Wire Wire Line
-	8650 5250 8650 5050
-Connection ~ 8650 5050
+	8750 5250 8750 5050
+Connection ~ 8750 5050
 Wire Wire Line
-	8650 5050 9350 5050
+	8750 5050 9450 5050
 Wire Wire Line
-	8850 5250 8850 4850
-Connection ~ 8850 4850
+	8950 5250 8950 4850
+Connection ~ 8950 4850
 Wire Wire Line
-	8850 4850 9350 4850
-Connection ~ 9050 4950
+	8950 4850 9450 4850
+Connection ~ 9150 4950
 Wire Wire Line
-	7300 5150 9250 5150
+	7500 5150 9350 5150
 Wire Wire Line
-	9050 4950 9050 5250
+	9150 4950 9150 5250
 Wire Wire Line
-	9050 4950 9350 4950
+	9150 4950 9450 4950
 Wire Wire Line
-	9250 5250 9250 5150
-Connection ~ 9250 5150
+	9350 5250 9350 5150
+Connection ~ 9350 5150
 Wire Wire Line
-	9250 5150 9350 5150
+	9350 5150 9450 5150
 $Comp
 L alexios:PMV48XP T701
 U 1 1 613DCC00
@@ -1445,10 +1017,118 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/PMV48XP.pdf" H 4050 1250 5
 	1    4050 1250
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3200 5150 3750 5150
+Wire Wire Line
+	3200 5050 3750 5050
+Wire Wire Line
+	3200 4950 3750 4950
+Wire Wire Line
+	3200 4850 3750 4850
+Wire Wire Line
+	3200 4750 3750 4750
+Wire Wire Line
+	3200 4650 3750 4650
+Wire Wire Line
+	3200 4550 3750 4550
+Wire Wire Line
+	3200 4450 3750 4450
+$Comp
+L Device:R_Pack08 RN?
+U 1 1 62CC0973
+P 3950 4850
+AR Path="/66CDCD87/61678CAE/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61B4C1AE/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61C8EF6B/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61D0EECC/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61D30C1E/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61FBB558/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61FBB5B6/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/6215CD84/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/6215CDCA/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C9920/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C999E/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C99B4/62CC0973" Ref="RN?"  Part="1" 
+AR Path="/60A2F3C0/62CC0973" Ref="RN1701"  Part="1" 
+F 0 "RN1701" V 3333 4850 50  0000 C CNN
+F 1 "1kΩ" V 3424 4850 50  0000 C CNN
+F 2 "alexios:Resistor-Pack-DIP-16_W7.62mm" V 4425 4850 50  0001 C CNN
+F 3 "~" H 3950 4850 50  0001 C CNN
+	1    3950 4850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Network08 RN?
+U 1 1 62CF0B32
+P 2250 4850
+AR Path="/60757845/62CF0B32" Ref="RN?"  Part="1" 
+AR Path="/60A2F3C0/62CF0B32" Ref="RN1702"  Part="1" 
+F 0 "RN1702" V 1633 4850 50  0000 C CNN
+F 1 "10kΩ" V 1724 4850 50  0000 C CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 2725 4850 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 2250 4850 50  0001 C CNN
+	1    2250 4850
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	2000 4400 2000 4450
+Wire Wire Line
+	2050 4450 2000 4450
+$Comp
+L power:+5V #PWR0136
+U 1 1 6091143C
+P 2000 4400
+F 0 "#PWR0136" H 2000 4250 50  0001 C CNN
+F 1 "+5V" H 2015 4573 50  0000 C CNN
+F 2 "" H 2000 4400 50  0001 C CNN
+F 3 "" H 2000 4400 50  0001 C CNN
+	1    2000 4400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Pack08 RN?
+U 1 1 63156B4F
+P 7300 4850
+AR Path="/66CDCD87/61678CAE/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61B4C1AE/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61C8EF6B/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61D0EECC/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61D30C1E/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61FBB558/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/61FBB5B6/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/6215CD84/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/6215CDCA/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C9920/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C999E/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/66CDCD87/621C99B4/63156B4F" Ref="RN?"  Part="1" 
+AR Path="/60A2F3C0/63156B4F" Ref="RN1703"  Part="1" 
+F 0 "RN1703" V 6683 4850 50  0000 C CNN
+F 1 "1kΩ" V 6774 4850 50  0000 C CNN
+F 2 "alexios:Resistor-Pack-DIP-16_W7.62mm" V 7775 4850 50  0001 C CNN
+F 3 "~" H 7300 4850 50  0001 C CNN
+	1    7300 4850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7050 4450 7100 4450
+Wire Wire Line
+	7050 4550 7100 4550
+Wire Wire Line
+	7050 4650 7100 4650
+Wire Wire Line
+	7050 4750 7100 4750
+Wire Wire Line
+	7050 4850 7100 4850
+Wire Wire Line
+	7050 4950 7100 4950
+Wire Wire Line
+	7050 5050 7100 5050
+Wire Wire Line
+	7050 5150 7100 5150
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
-	9450 4250 9450 5050
+	9550 4250 9550 5050
 Wire Bus Line
 	5600 4100 5600 5050
 $EndSCHEMATC

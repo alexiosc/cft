@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 10
+Sheet 15 20
 Title "Microcontroller and DFP Bus"
 Date ""
 Rev "2049"
@@ -915,7 +915,7 @@ U 1 1 61CAFDFF
 P 1550 -4650
 F 0 "SW1" H 1550 -4451 50  0000 C CNN
 F 1 "momentary_switch" H 1550 -4710 50  0001 C CNN
-F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS" H 1550 -4450 50  0001 C CNN
+F 2 "alexios:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" H 1550 -4450 50  0001 C CNN
 F 3 "" H 1550 -4450 50  0001 C CNN
 	1    1550 -4650
 	-1   0    0    -1  
@@ -1272,7 +1272,7 @@ U 1 1 6C5C0C4C
 P 1750 -1750
 F 0 "TP1" V 1700 -1600 50  0000 L CNN
 F 1 "TestPoint" V 1795 -1562 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 1950 -1750 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H 1950 -1750 50  0001 C CNN
 F 3 "~" H 1950 -1750 50  0001 C CNN
 	1    1750 -1750
 	0    -1   1    0   
@@ -1993,17 +1993,6 @@ F 3 "" H 7600 -3700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Network08 RN7
-U 1 1 6223B257
-P 8000 -3500
-F 0 "RN7" H 8388 -3454 50  0000 L CNN
-F 1 "10kΩ" H 8388 -3545 50  0000 L CNN
-F 2 "Resistor_THT:R_Array_SIP9" V 8475 -3500 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8000 -3500 50  0001 C CNN
-	1    8000 -3500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R_Small R?
 U 1 1 6263FC4F
 P 4000 -1000
@@ -2134,6 +2123,17 @@ Text Label 9350 -4250 2    50   ~ 0
 SCANEN
 Text Label 9350 -4350 2    50   ~ 0
 ~WR
+$Comp
+L Device:R_Network08 RN7
+U 1 1 6223B257
+P 8000 -3500
+F 0 "RN7" H 8388 -3454 50  0000 L CNN
+F 1 "10kΩ" H 8388 -3545 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 8475 -3500 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8000 -3500 50  0001 C CNN
+	1    8000 -3500
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	8850 -3400 8850 -2550
 Wire Bus Line

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 10
+Sheet 3 20
 Title ""
 Date ""
 Rev "2049"
@@ -97,7 +97,7 @@ U 1 1 658E2474
 P -700 3550
 F 0 "TP3" V -700 3738 50  0000 L CNN
 F 1 "TestPoint" V -655 3738 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 3550 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3550 50  0001 C CNN
 F 3 "~" H -500 3550 50  0001 C CNN
 	1    -700 3550
 	0    1    1    0   
@@ -108,7 +108,7 @@ U 1 1 658E2C1D
 P -700 3650
 F 0 "TP4" V -700 3838 50  0000 L CNN
 F 1 "TestPoint" V -655 3838 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 3650 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3650 50  0001 C CNN
 F 3 "~" H -500 3650 50  0001 C CNN
 	1    -700 3650
 	0    1    1    0   
@@ -119,7 +119,7 @@ U 1 1 658E2DAE
 P -700 3750
 F 0 "TP5" V -700 3938 50  0000 L CNN
 F 1 "TestPoint" V -655 3938 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 3750 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3750 50  0001 C CNN
 F 3 "~" H -500 3750 50  0001 C CNN
 	1    -700 3750
 	0    1    1    0   
@@ -130,7 +130,7 @@ U 1 1 658E2EF5
 P -700 3850
 F 0 "TP6" V -700 4038 50  0000 L CNN
 F 1 "TestPoint" V -655 4038 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 3850 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3850 50  0001 C CNN
 F 3 "~" H -500 3850 50  0001 C CNN
 	1    -700 3850
 	0    1    1    0   
@@ -141,7 +141,7 @@ U 1 1 658E5941
 P -700 6150
 F 0 "TP7" V -700 6338 50  0000 L CNN
 F 1 "TestPoint" V -655 6338 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 6150 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6150 50  0001 C CNN
 F 3 "~" H -500 6150 50  0001 C CNN
 	1    -700 6150
 	0    1    1    0   
@@ -152,7 +152,7 @@ U 1 1 658E5947
 P -700 6250
 F 0 "TP8" V -700 6438 50  0000 L CNN
 F 1 "TestPoint" V -655 6438 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 6250 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6250 50  0001 C CNN
 F 3 "~" H -500 6250 50  0001 C CNN
 	1    -700 6250
 	0    1    1    0   
@@ -163,7 +163,7 @@ U 1 1 658E594D
 P -700 6350
 F 0 "TP9" V -700 6538 50  0000 L CNN
 F 1 "TestPoint" V -655 6538 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H -500 6350 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6350 50  0001 C CNN
 F 3 "~" H -500 6350 50  0001 C CNN
 	1    -700 6350
 	0    1    1    0   
@@ -806,7 +806,7 @@ AR Path="/64FC7999/6549E394/654B3AE7" Ref="SW?"  Part="1"
 AR Path="/64FC7999/654B3AE7" Ref="SW2"  Part="1" 
 F 0 "SW2" H 6550 1683 50  0000 C CNN
 F 1 "SW_DIP_x08" H 6550 1774 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 2250 50  0001 C CNN
+F 2 "alexios:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 2250 50  0001 C CNN
 F 3 "" H 6550 2250 50  0001 C CNN
 	1    6550 2250
 	1    0    0    -1  
@@ -1025,7 +1025,7 @@ AR Path="/64FC7999/6549E394/657366E6" Ref="SW?"  Part="1"
 AR Path="/64FC7999/657366E6" Ref="SW3"  Part="1" 
 F 0 "SW3" H 6550 3133 50  0000 C CNN
 F 1 "SW_DIP_x08" H 6550 3224 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 3700 50  0001 C CNN
+F 2 "alexios:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 3700 50  0001 C CNN
 F 3 "" H 6550 3700 50  0001 C CNN
 	1    6550 3700
 	1    0    0    -1  
@@ -1196,7 +1196,7 @@ AR Path="/64FC7999/6549E394/6574FCC9" Ref="SW?"  Part="1"
 AR Path="/64FC7999/6574FCC9" Ref="SW4"  Part="1" 
 F 0 "SW4" H 6550 4583 50  0000 C CNN
 F 1 "SW_DIP_x08" H 6550 4674 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 5150 50  0001 C CNN
+F 2 "alexios:SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm" H 6550 5150 50  0001 C CNN
 F 3 "" H 6550 5150 50  0001 C CNN
 	1    6550 5150
 	1    0    0    -1  
