@@ -1,0 +1,25 @@
+GAL16V8         ; this is the GAL type
+DFPOEA00        ; this is the signature
+
+; 1     2       3       4       5       6       7       8       9       10
+A0	A1	A2	A3	A4	MFD0	MFD1	PANELEN	NC	GND
+NC	OE23	OE22	OE21	OE20	OE11	OE10	OE9	OE8	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+
+/OE8  = /PANELEN *                 /A4 *  A3 * /A2 * /A1 * /A0
+/OE9  = /PANELEN *                 /A4 *  A3 * /A2 * /A1 *  A0
+/OE10 = /PANELEN *                 /A4 *  A3 * /A2 *  A1 * /A0
+/OE11 = /PANELEN *                 /A4 *  A3 * /A2 *  A1 *  A0
+
+/OE20 = /PANELEN *                  A4 * /A3 *  A2 * /A1 * /A0
+/OE21 = /PANELEN *                  A4 * /A3 *  A2 * /A1 *  A0
+/OE22 = /PANELEN *                  A4 * /A3 *  A2 *  A1 * /A0
+/OE23 = /PANELEN *                  A4 * /A3 *  A2 *  A1 *  A0
+
+DESCRIPTION
+
+Please see dfp-fpoea.pld.
+
+; End of file.

@@ -1,0 +1,106 @@
+GAL16V8         ; this is the GAL type
+DFPOEA00        ; this is the signature
+
+; 1     2       3       4       5       6       7       8       9       10
+A0	A1	A2	A3	A4	MFD0	MFD1	PANELEN	NC	GND
+NC	OE7	OE6	OE5	OE4	OE3	OE2	OE1	OE0	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+
+/OE0 = /PANELEN *                 /A4 * /A3 * /A2 * /A1 * /A0
+/OE1 = /PANELEN *                 /A4 * /A3 * /A2 * /A1 *  A0
+/OE2 = /PANELEN *                 /A4 * /A3 * /A2 *  A1 * /A0
+/OE3 = /PANELEN *                 /A4 * /A3 * /A2 *  A1 *  A0
+/OE4 = /PANELEN *                 /A4 * /A3 *  A2 * /A1 * /A0
+/OE5 = /PANELEN *                 /A4 * /A3 *  A2 * /A1 *  A0
+/OE6 = /PANELEN *                 /A4 * /A3 *  A2 *  A1 * /A0
+/OE7 = /PANELEN *                 /A4 * /A3 *  A2 *  A1 *  A0
+
+DESCRIPTION
+
+
+PANEL DIAGRAM
+
+VERSION 10
+
+    A                B                C                  D
+    ................ ................ ................   ................
+
+1   UCV2             UCV1             UCV0               ISR
+
+2   STATE            IR hi            IR lo              UAV lo
+
+3   AEXT             PC hi            PC lo              ?
+
+4   FLAGS            AC hi            AC lo              ?
+
+5   ?                OR/DR/SP hi      OR/DR/SP lo        ?
+
+
+VERSION 11
+
+    A                B                C                  D
+    ................ ................ ................   ................
+
+1   UCV2             UCV1             UCV0               ISR
+
+2   STATE            IR hi            IR lo              UAV lo
+
+3   AEXT             PC hi            PC lo              ISR?
+
+4   CTX              OR/DR/SP hi      OR/DR/SP lo        IER?
+
+5   FLAGS            AC hi            AC lo              ?
+
+
+
+Current truth table:
+
+     _______
+GAL  PANELEN   FPA   | MODULE  |  MFD  | Output
+---------------------|----------------------------------------------------
+ *       1    XXXXX  |   X     |   XX  | Panel disabled
+---------------------|----------------------------------------------------
+ A       0    00000  |   1A    |   XX  | OE0:  µCV0
+ A       0    00001  |   1B    |   XX  | OE1:  µCV1
+ A       0    00010  |   1C    |   XX  | OE2:  µCV2
+ A       0    00011  |   1D    |   XX  | OE3:  IER?
+---------------------|----------------------------------------------------
+ A       0    00100  |   2A    |   XX  | OE4:  STATE
+ A       0    00101  |   2B    |   XX  | OE5:  IR hi
+ A       0    00110  |   2C    |   XX  | OE6:  IR lo
+ A       0    00111  |   2D    |   XX  | OE7:  UAV lo
+---------------------|----------------------------------------------------
+ B       0    01000  |   3A    |   XX  | OE8:  AEXT
+ B       0    01001  |   3B    |   XX  | OE9:  PC hi
+ B       0    01010  |   3C    |   XX  | OE10: PC lo
+ B       0    01011  |   3D    |   XX  | OE11: IER?
+---------------------|----------------------------------------------------
+ C       0    01100  |   4A    |   XX  | OE12: CTX
+ C       0    01101  |   4B    | * 11  | OE13: OR hi
+ C       0    01101  |   4B    | * 01  | OE14: DR hi
+ C       0    01101  |   4B    | * 10  | OE15: SP hi
+ C       0    01110  |   4C    | * 11  | OE16: OR lo
+ C       0    01110  |   4C    | * 01  | OE17: DR lo
+ C       0    01110  |   4C    | * 10  | OE18: SP lo
+ C       0    01111  |   4D    |   XX  | OE19: ISR?
+---------------------|----------------------------------------------------
+ B       0    10000  |   5A    |   XX  | OE20: FLAGS
+ B       0    10001  |   5B    |   XX  | OE21: AC hi
+ B       0    10010  |   5C    |   XX  | OE22: AC lo
+ B       0    10011  |   5D    |   XX  | OE23: ?
+---------------------|----------------------------------------------------
+ D       0    10000  |   ?     |   XX  | OE24: for future expansion
+ D       0    10001  |   ?     |   XX  | OE25: for future expansion
+ D       0    10010  |   ?     |   XX  | OE26: for future expansion
+ D       0    10011  |   ?     |   XX  | OE27: for future expansion
+ D       0    10100  |   ?     |   XX  | OE28: for future expansion
+ D       0    10101  |   ?     |   XX  | OE29: for future expansion
+ D       0    10110  |   ?     |   XX  | OE30: for future expansion
+ D       0    10111  |   ?     |   XX  | OE31: for future expansion
+
+
+ here's also provision for a D GAL, to multiplex addirtional signals if needed.
+
+; End of file.
