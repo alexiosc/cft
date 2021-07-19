@@ -1503,44 +1503,6 @@ F 3 "" H 5800 6250 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 62ED6833
-P 8650 6150
-AR Path="/62ED6833" Ref="C?"  Part="1" 
-AR Path="/6233F88C/62ED6833" Ref="C?"  Part="1" 
-AR Path="/60757845/607964B6/62ED6833" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/62ED6833" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62ED6833" Ref="C56"  Part="1" 
-F 0 "C56" H 8559 6196 50  0000 R CNN
-F 1 "100nF" H 8559 6105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8650 6150 50  0001 C CNN
-F 3 "~" H 8650 6150 50  0001 C CNN
-	1    8650 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0176
-U 1 1 62ED6839
-P 8650 6050
-F 0 "#PWR0176" H 8650 5900 50  0001 C CNN
-F 1 "+5V" H 8665 6223 50  0000 C CNN
-F 2 "" H 8650 6050 50  0001 C CNN
-F 3 "" H 8650 6050 50  0001 C CNN
-	1    8650 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0177
-U 1 1 62ED683F
-P 8650 6250
-F 0 "#PWR0177" H 8650 6000 50  0001 C CNN
-F 1 "GND" H 8655 6077 50  0000 C CNN
-F 2 "" H 8650 6250 50  0001 C CNN
-F 3 "" H 8650 6250 50  0001 C CNN
-	1    8650 6250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 62EDD3ED
 P 5800 6900
 AR Path="/62EDD3ED" Ref="C?"  Part="1" 
@@ -1575,44 +1537,6 @@ F 1 "GND" H 5805 6827 50  0000 C CNN
 F 2 "" H 5800 7000 50  0001 C CNN
 F 3 "" H 5800 7000 50  0001 C CNN
 	1    5800 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 62EF7374
-P 10000 6150
-AR Path="/62EF7374" Ref="C?"  Part="1" 
-AR Path="/6233F88C/62EF7374" Ref="C?"  Part="1" 
-AR Path="/60757845/607964B6/62EF7374" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/62EF7374" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62EF7374" Ref="C57"  Part="1" 
-F 0 "C57" H 9909 6196 50  0000 R CNN
-F 1 "100nF" H 9909 6105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 6150 50  0001 C CNN
-F 3 "~" H 10000 6150 50  0001 C CNN
-	1    10000 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0178
-U 1 1 62EF737A
-P 10000 6050
-F 0 "#PWR0178" H 10000 5900 50  0001 C CNN
-F 1 "+5V" H 10015 6223 50  0000 C CNN
-F 2 "" H 10000 6050 50  0001 C CNN
-F 3 "" H 10000 6050 50  0001 C CNN
-	1    10000 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0179
-U 1 1 62EF7380
-P 10000 6250
-F 0 "#PWR0179" H 10000 6000 50  0001 C CNN
-F 1 "GND" H 10005 6077 50  0000 C CNN
-F 2 "" H 10000 6250 50  0001 C CNN
-F 3 "" H 10000 6250 50  0001 C CNN
-	1    10000 6250
 	1    0    0    -1  
 $EndComp
 Text Notes 7000 3450 0    50   ~ 0
@@ -2039,36 +1963,6 @@ Text Label 1500 6450 0    50   ~ 0
 MFD0
 Wire Wire Line
 	1800 6750 1500 6750
-$Comp
-L alexios:74HC139 U?
-U 2 1 69B0F3D3
-P 2300 7150
-AR Path="/69B0F3D3" Ref="U?"  Part="2" 
-AR Path="/60757845/69B0F3D3" Ref="U?"  Part="2" 
-AR Path="/64FC7999/69B0F3D3" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/69B0F3D3" Ref="U39"  Part="2" 
-F 0 "U39" H 2300 6775 50  0000 C CNN
-F 1 "74HC139" H 2300 6684 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2300 7150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 2300 7150 50  0001 C CNN
-	2    2300 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC139 U?
-U 1 1 69B0F3D9
-P 2300 6550
-AR Path="/69B0F3D9" Ref="U?"  Part="1" 
-AR Path="/60757845/69B0F3D9" Ref="U?"  Part="1" 
-AR Path="/64FC7999/69B0F3D9" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/69B0F3D9" Ref="U39"  Part="1" 
-F 0 "U39" H 2300 6917 50  0000 C CNN
-F 1 "74HC139" H 2300 6826 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2300 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 2300 6550 50  0001 C CNN
-	1    2300 6550
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1200 6550 1300 6550
 Text HLabel 3250 6450 2    50   Output ~ 0
@@ -2235,28 +2129,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1400 1400
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC154 U36
-U 1 1 6AFE55D4
-P 5750 1800
-F 0 "U36" H 5750 2767 50  0000 C CNN
-F 1 "74HC154" H 5750 2676 50  0000 C CNN
-F 2 "alexios:DIP-24_W7.62mm_Socket" H 5750 1800 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 5750 1800 50  0001 C CNN
-	1    5750 1800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC154 U37
-U 1 1 6AFE5DF3
-P 5750 3750
-F 0 "U37" H 5750 4717 50  0000 C CNN
-F 1 "74HC154" H 5750 4626 50  0000 C CNN
-F 2 "alexios:DIP-24_W7.62mm_Socket" H 5750 3750 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 5750 3750 50  0001 C CNN
-	1    5750 3750
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74HC540 U38
 U 1 1 6AFE7216
 P 2300 5100
@@ -2294,32 +2166,6 @@ F 4 "Yes" H 6075 6075 50  0001 C CNN "Verified"
 $EndComp
 Connection ~ 5800 6800
 Connection ~ 5800 7000
-$Comp
-L alexios:74HC154 U36
-U 2 1 6B649324
-P 9000 6150
-F 0 "U36" H 9180 6196 50  0000 L CNN
-F 1 "74HC154" H 9180 6105 50  0000 L CNN
-F 2 "alexios:DIP-24_W7.62mm_Socket" H 9000 6150 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 9000 6150 50  0001 C CNN
-	2    9000 6150
-	1    0    0    -1  
-$EndComp
-Connection ~ 8650 6250
-Connection ~ 8650 6050
-$Comp
-L alexios:74HC154 U37
-U 2 1 6B64A624
-P 10350 6150
-F 0 "U37" H 10530 6196 50  0000 L CNN
-F 1 "74HC154" H 10530 6105 50  0000 L CNN
-F 2 "alexios:DIP-24_W7.62mm_Socket" H 10350 6150 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 10350 6150 50  0001 C CNN
-	2    10350 6150
-	1    0    0    -1  
-$EndComp
-Connection ~ 10000 6250
-Connection ~ 10000 6050
 $Comp
 L alexios:74HC540 U38
 U 2 1 6B64B236
@@ -2369,85 +2215,6 @@ F 1 "GND" H 7205 6077 50  0000 C CNN
 F 2 "" H 7200 6250 50  0001 C CNN
 F 3 "" H 7200 6250 50  0001 C CNN
 	1    7200 6250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G04 U35
-U 1 1 6BADA18C
-P 5200 2500
-F 0 "U35" V 5104 2371 50  0000 R CNN
-F 1 "74LVC1G04" V 5195 2371 50  0000 R CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5200 2500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5200 2500 50  0001 C CNN
-	1    5200 2500
-	0    1    1    0   
-$EndComp
-$Comp
-L alexios:74LVC1G04 U35
-U 2 1 6BADB028
-P 7550 6150
-F 0 "U35" H 7730 6196 50  0000 L CNN
-F 1 "74LVC1G04" H 7730 6105 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 7550 6150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 7550 6150 50  0001 C CNN
-	2    7550 6150
-	1    0    0    -1  
-$EndComp
-Connection ~ 7200 6250
-Connection ~ 7200 6050
-$Comp
-L alexios:74HC139 U?
-U 3 1 6B7FFD82
-P 4750 6900
-AR Path="/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/60757845/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/64FC7999/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/6B7FFD82" Ref="U39"  Part="3" 
-F 0 "U39" H 4930 6946 50  0000 L CNN
-F 1 "74HC139" H 4930 6855 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4750 6900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4750 6900 50  0001 C CNN
-	3    4750 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0186
-U 1 1 6A2EC321
-P 4400 7000
-F 0 "#PWR0186" H 4400 6750 50  0001 C CNN
-F 1 "GND" H 4405 6827 50  0000 C CNN
-F 2 "" H 4400 7000 50  0001 C CNN
-F 3 "" H 4400 7000 50  0001 C CNN
-	1    4400 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0185
-U 1 1 6A2EC31B
-P 4400 6800
-F 0 "#PWR0185" H 4400 6650 50  0001 C CNN
-F 1 "+5V" H 4415 6973 50  0000 C CNN
-F 2 "" H 4400 6800 50  0001 C CNN
-F 3 "" H 4400 6800 50  0001 C CNN
-	1    4400 6800
-	1    0    0    -1  
-$EndComp
-Connection ~ 4400 7000
-Connection ~ 4400 6800
-$Comp
-L Device:C_Small C?
-U 1 1 6A2EC315
-P 4400 6900
-AR Path="/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/6233F88C/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/60757845/607964B6/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/6A2EC315" Ref="C60"  Part="1" 
-F 0 "C60" H 4309 6946 50  0000 R CNN
-F 1 "100nF" H 4309 6855 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4400 6900 50  0001 C CNN
-F 3 "~" H 4400 6900 50  0001 C CNN
-	1    4400 6900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -2607,12 +2374,620 @@ F 3 "~" H 3650 1500 50  0001 C CNN
 	1    3650 1500
 	0    1    1    0   
 $EndComp
+$Comp
+L alexios:ATF16V8B U1901
+U 1 1 63738EA1
+P 3200 10000
+F 0 "U1901" H 3200 10750 50  0000 C CNN
+F 1 "ATF16V8B" H 3200 10650 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3200 10000 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3200 10000 50  0001 C CNN
+F 4 "DFPOEA" V 3200 10050 50  0000 C CNB "Signature"
+F 5 "dfp-fpoea.jed" H 3200 9350 50  0000 C CNN "Image Filename"
+	1    3200 10000
+	1    0    0    -1  
+$EndComp
+Text Label 2400 9950 0    50   ~ 0
+FPA4
+Text Label 2400 9850 0    50   ~ 0
+FPA3
+Text Label 2400 9750 0    50   ~ 0
+FPA2
+Wire Wire Line
+	2400 9750 2750 9750
+Wire Wire Line
+	2400 9850 2750 9850
+Wire Wire Line
+	2400 9950 2750 9950
+Text Label 2400 10350 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2750 9650 2400 9650
+Wire Wire Line
+	2750 9550 2400 9550
+Text Label 2400 9550 0    50   ~ 0
+FPA0
+Text Label 2400 9650 0    50   ~ 0
+FPA1
+Wire Wire Line
+	2400 10350 2750 10350
+Wire Wire Line
+	2750 10050 2400 10050
+Text Label 2400 10050 0    50   ~ 0
+FPA5
+Wire Wire Line
+	2750 10150 2400 10150
+Text Label 2400 10150 0    50   ~ 0
+MFD0
+Text Label 2400 10250 0    50   ~ 0
+MFD1
+Wire Wire Line
+	2750 10250 2400 10250
+Wire Wire Line
+	3650 9550 3950 9550
+Wire Wire Line
+	3650 9650 3950 9650
+Wire Wire Line
+	3650 9750 3950 9750
+Wire Wire Line
+	3650 9850 3950 9850
+Wire Wire Line
+	3650 9950 3950 9950
+Wire Wire Line
+	3650 10050 3950 10050
+Wire Wire Line
+	3650 10150 3950 10150
+Wire Wire Line
+	3650 10250 3950 10250
+Text Label 3950 9550 2    50   ~ 0
+~FPOE0
+Text Label 3950 9650 2    50   ~ 0
+~FPOE1
+Text Label 3950 9750 2    50   ~ 0
+~FPOE2
+Text Label 3950 9850 2    50   ~ 0
+~FPOE3
+Text Label 3950 9950 2    50   ~ 0
+~FPOE4
+Text Label 3950 10050 2    50   ~ 0
+~FPOE5
+Text Label 3950 10150 2    50   ~ 0
+~FPOE6
+Text Label 3950 10250 2    50   ~ 0
+~FPOE7
+$Comp
+L alexios:ATF16V8B U1902
+U 1 1 64ADDAFB
+P 3200 11550
+F 0 "U1902" H 3200 12300 50  0000 C CNN
+F 1 "ATF16V8B" H 3200 12200 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3200 11550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3200 11550 50  0001 C CNN
+F 4 "DFPOEB" V 3200 11600 50  0000 C CNB "Signature"
+F 5 "dfp-fpoeb.jed" H 3200 10900 50  0000 C CNN "Image Filename"
+	1    3200 11550
+	1    0    0    -1  
+$EndComp
+Text Label 2400 11500 0    50   ~ 0
+FPA4
+Text Label 2400 11400 0    50   ~ 0
+FPA3
+Text Label 2400 11300 0    50   ~ 0
+FPA2
+Wire Wire Line
+	2400 11300 2750 11300
+Wire Wire Line
+	2400 11400 2750 11400
+Wire Wire Line
+	2400 11500 2750 11500
+Text Label 2400 11900 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2750 11200 2400 11200
+Wire Wire Line
+	2750 11100 2400 11100
+Text Label 2400 11100 0    50   ~ 0
+FPA0
+Text Label 2400 11200 0    50   ~ 0
+FPA1
+Wire Wire Line
+	2400 11900 2750 11900
+Wire Wire Line
+	2750 11600 2400 11600
+Text Label 2400 11600 0    50   ~ 0
+FPA5
+Wire Wire Line
+	2750 11700 2400 11700
+Text Label 2400 11700 0    50   ~ 0
+MFD0
+Text Label 2400 11800 0    50   ~ 0
+MFD1
+Wire Wire Line
+	2750 11800 2400 11800
+Wire Wire Line
+	3650 11100 3950 11100
+Wire Wire Line
+	3650 11200 3950 11200
+Wire Wire Line
+	3650 11300 3950 11300
+Wire Wire Line
+	3650 11400 3950 11400
+Wire Wire Line
+	3650 12650 3950 12650
+Wire Wire Line
+	3650 12750 3950 12750
+Wire Wire Line
+	3650 12850 3950 12850
+Wire Wire Line
+	3650 12950 3950 12950
+$Comp
+L alexios:ATF16V8B U1903
+U 1 1 64E5A41B
+P 3200 13100
+F 0 "U1903" H 3200 13850 50  0000 C CNN
+F 1 "ATF16V8B" H 3200 13750 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3200 13100 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3200 13100 50  0001 C CNN
+F 4 "DFPOEC" V 3200 13150 50  0000 C CNB "Signature"
+F 5 "dfp-fpoec.jed" H 3200 12450 50  0000 C CNN "Image Filename"
+	1    3200 13100
+	1    0    0    -1  
+$EndComp
+Text Label 2400 13050 0    50   ~ 0
+FPA4
+Text Label 2400 12950 0    50   ~ 0
+FPA3
+Text Label 2400 12850 0    50   ~ 0
+FPA2
+Wire Wire Line
+	2400 12850 2750 12850
+Wire Wire Line
+	2400 12950 2750 12950
+Wire Wire Line
+	2400 13050 2750 13050
+Text Label 2400 13450 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2750 12750 2400 12750
+Wire Wire Line
+	2750 12650 2400 12650
+Text Label 2400 12650 0    50   ~ 0
+FPA0
+Text Label 2400 12750 0    50   ~ 0
+FPA1
+Wire Wire Line
+	2400 13450 2750 13450
+Wire Wire Line
+	2750 13150 2400 13150
+Text Label 2400 13150 0    50   ~ 0
+FPA5
+Wire Wire Line
+	2750 13250 2400 13250
+Text Label 2400 13250 0    50   ~ 0
+MFD0
+Text Label 2400 13350 0    50   ~ 0
+MFD1
+Wire Wire Line
+	2750 13350 2400 13350
+Wire Wire Line
+	3650 13050 3950 13050
+Wire Wire Line
+	3650 13150 3950 13150
+Wire Wire Line
+	3650 13250 3950 13250
+Wire Wire Line
+	3650 13350 3950 13350
+Wire Wire Line
+	3650 11500 3950 11500
+Wire Wire Line
+	3650 11600 3950 11600
+Wire Wire Line
+	3650 11700 3950 11700
+Wire Wire Line
+	3650 11800 3950 11800
+$Comp
+L alexios:ATF16V8B U1904
+U 1 1 64EF18CE
+P 3200 14700
+F 0 "U1904" H 3200 15450 50  0000 C CNN
+F 1 "ATF16V8B" H 3200 15350 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 3200 14700 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 3200 14700 50  0001 C CNN
+F 4 "DFPOED" V 3200 14750 50  0000 C CNB "Signature"
+F 5 "dfp-fpoed.jed" H 3200 14050 50  0000 C CNN "Image Filename"
+	1    3200 14700
+	1    0    0    -1  
+$EndComp
+Text Label 2400 14650 0    50   ~ 0
+FPA4
+Text Label 2400 14550 0    50   ~ 0
+FPA3
+Text Label 2400 14450 0    50   ~ 0
+FPA2
+Wire Wire Line
+	2400 14450 2750 14450
+Wire Wire Line
+	2400 14550 2750 14550
+Wire Wire Line
+	2400 14650 2750 14650
+Text Label 2400 15050 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2750 14350 2400 14350
+Wire Wire Line
+	2750 14250 2400 14250
+Text Label 2400 14250 0    50   ~ 0
+FPA0
+Text Label 2400 14350 0    50   ~ 0
+FPA1
+Wire Wire Line
+	2400 15050 2750 15050
+Wire Wire Line
+	2750 14750 2400 14750
+Text Label 2400 14750 0    50   ~ 0
+FPA5
+Wire Wire Line
+	2750 14850 2400 14850
+Text Label 2400 14850 0    50   ~ 0
+MFD0
+Text Label 2400 14950 0    50   ~ 0
+MFD1
+Wire Wire Line
+	2750 14950 2400 14950
+Wire Wire Line
+	3650 14250 3950 14250
+Wire Wire Line
+	3650 14350 3950 14350
+Wire Wire Line
+	3650 14450 3950 14450
+Wire Wire Line
+	3650 14550 3950 14550
+Wire Wire Line
+	3650 14650 3950 14650
+Wire Wire Line
+	3650 14750 3950 14750
+Wire Wire Line
+	3650 14850 3950 14850
+Wire Wire Line
+	3650 14950 3950 14950
+Text Label 3950 11100 2    50   ~ 0
+~FPOE8
+Text Label 3950 11200 2    50   ~ 0
+~FPOE9
+Text Label 3950 11300 2    50   ~ 0
+~FPOE10
+Text Label 3950 11400 2    50   ~ 0
+~FPOE11
+Text Label 3950 12650 2    50   ~ 0
+~FPOE12
+Text Label 3950 12750 2    50   ~ 0
+~FPOE13
+Text Label 3950 12850 2    50   ~ 0
+~FPOE14
+Text Label 3950 12950 2    50   ~ 0
+~FPOE15
+Text Label 3950 13050 2    50   ~ 0
+~FPOE16
+Text Label 3950 13150 2    50   ~ 0
+~FPOE17
+Text Label 3950 13250 2    50   ~ 0
+~FPOE18
+Text Label 3950 13350 2    50   ~ 0
+~FPOE19
+Text Label 3950 11500 2    50   ~ 0
+~FPOE20
+Text Label 3950 11600 2    50   ~ 0
+~FPOE21
+Text Label 3950 11700 2    50   ~ 0
+~FPOE22
+Text Label 3950 11800 2    50   ~ 0
+~FPOE23
+Text Label 3950 14250 2    50   ~ 0
+~FPOE24
+Text Label 3950 14350 2    50   ~ 0
+~FPOE25
+Text Label 3950 14450 2    50   ~ 0
+~FPOE26
+Text Label 3950 14550 2    50   ~ 0
+~FPOE27
+Text Label 3950 14650 2    50   ~ 0
+~FPOE28
+Text Label 3950 14750 2    50   ~ 0
+~FPOE29
+Text Label 3950 14850 2    50   ~ 0
+~FPOE30
+Text Label 3950 14950 2    50   ~ 0
+~FPOE31
+Entry Wire Line
+	3950 11800 4050 11700
+Entry Wire Line
+	3950 11700 4050 11600
+Entry Wire Line
+	3950 11600 4050 11500
+Entry Wire Line
+	3950 11500 4050 11400
+Entry Wire Line
+	3950 11400 4050 11300
+Entry Wire Line
+	3950 11300 4050 11200
+Entry Wire Line
+	3950 11100 4050 11000
+Entry Wire Line
+	3950 11200 4050 11100
+Entry Wire Line
+	3950 10250 4050 10150
+Entry Wire Line
+	3950 10150 4050 10050
+Entry Wire Line
+	3950 10050 4050 9950
+Entry Wire Line
+	3950 9950 4050 9850
+Entry Wire Line
+	3950 9850 4050 9750
+Entry Wire Line
+	3950 9750 4050 9650
+Entry Wire Line
+	3950 9550 4050 9450
+Entry Wire Line
+	3950 9650 4050 9550
+Entry Wire Line
+	3950 13350 4050 13250
+Entry Wire Line
+	3950 13250 4050 13150
+Entry Wire Line
+	3950 13150 4050 13050
+Entry Wire Line
+	3950 13050 4050 12950
+Entry Wire Line
+	3950 12950 4050 12850
+Entry Wire Line
+	3950 12850 4050 12750
+Entry Wire Line
+	3950 12650 4050 12550
+Entry Wire Line
+	3950 12750 4050 12650
+Entry Wire Line
+	3950 14950 4050 14850
+Entry Wire Line
+	3950 14850 4050 14750
+Entry Wire Line
+	3950 14750 4050 14650
+Entry Wire Line
+	3950 14650 4050 14550
+Entry Wire Line
+	3950 14550 4050 14450
+Entry Wire Line
+	3950 14450 4050 14350
+Entry Wire Line
+	3950 14250 4050 14150
+Entry Wire Line
+	3950 14350 4050 14250
+NoConn ~ 2750 10450
+NoConn ~ 2750 12000
+NoConn ~ 2750 13550
+NoConn ~ 2750 15150
+Text Notes 4100 11500 0    50   ~ 0
+Note: discontinuity here
+$Comp
+L alexios:ATF16V8B U1901
+U 2 1 668CB4F9
+P 5850 9900
+F 0 "U1901" H 6030 9946 50  0000 L CNN
+F 1 "ATF16V8B" H 6030 9855 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 9900 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 9900 50  0001 C CNN
+F 4 "DFPOEA" H 6030 9855 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H 6030 9764 50  0001 L CNN "Image Filename"
+	2    5850 9900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 668CCEC7
+P 5500 9900
+AR Path="/668CCEC7" Ref="C?"  Part="1" 
+AR Path="/6233F88C/668CCEC7" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/668CCEC7" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/668CCEC7" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/668CCEC7" Ref="C1901"  Part="1" 
+F 0 "C1901" H 5409 9946 50  0000 R CNN
+F 1 "100nF" H 5409 9855 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 9900 50  0001 C CNN
+F 3 "~" H 5500 9900 50  0001 C CNN
+	1    5500 9900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0233
+U 1 1 668CCECD
+P 5500 9800
+F 0 "#PWR0233" H 5500 9650 50  0001 C CNN
+F 1 "+5V" H 5515 9973 50  0000 C CNN
+F 2 "" H 5500 9800 50  0001 C CNN
+F 3 "" H 5500 9800 50  0001 C CNN
+	1    5500 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0234
+U 1 1 668CCED3
+P 5500 10000
+F 0 "#PWR0234" H 5500 9750 50  0001 C CNN
+F 1 "GND" H 5505 9827 50  0000 C CNN
+F 2 "" H 5500 10000 50  0001 C CNN
+F 3 "" H 5500 10000 50  0001 C CNN
+	1    5500 10000
+	1    0    0    -1  
+$EndComp
+Connection ~ 5500 9800
+Connection ~ 5500 10000
+$Comp
+L alexios:ATF16V8B U1902
+U 2 1 66AA11BC
+P 5850 11400
+F 0 "U1902" H 6030 11446 50  0000 L CNN
+F 1 "ATF16V8B" H 6030 11355 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 11400 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 11400 50  0001 C CNN
+F 4 "DFPOEA" H 6030 11355 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H 6030 11264 50  0001 L CNN "Image Filename"
+	2    5850 11400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 66AA11C2
+P 5500 11400
+AR Path="/66AA11C2" Ref="C?"  Part="1" 
+AR Path="/6233F88C/66AA11C2" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/66AA11C2" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/66AA11C2" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/66AA11C2" Ref="C1902"  Part="1" 
+F 0 "C1902" H 5409 11446 50  0000 R CNN
+F 1 "100nF" H 5409 11355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 11400 50  0001 C CNN
+F 3 "~" H 5500 11400 50  0001 C CNN
+	1    5500 11400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0235
+U 1 1 66AA11C8
+P 5500 11300
+F 0 "#PWR0235" H 5500 11150 50  0001 C CNN
+F 1 "+5V" H 5515 11473 50  0000 C CNN
+F 2 "" H 5500 11300 50  0001 C CNN
+F 3 "" H 5500 11300 50  0001 C CNN
+	1    5500 11300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0236
+U 1 1 66AA11CE
+P 5500 11500
+F 0 "#PWR0236" H 5500 11250 50  0001 C CNN
+F 1 "GND" H 5505 11327 50  0000 C CNN
+F 2 "" H 5500 11500 50  0001 C CNN
+F 3 "" H 5500 11500 50  0001 C CNN
+	1    5500 11500
+	1    0    0    -1  
+$EndComp
+Connection ~ 5500 11300
+Connection ~ 5500 11500
+$Comp
+L alexios:ATF16V8B U1903
+U 2 1 66B3DA7F
+P 5850 12900
+F 0 "U1903" H 6030 12946 50  0000 L CNN
+F 1 "ATF16V8B" H 6030 12855 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 12900 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 12900 50  0001 C CNN
+F 4 "DFPOEA" H 6030 12855 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H 6030 12764 50  0001 L CNN "Image Filename"
+	2    5850 12900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 66B3DA85
+P 5500 12900
+AR Path="/66B3DA85" Ref="C?"  Part="1" 
+AR Path="/6233F88C/66B3DA85" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/66B3DA85" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/66B3DA85" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/66B3DA85" Ref="C1903"  Part="1" 
+F 0 "C1903" H 5409 12946 50  0000 R CNN
+F 1 "100nF" H 5409 12855 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 12900 50  0001 C CNN
+F 3 "~" H 5500 12900 50  0001 C CNN
+	1    5500 12900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0237
+U 1 1 66B3DA8B
+P 5500 12800
+F 0 "#PWR0237" H 5500 12650 50  0001 C CNN
+F 1 "+5V" H 5515 12973 50  0000 C CNN
+F 2 "" H 5500 12800 50  0001 C CNN
+F 3 "" H 5500 12800 50  0001 C CNN
+	1    5500 12800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0238
+U 1 1 66B3DA91
+P 5500 13000
+F 0 "#PWR0238" H 5500 12750 50  0001 C CNN
+F 1 "GND" H 5505 12827 50  0000 C CNN
+F 2 "" H 5500 13000 50  0001 C CNN
+F 3 "" H 5500 13000 50  0001 C CNN
+	1    5500 13000
+	1    0    0    -1  
+$EndComp
+Connection ~ 5500 12800
+Connection ~ 5500 13000
+$Comp
+L alexios:ATF16V8B U1904
+U 2 1 66BD92F2
+P 5850 14400
+F 0 "U1904" H 6030 14446 50  0000 L CNN
+F 1 "ATF16V8B" H 6030 14355 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 14400 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 14400 50  0001 C CNN
+F 4 "DFPOEA" H 6030 14355 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H 6030 14264 50  0001 L CNN "Image Filename"
+	2    5850 14400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 66BD92F8
+P 5500 14400
+AR Path="/66BD92F8" Ref="C?"  Part="1" 
+AR Path="/6233F88C/66BD92F8" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/66BD92F8" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/66BD92F8" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/66BD92F8" Ref="C1904"  Part="1" 
+F 0 "C1904" H 5409 14446 50  0000 R CNN
+F 1 "100nF" H 5409 14355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 14400 50  0001 C CNN
+F 3 "~" H 5500 14400 50  0001 C CNN
+	1    5500 14400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0239
+U 1 1 66BD92FE
+P 5500 14300
+F 0 "#PWR0239" H 5500 14150 50  0001 C CNN
+F 1 "+5V" H 5515 14473 50  0000 C CNN
+F 2 "" H 5500 14300 50  0001 C CNN
+F 3 "" H 5500 14300 50  0001 C CNN
+	1    5500 14300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0240
+U 1 1 66BD9304
+P 5500 14500
+F 0 "#PWR0240" H 5500 14250 50  0001 C CNN
+F 1 "GND" H 5505 14327 50  0000 C CNN
+F 2 "" H 5500 14500 50  0001 C CNN
+F 3 "" H 5500 14500 50  0001 C CNN
+	1    5500 14500
+	1    0    0    -1  
+$EndComp
+Connection ~ 5500 14300
+Connection ~ 5500 14500
 Wire Bus Line
 	2050 800  2050 1800
 Wire Bus Line
 	3150 4700 3150 5450
 Wire Bus Line
 	4600 800  4600 3250
+Wire Bus Line
+	4050 9350 4050 14850
 Wire Bus Line
 	6750 1200 6750 4850
 $EndSCHEMATC

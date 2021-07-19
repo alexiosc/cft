@@ -85,21 +85,21 @@ Text Label 2900 3700 0    50   ~ 0
 ~WS
 Text Label 2900 4000 0    50   ~ 0
 ~HALT
-Text Label 2900 4300 0    50   ~ 0
-ACTION[0..3]
 Text Label 2900 4400 0    50   ~ 0
-WADDR[0..4]
+ACTION[0..3]
 Text Label 2900 4500 0    50   ~ 0
+WADDR[0..4]
+Text Label 2900 4600 0    50   ~ 0
 RADDR[0..4]
-Wire Bus Line
-	3450 4300 2900 4300
 Wire Bus Line
 	3450 4400 2900 4400
 Wire Bus Line
 	3450 4500 2900 4500
 Wire Bus Line
-	2900 4600 3450 4600
-Text Label 2900 4600 0    50   ~ 0
+	3450 4600 2900 4600
+Wire Bus Line
+	2900 4700 3450 4700
+Text Label 2900 4700 0    50   ~ 0
 RSVD[0..6]
 Text Label 5150 1700 2    50   ~ 0
 FPA1
@@ -632,13 +632,13 @@ Text HLabel 2900 1400 0    50   UnSpc ~ 0
 IBUS[0..15]
 Text HLabel 2900 2700 0    50   UnSpc ~ 0
 ~IRQ[0..7]
-Text HLabel 2900 4300 0    50   UnSpc ~ 0
-ACTION[0..3]
 Text HLabel 2900 4400 0    50   UnSpc ~ 0
-WADDR[0..4]
+ACTION[0..3]
 Text HLabel 2900 4500 0    50   UnSpc ~ 0
-RADDR[0..4]
+WADDR[0..4]
 Text HLabel 2900 4600 0    50   UnSpc ~ 0
+RADDR[0..4]
+Text HLabel 2900 4700 0    50   UnSpc ~ 0
 RSVD[0..6]
 Text HLabel 2900 2800 0    50   UnSpc ~ 0
 ~RSTHOLD
@@ -1758,11 +1758,15 @@ Text Label 12200 10700 0    50   ~ 0
 Text Label 12200 10800 0    50   ~ 0
 ~FPOE15
 Text Label 12200 10900 0    50   ~ 0
-~FPOE16
-Text Label 12200 11000 0    50   ~ 0
 ~FPOE17
-Text Label 12200 11100 0    50   ~ 0
+Text Label 12200 11000 0    50   ~ 0
 ~FPOE18
+Text Label 2900 4300 0    50   ~ 0
+COND[0..3]
+Wire Bus Line
+	3450 4300 2900 4300
+Text HLabel 2900 4300 0    50   UnSpc ~ 0
+COND[0..3]
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1777,4 +1781,6 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
+Text Label 12200 11100 0    50   ~ 0
+~FPOE19
 $EndSCHEMATC

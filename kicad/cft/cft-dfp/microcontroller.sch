@@ -432,8 +432,6 @@ F 3 "~" H 600 -1800 50  0001 C CNN
 $EndComp
 Text Notes 5900 -3550 0    100  ~ 20
 Front Panel\nScanner Counter
-Text Notes 7800 -3850 0    100  ~ 20
-Address Bus
 Connection ~ 5900 -2850
 Text Label 5900 -1900 1    50   ~ 0
 SCANCLK
@@ -1013,9 +1011,6 @@ Wire Wire Line
 	2400 1800 2350 1800
 Text Label 1050 -2450 0    50   ~ 0
 ~CVOE
-NoConn ~ 6950 -2650
-NoConn ~ 6950 -2550
-NoConn ~ 6950 -2450
 Text Label 750  -4250 0    50   ~ 0
 ~FPHALT
 Text Notes 5950 -5700 0    100  ~ 20
@@ -1885,62 +1880,6 @@ Text Label 7950 -4650 2    50   ~ 0
 MCD6
 Text Label 7950 -4550 2    50   ~ 0
 MCD7
-Wire Wire Line
-	7600 -3150 7500 -3150
-Connection ~ 7600 -3150
-Wire Wire Line
-	7600 -3300 7600 -3150
-Wire Wire Line
-	7700 -3050 7500 -3050
-Connection ~ 7700 -3050
-Wire Wire Line
-	7700 -3300 7700 -3050
-Wire Wire Line
-	7800 -2950 7500 -2950
-Connection ~ 7800 -2950
-Wire Wire Line
-	7800 -3300 7800 -2950
-Wire Wire Line
-	7900 -2850 7500 -2850
-Connection ~ 7900 -2850
-Wire Wire Line
-	7900 -3300 7900 -2850
-Wire Wire Line
-	8000 -2750 7500 -2750
-Connection ~ 8000 -2750
-Wire Wire Line
-	8000 -3300 8000 -2750
-Wire Wire Line
-	8300 -2450 7500 -2450
-Connection ~ 8300 -2450
-Wire Wire Line
-	8300 -3300 8300 -2450
-Wire Wire Line
-	8200 -2550 7500 -2550
-Connection ~ 8200 -2550
-Wire Wire Line
-	8200 -3300 8200 -2550
-Wire Wire Line
-	8100 -2650 7500 -2650
-Connection ~ 8100 -2650
-Wire Wire Line
-	8100 -3300 8100 -2650
-Wire Wire Line
-	8750 -3150 7600 -3150
-Wire Wire Line
-	8750 -3050 7700 -3050
-Wire Wire Line
-	8750 -2950 7800 -2950
-Wire Wire Line
-	8750 -2850 7900 -2850
-Wire Wire Line
-	8750 -2750 8000 -2750
-Wire Wire Line
-	8750 -2650 8100 -2650
-Wire Wire Line
-	8750 -2550 8200 -2550
-Wire Wire Line
-	8750 -2450 8300 -2450
 Entry Wire Line
 	8750 -3150 8850 -3250
 Entry Wire Line
@@ -1981,17 +1920,6 @@ Text Label 8500 -2550 0    50   ~ 0
 FPA6
 Text Label 8500 -2450 0    50   ~ 0
 FPA7
-$Comp
-L power:+5V #PWR024
-U 1 1 60145FEC
-P 7600 -3700
-F 0 "#PWR024" H 7600 -3850 50  0001 C CNN
-F 1 "+5V" H 7700 -3600 50  0000 C CNN
-F 2 "" H 7600 -3700 50  0001 C CNN
-F 3 "" H 7600 -3700 50  0001 C CNN
-	1    7600 -3700
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 6263FC4F
@@ -2126,14 +2054,81 @@ Text Label 9350 -4350 2    50   ~ 0
 $Comp
 L Device:R_Network08 RN7
 U 1 1 6223B257
-P 8000 -3500
-F 0 "RN7" H 8388 -3454 50  0000 L CNN
-F 1 "10kΩ" H 8388 -3545 50  0000 L CNN
-F 2 "Resistor_THT:R_Array_SIP9" V 8475 -3500 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8000 -3500 50  0001 C CNN
-	1    8000 -3500
+P 8000 -2150
+F 0 "RN7" H 8388 -2104 50  0000 L CNN
+F 1 "10kΩ" H 8388 -2195 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 8475 -2150 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8000 -2150 50  0001 C CNN
+	1    8000 -2150
+	-1   0    0    1   
+$EndComp
+NoConn ~ 6950 -2450
+NoConn ~ 6950 -2550
+NoConn ~ 6950 -2650
+Wire Wire Line
+	7500 -3150 7700 -3150
+Wire Wire Line
+	7500 -3050 7800 -3050
+Wire Wire Line
+	7500 -2950 7900 -2950
+Wire Wire Line
+	7500 -2850 8000 -2850
+Wire Wire Line
+	7500 -2750 8100 -2750
+Wire Wire Line
+	7500 -2450 8400 -2450
+Wire Wire Line
+	7500 -2550 8300 -2550
+$Comp
+L power:GND #PWR0232
+U 1 1 63D7491E
+P 8400 -1950
+F 0 "#PWR0232" H 8400 -2200 50  0001 C CNN
+F 1 "GND" H 8405 -2123 50  0000 C CNN
+F 2 "" H 8400 -1950 50  0001 C CNN
+F 3 "" H 8400 -1950 50  0001 C CNN
+	1    8400 -1950
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7700 -2350 7700 -3150
+Connection ~ 7700 -3150
+Wire Wire Line
+	7700 -3150 8750 -3150
+Wire Wire Line
+	7800 -2350 7800 -3050
+Connection ~ 7800 -3050
+Wire Wire Line
+	7800 -3050 8750 -3050
+Wire Wire Line
+	7900 -2350 7900 -2950
+Connection ~ 7900 -2950
+Wire Wire Line
+	7900 -2950 8750 -2950
+Wire Wire Line
+	8000 -2350 8000 -2850
+Connection ~ 8000 -2850
+Wire Wire Line
+	8000 -2850 8750 -2850
+Wire Wire Line
+	8100 -2350 8100 -2750
+Connection ~ 8100 -2750
+Wire Wire Line
+	8100 -2750 8750 -2750
+Wire Wire Line
+	8200 -2350 8200 -2650
+Wire Wire Line
+	7500 -2650 8200 -2650
+Connection ~ 8200 -2650
+Wire Wire Line
+	8200 -2650 8750 -2650
+Wire Wire Line
+	8300 -2350 8300 -2550
+Connection ~ 8300 -2550
+Wire Wire Line
+	8300 -2550 8750 -2550
+Wire Wire Line
+	8400 -2350 8400 -2450
 Wire Bus Line
 	8850 -3400 8850 -2550
 Wire Bus Line
@@ -2144,4 +2139,9 @@ Wire Bus Line
 	4650 -5500 4650 -4650
 Wire Bus Line
 	7400 -5150 7400 -2550
+Connection ~ 8400 -2450
+Wire Wire Line
+	8400 -2450 8750 -2450
+Text Notes 7650 -3550 0    100  ~ 20
+Address Bus
 $EndSCHEMATC

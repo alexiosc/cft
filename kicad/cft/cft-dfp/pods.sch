@@ -1992,18 +1992,6 @@ Wire Wire Line
 NoConn ~ 13450 4900
 NoConn ~ 13450 5000
 NoConn ~ 13450 5100
-Wire Wire Line
-	13300 6350 13450 6350
-Wire Wire Line
-	13300 6450 13450 6450
-Wire Wire Line
-	13300 6550 13450 6550
-NoConn ~ 13450 6350
-NoConn ~ 13450 6450
-NoConn ~ 13450 6550
-Wire Wire Line
-	13300 6650 13450 6650
-NoConn ~ 13450 6650
 Text Label 12150 3850 0    50   ~ 0
 ~RCV0
 Text Label 12150 5400 0    50   ~ 0
@@ -2022,6 +2010,28 @@ Text Label 13600 5400 2    50   ~ 0
 ~CVOE
 Text Label 13600 6950 2    50   ~ 0
 ~CVOE
+Wire Wire Line
+	13300 6350 13650 6350
+Wire Wire Line
+	13300 6450 13650 6450
+Wire Wire Line
+	13300 6550 13650 6550
+Wire Wire Line
+	13300 6650 13650 6650
+Text Label 13650 6350 2    50   ~ 0
+COND0
+Text Label 13650 6450 2    50   ~ 0
+COND1
+Text Label 13650 6550 2    50   ~ 0
+COND2
+Text Label 13650 6650 2    50   ~ 0
+COND3
+Text HLabel 10300 1450 2    50   BiDi ~ 0
+COND[0..3]
+Wire Bus Line
+	10300 1450 9800 1450
+Text Label 9800 1450 0    50   ~ 0
+COND[0..3]
 Wire Bus Line
 	2500 1400 2500 2200
 $EndSCHEMATC
