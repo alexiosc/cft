@@ -53,6 +53,10 @@ PLDS =			$(BUILDDIR)/mbu-control.jed \
 			$(BUILDDIR)/mem-decode.jed \
 			$(BUILDDIR)/dfp-decode.jed \
 			$(BUILDDIR)/dfp-runstop.jed \
+			$(BUILDDIR)/dfp-fpoea.jed \
+			$(BUILDDIR)/dfp-fpoeb.jed \
+			$(BUILDDIR)/dfp-fpoec.jed \
+			$(BUILDDIR)/dfp-fpoed.jed \
 
 
 #.PHONY: 		all clean microcode alu-binary alu-unary
