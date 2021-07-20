@@ -14,76 +14,76 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Bus Line
-	3450 2000 2900 2000
+	15250 1450 15800 1450
 Wire Bus Line
-	3450 2100 2900 2100
-Text Label 2900 2000 0    50   ~ 0
+	15250 1550 15800 1550
+Text Label 15800 1450 2    50   ~ 0
 AB[0..23]
-Text Label 2900 2100 0    50   ~ 0
+Text Label 15800 1550 2    50   ~ 0
 DB[0..15]
 Wire Bus Line
-	2900 2400 3450 2400
-Text Label 2900 2400 0    50   ~ 0
+	15800 1850 15250 1850
+Text Label 15800 1850 2    50   ~ 0
 CFT-FPD[0..7]
 Wire Wire Line
-	3450 2800 2900 2800
+	15250 2250 15800 2250
 Wire Wire Line
-	3450 2900 2900 2900
+	15250 2350 15800 2350
 Wire Wire Line
-	3450 3000 2900 3000
+	15250 2450 15800 2450
 Wire Wire Line
-	3450 3300 2900 3300
+	15250 2750 15800 2750
 Wire Wire Line
-	3450 3400 2900 3400
+	15250 2850 15800 2850
 Wire Wire Line
-	3450 3500 2900 3500
+	15250 2950 15800 2950
 Wire Wire Line
-	3450 3600 2900 3600
+	15250 3050 15800 3050
 Wire Wire Line
-	3450 3200 2900 3200
+	15250 2650 15800 2650
 Wire Wire Line
-	3450 3100 2900 3100
+	15250 2550 15800 2550
 Wire Wire Line
-	3450 4000 2900 4000
+	15250 3450 15800 3450
 Wire Wire Line
-	3450 3700 2900 3700
+	15250 3150 15800 3150
 Wire Bus Line
-	2900 2700 3450 2700
-Text Label 2900 2700 0    50   ~ 0
+	15800 2150 15250 2150
+Text Label 15800 2150 2    50   ~ 0
 ~IRQ[0..7]
-Text Label 2900 2500 0    50   ~ 0
+Text Label 15800 1950 2    50   ~ 0
 ~IRQ
 Wire Wire Line
-	3450 2300 2900 2300
+	15250 1750 15800 1750
 Wire Bus Line
 	2900 1400 3450 1400
 Text Label 2900 1400 0    50   ~ 0
 IBUS[0..15]
-Text Label 2900 2300 0    50   ~ 0
+Text Label 15800 1750 2    50   ~ 0
 T34
 Wire Wire Line
-	3450 2600 2900 2600
-Text Label 2900 2600 0    50   ~ 0
+	15250 2050 15800 2050
+Text Label 15800 2050 2    50   ~ 0
 ~IRQS
-Text Label 2900 2800 0    50   ~ 0
+Text Label 15800 2250 2    50   ~ 0
 ~RSTHOLD
-Text Label 2900 2900 0    50   ~ 0
+Text Label 15800 2350 2    50   ~ 0
 ~SYSDEV
-Text Label 2900 3000 0    50   ~ 0
+Text Label 15800 2450 2    50   ~ 0
 ~IODEV1xx
-Text Label 2900 3100 0    50   ~ 0
+Text Label 15800 2550 2    50   ~ 0
 ~IODEV2xx
-Text Label 2900 3200 0    50   ~ 0
+Text Label 15800 2650 2    50   ~ 0
 ~IODEV3xx
-Text Label 2900 3300 0    50   ~ 0
+Text Label 15800 2750 2    50   ~ 0
 ~MEM
-Text Label 2900 3400 0    50   ~ 0
+Text Label 15800 2850 2    50   ~ 0
 ~IO
-Text Label 2900 3500 0    50   ~ 0
+Text Label 15800 2950 2    50   ~ 0
 ~R
-Text Label 2900 3700 0    50   ~ 0
+Text Label 15800 3150 2    50   ~ 0
 ~WS
-Text Label 2900 4000 0    50   ~ 0
+Text Label 15800 3450 2    50   ~ 0
 ~HALT
 Text Label 2900 4400 0    50   ~ 0
 ACTION[0..3]
@@ -254,7 +254,7 @@ Wire Wire Line
 	4600 5200 5150 5200
 Wire Wire Line
 	4600 4000 5150 4000
-Text Label 2900 3600 0    50   ~ 0
+Text Label 15800 3050 2    50   ~ 0
 ~W
 $Comp
 L power:GND #PWR?
@@ -583,7 +583,7 @@ Wire Wire Line
 	8600 1500 9200 1500
 NoConn ~ 9200 1500
 Wire Wire Line
-	3450 2500 2900 2500
+	15250 1950 15800 1950
 Text Label 9650 9450 2    50   ~ 0
 FP-FPD0
 Text Label 8450 9450 0    50   ~ 0
@@ -616,21 +616,21 @@ Text HLabel 12200 5900 0    50   UnSpc ~ 0
 CLK3
 Text HLabel 12200 6000 0    50   UnSpc ~ 0
 CLK4
-Text HLabel 2900 2300 0    50   UnSpc ~ 0
+Text HLabel 14200 1450 2    50   UnSpc ~ 0
 T34
-Text HLabel 2900 2500 0    50   UnSpc ~ 0
+Text HLabel 14200 2250 2    50   UnSpc ~ 0
 ~IRQ
-Text HLabel 2900 2600 0    50   UnSpc ~ 0
+Text HLabel 14200 2350 2    50   UnSpc ~ 0
 ~IRQS
-Text HLabel 2900 2000 0    50   UnSpc ~ 0
+Text HLabel 15800 1450 2    50   UnSpc ~ 0
 AB[0..23]
-Text HLabel 2900 2100 0    50   UnSpc ~ 0
+Text HLabel 15800 1550 2    50   UnSpc ~ 0
 DB[0..15]
-Text HLabel 2900 2400 0    50   UnSpc ~ 0
+Text HLabel 15800 1850 2    50   UnSpc ~ 0
 CFT-FPD[0..7]
 Text HLabel 2900 1400 0    50   UnSpc ~ 0
 IBUS[0..15]
-Text HLabel 2900 2700 0    50   UnSpc ~ 0
+Text HLabel 15800 2150 2    50   UnSpc ~ 0
 ~IRQ[0..7]
 Text HLabel 2900 4400 0    50   UnSpc ~ 0
 ACTION[0..3]
@@ -640,25 +640,25 @@ Text HLabel 2900 4600 0    50   UnSpc ~ 0
 RADDR[0..4]
 Text HLabel 2900 4700 0    50   UnSpc ~ 0
 RSVD[0..6]
-Text HLabel 2900 2800 0    50   UnSpc ~ 0
+Text HLabel 15800 2250 2    50   UnSpc ~ 0
 ~RSTHOLD
-Text HLabel 2900 2900 0    50   UnSpc ~ 0
+Text HLabel 14200 1550 2    50   UnSpc ~ 0
 ~SYSDEV
-Text HLabel 2900 3000 0    50   UnSpc ~ 0
+Text HLabel 14200 1650 2    50   UnSpc ~ 0
 ~IODEV1xx
-Text HLabel 2900 3100 0    50   UnSpc ~ 0
+Text HLabel 14200 1750 2    50   UnSpc ~ 0
 ~IODEV2xx
-Text HLabel 2900 3200 0    50   UnSpc ~ 0
+Text HLabel 14200 1850 2    50   UnSpc ~ 0
 ~IODEV3xx
-Text HLabel 2900 3300 0    50   UnSpc ~ 0
+Text HLabel 14200 1050 2    50   UnSpc ~ 0
 ~MEM
-Text HLabel 2900 3400 0    50   UnSpc ~ 0
+Text HLabel 14200 1150 2    50   UnSpc ~ 0
 ~IO
-Text HLabel 2900 3500 0    50   UnSpc ~ 0
+Text HLabel 14200 1250 2    50   UnSpc ~ 0
 ~R
-Text HLabel 2900 3600 0    50   UnSpc ~ 0
+Text HLabel 14200 1350 2    50   UnSpc ~ 0
 ~W
-Text HLabel 2900 3700 0    50   UnSpc ~ 0
+Text HLabel 14200 1950 2    50   UnSpc ~ 0
 ~WS
 Wire Bus Line
 	7000 9800 7600 9800
@@ -700,21 +700,19 @@ Text HLabel 5150 5100 2    50   UnSpc ~ 0
 RXD
 Text HLabel 5150 5200 2    50   UnSpc ~ 0
 TXD1
-Text HLabel 2900 4000 0    50   UnSpc ~ 0
-~HALT
-Text HLabel 2900 4200 0    50   UnSpc ~ 0
+Text HLabel 14200 2050 2    50   UnSpc ~ 0
 ~WAITING
 Wire Wire Line
-	3450 3800 2900 3800
-Text Label 2900 3800 0    50   ~ 0
+	15250 3250 15800 3250
+Text Label 15800 3250 2    50   ~ 0
 ~ENDEXT
-Text HLabel 2900 3800 0    50   UnSpc ~ 0
+Text HLabel 15800 3250 2    50   UnSpc ~ 0
 ~ENDEXT
 Wire Wire Line
-	3450 3900 2900 3900
-Text Label 2900 3900 0    50   ~ 0
+	15250 3350 15800 3350
+Text Label 15800 3350 2    50   ~ 0
 ~SKIPEXT
-Text HLabel 2900 3900 0    50   UnSpc ~ 0
+Text HLabel 15800 3350 2    50   UnSpc ~ 0
 ~SKIPEXT
 Text Label 7000 10200 0    50   ~ 0
 ~LTSON
@@ -806,17 +804,6 @@ Text Label 9200 4800 2    50   ~ 0
 ~FPOE9
 Text Notes 9250 4800 0    50   ~ 0
 AC high
-$Comp
-L alexios:CFT-2021-Peripheral-Bus P2
-U 1 1 60E74838
-P 13150 950
-F 0 "P2" H 13150 1117 50  0000 C CNN
-F 1 "CFT-2021-Processor-Bus" H 13150 1026 50  0000 C CNN
-F 2 "alexios:DIN41612_B_3x32_Horizontal" H 13025 75  50  0001 C CNN
-F 3 "" H 13025 75  50  0001 C CNN
-	1    13150 950 
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
 U 1 1 60E76092
@@ -1005,34 +992,6 @@ Wire Wire Line
 Wire Wire Line
 	12550 8400 12100 8400
 Wire Wire Line
-	14150 1050 13750 1050
-Wire Wire Line
-	14150 1150 13750 1150
-Wire Wire Line
-	14150 1250 13750 1250
-Wire Wire Line
-	14150 1350 13750 1350
-Wire Wire Line
-	14150 1450 13750 1450
-Wire Wire Line
-	14150 1550 13750 1550
-Wire Wire Line
-	14150 1650 13750 1650
-Wire Wire Line
-	14150 1750 13750 1750
-Wire Wire Line
-	14150 1850 13750 1850
-Wire Wire Line
-	14150 1950 13750 1950
-Wire Wire Line
-	14150 2050 13750 2050
-Wire Wire Line
-	14150 2150 13750 2150
-Wire Wire Line
-	14150 2250 13750 2250
-Wire Wire Line
-	14150 2350 13750 2350
-Wire Wire Line
 	12550 5700 12200 5700
 Wire Wire Line
 	12550 5800 12200 5800
@@ -1150,38 +1109,6 @@ Text Label 12200 1250 0    50   ~ 0
 ~RESET
 Text Label 12200 1350 0    50   ~ 0
 ~RSTHOLD
-Wire Wire Line
-	13750 2550 14150 2550
-Wire Wire Line
-	13750 2650 14150 2650
-Wire Wire Line
-	13750 2750 14150 2750
-Wire Wire Line
-	13750 2850 14150 2850
-Wire Wire Line
-	13750 2950 14150 2950
-Wire Wire Line
-	13750 3050 14150 3050
-Wire Wire Line
-	13750 3150 14150 3150
-Wire Wire Line
-	13750 3250 14150 3250
-Wire Wire Line
-	13750 3350 14150 3350
-Wire Wire Line
-	13750 3450 14150 3450
-Wire Wire Line
-	13750 3550 14150 3550
-Wire Wire Line
-	13750 3650 14150 3650
-Wire Wire Line
-	13750 3750 14150 3750
-Wire Wire Line
-	13750 3850 14150 3850
-Wire Wire Line
-	13750 3950 14150 3950
-Wire Wire Line
-	13750 4050 14150 4050
 Wire Wire Line
 	12100 1350 12550 1350
 Wire Wire Line
@@ -1767,6 +1694,124 @@ Wire Bus Line
 	3450 4300 2900 4300
 Text HLabel 2900 4300 0    50   UnSpc ~ 0
 COND[0..3]
+Text Label 12200 11100 0    50   ~ 0
+~FPOE19
+Text HLabel 12100 1350 0    50   UnSpc ~ 0
+~RSTHOLD
+$Comp
+L power:GND #PWR0176
+U 1 1 673725FC
+P 13800 4850
+F 0 "#PWR0176" H 13800 4600 50  0001 C CNN
+F 1 "GND" H 13805 4677 50  0000 C CNN
+F 2 "" H 13800 4850 50  0001 C CNN
+F 3 "" H 13800 4850 50  0001 C CNN
+	1    13800 4850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13750 4750 13800 4750
+Wire Wire Line
+	13800 4750 13800 4850
+$Comp
+L alexios:CFT-2021-Peripheral-Bus P2
+U 1 1 60E74838
+P 13150 950
+F 0 "P2" H 13150 1117 50  0000 C CNN
+F 1 "CFT-2021-Processor-Bus" H 13150 1026 50  0000 C CNN
+F 2 "alexios:DIN41612_B_3x32_Horizontal" H 13025 75  50  0001 C CNN
+F 3 "" H 13025 75  50  0001 C CNN
+	1    13150 950 
+	1    0    0    -1  
+$EndComp
+Text Label 14150 1950 2    50   ~ 0
+~WS
+Text Label 14150 2050 2    50   ~ 0
+~WAITING
+Text Label 14150 2150 2    50   ~ 0
+~HALT
+Text Label 14150 2250 2    50   ~ 0
+~IRQ
+Text Label 14150 2350 2    50   ~ 0
+~IRQS
+Text Label 14150 1550 2    50   ~ 0
+~SYSDEV
+Text Label 14150 1650 2    50   ~ 0
+~IODEV1XX
+Text Label 14150 1750 2    50   ~ 0
+~IODEV2XX
+Text Label 14150 1850 2    50   ~ 0
+~IODEV3XX
+Text Label 14150 1450 2    50   ~ 0
+T34
+Text Label 14150 1350 2    50   ~ 0
+~W
+Text Label 14150 1250 2    50   ~ 0
+~R
+Text Label 14150 1150 2    50   ~ 0
+~IO
+Text Label 14150 1050 2    50   ~ 0
+~MEM
+Wire Wire Line
+	13750 1050 14200 1050
+Wire Wire Line
+	13750 1150 14200 1150
+Wire Wire Line
+	13750 1250 14200 1250
+Wire Wire Line
+	13750 1350 14200 1350
+Wire Wire Line
+	13750 1450 14200 1450
+Wire Wire Line
+	13750 1550 14200 1550
+Wire Wire Line
+	13750 1650 14200 1650
+Wire Wire Line
+	13750 1750 14200 1750
+Wire Wire Line
+	13750 1850 14200 1850
+Wire Wire Line
+	13750 1950 14200 1950
+Wire Wire Line
+	13750 2050 14200 2050
+Wire Wire Line
+	13750 2150 14200 2150
+Wire Wire Line
+	13750 2250 14200 2250
+Wire Wire Line
+	13750 2350 14200 2350
+Wire Wire Line
+	13750 2550 14200 2550
+Wire Wire Line
+	13750 2650 14200 2650
+Wire Wire Line
+	13750 2750 14200 2750
+Wire Wire Line
+	13750 2850 14200 2850
+Wire Wire Line
+	13750 2950 14200 2950
+Wire Wire Line
+	13750 3050 14200 3050
+Wire Wire Line
+	13750 3150 14200 3150
+Wire Wire Line
+	13750 3250 14200 3250
+Wire Wire Line
+	13750 3350 14200 3350
+Wire Wire Line
+	13750 3450 14200 3450
+Wire Wire Line
+	13750 3550 14200 3550
+Wire Wire Line
+	13750 3650 14200 3650
+Wire Wire Line
+	13750 3750 14200 3750
+Wire Wire Line
+	13750 3850 14200 3850
+Wire Wire Line
+	13750 3950 14200 3950
+Wire Wire Line
+	13750 4050 14200 4050
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1781,6 +1826,6 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
-Text Label 12200 11100 0    50   ~ 0
-~FPOE19
+Text HLabel 14200 2150 2    50   UnSpc ~ 0
+~HALT
 $EndSCHEMATC
