@@ -137,9 +137,9 @@ Wire Wire Line
 	6100 2900 6650 2900
 Wire Wire Line
 	6100 3100 6650 3100
-Text Label 6650 2900 2    50   ~ 0
-~CVOE
 Text Label 6650 3100 2    50   ~ 0
+~CVOE
+Text Label 6650 2900 2    50   ~ 0
 ~IBOE
 Text Label 6650 1200 2    50   ~ 0
 IBUS[0..15]

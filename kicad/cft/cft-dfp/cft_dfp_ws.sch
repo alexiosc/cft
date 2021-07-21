@@ -170,8 +170,8 @@ $Comp
 L Device:R_Small R36
 U 1 1 5DB1351D
 P 7750 2500
-F 0 "R36" V 7554 2500 50  0000 C CNN
-F 1 "30Ω" V 7645 2500 50  0000 C CNN
+F 0 "R36" V 7650 2500 50  0000 C CNN
+F 1 "30Ω" V 7850 2500 50  0000 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 2500 50  0001 C CNN
 F 3 "~" H 7750 2500 50  0001 C CNN
 	1    7750 2500
@@ -217,7 +217,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7325 2500 50  0001 C CNN
 	1    7250 2500
 	1    0    0    -1  
 $EndComp
-NoConn ~ 6950 2100
 NoConn ~ 5400 2100
 $Comp
 L power:GND #PWR?
@@ -270,19 +269,6 @@ Wire Wire Line
 	5500 2100 5500 2500
 Wire Wire Line
 	6000 2100 5500 2100
-$Comp
-L alexios:74HC112 U?
-U 2 1 6163844D
-P 6800 2050
-AR Path="/6163844D" Ref="U?"  Part="2" 
-AR Path="/614F5B8D/6163844D" Ref="U41"  Part="2" 
-F 0 "U41" H 6475 2267 50  0000 C CNN
-F 1 "74HC112" H 6475 2176 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 6500 1700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS112" H 6500 1700 50  0001 C CNN
-	2    6800 2050
-	1    0    0    -1  
-$EndComp
 Text HLabel 8100 2500 2    50   3State ~ 0
 ~WS
 Text Label 8050 2500 2    50   ~ 0
@@ -545,6 +531,60 @@ Wire Bus Line
 	1650 3450 1200 3450
 Entry Bus Bus
 	1650 3450 1750 3350
+$Comp
+L alexios:74HC112 U?
+U 2 1 6163844D
+P 6800 2050
+AR Path="/6163844D" Ref="U?"  Part="2" 
+AR Path="/614F5B8D/6163844D" Ref="U41"  Part="2" 
+F 0 "U41" H 6475 2267 50  0000 C CNN
+F 1 "74HC112" H 6475 2176 50  0000 C CNN
+F 2 "alexios:DIP-16_W7.62mm_Socket" H 6500 1700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS112" H 6500 1700 50  0001 C CNN
+	2    6800 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60FC2F05
+P 7150 2100
+F 0 "R?" V 6954 2100 50  0000 C CNN
+F 1 "1kΩ" V 7045 2100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7150 2100 50  0001 C CNN
+F 3 "~" H 7150 2100 50  0001 C CNN
+	1    7150 2100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 2100 7050 2100
+Wire Wire Line
+	7250 2100 7350 2100
+$Comp
+L Device:LED_ALT D?
+U 1 1 60FC68AB
+P 7500 2100
+F 0 "D?" H 7493 1845 50  0000 C CNN
+F 1 "LED_ALT" H 7493 1936 50  0000 C CNN
+F 2 "" H 7500 2100 50  0001 C CNN
+F 3 "~" H 7500 2100 50  0001 C CNN
+	1    7500 2100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60FC7498
+P 7700 2150
+F 0 "#PWR?" H 7700 1900 50  0001 C CNN
+F 1 "GND" H 7850 2150 50  0000 C CNN
+F 2 "" H 7700 2150 50  0001 C CNN
+F 3 "" H 7700 2150 50  0001 C CNN
+	1    7700 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7650 2100 7700 2100
+Wire Wire Line
+	7700 2100 7700 2150
 Wire Bus Line
 	1750 1750 1750 2200
 Wire Bus Line

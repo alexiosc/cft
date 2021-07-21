@@ -51,23 +51,9 @@ Text Label -700 6650 2    50   ~ 0
 ~RCV2
 Wire Wire Line
 	-950 6050 -700 6050
-Wire Wire Line
-	-950 6150 -700 6150
-Wire Wire Line
-	-950 6250 -700 6250
-Wire Wire Line
-	-950 6350 -700 6350
-Wire Wire Line
-	-950 3550 -700 3550
-Wire Wire Line
-	-950 3650 -700 3650
-Wire Wire Line
-	-950 3750 -700 3750
-Wire Wire Line
-	-950 3850 -700 3850
 Text Label -700 6050 2    50   ~ 0
 ~RDSR2
-Text Notes -650 6050 0    50   ~ 0
+Text Notes -500 6050 0    50   ~ 0
 Optional
 Text Notes 1500 1250 0    100  ~ 20
 DFP Address Decoders
@@ -91,83 +77,6 @@ Text Label 1350 2800 3    50   ~ 0
 FPD[0..7]
 Text HLabel 1150 1550 0    50   Input ~ 0
 FPA[0..7]
-$Comp
-L Connector:TestPoint TP3
-U 1 1 658E2474
-P -700 3550
-F 0 "TP3" V -700 3738 50  0000 L CNN
-F 1 "TestPoint" V -655 3738 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3550 50  0001 C CNN
-F 3 "~" H -500 3550 50  0001 C CNN
-	1    -700 3550
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP4
-U 1 1 658E2C1D
-P -700 3650
-F 0 "TP4" V -700 3838 50  0000 L CNN
-F 1 "TestPoint" V -655 3838 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3650 50  0001 C CNN
-F 3 "~" H -500 3650 50  0001 C CNN
-	1    -700 3650
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP5
-U 1 1 658E2DAE
-P -700 3750
-F 0 "TP5" V -700 3938 50  0000 L CNN
-F 1 "TestPoint" V -655 3938 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3750 50  0001 C CNN
-F 3 "~" H -500 3750 50  0001 C CNN
-	1    -700 3750
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP6
-U 1 1 658E2EF5
-P -700 3850
-F 0 "TP6" V -700 4038 50  0000 L CNN
-F 1 "TestPoint" V -655 4038 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 3850 50  0001 C CNN
-F 3 "~" H -500 3850 50  0001 C CNN
-	1    -700 3850
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP7
-U 1 1 658E5941
-P -700 6150
-F 0 "TP7" V -700 6338 50  0000 L CNN
-F 1 "TestPoint" V -655 6338 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6150 50  0001 C CNN
-F 3 "~" H -500 6150 50  0001 C CNN
-	1    -700 6150
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP8
-U 1 1 658E5947
-P -700 6250
-F 0 "TP8" V -700 6438 50  0000 L CNN
-F 1 "TestPoint" V -655 6438 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6250 50  0001 C CNN
-F 3 "~" H -500 6250 50  0001 C CNN
-	1    -700 6250
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP9
-U 1 1 658E594D
-P -700 6350
-F 0 "TP9" V -700 6538 50  0000 L CNN
-F 1 "TestPoint" V -655 6538 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H -500 6350 50  0001 C CNN
-F 3 "~" H -500 6350 50  0001 C CNN
-	1    -700 6350
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	4050 4300 4550 4300
 Text HLabel 4050 4300 0    50   Input ~ 0
@@ -2069,10 +1978,49 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 7350 5700 50  0001 C CNN
 	1    7350 5700
 	1    0    0    1   
 $EndComp
+NoConn ~ -600 3550
+NoConn ~ -600 3650
+NoConn ~ -600 3750
+NoConn ~ -600 3850
+Text Label -700 3550 2    50   ~ 0
+~W49
+Text Label -700 3650 2    50   ~ 0
+~W4A
+Text Label -700 3750 2    50   ~ 0
+~W4B
+Text Label -700 3850 2    50   ~ 0
+~W4C
+Wire Wire Line
+	-950 3550 -600 3550
+Wire Wire Line
+	-950 3650 -600 3650
+Wire Wire Line
+	-950 3750 -600 3750
+Wire Wire Line
+	-950 3850 -600 3850
+Text Notes -550 3750 0    50   ~ 0
+Expansion
+NoConn ~ -600 6150
+NoConn ~ -600 6250
+NoConn ~ -600 6350
+Text Label -700 6150 2    50   ~ 0
+~R49
+Text Label -700 6250 2    50   ~ 0
+~R4A
+Text Label -700 6350 2    50   ~ 0
+~R4B
+Wire Wire Line
+	-950 6150 -600 6150
+Wire Wire Line
+	-950 6250 -600 6250
+Wire Wire Line
+	-950 6350 -600 6350
 Wire Bus Line
 	5950 1550 5950 4400
 Wire Bus Line
 	4150 1950 4150 4400
 Wire Bus Line
 	9350 1550 9350 5700
+Text Notes -500 6250 0    50   ~ 0
+Expansion
 $EndSCHEMATC

@@ -1812,6 +1812,8 @@ Wire Wire Line
 	13750 3950 14200 3950
 Wire Wire Line
 	13750 4050 14200 4050
+Text HLabel 14200 2150 2    50   UnSpc ~ 0
+~HALT
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1826,6 +1828,4 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
-Text HLabel 14200 2150 2    50   UnSpc ~ 0
-~HALT
 $EndSCHEMATC
