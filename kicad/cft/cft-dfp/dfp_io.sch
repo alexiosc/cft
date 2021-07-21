@@ -2015,12 +2015,12 @@ Wire Wire Line
 	-950 6250 -600 6250
 Wire Wire Line
 	-950 6350 -600 6350
+Text Notes -500 6250 0    50   ~ 0
+Expansion
 Wire Bus Line
 	5950 1550 5950 4400
 Wire Bus Line
 	4150 1950 4150 4400
 Wire Bus Line
 	9350 1550 9350 5700
-Text Notes -500 6250 0    50   ~ 0
-Expansion
 $EndSCHEMATC
