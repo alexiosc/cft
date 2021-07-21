@@ -1147,8 +1147,6 @@ Text Label 950  6800 0    50   ~ 0
 FN
 Wire Wire Line
 	2600 2250 3100 2250
-Text Label 11650 7950 0    50   ~ 0
-~FPRESET
 Text Label 11650 6250 0    50   ~ 0
 FPCLK
 Text Label 11650 6350 0    50   ~ 0
@@ -1750,8 +1748,6 @@ Wire Wire Line
 Wire Wire Line
 	12150 7850 11650 7850
 Wire Wire Line
-	12150 7950 11650 7950
-Wire Wire Line
 	11100 6050 11450 6050
 Text Label 11450 6050 2    50   ~ 0
 16MHz
@@ -2114,4 +2110,5 @@ Text Notes 14300 5600 0    100  ~ 20
 Peripheral Bus
 NoConn ~ 14250 6150
 NoConn ~ 12150 8050
+NoConn ~ 12150 7950
 $EndSCHEMATC
