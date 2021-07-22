@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 15 20
+Sheet 15 19
 Title "Microcontroller and DFP Bus"
 Date ""
 Rev "2049"
@@ -297,22 +297,6 @@ NoConn ~ 14750 3450
 Wire Wire Line
 	15150 3550 14750 3550
 NoConn ~ 14750 3550
-$Sheet
-S 12450 6400 500  400 
-U 5FED7B4A
-F0 "sheet5FED7B46" 50
-F1 "cft_boardled.sch" 50
-F2 "LED1" I L 12450 6550 50 
-F3 "LED2" I L 12450 6650 50 
-$EndSheet
-Wire Wire Line
-	12450 6550 12200 6550
-Wire Wire Line
-	12450 6650 12200 6650
-Text Label 12200 6650 0    50   ~ 0
-TXD
-Text Label 12200 6550 0    50   ~ 0
-RXD
 Wire Wire Line
 	15150 4150 14750 4150
 Text Label 14750 4150 0    50   ~ 0

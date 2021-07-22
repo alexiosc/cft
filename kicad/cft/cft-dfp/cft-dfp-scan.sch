@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 20
+Sheet 18 19
 Title "Front Panel Light Scanner"
 Date "2019-11-17"
 Rev "2049"
@@ -2079,8 +2079,8 @@ AR Path="/6AEB8989" Ref="C?"  Part="1"
 AR Path="/6233F88C/6AEB8989" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/6AEB8989" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/6AEB8989" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/6AEB8989" Ref="C59"  Part="1" 
-F 0 "C59" H 4309 6146 50  0000 R CNN
+AR Path="/65BD1B6F/6AEB8989" Ref="C38"  Part="1" 
+F 0 "C38" H 4309 6146 50  0000 R CNN
 F 1 "100nF" H 4309 6055 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4400 6100 50  0001 C CNN
 F 3 "~" H 4400 6100 50  0001 C CNN
