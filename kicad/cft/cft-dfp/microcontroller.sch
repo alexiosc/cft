@@ -1915,16 +1915,6 @@ Wire Wire Line
 	15750 2450 15750 2550
 Wire Wire Line
 	15750 2550 15500 2550
-Wire Bus Line
-	8850 -3400 8850 -2550
-Wire Bus Line
-	7500 -5500 7500 -4650
-Wire Bus Line
-	9650 -5500 9650 -4650
-Wire Bus Line
-	4650 -5500 4650 -4650
-Wire Bus Line
-	7400 -5150 7400 -2550
 Connection ~ 15750 2450
 $Comp
 L power:+5V #PWR05
@@ -1937,4 +1927,27 @@ F 3 "" H 15750 2300 50  0001 C CNN
 	1    15750 2300
 	1    0    0    -1  
 $EndComp
+NoConn ~ 1750 -4450
+NoConn ~ 1750 -4350
+$Comp
+L Connector:TestPoint TP3
+U 1 1 61CF612A
+P 400 -4150
+F 0 "TP3" V 400 -3850 50  0000 R CNN
+F 1 "TestPoint" V 504 -4078 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_1.0x1.0mm_Drill0.5mm" H 600 -4150 50  0001 C CNN
+F 3 "~" H 600 -4150 50  0001 C CNN
+	1    400  -4150
+	0    -1   -1   0   
+$EndComp
+Wire Bus Line
+	8850 -3400 8850 -2550
+Wire Bus Line
+	7500 -5500 7500 -4650
+Wire Bus Line
+	9650 -5500 9650 -4650
+Wire Bus Line
+	4650 -5500 4650 -4650
+Wire Bus Line
+	7400 -5150 7400 -2550
 $EndSCHEMATC
