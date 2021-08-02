@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 19
+Sheet 20 19
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
@@ -565,7 +565,7 @@ U 1 1 60FC68AB
 P 7500 2100
 F 0 "D2001" H 7493 1845 50  0000 C CNN
 F 1 "LED_ALT" H 7493 1936 50  0000 C CNN
-F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7500 2100 50  0001 C CNN
+F 2 "" H 7500 2100 50  0001 C CNN
 F 3 "~" H 7500 2100 50  0001 C CNN
 	1    7500 2100
 	-1   0    0    1   

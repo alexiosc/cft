@@ -88,7 +88,7 @@ FPCLKEN-IN
 Text Label 3300 2950 0    50   ~ 0
 FPµSTEP-IN
 Wire Wire Line
-	5050 3300 6000 3300
+	5050 3300 5750 3300
 Text HLabel 9950 2550 2    50   Output ~ 0
 ~WAIT
 $Comp
@@ -290,15 +290,13 @@ Text Label 6900 2550 0    50   ~ 0
 ~RESET
 Text Label 6900 2650 0    50   ~ 0
 ~RSTHOLD
-Text Label 6900 3050 0    50   ~ 0
-STEPPING
 Text Label 6900 3150 0    50   ~ 0
 µSTEPPING
 Text Label 6900 2750 0    50   ~ 0
 FPFETCH∕~EXEC
-Text Label 8850 3050 2    50   ~ 0
+Text Label 9900 3050 2    50   ~ 0
 ~LED-FETCH
-Text Label 8850 3150 2    50   ~ 0
+Text Label 9900 3150 2    50   ~ 0
 ~LED-EXEC
 $Comp
 L alexios:ATF16V8B U201
@@ -324,15 +322,9 @@ Wire Wire Line
 Wire Wire Line
 	3250 2950 7500 2950
 Wire Wire Line
-	6000 3050 7500 3050
-Wire Wire Line
 	6100 3150 7500 3150
 Wire Wire Line
 	5050 4050 6100 4050
-Wire Wire Line
-	6000 3050 6000 3300
-Wire Wire Line
-	6100 3150 6100 4050
 Wire Wire Line
 	4000 2750 7500 2750
 $Comp
@@ -351,7 +343,15 @@ $EndComp
 Wire Wire Line
 	4000 2750 4000 3500
 Wire Wire Line
-	8400 3250 9150 3250
-Text Label 9150 3250 2    50   ~ 0
+	8400 3250 9900 3250
+Text Label 9900 3250 2    50   ~ 0
 ~LED-WAIT
+Wire Wire Line
+	8400 2850 9900 2850
+Text Label 9900 2850 2    50   ~ 0
+STEPPING
+Text Notes 9200 2850 0    50   ~ 0
+(input)
+Wire Wire Line
+	6100 3150 6100 4050
 $EndSCHEMATC
