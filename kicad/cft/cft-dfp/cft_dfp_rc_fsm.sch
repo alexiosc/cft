@@ -53,11 +53,11 @@ Text Label 5400 4050 0    50   ~ 0
 µSTEPPING
 Text Label 3300 4050 0    50   ~ 0
 ~µSTEP
-Text Label 3300 4250 0    50   ~ 0
+Text Label 6900 2850 0    50   ~ 0
 CLK4
-Text Label 3300 2550 0    50   ~ 0
+Text Label 3300 2450 0    50   ~ 0
 ~RESET
-Text Label 3300 2650 0    50   ~ 0
+Text Label 3300 2550 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4150 3400 4100 3400
@@ -79,17 +79,15 @@ $EndComp
 Wire Wire Line
 	4150 4150 4100 4150
 Wire Wire Line
-	4100 4150 4100 4400
-Wire Wire Line
 	4000 3600 4000 4350
 Connection ~ 4000 3600
-Text Label 3300 2850 0    50   ~ 0
+Text Label 3300 2750 0    50   ~ 0
 FPCLKEN-IN
 Text Label 3300 2950 0    50   ~ 0
 FPµSTEP-IN
 Wire Wire Line
 	5050 3300 5750 3300
-Text HLabel 9950 2550 2    50   Output ~ 0
+Text HLabel 9950 2450 2    50   Output ~ 0
 ~WAIT
 $Comp
 L Device:C_Small C?
@@ -184,19 +182,19 @@ F 3 "" H 2300 7400 50  0001 C CNN
 $EndComp
 Connection ~ 1000 7200
 Connection ~ 1000 7400
-Text HLabel 9950 2750 2    50   3State ~ 0
-FPCLKEN
 Text HLabel 9950 2650 2    50   3State ~ 0
+FPCLKEN
+Text HLabel 9950 2550 2    50   3State ~ 0
 FPµSTEP
+Text Label 9900 2550 2    50   ~ 0
+FPµSTEP
+Wire Wire Line
+	8800 2550 9950 2550
 Text Label 9900 2650 2    50   ~ 0
-FPµSTEP
+FPCLKEN
 Wire Wire Line
 	8800 2650 9950 2650
-Text Label 9900 2750 2    50   ~ 0
-FPCLKEN
-Wire Wire Line
-	8800 2750 9950 2750
-Text HLabel 3250 2850 0    50   Input ~ 0
+Text HLabel 3250 2750 0    50   Input ~ 0
 FPCLKEN-IN
 Text HLabel 3250 2950 0    50   Input ~ 0
 FPµSTEP-IN
@@ -208,11 +206,11 @@ Text HLabel 3250 3600 0    50   Input ~ 0
 ~CLR
 Text HLabel 3250 4050 0    50   Input ~ 0
 ~µSTEP
-Text HLabel 3250 4250 0    50   Input ~ 0
+Text HLabel 6850 2850 0    50   Input ~ 0
 CLK4
-Text HLabel 3250 2550 0    50   Input ~ 0
+Text HLabel 3250 2450 0    50   Input ~ 0
 ~RESET
-Text HLabel 3250 2650 0    50   Input ~ 0
+Text HLabel 3250 2550 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4150 3500 4000 3500
@@ -221,33 +219,33 @@ Wire Wire Line
 Wire Wire Line
 	4150 4050 3250 4050
 Wire Wire Line
-	4150 4250 3250 4250
+	7500 2850 6850 2850
 Wire Wire Line
 	4150 4350 4000 4350
 $Comp
 L Device:R_Small R?
 U 1 1 5DB4499A
-P 8700 2750
+P 8700 2650
 AR Path="/5DB4499A" Ref="R?"  Part="1" 
 AR Path="/5ED99F01/5DB4499A" Ref="R202"  Part="1" 
-F 0 "R202" V 8650 2650 50  0000 R CNN
-F 1 "30Ω" V 8650 2850 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 2750 50  0001 C CNN
-F 3 "~" H 8700 2750 50  0001 C CNN
-	1    8700 2750
+F 0 "R202" V 8650 2550 50  0000 R CNN
+F 1 "30Ω" V 8650 2750 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 2650 50  0001 C CNN
+F 3 "~" H 8700 2650 50  0001 C CNN
+	1    8700 2650
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5DB45D45
-P 8700 2650
+P 8700 2550
 AR Path="/5DB45D45" Ref="R?"  Part="1" 
 AR Path="/5ED99F01/5DB45D45" Ref="R201"  Part="1" 
-F 0 "R201" V 8650 2550 50  0000 R CNN
-F 1 "30Ω" V 8650 2750 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 2650 50  0001 C CNN
-F 3 "~" H 8700 2650 50  0001 C CNN
-	1    8700 2650
+F 0 "R201" V 8650 2450 50  0000 R CNN
+F 1 "30Ω" V 8650 2650 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 2550 50  0001 C CNN
+F 3 "~" H 8700 2550 50  0001 C CNN
+	1    8700 2550
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -255,48 +253,48 @@ Wire Wire Line
 Connection ~ 4000 3500
 Wire Wire Line
 	4000 3500 3250 3500
-Text HLabel 9950 3150 2    50   Output ~ 0
-~LED-EXEC
 Text HLabel 9950 3050 2    50   Output ~ 0
+~LED-EXEC
+Text HLabel 9950 2950 2    50   Output ~ 0
 ~LED-FETCH
 $Comp
 L alexios:ATF16V8B U201
 U 1 1 61067AF8
-P 7950 3000
-F 0 "U201" H 7950 3750 50  0000 C CNN
-F 1 "ATF16V8B" H 7950 3650 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 7950 3000 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 7950 3000 50  0001 C CNN
-F 4 "DFPRST" V 7950 3000 50  0000 C CNB "Signature"
-F 5 "dfp-runstop.jed" H 7950 2350 50  0000 C CNN "Image Filename"
-	1    7950 3000
+P 7950 2900
+F 0 "U201" H 7950 3650 50  0000 C CNN
+F 1 "ATF16V8B" H 7950 3550 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 7950 2900 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 7950 2900 50  0001 C CNN
+F 4 "DFPRST" V 7950 2900 50  0000 C CNB "Signature"
+F 5 "dfp-runstop.jed" H 7950 2250 50  0000 C CNN "Image Filename"
+	1    7950 2900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9950 2550 8400 2550
+	9950 2450 8400 2450
+Wire Wire Line
+	8600 2550 8400 2550
 Wire Wire Line
 	8600 2650 8400 2650
 Wire Wire Line
-	8600 2750 8400 2750
+	9950 2950 8400 2950
 Wire Wire Line
 	9950 3050 8400 3050
-Wire Wire Line
-	9950 3150 8400 3150
-Text Label 6900 2850 0    50   ~ 0
+Text Label 6900 2750 0    50   ~ 0
 FPCLKEN-IN
 Text Label 6900 2950 0    50   ~ 0
 FPµSTEP-IN
-Text Label 6900 2550 0    50   ~ 0
+Text Label 6900 2450 0    50   ~ 0
 ~RESET
-Text Label 6900 2650 0    50   ~ 0
+Text Label 6900 2550 0    50   ~ 0
 ~RSTHOLD
-Text Label 6900 3150 0    50   ~ 0
+Text Label 6900 3050 0    50   ~ 0
 µSTEPPING
-Text Label 6900 2750 0    50   ~ 0
+Text Label 6900 2650 0    50   ~ 0
 FPFETCH∕~EXEC
-Text Label 9900 3050 2    50   ~ 0
+Text Label 9900 2950 2    50   ~ 0
 ~LED-FETCH
-Text Label 9900 3150 2    50   ~ 0
+Text Label 9900 3050 2    50   ~ 0
 ~LED-EXEC
 $Comp
 L alexios:ATF16V8B U201
@@ -314,19 +312,19 @@ $EndComp
 Connection ~ 2300 7400
 Connection ~ 2300 7200
 Wire Wire Line
-	3250 2850 7500 2850
+	3250 2750 7500 2750
+Wire Wire Line
+	3250 2450 7500 2450
 Wire Wire Line
 	3250 2550 7500 2550
 Wire Wire Line
-	3250 2650 7500 2650
-Wire Wire Line
 	3250 2950 7500 2950
 Wire Wire Line
-	6100 3150 7500 3150
+	6100 3050 7500 3050
 Wire Wire Line
 	5050 4050 6100 4050
 Wire Wire Line
-	4000 2750 7500 2750
+	4000 2650 7500 2650
 $Comp
 L alexios:74HC74 U?
 U 1 1 5EEDDDB2
@@ -341,10 +339,8 @@ F 3 "74xx/74hc_hct74.pdf" H 4550 3600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4000 2750 4000 3500
-Wire Wire Line
-	8400 3250 9900 3250
-Text Label 9900 3250 2    50   ~ 0
+	8400 3150 9900 3150
+Text Label 9900 3150 2    50   ~ 0
 ~LED-WAIT
 Wire Wire Line
 	8400 2850 9900 2850
@@ -353,5 +349,17 @@ STEPPING
 Text Notes 9200 2850 0    50   ~ 0
 (input)
 Wire Wire Line
-	6100 3150 6100 4050
+	6100 3050 6100 4050
+Wire Wire Line
+	8400 2750 9900 2750
+Text Label 9900 2750 2    50   ~ 0
+CLK4-A
+Wire Wire Line
+	4150 4250 3300 4250
+Text Label 3300 4250 0    50   ~ 0
+CLK4-A
+Wire Wire Line
+	4100 4150 4100 4400
+Wire Wire Line
+	4000 2650 4000 3500
 $EndSCHEMATC

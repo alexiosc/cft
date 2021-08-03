@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 18 19
+Sheet 17 19
 Title ""
 Date ""
 Rev "2049"
@@ -1648,7 +1648,7 @@ Text Label 12000 10300 0    50   ~ 0
 ~FPOE10
 Text Label 12000 10400 0    50   ~ 0
 ~FPOE11
-Text Label 12000 10500 0    50   ~ 0
+Text Label 11300 10450 0    50   ~ 0
 ~FPOE12
 Text Label 12000 10600 0    50   ~ 0
 ~FPOE13
@@ -1802,6 +1802,8 @@ Text Label 14100 11000 2    50   ~ 0
 ~FPOE25
 Wire Wire Line
 	13750 11100 14100 11100
+Text Label 14100 11100 2    50   ~ 0
+~FPOE26
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1816,6 +1818,4 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
-Text Label 14100 11100 2    50   ~ 0
-~FPOE26
 $EndSCHEMATC

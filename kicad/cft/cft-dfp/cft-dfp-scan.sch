@@ -2650,16 +2650,10 @@ Text Label 3950 11300 2    50   ~ 0
 ~FPOE10
 Text Label 3950 11400 2    50   ~ 0
 ~FPOE11
-Text Label 3950 12650 2    50   ~ 0
-~FPOE12
 Text Label 3950 12750 2    50   ~ 0
 ~FPOE13
 Text Label 3950 12850 2    50   ~ 0
 ~FPOE14
-Text Label 3950 12950 2    50   ~ 0
-~FPOE15
-Text Label 3950 13050 2    50   ~ 0
-~FPOE16
 Text Label 3950 13150 2    50   ~ 0
 ~FPOE17
 Text Label 3950 13250 2    50   ~ 0
@@ -2734,8 +2728,6 @@ Entry Wire Line
 	3950 12950 4050 12850
 Entry Wire Line
 	3950 12850 4050 12750
-Entry Wire Line
-	3950 12650 4050 12550
 Entry Wire Line
 	3950 12750 4050 12650
 Entry Wire Line
@@ -2990,4 +2982,12 @@ Wire Bus Line
 	4050 9350 4050 14850
 Wire Bus Line
 	6750 1200 6750 4850
+Text Label 3950 12950 2    50   ~ 0
+~FPOE15
+Text Label 3950 13050 2    50   ~ 0
+~FPOE16
+Entry Wire Line
+	3950 12650 4050 12550
+Text Label 3950 12650 2    50   ~ 0
+~FPOE12
 $EndSCHEMATC
