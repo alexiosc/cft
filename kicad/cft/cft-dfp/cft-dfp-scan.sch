@@ -1471,8 +1471,8 @@ AR Path="/62ECDEB3" Ref="C?"  Part="1"
 AR Path="/6233F88C/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ECDEB3" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62ECDEB3" Ref="C54"  Part="1" 
-F 0 "C54" H 5709 6196 50  0000 R CNN
+AR Path="/65BD1B6F/62ECDEB3" Ref="C33"  Part="1" 
+F 0 "C33" H 5709 6196 50  0000 R CNN
 F 1 "100nF" H 5709 6105 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 6150 50  0001 C CNN
 F 3 "~" H 5800 6150 50  0001 C CNN
@@ -1509,8 +1509,8 @@ AR Path="/62EDD3ED" Ref="C?"  Part="1"
 AR Path="/6233F88C/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EDD3ED" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62EDD3ED" Ref="C55"  Part="1" 
-F 0 "C55" H 5709 6946 50  0000 R CNN
+AR Path="/65BD1B6F/62EDD3ED" Ref="C34"  Part="1" 
+F 0 "C34" H 5709 6946 50  0000 R CNN
 F 1 "100nF" H 5709 6855 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 6900 50  0001 C CNN
 F 3 "~" H 5800 6900 50  0001 C CNN
@@ -1693,12 +1693,12 @@ Text Notes 550  1750 0    63   ~ 13
 Erratum, rev. A (1930)
 Wire Notes Line width 24 style solid
 	450  3000 450  900 
-Text Label 1100 1450 0    50   ~ 0
-~SCANEN
-Text Label 1100 1350 0    50   ~ 0
+Text Label 1050 1450 0    50   ~ 0
+~AUTOSCAN
+Text Label 1050 1350 0    50   ~ 0
 ~WR
 Text HLabel 1000 1450 0    50   Input ~ 0
-~SCANEN
+~AUTOSCAN
 Text HLabel 1000 1350 0    50   Input ~ 0
 ~WR
 Wire Wire Line
@@ -1939,24 +1939,6 @@ Wire Wire Line
 	2800 6550 3250 6550
 Wire Wire Line
 	2800 6450 3250 6450
-Text Label 1500 7350 0    50   ~ 0
-~FPOE14
-Wire Wire Line
-	1800 7350 1500 7350
-Text Label 1500 6750 0    50   ~ 0
-~FPOE13
-Text Label 1500 7150 0    50   ~ 0
-MFD1
-Text Label 1500 7050 0    50   ~ 0
-MFD0
-Text Label 1500 6550 0    50   ~ 0
-MFD1
-Text Label 1500 6450 0    50   ~ 0
-MFD0
-Wire Wire Line
-	1800 6750 1500 6750
-Wire Wire Line
-	1200 6550 1300 6550
 Text HLabel 3250 6450 2    50   Output ~ 0
 ~ORHOE
 Text HLabel 3250 6550 2    50   Output ~ 0
@@ -1969,15 +1951,6 @@ Text HLabel 3250 7150 2    50   Output ~ 0
 ~FPDRLOE~
 Text HLabel 3250 7250 2    50   Output ~ 0
 ~FPSPLOE~
-Wire Wire Line
-	1400 6450 1400 7050
-Wire Wire Line
-	1400 7050 1800 7050
-Connection ~ 1400 6450
-Wire Wire Line
-	1400 6450 1800 6450
-Wire Wire Line
-	1300 7150 1800 7150
 Text Notes 6100 800  0    100  ~ 20
 Front-Panel Address Decoder
 Connection ~ 4450 3150
@@ -2261,13 +2234,6 @@ Text Label 4300 1500 2    50   ~ 0
 ~ROW5
 Text HLabel 1200 6550 0    50   Input ~ 0
 MFD1
-Wire Wire Line
-	1200 6450 1400 6450
-Wire Wire Line
-	1300 6550 1300 7150
-Connection ~ 1300 6550
-Wire Wire Line
-	1300 6550 1800 6550
 NoConn ~ 3450 1600
 $Comp
 L alexios:74HC138 U34
@@ -2972,6 +2938,14 @@ Entry Wire Line
 	4150 11300 4050 11400
 Wire Wire Line
 	4900 11300 4150 11300
+Text Label 3950 12950 2    50   ~ 0
+~FPOE15
+Text Label 3950 13050 2    50   ~ 0
+~FPOE16
+Entry Wire Line
+	3950 12650 4050 12550
+Text Label 3950 12650 2    50   ~ 0
+~FPOE12
 Wire Bus Line
 	2050 800  2050 1800
 Wire Bus Line
@@ -2982,12 +2956,4 @@ Wire Bus Line
 	4050 9350 4050 14850
 Wire Bus Line
 	6750 1200 6750 4850
-Text Label 3950 12950 2    50   ~ 0
-~FPOE15
-Text Label 3950 13050 2    50   ~ 0
-~FPOE16
-Entry Wire Line
-	3950 12650 4050 12550
-Text Label 3950 12650 2    50   ~ 0
-~FPOE12
 $EndSCHEMATC

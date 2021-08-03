@@ -162,7 +162,7 @@ Connection ~ 5450 7000
 Connection ~ 5450 7200
 Text Notes 8600 1950 0    100  ~ 20
 Wait State Generator
-Text Notes 2250 3350 0    50   ~ 0
+Text Notes 2600 3400 0    50   ~ 0
 Decodes I/O Space &0100–&011F
 Wire Wire Line
 	7550 2500 7650 2500
@@ -426,8 +426,6 @@ Wire Wire Line
 	1850 2300 2450 2300
 Wire Wire Line
 	3350 2100 4300 2100
-Wire Wire Line
-	1200 3700 5600 3700
 $Comp
 L Device:R_Small R14
 U 1 1 60F902A7
@@ -478,7 +476,7 @@ Text HLabel 3900 2400 2    50   Output ~ 0
 ~REN0
 Text HLabel 3900 2500 2    50   Output ~ 0
 ~REN1
-Text Notes 2250 3550 0    50   ~ 0
+Text Notes 2600 3600 0    50   ~ 0
 Also decodes µCU XMEM A6 line\nfor DFP reads/writes.
 Wire Wire Line
 	5600 2300 5600 3700
@@ -585,6 +583,35 @@ Wire Wire Line
 	7650 2100 7700 2100
 Wire Wire Line
 	7700 2100 7700 2150
+$Comp
+L Device:R_Small R1901
+U 1 1 613F86C2
+P 2200 3500
+F 0 "R1901" H 2259 3454 50  0000 L CNN
+F 1 "4.7kΩ" H 2259 3545 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2200 3500 50  0001 C CNN
+F 3 "~" H 2200 3500 50  0001 C CNN
+	1    2200 3500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2200 3600 2200 3700
+$Comp
+L power:+5V #PWR01901
+U 1 1 613FA2C2
+P 2200 3400
+F 0 "#PWR01901" H 2200 3250 50  0001 C CNN
+F 1 "+5V" H 2215 3573 50  0000 C CNN
+F 2 "" H 2200 3400 50  0001 C CNN
+F 3 "" H 2200 3400 50  0001 C CNN
+	1    2200 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 3700 2200 3700
+Connection ~ 2200 3700
+Wire Wire Line
+	2200 3700 5600 3700
 Wire Bus Line
 	1750 1750 1750 2200
 Wire Bus Line

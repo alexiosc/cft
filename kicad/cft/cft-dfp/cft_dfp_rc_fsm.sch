@@ -26,7 +26,7 @@ F 3 "74xx/74hc_hct74.pdf" H 4550 4350 50  0001 C CNN
 	2    4600 4200
 	1    0    0    -1  
 $EndComp
-Text Label 3300 3300 0    50   ~ 0
+Text Label 2000 3300 0    50   ~ 0
 STEP∕~RUN
 $Comp
 L power:GND #PWR?
@@ -43,21 +43,21 @@ F 3 "" H 4100 3650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4150 3600 4000 3600
-Text Label 3300 3600 0    50   ~ 0
+Text Label 2000 3600 0    50   ~ 0
 ~CLR
-Text Label 3300 3500 0    50   ~ 0
+Text Label 2000 3500 0    50   ~ 0
 FPFETCH∕~EXEC
 Text Label 5750 3300 2    50   ~ 0
 STEPPING
 Text Label 5400 4050 0    50   ~ 0
 µSTEPPING
-Text Label 3300 4050 0    50   ~ 0
+Text Label 2000 4050 0    50   ~ 0
 ~µSTEP
 Text Label 6900 2850 0    50   ~ 0
 CLK4
-Text Label 3300 2450 0    50   ~ 0
+Text Label 2000 2450 0    50   ~ 0
 ~RESET
-Text Label 3300 2550 0    50   ~ 0
+Text Label 2000 2550 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4150 3400 4100 3400
@@ -81,9 +81,9 @@ Wire Wire Line
 Wire Wire Line
 	4000 3600 4000 4350
 Connection ~ 4000 3600
-Text Label 3300 2750 0    50   ~ 0
+Text Label 2000 2750 0    50   ~ 0
 FPCLKEN-IN
-Text Label 3300 2950 0    50   ~ 0
+Text Label 2000 2950 0    50   ~ 0
 FPµSTEP-IN
 Wire Wire Line
 	5050 3300 5750 3300
@@ -194,30 +194,26 @@ Text Label 9900 2650 2    50   ~ 0
 FPCLKEN
 Wire Wire Line
 	8800 2650 9950 2650
-Text HLabel 3250 2750 0    50   Input ~ 0
+Text HLabel 1950 2750 0    50   Input ~ 0
 FPCLKEN-IN
-Text HLabel 3250 2950 0    50   Input ~ 0
+Text HLabel 1950 2950 0    50   Input ~ 0
 FPµSTEP-IN
-Text HLabel 3250 3300 0    50   Input ~ 0
+Text HLabel 1950 3300 0    50   Input ~ 0
 STEP∕~RUN
-Text HLabel 3250 3500 0    50   Input ~ 0
+Text HLabel 1950 3500 0    50   Input ~ 0
 FPFETCH∕~EXEC
-Text HLabel 3250 3600 0    50   Input ~ 0
+Text HLabel 1950 3600 0    50   Input ~ 0
 ~CLR
-Text HLabel 3250 4050 0    50   Input ~ 0
+Text HLabel 1950 4050 0    50   Input ~ 0
 ~µSTEP
 Text HLabel 6850 2850 0    50   Input ~ 0
 CLK4
-Text HLabel 3250 2450 0    50   Input ~ 0
+Text HLabel 1950 2450 0    50   Input ~ 0
 ~RESET
-Text HLabel 3250 2550 0    50   Input ~ 0
+Text HLabel 1950 2550 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4150 3500 4000 3500
-Wire Wire Line
-	4000 3600 3250 3600
-Wire Wire Line
-	4150 4050 3250 4050
 Wire Wire Line
 	7500 2850 6850 2850
 Wire Wire Line
@@ -248,11 +244,7 @@ F 3 "~" H 8700 2550 50  0001 C CNN
 	1    8700 2550
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	4150 3300 3250 3300
 Connection ~ 4000 3500
-Wire Wire Line
-	4000 3500 3250 3500
 Text HLabel 9950 3050 2    50   Output ~ 0
 ~LED-EXEC
 Text HLabel 9950 2950 2    50   Output ~ 0
@@ -312,19 +304,17 @@ $EndComp
 Connection ~ 2300 7400
 Connection ~ 2300 7200
 Wire Wire Line
-	3250 2750 7500 2750
+	1950 2750 7500 2750
 Wire Wire Line
-	3250 2450 7500 2450
+	1950 2450 7500 2450
 Wire Wire Line
-	3250 2550 7500 2550
+	1950 2550 7500 2550
 Wire Wire Line
-	3250 2950 7500 2950
+	1950 2950 7500 2950
 Wire Wire Line
 	6100 3050 7500 3050
 Wire Wire Line
 	5050 4050 6100 4050
-Wire Wire Line
-	4000 2650 7500 2650
 $Comp
 L alexios:74HC74 U?
 U 1 1 5EEDDDB2
@@ -355,11 +345,143 @@ Wire Wire Line
 Text Label 9900 2750 2    50   ~ 0
 CLK4-A
 Wire Wire Line
-	4150 4250 3300 4250
-Text Label 3300 4250 0    50   ~ 0
+	4150 4250 2000 4250
+Text Label 2000 4250 0    50   ~ 0
 CLK4-A
 Wire Wire Line
 	4100 4150 4100 4400
 Wire Wire Line
 	4000 2650 4000 3500
+Wire Wire Line
+	3200 3600 3200 2300
+$Comp
+L Device:R_Small R?
+U 1 1 6143E17D
+P 4000 2200
+AR Path="/6143E17D" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/6143E17D" Ref="R206"  Part="1" 
+F 0 "R206" H 3942 2154 50  0000 R CNN
+F 1 "10kΩ" H 3942 2245 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4000 2200 50  0001 C CNN
+F 3 "~" H 4000 2200 50  0001 C CNN
+	1    4000 2200
+	1    0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR0243
+U 1 1 6143EB97
+P 3200 2050
+F 0 "#PWR0243" H 3200 1900 50  0001 C CNN
+F 1 "+5V" H 3215 2223 50  0000 C CNN
+F 2 "" H 3200 2050 50  0001 C CNN
+F 3 "" H 3200 2050 50  0001 C CNN
+	1    3200 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 2050 3200 2100
+$Comp
+L Device:R_Small R?
+U 1 1 614428A1
+P 3200 2200
+AR Path="/614428A1" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/614428A1" Ref="R205"  Part="1" 
+F 0 "R205" H 3258 2246 50  0000 L CNN
+F 1 "10kΩ" H 3258 2155 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3200 2200 50  0001 C CNN
+F 3 "~" H 3200 2200 50  0001 C CNN
+	1    3200 2200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0244
+U 1 1 614428A7
+P 4000 2050
+F 0 "#PWR0244" H 4000 1900 50  0001 C CNN
+F 1 "+5V" H 4015 2223 50  0000 C CNN
+F 2 "" H 4000 2050 50  0001 C CNN
+F 3 "" H 4000 2050 50  0001 C CNN
+	1    4000 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 2050 4000 2100
+Wire Wire Line
+	4000 2650 4000 2300
+Wire Wire Line
+	1950 3500 4000 3500
+Connection ~ 4000 2650
+Wire Wire Line
+	4000 2650 7500 2650
+Wire Wire Line
+	1950 3600 3200 3600
+Wire Wire Line
+	2800 2300 2800 3300
+$Comp
+L power:+5V #PWR0241
+U 1 1 61454CFE
+P 2800 2050
+F 0 "#PWR0241" H 2800 1900 50  0001 C CNN
+F 1 "+5V" H 2815 2223 50  0000 C CNN
+F 2 "" H 2800 2050 50  0001 C CNN
+F 3 "" H 2800 2050 50  0001 C CNN
+	1    2800 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 2050 2800 2100
+$Comp
+L power:+5V #PWR0242
+U 1 1 6145C10E
+P 3600 2050
+F 0 "#PWR0242" H 3600 1900 50  0001 C CNN
+F 1 "+5V" H 3615 2223 50  0000 C CNN
+F 2 "" H 3600 2050 50  0001 C CNN
+F 3 "" H 3600 2050 50  0001 C CNN
+	1    3600 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 2050 3600 2100
+Connection ~ 2800 3300
+Wire Wire Line
+	2800 3300 1950 3300
+Wire Wire Line
+	2800 3300 4150 3300
+Wire Wire Line
+	3600 2300 3600 4050
+$Comp
+L Device:R_Small R?
+U 1 1 6145FC06
+P 3600 2200
+AR Path="/6145FC06" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/6145FC06" Ref="R204"  Part="1" 
+F 0 "R204" H 3658 2246 50  0000 L CNN
+F 1 "10kΩ" H 3658 2155 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3600 2200 50  0001 C CNN
+F 3 "~" H 3600 2200 50  0001 C CNN
+	1    3600 2200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 6145FDEE
+P 2800 2200
+AR Path="/6145FDEE" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/6145FDEE" Ref="R203"  Part="1" 
+F 0 "R203" H 2858 2246 50  0000 L CNN
+F 1 "10kΩ" H 2858 2155 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2800 2200 50  0001 C CNN
+F 3 "~" H 2800 2200 50  0001 C CNN
+	1    2800 2200
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1950 4050 3600 4050
+Connection ~ 3200 3600
+Wire Wire Line
+	3200 3600 4000 3600
+Connection ~ 3600 4050
+Wire Wire Line
+	3600 4050 4150 4050
 $EndSCHEMATC
