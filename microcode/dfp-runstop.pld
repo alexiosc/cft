@@ -2,8 +2,8 @@ GAL16V8         ; this is the GAL type
 DFPRST00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-RESET	RSTHOLD	FPFETCH	CLKEN	USTEP	NC	USTPNG	NC	NC	GND
-NC	LEDWAIT	LEDEXEC	LEDFTCH	NC	STPNG	FPCLKEN	FPUSTEP WAIT	VCC
+RESET	RSTHOLD	FPFETCH	CLKEN	CLK4IN	USTEP	USTPNG	NC	NC	GND
+NC	LEDWAIT	LEDEXEC	LEDFTCH	STPNG	CLK4OUT	FPCLKEN	FPUSTEP WAIT	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -32,6 +32,12 @@ FPUSTEP = /RESET  +  /RSTHOLD  +  USTEP * STPNG   +  USTEP  * USTPNG
 ; board under the same conditions.
 
 FPCLKEN = /RESET  +  /RSTHOLD  +  CLKEN * STPNG   +  CLKEN * USTPNG
+
+; The GAL conditions its inputs and they're fast enough. Use our spare
+; pins to provide a pulled-up, bus-held version of CLK4 in case the
+; clock generator is missing or inoperative.
+
+CLK4OUT = CLK4IN
 
 
 ; The Control Unit gives us an FPFETCH signal that's high during the
