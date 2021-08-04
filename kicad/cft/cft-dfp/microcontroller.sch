@@ -1070,10 +1070,6 @@ Text Label 3900 -2550 2    50   ~ 0
 ~IOINT
 Wire Wire Line
 	3550 -2550 4350 -2550
-Wire Wire Line
-	3550 -3250 4350 -3250
-Text HLabel 4350 -3250 2    50   Output ~ 0
-~PANELEN
 Text HLabel 4400 -3950 2    50   Output ~ 0
 ~LED-STOP
 Text Label 4250 -3950 2    50   ~ 0
@@ -1592,12 +1588,6 @@ Wire Wire Line
 Wire Wire Line
 	5750 -1300 6050 -1300
 Wire Wire Line
-	4850 -3850 4850 -1900
-Wire Wire Line
-	3550 -3850 4850 -3850
-Wire Wire Line
-	4850 -1900 5750 -1900
-Wire Wire Line
 	9050 -4350 9350 -4350
 Wire Wire Line
 	9350 -4250 9050 -4250
@@ -1853,10 +1843,165 @@ Wire Wire Line
 NoConn ~ 1750 -2350
 NoConn ~ 1750 -2250
 NoConn ~ 1750 -2150
+Text Label 14750 4850 0    50   ~ 0
+CLRWS
+Text Label 14750 4650 0    50   ~ 0
+µUCSTEP
+Text Label 14750 4750 0    50   ~ 0
+µCBUSCP
+Text Label 14750 5450 0    50   ~ 0
+~µSTEP
+Text Label 14750 5350 0    50   ~ 0
+STEP∕~RUN
+Text Label 14750 5250 0    50   ~ 0
+~LED-STOP
+Text Label 14750 5150 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	3550 -3250 4350 -3250
+Text HLabel 4350 -3250 2    50   Output ~ 0
+~PANELEN
+Wire Wire Line
+	3550 -3350 4350 -3350
 Text HLabel 4350 -3350 2    50   Output ~ 0
 ~AUTOSCAN
 Wire Wire Line
-	3550 -3350 4350 -3350
+	4850 -1900 5750 -1900
+Wire Wire Line
+	3550 -3850 4850 -3850
+Wire Wire Line
+	4850 -3850 4850 -1900
+Wire Wire Line
+	12600 -1300 12200 -1300
+Text Label 12200 -1300 0    50   ~ 0
+~BUSEN
+$Comp
+L power:+5V #PWR01501
+U 1 1 618C46D8
+P 13100 -1300
+F 0 "#PWR01501" H 13100 -1450 50  0001 C CNN
+F 1 "+5V" H 13250 -1250 50  0000 C CNN
+F 2 "" H 13100 -1300 50  0001 C CNN
+F 3 "" H 13100 -1300 50  0001 C CNN
+	1    13100 -1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 618C46DE
+P 12700 -1300
+AR Path="/618C46DE" Ref="R?"  Part="1" 
+AR Path="/64C48268/618C46DE" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/618C46DE" Ref="R?"  Part="1" 
+AR Path="/60A2F394/618C46DE" Ref="R?"  Part="1" 
+AR Path="/60757845/618C46DE" Ref="R1505"  Part="1" 
+F 0 "R1505" V 12650 -1650 50  0000 L CNN
+F 1 "4.7kΩ" V 12750 -1650 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12700 -1300 50  0001 C CNN
+F 3 "~" H 12700 -1300 50  0001 C CNN
+	1    12700 -1300
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	12800 -1300 13100 -1300
+Wire Wire Line
+	12600 -1100 12200 -1100
+Text Label 12200 -1100 0    50   ~ 0
+~AUTOSCAN
+$Comp
+L power:+5V #PWR01502
+U 1 1 6190F3A4
+P 13100 -1100
+F 0 "#PWR01502" H 13100 -1250 50  0001 C CNN
+F 1 "+5V" H 13250 -1050 50  0000 C CNN
+F 2 "" H 13100 -1100 50  0001 C CNN
+F 3 "" H 13100 -1100 50  0001 C CNN
+	1    13100 -1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 6190F3AA
+P 12700 -1100
+AR Path="/6190F3AA" Ref="R?"  Part="1" 
+AR Path="/64C48268/6190F3AA" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/6190F3AA" Ref="R?"  Part="1" 
+AR Path="/60A2F394/6190F3AA" Ref="R?"  Part="1" 
+AR Path="/60757845/6190F3AA" Ref="R1506"  Part="1" 
+F 0 "R1506" V 12650 -1450 50  0000 L CNN
+F 1 "4.7kΩ" V 12750 -1450 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12700 -1100 50  0001 C CNN
+F 3 "~" H 12700 -1100 50  0001 C CNN
+	1    12700 -1100
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	12800 -1100 13100 -1100
+Wire Wire Line
+	12600 -900 12200 -900
+Text Label 12200 -900 0    50   ~ 0
+~PANELEN
+$Comp
+L power:+5V #PWR01503
+U 1 1 619355AA
+P 13100 -900
+F 0 "#PWR01503" H 13100 -1050 50  0001 C CNN
+F 1 "+5V" H 13250 -850 50  0000 C CNN
+F 2 "" H 13100 -900 50  0001 C CNN
+F 3 "" H 13100 -900 50  0001 C CNN
+	1    13100 -900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 619355B0
+P 12700 -900
+AR Path="/619355B0" Ref="R?"  Part="1" 
+AR Path="/64C48268/619355B0" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/619355B0" Ref="R?"  Part="1" 
+AR Path="/60A2F394/619355B0" Ref="R?"  Part="1" 
+AR Path="/60757845/619355B0" Ref="R1507"  Part="1" 
+F 0 "R1507" V 12650 -1250 50  0000 L CNN
+F 1 "4.7kΩ" V 12750 -1250 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12700 -900 50  0001 C CNN
+F 3 "~" H 12700 -900 50  0001 C CNN
+	1    12700 -900
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	12800 -900 13100 -900
+Text HLabel 400  -3300 0    50   Output ~ 0
+SWA[0..3]
+Text HLabel 400  -2750 0    50   Input ~ 0
+SWD[0..3]
+Entry Wire Line
+	600  -3850 700  -3750
+Entry Wire Line
+	600  -3750 700  -3650
+Entry Wire Line
+	600  -3650 700  -3550
+Entry Wire Line
+	700  -3050 600  -2950
+Entry Wire Line
+	700  -3150 600  -3050
+Entry Wire Line
+	700  -3250 600  -3150
+Entry Wire Line
+	700  -3350 600  -3250
+Entry Wire Line
+	600  -3550 700  -3450
+Entry Bus Bus
+	600  -2850 500  -2750
+Wire Bus Line
+	500  -2750 400  -2750
+Entry Bus Bus
+	600  -3400 500  -3300
+Wire Bus Line
+	500  -3300 400  -3300
+Wire Bus Line
+	600  -3250 600  -2850
+Wire Bus Line
+	600  -3850 600  -3400
 Wire Bus Line
 	8850 -3400 8850 -2550
 Wire Bus Line
