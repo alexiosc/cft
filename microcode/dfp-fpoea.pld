@@ -107,41 +107,42 @@ GAL  PANELEN|  MFD  FPA    | MODULE  | Output
 ---------------------------|--------------------------------------------
  *       1     XXX XXX XX  |   X     | Panel disabled
 ---------------------------|--------------------------------------------
-         0     0-- 000 00  |   1A    | OE?:  µCV2
-         0     1-- 000 00  |   1A    | OE?:  AB hi
-         0     0-- 000 01  |   1B    | OE?:  µCV1
-         0     1-- 000 01  |   1B    | OE?:  AB mid
-         0     --- 000 10  |   1C    | OE?:  µCV0
-         0     --- 000 10  |   1C    | OE?:  AB lo
-         0     --- 000 11  |   1D    | OE?:  ISR
+ A 12    0     0-- 000 00  |   1A    | OE?:  µCV2
+ D 17    0     1-- 000 00  |   1A    | OE?:  AB hi
+ A 15    0     0-- 000 01  |   1B    | OE?:  µCV1
+ D 18    0     1-- 000 01  |   1B    | OE?:  AB mid
+ A 16    0     --- 000 10  |   1C    | OE?:  µCV0
+ D 16    0     --- 000 10  |   1C    | OE?:  AB lo
+ C 17    0     --- 000 11  |   1D    | OE?:  IEN
 	           
-         0     --- 001 00  |   2A    | OE?:  STATE
-         0     0-- 001 01  |   2B    | OE?:  IR hi
-         0     1-- 001 01  |   2B    | OE?:  DB hi
-         0     --- 001 10  |   2C    | OE?:  IR lo
-         0     --- 001 10  |   2C    | OE?:  DB lo
-         0     --- 001 11  |   2D    | OE?:  UAV lo
+ D 12    0     --- 001 00  |   2A    | OE?:  STATE
+ B 19    0     0-- 001 01  |   2B    | OE?:  IR hi
+ D 15    0     1-- 001 01  |   2B    | OE?:  DB hi
+ A 18    0     --- 001 10  |   2C    | OE?:  IR lo
+ D 16    0     --- 001 10  |   2C    | OE?:  DB lo
+ A 17    0     --- 001 11  |   2D    | OE?:  UAV lo (µA0)
 	          
-         0     --- 010 00  |   3A    | OE?: CTX
-         0     --- 010 01  |   3B    | OE?: PC hi
-         0     --- 010 10  |   3C    | OE?: PC lo
-         0     --- 010 11  |   3D    | OE?: IER?
+ A 19    0     --- 010 00  |   3A    | OE?: CTX
+ B 15    0     --- 010 01  |   3B    | OE?: PC hi
+ B 16    0     --- 010 10  |   3C    | OE?: PC lo
+ C 16    0     --- 010 11  |   3D    | OE?: IRF
 
-         0     --- 011 00  |   4A    | OE?: FLAGS
-         0     --- 011 01  |   4B    | OE?: AC hi
-         0     --- 011 10  |   4C    | OE?: AC lo
-         0     --- 011 11  |   4D    | OE?: ?
+ B 18    0     --- 011 00  |   4A    | OE?: FLAGS
+ B 13    0     --- 011 01  |   4B    | OE?: AC hi
+ A 13    0     --- 011 10  |   4C    | OE?: AC lo
+         0     --- 011 11  |   4D    | OE?: ?s
 
          0     -11 100 00  |   5A    | OE?: ?
-         0     -11 100 01  |   5B    | OE?: OR hi
-         0     -01 100 01  |   5B    | OE?: DR hi
-         0     -10 100 01  |   5B    | OE?: SP hi
-         0     -11 100 10  |   5C    | OE?: OR lo
-         0     -01 100 10  |   5C    | OE?: DR lo
-         0     -10 100 10  |   5C    | OE?: SP lo
+ D 13    0     -11 100 01  |   5B    | OE?: OR hi
+ C 18    0     -01 100 01  |   5B    | OE?: DR hi
+ B 14    0     -10 100 01  |   5B    | OE?: SP hi
+ D 14    0     -11 100 10  |   5C    | OE?: OR lo
+ C 19    0     -01 100 10  |   5C    | OE?: DR lo
+ A 14    0     -10 100 10  |   5C    | OE?: SP lo
          0     --- 100 11  |   5D    | OE?: ?
 
-         0     --- 1?? ??  |   --    | OE?:  AEXT
+ B 17    0     --- 1?? ??  |   --    | OE?:  AEXT
+ B 12    0     --- 101 00  |   --    | OE?:  SCANCLR
 
          0     --- 100 00  |   ?     | OE24: for future expansion
          0     --- 100 01  |   ?     | OE25: for future expansion
