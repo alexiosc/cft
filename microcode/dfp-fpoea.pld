@@ -43,15 +43,15 @@ VERSION 11
     A                B                C                  D
     ................ ................ ................   ................
 
-1   UCV2             UCV1             UCV0               ISR
+1   UCV2/AEXT        UCV1/AB mid      UCV0/AB lo         ISR
 
-2   STATE            IR hi            IR lo              UAV lo
+2   STATE            IR hi/DB hi      IR lo/DB lo        UAV lo
 
-3   AEXT             PC hi            PC lo              ISR?
+3   CTX              PC hi            PC lo              ?
 
-4   CTX              OR/DR/SP hi      OR/DR/SP lo        IER?
+4   FLAGS            AC hi            AC lo              ?
 
-5   FLAGS            AC hi            AC lo              ?
+5   ?                OR/DR/SP hi      OR/DR/SP lo        ?
 
 
 
@@ -60,45 +60,93 @@ Current truth table:
      _______
 GAL  PANELEN   FPA   | MODULE  |  MFD  | Output
 ---------------------|----------------------------------------------------
- *       1    XXXXX  |   X     |   XX  | Panel disabled
+ *       1    XXXXX  |   X     |  XXX  | Panel disabled
 ---------------------|----------------------------------------------------
- A       0    00000  |   1A    |   XX  | OE0:  µCV0
- A       0    00001  |   1B    |   XX  | OE1:  µCV1
- A       0    00010  |   1C    |   XX  | OE2:  µCV2
- A       0    00011  |   1D    |   XX  | OE3:  IER?
+ A       0    00000  |   1A    |  XXX  | OE0:  µCV0
+ A       0    00001  |   1B    |  XXX  | OE1:  µCV1
+ A       0    00010  |   1C    |  XXX  | OE2:  µCV2
+ A       0    00011  |   1D    |  XXX  | OE3:  ISR
 ---------------------|----------------------------------------------------
- A       0    00100  |   2A    |   XX  | OE4:  STATE
- A       0    00101  |   2B    |   XX  | OE5:  IR hi
- A       0    00110  |   2C    |   XX  | OE6:  IR lo
- A       0    00111  |   2D    |   XX  | OE7:  UAV lo
+ A       0    00100  |   2A    |  XXX  | OE4:  STATE
+ A       0    00101  |   2B    |  XXX  | OE5:  IR hi
+ A       0    00110  |   2C    |  XXX  | OE6:  IR lo
+ A       0    00111  |   2D    |  XXX  | OE7:  UAV lo
 ---------------------|----------------------------------------------------
- B       0    01000  |   3A    |   XX  | OE8:  AEXT
- B       0    01001  |   3B    |   XX  | OE9:  PC hi
- B       0    01010  |   3C    |   XX  | OE10: PC lo
- B       0    01011  |   3D    |   XX  | OE11: IER?
+ B       0    01000  |   3A    |  XXX  | OE8:  AEXT
+ B       0    01001  |   3B    |  XXX  | OE9:  PC hi
+ B       0    01010  |   3C    |  XXX  | OE10: PC lo
+ B       0    01011  |   3D    |  XXX  | OE11: IER?
 ---------------------|----------------------------------------------------
- C       0    01100  |   4A    |   XX  | OE12: CTX
- C       0    01101  |   4B    | * 11  | OE13: OR hi
- C       0    01101  |   4B    | * 01  | OE14: DR hi
- C       0    01101  |   4B    | * 10  | OE15: SP hi
- C       0    01110  |   4C    | * 11  | OE16: OR lo
- C       0    01110  |   4C    | * 01  | OE17: DR lo
- C       0    01110  |   4C    | * 10  | OE18: SP lo
- C       0    01111  |   4D    |   XX  | OE19: ISR?
+ C       0    01100  |   4A    |  XXX  | OE12: CTX
+ C       0    01101  |   4B    | *X11  | OE13: OR hi
+ C       0    01101  |   4B    | *X01  | OE14: DR hi
+ C       0    01101  |   4B    | *X10  | OE15: SP hi
+ C       0    01110  |   4C    | *X11  | OE16: OR lo
+ C       0    01110  |   4C    | *X01  | OE17: DR lo
+ C       0    01110  |   4C    | *X10  | OE18: SP lo
+ C       0    01111  |   4D    |  XXX  | OE19: ISR?
 ---------------------|----------------------------------------------------
- B       0    10000  |   5A    |   XX  | OE20: FLAGS
- B       0    10001  |   5B    |   XX  | OE21: AC hi
- B       0    10010  |   5C    |   XX  | OE22: AC lo
- B       0    10011  |   5D    |   XX  | OE23: ?
+ B       0    10000  |   5A    |  XXX  | OE20: FLAGS
+ B       0    10001  |   5B    |  XXX  | OE21: AC hi
+ B       0    10010  |   5C    |  XXX  | OE22: AC lo
+ B       0    10011  |   5D    |  XXX  | OE23: ?
 ---------------------|----------------------------------------------------
- D       0    10000  |   ?     |   XX  | OE24: for future expansion
- D       0    10001  |   ?     |   XX  | OE25: for future expansion
- D       0    10010  |   ?     |   XX  | OE26: for future expansion
- D       0    10011  |   ?     |   XX  | OE27: for future expansion
- D       0    10100  |   ?     |   XX  | OE28: for future expansion
- D       0    10101  |   ?     |   XX  | OE29: for future expansion
- D       0    10110  |   ?     |   XX  | OE30: for future expansion
- D       0    10111  |   ?     |   XX  | OE31: for future expansion
+ D       0    10000  |   ?     |  XXX  | OE24: for future expansion
+ D       0    10001  |   ?     |  XXX  | OE25: for future expansion
+ D       0    10010  |   ?     |  XXX  | OE26: for future expansion
+ D       0    10011  |   ?     |  XXX  | OE27: for future expansion
+ D       0    10100  |   ?     |  XXX  | OE28: for future expansion
+ D       0    10101  |   ?     |  XXX  | OE29: for future expansion
+ D       0    10110  |   ?     |  XXX  | OE30: for future expansion
+ D       0    10111  |   ?     |  XXX  | OE31: for future expansion
+
+
+PROPOSED AMENDED TRUTH TABLE FOR V.11 PANEL:
+
+GAL  PANELEN|  MFD  FPA    | MODULE  | Output
+---------------------------|--------------------------------------------
+ *       1     XXX XXX XX  |   X     | Panel disabled
+---------------------------|--------------------------------------------
+         0     0-- 000 00  |   1A    | OE?:  µCV2
+         0     1-- 000 00  |   1A    | OE?:  AB hi
+         0     0-- 000 01  |   1B    | OE?:  µCV1
+         0     1-- 000 01  |   1B    | OE?:  AB mid
+         0     --- 000 10  |   1C    | OE?:  µCV0
+         0     --- 000 10  |   1C    | OE?:  AB lo
+         0     --- 000 11  |   1D    | OE?:  ISR
+	           
+         0     --- 001 00  |   2A    | OE?:  STATE
+         0     0-- 001 01  |   2B    | OE?:  IR hi
+         0     1-- 001 01  |   2B    | OE?:  DB hi
+         0     --- 001 10  |   2C    | OE?:  IR lo
+         0     --- 001 10  |   2C    | OE?:  DB lo
+         0     --- 001 11  |   2D    | OE?:  UAV lo
+	          
+         0     --- 010 00  |   3A    | OE?: CTX
+         0     --- 010 01  |   3B    | OE?: PC hi
+         0     --- 010 10  |   3C    | OE?: PC lo
+         0     --- 010 11  |   3D    | OE?: IER?
+
+         0     --- 011 00  |   4A    | OE?: FLAGS
+         0     --- 011 01  |   4B    | OE?: AC hi
+         0     --- 011 10  |   4C    | OE?: AC lo
+         0     --- 011 11  |   4D    | OE?: ?
+
+         0     -11 100 00  |   5A    | OE?: ?
+         0     -11 100 01  |   5B    | OE?: OR hi
+         0     -01 100 01  |   5B    | OE?: DR hi
+         0     -10 100 01  |   5B    | OE?: SP hi
+         0     -11 100 10  |   5C    | OE?: OR lo
+         0     -01 100 10  |   5C    | OE?: DR lo
+         0     -10 100 10  |   5C    | OE?: SP lo
+         0     --- 100 11  |   5D    | OE?: ?
+
+         0     --- 1?? ??  |   --    | OE?:  AEXT
+
+         0     --- 100 00  |   ?     | OE24: for future expansion
+         0     --- 100 01  |   ?     | OE25: for future expansion
+
+
 
 
  here's also provision for a D GAL, to multiplex addirtional signals if needed.

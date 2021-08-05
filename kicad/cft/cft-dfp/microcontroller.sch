@@ -328,8 +328,6 @@ Text HLabel 400  -3950 0    50   Output ~ 0
 ~FPRSTHOLD
 Text Label 750  -3950 0    50   ~ 0
 ~FPRSTHOLD
-Text HLabel 4400 -4250 2    50   Output ~ 0
-MFD0
 Wire Wire Line
 	4400 -4150 3550 -4150
 Wire Wire Line
@@ -948,8 +946,6 @@ Wire Wire Line
 	5450 -2650 5950 -2650
 Text HLabel 5450 -2650 0    50   Input ~ 0
 ~SCANCLR
-Text HLabel 4400 -4150 2    50   Output ~ 0
-MFD1
 Wire Wire Line
 	1750 -5250 1700 -5250
 Wire Wire Line
@@ -1097,19 +1093,19 @@ USART0 used for\nprogramming
 $Comp
 L Device:R_Small R?
 U 1 1 6274D6EC
-P 3750 -4050
+P 3750 -3750
 AR Path="/6274D6EC" Ref="R?"  Part="1" 
 AR Path="/60757845/6274D6EC" Ref="R3"  Part="1" 
-F 0 "R3" V 3800 -3900 50  0000 C CNN
-F 1 "30Ω" V 3800 -4250 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3750 -4050 50  0001 C CNN
-F 3 "~" H 3750 -4050 50  0001 C CNN
-	1    3750 -4050
+F 0 "R3" V 3800 -3600 50  0000 C CNN
+F 1 "30Ω" V 3800 -3950 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3750 -3750 50  0001 C CNN
+F 3 "~" H 3750 -3750 50  0001 C CNN
+	1    3750 -3750
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	3850 -4050 4400 -4050
-Text HLabel 4400 -4050 2    50   Output ~ 0
+	3850 -3750 4400 -3750
+Text HLabel 4400 -3750 2    50   Output ~ 0
 ~LTSON
 Text Label 4200 -1250 2    50   ~ 0
 ~RD
@@ -1121,8 +1117,6 @@ Wire Wire Line
 	3550 -2350 3900 -2350
 Wire Wire Line
 	3550 -2250 3900 -2250
-Wire Wire Line
-	3550 -4050 3650 -4050
 Wire Wire Line
 	3550 -3950 4400 -3950
 NoConn ~ 3550 -1550
@@ -1208,7 +1202,6 @@ Wire Wire Line
 	1500 -3950 1750 -3950
 Wire Wire Line
 	5700 -4250 5950 -4250
-NoConn ~ 3550 -3750
 NoConn ~ 3550 -3650
 NoConn ~ 3550 -3150
 NoConn ~ 3550 -2150
@@ -1998,6 +1991,10 @@ Entry Bus Bus
 	600  -3400 500  -3300
 Wire Bus Line
 	500  -3300 400  -3300
+Wire Wire Line
+	3650 -3750 3550 -3750
+Wire Wire Line
+	3550 -4050 4400 -4050
 Wire Bus Line
 	600  -3250 600  -2850
 Wire Bus Line
@@ -2012,4 +2009,12 @@ Wire Bus Line
 	4650 -5500 4650 -4650
 Wire Bus Line
 	7400 -5150 7400 -2550
+Text Label 4150 -4050 0    50   ~ 0
+MFD2
+Text HLabel 4400 -4150 2    50   Output ~ 0
+MFD1
+Text HLabel 4400 -4250 2    50   Output ~ 0
+MFD0
+Text HLabel 4400 -4050 2    50   Output ~ 0
+MFD2
 $EndSCHEMATC

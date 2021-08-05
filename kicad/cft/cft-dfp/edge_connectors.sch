@@ -716,9 +716,9 @@ Text HLabel 11950 9200 0    50   Input ~ 0
 FPCLKEN
 Text HLabel 11950 9100 0    50   Input ~ 0
 FPµSTEP
-Text HLabel 11950 10800 0    50   Input ~ 0
+Text HLabel 11950 11000 0    50   Input ~ 0
 ~FPRAM~∕ROM
-Text HLabel 11950 10900 0    50   Input ~ 0
+Text HLabel 11950 11100 0    50   Input ~ 0
 FPFETCH∕~EXEC
 Wire Bus Line
 	7700 6000 8300 6000
@@ -1026,43 +1026,7 @@ Wire Wire Line
 Wire Wire Line
 	12550 9200 11950 9200
 Wire Wire Line
-	12550 9300 12000 9300
-Wire Wire Line
-	12550 9400 12000 9400
-Wire Wire Line
-	12550 9500 12000 9500
-Wire Wire Line
-	12550 9600 12000 9600
-Wire Wire Line
-	12550 9700 12000 9700
-Wire Wire Line
-	12550 9800 12000 9800
-Wire Wire Line
-	12550 9900 12000 9900
-Wire Wire Line
-	12550 10000 12000 10000
-Wire Wire Line
-	12550 10100 12000 10100
-Wire Wire Line
-	12550 10200 12000 10200
-Wire Wire Line
-	12550 10300 12000 10300
-Wire Wire Line
-	12550 10400 12000 10400
-Wire Wire Line
-	12550 10500 12000 10500
-Wire Wire Line
-	12550 10600 12000 10600
-Wire Wire Line
-	12550 10700 12000 10700
-Wire Wire Line
-	12550 10800 11950 10800
-Wire Wire Line
-	12550 10900 11950 10900
-Wire Wire Line
-	12550 11000 12000 11000
-Wire Wire Line
-	12550 11100 12000 11100
+	12550 11100 11950 11100
 Wire Wire Line
 	14150 9100 13750 9100
 Wire Wire Line
@@ -1079,10 +1043,6 @@ Wire Wire Line
 	14150 9700 13750 9700
 Wire Wire Line
 	14150 9800 13750 9800
-Wire Wire Line
-	14100 10400 13750 10400
-Wire Wire Line
-	14100 10500 13750 10500
 Wire Wire Line
 	14100 10600 13750 10600
 Wire Wire Line
@@ -1624,38 +1584,6 @@ Wire Wire Line
 	5150 2400 4600 2400
 Text Label 4600 2500 0    50   ~ 0
 FP-FPD7
-Text Label 12000 9300 0    50   ~ 0
-~FPOE0
-Text Label 12000 9400 0    50   ~ 0
-~FPOE1
-Text Label 12000 9500 0    50   ~ 0
-~FPOE2
-Text Label 12000 9600 0    50   ~ 0
-~FPOE3
-Text Label 12000 9700 0    50   ~ 0
-~FPOE4
-Text Label 12000 9800 0    50   ~ 0
-~FPOE5
-Text Label 12000 9900 0    50   ~ 0
-~FPOE6
-Text Label 12000 10000 0    50   ~ 0
-~FPOE7
-Text Label 12000 10100 0    50   ~ 0
-~FPOE8
-Text Label 12000 10200 0    50   ~ 0
-~FPOE9
-Text Label 12000 10300 0    50   ~ 0
-~FPOE10
-Text Label 12000 10400 0    50   ~ 0
-~FPOE11
-Text Label 11300 10450 0    50   ~ 0
-~FPOE12
-Text Label 12000 10600 0    50   ~ 0
-~FPOE13
-Text Label 12000 10700 0    50   ~ 0
-~FPOE14
-Text Label 12000 11000 0    50   ~ 0
-~FPOE15
 Text Label 2900 4300 0    50   ~ 0
 COND[0..3]
 Wire Bus Line
@@ -1780,30 +1708,130 @@ Wire Wire Line
 	13750 4050 14200 4050
 Text HLabel 14200 2150 2    50   UnSpc ~ 0
 ~HALT
-Text Label 12000 10800 0    50   ~ 0
+Text Label 12000 11000 0    50   ~ 0
 ~FPRAM~∕ROM
-Text Label 12000 10900 0    50   ~ 0
-FPFETCH∕~EXEC
 Text Label 12000 11100 0    50   ~ 0
-~FPOE17
+FPFETCH∕~EXEC
 Text Label 14100 10400 2    50   ~ 0
-~FPOE18
+~FPIEN
 Text Label 14100 10500 2    50   ~ 0
-~FPOE19
-Text Label 14100 10600 2    50   ~ 0
-~FPOE21
-Text Label 14100 10700 2    50   ~ 0
-~FPOE22
-Text Label 14100 10800 2    50   ~ 0
-~FPOE23
-Text Label 14100 10900 2    50   ~ 0
-~FPOE24
-Text Label 14100 11000 2    50   ~ 0
-~FPOE25
+~FPIRF
 Wire Wire Line
 	13750 11100 14100 11100
-Text Label 14100 11100 2    50   ~ 0
-~FPOE26
+Text Label 12000 9300 0    50   ~ 0
+~FPCTX
+Text Label 12000 9400 0    50   ~ 0
+~FPIRL
+Text Label 12000 9500 0    50   ~ 0
+~FPµA0
+Text Label 12000 9600 0    50   ~ 0
+~FPµC0
+Text Label 12000 9800 0    50   ~ 0
+~FPSPL
+Text Label 12000 9900 0    50   ~ 0
+~FPACL
+Text Label 12000 10000 0    50   ~ 0
+~FPµC2
+Text Label 12000 10100 0    50   ~ 0
+~FPIRH
+Text Label 12000 10200 0    50   ~ 0
+~FPFLAGS
+Text Label 12000 10300 0    50   ~ 0
+~FPAEXT
+Text Label 12000 10400 0    50   ~ 0
+~FPPCL
+Text Label 12000 10500 0    50   ~ 0
+~FPPCH
+Text Label 12000 10600 0    50   ~ 0
+~FPSPH
+Text Label 12000 10700 0    50   ~ 0
+~FPACH
+Text Label 12000 10800 0    50   ~ 0
+~FPDRL
+Text Label 12000 10900 0    50   ~ 0
+~FPDRH
+Text Label 12000 9700 0    50   ~ 0
+~FPµC1
+NoConn ~ 14100 10600
+NoConn ~ 14100 10700
+NoConn ~ 14100 10800
+NoConn ~ 14100 10900
+NoConn ~ 14100 11000
+NoConn ~ 14100 11100
+Text HLabel 11950 9300 0    50   Input ~ 0
+~FPCTX
+Wire Wire Line
+	11950 9300 12550 9300
+Text HLabel 11950 9400 0    50   Input ~ 0
+~FPIRL
+Text HLabel 11950 9500 0    50   Input ~ 0
+~FPµA0
+Wire Wire Line
+	11950 9400 12550 9400
+Wire Wire Line
+	12550 11000 11950 11000
+Wire Wire Line
+	11950 9500 12550 9500
+Wire Wire Line
+	11950 9600 12550 9600
+Wire Wire Line
+	11950 9700 12550 9700
+Wire Wire Line
+	11950 9800 12550 9800
+Wire Wire Line
+	11950 9900 12550 9900
+Wire Wire Line
+	11950 10000 12550 10000
+Wire Wire Line
+	11950 10100 12550 10100
+Wire Wire Line
+	11950 10200 12550 10200
+Wire Wire Line
+	11950 10300 12550 10300
+Wire Wire Line
+	11950 10400 12550 10400
+Wire Wire Line
+	11950 10500 12550 10500
+Wire Wire Line
+	11950 10600 12550 10600
+Wire Wire Line
+	11950 10700 12550 10700
+Wire Wire Line
+	11950 10800 12550 10800
+Wire Wire Line
+	11950 10900 12550 10900
+Text HLabel 11950 9600 0    50   Input ~ 0
+~FPµC0
+Text HLabel 11950 9700 0    50   Input ~ 0
+~FPµC1
+Text HLabel 11950 9800 0    50   Input ~ 0
+~FPSPL
+Text HLabel 11950 9900 0    50   Input ~ 0
+~FPACL
+Text HLabel 11950 10000 0    50   Input ~ 0
+~FPµC2
+Text HLabel 11950 10100 0    50   Input ~ 0
+~FPIRH
+Text HLabel 11950 10200 0    50   Input ~ 0
+~FPFLAGS
+Text HLabel 11950 10300 0    50   Input ~ 0
+~FPAEXT
+Text HLabel 11950 10400 0    50   Input ~ 0
+~FPPCL
+Text HLabel 11950 10500 0    50   Input ~ 0
+~FPPCH
+Text HLabel 11950 10600 0    50   Input ~ 0
+~FPSHP
+Text HLabel 11950 10700 0    50   Input ~ 0
+~FPACH
+Text HLabel 11950 10800 0    50   Input ~ 0
+~FPDRL
+Text HLabel 11950 10900 0    50   Input ~ 0
+~FPDRH
+Wire Wire Line
+	13750 10400 14150 10400
+Wire Wire Line
+	13750 10500 14150 10500
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1818,4 +1846,8 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
+Text HLabel 14150 10400 2    50   Input ~ 0
+~FPIEN
+Text HLabel 14150 10500 2    50   Input ~ 0
+~FPIRF
 $EndSCHEMATC

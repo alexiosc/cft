@@ -1957,22 +1957,17 @@ Connection ~ 4450 3150
 Wire Wire Line
 	4450 3150 4450 1950
 Wire Wire Line
-	1400 5500 1800 5500
-Text Label 1400 4800 0    50   ~ 0
+	1350 5500 1800 5500
+Text Label 1350 4700 0    50   ~ 0
 ~LED-STOP
-Text Label 1400 4600 0    50   ~ 0
+Text Label 1350 5200 0    50   ~ 0
 ~RSTHOLD
-Text Label 1400 5200 0    50   ~ 0
+Text Label 1350 5300 0    50   ~ 0
 ~IRQS
-Text Label 1400 4700 0    50   ~ 0
+Text Label 1350 4600 0    50   ~ 0
 STEP∕~RUN
 Wire Wire Line
-	1750 5600 1750 5300
-Wire Wire Line
 	1800 5600 1750 5600
-Wire Wire Line
-	1750 5300 1800 5300
-Connection ~ 1750 5600
 Wire Wire Line
 	1750 5650 1750 5600
 $Comp
@@ -1990,11 +1985,11 @@ F 3 "" H 1750 5650 50  0001 C CNN
 	1    1750 5650
 	1    0    0    -1  
 $EndComp
-Text Label 1400 5100 0    50   ~ 0
+Text Label 1350 5000 0    50   ~ 0
 ~LED-EXEC
-Text Label 1400 5000 0    50   ~ 0
+Text Label 1350 4900 0    50   ~ 0
 ~LED-FETCH
-Text Label 1400 4900 0    50   ~ 0
+Text Label 1350 4800 0    50   ~ 0
 ~WS
 Text Label 3000 5300 2    50   ~ 0
 FPD7
@@ -2012,37 +2007,37 @@ Text Label 3000 4700 2    50   ~ 0
 FPD1
 Text Label 3000 4600 2    50   ~ 0
 FPD0
-Text Label 1400 5500 0    50   ~ 0
+Text Label 1350 5500 0    50   ~ 0
 ~FPOE16
 Text Notes 1500 4250 0    100  ~ 20
 State Lights (~FPOE16~)
 Wire Wire Line
-	1300 4600 1800 4600
+	1250 5200 1800 5200
 Wire Wire Line
-	1300 4700 1800 4700
+	1250 4600 1800 4600
 Wire Wire Line
-	1300 4800 1800 4800
+	1250 4700 1800 4700
 Wire Wire Line
-	1300 4900 1800 4900
+	1250 4800 1800 4800
 Wire Wire Line
-	1300 5000 1800 5000
+	1250 4900 1800 4900
 Wire Wire Line
-	1300 5100 1800 5100
+	1250 5000 1800 5000
 Wire Wire Line
-	1300 5200 1800 5200
-Text HLabel 1300 4600 0    50   Input ~ 0
+	1250 5300 1800 5300
+Text HLabel 1250 5200 0    50   Input ~ 0
 ~RSTHOLD
-Text HLabel 1300 4700 0    50   Input ~ 0
+Text HLabel 1250 4600 0    50   Input ~ 0
 STEP∕~RUN
-Text HLabel 1300 4800 0    50   Input ~ 0
+Text HLabel 1250 4700 0    50   Input ~ 0
 ~LED-STOP
-Text HLabel 1300 4900 0    50   Input ~ 0
+Text HLabel 1250 4800 0    50   Input ~ 0
 ~WS
-Text HLabel 1300 5000 0    50   Input ~ 0
+Text HLabel 1250 4900 0    50   Input ~ 0
 ~LED-FETCH
-Text HLabel 1300 5100 0    50   Input ~ 0
+Text HLabel 1250 5000 0    50   Input ~ 0
 ~LED-EXEC
-Text HLabel 1300 5200 0    50   Input ~ 0
+Text HLabel 1250 5300 0    50   Input ~ 0
 ~IRQS
 $Comp
 L Device:C_Small C?
@@ -2357,8 +2352,6 @@ Wire Wire Line
 	2400 9850 2750 9850
 Wire Wire Line
 	2400 9950 2750 9950
-Text Label 2400 10350 0    50   ~ 0
-~PANELEN
 Wire Wire Line
 	2750 9650 2400 9650
 Wire Wire Line
@@ -2367,8 +2360,6 @@ Text Label 2400 9550 0    50   ~ 0
 FPA0
 Text Label 2400 9650 0    50   ~ 0
 FPA1
-Wire Wire Line
-	2400 10350 2750 10350
 Wire Wire Line
 	2750 10050 2400 10050
 Text Label 2400 10050 0    50   ~ 0
@@ -2438,8 +2429,6 @@ Wire Wire Line
 	2400 11400 2750 11400
 Wire Wire Line
 	2400 11500 2750 11500
-Text Label 2400 11900 0    50   ~ 0
-~PANELEN
 Wire Wire Line
 	2750 11200 2400 11200
 Wire Wire Line
@@ -2448,8 +2437,6 @@ Text Label 2400 11100 0    50   ~ 0
 FPA0
 Text Label 2400 11200 0    50   ~ 0
 FPA1
-Wire Wire Line
-	2400 11900 2750 11900
 Wire Wire Line
 	2750 11600 2400 11600
 Text Label 2400 11600 0    50   ~ 0
@@ -2503,8 +2490,6 @@ Wire Wire Line
 	2400 12950 2750 12950
 Wire Wire Line
 	2400 13050 2750 13050
-Text Label 2400 13450 0    50   ~ 0
-~PANELEN
 Wire Wire Line
 	2750 12750 2400 12750
 Wire Wire Line
@@ -2514,8 +2499,6 @@ FPA0
 Text Label 2400 12750 0    50   ~ 0
 FPA1
 Wire Wire Line
-	2400 13450 2750 13450
-Wire Wire Line
 	2750 13150 2400 13150
 Text Label 2400 13150 0    50   ~ 0
 FPA5
@@ -2523,8 +2506,6 @@ Wire Wire Line
 	2750 13250 2400 13250
 Text Label 2400 13250 0    50   ~ 0
 MFD0
-Text Label 2400 13350 0    50   ~ 0
-MFD1
 Wire Wire Line
 	2750 13350 2400 13350
 Wire Wire Line
@@ -2568,8 +2549,6 @@ Wire Wire Line
 	2400 14550 2750 14550
 Wire Wire Line
 	2400 14650 2750 14650
-Text Label 2400 15050 0    50   ~ 0
-~PANELEN
 Wire Wire Line
 	2750 14350 2400 14350
 Wire Wire Line
@@ -2578,8 +2557,6 @@ Text Label 2400 14250 0    50   ~ 0
 FPA0
 Text Label 2400 14350 0    50   ~ 0
 FPA1
-Wire Wire Line
-	2400 15050 2750 15050
 Wire Wire Line
 	2750 14750 2400 14750
 Text Label 2400 14750 0    50   ~ 0
@@ -2712,10 +2689,6 @@ Entry Wire Line
 	3950 14250 4050 14150
 Entry Wire Line
 	3950 14350 4050 14250
-NoConn ~ 2750 10450
-NoConn ~ 2750 12000
-NoConn ~ 2750 13550
-NoConn ~ 2750 15150
 Text Notes 4100 11500 0    50   ~ 0
 Note: discontinuity here
 $Comp
@@ -2946,14 +2919,45 @@ Entry Wire Line
 	3950 12650 4050 12550
 Text Label 3950 12650 2    50   ~ 0
 ~FPOE12
+$Comp
+L power:+5V #PWR0128
+U 1 1 61BD34DB
+P 1800 5100
+F 0 "#PWR0128" H 1800 4950 50  0001 C CNN
+F 1 "+5V" V 1815 5228 50  0000 L CNN
+F 2 "" H 1800 5100 50  0001 C CNN
+F 3 "" H 1800 5100 50  0001 C CNN
+	1    1800 5100
+	0    -1   -1   0   
+$EndComp
+Text Notes 2000 5800 0    50   ~ 0
+Checked for Panel v.11.
+Text Label 2400 13350 0    50   ~ 0
+MFD1
+Wire Wire Line
+	2400 15050 2750 15050
+Text Label 2400 15050 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2400 13450 2750 13450
+Text Label 2400 13450 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	2400 11900 2750 11900
+Text Label 2400 11900 0    50   ~ 0
+~PANELEN
 Wire Bus Line
-	2050 800  2050 1800
+	4050 9350 4050 14850
 Wire Bus Line
 	3150 4700 3150 5450
 Wire Bus Line
 	4600 800  4600 3250
 Wire Bus Line
-	4050 9350 4050 14850
-Wire Bus Line
 	6750 1200 6750 4850
+Wire Bus Line
+	2050 800  2050 1800
+Wire Wire Line
+	2400 10350 2750 10350
+Text Label 2400 10350 0    50   ~ 0
+~PANELEN
 $EndSCHEMATC

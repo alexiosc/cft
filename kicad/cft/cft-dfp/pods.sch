@@ -47,22 +47,6 @@ Wire Wire Line
 	2850 1350 2850 1400
 Wire Wire Line
 	2850 1400 2900 1400
-Text Label 2600 1600 0    50   ~ 0
-FPD0
-Text Label 2600 1700 0    50   ~ 0
-FPD1
-Text Label 2600 1800 0    50   ~ 0
-FPD2
-Text Label 2600 1900 0    50   ~ 0
-FPD3
-Text Label 2600 2000 0    50   ~ 0
-FPD4
-Text Label 2600 2100 0    50   ~ 0
-FPD5
-Text Label 2600 2200 0    50   ~ 0
-FPD6
-Text Label 2600 2300 0    50   ~ 0
-FPD7
 Text Label 1850 2500 0    50   ~ 0
 BUSCP
 Wire Wire Line
@@ -189,70 +173,6 @@ Text Label 5100 3000 0    50   ~ 0
 ~WCV0
 Text Label 5100 2600 0    50   ~ 0
 ~RAB2
-Wire Wire Line
-	4000 1600 4350 1600
-Wire Wire Line
-	4000 1700 4350 1700
-Wire Wire Line
-	4000 1800 4350 1800
-Wire Wire Line
-	4000 1900 4350 1900
-Wire Wire Line
-	4000 2000 4350 2000
-Wire Wire Line
-	4000 2100 4350 2100
-Wire Wire Line
-	4000 2200 4350 2200
-Wire Wire Line
-	4000 2300 4350 2300
-Wire Wire Line
-	4000 2500 4350 2500
-Wire Wire Line
-	4000 2600 4350 2600
-Wire Wire Line
-	4000 2700 4350 2700
-Wire Wire Line
-	4000 2800 4350 2800
-Wire Wire Line
-	4000 2900 4350 2900
-Wire Wire Line
-	4000 3000 4350 3000
-Wire Wire Line
-	4000 3100 4350 3100
-Wire Wire Line
-	4000 3200 4350 3200
-Text Label 4350 1600 2    50   ~ 0
-AB0
-Text Label 4350 1700 2    50   ~ 0
-AB1
-Text Label 4350 1800 2    50   ~ 0
-AB2
-Text Label 4350 1900 2    50   ~ 0
-AB3
-Text Label 4350 2000 2    50   ~ 0
-AB4
-Text Label 4350 2100 2    50   ~ 0
-AB5
-Text Label 4350 2200 2    50   ~ 0
-AB6
-Text Label 4350 2300 2    50   ~ 0
-AB7
-Text Label 4350 2500 2    50   ~ 0
-AB8
-Text Label 4350 2600 2    50   ~ 0
-AB9
-Text Label 4350 2700 2    50   ~ 0
-AB10
-Text Label 4350 2800 2    50   ~ 0
-AB11
-Text Label 4350 2900 2    50   ~ 0
-AB12
-Text Label 4350 3000 2    50   ~ 0
-AB13
-Text Label 4350 3100 2    50   ~ 0
-AB14
-Text Label 4350 3200 2    50   ~ 0
-AB15
 Text Label 6850 1600 2    50   ~ 0
 AB16
 Text Label 6850 1700 2    50   ~ 0
@@ -707,22 +627,6 @@ Text Notes 3100 4400 0    100  ~ 20
 Data Bus
 Text Notes 5800 4400 0    100  ~ 20
 IBus
-Wire Wire Line
-	2900 2300 2600 2300
-Wire Wire Line
-	2900 2200 2600 2200
-Wire Wire Line
-	2900 2100 2600 2100
-Wire Wire Line
-	2900 2000 2600 2000
-Wire Wire Line
-	2900 1900 2600 1900
-Wire Wire Line
-	2900 1800 2600 1800
-Wire Wire Line
-	2900 1700 2600 1700
-Wire Wire Line
-	2900 1600 2600 1600
 Entry Bus Bus
 	2400 1300 2500 1400
 Entry Wire Line
@@ -1078,8 +982,6 @@ Text HLabel 1250 2250 0    50   Input ~ 0
 ~RAB1
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~RAB0
-Text HLabel 1250 1450 0    50   Input ~ 0
-BUSCP
 Wire Bus Line
 	1250 1300 2400 1300
 Text HLabel 1250 1300 0    50   BiDi ~ 0
@@ -1153,7 +1055,7 @@ Wire Wire Line
 Wire Wire Line
 	14250 3750 13900 3750
 Text Label 13900 3750 0    50   ~ 0
-BUSCP
+BPCP
 Wire Wire Line
 	14250 3850 13900 3850
 Wire Wire Line
@@ -1161,7 +1063,7 @@ Wire Wire Line
 Wire Wire Line
 	15050 3850 15400 3850
 Text Label 13900 3850 0    50   ~ 0
-~RAB0
+~RAB0A
 Text Label 15400 3750 2    50   ~ 0
 ~WAB0
 Text Label 15400 3850 2    50   ~ 0
@@ -1233,7 +1135,7 @@ Wire Wire Line
 Wire Wire Line
 	14250 5300 13900 5300
 Text Label 13900 5300 0    50   ~ 0
-BUSCP
+BPCP
 Wire Wire Line
 	14250 5400 13900 5400
 Wire Wire Line
@@ -1241,7 +1143,7 @@ Wire Wire Line
 Wire Wire Line
 	15050 5400 15400 5400
 Text Label 13900 5400 0    50   ~ 0
-~RAB1
+~RAB1A
 Text Label 15400 5300 2    50   ~ 0
 ~WAB1
 Text Label 15400 5400 2    50   ~ 0
@@ -1297,7 +1199,7 @@ Wire Wire Line
 Wire Wire Line
 	14250 6850 13900 6850
 Text Label 13900 6850 0    50   ~ 0
-BUSCP
+BPCP
 Wire Wire Line
 	14250 6950 13900 6950
 Wire Wire Line
@@ -1305,7 +1207,7 @@ Wire Wire Line
 Wire Wire Line
 	15050 6950 15400 6950
 Text Label 13900 6950 0    50   ~ 0
-~RAB2
+~RAB2A
 Text Label 15400 6850 2    50   ~ 0
 ~WAB2
 Text Label 15400 6950 2    50   ~ 0
@@ -1471,11 +1373,11 @@ Wire Wire Line
 Wire Wire Line
 	16000 3750 15650 3750
 Text Label 15650 3750 0    50   ~ 0
-BUSCP
+BPCP
 Wire Wire Line
 	16000 3850 15650 3850
 Text Label 15650 3850 0    50   ~ 0
-~RDB0
+~RDB0A
 Text Label 15650 4400 0    50   ~ 0
 FPD0
 Text Label 15650 4500 0    50   ~ 0
@@ -1511,11 +1413,11 @@ Wire Wire Line
 Wire Wire Line
 	16000 5300 15650 5300
 Text Label 15650 5300 0    50   ~ 0
-BUSCP
+BPCP
 Wire Wire Line
 	16000 5400 15650 5400
 Text Label 15650 5400 0    50   ~ 0
-~RDB1
+~RDB1A
 $Sheet
 S 16000 4250 800  1300
 U 61FBB5B6
@@ -2073,6 +1975,332 @@ F 3 "" H 13350 7500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	12650 7550 12150 7550
+$Comp
+L alexios:74HC08 U401
+U 1 1 61FEF78C
+P 16850 -800
+F 0 "U401" H 16975 -925 50  0000 C CNN
+F 1 "74HC08" H 16975 -1016 50  0000 C CNN
+F 2 "" H 17050 -1250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 -1250 50  0001 C CNN
+	1    16850 -800
+	1    0    0    -1  
+$EndComp
+Text Label 17500 -400 2    50   ~ 0
+BPCP
+Wire Wire Line
+	17200 -400 17500 -400
+Wire Wire Line
+	16350 -450 16750 -450
+Text HLabel 16350 -350 0    50   Input ~ 0
+~SCANCLR
+Text Label 16400 -350 0    50   ~ 0
+~SCANCLR
+Text Label 16400 -450 0    50   ~ 0
+BUSCP
+Wire Wire Line
+	16750 -350 16350 -350
+Text HLabel 16350 -450 0    50   Input ~ 0
+BUSCP
+$Comp
+L alexios:74HC08 U402
+U 5 1 61FF49CC
+P 18550 1100
+F 0 "U402" H 18880 596 50  0000 L CNN
+F 1 "74HC08" H 18880 505 50  0000 L CNN
+F 2 "" H 18750 650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 650 50  0001 C CNN
+	5    18550 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61FF49C6
+P 18350 1750
+AR Path="/61FF49C6" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/61FF49C6" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/61FF49C6" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 18350 1500 50  0001 C CNN
+F 1 "GND" H 18355 1577 50  0000 C CNN
+F 2 "" H 18350 1750 50  0001 C CNN
+F 3 "" H 18350 1750 50  0001 C CNN
+	1    18350 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61FF49C0
+P 18350 1550
+AR Path="/61FF49C0" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/61FF49C0" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/61FF49C0" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 18350 1400 50  0001 C CNN
+F 1 "+5V" H 18365 1723 50  0000 C CNN
+F 2 "" H 18350 1550 50  0001 C CNN
+F 3 "" H 18350 1550 50  0001 C CNN
+	1    18350 1550
+	1    0    0    -1  
+$EndComp
+Connection ~ 18350 1750
+Connection ~ 18350 1550
+$Comp
+L Device:C_Small C?
+U 1 1 61FF49BA
+P 18350 1650
+AR Path="/61FF49BA" Ref="C?"  Part="1" 
+AR Path="/60757845/61FF49BA" Ref="C?"  Part="1" 
+AR Path="/66CDCD87/61FF49BA" Ref="C402"  Part="1" 
+F 0 "C402" H 18259 1696 50  0000 R CNN
+F 1 "100nF" H 18259 1605 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 18350 1650 50  0001 C CNN
+F 3 "~" H 18350 1650 50  0001 C CNN
+	1    18350 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U?
+U 5 1 61FF165F
+P 16800 1100
+F 0 "U?" H 17130 596 50  0000 L CNN
+F 1 "74HC08" H 17130 505 50  0000 L CNN
+F 2 "" H 17000 650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17000 650 50  0001 C CNN
+	5    16800 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61F339FB
+P 16600 1750
+AR Path="/61F339FB" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/61F339FB" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/61F339FB" Ref="#PWR0402"  Part="1" 
+F 0 "#PWR0402" H 16600 1500 50  0001 C CNN
+F 1 "GND" H 16605 1577 50  0000 C CNN
+F 2 "" H 16600 1750 50  0001 C CNN
+F 3 "" H 16600 1750 50  0001 C CNN
+	1    16600 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61F339F5
+P 16600 1550
+AR Path="/61F339F5" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/61F339F5" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/61F339F5" Ref="#PWR0401"  Part="1" 
+F 0 "#PWR0401" H 16600 1400 50  0001 C CNN
+F 1 "+5V" H 16615 1723 50  0000 C CNN
+F 2 "" H 16600 1550 50  0001 C CNN
+F 3 "" H 16600 1550 50  0001 C CNN
+	1    16600 1550
+	1    0    0    -1  
+$EndComp
+Connection ~ 16600 1750
+Connection ~ 16600 1550
+$Comp
+L Device:C_Small C?
+U 1 1 61F339EF
+P 16600 1650
+AR Path="/61F339EF" Ref="C?"  Part="1" 
+AR Path="/60757845/61F339EF" Ref="C?"  Part="1" 
+AR Path="/66CDCD87/61F339EF" Ref="C401"  Part="1" 
+F 0 "C401" H 16509 1696 50  0000 R CNN
+F 1 "100nF" H 16509 1605 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 16600 1650 50  0001 C CNN
+F 3 "~" H 16600 1650 50  0001 C CNN
+	1    16600 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 3 1 61FEAB81
+P 18550 -350
+F 0 "U402" H 18675 -475 50  0000 C CNN
+F 1 "74HC08" H 18675 -566 50  0000 C CNN
+F 2 "" H 18750 -800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 -800 50  0001 C CNN
+	3    18550 -350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 2 1 61FE9961
+P 18550 100
+F 0 "U402" H 18675 -25 50  0000 C CNN
+F 1 "74HC08" H 18675 -116 50  0000 C CNN
+F 2 "" H 18750 -350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 -350 50  0001 C CNN
+	2    18550 100 
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 1 1 61FE438A
+P 18550 550
+F 0 "U402" H 18675 425 50  0000 C CNN
+F 1 "74HC08" H 18675 334 50  0000 C CNN
+F 2 "" H 18750 100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 100 50  0001 C CNN
+	1    18550 550 
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 4 1 624150B9
+P 18550 -800
+F 0 "U402" H 18675 -925 50  0000 C CNN
+F 1 "74HC08" H 18675 -1016 50  0000 C CNN
+F 2 "" H 18750 -1250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 -1250 50  0001 C CNN
+	4    18550 -800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	18450 0    18100 0   
+Wire Wire Line
+	18450 900  18400 900 
+Wire Wire Line
+	18450 1000 18400 1000
+Wire Wire Line
+	18900 50   19200 50  
+Wire Wire Line
+	18900 -400 19200 -400
+Wire Wire Line
+	18450 -450 18100 -450
+Wire Wire Line
+	16750 0    16400 0   
+Wire Wire Line
+	17200 50   17500 50  
+$Comp
+L alexios:74HC08 U401
+U 2 1 627A4D3C
+P 16850 -350
+F 0 "U401" H 16975 -475 50  0000 C CNN
+F 1 "74HC08" H 16975 -566 50  0000 C CNN
+F 2 "" H 17050 -800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 -800 50  0001 C CNN
+	2    16850 -350
+	1    0    0    -1  
+$EndComp
+Text Label 16400 0    0    50   ~ 0
+~RAB0
+Text Label 16400 450  0    50   ~ 0
+~RAB1
+Text Label 16400 900  0    50   ~ 0
+~RAB2
+Text Label 18100 -450 0    50   ~ 0
+~RDB0
+Text Label 18100 0    0    50   ~ 0
+~RDB1
+Text Label 17500 50   2    50   ~ 0
+~RAB0A
+Text Label 17500 950  2    50   ~ 0
+~RAB2A
+Text Label 19200 -400 2    50   ~ 0
+~RDB0A
+Text Label 19200 50   2    50   ~ 0
+~RDB1A
+Text Label 16400 100  0    50   ~ 0
+~FPABL
+Text Label 16400 550  0    50   ~ 0
+~FPABM
+Text Label 16400 1000 0    50   ~ 0
+~FPABH
+Text Label 18100 -350 0    50   ~ 0
+~FPDBL
+Text Label 18100 100  0    50   ~ 0
+~FPDBH
+Text Label 17500 500  2    50   ~ 0
+~RAB1A
+Wire Wire Line
+	17200 500  17500 500 
+Wire Wire Line
+	16750 450  16400 450 
+$Comp
+L alexios:74HC08 U401
+U 3 1 6272CC8C
+P 16850 100
+F 0 "U401" H 16975 -25 50  0000 C CNN
+F 1 "74HC08" H 16975 -116 50  0000 C CNN
+F 2 "" H 17050 -350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 -350 50  0001 C CNN
+	3    16850 100 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	16750 900  16400 900 
+Wire Wire Line
+	17200 950  17500 950 
+$Comp
+L alexios:74HC08 U401
+U 4 1 626F0E3A
+P 16850 550
+F 0 "U401" H 16975 425 50  0000 C CNN
+F 1 "74HC08" H 16975 334 50  0000 C CNN
+F 2 "" H 17050 100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 100 50  0001 C CNN
+	4    16850 550 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	18450 550  18400 550 
+Wire Wire Line
+	18450 450  18400 450 
+NoConn ~ 18900 500 
+NoConn ~ 18900 950 
+Wire Wire Line
+	18400 450  18400 550 
+Connection ~ 18400 550 
+Wire Wire Line
+	18400 550  18400 600 
+$Comp
+L power:GND #PWR?
+U 1 1 62D6B255
+P 18400 600
+F 0 "#PWR?" H 18400 350 50  0001 C CNN
+F 1 "GND" H 18405 427 50  0000 C CNN
+F 2 "" H 18400 600 50  0001 C CNN
+F 3 "" H 18400 600 50  0001 C CNN
+	1    18400 600 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	18400 900  18400 1000
+Connection ~ 18400 1000
+Wire Wire Line
+	18400 1000 18400 1050
+$Comp
+L power:GND #PWR?
+U 1 1 62D6B678
+P 18400 1050
+F 0 "#PWR?" H 18400 800 50  0001 C CNN
+F 1 "GND" H 18405 877 50  0000 C CNN
+F 2 "" H 18400 1050 50  0001 C CNN
+F 3 "" H 18400 1050 50  0001 C CNN
+	1    18400 1050
+	1    0    0    -1  
+$EndComp
+Text HLabel 16350 100  0    50   Input ~ 0
+~FPABL
+Wire Wire Line
+	16350 100  16750 100 
+Text HLabel 16350 550  0    50   Input ~ 0
+~FPABM
+Wire Wire Line
+	16350 550  16750 550 
+Text HLabel 16350 1000 0    50   Input ~ 0
+~FPABH
+Wire Wire Line
+	16350 1000 16750 1000
+Text HLabel 18050 -350 0    50   Input ~ 0
+~FPDBL
+Wire Wire Line
+	18050 -350 18450 -350
+Text HLabel 18050 100  0    50   Input ~ 0
+FPDBH
+Wire Wire Line
+	18050 100  18450 100 
 Wire Bus Line
 	2500 1400 2500 2200
 $EndSCHEMATC
