@@ -1832,6 +1832,10 @@ Wire Wire Line
 	13750 10400 14150 10400
 Wire Wire Line
 	13750 10500 14150 10500
+Text HLabel 14150 10400 2    50   Input ~ 0
+~FPIEN
+Text HLabel 14150 10500 2    50   Input ~ 0
+~FPIRF
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
@@ -1846,8 +1850,4 @@ Wire Bus Line
 	12000 6200 12000 7700
 Wire Bus Line
 	12000 1450 12000 3750
-Text HLabel 14150 10400 2    50   Input ~ 0
-~FPIEN
-Text HLabel 14150 10500 2    50   Input ~ 0
-~FPIRF
 $EndSCHEMATC

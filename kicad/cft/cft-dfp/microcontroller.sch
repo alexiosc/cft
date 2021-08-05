@@ -1995,6 +1995,14 @@ Wire Wire Line
 	3650 -3750 3550 -3750
 Wire Wire Line
 	3550 -4050 4400 -4050
+Text Label 4150 -4050 0    50   ~ 0
+MFD2
+Text HLabel 4400 -4150 2    50   Output ~ 0
+MFD1
+Text HLabel 4400 -4250 2    50   Output ~ 0
+MFD0
+Text HLabel 4400 -4050 2    50   Output ~ 0
+MFD2
 Wire Bus Line
 	600  -3250 600  -2850
 Wire Bus Line
@@ -2009,12 +2017,4 @@ Wire Bus Line
 	4650 -5500 4650 -4650
 Wire Bus Line
 	7400 -5150 7400 -2550
-Text Label 4150 -4050 0    50   ~ 0
-MFD2
-Text HLabel 4400 -4150 2    50   Output ~ 0
-MFD1
-Text HLabel 4400 -4250 2    50   Output ~ 0
-MFD0
-Text HLabel 4400 -4050 2    50   Output ~ 0
-MFD2
 $EndSCHEMATC

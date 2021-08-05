@@ -80,13 +80,11 @@ FPA[0..7]
 Wire Wire Line
 	4050 4300 4550 4300
 Text HLabel 4050 4300 0    50   Input ~ 0
-~ORHOE
+~FPORH
 Text HLabel 4050 2850 0    50   Input ~ 0
-~ORLOE
+~FPORL
 Wire Wire Line
 	4550 2750 4350 2750
-Text Label 4350 2850 0    50   ~ 0
-~ORLOE
 Text Label 4350 4000 0    50   ~ 0
 FPD7
 Text Label 4350 3900 0    50   ~ 0
@@ -103,8 +101,6 @@ Text Label 4350 3400 0    50   ~ 0
 FPD1
 Text Label 4350 3300 0    50   ~ 0
 FPD0
-Text Label 4350 4300 0    50   ~ 0
-~ORHOE
 $Comp
 L power:GND #PWR?
 U 1 1 65780688
