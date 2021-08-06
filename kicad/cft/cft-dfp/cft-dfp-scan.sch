@@ -1595,9 +1595,9 @@ Text Label 2250 1200 0    50   ~ 0
 FPA3
 Text Label 2250 1300 0    50   ~ 0
 FPA4
-Text Label 4350 9350 0    50   ~ 0
+Text Label -1900 1100 0    50   ~ 0
 ~ROW[1..5]
-Text HLabel 4900 9350 2    50   Output ~ 0
+Text HLabel -1350 1100 2    50   Output ~ 0
 ~ROW[1..5]
 Text Notes 6950 1200 2    50   ~ 10
 01
@@ -1882,7 +1882,7 @@ Wire Wire Line
 Wire Wire Line
 	5200 3550 5250 3550
 Wire Bus Line
-	4350 9350 4900 9350
+	-1900 1100 -1350 1100
 Wire Wire Line
 	450  3150 4450 3150
 Wire Wire Line
@@ -1901,7 +1901,7 @@ Wire Wire Line
 	1900 1400 2400 1400
 Wire Wire Line
 	2400 1400 2400 1700
-Text HLabel 1300 11650 0    50   Input ~ 0
+Text HLabel -4950 3400 0    50   Input ~ 0
 MFD0
 Text Notes 1600 6100 0    100  ~ 20
 Multi-Function Display
@@ -2179,7 +2179,7 @@ Text Label 4300 1400 2    50   ~ 0
 ~ROW4
 Text Label 4300 1500 2    50   ~ 0
 ~ROW5
-Text HLabel 1300 11750 0    50   Input ~ 0
+Text HLabel -4950 3500 0    50   Input ~ 0
 MFD1
 NoConn ~ 3450 1600
 $Comp
@@ -2282,299 +2282,299 @@ $EndComp
 $Comp
 L alexios:ATF16V8B U1901
 U 1 1 63738EA1
-P 2200 10000
-F 0 "U1901" H 2200 10750 50  0000 C CNN
-F 1 "ATF16V8B" H 2200 10650 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2200 10000 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2200 10000 50  0001 C CNN
-F 4 "DFPOEA" V 2200 10050 50  0000 C CNB "Signature"
-F 5 "dfp-fpoea.jed" H 2200 9350 50  0000 C CNN "Image Filename"
-	1    2200 10000
+P -4050 1750
+F 0 "U1901" H -4050 2500 50  0000 C CNN
+F 1 "ATF16V8B" H -4050 2400 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4050 1750 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -4050 1750 50  0001 C CNN
+F 4 "DFPOEA" V -4050 1800 50  0000 C CNB "Signature"
+F 5 "dfp-fpoea.jed" H -4050 1100 50  0000 C CNN "Image Filename"
+	1    -4050 1750
 	1    0    0    -1  
 $EndComp
-Text Label 1400 9950 0    50   ~ 0
+Text Label -4850 1700 0    50   ~ 0
 FPA4
-Text Label 1400 9850 0    50   ~ 0
+Text Label -4850 1600 0    50   ~ 0
 FPA3
-Text Label 1400 9750 0    50   ~ 0
+Text Label -4850 1500 0    50   ~ 0
 FPA2
 Wire Wire Line
-	1400 9750 1750 9750
+	-4850 1500 -4500 1500
 Wire Wire Line
-	1400 9850 1750 9850
+	-4850 1600 -4500 1600
 Wire Wire Line
-	1400 9950 1750 9950
+	-4850 1700 -4500 1700
 Wire Wire Line
-	1750 9650 1400 9650
+	-4500 1400 -4850 1400
 Wire Wire Line
-	1750 9550 1400 9550
-Text Label 1400 9550 0    50   ~ 0
+	-4500 1300 -4850 1300
+Text Label -4850 1300 0    50   ~ 0
 FPA0
-Text Label 1400 9650 0    50   ~ 0
+Text Label -4850 1400 0    50   ~ 0
 FPA1
 Wire Wire Line
-	1750 10050 1400 10050
-Text Label 1400 10050 0    50   ~ 0
+	-4500 1800 -4850 1800
+Text Label -4850 1800 0    50   ~ 0
 FPA5
 Wire Wire Line
-	1750 10150 1400 10150
-Text Label 1400 10150 0    50   ~ 0
+	-4500 1900 -4850 1900
+Text Label -4850 1900 0    50   ~ 0
 MFD0
-Text Label 1400 10250 0    50   ~ 0
+Text Label -4850 2000 0    50   ~ 0
 MFD1
 Wire Wire Line
-	1750 10250 1400 10250
+	-4500 2000 -4850 2000
 $Comp
 L alexios:ATF16V8B U1902
 U 1 1 64ADDAFB
-P 2150 11500
-F 0 "U1902" H 2150 12250 50  0000 C CNN
-F 1 "ATF16V8B" H 2150 12150 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2150 11500 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2150 11500 50  0001 C CNN
-F 4 "DFPOEB" V 2150 11550 50  0000 C CNB "Signature"
-F 5 "dfp-fpoeb.jed" H 2150 10850 50  0000 C CNN "Image Filename"
-	1    2150 11500
+P -4100 3250
+F 0 "U1902" H -4100 4000 50  0000 C CNN
+F 1 "ATF16V8B" H -4100 3900 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4100 3250 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -4100 3250 50  0001 C CNN
+F 4 "DFPOEB" V -4100 3300 50  0000 C CNB "Signature"
+F 5 "dfp-fpoeb.jed" H -4100 2600 50  0000 C CNN "Image Filename"
+	1    -4100 3250
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:ATF16V8B U1903
 U 1 1 64E5A41B
-P 2150 13050
-F 0 "U1903" H 2150 13800 50  0000 C CNN
-F 1 "ATF16V8B" H 2150 13700 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2150 13050 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2150 13050 50  0001 C CNN
-F 4 "DFPOEC" V 2150 13100 50  0000 C CNB "Signature"
-F 5 "dfp-fpoec.jed" H 2150 12400 50  0000 C CNN "Image Filename"
-	1    2150 13050
+P -4100 4800
+F 0 "U1903" H -4100 5550 50  0000 C CNN
+F 1 "ATF16V8B" H -4100 5450 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4100 4800 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -4100 4800 50  0001 C CNN
+F 4 "DFPOEC" V -4100 4850 50  0000 C CNB "Signature"
+F 5 "dfp-fpoec.jed" H -4100 4150 50  0000 C CNN "Image Filename"
+	1    -4100 4800
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:ATF16V8B U1904
 U 1 1 64EF18CE
-P 2150 14550
-F 0 "U1904" H 2150 15300 50  0000 C CNN
-F 1 "ATF16V8B" H 2150 15200 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 2150 14550 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2150 14550 50  0001 C CNN
-F 4 "DFPOED" V 2150 14600 50  0000 C CNB "Signature"
-F 5 "dfp-fpoed.jed" H 2150 13900 50  0000 C CNN "Image Filename"
-	1    2150 14550
+P -4100 6300
+F 0 "U1904" H -4100 7050 50  0000 C CNN
+F 1 "ATF16V8B" H -4100 6950 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -4100 6300 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -4100 6300 50  0001 C CNN
+F 4 "DFPOED" V -4100 6350 50  0000 C CNB "Signature"
+F 5 "dfp-fpoed.jed" H -4100 5650 50  0000 C CNN "Image Filename"
+	1    -4100 6300
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:ATF16V8B U1901
 U 2 1 668CB4F9
-P 4950 10450
-F 0 "U1901" H 5130 10496 50  0000 L CNN
-F 1 "ATF16V8B" H 5130 10405 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 10450 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 10450 50  0001 C CNN
-F 4 "DFPOEA" H 5130 10405 50  0001 L CNB "Signature"
-F 5 "dfp-fpoea.jed" H 5130 10314 50  0001 L CNN "Image Filename"
-	2    4950 10450
+P -1300 2200
+F 0 "U1901" H -1120 2246 50  0000 L CNN
+F 1 "ATF16V8B" H -1120 2155 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1300 2200 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1300 2200 50  0001 C CNN
+F 4 "DFPOEA" H -1120 2155 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H -1120 2064 50  0001 L CNN "Image Filename"
+	2    -1300 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 668CCEC7
-P 4600 10450
+P -1650 2200
 AR Path="/668CCEC7" Ref="C?"  Part="1" 
 AR Path="/6233F88C/668CCEC7" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/668CCEC7" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/668CCEC7" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/668CCEC7" Ref="C1901"  Part="1" 
-F 0 "C1901" H 4509 10496 50  0000 R CNN
-F 1 "100nF" H 4509 10405 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4600 10450 50  0001 C CNN
-F 3 "~" H 4600 10450 50  0001 C CNN
-	1    4600 10450
+F 0 "C1901" H -1741 2246 50  0000 R CNN
+F 1 "100nF" H -1741 2155 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1650 2200 50  0001 C CNN
+F 3 "~" H -1650 2200 50  0001 C CNN
+	1    -1650 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0233
 U 1 1 668CCECD
-P 4600 10350
-F 0 "#PWR0233" H 4600 10200 50  0001 C CNN
-F 1 "+5V" H 4615 10523 50  0000 C CNN
-F 2 "" H 4600 10350 50  0001 C CNN
-F 3 "" H 4600 10350 50  0001 C CNN
-	1    4600 10350
+P -1650 2100
+F 0 "#PWR0233" H -1650 1950 50  0001 C CNN
+F 1 "+5V" H -1635 2273 50  0000 C CNN
+F 2 "" H -1650 2100 50  0001 C CNN
+F 3 "" H -1650 2100 50  0001 C CNN
+	1    -1650 2100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0234
 U 1 1 668CCED3
-P 4600 10550
-F 0 "#PWR0234" H 4600 10300 50  0001 C CNN
-F 1 "GND" H 4605 10377 50  0000 C CNN
-F 2 "" H 4600 10550 50  0001 C CNN
-F 3 "" H 4600 10550 50  0001 C CNN
-	1    4600 10550
+P -1650 2300
+F 0 "#PWR0234" H -1650 2050 50  0001 C CNN
+F 1 "GND" H -1645 2127 50  0000 C CNN
+F 2 "" H -1650 2300 50  0001 C CNN
+F 3 "" H -1650 2300 50  0001 C CNN
+	1    -1650 2300
 	1    0    0    -1  
 $EndComp
-Connection ~ 4600 10350
-Connection ~ 4600 10550
+Connection ~ -1650 2100
+Connection ~ -1650 2300
 $Comp
 L alexios:ATF16V8B U1902
 U 2 1 66AA11BC
-P 4950 11950
-F 0 "U1902" H 5130 11996 50  0000 L CNN
-F 1 "ATF16V8B" H 5130 11905 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 11950 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 11950 50  0001 C CNN
-F 4 "DFPOEA" H 5130 11905 50  0001 L CNB "Signature"
-F 5 "dfp-fpoea.jed" H 5130 11814 50  0001 L CNN "Image Filename"
-	2    4950 11950
+P -1300 3700
+F 0 "U1902" H -1120 3746 50  0000 L CNN
+F 1 "ATF16V8B" H -1120 3655 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1300 3700 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1300 3700 50  0001 C CNN
+F 4 "DFPOEA" H -1120 3655 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H -1120 3564 50  0001 L CNN "Image Filename"
+	2    -1300 3700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 66AA11C2
-P 4600 11950
+P -1650 3700
 AR Path="/66AA11C2" Ref="C?"  Part="1" 
 AR Path="/6233F88C/66AA11C2" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/66AA11C2" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/66AA11C2" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/66AA11C2" Ref="C1902"  Part="1" 
-F 0 "C1902" H 4509 11996 50  0000 R CNN
-F 1 "100nF" H 4509 11905 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4600 11950 50  0001 C CNN
-F 3 "~" H 4600 11950 50  0001 C CNN
-	1    4600 11950
+F 0 "C1902" H -1741 3746 50  0000 R CNN
+F 1 "100nF" H -1741 3655 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1650 3700 50  0001 C CNN
+F 3 "~" H -1650 3700 50  0001 C CNN
+	1    -1650 3700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0235
 U 1 1 66AA11C8
-P 4600 11850
-F 0 "#PWR0235" H 4600 11700 50  0001 C CNN
-F 1 "+5V" H 4615 12023 50  0000 C CNN
-F 2 "" H 4600 11850 50  0001 C CNN
-F 3 "" H 4600 11850 50  0001 C CNN
-	1    4600 11850
+P -1650 3600
+F 0 "#PWR0235" H -1650 3450 50  0001 C CNN
+F 1 "+5V" H -1635 3773 50  0000 C CNN
+F 2 "" H -1650 3600 50  0001 C CNN
+F 3 "" H -1650 3600 50  0001 C CNN
+	1    -1650 3600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0236
 U 1 1 66AA11CE
-P 4600 12050
-F 0 "#PWR0236" H 4600 11800 50  0001 C CNN
-F 1 "GND" H 4605 11877 50  0000 C CNN
-F 2 "" H 4600 12050 50  0001 C CNN
-F 3 "" H 4600 12050 50  0001 C CNN
-	1    4600 12050
+P -1650 3800
+F 0 "#PWR0236" H -1650 3550 50  0001 C CNN
+F 1 "GND" H -1645 3627 50  0000 C CNN
+F 2 "" H -1650 3800 50  0001 C CNN
+F 3 "" H -1650 3800 50  0001 C CNN
+	1    -1650 3800
 	1    0    0    -1  
 $EndComp
-Connection ~ 4600 11850
-Connection ~ 4600 12050
+Connection ~ -1650 3600
+Connection ~ -1650 3800
 $Comp
 L alexios:ATF16V8B U1903
 U 2 1 66B3DA7F
-P 4950 13450
-F 0 "U1903" H 5130 13496 50  0000 L CNN
-F 1 "ATF16V8B" H 5130 13405 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 13450 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 13450 50  0001 C CNN
-F 4 "DFPOEA" H 5130 13405 50  0001 L CNB "Signature"
-F 5 "dfp-fpoea.jed" H 5130 13314 50  0001 L CNN "Image Filename"
-	2    4950 13450
+P -1300 5200
+F 0 "U1903" H -1120 5246 50  0000 L CNN
+F 1 "ATF16V8B" H -1120 5155 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1300 5200 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1300 5200 50  0001 C CNN
+F 4 "DFPOEA" H -1120 5155 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H -1120 5064 50  0001 L CNN "Image Filename"
+	2    -1300 5200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 66B3DA85
-P 4600 13450
+P -1650 5200
 AR Path="/66B3DA85" Ref="C?"  Part="1" 
 AR Path="/6233F88C/66B3DA85" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/66B3DA85" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/66B3DA85" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/66B3DA85" Ref="C1903"  Part="1" 
-F 0 "C1903" H 4509 13496 50  0000 R CNN
-F 1 "100nF" H 4509 13405 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4600 13450 50  0001 C CNN
-F 3 "~" H 4600 13450 50  0001 C CNN
-	1    4600 13450
+F 0 "C1903" H -1741 5246 50  0000 R CNN
+F 1 "100nF" H -1741 5155 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1650 5200 50  0001 C CNN
+F 3 "~" H -1650 5200 50  0001 C CNN
+	1    -1650 5200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0237
 U 1 1 66B3DA8B
-P 4600 13350
-F 0 "#PWR0237" H 4600 13200 50  0001 C CNN
-F 1 "+5V" H 4615 13523 50  0000 C CNN
-F 2 "" H 4600 13350 50  0001 C CNN
-F 3 "" H 4600 13350 50  0001 C CNN
-	1    4600 13350
+P -1650 5100
+F 0 "#PWR0237" H -1650 4950 50  0001 C CNN
+F 1 "+5V" H -1635 5273 50  0000 C CNN
+F 2 "" H -1650 5100 50  0001 C CNN
+F 3 "" H -1650 5100 50  0001 C CNN
+	1    -1650 5100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0238
 U 1 1 66B3DA91
-P 4600 13550
-F 0 "#PWR0238" H 4600 13300 50  0001 C CNN
-F 1 "GND" H 4605 13377 50  0000 C CNN
-F 2 "" H 4600 13550 50  0001 C CNN
-F 3 "" H 4600 13550 50  0001 C CNN
-	1    4600 13550
+P -1650 5300
+F 0 "#PWR0238" H -1650 5050 50  0001 C CNN
+F 1 "GND" H -1645 5127 50  0000 C CNN
+F 2 "" H -1650 5300 50  0001 C CNN
+F 3 "" H -1650 5300 50  0001 C CNN
+	1    -1650 5300
 	1    0    0    -1  
 $EndComp
-Connection ~ 4600 13350
-Connection ~ 4600 13550
+Connection ~ -1650 5100
+Connection ~ -1650 5300
 $Comp
 L alexios:ATF16V8B U1904
 U 2 1 66BD92F2
-P 4950 14950
-F 0 "U1904" H 5130 14996 50  0000 L CNN
-F 1 "ATF16V8B" H 5130 14905 50  0000 L CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 14950 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 14950 50  0001 C CNN
-F 4 "DFPOEA" H 5130 14905 50  0001 L CNB "Signature"
-F 5 "dfp-fpoea.jed" H 5130 14814 50  0001 L CNN "Image Filename"
-	2    4950 14950
+P -1300 6700
+F 0 "U1904" H -1120 6746 50  0000 L CNN
+F 1 "ATF16V8B" H -1120 6655 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H -1300 6700 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H -1300 6700 50  0001 C CNN
+F 4 "DFPOEA" H -1120 6655 50  0001 L CNB "Signature"
+F 5 "dfp-fpoea.jed" H -1120 6564 50  0001 L CNN "Image Filename"
+	2    -1300 6700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 66BD92F8
-P 4600 14950
+P -1650 6700
 AR Path="/66BD92F8" Ref="C?"  Part="1" 
 AR Path="/6233F88C/66BD92F8" Ref="C?"  Part="1" 
 AR Path="/60757845/607964B6/66BD92F8" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/66BD92F8" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/66BD92F8" Ref="C1904"  Part="1" 
-F 0 "C1904" H 4509 14996 50  0000 R CNN
-F 1 "100nF" H 4509 14905 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4600 14950 50  0001 C CNN
-F 3 "~" H 4600 14950 50  0001 C CNN
-	1    4600 14950
+F 0 "C1904" H -1741 6746 50  0000 R CNN
+F 1 "100nF" H -1741 6655 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -1650 6700 50  0001 C CNN
+F 3 "~" H -1650 6700 50  0001 C CNN
+	1    -1650 6700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0239
 U 1 1 66BD92FE
-P 4600 14850
-F 0 "#PWR0239" H 4600 14700 50  0001 C CNN
-F 1 "+5V" H 4615 15023 50  0000 C CNN
-F 2 "" H 4600 14850 50  0001 C CNN
-F 3 "" H 4600 14850 50  0001 C CNN
-	1    4600 14850
+P -1650 6600
+F 0 "#PWR0239" H -1650 6450 50  0001 C CNN
+F 1 "+5V" H -1635 6773 50  0000 C CNN
+F 2 "" H -1650 6600 50  0001 C CNN
+F 3 "" H -1650 6600 50  0001 C CNN
+	1    -1650 6600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0240
 U 1 1 66BD9304
-P 4600 15050
-F 0 "#PWR0240" H 4600 14800 50  0001 C CNN
-F 1 "GND" H 4605 14877 50  0000 C CNN
-F 2 "" H 4600 15050 50  0001 C CNN
-F 3 "" H 4600 15050 50  0001 C CNN
-	1    4600 15050
+P -1650 6800
+F 0 "#PWR0240" H -1650 6550 50  0001 C CNN
+F 1 "GND" H -1645 6627 50  0000 C CNN
+F 2 "" H -1650 6800 50  0001 C CNN
+F 3 "" H -1650 6800 50  0001 C CNN
+	1    -1650 6800
 	1    0    0    -1  
 $EndComp
-Connection ~ 4600 14850
-Connection ~ 4600 15050
+Connection ~ -1650 6600
+Connection ~ -1650 6800
 $Comp
 L power:+5V #PWR0128
 U 1 1 61BD34DB
@@ -2589,267 +2589,267 @@ $EndComp
 Text Notes 2000 5800 0    50   ~ 0
 Checked for Panel v.11.
 Wire Wire Line
-	1400 10450 1750 10450
-Text Label 1400 10450 0    50   ~ 0
+	-4850 2200 -4500 2200
+Text Label -4850 2200 0    50   ~ 0
 ~PANELEN
 Wire Wire Line
-	1750 10350 1400 10350
-Text Label 1400 10350 0    50   ~ 0
+	-4500 2100 -4850 2100
+Text Label -4850 2100 0    50   ~ 0
 MFD2
-Text Label 1350 11450 0    50   ~ 0
+Text Label -4900 3200 0    50   ~ 0
 FPA4
-Text Label 1350 11350 0    50   ~ 0
+Text Label -4900 3100 0    50   ~ 0
 FPA3
-Text Label 1350 11250 0    50   ~ 0
+Text Label -4900 3000 0    50   ~ 0
 FPA2
 Wire Wire Line
-	1350 11250 1700 11250
+	-4900 3000 -4550 3000
 Wire Wire Line
-	1350 11350 1700 11350
+	-4900 3100 -4550 3100
 Wire Wire Line
-	1350 11450 1700 11450
+	-4900 3200 -4550 3200
 Wire Wire Line
-	1700 11150 1350 11150
+	-4550 2900 -4900 2900
 Wire Wire Line
-	1700 11050 1350 11050
-Text Label 1350 11050 0    50   ~ 0
+	-4550 2800 -4900 2800
+Text Label -4900 2800 0    50   ~ 0
 FPA0
-Text Label 1350 11150 0    50   ~ 0
+Text Label -4900 2900 0    50   ~ 0
 FPA1
 Wire Wire Line
-	1700 11550 1350 11550
-Text Label 1350 11550 0    50   ~ 0
+	-4550 3300 -4900 3300
+Text Label -4900 3300 0    50   ~ 0
 FPA5
 Wire Wire Line
-	1700 11650 1300 11650
-Text Label 1350 11650 0    50   ~ 0
+	-4550 3400 -4950 3400
+Text Label -4900 3400 0    50   ~ 0
 MFD0
-Text Label 1350 11750 0    50   ~ 0
+Text Label -4900 3500 0    50   ~ 0
 MFD1
 Wire Wire Line
-	1700 11750 1300 11750
+	-4550 3500 -4950 3500
 Wire Wire Line
-	1350 11950 1700 11950
-Text Label 1350 11950 0    50   ~ 0
+	-4900 3700 -4550 3700
+Text Label -4900 3700 0    50   ~ 0
 ~PANELEN
 Wire Wire Line
-	1700 11850 1300 11850
-Text Label 1350 11850 0    50   ~ 0
+	-4550 3600 -4950 3600
+Text Label -4900 3600 0    50   ~ 0
 MFD2
-Text Label 1350 13000 0    50   ~ 0
+Text Label -4900 4750 0    50   ~ 0
 FPA4
-Text Label 1350 12900 0    50   ~ 0
+Text Label -4900 4650 0    50   ~ 0
 FPA3
-Text Label 1350 12800 0    50   ~ 0
+Text Label -4900 4550 0    50   ~ 0
 FPA2
 Wire Wire Line
-	1350 12800 1700 12800
+	-4900 4550 -4550 4550
 Wire Wire Line
-	1350 12900 1700 12900
+	-4900 4650 -4550 4650
 Wire Wire Line
-	1350 13000 1700 13000
+	-4900 4750 -4550 4750
 Wire Wire Line
-	1700 12700 1350 12700
+	-4550 4450 -4900 4450
 Wire Wire Line
-	1700 12600 1350 12600
-Text Label 1350 12600 0    50   ~ 0
+	-4550 4350 -4900 4350
+Text Label -4900 4350 0    50   ~ 0
 FPA0
-Text Label 1350 12700 0    50   ~ 0
+Text Label -4900 4450 0    50   ~ 0
 FPA1
 Wire Wire Line
-	1700 13100 1350 13100
-Text Label 1350 13100 0    50   ~ 0
+	-4550 4850 -4900 4850
+Text Label -4900 4850 0    50   ~ 0
 FPA5
 Wire Wire Line
-	1700 13200 1350 13200
-Text Label 1350 13200 0    50   ~ 0
+	-4550 4950 -4900 4950
+Text Label -4900 4950 0    50   ~ 0
 MFD0
-Text Label 1350 13300 0    50   ~ 0
+Text Label -4900 5050 0    50   ~ 0
 MFD1
 Wire Wire Line
-	1700 13300 1350 13300
+	-4550 5050 -4900 5050
 Wire Wire Line
-	1350 13500 1700 13500
-Text Label 1350 13500 0    50   ~ 0
+	-4900 5250 -4550 5250
+Text Label -4900 5250 0    50   ~ 0
 ~PANELEN
 Wire Wire Line
-	1700 13400 1350 13400
-Text Label 1350 13400 0    50   ~ 0
+	-4550 5150 -4900 5150
+Text Label -4900 5150 0    50   ~ 0
 MFD2
-Text Label 1350 14500 0    50   ~ 0
+Text Label -4900 6250 0    50   ~ 0
 FPA4
-Text Label 1350 14400 0    50   ~ 0
+Text Label -4900 6150 0    50   ~ 0
 FPA3
-Text Label 1350 14300 0    50   ~ 0
+Text Label -4900 6050 0    50   ~ 0
 FPA2
 Wire Wire Line
-	1350 14300 1700 14300
+	-4900 6050 -4550 6050
 Wire Wire Line
-	1350 14400 1700 14400
+	-4900 6150 -4550 6150
 Wire Wire Line
-	1350 14500 1700 14500
+	-4900 6250 -4550 6250
 Wire Wire Line
-	1700 14200 1350 14200
+	-4550 5950 -4900 5950
 Wire Wire Line
-	1700 14100 1350 14100
-Text Label 1350 14100 0    50   ~ 0
+	-4550 5850 -4900 5850
+Text Label -4900 5850 0    50   ~ 0
 FPA0
-Text Label 1350 14200 0    50   ~ 0
+Text Label -4900 5950 0    50   ~ 0
 FPA1
 Wire Wire Line
-	1700 14600 1350 14600
-Text Label 1350 14600 0    50   ~ 0
+	-4550 6350 -4900 6350
+Text Label -4900 6350 0    50   ~ 0
 FPA5
 Wire Wire Line
-	1700 14700 1350 14700
-Text Label 1350 14700 0    50   ~ 0
+	-4550 6450 -4900 6450
+Text Label -4900 6450 0    50   ~ 0
 MFD0
-Text Label 1350 14800 0    50   ~ 0
+Text Label -4900 6550 0    50   ~ 0
 MFD1
 Wire Wire Line
-	1700 14800 1350 14800
+	-4550 6550 -4900 6550
 Wire Wire Line
-	1350 15000 1700 15000
-Text Label 1350 15000 0    50   ~ 0
+	-4900 6750 -4550 6750
+Text Label -4900 6750 0    50   ~ 0
 ~PANELEN
 Wire Wire Line
-	1700 14900 1350 14900
-Text Label 1350 14900 0    50   ~ 0
+	-4550 6650 -4900 6650
+Text Label -4900 6650 0    50   ~ 0
 MFD2
-Text HLabel 1300 11850 0    50   Input ~ 0
+Text HLabel -4950 3600 0    50   Input ~ 0
 MFD2
 Wire Wire Line
-	2650 9550 2700 9550
-Text HLabel 2700 9550 2    50   Output ~ 0
+	-3600 1300 -3550 1300
+Text HLabel -3550 1300 2    50   Output ~ 0
 ~FPCTX
-Text HLabel 2700 9650 2    50   Output ~ 0
+Text HLabel -3550 1400 2    50   Output ~ 0
 ~FPIRL
 Wire Wire Line
-	2650 9650 2700 9650
+	-3600 1400 -3550 1400
 Wire Wire Line
-	2650 9750 2700 9750
+	-3600 1500 -3550 1500
 Wire Wire Line
-	2650 9850 2700 9850
+	-3600 1600 -3550 1600
 Wire Wire Line
-	2650 9950 2700 9950
+	-3600 1700 -3550 1700
 Wire Wire Line
-	2650 10050 2700 10050
+	-3600 1800 -3550 1800
 Wire Wire Line
-	2650 10150 2700 10150
+	-3600 1900 -3550 1900
 Wire Wire Line
-	2650 10250 2700 10250
-Text HLabel 2700 9750 2    50   Output ~ 0
+	-3600 2000 -3550 2000
+Text HLabel -3550 1500 2    50   Output ~ 0
 ~FPµA0
-Text HLabel 2700 9850 2    50   Output ~ 0
+Text HLabel -3550 1600 2    50   Output ~ 0
 ~FPµC0
-Text HLabel 2700 9950 2    50   Output ~ 0
+Text HLabel -3550 1700 2    50   Output ~ 0
 ~FPµC1
-Text HLabel 2700 10050 2    50   Output ~ 0
+Text HLabel -3550 1800 2    50   Output ~ 0
 ~FPSPL
-Text HLabel 2700 10150 2    50   Output ~ 0
+Text HLabel -3550 1900 2    50   Output ~ 0
 ~FPACL
-Text HLabel 2700 10250 2    50   Output ~ 0
+Text HLabel -3550 2000 2    50   Output ~ 0
 ~FPµC2
 Wire Wire Line
-	2600 11050 2650 11050
+	-3650 2800 -3600 2800
 Wire Wire Line
-	2600 11150 2650 11150
+	-3650 2900 -3600 2900
 Wire Wire Line
-	2600 11250 2650 11250
+	-3650 3000 -3600 3000
 Wire Wire Line
-	2600 11350 2650 11350
+	-3650 3100 -3600 3100
 Wire Wire Line
-	2600 11450 2650 11450
+	-3650 3200 -3600 3200
 Wire Wire Line
-	2600 11550 2650 11550
+	-3650 3300 -3600 3300
 Wire Wire Line
-	2600 11650 2650 11650
+	-3650 3400 -3600 3400
 Wire Wire Line
-	2600 11750 2650 11750
-Text HLabel 2650 11050 2    50   Output ~ 0
+	-3650 3500 -3600 3500
+Text HLabel -3600 2800 2    50   Output ~ 0
 ~FPIRH
-Text HLabel 2650 11150 2    50   Output ~ 0
+Text HLabel -3600 2900 2    50   Output ~ 0
 ~FPFLAGS
-Text HLabel 2650 11250 2    50   Output ~ 0
+Text HLabel -3600 3000 2    50   Output ~ 0
 ~FPAEXT
-Text HLabel 2650 11350 2    50   Output ~ 0
+Text HLabel -3600 3100 2    50   Output ~ 0
 ~FPPCL
-Text HLabel 2650 11450 2    50   Output ~ 0
+Text HLabel -3600 3200 2    50   Output ~ 0
 ~FPPCH
-Text HLabel 2650 11550 2    50   Output ~ 0
+Text HLabel -3600 3300 2    50   Output ~ 0
 ~FPSPH
-Text HLabel 2650 11650 2    50   Output ~ 0
+Text HLabel -3600 3400 2    50   Output ~ 0
 ~FPACH
-Text HLabel 2650 12600 2    50   Output ~ 0
+Text HLabel -3600 4350 2    50   Output ~ 0
 ~FPDRL
-Text HLabel 2650 11750 2    50   Output ~ 0
+Text HLabel -3600 3500 2    50   Output ~ 0
 ~SCANCLR
 Wire Wire Line
-	2600 12600 2650 12600
+	-3650 4350 -3600 4350
 Wire Wire Line
-	2600 12700 2650 12700
+	-3650 4450 -3600 4450
 Wire Wire Line
-	2600 12800 2650 12800
+	-3650 4550 -3600 4550
 Wire Wire Line
-	2600 12900 2650 12900
+	-3650 4650 -3600 4650
 Wire Wire Line
-	2600 13000 2650 13000
+	-3650 4750 -3600 4750
 Wire Wire Line
-	2600 13100 2650 13100
+	-3650 4850 -3600 4850
 Wire Wire Line
-	2600 13200 2650 13200
+	-3650 4950 -3600 4950
 Wire Wire Line
-	2600 13300 2650 13300
-Text HLabel 2650 12700 2    50   Output ~ 0
+	-3650 5050 -3600 5050
+Text HLabel -3600 4450 2    50   Output ~ 0
 ~FPDRH
-Text HLabel 2650 12800 2    50   Output ~ 0
+Text HLabel -3600 4550 2    50   Output ~ 0
 ~FPIEN
-Text HLabel 2650 12900 2    50   Output ~ 0
+Text HLabel -3600 4650 2    50   Output ~ 0
 ~FPIRF
 Wire Wire Line
 	1250 5500 1800 5500
 Wire Wire Line
-	2600 14100 2650 14100
+	-3650 5850 -3600 5850
 Wire Wire Line
-	2600 14200 2650 14200
+	-3650 5950 -3600 5950
 Wire Wire Line
-	2600 14300 2650 14300
+	-3650 6050 -3600 6050
 Wire Wire Line
-	2600 14400 2650 14400
-Wire Wire Line
-	2600 14500 2650 14500
-Wire Wire Line
-	2600 14600 2650 14600
-Wire Wire Line
-	2600 14700 2650 14700
-Wire Wire Line
-	2600 14800 3050 14800
-Text Label 3050 14800 2    50   ~ 0
+	-3650 6550 -3200 6550
+Text Label -3200 6550 2    50   ~ 0
 ~FPSTATE
-Text HLabel 2650 14600 2    50   Output ~ 0
-~FPORL
-Text HLabel 2650 14700 2    50   Output ~ 0
-~FPORH
-Text HLabel 2650 14100 2    50   Output ~ 0
-~FPABL
-Text HLabel 2650 14200 2    50   Output ~ 0
-~FPABM
-Text HLabel 2650 14300 2    50   Output ~ 0
-~FPABH
-Text HLabel 2650 14400 2    50   Output ~ 0
+NoConn ~ -3600 4750
+NoConn ~ -3600 4850
+NoConn ~ -3600 4950
+NoConn ~ -3600 5050
+Text HLabel -3600 5850 2    50   Output ~ 0
 ~FPDBL
-Text HLabel 2650 14500 2    50   Output ~ 0
-~FPDBH
-NoConn ~ 2650 13000
-NoConn ~ 2650 13100
-NoConn ~ 2650 13200
-NoConn ~ 2650 13300
-Wire Bus Line
-	2050 800  2050 1800
+Text HLabel -3600 6050 2    50   Output ~ 0
+~FPABM
+Text HLabel -3600 5950 2    50   Output ~ 0
+~FPABL
 Wire Bus Line
 	3150 4700 3150 5450
 Wire Bus Line
 	4600 800  4600 3250
 Wire Bus Line
 	6750 1200 6750 4850
+Wire Bus Line
+	2050 800  2050 1800
+Text HLabel -3600 6250 2    50   Output ~ 0
+~FPDBH
+Text HLabel -3600 6150 2    50   Output ~ 0
+~FPABH
+Text HLabel -3600 6450 2    50   Output ~ 0
+~FPORH
+Text HLabel -3600 6350 2    50   Output ~ 0
+~FPORL
+Wire Wire Line
+	-3650 6450 -3600 6450
+Wire Wire Line
+	-3650 6350 -3600 6350
+Wire Wire Line
+	-3650 6250 -3600 6250
+Wire Wire Line
+	-3650 6150 -3600 6150
 $EndSCHEMATC

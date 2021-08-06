@@ -643,14 +643,10 @@ Wire Wire Line
 	1750 -2750 950  -2750
 Wire Wire Line
 	1750 -2850 950  -2850
-Text Label 1650 -1250 2    50   ~ 0
-µCBUSCP
 Text Label 1650 -1350 2    50   ~ 0
 µCµSTEP
 Text Label 1650 -1450 2    50   ~ 0
 µCCLKEN
-Text HLabel 950  -1250 0    50   Output ~ 0
-BUSCP
 Text HLabel 950  -1350 0    50   Output ~ 0
 FPµSTEP-IN
 Text HLabel 950  -1450 0    50   Output ~ 0
@@ -1555,8 +1551,6 @@ Wire Wire Line
 	950  -1450 1750 -1450
 Wire Wire Line
 	950  -1350 1750 -1350
-Wire Wire Line
-	950  -1250 1750 -1250
 $Comp
 L alexios:SolderJumper_3_Bridged12 JP501
 U 1 1 611D7AFF
@@ -1835,7 +1829,6 @@ Wire Wire Line
 	4700 -1500 4850 -1500
 NoConn ~ 1750 -2350
 NoConn ~ 1750 -2250
-NoConn ~ 1750 -2150
 Text Label 14750 4850 0    50   ~ 0
 CLRWS
 Text Label 14750 4650 0    50   ~ 0
@@ -2003,6 +1996,9 @@ Text HLabel 4400 -4250 2    50   Output ~ 0
 MFD0
 Text HLabel 4400 -4050 2    50   Output ~ 0
 MFD2
+Text Label 1650 -1250 2    50   ~ 0
+µCBUSCP
+NoConn ~ 1750 -2150
 Wire Bus Line
 	600  -3250 600  -2850
 Wire Bus Line
@@ -2014,7 +2010,11 @@ Wire Bus Line
 Wire Bus Line
 	9650 -5500 9650 -4650
 Wire Bus Line
-	4650 -5500 4650 -4650
-Wire Bus Line
 	7400 -5150 7400 -2550
+Wire Bus Line
+	4650 -5500 4650 -4650
+Wire Wire Line
+	950  -1250 1750 -1250
+Text HLabel 950  -1250 0    50   Output ~ 0
+BUSCP
 $EndSCHEMATC
