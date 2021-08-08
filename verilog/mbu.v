@@ -280,9 +280,9 @@ module mbu (nrsthold,
 
    // Verilog only: to ease testing, drive the upper 8 bits of the IBUS here,
    // too. On real hardware, we have bus hold but that's less predictable.
-   wire [7:0] 	hex54;
-   assign hex54 = 8'h54;
-   buffer_541 buf_mbu_out_hi (.noe1(nibusen), .noe2(1'b0), .a(hex54), .y(ibus[15:8]));
+   wire [7:0] 	hex0a;
+   assign hex0a = 8'h0an;
+   buffer_541 buf_mbu_out_hi (.noe1(nibusen), .noe2(1'b0), .a(hex0a), .y(ibus[15:8]));
 
 
 
