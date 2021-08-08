@@ -133,14 +133,14 @@ def test_MBU_reset(framework, capsys, tmpdir):
     # driving the DB.
     expected = ExpectedData([
         SUCCESS,
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0a80" ],
         HALTED
     ])
 
