@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 16 19
+Sheet 5 19
 Title "Termination & Conditioning"
 Date "2019-11-17"
 Rev "2049"
@@ -381,8 +381,8 @@ P 6200 6000
 AR Path="/5FEB43D9" Ref="C?"  Part="1" 
 AR Path="/60757845/5FEB43D9" Ref="C?"  Part="1" 
 AR Path="/64FC7999/5FEB43D9" Ref="C?"  Part="1" 
-AR Path="/60A2F3C0/5FEB43D9" Ref="C49"  Part="1" 
-F 0 "C49" H 6109 6046 50  0000 R CNN
+AR Path="/60A2F3C0/5FEB43D9" Ref="C29"  Part="1" 
+F 0 "C29" H 6109 6046 50  0000 R CNN
 F 1 "100nF" H 6109 5955 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6200 6000 50  0001 C CNN
 F 3 "~" H 6200 6000 50  0001 C CNN

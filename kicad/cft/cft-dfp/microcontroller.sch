@@ -339,8 +339,8 @@ L Device:C_Small C?
 U 1 1 6416E28C
 P 10150 5500
 AR Path="/6416E28C" Ref="C?"  Part="1" 
-AR Path="/60757845/6416E28C" Ref="C15"  Part="1" 
-F 0 "C15" H 10059 5546 50  0000 R CNN
+AR Path="/60757845/6416E28C" Ref="C5"  Part="1" 
+F 0 "C5" H 10059 5546 50  0000 R CNN
 F 1 "100nF" H 10059 5455 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10150 5500 50  0001 C CNN
 F 3 "~" H 10150 5500 50  0001 C CNN
@@ -380,8 +380,8 @@ L Device:C_Small C?
 U 1 1 641091C5
 P 8900 5500
 AR Path="/641091C5" Ref="C?"  Part="1" 
-AR Path="/60757845/641091C5" Ref="C?1"  Part="1" 
-F 0 "C?1" H 8809 5546 50  0000 R CNN
+AR Path="/60757845/641091C5" Ref="C4"  Part="1" 
+F 0 "C4" H 8809 5546 50  0000 R CNN
 F 1 "100nF" H 8809 5455 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8900 5500 50  0001 C CNN
 F 3 "~" H 8900 5500 50  0001 C CNN
@@ -421,8 +421,8 @@ L Device:C_Small C?
 U 1 1 64073B48
 P 8900 6150
 AR Path="/64073B48" Ref="C?"  Part="1" 
-AR Path="/60757845/64073B48" Ref="C14"  Part="1" 
-F 0 "C14" H 8809 6196 50  0000 R CNN
+AR Path="/60757845/64073B48" Ref="C3"  Part="1" 
+F 0 "C3" H 8809 6196 50  0000 R CNN
 F 1 "100nF" H 8809 6105 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8900 6150 50  0001 C CNN
 F 3 "~" H 8900 6150 50  0001 C CNN
@@ -1999,6 +1999,10 @@ MFD2
 Text Label 1650 -1250 2    50   ~ 0
 µCBUSCP
 NoConn ~ 1750 -2150
+Wire Wire Line
+	950  -1250 1750 -1250
+Text HLabel 950  -1250 0    50   Output ~ 0
+BUSCP
 Wire Bus Line
 	600  -3250 600  -2850
 Wire Bus Line
@@ -2010,11 +2014,7 @@ Wire Bus Line
 Wire Bus Line
 	9650 -5500 9650 -4650
 Wire Bus Line
-	7400 -5150 7400 -2550
-Wire Bus Line
 	4650 -5500 4650 -4650
-Wire Wire Line
-	950  -1250 1750 -1250
-Text HLabel 950  -1250 0    50   Output ~ 0
-BUSCP
+Wire Bus Line
+	7400 -5150 7400 -2550
 $EndSCHEMATC

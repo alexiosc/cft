@@ -2290,8 +2290,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 18750 -800 50  0001 C CNN
 	2    18550 -350
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	2500 1400 2500 2200
 $Comp
 L alexios:74HC08 U402
 U 1 1 61FE438A
@@ -2303,4 +2301,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 100 50  0001 C CNN
 	1    16850 550 
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	2500 1400 2500 2200
 $EndSCHEMATC

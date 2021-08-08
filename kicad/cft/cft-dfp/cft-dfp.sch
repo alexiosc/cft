@@ -678,22 +678,6 @@ F37 "MFD2" O R 2500 2600 50
 $EndSheet
 Wire Wire Line
 	1350 2700 800  2700
-Wire Wire Line
-	5550 7250 5700 7250
-Connection ~ 5550 7250
-$Comp
-L Connector:TestPoint TP13
-U 1 1 64333DF6
-P 5550 7250
-AR Path="/64333DF6" Ref="TP13"  Part="1" 
-AR Path="/60757845/64333DF6" Ref="TP?"  Part="1" 
-F 0 "TP13" H 5450 7150 50  0000 L CNN
-F 1 "TestPoint" V 5654 7322 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H 5750 7250 50  0001 C CNN
-F 3 "~" H 5750 7250 50  0001 C CNN
-	1    5550 7250
-	-1   0    0    1   
-$EndComp
 Connection ~ 5700 7250
 Text Label 6650 7350 2    50   ~ 0
 ~IRQ6
@@ -1088,8 +1072,6 @@ Wire Wire Line
 	12850 3150 13400 3150
 Text Label 12850 3150 0    50   ~ 0
 ~IRQS
-Wire Wire Line
-	5100 7250 5550 7250
 Wire Wire Line
 	2500 6300 3050 6300
 Wire Wire Line
@@ -1539,4 +1521,6 @@ Text Label 6650 2400 2    50   ~ 0
 ~FPDBL
 Text Label 6650 2500 2    50   ~ 0
 ~FPDBH
+Wire Wire Line
+	5100 7250 5700 7250
 $EndSCHEMATC

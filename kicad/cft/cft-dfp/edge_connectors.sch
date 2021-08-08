@@ -608,8 +608,6 @@ Text HLabel 12200 5900 0    50   UnSpc ~ 0
 CLK3
 Text HLabel 12200 6000 0    50   UnSpc ~ 0
 CLK4
-Text HLabel 14200 1450 2    50   UnSpc ~ 0
-T34
 Text HLabel 14200 2250 2    50   UnSpc ~ 0
 ~IRQ
 Text HLabel 14200 2350 2    50   UnSpc ~ 0
@@ -1637,7 +1635,7 @@ Text Label 14150 1750 2    50   ~ 0
 Text Label 14150 1850 2    50   ~ 0
 ~IODEV3XX
 Text Label 14150 1450 2    50   ~ 0
-T34
+T34-EXP
 Text Label 14150 1350 2    50   ~ 0
 ~W
 Text Label 14150 1250 2    50   ~ 0
@@ -1836,6 +1834,8 @@ Text HLabel 14150 10400 2    50   Input ~ 0
 ~FPIEN
 Text HLabel 14150 10500 2    50   Input ~ 0
 ~FPIRF
+NoConn ~ 14100 5500
+NoConn ~ 14200 1450
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line

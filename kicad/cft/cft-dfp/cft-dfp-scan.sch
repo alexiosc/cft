@@ -2828,14 +2828,6 @@ Text HLabel -3600 6050 2    50   Output ~ 0
 ~FPABM
 Text HLabel -3600 5950 2    50   Output ~ 0
 ~FPABL
-Wire Bus Line
-	3150 4700 3150 5450
-Wire Bus Line
-	4600 800  4600 3250
-Wire Bus Line
-	6750 1200 6750 4850
-Wire Bus Line
-	2050 800  2050 1800
 Text HLabel -3600 6250 2    50   Output ~ 0
 ~FPDBH
 Text HLabel -3600 6150 2    50   Output ~ 0
@@ -2852,4 +2844,12 @@ Wire Wire Line
 	-3650 6250 -3600 6250
 Wire Wire Line
 	-3650 6150 -3600 6150
+Wire Bus Line
+	2050 800  2050 1800
+Wire Bus Line
+	3150 4700 3150 5450
+Wire Bus Line
+	4600 800  4600 3250
+Wire Bus Line
+	6750 1200 6750 4850
 $EndSCHEMATC

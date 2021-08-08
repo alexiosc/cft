@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 19
+Sheet 7 19
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
@@ -109,8 +109,8 @@ L Device:C_Small C?
 U 1 1 616384A4
 P 2550 7100
 AR Path="/616384A4" Ref="C?"  Part="1" 
-AR Path="/614F5B8D/616384A4" Ref="C62"  Part="1" 
-F 0 "C62" H 2641 7054 50  0000 L CNN
+AR Path="/614F5B8D/616384A4" Ref="C41"  Part="1" 
+F 0 "C41" H 2641 7054 50  0000 L CNN
 F 1 "100nF" H 2641 7145 50  0000 L CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 7100 50  0001 C CNN
 F 3 "~" H 2550 7100 50  0001 C CNN
