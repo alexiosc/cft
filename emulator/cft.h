@@ -36,8 +36,8 @@ typedef struct state_t {
 
         word       agl_page;         // Pre-increment value of the PC's page
 
-        uint8_t    ctx;              // The current context, (shifted 3 bits left)
-        longaddr_t mbr[NCTX * NMBR]; // Memory Bank Registers (shifted 16 bits left)
+        int        ctx;              // The current context (<<3)
+        longaddr_t mbr[NCTX * NMBR]; // Memory Bank Registers (each value is <<16)
         longaddr_t mbrdis;           // Value of all MBRs before MBU is enabled.
         bit        mbuen;            // Is the MBU enabled?
 

@@ -81,7 +81,7 @@ def test_WAIT(framework, capsys, tmpdir):
         expected += [ [ 340, 'PRINTD', str(1023 - x) ], SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192,
                               verilog_args=[ "+wp=0" ], long=True)
     # pprint.pprint(list(result))
     # assert False

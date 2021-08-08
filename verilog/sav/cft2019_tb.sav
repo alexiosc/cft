@@ -1,29 +1,26 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Tue May 11 09:40:22 2021
+[*] Sun Aug  8 16:10:17 2021
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Tue May 11 09:20:14 2021"
-[dumpfile_size] 3881095
+[dumpfile_mtime] "Sun Aug  8 16:04:57 2021"
+[dumpfile_size] 1256224
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 157514000
-[size] 2048 1123
-[pos] 6143 0
-*-19.653919 156339000 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 65802000
+[size] 3162 1967
+[pos] 5029 0
+*-18.653919 70384750 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_alu.
 [treeopen] cft2019_tb.cft.card_alu.reg_l.
-[treeopen] cft2019_tb.cft.card_ctl.flag_unit.
-[treeopen] cft2019_tb.cft.card_ctl.reg_ir.
-[treeopen] cft2019_tb.cft.card_ctl.sbu.
+[treeopen] cft2019_tb.cft.card_bus.
+[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
-[treeopen] cft2019_tb.cft.card_reg.
 [sst_width] 372
 [signals_width] 479
 [sst_expanded] 1
-[sst_vpaned_height] 616
+[sst_vpaned_height] 1228
 @c00200
 -Reset
 @28
@@ -68,7 +65,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[17:0]
 @22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
-@c00023
+@c00022
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @28
@@ -104,7 +101,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1401201
+@1401200
 -group_end
 @c04022
 [color] 1
@@ -644,10 +641,7 @@ cft2019_tb.cft.card_alu.reg_l.bcp
 @28
 cft2019_tb.cft.card_alu.reg_l.flin_sru
 cft2019_tb.cft.card_alu.reg_l.bcp
-cft2019_tb.cft.card_alu.reg_l.ld
-cft2019_tb.cft.card_alu.reg_l.ld0
 cft2019_tb.cft.card_alu.reg_l.fl_ff.clk
-cft2019_tb.cft.card_alu.reg_l.clkl
 cft2019_tb.cft.card_alu.reg_l.fl_ff.q
 @200
 -

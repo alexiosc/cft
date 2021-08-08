@@ -806,7 +806,7 @@ read_from_ibus_unit(int raddr)
                 return (cpu.ir & 0xff00) | (tmp & 0xff);
         
         case FIELD_READ_MBP:
-                tmp = cpu.mbr[cpu.ctx];
+                tmp = cpu.mbr[cpu.ctx /* | 0 (implied) */] >> 16;
                 debug3("IBUS ← MB[%02x:0] (%02x)", cpu.ctx >> 3, tmp);
                 return tmp;
         
@@ -934,10 +934,7 @@ write_to_ibus_unit(int waddr)
                 // first SMB instruction.
                 if (!cpu.mbuen) {
                         cpu.mbuen = 1;
-                        debug3("Enabling MBU. CTX: %02x MBRs: %02x %02x %02x %02x %02x %02x %02x %02x",
-                               cpu.ctx >> 3,
-                               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
-                               get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
+                        debug3("Enabling MBU.");
                 }
 
                 // Get the number of the register from the IR (LS 3 bits)
@@ -953,7 +950,7 @@ write_to_ibus_unit(int waddr)
 
         case FIELD_WRITE_CTX:
                 cpu.ctx = (cpu.ibus & 0xff) << 3;
-                debug3("CTX ← IBUS (%02x)", cpu.ibus & 0xff);
+                debug3("Entering context %02x", cpu.ibus & 0xff);
                 return;
 
         case FIELD_WRITE_CTX_FLAGS:
@@ -1096,7 +1093,7 @@ cpu_run()
                 //     dump_ustate();
                 // }
                 debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
-                      "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
+                      "CTX=%02x  MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
                       cpu.ir, disasm(cpu.ir, 1, NULL),
                       cpu.fn ? 'N' : '-',
                       cpu.fz ? 'Z' : '-',
@@ -1105,6 +1102,7 @@ cpu_run()
                       cpu.fl ? 'L' : '-',
                       cpu.irq ? "IRQ" : "   ",
                       cpu.pc, cpu.ac, cpu.dr, cpu.sp,
+                      cpu.ctx >> 3,
                       get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
                       get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
                       cpu.uaddr, cpu.ucv,

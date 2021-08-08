@@ -101,7 +101,7 @@ def test_STI(framework, capsys, tmpdir):
                               [ 340, 'PRINTH', '0000' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192,
                               long=True, verilog_args=[ "+wp=0" ])
     # pprint.pprint(list(result))
     # assert False

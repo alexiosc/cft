@@ -66,18 +66,18 @@ def test_LMB(framework, capsys, tmpdir):
     # Note that the LMB instruction only drives the lower 8 bits of the Data
     # Bus. On real hardware, Bus Hold would make the MSB equal to the last
     # memory operation, which will almost certainly be an instruction fetch, so
-    # &54 would be returned. The Verilog version of the MBU simulates this by
+    # &0a would be returned. The Verilog version of the MBU simulates this by
     # driving the DB.
     expected = ExpectedData([
         SUCCESS,
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "54ff" ],
-        [ 340, "PRINTH", "54fe" ],
-        [ 340, "PRINTH", "54fd" ],
-        [ 340, "PRINTH", "5411" ],
-        [ 340, "PRINTH", "5422" ],
-        [ 340, "PRINTH", "5433" ],
-        [ 340, "PRINTH", "5444" ],
+        [ 340, "PRINTH", "0a80" ],
+        [ 340, "PRINTH", "0aff" ],
+        [ 340, "PRINTH", "0afe" ],
+        [ 340, "PRINTH", "0afd" ],
+        [ 340, "PRINTH", "0a11" ],
+        [ 340, "PRINTH", "0a22" ],
+        [ 340, "PRINTH", "0a33" ],
+        [ 340, "PRINTH", "0a44" ],
         HALTED
     ])
 

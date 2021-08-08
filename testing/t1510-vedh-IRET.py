@@ -218,7 +218,7 @@ def test_IRET_int(framework, capsys, tmpdir):
                               HALTED ])
     result = run_on_framework(framework, capsys, tmpdir, source,
                               long=True,
-                              rom_addr=0, verilog_args=["+wp=0"],
+                              rom_addr=8192, verilog_args=["+wp=0"],
                               cftemu_args=["--writeable-rom"])
     # pprint.pprint(list(result))
     # assert False

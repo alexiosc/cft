@@ -119,7 +119,7 @@ def test_CLI_int(framework, capsys, tmpdir):
     expected += [ [ 340, "PRINTD", str(x) ] for x in range(256, -1, -1) ]
     expected += [ SUCCESS,
                   HALTED ]
-    result = run_on_framework(framework, capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192,
                               long=True, verilog_args=[ "+wp=0" ])
     # pprint.pprint(list(result))
     # assert False

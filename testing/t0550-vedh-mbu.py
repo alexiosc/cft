@@ -129,7 +129,7 @@ def test_MBU_reset(framework, capsys, tmpdir):
     # Note that the LMB instruction only drives the lower 8 bits of the Data
     # Bus. On real hardware, Bus Hold would make the MSB equal to the last
     # memory operation, which will almost certainly be an instruction fetch, so
-    # &54 would be returned. The Verilog version of the MBU simulates this by
+    # &0a would be returned. The Verilog version of the MBU simulates this by
     # driving the DB.
     expected = ExpectedData([
         SUCCESS,
