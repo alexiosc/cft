@@ -547,40 +547,40 @@ get_mbr(int mbr)
 
 
 #if 0
-// Reading from the MBU 
-int
-mbu_read(longaddr_t a, word *d)
-{
-        // Note that the LMB instruction only drives the lower 8 bits of the
-        // IBus. We randomise the upper 8 bits here.
-        assert(d != NULL);
-        if (a >= 0x008 && a <= 0x00f) {
-                *d = 0x5400 | (get_mbr(a & 7) >> 16);
-                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%0xd] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
-                return 1;
-        }
-        return 0;
-}
+// // Reading from the MBU 
+// int
+// mbu_read(longaddr_t a, word *d)
+// {
+//         // Note that the LMB instruction only drives the lower 8 bits of the
+//         // IBus. We randomise the upper 8 bits here.
+//         assert(d != NULL);
+//         if (a >= 0x008 && a <= 0x00f) {
+//                 *d = 0x5400 | (get_mbr(a & 7) >> 16);
+//                 log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%0xd] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
+//                 return 1;
+//         }
+//         return 0;
+// }
 
 
-int
-mbu_write(longaddr_t a, word d)
-{
-#error "Rewrite this for the new MBU"
-        if (a >= 0x008 && a <= 0x00f) {
-                cpu.mbr[a & 7] = (d & 0xff) << 16;
-                int enabling = cpu.mbuen == 0;
-                cpu.mbuen = 1;
-                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
-                        "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
-                        a & 7, d & 0xff,
-                        enabling ? "Enabling MBU. " : "",
-                        get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
-                        get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
-                return 1;
-        }
-        return 0;
-}
+// int
+// mbu_write(longaddr_t a, word d)
+// {
+// #error "Rewrite this for the new MBU"
+//         if (a >= 0x008 && a <= 0x00f) {
+//                 cpu.mbr[a & 7] = (d & 0xff) << 16;
+//                 int enabling = cpu.mbuen == 0;
+//                 cpu.mbuen = 1;
+//                 log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
+//                         "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
+//                         a & 7, d & 0xff,
+//                         enabling ? "Enabling MBU. " : "",
+//                         get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+//                         get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
+//                 return 1;
+//         }
+//         return 0;
+// }
 #endif
 
 
@@ -799,9 +799,11 @@ read_from_ibus_unit(int raddr)
                 return cpu.alu_b;
         
         case FIELD_READ_MBN:
-                tmp = cpu.mbr[cpu.ctx | (cpu.ir & 7)];
-                debug3("IBUS ← MB[%02x:%d] (%02x)", cpu.ctx >> 3, cpu.ir & 7, tmp);
-                return tmp;
+                tmp = get_mbr(cpu.ir & 7) >> 16; // The MBR values are stored << 16.
+                debug3("IBUS ← MB[%02x:%d] (%02x) (mbuen=%d, mbrdis=%08x)", cpu.ctx >> 3, cpu.ir & 7, tmp, cpu.mbuen, cpu.mbrdis);
+                // Pretend we have bus hold. The last thing on the bus would
+                // have been the last instruction fetched, so take its MSB.
+                return (cpu.ir & 0xff00) | (tmp & 0xff);
         
         case FIELD_READ_MBP:
                 tmp = cpu.mbr[cpu.ctx];
