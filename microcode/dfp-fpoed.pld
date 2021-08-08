@@ -2,20 +2,18 @@ GAL16V8         ; this is the GAL type
 DFPOED00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-A0	A1	A2	A3	A4	MFD0	MFD1	PANELEN	NC	GND
-NC	OE31	OE30	OE29	OE28	OE27	OE26	OE25	OE24	VCC
+A0      A1      A2      A3      A4      A5      MFD0    MFD1    MFD2    GND
+PANELEN OED12   OED13   OED14   OED15   OED16   OED17   OED18   OED19   VCC
 ;11     12      13      14      15      16      17      18      19      20
 
-
-
-/OE24 = /PANELEN *                  A4 * /A3 * /A2 * /A1 * /A0
-/OE25 = /PANELEN *                  A4 * /A3 * /A2 * /A1 *  A0
-/OE26 = /PANELEN *                  A4 * /A3 * /A2 *  A1 * /A0
-/OE27 = /PANELEN *                  A4 * /A3 * /A2 *  A1 *  A0
-/OE28 = /PANELEN *                  A4 *  A3 *  A2 * /A1 * /A0
-/OE29 = /PANELEN *                  A4 *  A3 *  A2 * /A1 *  A0
-/OE30 = /PANELEN *                  A4 *  A3 *  A2 *  A1 * /A0
-/OE31 = /PANELEN *                  A4 *  A3 *  A2 *  A1 *  A0
+/OED12 =        /PANELEN                         * /A5 * /A4 * /A3 *  A2 * /A1 * /A0            ;  D 12    0     --- 0001 00  |   2A    | STATE
+/OED13 =        /PANELEN         *  MFD1 *  MFD0 * /A5 *  A4 * /A3 * /A2 * /A1 *  A0            ;  D 13    0     -11 0100 01  |   5B    | OR hi
+/OED14 =        /PANELEN         *  MFD1 *  MFD0 * /A5 *  A4 * /A3 * /A2 *  A1 * /A0            ;  D 14    0     -11 0100 10  |   5C    | OR lo
+/OED15 =        /PANELEN *  MFD2                 * /A5 * /A4 * /A3 *  A2 * /A1 *  A0            ;  D 15    0     1-- 0001 01  |   2B    | DB hi
+/OED16 =        /PANELEN *  MFD2                 * /A5 * /A4 * /A3 * /A2 * /A1 * /A0            ;  D 16    0     1-- 0000 00  |   1A    | AB hi
+/OED17 =        /PANELEN *  MFD2                 * /A5 * /A4 * /A3 * /A2 * /A1 *  A0            ;  D 17    0     1-- 0000 01  |   1B    | AB mid
+/OED18 =        /PANELEN                         * /A5 * /A4 * /A3 * /A2 *  A1 * /A0            ;  D 18    0     --- 0000 10  |   1C    | AB lo
+/OED19 =        /PANELEN                         * /A5 * /A4 * /A3 *  A2 *  A1 * /A0            ;  D 19    0     --- 0001 10  |   2C    | DB lo
 
 DESCRIPTION
 

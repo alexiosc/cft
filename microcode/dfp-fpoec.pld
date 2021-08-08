@@ -2,28 +2,17 @@ GAL16V8         ; this is the GAL type
 DFPOEC00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-A0	A1	A2	A3	A4	MFD0	MFD1	PANELEN	NC	GND
-NC	OE19	OE18	OE17	OE16	OE15	OE14	OE13	OE12	VCC
+A0      A1      A2      A3      A4      A5      MFD0    MFD1    MFD2    GND
+PANELEN OEC12   OEC13   OEC14   OEC15   OEC16   OEC17   OEC18   OEC19   VCC
 ;11     12      13      14      15      16      17      18      19      20
 
-
-
-/OE12 = /PANELEN *                 /A4 *  A3 *  A2 * /A1 * /A0
-
-/OE13 = /PANELEN *  MFD1 *  MFD0 * /A4 *  A3 *  A2 * /A1 *  A0
-/OE14 = /PANELEN * /MFD1 *  MFD0 * /A4 *  A3 *  A2 * /A1 *  A0
-/OE15 = /PANELEN *  MFD1 * /MFD0 * /A4 *  A3 *  A2 * /A1 *  A0
-
-/OE16 = /PANELEN *  MFD1 *  MFD0 * /A4 *  A3 *  A2 *  A1 * /A0
-/OE17 = /PANELEN * /MFD1 *  MFD0 * /A4 *  A3 *  A2 *  A1 * /A0
-/OE18 = /PANELEN *  MFD1 * /MFD0 * /A4 *  A3 *  A2 *  A1 * /A0
-
-/OE19 = /PANELEN *                 /A4 *  A3 *  A2 *  A1 *  A0
-
+/OEC16 =        /PANELEN                         * /A5 * /A4 *  A3 * /A2 *  A1 *  A0            ;  C 16    0     --- 0010 11  |   3D    | IRF?
+/OEC17 =        /PANELEN                         * /A5 * /A4 * /A3 * /A2 *  A1 *  A0            ;  C 17    0     --- 0000 11  |   1D    | IEN
+/OEC18 =        /PANELEN         * /MFD1 *  MFD0 * /A5 *  A4 * /A3 * /A2 * /A1 *  A0            ;  C 18    0     -01 0100 01  |   5B    | DR hi
+/OEC19 =        /PANELEN         * /MFD1 *  MFD0 * /A5 *  A4 * /A3 * /A2 *  A1 * /A0            ;  C 19    0     -01 0100 10  |   5C    | DR lo
 
 DESCRIPTION
 
 Please see dfp-fpoea.pld.
 
 ; End of file.
-

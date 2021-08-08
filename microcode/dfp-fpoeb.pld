@@ -1,22 +1,19 @@
 GAL16V8         ; this is the GAL type
-DFPOEA00        ; this is the signature
+DFPOEB00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
-A0	A1	A2	A3	A4	MFD0	MFD1	PANELEN	NC	GND
-NC	OE23	OE22	OE21	OE20	OE11	OE10	OE9	OE8	VCC
+A0      A1      A2      A3      A4      A5      MFD0    MFD1    MFD2    GND
+PANELEN OEB12   OEB13   OEB14   OEB15   OEB16   OEB17   OEB18   OEB19   VCC
 ;11     12      13      14      15      16      17      18      19      20
 
-
-
-/OE8  = /PANELEN *                 /A4 *  A3 * /A2 * /A1 * /A0
-/OE9  = /PANELEN *                 /A4 *  A3 * /A2 * /A1 *  A0
-/OE10 = /PANELEN *                 /A4 *  A3 * /A2 *  A1 * /A0
-/OE11 = /PANELEN *                 /A4 *  A3 * /A2 *  A1 *  A0
-
-/OE20 = /PANELEN *                  A4 * /A3 *  A2 * /A1 * /A0
-/OE21 = /PANELEN *                  A4 * /A3 *  A2 * /A1 *  A0
-/OE22 = /PANELEN *                  A4 * /A3 *  A2 *  A1 * /A0
-/OE23 = /PANELEN *                  A4 * /A3 *  A2 *  A1 *  A0
+/OEB12 =        /PANELEN                         * /A5 *  A4 * /A3 *  A2 * /A1 * /A0            ;  B 12    0     --- 0101 00  |   --    | SCANCLR
+/OEB13 =        /PANELEN                         * /A5 * /A4 *  A3 *  A2 * /A1 *  A0            ;  B 13    0     --- 0011 01  |   4B    | AC hi
+/OEB14 =        /PANELEN         *  MFD1 * /MFD0 * /A5 *  A4 * /A3 * /A2 * /A1 *  A0            ;  B 14    0     -10 0100 01  |   5B    | SP hi
+/OEB15 =        /PANELEN                         * /A5 * /A4 *  A3 * /A2 * /A1 *  A0            ;  B 15    0     --- 0010 01  |   3B    | PC hi
+/OEB16 =        /PANELEN                         * /A5 * /A4 *  A3 * /A2 *  A1 * /A0            ;  B 16    0     --- 0010 10  |   3C    | PC lo
+/OEB17 =        /PANELEN                         * /A5 *  A4 * /A3 *  A2 *  A1 *  A0            ;  B 17    0     --- 0101 11  |   --    | AEXT
+/OEB18 =        /PANELEN                         * /A5 * /A4 *  A3 *  A2 * /A1 * /A0            ;  B 18    0     --- 0011 00  |   4A    | FLAGS
+/OEB19 =        /PANELEN * /MFD2                 * /A5 * /A4 * /A3 *  A2 * /A1 *  A0            ;  B 19    0     0-- 0001 01  |   2B    | IR hi
 
 DESCRIPTION
 
