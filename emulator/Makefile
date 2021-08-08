@@ -13,7 +13,7 @@ LDFLAGS = -g
 LDFLAGS += -lpthread
 
 LDPATH	= $(shell readlink -f ../peripherals/dfp2/firmware)
-LDFLAGS	+= -L$(LDPATH) -Wl,-rpath=$(LDPATH) -ldfp
+LDFLAGS	+= -L$(LDPATH) -Wl,-rpath=$(LDPATH)
 
 PROGRAMS = cftemu
 # OBJS = cftemu.o cmdline.o emulator.o io.o pasm.o map.o util.o microcode.o \
@@ -29,9 +29,9 @@ OBJS += deb.o
 CFLAGS += -DHAVE_DEB
 
 # DFP board
-OBJS += dfp.o
-CFLAGS += -DHAVE_DFP
-
+# OBJS += dfp.o
+# CFLAGS += -DHAVE_DFP
+# LDFLAGS += -ldfp
 
 ###############################################################################
 #
