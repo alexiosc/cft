@@ -1833,7 +1833,7 @@ start LCT;
 
 start SCT;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ctx, ac), END;                        // 02 AC ← CTX
+      SET(ctx, ac), END;                        // 02 CTX ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
