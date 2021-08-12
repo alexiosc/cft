@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 17
+Sheet 8 17
 Title "Skip/Branch Unit"
 Date ""
 Rev "2119"
@@ -481,8 +481,6 @@ Wire Wire Line
 	8300 6000 8300 5700
 Wire Wire Line
 	8300 5700 8650 5700
-Wire Wire Line
-	9900 5500 9450 5500
 $Comp
 L power:GND #PWR01508
 U 1 1 5EC18B69
@@ -764,9 +762,7 @@ Wire Wire Line
 	5400 2250 5400 4450
 Wire Wire Line
 	5300 2350 5300 4550
-Wire Wire Line
-	9450 5200 9450 5500
-Text Label 8800 5200 0    50   ~ 0
+Text Label 8800 5500 0    50   ~ 0
 ~RESET
 Wire Wire Line
 	1700 2050 5600 2050
@@ -937,9 +933,7 @@ Wire Wire Line
 Text Label 1100 5900 0    50   ~ 0
 ~RESET
 Wire Wire Line
-	8200 5200 8200 5900
-Wire Wire Line
-	8200 5200 9450 5200
+	8200 5500 8200 5900
 Text Label 9900 5500 2    50   ~ 0
 ~RESET
 Wire Notes Line width 24 style solid
@@ -1321,6 +1315,8 @@ $EndComp
 Wire Wire Line
 	5500 6950 5500 7050
 Connection ~ 5500 6950
+Wire Wire Line
+	8200 5500 9900 5500
 Wire Bus Line
 	1050 5750 5650 5750
 Wire Bus Line

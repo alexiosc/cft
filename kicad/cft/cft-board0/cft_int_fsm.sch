@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 17
+Sheet 13 17
 Title "Interrupt State Machine"
 Date ""
 Rev "2119"
@@ -296,9 +296,9 @@ Text Label 4050 3500 2    50   ~ 0
 ~ACTION-INCPC
 Text Label 4050 3600 2    50   ~ 0
 ~IR-IDX
-Text Label 4050 3100 2    50   ~ 0
-~CLI
 Text Label 4050 2900 2    50   ~ 0
+~CLI
+Text Label 4050 3100 2    50   ~ 0
 ~STI
 Wire Wire Line
 	2200 3200 2550 3200
@@ -341,17 +341,6 @@ Wire Wire Line
 	2150 2900 2550 2900
 Text Label 2200 3100 0    50   ~ 0
 FI
-$Comp
-L alexios:74HC74 U1402
-U 1 1 605A7AD6
-P 7300 3450
-F 0 "U1402" H 7300 3867 50  0000 C CNN
-F 1 "74HC74" H 7300 3776 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 7250 3600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7250 3600 50  0001 C CNN
-	1    7300 3450
-	1    0    0    1   
-$EndComp
 $Comp
 L alexios:74HC74 U1402
 U 2 1 605AA791
@@ -436,8 +425,6 @@ Wire Wire Line
 	3700 4800 3700 4900
 Wire Wire Line
 	4050 4800 4250 4800
-Text Label 4050 4800 0    50   ~ 0
-~INH
 Text Notes 2400 5500 0    63   ~ 13
 Caution: AC Family part!
 Connection ~ 1600 4900
@@ -445,23 +432,10 @@ Wire Wire Line
 	1600 4900 2500 4900
 Wire Wire Line
 	2300 4800 2500 4800
-Text Label 2300 4800 0    50   ~ 0
-~INH
 Text Label 4050 5000 0    50   ~ 0
 CLK4
 Text Label 2850 4200 0    50   ~ 0
 CLK4
-$Comp
-L alexios:74AC74 U1403
-U 1 1 606579EE
-P 4700 4950
-F 0 "U1403" H 4700 5367 50  0000 C CNN
-F 1 "74AC74" H 4700 5276 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 4650 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4650 5100 50  0001 C CNN
-	1    4700 4950
-	1    0    0    1   
-$EndComp
 Connection ~ 3600 7100
 Connection ~ 3600 7300
 Text Notes 2600 4400 0    79   ~ 16
@@ -563,10 +537,6 @@ Wire Wire Line
 Connection ~ 6300 4900
 Wire Wire Line
 	6300 4900 6850 4900
-Text Label 6000 4700 0    50   ~ 0
-~RESET
-Text Label 6850 4700 2    50   ~ 0
-~RESET
 Text Label 6850 4800 2    50   ~ 0
 ~IRQR
 Text Label 6850 4900 2    50   ~ 0
@@ -822,4 +792,34 @@ F 3 "" H 8850 6100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8850 6100 8850 6050
+$Comp
+L alexios:74AC74 U1403
+U 1 1 606579EE
+P 4700 4950
+F 0 "U1403" H 4700 5367 50  0000 C CNN
+F 1 "74AC74" H 4700 5276 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 4650 5100 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4650 5100 50  0001 C CNN
+	1    4700 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U1402
+U 1 1 605A7AD6
+P 7300 3450
+F 0 "U1402" H 7300 3867 50  0000 C CNN
+F 1 "74HC74" H 7300 3776 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 7250 3600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7250 3600 50  0001 C CNN
+	1    7300 3450
+	1    0    0    -1  
+$EndComp
+Text Label 6000 4700 0    50   ~ 0
+~RESET
+Text Label 4050 4800 0    50   ~ 0
+~INH
+Text Label 2300 4800 0    50   ~ 0
+~INH
+Text Label 6850 4700 2    50   ~ 0
+~RESET
 $EndSCHEMATC

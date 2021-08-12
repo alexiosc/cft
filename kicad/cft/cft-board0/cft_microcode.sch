@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 17
+Sheet 9 17
 Title "Microcode Sequencer"
 Date ""
 Rev "2119"
@@ -1592,9 +1592,9 @@ Text Label 6450 4800 0    50   ~ 0
 WADDR3
 Text Label 8150 4700 2    50   ~ 0
 ~WRITE-DR
-Text Label 8150 4800 2    50   ~ 0
-~WRITE-PC
 Text Label 8150 4900 2    50   ~ 0
+~WRITE-PC
+Text Label 8150 4800 2    50   ~ 0
 ~WRITE-FL
 Text Label 8150 5000 2    50   ~ 0
 ~WRITE-IR
@@ -1877,9 +1877,9 @@ Wire Wire Line
 	7700 5000 8200 5000
 Text HLabel 8200 4700 2    50   Output ~ 0
 ~WRITE-DR
-Text HLabel 8200 4800 2    50   Output ~ 0
-~WRITE-PC
 Text HLabel 8200 4900 2    50   Output ~ 0
+~WRITE-PC
+Text HLabel 8200 4800 2    50   Output ~ 0
 ~WRITE-FL
 Text HLabel 8200 5000 2    50   Output ~ 0
 ~WRITE-IR
