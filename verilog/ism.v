@@ -133,7 +133,7 @@ module int_fsm (nreset, clk3, clk4, action, ibus15, nwrite_fl, nend, nirq,
 
    flipflop_74h #(5,5) irq_ff0 (.d(nirq),  .clk(clk3), .nset(ninh), .nrst(1'b1), .q(nirq0));
    flipflop_74h #(5,5) irq_ff1 (.d(nirq0), .clk(clk4), .nset(ninh), .nrst(1'b1), .q(nirqr));
-   //                            ^^^^         ^^^^                                ^^^^^
+   //                              ^^^^         ^^^^                                ^^^^^
    
    // Once an IRQ has been registered, we wait until the end of the current
    // instruction before we signal the Control Unit. Signalling the CU is
