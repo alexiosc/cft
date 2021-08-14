@@ -2091,44 +2091,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC540" H 4750 6100 50  0001 C CNN
 $EndComp
 Connection ~ 4400 6200
 Connection ~ 4400 6000
-$Comp
-L Device:C_Small C?
-U 1 1 6BA49249
-P 7200 6150
-AR Path="/6BA49249" Ref="C?"  Part="1" 
-AR Path="/6233F88C/6BA49249" Ref="C?"  Part="1" 
-AR Path="/60757845/607964B6/6BA49249" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/6BA49249" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/6BA49249" Ref="C35"  Part="1" 
-F 0 "C35" H 7109 6196 50  0000 R CNN
-F 1 "100nF" H 7109 6105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7200 6150 50  0001 C CNN
-F 3 "~" H 7200 6150 50  0001 C CNN
-	1    7200 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0209
-U 1 1 6BA4924F
-P 7200 6050
-F 0 "#PWR0209" H 7200 5900 50  0001 C CNN
-F 1 "+5V" H 7215 6223 50  0000 C CNN
-F 2 "" H 7200 6050 50  0001 C CNN
-F 3 "" H 7200 6050 50  0001 C CNN
-	1    7200 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0210
-U 1 1 6BA49255
-P 7200 6250
-F 0 "#PWR0210" H 7200 6000 50  0001 C CNN
-F 1 "GND" H 7205 6077 50  0000 C CNN
-F 2 "" H 7200 6250 50  0001 C CNN
-F 3 "" H 7200 6250 50  0001 C CNN
-	1    7200 6250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2800 4600 3050 4600
 Wire Wire Line
