@@ -127,8 +127,8 @@ L alexios:CXO_DIP8 X?
 U 1 1 601CE949
 P 7350 5350
 AR Path="/601CE949" Ref="X?"  Part="1" 
-AR Path="/60757845/601CE949" Ref="X2"  Part="1" 
-F 0 "X2" H 7450 5717 50  0000 C CNN
+AR Path="/60757845/601CE949" Ref="X1"  Part="1" 
+F 0 "X1" H 7450 5717 50  0000 C CNN
 F 1 "7.3728 MHz?" H 7450 5626 50  0000 C CNN
 F 2 "alexios:Oscillator_DIP-8-socket" H 7500 4950 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 7450 5300 50  0001 C CNN
@@ -738,69 +738,6 @@ Wire Wire Line
 	2550 4850 2050 4850
 Text HLabel 2000 4750 0    50   Output ~ 0
 ~CLR
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 623E1F29
-P 5000 3750
-AR Path="/623E1F29" Ref="RN?"  Part="3" 
-AR Path="/60757845/623E1F29" Ref="RN4"  Part="3" 
-F 0 "RN4" H 5100 3800 50  0001 L CNN
-F 1 "30Ω" H 4975 3856 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3830 50  0001 C CNN
-F 3 "~" V 5000 3750 50  0001 C CNN
-	3    5000 3750
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 623E1F23
-P 5000 3850
-AR Path="/623E1F23" Ref="RN?"  Part="2" 
-AR Path="/60757845/623E1F23" Ref="RN4"  Part="2" 
-F 0 "RN4" H 5100 3900 50  0001 L CNN
-F 1 "30Ω" H 4975 3956 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3930 50  0001 C CNN
-F 3 "~" V 5000 3850 50  0001 C CNN
-	2    5000 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 623E1F2F
-P 5000 3650
-AR Path="/623E1F2F" Ref="RN?"  Part="4" 
-AR Path="/60757845/623E1F2F" Ref="RN4"  Part="4" 
-F 0 "RN4" H 5100 3700 50  0001 L CNN
-F 1 "30Ω" H 4975 3756 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3730 50  0001 C CNN
-F 3 "~" V 5000 3650 50  0001 C CNN
-	4    5000 3650
-	1    0    0    1   
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 623E1F1D
-P 5000 3950
-AR Path="/623E1F1D" Ref="RN?"  Part="1" 
-AR Path="/60757845/623E1F1D" Ref="RN4"  Part="1" 
-F 0 "RN4" H 5100 3850 50  0000 L CNN
-F 1 "30Ω" H 4750 3900 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 4030 50  0001 C CNN
-F 3 "~" V 5000 3950 50  0001 C CNN
-	1    5000 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:TestPoint TP1
-U 1 1 6C5C0C4C
-P 2550 4950
-F 0 "TP1" V 2500 5100 50  0000 L CNN
-F 1 "TestPoint" V 2595 5138 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm" H 2750 4950 50  0001 C CNN
-F 3 "~" H 2750 4950 50  0001 C CNN
-	1    2550 4950
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	2550 1450 2500 1450
 Wire Wire Line
@@ -1606,83 +1543,6 @@ Wire Wire Line
 	4350 2850 5750 2850
 Wire Wire Line
 	5750 2850 5750 4800
-Wire Wire Line
-	5900 6100 5500 6100
-Text Label 5500 6100 0    50   ~ 0
-~BUSEN
-$Comp
-L power:+5V #PWR01501
-U 1 1 618C46D8
-P 6400 5950
-F 0 "#PWR01501" H 6400 5800 50  0001 C CNN
-F 1 "+5V" H 6550 6000 50  0000 C CNN
-F 2 "" H 6400 5950 50  0001 C CNN
-F 3 "" H 6400 5950 50  0001 C CNN
-	1    6400 5950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 618C46DE
-P 6000 6100
-AR Path="/618C46DE" Ref="R?"  Part="1" 
-AR Path="/64C48268/618C46DE" Ref="R?"  Part="1" 
-AR Path="/60757845/607965DD/618C46DE" Ref="R?"  Part="1" 
-AR Path="/60A2F394/618C46DE" Ref="R?"  Part="1" 
-AR Path="/60757845/618C46DE" Ref="R1505"  Part="1" 
-F 0 "R1505" V 5950 5750 50  0000 L CNN
-F 1 "4.7kΩ" V 6050 5750 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 6100 50  0001 C CNN
-F 3 "~" H 6000 6100 50  0001 C CNN
-	1    6000 6100
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	6100 6100 6400 6100
-Wire Wire Line
-	5900 6300 5500 6300
-Text Label 5500 6300 0    50   ~ 0
-~AUTOSCAN
-$Comp
-L Device:R_Small R?
-U 1 1 6190F3AA
-P 6000 6300
-AR Path="/6190F3AA" Ref="R?"  Part="1" 
-AR Path="/64C48268/6190F3AA" Ref="R?"  Part="1" 
-AR Path="/60757845/607965DD/6190F3AA" Ref="R?"  Part="1" 
-AR Path="/60A2F394/6190F3AA" Ref="R?"  Part="1" 
-AR Path="/60757845/6190F3AA" Ref="R1506"  Part="1" 
-F 0 "R1506" V 5950 5950 50  0000 L CNN
-F 1 "4.7kΩ" V 6050 5950 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 6300 50  0001 C CNN
-F 3 "~" H 6000 6300 50  0001 C CNN
-	1    6000 6300
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	6100 6300 6400 6300
-Wire Wire Line
-	5900 6500 5500 6500
-Text Label 5500 6500 0    50   ~ 0
-~PANELEN
-$Comp
-L Device:R_Small R?
-U 1 1 619355B0
-P 6000 6500
-AR Path="/619355B0" Ref="R?"  Part="1" 
-AR Path="/64C48268/619355B0" Ref="R?"  Part="1" 
-AR Path="/60757845/607965DD/619355B0" Ref="R?"  Part="1" 
-AR Path="/60A2F394/619355B0" Ref="R?"  Part="1" 
-AR Path="/60757845/619355B0" Ref="R1507"  Part="1" 
-F 0 "R1507" V 5950 6150 50  0000 L CNN
-F 1 "4.7kΩ" V 6050 6150 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 6500 50  0001 C CNN
-F 3 "~" H 6000 6500 50  0001 C CNN
-	1    6000 6500
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	6100 6500 6400 6500
 Text HLabel 1200 3400 0    50   Output ~ 0
 SWA[0..3]
 Text HLabel 1200 3950 0    50   Input ~ 0
@@ -1818,76 +1678,179 @@ Wire Wire Line
 Text Label 6250 4050 0    50   ~ 0
 ~SCANCLR
 Wire Wire Line
-	5900 6700 5500 6700
-Text Label 5500 6700 0    50   ~ 0
+	6550 9050 6150 9050
+Text Label 6150 9050 0    50   ~ 0
 ~WR
 Wire Wire Line
-	6100 6700 6400 6700
-Wire Wire Line
-	6400 6700 6400 6500
-Connection ~ 6400 6100
-Wire Wire Line
-	6400 6100 6400 5950
-Connection ~ 6400 6300
-Wire Wire Line
-	6400 6300 6400 6100
-Connection ~ 6400 6500
-Wire Wire Line
-	6400 6500 6400 6300
-Wire Wire Line
-	5900 6900 5500 6900
-Text Label 5500 6900 0    50   ~ 0
+	6550 8950 6150 8950
+Text Label 6150 8950 0    50   ~ 0
 ~RD
 Wire Wire Line
-	6100 6900 6400 6900
-Wire Wire Line
-	6400 6900 6400 6700
-$Comp
-L Device:R_Small R?
-U 1 1 6179786E
-P 6000 6700
-AR Path="/6179786E" Ref="R?"  Part="1" 
-AR Path="/64C48268/6179786E" Ref="R?"  Part="1" 
-AR Path="/60757845/607965DD/6179786E" Ref="R?"  Part="1" 
-AR Path="/60A2F394/6179786E" Ref="R?"  Part="1" 
-AR Path="/60757845/6179786E" Ref="R7"  Part="1" 
-F 0 "R7" V 5950 6350 50  0000 L CNN
-F 1 "4.7kΩ" V 6050 6350 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 6700 50  0001 C CNN
-F 3 "~" H 6000 6700 50  0001 C CNN
-	1    6000 6700
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
 	4350 5350 5950 5350
-$Comp
-L Device:R_Small R?
-U 1 1 61797BA5
-P 6000 6900
-AR Path="/61797BA5" Ref="R?"  Part="1" 
-AR Path="/64C48268/61797BA5" Ref="R?"  Part="1" 
-AR Path="/60757845/607965DD/61797BA5" Ref="R?"  Part="1" 
-AR Path="/60A2F394/61797BA5" Ref="R?"  Part="1" 
-AR Path="/60757845/61797BA5" Ref="R8"  Part="1" 
-F 0 "R8" V 5950 6550 50  0000 L CNN
-F 1 "4.7kΩ" V 6050 6550 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 6900 50  0001 C CNN
-F 3 "~" H 6000 6900 50  0001 C CNN
-	1    6000 6900
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	4350 5450 5950 5450
+$Comp
+L alexios:R_Pack04_Split RN?
+U 1 1 623E1F1D
+P 5000 3950
+AR Path="/623E1F1D" Ref="RN?"  Part="1" 
+AR Path="/60757845/623E1F1D" Ref="RN4"  Part="1" 
+F 0 "RN4" H 5100 3850 50  0000 L CNN
+F 1 "30Ω" H 4750 3900 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 4030 50  0001 C CNN
+F 3 "~" V 5000 3950 50  0001 C CNN
+	1    5000 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 4 1 623E1F2F
+P 5000 3650
+AR Path="/623E1F2F" Ref="RN?"  Part="4" 
+AR Path="/60757845/623E1F2F" Ref="RN4"  Part="4" 
+F 0 "RN4" H 5100 3700 50  0001 L CNN
+F 1 "30Ω" H 4975 3756 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3730 50  0001 C CNN
+F 3 "~" V 5000 3650 50  0001 C CNN
+	4    5000 3650
+	1    0    0    1   
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 2 1 623E1F23
+P 5000 3850
+AR Path="/623E1F23" Ref="RN?"  Part="2" 
+AR Path="/60757845/623E1F23" Ref="RN4"  Part="2" 
+F 0 "RN4" H 5100 3900 50  0001 L CNN
+F 1 "30Ω" H 4975 3956 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3930 50  0001 C CNN
+F 3 "~" V 5000 3850 50  0001 C CNN
+	2    5000 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 623E1F29
+P 5000 3750
+AR Path="/623E1F29" Ref="RN?"  Part="3" 
+AR Path="/60757845/623E1F29" Ref="RN4"  Part="3" 
+F 0 "RN4" H 5100 3800 50  0001 L CNN
+F 1 "30Ω" H 4975 3856 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 5000 3830 50  0001 C CNN
+F 3 "~" V 5000 3750 50  0001 C CNN
+	3    5000 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0404
+U 1 1 61B5C1F5
+P 7750 8650
+F 0 "#PWR0404" H 7750 8500 50  0001 C CNN
+F 1 "+5V" H 7600 8700 50  0000 C CNN
+F 2 "" H 7750 8650 50  0001 C CNN
+F 3 "" H 7750 8650 50  0001 C CNN
+	1    7750 8650
+	1    0    0    -1  
+$EndComp
+Text Label 7050 9050 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	7450 9050 7050 9050
+Text Label 7050 8750 0    50   ~ 0
+~AUTOSCAN
+Wire Wire Line
+	7450 8750 7050 8750
+Text Label 7050 8850 0    50   ~ 0
+~BUSEN
+Wire Wire Line
+	7450 8850 7050 8850
+$Comp
+L alexios:R_Pack04 RN401
+U 1 1 61C096CC
+P 7550 8750
+F 0 "RN401" H 7550 8300 50  0000 C CNN
+F 1 "R_Pack04" H 7500 8200 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7600 8830 50  0001 C CNN
+F 3 "~" V 7600 8750 50  0001 C CNN
+	1    7550 8750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 8650 7750 8750
+Wire Wire Line
+	7750 9050 7700 9050
+Wire Wire Line
+	7700 8950 7750 8950
+Connection ~ 7750 8950
+Wire Wire Line
+	7750 8950 7750 9050
+Wire Wire Line
+	7700 8850 7750 8850
+Connection ~ 7750 8850
+Wire Wire Line
+	7750 8850 7750 8950
+Wire Wire Line
+	7700 8750 7750 8750
+Connection ~ 7750 8750
+Wire Wire Line
+	7750 8750 7750 8850
+NoConn ~ 7450 8950
+$Comp
+L power:+5V #PWR0126
+U 1 1 61D72186
+P 6850 8650
+F 0 "#PWR0126" H 6850 8500 50  0001 C CNN
+F 1 "+5V" H 6700 8700 50  0000 C CNN
+F 2 "" H 6850 8650 50  0001 C CNN
+F 3 "" H 6850 8650 50  0001 C CNN
+	1    6850 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04 RN402
+U 1 1 61D7218C
+P 6650 8750
+F 0 "RN402" H 6650 8300 50  0000 C CNN
+F 1 "R_Pack04" H 6600 8200 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 6700 8830 50  0001 C CNN
+F 3 "~" V 6700 8750 50  0001 C CNN
+	1    6650 8750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 8650 6850 8750
+Wire Wire Line
+	6850 9050 6800 9050
+Wire Wire Line
+	6800 8950 6850 8950
+Connection ~ 6850 8950
+Wire Wire Line
+	6850 8950 6850 9050
+Wire Wire Line
+	6800 8850 6850 8850
+Connection ~ 6850 8850
+Wire Wire Line
+	6850 8850 6850 8950
+Wire Wire Line
+	6800 8750 6850 8750
+Connection ~ 6850 8750
+Wire Wire Line
+	6850 8750 6850 8850
+Text Label 6150 8750 0    50   ~ 0
+µCBUSCP
+Wire Wire Line
+	6550 8750 6150 8750
+NoConn ~ 2550 4950
 Wire Bus Line
 	1400 3450 1400 3850
 Wire Bus Line
 	1400 2850 1400 3300
 Wire Bus Line
-	10200 1200 10200 2050
-Wire Bus Line
 	9650 3300 9650 4150
 Wire Bus Line
 	8300 1200 8300 2050
+Wire Bus Line
+	10200 1200 10200 2050
 Wire Bus Line
 	6200 1200 6200 2050
 Wire Bus Line

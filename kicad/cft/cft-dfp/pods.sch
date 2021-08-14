@@ -649,8 +649,6 @@ Wire Wire Line
 	2900 2700 2600 2700
 Wire Wire Line
 	2900 2600 2600 2600
-Wire Wire Line
-	2900 2500 2350 2500
 Text HLabel 10300 950  2    50   BiDi ~ 0
 AB[0..23]
 Text HLabel 10300 1150 2    50   BiDi ~ 0
@@ -687,33 +685,6 @@ Text Label 9800 1650 0    50   ~ 0
 DB[0..15]
 Text Label 9800 1850 0    50   ~ 0
 IBUS[0..15]
-$Comp
-L Device:R_Small R9
-U 1 1 6042C115
-P 2350 2300
-F 0 "R9" H 2292 2346 50  0000 R CNN
-F 1 "10kΩ" H 2292 2255 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2350 2300 50  0001 C CNN
-F 3 "~" H 2350 2300 50  0001 C CNN
-	1    2350 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2350 2400 2350 2500
-Connection ~ 2350 2500
-Wire Wire Line
-	2350 2500 1850 2500
-$Comp
-L power:+5V #PWR0216
-U 1 1 60442D32
-P 2350 2200
-F 0 "#PWR0216" H 2350 2050 50  0001 C CNN
-F 1 "+5V" H 2365 2373 50  0000 C CNN
-F 2 "" H 2350 2200 50  0001 C CNN
-F 3 "" H 2350 2200 50  0001 C CNN
-	1    2350 2200
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:R_Small R10
 U 1 1 6045B0F4
@@ -2301,6 +2272,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 17050 100 50  0001 C CNN
 	1    16850 550 
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1850 2500 2900 2500
 Wire Bus Line
 	2500 1400 2500 2200
 $EndSCHEMATC
