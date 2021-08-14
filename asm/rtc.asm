@@ -46,7 +46,7 @@
 ;;; follows:
 
 .equ DET_MASK   #11111111'00000000
-.equ RTC_DETECT #11110000'--------
+.equ RTC_DETECT #00001111'--------
 
 ;;; The RTC stores data in BCD format.
 
