@@ -28,8 +28,12 @@
 #include "log.h"
 
 #include "io.h"
+#include "irc.h"
 #include "deb.h"
 #include "dfp.h"
+#include "tty.h"
+#include "tmr.h"
+#include "rtc.h"
 
 // #include "io.h"
 // #include "mbu.h"
@@ -58,16 +62,17 @@ iodev_t iodevs[] = {
                 // no longer an I/O mapped device.
                 // .read = mbu_read,
                 // .write = mbu_write,
+        },
 
-                // Why is this here? (probably a leftover temporary change)
-                .nttys = 1,
-                .ttys = {
-                        {
-                                .magic = MAGIC_TTY_T,
-                                .name = "DFP debugging/diagnostics user interface",
-                                .dev = "dfp2"
-                        },
-                }
+        // The IRC is part of the CPU and permanently enabled.
+        {
+                .name = "Interrupt Controller",
+                .code = "IRC",
+                .enabled = 1,
+                .reset = irc_reset,
+                .read = irc_read,
+                .write = irc_write,
+                .tick = irc_tick,
         },
 
 #ifdef HAVE_DEB        
@@ -91,7 +96,77 @@ iodev_t iodevs[] = {
                 .read = dfp_read,
                 .write = dfp_write,
                 .tick = dfp_tick,
-                .done = dfp_done
+                .done = dfp_done,
+
+                .nttys = 1,
+                .ttys = {
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "DFP debugging/diagnostics user interface",
+                                .dev = "dfp2"
+                        },
+                }
+        },
+#endif // HAVE_DFP
+
+#ifdef HAVE_TMR
+        // The dual Timer board
+        {
+                .name = "Dual Programmable Timer Board",
+                .code = "TMR",
+                .enabled = 1,
+                .reset = tmr_reset,
+                .read = tmr_read,
+                .write = tmr_write,
+                .tick = tmr_tick,
+        },
+#endif // HAVE_TMR
+
+#ifdef HAVE_RTC
+        // The Real-Time Clock board
+        {
+                .name = "Real-Time Clock Board",
+                .code = "RTC",
+                .enabled = 1,
+                .read = rtc_read,
+                .write = rtc_write
+        },
+#endif // HAVE_RTC
+
+#ifdef HAVE_TTY
+        {
+                .name = "Quad Serial Board",
+                .code = "TTY",
+                .enabled = 0,
+                .init = tty_init,
+                .read = tty_read,
+                .write = tty_write,
+                .tick = tty_tick,
+                .done = tty_done,
+                
+                .nttys = 4,
+                .ttys = {
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "Quad Serial, DUART 1, Port 1",
+                                .dev = "tty0",
+                        },
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "Quad Serial, DUART 1, Port 2",
+                                .dev = "tty1",
+                        },
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "Quad Serial, DUART 2, Port 1",
+                                .dev = "tty3",
+                        },
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "Quad Serial, DUART 2, Port 2",
+                                .dev = "tty4",
+                        }
+                }
         },
 #endif // HAVE_DEFP
 	

@@ -1,6 +1,6 @@
 // -*- c -*-
 // 
-// deb.h — DEB Board I/O definitions
+// tmr.h — Dual Timer (TMR) definitions
 // 
 // Copyright © 2012–2021 Alexios Chouchoulas
 // 
@@ -9,21 +9,22 @@
 // the Free Software Foundation; either version 2, or (at your option)
 // any later version.
 
-#ifndef DEB_H
-#define DEB_H 1
+#ifndef TMR_H
+#define TMR_H 1
 
 #include "cftemu.h"
 
-void deb_init();
+void tmr_init();
 
-int deb_read(longaddr_t addr, word * data);
+void tmr_reset();
 
-int deb_write(longaddr_t addr, word data);
+int tmr_read(longaddr_t addr, word * data);
 
-void deb_tick();
+int tmr_write(longaddr_t addr, word data);
 
+void tmr_tick();
 
-#endif // DEB_H
+#endif // TMR_H
 
 // End of file.
 // Local Variables:

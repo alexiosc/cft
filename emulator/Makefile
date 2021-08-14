@@ -21,7 +21,7 @@ PROGRAMS = cftemu
 # 	ui.o ui_panel.o ui_menu.o ui_dfp.o ui_vdu.o ui_tty.o uterm.o psg.o 8912.o \
 # 	ay8910.o
 OBJS = 	cftemu.o cmdline.o util.o ringbuf.o log.o cft.o microcode.o \
-	io.o
+	io.o irc.o
 OBJS += mem.o
 
 # DEB board
@@ -32,6 +32,18 @@ CFLAGS += -DHAVE_DEB
 # OBJS += dfp.o
 # CFLAGS += -DHAVE_DFP
 # LDFLAGS += -ldfp
+
+# TTY board
+OBJS += tty.o
+CFLAGS += -DHAVE_TTY
+
+# RTC board
+OBJS += rtc.o
+CFLAGS += -DHAVE_RTC
+
+# TMR board
+OBJS += tmr.o
+CFLAGS += -DHAVE_TMR
 
 ###############################################################################
 #

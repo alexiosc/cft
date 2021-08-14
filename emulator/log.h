@@ -75,31 +75,40 @@ int log_enabled(int level, log_unit_t unit);
                 log_msg(LOG_FATAL, LOG_MACROS_UNIT, msg, ## __VA_ARGS__); \
                 exit(1);                                                  \
         }
-#  define error(msg, ...)   log_msg(LOG_ERROR, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define warning(msg, ...) log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define warn(msg, ...)    log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define info(msg, ...)    log_msg(LOG_INFO, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define debug2(msg, ...)  log_msg(LOG_DEBUG2, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define debug3(msg, ...)  log_msg(LOG_DEBUG3, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
-#  define log_enabeld(l)    log_enabled(level, LOG_MACROS_UNIT)
+#  define error(msg, ...)    log_msg(LOG_ERROR, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define warning(msg, ...)  log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define warn(msg, ...)     log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define notice(msg, ...)   log_msg(LOG_NOTICE, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define info(msg, ...)     log_msg(LOG_INFO, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug(msg, ...)    log_msg(LOG_DEBUG, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug2(msg, ...)   log_msg(LOG_DEBUG2, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug3(msg, ...)   log_msg(LOG_DEBUG3, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug4(msg, ...)   log_msg(LOG_DEBUG4, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+
+//#  define log_enabled(l)     log_enabled(level, LOG_MACROS_UNIT)
+
+#  define cft_perror(msg)    log_msg(LOG_ERROR, LOG_MACROS_UNIT, "%s: %s", msg, strerror(errno))
+
 #else
 #  define fatal(msg, ...) {                                             \
                 log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);   \
                 exit(1);                                                \
         }
-#  define error(msg, ...)   log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define warning(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define warn(msg, ...)    log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define info(msg, ...)    log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define debug2(msg, ...)  log_msg(LOG_DEBUG2, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define debug3(msg, ...)  log_msg(LOG_DEBUG3, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-#  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define error(msg, ...)    log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define warning(msg, ...)  log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define warn(msg, ...)     log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define notice(msg, ...)   log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define info(msg, ...)     log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug(msg, ...)    log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug2(msg, ...)   log_msg(LOG_DEBUG2, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug3(msg, ...)   log_msg(LOG_DEBUG3, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug4(msg, ...)   log_msg(LOG_DEBUG4, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#  define cft_perror(msg)    log_msg(LOG_ERROR, LOG_NO_UNIT, "%s: %s", msg, strerror(errno))
+
 #endif
+
+
 
 
 #endif // __LOG_H__

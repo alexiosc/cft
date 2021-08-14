@@ -1,6 +1,6 @@
 // -*- c -*-
 // 
-// deb.h — DEB Board I/O definitions
+// irc.h — Interrupt Controller (IRC) definitions
 // 
 // Copyright © 2012–2021 Alexios Chouchoulas
 // 
@@ -9,21 +9,24 @@
 // the Free Software Foundation; either version 2, or (at your option)
 // any later version.
 
-#ifndef DEB_H
-#define DEB_H 1
+#ifndef IRC_H
+#define IRC_H 1
 
 #include "cftemu.h"
 
-void deb_init();
+void irc_init();
 
-int deb_read(longaddr_t addr, word * data);
+void irc_reset();
 
-int deb_write(longaddr_t addr, word data);
+int irc_read(longaddr_t addr, word * data);
 
-void deb_tick();
+int irc_write(longaddr_t addr, word data);
 
+void irc_tick();
 
-#endif // DEB_H
+void irc_irq(int level);
+
+#endif // IRC_H
 
 // End of file.
 // Local Variables:
