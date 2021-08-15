@@ -103,7 +103,7 @@ iodev_t iodevs[] = {
                         {
                                 .magic = MAGIC_TTY_T,
                                 .name = "DFP debugging/diagnostics user interface",
-                                .dev = "dfp2"
+                                .dev = "TTYD"
                         },
                 }
         },
@@ -149,26 +149,26 @@ iodev_t iodevs[] = {
                         {
                                 .magic = MAGIC_TTY_T,
                                 .name = "Quad Serial, DUART 1, Port 1",
-                                .dev = "tty0",
+                                .dev = "TTY0",
                         },
                         {
                                 .magic = MAGIC_TTY_T,
                                 .name = "Quad Serial, DUART 1, Port 2",
-                                .dev = "tty1",
+                                .dev = "TTY1",
                         },
                         {
                                 .magic = MAGIC_TTY_T,
                                 .name = "Quad Serial, DUART 2, Port 1",
-                                .dev = "tty3",
+                                .dev = "TTY2",
                         },
                         {
                                 .magic = MAGIC_TTY_T,
                                 .name = "Quad Serial, DUART 2, Port 2",
-                                .dev = "tty4",
+                                .dev = "TTY3",
                         }
                 }
         },
-#endif // HAVE_DEFP
+#endif  // HAVE_TTY
 	
 /*
   {
