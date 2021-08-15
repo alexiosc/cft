@@ -79,10 +79,6 @@ Text HLabel 1150 1550 0    50   Input ~ 0
 FPA[0..7]
 Wire Wire Line
 	4050 4300 4550 4300
-Text HLabel 4050 4300 0    50   Input ~ 0
-~FPORH
-Text HLabel 4050 2850 0    50   Input ~ 0
-~FPORL
 Wire Wire Line
 	4550 2750 4350 2750
 Text Label 4350 4000 0    50   ~ 0
@@ -1445,7 +1441,7 @@ Wire Wire Line
 Text Label -2200 3000 0    50   ~ 0
 ~WR
 Text Label -2200 2900 0    50   ~ 0
-~WEN0
+~EN0
 $Comp
 L alexios:74HC138 U302
 U 1 1 64774450
@@ -1472,8 +1468,8 @@ Wire Wire Line
 	-1950 3450 -2200 3450
 Text Label -2200 4250 0    50   ~ 0
 ~WR
-Text Label -2200 4150 0    50   ~ 0
-~WEN1
+Text Label -2200 5400 0    50   ~ 0
+~EN0
 $Comp
 L alexios:74HC138 U303
 U 1 1 647BCCC8
@@ -1500,8 +1496,6 @@ Wire Wire Line
 	-1950 4700 -2200 4700
 Text Label -2200 5500 0    50   ~ 0
 ~RD
-Text Label -2200 5400 0    50   ~ 0
-~REN0
 Text Label -2200 6150 0    50   ~ 0
 FPA2
 Text Label -2200 6050 0    50   ~ 0
@@ -1570,8 +1564,6 @@ F 4 "Yes" H -1525 5525 50  0001 C CNN "Verified"
 $EndComp
 Wire Wire Line
 	-1950 6750 -2200 6750
-Text Label -2200 6650 0    50   ~ 0
-~REN1
 Text Label -2200 6750 0    50   ~ 0
 ~RD
 Text Notes -1100 4350 0    50   ~ 0
@@ -1917,21 +1909,13 @@ $EndComp
 Connection ~ 2400 6900
 Connection ~ 2400 7100
 Text HLabel -2250 2900 0    50   Input ~ 0
-~WEN0
+~EN0
 Text HLabel -2250 4150 0    50   Input ~ 0
-~WEN1
-Text HLabel -2250 5400 0    50   Input ~ 0
-~REN0
-Text HLabel -2250 6650 0    50   Input ~ 0
-~REN1
+~EN1
 Wire Wire Line
 	-2250 2900 -1950 2900
 Wire Wire Line
 	-2250 4150 -1950 4150
-Wire Wire Line
-	-2250 5400 -1950 5400
-Wire Wire Line
-	-2250 6650 -1950 6650
 Text HLabel -2250 3000 0    50   Input ~ 0
 ~WR
 Wire Wire Line
@@ -2013,10 +1997,22 @@ Wire Wire Line
 	-950 6350 -600 6350
 Text Notes -500 6250 0    50   ~ 0
 Expansion
+Wire Wire Line
+	-2200 5400 -1950 5400
+Text Label -2200 6650 0    50   ~ 0
+~EN1
+Wire Wire Line
+	-2200 6650 -1950 6650
 Wire Bus Line
 	5950 1550 5950 4400
 Wire Bus Line
 	4150 1950 4150 4400
 Wire Bus Line
 	9350 1550 9350 5700
+Text Label -2200 4150 0    50   ~ 0
+~EN1
+Text HLabel 4050 4300 0    50   Input ~ 0
+~FPORH
+Text HLabel 4050 2850 0    50   Input ~ 0
+~FPORL
 $EndSCHEMATC

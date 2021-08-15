@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 18
+Sheet 17 18
 Title "Microcontroller and DFP Bus"
 Date ""
 Rev "2049"
@@ -774,8 +774,6 @@ F 3 "" H 2150 2050 50  0001 C CNN
 $EndComp
 Text Label 6400 2350 0    50   ~ 0
 ALE
-Text Label 6400 2450 0    50   ~ 0
-~BUSEN
 Entry Wire Line
 	6300 2150 6200 2050
 Entry Wire Line
@@ -808,20 +806,6 @@ Wire Wire Line
 	7750 2050 8100 2050
 Wire Wire Line
 	7750 2150 8100 2150
-$Comp
-L alexios:74AC573 U?
-U 1 1 6079616A
-P 7250 1950
-AR Path="/6079616A" Ref="U?"  Part="1" 
-AR Path="/60757845/6079616A" Ref="U3"  Part="1" 
-F 0 "U3" H 7250 2717 50  0000 C CNN
-F 1 "74AC573" H 7250 2626 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 7250 1950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 7250 1950 50  0001 C CNN
-F 4 "Yes" H 1950 200 50  0001 C CNN "Verified"
-	1    7250 1950
-	1    0    0    -1  
-$EndComp
 Wire Bus Line
 	6300 1100 8200 1100
 Wire Bus Line
@@ -987,7 +971,6 @@ Wire Wire Line
 Wire Wire Line
 	2300 2750 2550 2750
 NoConn ~ 4350 3050
-NoConn ~ 4350 3550
 NoConn ~ 4350 4550
 Wire Wire Line
 	6700 3850 6700 5150
@@ -1068,17 +1051,6 @@ F 1 "+12V" H 2165 1573 50  0000 C CNN
 F 2 "" H 2150 1400 50  0001 C CNN
 F 3 "" H 2150 1400 50  0001 C CNN
 	1    2150 1400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:Arduino-Mega-2560 J8
-U 1 1 6158B038
-P 3450 3750
-F 0 "J8" H 3450 6389 60  0000 C CNN
-F 1 "Arduino-Mega-2560" H 3450 6283 60  0000 C CNN
-F 2 "alexios:Arduino-Mega-2560-Mezzanine-Upside-Down" H 4125 6500 60  0001 C CNN
-F 3 "https://store.arduino.cc/arduino-mega-2560-rev3" H 4125 6500 60  0001 C CNN
-	1    3450 3750
 	1    0    0    -1  
 $EndComp
 Text Label 5000 5550 2    50   ~ 0
@@ -1343,8 +1315,6 @@ Wire Wire Line
 	9850 2350 10150 2350
 Wire Wire Line
 	10150 2450 9850 2450
-Text Label 10150 2450 2    50   ~ 0
-SCANEN
 Text Label 10150 2350 2    50   ~ 0
 ~WR
 $Comp
@@ -1848,6 +1818,42 @@ Text HLabel 5150 4250 2    50   Input ~ 0
 WAIT
 Wire Wire Line
 	4350 5050 5150 5050
+Text HLabel 5150 5050 2    50   Output ~ 0
+~µSTEP
+Text Label 4450 5050 0    50   ~ 0
+~µSTEP
+$Comp
+L alexios:Arduino-Mega-2560 J8
+U 1 1 6158B038
+P 3450 3750
+F 0 "J8" H 3450 6389 60  0000 C CNN
+F 1 "Arduino-Mega-2560" H 3450 6283 60  0000 C CNN
+F 2 "alexios:Arduino-Mega-2560-Mezzanine-Upside-Down" H 4125 6500 60  0001 C CNN
+F 3 "https://store.arduino.cc/arduino-mega-2560-rev3" H 4125 6500 60  0001 C CNN
+	1    3450 3750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4350 3550
+$Comp
+L alexios:74AC573 U?
+U 1 1 6079616A
+P 7250 1950
+AR Path="/6079616A" Ref="U?"  Part="1" 
+AR Path="/60757845/6079616A" Ref="U3"  Part="1" 
+F 0 "U3" H 7250 2717 50  0000 C CNN
+F 1 "74AC573" H 7250 2626 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 7250 1950 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 7250 1950 50  0001 C CNN
+F 4 "Yes" H 1950 200 50  0001 C CNN "Verified"
+	1    7250 1950
+	1    0    0    -1  
+$EndComp
+Text Label 6400 2450 0    50   ~ 0
+~BUSEN
+Text Label 10150 2450 2    50   ~ 0
+~BUSEN
+NoConn ~ 2550 2250
+NoConn ~ 2550 2350
 Wire Bus Line
 	1400 3450 1400 3850
 Wire Bus Line
@@ -1862,8 +1868,4 @@ Wire Bus Line
 	6200 1200 6200 2050
 Wire Bus Line
 	8200 1550 8200 4150
-Text HLabel 5150 5050 2    50   Output ~ 0
-~µSTEP
-Text Label 4450 5050 0    50   ~ 0
-~µSTEP
 $EndSCHEMATC

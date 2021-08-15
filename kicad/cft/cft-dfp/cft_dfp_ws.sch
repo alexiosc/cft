@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 18
+Sheet 18 18
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
@@ -188,9 +188,7 @@ Wire Bus Line
 Entry Bus Bus
 	1650 1650 1750 1750
 Text HLabel 1200 2400 0    50   Input ~ 0
-~IODEV1xx
-Text HLabel 1200 3700 0    50   Input ~ 0
-CLRWS
+~IODEV1XX
 Text HLabel 1200 2500 0    50   Input ~ 0
 ~DBOE0
 Text HLabel 1200 2600 0    50   3State ~ 0
@@ -202,8 +200,6 @@ Wire Wire Line
 	5500 1700 8000 1700
 Wire Wire Line
 	5500 2100 5500 1700
-Text Label 1250 3700 0    50   ~ 0
-CLRWS
 $Comp
 L alexios:74LVC1G07 U?
 U 1 1 616384BA
@@ -234,8 +230,6 @@ $EndComp
 Text Label 5650 2100 0    50   ~ 0
 ~IOINT
 Text Label 5650 2300 0    50   ~ 0
-CLRWS
-Text Label 4800 3700 0    50   ~ 0
 CLRWS
 Wire Wire Line
 	6000 2300 5600 2300
@@ -378,7 +372,7 @@ Wire Wire Line
 Wire Wire Line
 	2450 2500 1200 2500
 Text Label 1900 2400 0    50   ~ 0
-~IODEV1xx
+~IODEV1XX
 Text Label 1900 2300 0    50   ~ 0
 AB7
 Text Label 1900 2200 0    50   ~ 0
@@ -392,8 +386,8 @@ Text Label 1900 2600 0    50   ~ 0
 Text Label 3800 2100 2    50   ~ 0
 ~DFPSEL
 Wire Wire Line
-	3900 2800 3350 2800
-Text Label 3800 2800 2    50   ~ 0
+	3900 2700 3350 2700
+Text Label 3800 2700 2    50   ~ 0
 ~DBOE1
 Wire Wire Line
 	1200 2600 2450 2600
@@ -441,7 +435,7 @@ Wire Wire Line
 	4400 2750 4800 2750
 Text Notes 5900 3050 0    100  ~ 20
 Autonomic Data Bus Driver
-Text HLabel 3900 2800 2    50   Output ~ 0
+Text HLabel 3900 2700 2    50   Output ~ 0
 ~DBOE1
 Wire Wire Line
 	6950 2500 7000 2500
@@ -453,33 +447,11 @@ Wire Wire Line
 Wire Wire Line
 	5000 2750 7000 2750
 Wire Wire Line
-	3350 2700 3900 2700
-Wire Wire Line
 	3350 2600 3900 2600
-Wire Wire Line
-	3350 2400 3900 2400
-Wire Wire Line
-	3350 2500 3900 2500
-Text Label 3800 2700 2    50   ~ 0
-~WEN0
 Text Label 3800 2600 2    50   ~ 0
-~WEN1
-Text Label 3800 2400 2    50   ~ 0
-~REN0
-Text Label 3800 2500 2    50   ~ 0
-~REN1
-Text HLabel 3900 2700 2    50   Output ~ 0
-~WEN0
+~EN0
 Text HLabel 3900 2600 2    50   Output ~ 0
-~WEN1
-Text HLabel 3900 2400 2    50   Output ~ 0
-~REN0
-Text HLabel 3900 2500 2    50   Output ~ 0
-~REN1
-Text Notes 2600 3600 0    50   ~ 0
-Also decodes µCU XMEM A6 line\nfor DFP reads/writes.
-Wire Wire Line
-	5600 2300 5600 3700
+~EN0
 $Comp
 L alexios:ATF16V8B U40
 U 1 1 60F2558F
@@ -500,8 +472,8 @@ Wire Wire Line
 Wire Wire Line
 	2450 2900 1850 2900
 Wire Wire Line
-	2450 3000 1850 3000
-Text Label 1900 3000 0    50   ~ 0
+	3350 2800 3800 2800
+Text Label 3800 2800 2    50   ~ 0
 FPA3
 Text Label 1900 2900 0    50   ~ 0
 FPA4
@@ -515,8 +487,6 @@ Entry Wire Line
 	1850 2800 1750 2900
 Entry Wire Line
 	1850 2700 1750 2800
-Entry Wire Line
-	1850 3000 1750 3100
 Entry Wire Line
 	1850 2900 1750 3000
 Entry Wire Line
@@ -583,37 +553,57 @@ Wire Wire Line
 	7650 2100 7700 2100
 Wire Wire Line
 	7700 2100 7700 2150
+NoConn ~ 3350 2300
+NoConn ~ 3350 2200
+Text HLabel 1200 3850 0    50   Input ~ 0
+CLRWS
+Text Label 1250 3850 0    50   ~ 0
+CLRWS
+Text Label 4800 3850 0    50   ~ 0
+CLRWS
+Wire Wire Line
+	5600 2300 5600 3850
 $Comp
 L Device:R_Small R1901
 U 1 1 613F86C2
-P 2200 3900
-F 0 "R1901" H 2259 3854 50  0000 L CNN
-F 1 "10kΩ" H 2259 3945 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2200 3900 50  0001 C CNN
-F 3 "~" H 2200 3900 50  0001 C CNN
-	1    2200 3900
+P 2200 4050
+F 0 "R1901" H 2259 4004 50  0000 L CNN
+F 1 "10kΩ" H 2259 4095 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2200 4050 50  0001 C CNN
+F 3 "~" H 2200 4050 50  0001 C CNN
+	1    2200 4050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2200 3800 2200 3700
+	2200 3950 2200 3850
 Wire Wire Line
-	1200 3700 2200 3700
-Connection ~ 2200 3700
+	1200 3850 2200 3850
+Connection ~ 2200 3850
 Wire Wire Line
-	2200 3700 5600 3700
-NoConn ~ 3350 2200
-NoConn ~ 3350 2300
+	2200 3850 5600 3850
 $Comp
 L power:GND #PWR0134
 U 1 1 616B1460
-P 2200 4000
-F 0 "#PWR0134" H 2200 3750 50  0001 C CNN
-F 1 "GND" H 2205 3827 50  0000 C CNN
-F 2 "" H 2200 4000 50  0001 C CNN
-F 3 "" H 2200 4000 50  0001 C CNN
-	1    2200 4000
+P 2200 4150
+F 0 "#PWR0134" H 2200 3900 50  0001 C CNN
+F 1 "GND" H 2205 3977 50  0000 C CNN
+F 2 "" H 2200 4150 50  0001 C CNN
+F 3 "" H 2200 4150 50  0001 C CNN
+	1    2200 4150
 	1    0    0    -1  
 $EndComp
+Text Notes 2600 3700 0    50   ~ 0
+Also decodes µCU XMEM A6 line\nfor DFP reads/writes. (~RD~ and \n~WR~ are decoded separately).
+Text HLabel 3900 2500 2    50   Output ~ 0
+~EN1
+Wire Wire Line
+	3350 2500 3900 2500
+Text Label 3800 2500 2    50   ~ 0
+~EN1
+NoConn ~ 2450 3000
+Text Notes 3350 2800 0    50   ~ 0
+Input
+NoConn ~ 3350 2400
 Wire Bus Line
 	1750 1750 1750 2200
 Wire Bus Line

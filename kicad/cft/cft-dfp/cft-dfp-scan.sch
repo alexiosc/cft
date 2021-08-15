@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 18
+Sheet 5 18
 Title "Front Panel Light Scanner"
 Date "2019-11-17"
 Rev "2049"
@@ -1361,18 +1361,6 @@ Text Label 4700 1400 0    50   ~ 0
 FPA3
 Text Label 4700 1300 0    50   ~ 0
 FPA2
-Wire Wire Line
-	4700 1300 5250 1300
-Wire Wire Line
-	4700 1400 5250 1400
-Wire Wire Line
-	4700 1600 5250 1600
-Text Label 4950 1700 0    50   ~ 0
-~PANELEN
-Wire Wire Line
-	5250 1200 4700 1200
-Wire Wire Line
-	5250 1100 4700 1100
 Text Label 4700 1100 0    50   ~ 0
 FPA0
 Text Label 4700 1200 0    50   ~ 0
@@ -1413,16 +1401,6 @@ Text Label 4700 3350 0    50   ~ 0
 FPA3
 Text Label 4700 3250 0    50   ~ 0
 FPA2
-Wire Wire Line
-	4700 3250 5250 3250
-Wire Wire Line
-	4700 3350 5250 3350
-Text Label 4950 3650 0    50   ~ 0
-~PANELEN
-Wire Wire Line
-	5250 3150 4700 3150
-Wire Wire Line
-	5250 3050 4700 3050
 Text Label 4700 3050 0    50   ~ 0
 FPA0
 Text Label 4700 3150 0    50   ~ 0
@@ -1677,8 +1655,8 @@ Text Label 2250 1800 0    50   ~ 0
 FPA6
 Text Notes 2300 2750 0    50   ~ 0
 ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ~ROW~\nstrobes.
-Text Notes 2300 3800 0    50   ~ 0
-When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
+Text Notes 2300 3850 0    50   ~ 0
+When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted to use any device on\nthe XMEM bus.
 Wire Wire Line
 	2450 1700 2400 1700
 Wire Notes Line width 24 style solid
@@ -1704,7 +1682,7 @@ Wire Wire Line
 Wire Notes Line width 24 style solid
 	2200 3000 2200 900 
 Text Notes 550  2900 0    50   ~ 0
-In XMem mode, the Atmega drives its\naddress bus all the time, but the '138\ndecoder in Rev. A of the board isn't\ngated, so the front panel shows the\ninner workings of the Atmega instead\nof the CFT!\n\nU1202 should be gated such that it\nstrobes ~ROWx~ when either ~SCANEN~ or\nthe Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused)\n‘snoop-update’ mode of the FP.
+In XMem mode, the Atmega drives its\naddress bus all the time, but the '138\ndecoder in Rev. A of the board isn't\ngated, so the front panel shows the\ninner workings of the Atmega instead\nof the CFT!\n\nU1202 should be gated such that it\nstrobes ~ROWx~ when either ~AUTOSCAN~ or\nthe Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused)\n‘snoop-update’ mode of the FP.
 Text Notes 6950 1100 2    50   ~ 10
 00
 Wire Wire Line
@@ -1871,16 +1849,8 @@ Text HLabel 450  700  0    50   Input ~ 0
 FPA[0..7]
 Text Label 4700 2150 0    50   ~ 0
 FPA4
-Wire Wire Line
-	4700 2150 5200 2150
 Entry Wire Line
 	4600 2050 4700 2150
-Wire Wire Line
-	5200 2150 5200 2200
-Wire Wire Line
-	5200 2700 5200 3550
-Wire Wire Line
-	5200 3550 5250 3550
 Wire Bus Line
 	-1900 1100 -1350 1100
 Wire Wire Line
@@ -1888,11 +1858,7 @@ Wire Wire Line
 Wire Wire Line
 	4450 3650 4450 3150
 Wire Wire Line
-	4450 3650 5250 3650
-Wire Wire Line
 	4450 1950 4700 1700
-Wire Wire Line
-	4700 1700 5250 1700
 Text Label 4450 3050 1    50   ~ 0
 ~PANELEN
 NoConn ~ 3450 1700

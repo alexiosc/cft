@@ -635,11 +635,11 @@ Text HLabel 15800 2250 2    50   UnSpc ~ 0
 Text HLabel 14200 1550 2    50   UnSpc ~ 0
 ~SYSDEV
 Text HLabel 14200 1650 2    50   UnSpc ~ 0
-~IODEV1xx
+~IODEV1XX
 Text HLabel 14200 1750 2    50   UnSpc ~ 0
-~IODEV2xx
+~IODEV2XX
 Text HLabel 14200 1850 2    50   UnSpc ~ 0
-~IODEV3xx
+~IODEV3XX
 Text HLabel 14200 1050 2    50   UnSpc ~ 0
 ~MEM
 Text HLabel 14200 1150 2    50   UnSpc ~ 0
@@ -1836,20 +1836,6 @@ Text HLabel 14150 10500 2    50   Input ~ 0
 ~FPIRF
 NoConn ~ 14100 5500
 NoConn ~ 14200 1450
-Wire Bus Line
-	4900 -4200 4900 -3900
-Wire Bus Line
-	4900 -3800 4900 -3500
-Wire Bus Line
-	4900 -4700 4900 -4300
-Wire Bus Line
-	12000 3950 12000 4650
-Wire Bus Line
-	4900 -5500 4900 -4800
-Wire Bus Line
-	12000 6200 12000 7700
-Wire Bus Line
-	12000 1450 12000 3750
 Entry Bus Bus
 	3000 4000 3100 4100
 Text HLabel 1900 4000 0    50   Input ~ 0
@@ -2516,12 +2502,41 @@ Wire Wire Line
 	7050 5050 7100 5050
 Wire Wire Line
 	7050 5150 7100 5150
+Text Notes 2000 3950 0    50   ~ 0
+up-to-date
+Wire Wire Line
+	12550 1150 12350 1150
+$Comp
+L power:+12V #PWR0135
+U 1 1 61B324B4
+P 12350 1000
+F 0 "#PWR0135" H 12350 850 50  0001 C CNN
+F 1 "+12V" H 12292 1037 50  0000 R CNN
+F 2 "" H 12350 1000 50  0001 C CNN
+F 3 "" H 12350 1000 50  0001 C CNN
+	1    12350 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 1000 12350 1150
+Wire Bus Line
+	4900 -4200 4900 -3900
+Wire Bus Line
+	4900 -3800 4900 -3500
+Wire Bus Line
+	4900 -4700 4900 -4300
+Wire Bus Line
+	12000 3950 12000 4650
+Wire Bus Line
+	4900 -5500 4900 -4800
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
 	9550 4250 9550 5050
 Wire Bus Line
 	5600 4100 5600 5050
-Text Notes 2000 3950 0    50   ~ 0
-up-to-date
+Wire Bus Line
+	12000 6200 12000 7700
+Wire Bus Line
+	12000 1450 12000 3750
 $EndSCHEMATC
