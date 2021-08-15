@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 19
+Sheet 19 18
 Title "Microcontroller and DFP Bus"
 Date ""
 Rev "2049"
@@ -112,14 +112,14 @@ Wire Wire Line
 $Comp
 L power:+5V #PWR?
 U 1 1 601CE94F
-P 6850 5250
+P 6800 5200
 AR Path="/601CE94F" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/601CE94F" Ref="#PWR017"  Part="1" 
-F 0 "#PWR017" H 6850 5100 50  0001 C CNN
-F 1 "+5V" H 6865 5423 50  0000 C CNN
-F 2 "" H 6850 5250 50  0001 C CNN
-F 3 "" H 6850 5250 50  0001 C CNN
-	1    6850 5250
+F 0 "#PWR017" H 6800 5050 50  0001 C CNN
+F 1 "+5V" H 6815 5373 50  0000 C CNN
+F 2 "" H 6800 5200 50  0001 C CNN
+F 3 "" H 6800 5200 50  0001 C CNN
+	1    6800 5200
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -864,16 +864,10 @@ Text Label 5050 2750 2    50   ~ 0
 ~LED-STOP
 Wire Wire Line
 	4350 4250 5150 4250
-Text HLabel 5150 4250 2    50   Input ~ 0
-~WAIT
 Text HLabel 5150 4150 2    50   Input ~ 0
 ~IOINT
 Text Label 4950 3450 2    50   ~ 0
 ~PANELEN
-Text Label 4700 4250 2    50   ~ 0
-~WAIT
-Text Label 4450 5050 0    50   ~ 0
-~µSTEP
 Text Label 4450 4950 0    50   ~ 0
 STEP∕~RUN
 Text Label 4950 3350 2    50   ~ 0
@@ -1087,8 +1081,6 @@ F 3 "https://store.arduino.cc/arduino-mega-2560-rev3" H 4125 6500 60  0001 C CNN
 	1    3450 3750
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4350 5550 4800 5550
 Text Label 5000 5550 2    50   ~ 0
 ALE
 Wire Wire Line
@@ -1240,33 +1232,28 @@ FPA7
 $Comp
 L Device:R_Small R?
 U 1 1 6263FC4F
-P 4800 5700
+P 5850 9050
 AR Path="/6263FC4F" Ref="R?"  Part="1" 
 AR Path="/64C48268/6263FC4F" Ref="R?"  Part="1" 
 AR Path="/60757845/607965DD/6263FC4F" Ref="R?"  Part="1" 
 AR Path="/60A2F394/6263FC4F" Ref="R?"  Part="1" 
 AR Path="/60757845/6263FC4F" Ref="R4"  Part="1" 
-F 0 "R4" H 4742 5654 50  0000 R CNN
-F 1 "10kΩ" H 4742 5745 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4800 5700 50  0001 C CNN
-F 3 "~" H 4800 5700 50  0001 C CNN
-	1    4800 5700
-	1    0    0    1   
+F 0 "R4" V 5654 9050 50  0000 C CNN
+F 1 "10kΩ" V 5745 9050 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5850 9050 50  0001 C CNN
+F 3 "~" H 5850 9050 50  0001 C CNN
+	1    5850 9050
+	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	4800 5600 4800 5550
-Connection ~ 4800 5550
-Wire Wire Line
-	4800 5550 5000 5550
 $Comp
 L power:GND #PWR0164
 U 1 1 626550E7
-P 4800 5800
-F 0 "#PWR0164" H 4800 5550 50  0001 C CNN
-F 1 "GND" H 4805 5627 50  0000 C CNN
-F 2 "" H 4800 5800 50  0001 C CNN
-F 3 "" H 4800 5800 50  0001 C CNN
-	1    4800 5800
+P 6000 9150
+F 0 "#PWR0164" H 6000 8900 50  0001 C CNN
+F 1 "GND" H 6005 8977 50  0000 C CNN
+F 2 "" H 6000 9150 50  0001 C CNN
+F 3 "" H 6000 9150 50  0001 C CNN
+	1    6000 9150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1518,16 +1505,12 @@ Wire Wire Line
 Text Notes 5650 4975 0    50   ~ 0
 (= ~LED-RUN)
 Wire Wire Line
-	4350 5050 5150 5050
-Text HLabel 5150 5050 2    50   Output ~ 0
-~µSTEP
-Wire Wire Line
 	4350 4950 5150 4950
 Text HLabel 5150 4950 2    50   Output ~ 0
 STEP∕~RUN
-Text HLabel 5950 5350 2    50   Output ~ 0
+Text HLabel 5150 5350 2    50   Output ~ 0
 ~WR
-Text HLabel 5950 5450 2    50   Output ~ 0
+Text HLabel 5150 5450 2    50   Output ~ 0
 ~RD
 NoConn ~ 2550 4350
 NoConn ~ 2550 4450
@@ -1686,9 +1669,9 @@ Wire Wire Line
 Text Label 6150 8950 0    50   ~ 0
 ~RD
 Wire Wire Line
-	4350 5350 5950 5350
+	4350 5350 5150 5350
 Wire Wire Line
-	4350 5450 5950 5450
+	4350 5450 5150 5450
 $Comp
 L alexios:R_Pack04_Split RN?
 U 1 1 623E1F1D
@@ -1769,7 +1752,7 @@ L alexios:R_Pack04 RN401
 U 1 1 61C096CC
 P 7550 8750
 F 0 "RN401" H 7550 8300 50  0000 C CNN
-F 1 "R_Pack04" H 7500 8200 50  0000 C CNN
+F 1 "10kΩ" H 7500 8200 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7600 8830 50  0001 C CNN
 F 3 "~" V 7600 8750 50  0001 C CNN
 	1    7550 8750
@@ -1811,7 +1794,7 @@ L alexios:R_Pack04 RN402
 U 1 1 61D7218C
 P 6650 8750
 F 0 "RN402" H 6650 8300 50  0000 C CNN
-F 1 "R_Pack04" H 6600 8200 50  0000 C CNN
+F 1 "10kΩ" H 6600 8200 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 6700 8830 50  0001 C CNN
 F 3 "~" V 6700 8750 50  0001 C CNN
 	1    6650 8750
@@ -1836,11 +1819,35 @@ Wire Wire Line
 Connection ~ 6850 8750
 Wire Wire Line
 	6850 8750 6850 8850
-Text Label 6150 8750 0    50   ~ 0
+NoConn ~ 2550 4950
+Wire Wire Line
+	4350 5550 5000 5550
+Wire Wire Line
+	6000 9150 6000 9050
+Wire Wire Line
+	6000 9050 5950 9050
+Wire Wire Line
+	5750 9050 5350 9050
+Text Label 5350 9050 0    50   ~ 0
+ALE
+Wire Wire Line
+	6800 5200 6800 5250
+Wire Wire Line
+	6800 5250 6850 5250
+Text Label 6150 8850 0    50   ~ 0
 µCBUSCP
 Wire Wire Line
+	6550 8850 6150 8850
+Wire Wire Line
 	6550 8750 6150 8750
-NoConn ~ 2550 4950
+Text Label 6150 8750 0    50   ~ 0
+µCµSTEP
+Text Label 4700 4250 2    50   ~ 0
+WAIT
+Text HLabel 5150 4250 2    50   Input ~ 0
+WAIT
+Wire Wire Line
+	4350 5050 5150 5050
 Wire Bus Line
 	1400 3450 1400 3850
 Wire Bus Line
@@ -1855,4 +1862,8 @@ Wire Bus Line
 	6200 1200 6200 2050
 Wire Bus Line
 	8200 1550 8200 4150
+Text HLabel 5150 5050 2    50   Output ~ 0
+~µSTEP
+Text Label 4450 5050 0    50   ~ 0
+~µSTEP
 $EndSCHEMATC

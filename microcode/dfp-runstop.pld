@@ -12,9 +12,9 @@ NC	LEDWAIT	LEDEXEC	LEDFTCH	STPNG	CLK4OUT	FPCLKEN	FPUSTEP WAIT	VCC
 ; available for commands again (e.g. when single-stepping with a very
 ; slow clock).
 
-WAIT	= /RESET  +  /RSTHOLD  +  STPNG  +  USTPNG
+/WAIT	= /RESET  +  /RSTHOLD  +  STPNG  +  USTPNG
 
-; Use a separate output for an LED.
+; Use a separate output for an LED. High = LED on.
 LEDWAIT	= /RESET  +  /RSTHOLD  +  STPNG  +  USTPNG
 
 

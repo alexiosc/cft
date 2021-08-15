@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 19
+Sheet 8 18
 Title ""
 Date ""
 Rev "2049"
@@ -519,8 +519,6 @@ Wire Wire Line
 	2850 6500 2850 6600
 Connection ~ 2850 6600
 Wire Wire Line
-	2850 6600 2400 6600
-Wire Wire Line
 	5400 5900 5100 5900
 Wire Wire Line
 	5400 6000 5100 6000
@@ -747,33 +745,6 @@ Wire Wire Line
 Connection ~ 4900 3200
 Wire Wire Line
 	4900 3200 4600 3200
-$Comp
-L Device:R_Small R11
-U 1 1 6052AC8B
-P 2400 6400
-F 0 "R11" H 2342 6446 50  0000 R CNN
-F 1 "10kΩ" H 2342 6355 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 6400 50  0001 C CNN
-F 3 "~" H 2400 6400 50  0001 C CNN
-	1    2400 6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0219
-U 1 1 6052AC91
-P 2400 6300
-F 0 "#PWR0219" H 2400 6150 50  0001 C CNN
-F 1 "+5V" H 2415 6473 50  0000 C CNN
-F 2 "" H 2400 6300 50  0001 C CNN
-F 3 "" H 2400 6300 50  0001 C CNN
-	1    2400 6300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2400 6500 2400 6600
-Connection ~ 2400 6600
-Wire Wire Line
-	2400 6600 1850 6600
 Wire Wire Line
 	4600 6600 4950 6600
 $Comp
@@ -1906,47 +1877,6 @@ Wire Bus Line
 Text Label 9800 1450 0    50   ~ 0
 COND[0..3]
 $Comp
-L Device:R_Small R401
-U 1 1 61008343
-P 12750 7550
-F 0 "R401" V 12946 7550 50  0000 C CNN
-F 1 "1kΩ" V 12855 7550 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12750 7550 50  0001 C CNN
-F 3 "~" H 12750 7550 50  0001 C CNN
-	1    12750 7550
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:LED_ALT D401
-U 1 1 6100A720
-P 13100 7550
-F 0 "D401" H 13093 7767 50  0000 C CNN
-F 1 "LED_ALT" H 13093 7676 50  0000 C CNN
-F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 13100 7550 50  0001 C CNN
-F 3 "~" H 13100 7550 50  0001 C CNN
-	1    13100 7550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	12850 7550 12950 7550
-Wire Wire Line
-	13250 7550 13350 7550
-Wire Wire Line
-	13350 7550 13350 7500
-$Comp
-L power:+5V #PWR0177
-U 1 1 6108218F
-P 13350 7500
-F 0 "#PWR0177" H 13350 7350 50  0001 C CNN
-F 1 "+5V" H 13365 7673 50  0000 C CNN
-F 2 "" H 13350 7500 50  0001 C CNN
-F 3 "" H 13350 7500 50  0001 C CNN
-	1    13350 7500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	12650 7550 12150 7550
-$Comp
 L alexios:74HC08 U401
 U 1 1 61FEF78C
 P 16850 -350
@@ -2276,4 +2206,8 @@ Wire Wire Line
 	1850 2500 2900 2500
 Wire Bus Line
 	2500 1400 2500 2200
+Wire Wire Line
+	1850 6600 2850 6600
+Text Notes 1850 6700 0    50   ~ 0
+Conditioned by GAL
 $EndSCHEMATC
