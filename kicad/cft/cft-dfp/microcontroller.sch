@@ -740,10 +740,6 @@ Text HLabel 2000 4750 0    50   Output ~ 0
 ~CLR
 Wire Wire Line
 	2550 1450 2500 1450
-Wire Wire Line
-	2550 1650 2500 1650
-Wire Wire Line
-	2550 1750 2500 1750
 $Comp
 L power:+12V #PWR0160
 U 1 1 61657A32
@@ -758,8 +754,6 @@ $EndComp
 Wire Wire Line
 	2500 1400 2500 1450
 NoConn ~ 2550 1550
-Wire Wire Line
-	2500 1650 2500 1750
 NoConn ~ 2550 1950
 $Comp
 L power:GND #PWR0161
@@ -1854,6 +1848,8 @@ Text Label 10150 2450 2    50   ~ 0
 ~BUSEN
 NoConn ~ 2550 2250
 NoConn ~ 2550 2350
+NoConn ~ 2550 1650
+NoConn ~ 2550 1750
 Wire Bus Line
 	1400 3450 1400 3850
 Wire Bus Line
