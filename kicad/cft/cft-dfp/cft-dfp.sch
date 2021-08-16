@@ -157,10 +157,6 @@ Text Label 4350 3400 2    50   ~ 0
 ~RCV1
 Text Label 4350 3500 2    50   ~ 0
 ~RCV2
-Text Notes 1650 -1850 0    63   ~ 13
-TO DO:
-Text Notes 1650 -400 0    50   ~ 0
-Done: Add replaceable pods for buses and MCU/clock.\nDone: Isolate front panel connector from rest of FPD.\nDone: Disable front panel during programming.\nDone: Disable serial port during programming.\nDone: Add configurable pull-ups on various signals.\nDone: Fix FTDI cable pin-out (swap RX/TX; likely ALREADY SWAPPED in R1943).\nDone: Add reset switch.\nDone: Add 1-2 more banks of DIP switches.\nDone: Left bus for peripherals.\nDone: Right bus for processor, memory and memory-mapped I/O.\nFix TTYD LED.\nFix activity LED.\nAdd front-panel switch LED.\nAdd PANELEN LED.\nAdd CFT IRQ LED.\nWeakly pull-up ALL MCU outputs!!!\nDone: Pull-up MCU ~RESET~
 $Comp
 L Device:CP_Small C17
 U 1 1 609CAF2E
