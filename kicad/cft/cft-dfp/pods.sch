@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 18
-Title ""
+Title "I/O Pods"
 Date ""
-Rev "2049"
+Rev "2133"
 Comp ""
 Comment1 "DFP"
 Comment2 ""
@@ -1469,8 +1469,6 @@ Wire Notes Line width 12 style solid
 	950  7300 3850 7300
 Wire Notes Line width 12 style solid
 	3850 7300 3850 5900
-Wire Bus Line
-	2450 1250 2450 2050
 $Sheet
 S 6400 1300 800  1300
 U 61FBB558
@@ -1705,4 +1703,6 @@ F19 "~DRIVE" I R 8950 2350 50
 F20 "SAMPLE" I L 8150 2350 50 
 F21 "~READ" I L 8150 2450 50 
 $EndSheet
+Wire Bus Line
+	2450 1250 2450 2050
 $EndSCHEMATC

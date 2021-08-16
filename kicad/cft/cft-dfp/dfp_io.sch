@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 18
-Title ""
+Title "DFP I/O Devices & Decoding"
 Date ""
-Rev "2049"
+Rev "2133"
 Comp ""
 Comment1 "DFP"
 Comment2 ""

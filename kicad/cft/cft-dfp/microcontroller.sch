@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 16 18
 Title "Microcontroller and DFP Bus"
 Date ""
-Rev "2049"
+Rev "2133"
 Comp ""
 Comment1 "DFP"
 Comment2 ""
@@ -62,7 +62,7 @@ AR Path="/60757845/607965DD/608B26E9" Ref="R?"  Part="1"
 AR Path="/60A2F394/608B26E9" Ref="R?"  Part="1" 
 AR Path="/60757845/608B26E9" Ref="R6"  Part="1" 
 F 0 "R6" V 1846 4650 50  0000 C CNN
-F 1 "680Ω" V 1755 4650 50  0000 C CNN
+F 1 "1kΩ" V 1755 4650 50  0000 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1650 4650 50  0001 C CNN
 F 3 "~" H 1650 4650 50  0001 C CNN
 	1    1650 4650
@@ -1847,6 +1847,53 @@ NoConn ~ 2550 5900
 NoConn ~ 2550 6000
 NoConn ~ 1200 2300
 NoConn ~ 2050 4600
+$Comp
+L power:GND #PWR0101
+U 1 1 61DAC69D
+P 4050 6850
+F 0 "#PWR0101" H 4050 6600 50  0001 C CNN
+F 1 "GND" H 4200 6800 50  0000 C CNN
+F 2 "" H 4050 6850 50  0001 C CNN
+F 3 "" H 4050 6850 50  0001 C CNN
+	1    4050 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 61DAC6A3
+P 3650 6850
+AR Path="/61DAC6A3" Ref="R?"  Part="1" 
+AR Path="/64C48268/61DAC6A3" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/61DAC6A3" Ref="R?"  Part="1" 
+AR Path="/60A2F394/61DAC6A3" Ref="R?"  Part="1" 
+AR Path="/60757845/61DAC6A3" Ref="R7"  Part="1" 
+F 0 "R7" V 3846 6850 50  0000 C CNN
+F 1 "1kΩ" V 3755 6850 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 6850 50  0001 C CNN
+F 3 "~" H 3650 6850 50  0001 C CNN
+	1    3650 6850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_ALT D?
+U 1 1 61DAC6A9
+P 3900 6850
+AR Path="/61DAC6A9" Ref="D?"  Part="1" 
+AR Path="/64C48268/61DAC6A9" Ref="D?"  Part="1" 
+AR Path="/60757845/607965DD/61DAC6A9" Ref="D?"  Part="1" 
+AR Path="/60A2F394/61DAC6A9" Ref="D?"  Part="1" 
+AR Path="/60757845/61DAC6A9" Ref="D2"  Part="1" 
+F 0 "D2" H 3893 6687 50  0000 C CNN
+F 1 "LED_ALT" H 3893 6686 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 6850 50  0001 C CNN
+F 3 "~" H 3900 6850 50  0001 C CNN
+	1    3900 6850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3550 6850 3100 6850
+Text Label 3100 6850 0    50   ~ 0
+~LED-STOP
 Wire Bus Line
 	1400 3200 1400 3600
 Wire Bus Line
