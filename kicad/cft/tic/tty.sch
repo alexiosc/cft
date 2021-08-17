@@ -1,0 +1,1879 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 6 6
+Title "Serial Ports and IDE Interface"
+Date ""
+Rev ""
+Comp ""
+Comment1 "TIC"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 700  850  0    100  ~ 20
+The TTY and IDE boards
+Text Notes 700  1650 0    50   ~ 0
+This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
+Wire Wire Line
+	1400 9000 1150 9000
+Wire Wire Line
+	1400 9200 1150 9200
+Wire Wire Line
+	1400 9300 1150 9300
+Wire Wire Line
+	1400 9400 1150 9400
+Wire Wire Line
+	1400 9500 1150 9500
+Wire Wire Line
+	1400 9600 1150 9600
+Wire Wire Line
+	1400 9700 1150 9700
+Wire Wire Line
+	1400 9800 1150 9800
+Wire Wire Line
+	1400 9900 1150 9900
+Wire Wire Line
+	1400 10100 1150 10100
+Wire Wire Line
+	1400 10200 1150 10200
+Wire Wire Line
+	1400 10300 1150 10300
+Wire Wire Line
+	1400 10500 1150 10500
+Wire Wire Line
+	1400 10600 1150 10600
+Wire Wire Line
+	1400 10700 1150 10700
+Wire Wire Line
+	1400 10800 1150 10800
+Wire Wire Line
+	1400 11000 1150 11000
+Wire Wire Line
+	1400 11100 1150 11100
+Wire Wire Line
+	1400 11200 1150 11200
+Wire Wire Line
+	1400 11300 1150 11300
+Wire Wire Line
+	1400 11400 1150 11400
+Wire Wire Line
+	1400 11500 1150 11500
+Wire Wire Line
+	1400 11700 1150 11700
+Text Label 1150 9200 0    50   ~ 0
+D0
+Text Label 1150 9300 0    50   ~ 0
+D1
+Text Label 1150 9400 0    50   ~ 0
+D2
+Text Label 1150 9500 0    50   ~ 0
+D3
+Text Label 1150 9600 0    50   ~ 0
+D4
+Text Label 1150 9700 0    50   ~ 0
+D5
+Text Label 1150 9800 0    50   ~ 0
+D6
+Text Label 1150 9900 0    50   ~ 0
+D7
+Text Label 1150 10100 0    50   ~ 0
+A0
+Text Label 1150 10200 0    50   ~ 0
+A1
+Text Label 1150 10300 0    50   ~ 0
+A2
+Text Label 1150 10500 0    50   ~ 0
+~CSTTY0
+Text Label 1150 10600 0    50   ~ 0
+~CSTTY1
+Text Label 1150 10700 0    50   ~ 0
+~IOR
+Text Label 1150 10800 0    50   ~ 0
+~IOW
+$Comp
+L alexios:16C2550 U603
+U 1 1 6016BFD4
+P 2000 10400
+F 0 "U603" H 2000 12117 50  0000 C CNN
+F 1 "16C2550" H 2000 12026 50  0000 C CNN
+F 2 "Package_LCC:PLCC-44_THT-Socket" H 2025 8700 50  0001 C CNN
+F 3 "https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf" H 2000 10400 50  0001 C CNN
+	1    2000 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:MAX232 U601
+U 1 1 6016D87B
+P 4500 9850
+F 0 "U601" H 4500 11017 50  0000 C CNN
+F 1 "MAX232" H 4500 10926 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 8800 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 9950 50  0001 C CNN
+	1    4500 9850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C622
+U 1 1 6017C822
+P 2700 12750
+F 0 "C622" H 2792 12796 50  0000 L CNN
+F 1 "C_Small" H 2792 12705 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2700 12750 50  0001 C CNN
+F 3 "~" H 2700 12750 50  0001 C CNN
+	1    2700 12750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 12600 1150 12600
+Wire Wire Line
+	1400 12800 1150 12800
+Wire Wire Line
+	1400 12900 1150 12900
+Wire Wire Line
+	1400 13000 1150 13000
+Wire Wire Line
+	1400 13100 1150 13100
+Wire Wire Line
+	1400 13200 1150 13200
+Wire Wire Line
+	1400 13300 1150 13300
+Wire Wire Line
+	1400 13400 1150 13400
+Wire Wire Line
+	1400 13500 1150 13500
+Wire Wire Line
+	1400 13700 1150 13700
+Wire Wire Line
+	1400 13800 1150 13800
+Wire Wire Line
+	1400 13900 1150 13900
+Wire Wire Line
+	1400 14100 1150 14100
+Wire Wire Line
+	1400 14200 1150 14200
+Wire Wire Line
+	1400 14300 1150 14300
+Wire Wire Line
+	1400 14400 1150 14400
+Wire Wire Line
+	1400 14600 1150 14600
+Wire Wire Line
+	1400 14700 1150 14700
+Wire Wire Line
+	1400 14800 1150 14800
+Wire Wire Line
+	1400 14900 1150 14900
+Wire Wire Line
+	1400 15000 1150 15000
+Wire Wire Line
+	1400 15100 1150 15100
+Wire Wire Line
+	1400 15300 1150 15300
+Text Label 1150 12800 0    50   ~ 0
+D0
+Text Label 1150 12900 0    50   ~ 0
+D1
+Text Label 1150 13000 0    50   ~ 0
+D2
+Text Label 1150 13100 0    50   ~ 0
+D3
+Text Label 1150 13200 0    50   ~ 0
+D4
+Text Label 1150 13300 0    50   ~ 0
+D5
+Text Label 1150 13400 0    50   ~ 0
+D6
+Text Label 1150 13500 0    50   ~ 0
+D7
+Text Label 1150 13700 0    50   ~ 0
+A0
+Text Label 1150 13800 0    50   ~ 0
+A1
+Text Label 1150 13900 0    50   ~ 0
+A2
+Text Label 1150 14100 0    50   ~ 0
+~CSTTY2
+Text Label 1150 14200 0    50   ~ 0
+~CSTTY3
+Text Label 1150 14300 0    50   ~ 0
+~IOR
+Text Label 1150 14400 0    50   ~ 0
+~IOW
+$Comp
+L alexios:16C2550 U608
+U 1 1 6017C84E
+P 2000 14000
+F 0 "U608" H 2000 15717 50  0000 C CNN
+F 1 "16C2550" H 2000 15626 50  0000 C CNN
+F 2 "Package_LCC:PLCC-44_THT-Socket" H 2025 12300 50  0001 C CNN
+F 3 "https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf" H 2000 14000 50  0001 C CNN
+	1    2000 14000
+	1    0    0    -1  
+$EndComp
+Text Label 1150 11200 0    50   ~ 0
+~TXRDY0
+Text Label 1150 11300 0    50   ~ 0
+~TXRDY1
+Text Label 1150 14800 0    50   ~ 0
+~TXRDY2
+Text Label 1150 14900 0    50   ~ 0
+~TXRDY3
+Text Label 1150 11400 0    50   ~ 0
+~RXRDY0
+Text Label 1150 11500 0    50   ~ 0
+~RXRDY1
+Text Label 1150 15000 0    50   ~ 0
+~RXRDY2
+Text Label 1150 15100 0    50   ~ 0
+~RXRDY3
+$Comp
+L power:+5V #PWR0153
+U 1 1 601C39D9
+P 2700 12550
+F 0 "#PWR0153" H 2700 12400 50  0001 C CNN
+F 1 "+5V" H 2715 12723 50  0000 C CNN
+F 2 "" H 2700 12550 50  0001 C CNN
+F 3 "" H 2700 12550 50  0001 C CNN
+	1    2700 12550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0154
+U 1 1 601C4194
+P 2700 12950
+F 0 "#PWR0154" H 2700 12700 50  0001 C CNN
+F 1 "GND" H 2900 12900 50  0000 C CNN
+F 2 "" H 2700 12950 50  0001 C CNN
+F 3 "" H 2700 12950 50  0001 C CNN
+	1    2700 12950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 12600 2700 12600
+Wire Wire Line
+	2700 12550 2700 12600
+Connection ~ 2700 12600
+Wire Wire Line
+	2700 12600 2700 12650
+Wire Wire Line
+	2600 12900 2700 12900
+Wire Wire Line
+	2700 12850 2700 12900
+Connection ~ 2700 12900
+Wire Wire Line
+	2700 12900 2700 12950
+$Comp
+L Device:C_Small C605
+U 1 1 601E96B1
+P 2700 9150
+F 0 "C605" H 2792 9196 50  0000 L CNN
+F 1 "C_Small" H 2792 9105 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2700 9150 50  0001 C CNN
+F 3 "~" H 2700 9150 50  0001 C CNN
+	1    2700 9150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0155
+U 1 1 601E96B7
+P 2700 8950
+F 0 "#PWR0155" H 2700 8800 50  0001 C CNN
+F 1 "+5V" H 2715 9123 50  0000 C CNN
+F 2 "" H 2700 8950 50  0001 C CNN
+F 3 "" H 2700 8950 50  0001 C CNN
+	1    2700 8950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0156
+U 1 1 601E96BD
+P 2700 9350
+F 0 "#PWR0156" H 2700 9100 50  0001 C CNN
+F 1 "GND" H 2850 9300 50  0000 C CNN
+F 2 "" H 2700 9350 50  0001 C CNN
+F 3 "" H 2700 9350 50  0001 C CNN
+	1    2700 9350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 9000 2700 9000
+Wire Wire Line
+	2700 8950 2700 9000
+Connection ~ 2700 9000
+Wire Wire Line
+	2700 9000 2700 9050
+Wire Wire Line
+	2600 9300 2700 9300
+Wire Wire Line
+	2700 9250 2700 9300
+Connection ~ 2700 9300
+Wire Wire Line
+	2700 9300 2700 9350
+Wire Wire Line
+	2600 9600 3050 9600
+Wire Wire Line
+	2600 9700 3050 9700
+Wire Wire Line
+	2600 9800 3050 9800
+Wire Wire Line
+	2600 9900 3050 9900
+Wire Wire Line
+	2600 10000 3050 10000
+Wire Wire Line
+	2600 10100 3050 10100
+Wire Wire Line
+	2600 10300 3050 10300
+Wire Wire Line
+	2600 10400 3050 10400
+Text Label 3050 9600 2    50   ~ 0
+TX0
+Text Label 3050 9700 2    50   ~ 0
+RX0
+Text Label 3050 9800 2    50   ~ 0
+~RTS0
+Text Label 3050 9900 2    50   ~ 0
+~CTS0
+Text Label 3050 10000 2    50   ~ 0
+~DTR0
+Text Label 3050 10100 2    50   ~ 0
+~DSR0
+Text Label 3050 10300 2    50   ~ 0
+~CD0
+Text Label 3050 10400 2    50   ~ 0
+~OUT0
+Wire Wire Line
+	2600 10700 3050 10700
+Wire Wire Line
+	2600 10800 3050 10800
+Wire Wire Line
+	2600 10900 3050 10900
+Wire Wire Line
+	2600 11000 3050 11000
+Wire Wire Line
+	2600 11100 3050 11100
+Wire Wire Line
+	2600 11200 3050 11200
+Wire Wire Line
+	2600 11400 3050 11400
+Wire Wire Line
+	2600 11500 3050 11500
+Text Label 3050 10700 2    50   ~ 0
+TX1
+Text Label 3050 10800 2    50   ~ 0
+RX1
+Text Label 3050 10900 2    50   ~ 0
+~RTS1
+Text Label 3050 11000 2    50   ~ 0
+~CTS1
+Text Label 3050 11100 2    50   ~ 0
+~DTR1
+Text Label 3050 11200 2    50   ~ 0
+~DSR1
+Text Label 3050 11400 2    50   ~ 0
+~CD1
+Text Label 3050 11500 2    50   ~ 0
+~OUT1
+Wire Wire Line
+	2600 13200 3050 13200
+Wire Wire Line
+	2600 13300 3050 13300
+Wire Wire Line
+	2600 13400 3050 13400
+Wire Wire Line
+	2600 13500 3050 13500
+Wire Wire Line
+	2600 13600 3050 13600
+Wire Wire Line
+	2600 13700 3050 13700
+Wire Wire Line
+	2600 13800 3050 13800
+Wire Wire Line
+	2600 13900 3050 13900
+Wire Wire Line
+	2600 14000 3050 14000
+Text Label 3050 13300 2    50   ~ 0
+TX2
+Text Label 3050 13300 2    50   ~ 0
+RX2
+Text Label 3050 13400 2    50   ~ 0
+~RTS2
+Text Label 3050 13500 2    50   ~ 0
+~CTS2
+Text Label 3050 13600 2    50   ~ 0
+~DTR2
+Text Label 3050 13700 2    50   ~ 0
+~DSR2
+Text Label 3050 13900 2    50   ~ 0
+~RI2
+Text Label 3050 13900 2    50   ~ 0
+~CD2
+Text Label 3050 14000 2    50   ~ 0
+~OUT2
+Wire Wire Line
+	2600 14300 3050 14300
+Wire Wire Line
+	2600 14400 3050 14400
+Wire Wire Line
+	2600 14500 3050 14500
+Wire Wire Line
+	2600 14600 3050 14600
+Wire Wire Line
+	2600 14700 3050 14700
+Wire Wire Line
+	2600 14800 3050 14800
+Wire Wire Line
+	2600 14900 3050 14900
+Wire Wire Line
+	2600 15000 3050 15000
+Wire Wire Line
+	2600 15100 3050 15100
+Text Label 3050 14400 2    50   ~ 0
+RX3
+Text Label 3050 14500 2    50   ~ 0
+~RTS3
+Text Label 3050 14600 2    50   ~ 0
+~CTS3
+Text Label 3050 14700 2    50   ~ 0
+~DTR3
+Text Label 3050 14800 2    50   ~ 0
+~DSR3
+Text Label 3050 15100 2    50   ~ 0
+~OUT3
+Text Label 3050 14400 2    50   ~ 0
+TX3
+Text Label 3050 15000 2    50   ~ 0
+~RI3
+Text Label 3050 15000 2    50   ~ 0
+~CD3
+NoConn ~ 2600 11700
+NoConn ~ 2600 15300
+Text Label 1150 11000 0    50   ~ 0
+INT0
+Text Label 1150 11100 0    50   ~ 0
+INT1
+Text Label 1150 14600 0    50   ~ 0
+INT2
+Text Label 1150 14700 0    50   ~ 0
+INT3
+Text Label 1150 9000 0    50   ~ 0
+RESET
+Text Label 1150 12600 0    50   ~ 0
+RESET
+$Comp
+L Device:CP_Small C601
+U 1 1 602E0136
+P 3850 9100
+F 0 "C601" H 3938 9054 50  0000 L CNN
+F 1 "10μF" H 3938 9145 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 9100 50  0001 C CNN
+F 3 "~" H 3850 9100 50  0001 C CNN
+	1    3850 9100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3900 8950 3850 8950
+Wire Wire Line
+	3850 8950 3850 9000
+Wire Wire Line
+	3900 9250 3850 9250
+Wire Wire Line
+	3850 9250 3850 9200
+$Comp
+L power:GND #PWR0160
+U 1 1 602FF8BB
+P 5150 9300
+F 0 "#PWR0160" H 5150 9050 50  0001 C CNN
+F 1 "GND" H 5300 9300 50  0000 C CNN
+F 2 "" H 5150 9300 50  0001 C CNN
+F 3 "" H 5150 9300 50  0001 C CNN
+	1    5150 9300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C606
+U 1 1 60301AED
+P 3850 9600
+F 0 "C606" H 3763 9646 50  0000 R CNN
+F 1 "1μF" H 3763 9555 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 9600 50  0001 C CNN
+F 3 "~" H 3850 9600 50  0001 C CNN
+	1    3850 9600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 9450 3850 9450
+Wire Wire Line
+	3850 9450 3850 9500
+Wire Wire Line
+	3900 9750 3850 9750
+Wire Wire Line
+	3850 9750 3850 9700
+$Comp
+L Device:CP_Small C607
+U 1 1 60320C51
+P 5150 9600
+F 0 "C607" H 5063 9646 50  0000 R CNN
+F 1 "1μF" H 5063 9555 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 9600 50  0001 C CNN
+F 3 "~" H 5150 9600 50  0001 C CNN
+	1    5150 9600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 9450 5150 9450
+Wire Wire Line
+	5150 9450 5150 9500
+Wire Wire Line
+	5100 9750 5150 9750
+Wire Wire Line
+	5150 9750 5150 9700
+$Comp
+L Device:CP_Small C602
+U 1 1 603307A2
+P 5150 9100
+F 0 "C602" H 5238 9054 50  0000 L CNN
+F 1 "10μF" H 5238 9145 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 9100 50  0001 C CNN
+F 3 "~" H 5150 9100 50  0001 C CNN
+	1    5150 9100
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5100 9250 5150 9250
+Wire Wire Line
+	5150 9250 5150 9300
+Wire Wire Line
+	5150 9200 5150 9250
+Connection ~ 5150 9250
+Wire Wire Line
+	5150 8950 5150 9000
+Wire Wire Line
+	5100 8950 5150 8950
+$Comp
+L power:+5V #PWR0161
+U 1 1 603BCEEF
+P 3850 8900
+F 0 "#PWR0161" H 3850 8750 50  0001 C CNN
+F 1 "+5V" H 3650 8900 50  0000 C CNN
+F 2 "" H 3850 8900 50  0001 C CNN
+F 3 "" H 3850 8900 50  0001 C CNN
+	1    3850 8900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 8900 3850 8950
+Connection ~ 3850 8950
+$Comp
+L Device:CP_Small C603
+U 1 1 60473A9E
+P 6900 9100
+F 0 "C603" H 6988 9054 50  0000 L CNN
+F 1 "10μF" H 6988 9145 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 9100 50  0001 C CNN
+F 3 "~" H 6900 9100 50  0001 C CNN
+	1    6900 9100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6950 8950 6900 8950
+Wire Wire Line
+	6900 8950 6900 9000
+Wire Wire Line
+	6950 9250 6900 9250
+Wire Wire Line
+	6900 9250 6900 9200
+$Comp
+L power:GND #PWR0162
+U 1 1 60473AA8
+P 8200 9300
+F 0 "#PWR0162" H 8200 9050 50  0001 C CNN
+F 1 "GND" H 8350 9300 50  0000 C CNN
+F 2 "" H 8200 9300 50  0001 C CNN
+F 3 "" H 8200 9300 50  0001 C CNN
+	1    8200 9300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C608
+U 1 1 60473AAE
+P 6900 9600
+F 0 "C608" H 6813 9646 50  0000 R CNN
+F 1 "1μF" H 6813 9555 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 9600 50  0001 C CNN
+F 3 "~" H 6900 9600 50  0001 C CNN
+	1    6900 9600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 9450 6900 9450
+Wire Wire Line
+	6900 9450 6900 9500
+Wire Wire Line
+	6950 9750 6900 9750
+Wire Wire Line
+	6900 9750 6900 9700
+$Comp
+L Device:CP_Small C609
+U 1 1 60473AB8
+P 8200 9600
+F 0 "C609" H 8113 9646 50  0000 R CNN
+F 1 "1μF" H 8113 9555 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 9600 50  0001 C CNN
+F 3 "~" H 8200 9600 50  0001 C CNN
+	1    8200 9600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 9450 8200 9450
+Wire Wire Line
+	8200 9450 8200 9500
+Wire Wire Line
+	8150 9750 8200 9750
+Wire Wire Line
+	8200 9750 8200 9700
+$Comp
+L Device:CP_Small C604
+U 1 1 60473AC2
+P 8200 9100
+F 0 "C604" H 8288 9054 50  0000 L CNN
+F 1 "10μF" H 8288 9145 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 9100 50  0001 C CNN
+F 3 "~" H 8200 9100 50  0001 C CNN
+	1    8200 9100
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8150 9250 8200 9250
+Wire Wire Line
+	8200 9250 8200 9300
+Wire Wire Line
+	8200 9200 8200 9250
+Connection ~ 8200 9250
+Wire Wire Line
+	8200 8950 8200 9000
+Wire Wire Line
+	8150 8950 8200 8950
+$Comp
+L power:+5V #PWR0164
+U 1 1 60473ACE
+P 6900 8900
+F 0 "#PWR0164" H 6900 8750 50  0001 C CNN
+F 1 "+5V" H 6700 8900 50  0000 C CNN
+F 2 "" H 6900 8900 50  0001 C CNN
+F 3 "" H 6900 8900 50  0001 C CNN
+	1    6900 8900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 8900 6900 8950
+Connection ~ 6900 8950
+Wire Wire Line
+	3900 9900 3600 9900
+Wire Wire Line
+	3900 10000 3600 10000
+Wire Wire Line
+	3900 10100 3600 10100
+Wire Wire Line
+	3900 10200 3600 10200
+Wire Wire Line
+	6950 9900 6650 9900
+Wire Wire Line
+	6950 10100 6650 10100
+Wire Wire Line
+	6950 10200 6650 10200
+Text Label 3600 9900 0    50   ~ 0
+TX0
+Text Label 3600 10100 0    50   ~ 0
+RX0
+Text Label 3600 10000 0    50   ~ 0
+~RTS0
+Text Label 3600 10200 0    50   ~ 0
+~CTS0
+Text Label 6650 9900 0    50   ~ 0
+~DTR0
+Text Label 6650 10100 0    50   ~ 0
+~DSR0
+Text Label 6650 10200 0    50   ~ 0
+~CD0
+NoConn ~ 2600 10200
+NoConn ~ 2600 11300
+NoConn ~ 6950 10000
+NoConn ~ 8150 10000
+Wire Wire Line
+	6050 9900 5950 9900
+Wire Wire Line
+	6050 10000 5750 10000
+Wire Wire Line
+	6050 10100 5400 10100
+$Comp
+L alexios:MAX232 U604
+U 1 1 605FBA3A
+P 4500 11650
+F 0 "U604" H 4500 12817 50  0000 C CNN
+F 1 "MAX232" H 4500 12726 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 10600 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 11750 50  0001 C CNN
+	1    4500 11650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C610
+U 1 1 605FBA40
+P 3850 10900
+F 0 "C610" H 3938 10854 50  0000 L CNN
+F 1 "10μF" H 3938 10945 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 10900 50  0001 C CNN
+F 3 "~" H 3850 10900 50  0001 C CNN
+	1    3850 10900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3900 10750 3850 10750
+Wire Wire Line
+	3850 10750 3850 10800
+Wire Wire Line
+	3900 11050 3850 11050
+Wire Wire Line
+	3850 11050 3850 11000
+$Comp
+L power:GND #PWR0165
+U 1 1 605FBA4A
+P 5150 11100
+F 0 "#PWR0165" H 5150 10850 50  0001 C CNN
+F 1 "GND" H 5300 11100 50  0000 C CNN
+F 2 "" H 5150 11100 50  0001 C CNN
+F 3 "" H 5150 11100 50  0001 C CNN
+	1    5150 11100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C614
+U 1 1 605FBA50
+P 3850 11400
+F 0 "C614" H 3763 11446 50  0000 R CNN
+F 1 "1μF" H 3763 11355 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 11400 50  0001 C CNN
+F 3 "~" H 3850 11400 50  0001 C CNN
+	1    3850 11400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 11250 3850 11250
+Wire Wire Line
+	3850 11250 3850 11300
+Wire Wire Line
+	3900 11550 3850 11550
+Wire Wire Line
+	3850 11550 3850 11500
+$Comp
+L Device:CP_Small C615
+U 1 1 605FBA5A
+P 5150 11400
+F 0 "C615" H 5063 11446 50  0000 R CNN
+F 1 "1μF" H 5063 11355 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 11400 50  0001 C CNN
+F 3 "~" H 5150 11400 50  0001 C CNN
+	1    5150 11400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 11250 5150 11250
+Wire Wire Line
+	5150 11250 5150 11300
+Wire Wire Line
+	5100 11550 5150 11550
+Wire Wire Line
+	5150 11550 5150 11500
+$Comp
+L Device:CP_Small C611
+U 1 1 605FBA64
+P 5150 10900
+F 0 "C611" H 5238 10854 50  0000 L CNN
+F 1 "10μF" H 5238 10945 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 10900 50  0001 C CNN
+F 3 "~" H 5150 10900 50  0001 C CNN
+	1    5150 10900
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5100 11050 5150 11050
+Wire Wire Line
+	5150 11050 5150 11100
+Wire Wire Line
+	5150 11000 5150 11050
+Connection ~ 5150 11050
+Wire Wire Line
+	5150 10750 5150 10800
+Wire Wire Line
+	5100 10750 5150 10750
+$Comp
+L power:+5V #PWR0166
+U 1 1 605FBA70
+P 3850 10700
+F 0 "#PWR0166" H 3850 10550 50  0001 C CNN
+F 1 "+5V" H 3650 10700 50  0000 C CNN
+F 2 "" H 3850 10700 50  0001 C CNN
+F 3 "" H 3850 10700 50  0001 C CNN
+	1    3850 10700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 10700 3850 10750
+Connection ~ 3850 10750
+$Comp
+L alexios:MAX232 U605
+U 1 1 605FBA78
+P 7550 11650
+F 0 "U605" H 7550 12817 50  0000 C CNN
+F 1 "MAX232" H 7550 12726 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 10600 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 11750 50  0001 C CNN
+	1    7550 11650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C612
+U 1 1 605FBA7E
+P 6900 10900
+F 0 "C612" H 6988 10854 50  0000 L CNN
+F 1 "10μF" H 6988 10945 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 10900 50  0001 C CNN
+F 3 "~" H 6900 10900 50  0001 C CNN
+	1    6900 10900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6950 10750 6900 10750
+Wire Wire Line
+	6900 10750 6900 10800
+Wire Wire Line
+	6950 11050 6900 11050
+Wire Wire Line
+	6900 11050 6900 11000
+$Comp
+L power:GND #PWR0167
+U 1 1 605FBA88
+P 8200 11100
+F 0 "#PWR0167" H 8200 10850 50  0001 C CNN
+F 1 "GND" H 8350 11100 50  0000 C CNN
+F 2 "" H 8200 11100 50  0001 C CNN
+F 3 "" H 8200 11100 50  0001 C CNN
+	1    8200 11100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C616
+U 1 1 605FBA8E
+P 6900 11400
+F 0 "C616" H 6813 11446 50  0000 R CNN
+F 1 "1μF" H 6813 11355 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 11400 50  0001 C CNN
+F 3 "~" H 6900 11400 50  0001 C CNN
+	1    6900 11400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 11250 6900 11250
+Wire Wire Line
+	6900 11250 6900 11300
+Wire Wire Line
+	6950 11550 6900 11550
+Wire Wire Line
+	6900 11550 6900 11500
+$Comp
+L Device:CP_Small C617
+U 1 1 605FBA98
+P 8200 11400
+F 0 "C617" H 8113 11446 50  0000 R CNN
+F 1 "1μF" H 8113 11355 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 11400 50  0001 C CNN
+F 3 "~" H 8200 11400 50  0001 C CNN
+	1    8200 11400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 11250 8200 11250
+Wire Wire Line
+	8200 11250 8200 11300
+Wire Wire Line
+	8150 11550 8200 11550
+Wire Wire Line
+	8200 11550 8200 11500
+$Comp
+L Device:CP_Small C613
+U 1 1 605FBAA2
+P 8200 10900
+F 0 "C613" H 8288 10854 50  0000 L CNN
+F 1 "10μF" H 8288 10945 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 10900 50  0001 C CNN
+F 3 "~" H 8200 10900 50  0001 C CNN
+	1    8200 10900
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8150 11050 8200 11050
+Wire Wire Line
+	8200 11050 8200 11100
+Wire Wire Line
+	8200 11000 8200 11050
+Connection ~ 8200 11050
+Wire Wire Line
+	8200 10750 8200 10800
+Wire Wire Line
+	8150 10750 8200 10750
+$Comp
+L power:+5V #PWR0168
+U 1 1 605FBAAE
+P 6900 10700
+F 0 "#PWR0168" H 6900 10550 50  0001 C CNN
+F 1 "+5V" H 6700 10700 50  0000 C CNN
+F 2 "" H 6900 10700 50  0001 C CNN
+F 3 "" H 6900 10700 50  0001 C CNN
+	1    6900 10700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 10700 6900 10750
+Connection ~ 6900 10750
+Wire Wire Line
+	3900 11700 3600 11700
+Wire Wire Line
+	3900 11800 3600 11800
+Wire Wire Line
+	3900 11900 3600 11900
+Wire Wire Line
+	3900 12000 3600 12000
+Wire Wire Line
+	6950 11700 6650 11700
+Wire Wire Line
+	6950 11900 6650 11900
+Wire Wire Line
+	6950 12000 6650 12000
+Text Label 3600 11700 0    50   ~ 0
+TX1
+Text Label 3600 11900 0    50   ~ 0
+RX1
+Text Label 3600 11800 0    50   ~ 0
+~RTS1
+Text Label 3600 12000 0    50   ~ 0
+~CTS1
+Text Label 6650 11700 0    50   ~ 0
+~DTR1
+Text Label 6650 11900 0    50   ~ 0
+~DSR1
+Text Label 6650 12000 0    50   ~ 0
+~CD1
+NoConn ~ 6950 11800
+NoConn ~ 8150 11800
+$Comp
+L alexios:MAX232 U606
+U 1 1 6062552F
+P 4500 13450
+F 0 "U606" H 4500 14617 50  0000 C CNN
+F 1 "MAX232" H 4500 14526 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 12400 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 13550 50  0001 C CNN
+	1    4500 13450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C618
+U 1 1 60625535
+P 3850 12700
+F 0 "C618" H 3938 12654 50  0000 L CNN
+F 1 "10μF" H 3938 12745 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 12700 50  0001 C CNN
+F 3 "~" H 3850 12700 50  0001 C CNN
+	1    3850 12700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3900 12550 3850 12550
+Wire Wire Line
+	3850 12550 3850 12600
+Wire Wire Line
+	3900 12850 3850 12850
+Wire Wire Line
+	3850 12850 3850 12800
+$Comp
+L power:GND #PWR0169
+U 1 1 6062553F
+P 5150 12900
+F 0 "#PWR0169" H 5150 12650 50  0001 C CNN
+F 1 "GND" H 5300 12900 50  0000 C CNN
+F 2 "" H 5150 12900 50  0001 C CNN
+F 3 "" H 5150 12900 50  0001 C CNN
+	1    5150 12900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C623
+U 1 1 60625545
+P 3850 13200
+F 0 "C623" H 3763 13246 50  0000 R CNN
+F 1 "1μF" H 3763 13155 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 13200 50  0001 C CNN
+F 3 "~" H 3850 13200 50  0001 C CNN
+	1    3850 13200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 13050 3850 13050
+Wire Wire Line
+	3850 13050 3850 13100
+Wire Wire Line
+	3900 13350 3850 13350
+Wire Wire Line
+	3850 13350 3850 13300
+$Comp
+L Device:CP_Small C624
+U 1 1 6062554F
+P 5150 13200
+F 0 "C624" H 5063 13246 50  0000 R CNN
+F 1 "1μF" H 5063 13155 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 13200 50  0001 C CNN
+F 3 "~" H 5150 13200 50  0001 C CNN
+	1    5150 13200
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 13050 5150 13050
+Wire Wire Line
+	5150 13050 5150 13100
+Wire Wire Line
+	5100 13350 5150 13350
+Wire Wire Line
+	5150 13350 5150 13300
+$Comp
+L Device:CP_Small C619
+U 1 1 60625559
+P 5150 12700
+F 0 "C619" H 5238 12654 50  0000 L CNN
+F 1 "10μF" H 5238 12745 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 12700 50  0001 C CNN
+F 3 "~" H 5150 12700 50  0001 C CNN
+	1    5150 12700
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5100 12850 5150 12850
+Wire Wire Line
+	5150 12850 5150 12900
+Wire Wire Line
+	5150 12800 5150 12850
+Connection ~ 5150 12850
+Wire Wire Line
+	5150 12550 5150 12600
+Wire Wire Line
+	5100 12550 5150 12550
+$Comp
+L power:+5V #PWR0170
+U 1 1 60625565
+P 3850 12500
+F 0 "#PWR0170" H 3850 12350 50  0001 C CNN
+F 1 "+5V" H 3650 12500 50  0000 C CNN
+F 2 "" H 3850 12500 50  0001 C CNN
+F 3 "" H 3850 12500 50  0001 C CNN
+	1    3850 12500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 12500 3850 12550
+Connection ~ 3850 12550
+$Comp
+L alexios:MAX232 U607
+U 1 1 6062556D
+P 7550 13450
+F 0 "U607" H 7550 14617 50  0000 C CNN
+F 1 "MAX232" H 7550 14526 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 12400 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 13550 50  0001 C CNN
+	1    7550 13450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C620
+U 1 1 60625573
+P 6900 12700
+F 0 "C620" H 6988 12654 50  0000 L CNN
+F 1 "10μF" H 6988 12745 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 12700 50  0001 C CNN
+F 3 "~" H 6900 12700 50  0001 C CNN
+	1    6900 12700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6950 12550 6900 12550
+Wire Wire Line
+	6900 12550 6900 12600
+Wire Wire Line
+	6950 12850 6900 12850
+Wire Wire Line
+	6900 12850 6900 12800
+$Comp
+L power:GND #PWR0171
+U 1 1 6062557D
+P 8200 12900
+F 0 "#PWR0171" H 8200 12650 50  0001 C CNN
+F 1 "GND" H 8350 12900 50  0000 C CNN
+F 2 "" H 8200 12900 50  0001 C CNN
+F 3 "" H 8200 12900 50  0001 C CNN
+	1    8200 12900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C625
+U 1 1 60625583
+P 6900 13200
+F 0 "C625" H 6813 13246 50  0000 R CNN
+F 1 "1μF" H 6813 13155 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 13200 50  0001 C CNN
+F 3 "~" H 6900 13200 50  0001 C CNN
+	1    6900 13200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 13050 6900 13050
+Wire Wire Line
+	6900 13050 6900 13100
+Wire Wire Line
+	6950 13350 6900 13350
+Wire Wire Line
+	6900 13350 6900 13300
+$Comp
+L Device:CP_Small C626
+U 1 1 6062558D
+P 8200 13200
+F 0 "C626" H 8113 13246 50  0000 R CNN
+F 1 "1μF" H 8113 13155 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 13200 50  0001 C CNN
+F 3 "~" H 8200 13200 50  0001 C CNN
+	1    8200 13200
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 13050 8200 13050
+Wire Wire Line
+	8200 13050 8200 13100
+Wire Wire Line
+	8150 13350 8200 13350
+Wire Wire Line
+	8200 13350 8200 13300
+$Comp
+L Device:CP_Small C621
+U 1 1 60625597
+P 8200 12700
+F 0 "C621" H 8288 12654 50  0000 L CNN
+F 1 "10μF" H 8288 12745 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 12700 50  0001 C CNN
+F 3 "~" H 8200 12700 50  0001 C CNN
+	1    8200 12700
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8150 12850 8200 12850
+Wire Wire Line
+	8200 12850 8200 12900
+Wire Wire Line
+	8200 12800 8200 12850
+Connection ~ 8200 12850
+Wire Wire Line
+	8200 12550 8200 12600
+Wire Wire Line
+	8150 12550 8200 12550
+$Comp
+L power:+5V #PWR0172
+U 1 1 606255A3
+P 6900 12500
+F 0 "#PWR0172" H 6900 12350 50  0001 C CNN
+F 1 "+5V" H 6700 12500 50  0000 C CNN
+F 2 "" H 6900 12500 50  0001 C CNN
+F 3 "" H 6900 12500 50  0001 C CNN
+	1    6900 12500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 12500 6900 12550
+Connection ~ 6900 12550
+Wire Wire Line
+	3900 13500 3600 13500
+Wire Wire Line
+	3900 13600 3600 13600
+Wire Wire Line
+	3900 13700 3600 13700
+Wire Wire Line
+	3900 13800 3600 13800
+Wire Wire Line
+	6950 13500 6650 13500
+Wire Wire Line
+	6950 13700 6650 13700
+Wire Wire Line
+	6950 13800 6650 13800
+Text Label 3600 13500 0    50   ~ 0
+TX2
+Text Label 3600 13700 0    50   ~ 0
+RX2
+Text Label 3600 13600 0    50   ~ 0
+~RTS2
+Text Label 3600 13800 0    50   ~ 0
+~CTS2
+Text Label 6650 13500 0    50   ~ 0
+~DTR2
+Text Label 6650 13700 0    50   ~ 0
+~DSR2
+Text Label 6650 13800 0    50   ~ 0
+~CD2
+NoConn ~ 6950 13600
+NoConn ~ 8350 13600
+$Comp
+L alexios:MAX232 U609
+U 1 1 606255C2
+P 4500 15250
+F 0 "U609" H 4500 16417 50  0000 C CNN
+F 1 "MAX232" H 4500 16326 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 14200 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 15350 50  0001 C CNN
+	1    4500 15250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C627
+U 1 1 606255C8
+P 3850 14500
+F 0 "C627" H 3938 14454 50  0000 L CNN
+F 1 "10μF" H 3938 14545 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 14500 50  0001 C CNN
+F 3 "~" H 3850 14500 50  0001 C CNN
+	1    3850 14500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3900 14350 3850 14350
+Wire Wire Line
+	3850 14350 3850 14400
+Wire Wire Line
+	3900 14650 3850 14650
+Wire Wire Line
+	3850 14650 3850 14600
+$Comp
+L power:GND #PWR0173
+U 1 1 606255D2
+P 5150 14700
+F 0 "#PWR0173" H 5150 14450 50  0001 C CNN
+F 1 "GND" H 5300 14700 50  0000 C CNN
+F 2 "" H 5150 14700 50  0001 C CNN
+F 3 "" H 5150 14700 50  0001 C CNN
+	1    5150 14700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C631
+U 1 1 606255D8
+P 3850 15000
+F 0 "C631" H 3763 15046 50  0000 R CNN
+F 1 "1μF" H 3763 14955 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 15000 50  0001 C CNN
+F 3 "~" H 3850 15000 50  0001 C CNN
+	1    3850 15000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 14850 3850 14850
+Wire Wire Line
+	3850 14850 3850 14900
+Wire Wire Line
+	3900 15150 3850 15150
+Wire Wire Line
+	3850 15150 3850 15100
+$Comp
+L Device:CP_Small C632
+U 1 1 606255E2
+P 5150 15000
+F 0 "C632" H 5063 15046 50  0000 R CNN
+F 1 "1μF" H 5063 14955 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 15000 50  0001 C CNN
+F 3 "~" H 5150 15000 50  0001 C CNN
+	1    5150 15000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 14850 5150 14850
+Wire Wire Line
+	5150 14850 5150 14900
+Wire Wire Line
+	5100 15150 5150 15150
+Wire Wire Line
+	5150 15150 5150 15100
+$Comp
+L Device:CP_Small C628
+U 1 1 606255EC
+P 5150 14500
+F 0 "C628" H 5238 14454 50  0000 L CNN
+F 1 "10μF" H 5238 14545 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 14500 50  0001 C CNN
+F 3 "~" H 5150 14500 50  0001 C CNN
+	1    5150 14500
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5100 14650 5150 14650
+Wire Wire Line
+	5150 14650 5150 14700
+Wire Wire Line
+	5150 14600 5150 14650
+Connection ~ 5150 14650
+Wire Wire Line
+	5150 14350 5150 14400
+Wire Wire Line
+	5100 14350 5150 14350
+$Comp
+L power:+5V #PWR0174
+U 1 1 606255F8
+P 3850 14300
+F 0 "#PWR0174" H 3850 14150 50  0001 C CNN
+F 1 "+5V" H 3650 14300 50  0000 C CNN
+F 2 "" H 3850 14300 50  0001 C CNN
+F 3 "" H 3850 14300 50  0001 C CNN
+	1    3850 14300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 14300 3850 14350
+Connection ~ 3850 14350
+$Comp
+L alexios:MAX232 U610
+U 1 1 60625600
+P 7550 15250
+F 0 "U610" H 7550 16417 50  0000 C CNN
+F 1 "MAX232" H 7550 16326 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 14200 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 15350 50  0001 C CNN
+	1    7550 15250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C629
+U 1 1 60625606
+P 6900 14500
+F 0 "C629" H 6988 14454 50  0000 L CNN
+F 1 "10μF" H 6988 14545 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 14500 50  0001 C CNN
+F 3 "~" H 6900 14500 50  0001 C CNN
+	1    6900 14500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6950 14350 6900 14350
+Wire Wire Line
+	6900 14350 6900 14400
+Wire Wire Line
+	6950 14650 6900 14650
+Wire Wire Line
+	6900 14650 6900 14600
+$Comp
+L power:GND #PWR0175
+U 1 1 60625610
+P 8200 14700
+F 0 "#PWR0175" H 8200 14450 50  0001 C CNN
+F 1 "GND" H 8350 14700 50  0000 C CNN
+F 2 "" H 8200 14700 50  0001 C CNN
+F 3 "" H 8200 14700 50  0001 C CNN
+	1    8200 14700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C633
+U 1 1 60625616
+P 6900 15000
+F 0 "C633" H 6813 15046 50  0000 R CNN
+F 1 "1μF" H 6813 14955 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 15000 50  0001 C CNN
+F 3 "~" H 6900 15000 50  0001 C CNN
+	1    6900 15000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 14850 6900 14850
+Wire Wire Line
+	6900 14850 6900 14900
+Wire Wire Line
+	6950 15150 6900 15150
+Wire Wire Line
+	6900 15150 6900 15100
+$Comp
+L Device:CP_Small C634
+U 1 1 60625620
+P 8200 15000
+F 0 "C634" H 8113 15046 50  0000 R CNN
+F 1 "1μF" H 8113 14955 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 15000 50  0001 C CNN
+F 3 "~" H 8200 15000 50  0001 C CNN
+	1    8200 15000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 14850 8200 14850
+Wire Wire Line
+	8200 14850 8200 14900
+Wire Wire Line
+	8150 15150 8200 15150
+Wire Wire Line
+	8200 15150 8200 15100
+$Comp
+L Device:CP_Small C630
+U 1 1 6062562A
+P 8200 14500
+F 0 "C630" H 8288 14454 50  0000 L CNN
+F 1 "10μF" H 8288 14545 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 14500 50  0001 C CNN
+F 3 "~" H 8200 14500 50  0001 C CNN
+	1    8200 14500
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8150 14650 8200 14650
+Wire Wire Line
+	8200 14650 8200 14700
+Wire Wire Line
+	8200 14600 8200 14650
+Connection ~ 8200 14650
+Wire Wire Line
+	8200 14350 8200 14400
+Wire Wire Line
+	8150 14350 8200 14350
+$Comp
+L power:+5V #PWR0177
+U 1 1 60625636
+P 6900 14300
+F 0 "#PWR0177" H 6900 14150 50  0001 C CNN
+F 1 "+5V" H 6700 14300 50  0000 C CNN
+F 2 "" H 6900 14300 50  0001 C CNN
+F 3 "" H 6900 14300 50  0001 C CNN
+	1    6900 14300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 14300 6900 14350
+Connection ~ 6900 14350
+Wire Wire Line
+	3900 15300 3600 15300
+Wire Wire Line
+	3900 15400 3600 15400
+Wire Wire Line
+	3900 15500 3600 15500
+Wire Wire Line
+	3900 15600 3600 15600
+Wire Wire Line
+	6950 15300 6650 15300
+Wire Wire Line
+	6950 15500 6650 15500
+Wire Wire Line
+	6950 15600 6650 15600
+Text Label 3600 15300 0    50   ~ 0
+TX3
+Text Label 3600 15500 0    50   ~ 0
+RX3
+Text Label 3600 15400 0    50   ~ 0
+~RTS3
+Text Label 3600 15600 0    50   ~ 0
+~CTS3
+Text Label 6650 15300 0    50   ~ 0
+~DTR3
+Text Label 6650 15500 0    50   ~ 0
+~DSR3
+Text Label 6650 15600 0    50   ~ 0
+~CD3
+NoConn ~ 6950 15400
+NoConn ~ 8150 15400
+$Comp
+L alexios:PESD15VS2UT D601
+U 1 1 60682A21
+P 5300 10400
+F 0 "D601" H 5525 10423 50  0000 L CNN
+F 1 "PESD15VS2UT" H 5525 10378 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 9800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 10425 50  0001 C CNN
+	1    5300 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D602
+U 1 1 606849A5
+P 5850 10400
+F 0 "D602" H 6075 10469 50  0000 L CNN
+F 1 "PESD15VS2UT" H 6075 10378 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 9800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 10425 50  0001 C CNN
+	1    5850 10400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 10200 5200 10200
+Wire Wire Line
+	5200 10250 5200 10200
+Connection ~ 5200 10200
+Wire Wire Line
+	5200 10200 6050 10200
+Wire Wire Line
+	5400 10250 5400 10100
+Wire Wire Line
+	5750 10250 5750 10000
+Connection ~ 5750 10000
+Wire Wire Line
+	5750 10000 5100 10000
+Wire Wire Line
+	5950 10250 5950 9900
+Connection ~ 5950 9900
+Wire Wire Line
+	5950 9900 5100 9900
+Wire Wire Line
+	6050 11700 5950 11700
+Wire Wire Line
+	6050 11800 5750 11800
+Wire Wire Line
+	6050 11900 5400 11900
+$Comp
+L alexios:PESD15VS2UT D605
+U 1 1 60AF0A0B
+P 5300 12200
+F 0 "D605" H 5525 12223 50  0000 L CNN
+F 1 "PESD15VS2UT" H 5525 12178 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 11600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 12225 50  0001 C CNN
+	1    5300 12200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D606
+U 1 1 60AF0A11
+P 5850 12200
+F 0 "D606" H 6075 12269 50  0000 L CNN
+F 1 "PESD15VS2UT" H 6075 12178 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 11600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 12225 50  0001 C CNN
+	1    5850 12200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 12000 5200 12000
+Wire Wire Line
+	5200 12050 5200 12000
+Connection ~ 5200 12000
+Wire Wire Line
+	5200 12000 6050 12000
+Wire Wire Line
+	5400 12050 5400 11900
+Wire Wire Line
+	5750 12050 5750 11800
+Connection ~ 5750 11800
+Wire Wire Line
+	5750 11800 5100 11800
+Wire Wire Line
+	5950 12050 5950 11700
+Connection ~ 5950 11700
+Wire Wire Line
+	5950 11700 5100 11700
+Wire Wire Line
+	6050 13500 5950 13500
+Wire Wire Line
+	6050 13600 5750 13600
+Wire Wire Line
+	6050 13700 5400 13700
+$Comp
+L alexios:PESD15VS2UT D609
+U 1 1 60B1C8CB
+P 5300 14000
+F 0 "D609" H 5525 14023 50  0000 L CNN
+F 1 "PESD15VS2UT" H 5525 13978 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 13400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 14025 50  0001 C CNN
+	1    5300 14000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D610
+U 1 1 60B1C8D1
+P 5850 14000
+F 0 "D610" H 6075 14069 50  0000 L CNN
+F 1 "PESD15VS2UT" H 6075 13978 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 13400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 14025 50  0001 C CNN
+	1    5850 14000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 13800 5200 13800
+Wire Wire Line
+	5200 13850 5200 13800
+Connection ~ 5200 13800
+Wire Wire Line
+	5200 13800 6050 13800
+Wire Wire Line
+	5400 13850 5400 13700
+Wire Wire Line
+	5750 13850 5750 13600
+Connection ~ 5750 13600
+Wire Wire Line
+	5750 13600 5100 13600
+Wire Wire Line
+	5950 13850 5950 13500
+Connection ~ 5950 13500
+Wire Wire Line
+	5950 13500 5100 13500
+Wire Wire Line
+	6050 15300 5950 15300
+Wire Wire Line
+	6050 15400 5750 15400
+Wire Wire Line
+	6050 15500 5400 15500
+$Comp
+L alexios:PESD15VS2UT D613
+U 1 1 60B4ACB5
+P 5300 15800
+F 0 "D613" H 5525 15823 50  0000 L CNN
+F 1 "PESD15VS2UT" H 5525 15778 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 15200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 15825 50  0001 C CNN
+	1    5300 15800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D614
+U 1 1 60B4ACBB
+P 5850 15800
+F 0 "D614" H 6075 15869 50  0000 L CNN
+F 1 "PESD15VS2UT" H 6075 15778 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 15200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 15825 50  0001 C CNN
+	1    5850 15800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 15600 5200 15600
+Wire Wire Line
+	5200 15650 5200 15600
+Connection ~ 5200 15600
+Wire Wire Line
+	5200 15600 6050 15600
+Wire Wire Line
+	5400 15650 5400 15500
+Connection ~ 5400 15500
+Wire Wire Line
+	5400 15500 5100 15500
+Wire Wire Line
+	5750 15650 5750 15400
+Connection ~ 5750 15400
+Wire Wire Line
+	5750 15400 5100 15400
+Wire Wire Line
+	5950 15650 5950 15300
+Connection ~ 5950 15300
+Wire Wire Line
+	5950 15300 5100 15300
+Wire Wire Line
+	9100 9900 9000 9900
+Wire Wire Line
+	9100 10100 8450 10100
+$Comp
+L alexios:PESD15VS2UT D603
+U 1 1 60BE4F34
+P 8350 10400
+F 0 "D603" H 8575 10423 50  0000 L CNN
+F 1 "PESD15VS2UT" H 8575 10378 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 9800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 10425 50  0001 C CNN
+	1    8350 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D604
+U 1 1 60BE4F3A
+P 8900 10400
+F 0 "D604" H 9125 10469 50  0000 L CNN
+F 1 "PESD15VS2UT" H 9125 10378 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 9800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 10425 50  0001 C CNN
+	1    8900 10400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 10200 8250 10200
+Wire Wire Line
+	8250 10250 8250 10200
+Connection ~ 8250 10200
+Wire Wire Line
+	8250 10200 9100 10200
+Wire Wire Line
+	8450 10250 8450 10100
+Connection ~ 8450 10100
+Wire Wire Line
+	8450 10100 8150 10100
+Wire Wire Line
+	9000 10250 9000 9900
+Connection ~ 9000 9900
+Wire Wire Line
+	9000 9900 8150 9900
+$Comp
+L alexios:MAX232 U602
+U 1 1 60473A98
+P 7550 9850
+F 0 "U602" H 7550 11017 50  0000 C CNN
+F 1 "MAX232" H 7550 10926 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 8800 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 9950 50  0001 C CNN
+	1    7550 9850
+	1    0    0    -1  
+$EndComp
+NoConn ~ 8800 10250
+Wire Wire Line
+	9100 11700 9000 11700
+$Comp
+L alexios:PESD15VS2UT D607
+U 1 1 60D6A990
+P 8350 12200
+F 0 "D607" H 8575 12223 50  0000 L CNN
+F 1 "PESD15VS2UT" H 8575 12178 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 11600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 12225 50  0001 C CNN
+	1    8350 12200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D608
+U 1 1 60D6A996
+P 8900 12200
+F 0 "D608" H 9125 12269 50  0000 L CNN
+F 1 "PESD15VS2UT" H 9125 12178 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 11600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 12225 50  0001 C CNN
+	1    8900 12200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 12000 8250 12000
+Wire Wire Line
+	8250 12050 8250 12000
+Wire Wire Line
+	9000 12050 9000 11700
+Connection ~ 9000 11700
+Wire Wire Line
+	9000 11700 8150 11700
+NoConn ~ 8800 12050
+Wire Wire Line
+	9100 13500 9000 13500
+$Comp
+L alexios:PESD15VS2UT D611
+U 1 1 60D9F210
+P 8350 14000
+F 0 "D611" H 8575 14023 50  0000 L CNN
+F 1 "PESD15VS2UT" H 8575 13978 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 13400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 14025 50  0001 C CNN
+	1    8350 14000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D612
+U 1 1 60D9F216
+P 8900 14000
+F 0 "D612" H 9125 14069 50  0000 L CNN
+F 1 "PESD15VS2UT" H 9125 13978 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 13400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 14025 50  0001 C CNN
+	1    8900 14000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 13800 8250 13800
+Wire Wire Line
+	8250 13850 8250 13800
+Connection ~ 8250 13800
+Wire Wire Line
+	8250 13800 9100 13800
+Wire Wire Line
+	9000 13850 9000 13500
+Connection ~ 9000 13500
+Wire Wire Line
+	9000 13500 8150 13500
+NoConn ~ 8800 13850
+Wire Wire Line
+	9100 15300 9000 15300
+Wire Wire Line
+	9100 15500 8450 15500
+$Comp
+L alexios:PESD15VS2UT D615
+U 1 1 60DD5C2C
+P 8350 15800
+F 0 "D615" H 8575 15823 50  0000 L CNN
+F 1 "PESD15VS2UT" H 8575 15778 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 15200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 15825 50  0001 C CNN
+	1    8350 15800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:PESD15VS2UT D616
+U 1 1 60DD5C32
+P 8900 15800
+F 0 "D616" H 9125 15869 50  0000 L CNN
+F 1 "PESD15VS2UT" H 9125 15778 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 15200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 15825 50  0001 C CNN
+	1    8900 15800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 15600 8250 15600
+Wire Wire Line
+	8250 15650 8250 15600
+Connection ~ 8250 15600
+Wire Wire Line
+	8250 15600 9100 15600
+Wire Wire Line
+	8450 15650 8450 15500
+Wire Wire Line
+	9000 15650 9000 15300
+Connection ~ 9000 15300
+Wire Wire Line
+	9000 15300 8150 15300
+NoConn ~ 8800 15650
+Wire Wire Line
+	8250 12000 9100 12000
+Connection ~ 8250 12000
+Wire Wire Line
+	8450 12050 8450 11900
+Wire Wire Line
+	8450 11900 9100 11900
+Wire Wire Line
+	8150 15500 8450 15500
+Connection ~ 8450 15500
+Wire Wire Line
+	8150 13700 9100 13700
+Wire Wire Line
+	8150 13600 8350 13600
+$Comp
+L Connector:DB9_Female J601
+U 1 1 64945BF1
+P 11050 9250
+F 0 "J601" H 11230 9296 50  0000 L CNN
+F 1 "DB9_Female" H 11230 9205 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 11050 9250 50  0001 C CNN
+F 3 " ~" H 11050 9250 50  0001 C CNN
+	1    11050 9250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:DB25_Female J602
+U 1 1 649907ED
+P 11050 11200
+F 0 "J602" H 11230 11246 50  0000 L CNN
+F 1 "DB25_Female" H 11230 11155 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-25_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 11050 11200 50  0001 C CNN
+F 3 " ~" H 11050 11200 50  0001 C CNN
+	1    11050 11200
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
