@@ -1321,8 +1321,8 @@ Microcontroller
 $Sheet
 S 6800 1150 1150 4200
 U 5FE640D1
-F0 "Edge Connectors" 50
-F1 "edge_connectors.sch" 50
+F0 "Bus Connectors" 50
+F1 "bus_connectors.sch" 50
 F2 "~RESET" U R 7950 1300 50 
 F3 "CLK4" U R 7950 1800 50 
 F4 "AB[0..23]" U L 6800 1300 50 
