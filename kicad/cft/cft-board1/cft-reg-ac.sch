@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 19
+Sheet 18 20
 Title "Accumulator (AC)"
 Date ""
-Rev "2047"
+Rev "2023"
 Comp ""
 Comment1 "REG"
 Comment2 ""
@@ -2136,6 +2136,9 @@ Wire Wire Line
 	1150 2300 1550 2300
 Wire Wire Line
 	1250 2200 1250 2450
+Connection ~ 1250 2450
+Wire Wire Line
+	1250 2450 1550 2450
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -2148,7 +2151,4 @@ Wire Bus Line
 	6650 1050 6650 6950
 Wire Bus Line
 	4100 1150 4100 6950
-Connection ~ 1250 2450
-Wire Wire Line
-	1250 2450 1550 2450
 $EndSCHEMATC

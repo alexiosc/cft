@@ -1,4 +1,3 @@
 (sym_lib_table
   (lib (name cft-rescue)(type Legacy)(uri ${KIPRJMOD}/cft-rescue.lib)(options "")(descr ""))
-  (lib (name cft-board1-rescue)(type Legacy)(uri ${KIPRJMOD}/cft-board1-rescue.lib)(options "")(descr ""))
 )

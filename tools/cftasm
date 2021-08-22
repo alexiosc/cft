@@ -31,6 +31,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    TSA     &0200            ; 0000:0:0:100:-------  Transfer Stack Pointer to Accumulator
 .equ    TAD     &0280            ; 0000:0:0:101:-------  Transfer Accumulator to Data Register
 .equ    TDA     &0300            ; 0000:0:0:110:-------  Transfer Data Register to Accumulator
+.equ    SWAB    &0380            ; 0000:0:0:111:-------  Swap high and low bytes
 .equ    TRAP    &0400            ; 0000:0:1:000:LLLLLLL  Software Interrupt
 .equ    PHA     &0480            ; 0000:0:1:001:-------  Push Accumulator
 .equ    PPA     &0500            ; 0000:0:1:010:-------  Pop Accumulator

@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 19
+Sheet 17 20
 Title "ALU Decoding & Control"
 Date "2019-11-17"
-Rev "2022"
+Rev "2023"
 Comp ""
 Comment1 "ALU"
 Comment2 ""
@@ -147,21 +147,6 @@ NoConn ~ 5400 4100
 NoConn ~ 6300 3200
 $Comp
 L alexios:ATF16V8B U201
-U 1 1 63A46035
-P 5850 1900
-AR Path="/63A46035" Ref="U201"  Part="1" 
-AR Path="/5E1C970B/63A46035" Ref="U201"  Part="1" 
-F 0 "U201" H 5850 2650 50  0000 C CNN
-F 1 "ATF16V8B" H 5850 2550 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 1900 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 1900 50  0001 C CNN
-F 4 "ALRDEC00" V 5850 1900 50  0000 C CNB "Signature"
-F 5 "alu-raddr-decode.jed" H 5850 1250 50  0000 C CNN "Image Filename"
-	1    5850 1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:ATF16V8B U201
 U 2 1 63A4603D
 P 8450 1550
 AR Path="/63A4603D" Ref="U201"  Part="2" 
@@ -265,7 +250,6 @@ Text Label 6850 1750 2    50   ~ 0
 ~READ-AC
 Text Label 6850 1650 2    50   ~ 0
 ~READ-SP
-NoConn ~ 6300 1450
 Text Label 5100 1550 0    50   ~ 0
 RADDR0
 Text Label 5100 1650 0    50   ~ 0
@@ -466,10 +450,10 @@ Text HLabel 6950 3300 2    50   Output ~ 0
 Text HLabel 6950 3800 2    50   Output ~ 0
 ~WRITE-ALU-B
 Wire Wire Line
-	6300 1550 6950 1550
-Text Label 6850 1550 2    50   ~ 0
+	6300 1450 6950 1450
+Text Label 6850 1450 2    50   ~ 0
 ~ALUOE
-Text HLabel 6950 1550 2    50   Output ~ 0
+Text HLabel 6950 1450 2    50   Output ~ 0
 ~ALUOE
 $Comp
 L alexios:ATF16V8B U202
@@ -507,4 +491,25 @@ Text Notes 900  1000 0    63   ~ 13
 Decoders
 Text Notes 900  1700 0    50   ~ 0
 These decoders respond to Control Unit signals in the Read, Write and Action fields.\nThey generate clock-synchronous strobes to operate the units on this board. They're\nimplemented using 16V8 GALs (or compatible) rather than 74HC138 and single\ngates for two reasons: (a) allow mistakes to be fixed without excessive rewiring of the\nboards; and (b) reduce the need for single 74'1Gxx gates.\n\nThey're also good for future expansion.\n
+$Comp
+L alexios:ATF16V8B U201
+U 1 1 63A46035
+P 5850 1900
+AR Path="/63A46035" Ref="U201"  Part="1" 
+AR Path="/5E1C970B/63A46035" Ref="U201"  Part="1" 
+F 0 "U201" H 5850 2650 50  0000 C CNN
+F 1 "ATF16V8B" H 5850 2550 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 5850 1900 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 5850 1900 50  0001 C CNN
+F 4 "ALRDEC00" V 5850 1900 50  0000 C CNB "Signature"
+F 5 "alu-raddr-decode.jed" H 5850 1250 50  0000 C CNN "Image Filename"
+	1    5850 1900
+	1    0    0    -1  
+$EndComp
+Text HLabel 6950 1550 2    50   Output ~ 0
+~READ-SWAB
+Wire Wire Line
+	6300 1550 6950 1550
+Text Label 6850 1550 2    50   ~ 0
+~READ-SWAB
 $EndSCHEMATC

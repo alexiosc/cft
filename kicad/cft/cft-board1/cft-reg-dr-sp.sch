@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 19
+Sheet 7 20
 Title "Stack Pointer (SP)"
 Date ""
-Rev "2047"
+Rev "2023"
 Comp ""
 Comment1 "REG"
 Comment2 ""

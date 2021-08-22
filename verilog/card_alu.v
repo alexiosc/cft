@@ -36,6 +36,7 @@
 `include "alu_sru.v"
 `include "reg_l.v"
 `include "reg_v.v"
+`include "flipflop.v"
 
 `timescale 1ns/1ps
 
@@ -303,6 +304,20 @@ module card_alu(
 		.ibus13(ibus[13]),
 		.nflagwe(nflagwe),
 		.fv(fv));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE SWAB UNIT
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // This is done in a GAL right now, but we simulate it here.
+   wire 	 nread_swab;
+
+   assign #10 nread_swab = t34 == 1'b0 & raddr == 5'b11111 ? 1'b0 : 1'b1;
+
+   flipflop_574 swab_fflo(.d(ac[15:8]), .q(ibus[7:0]),  .clk(clk2), .noe(nread_swab));
+   flipflop_574 swab_ffhi(.d(ac[7:0]),  .q(ibus[15:8]), .clk(clk2), .noe(nread_swab));
 
 endmodule // card_alu
 
