@@ -3,8 +3,8 @@ ALRDEC00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-T34     RA0     RA1	RA2	RA3	RA4	NC7	NC8	NC9	GND
-NC11	ALUOP	ACP	RY	RB	RAC	RSP	ALUOE	NC19	VCC
+T34     RA0     RA1	RA2	RA3	RA4	NC	NC	NC	GND
+NC	ALUOP	ACP	RY	RB	RAC	RSP	RSWAB	ALUOE	VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -19,6 +19,8 @@ ACP =  		        RA4 * /RA3
 /RAC =          /T34 * /RA4 *  RA3 * /RA2 *  RA1 * /RA0
 
 /RSP =          /T34 * /RA4 *  RA3 * /RA2 *  RA1 *  RA0
+
+/RSWAB =	/T34 *  RA4 *  RA3 *  RA2 *  RA1 *  RA0
 
 
 ; ALU output is enabled when either ALUOP or READ-ALU-Y are
@@ -55,6 +57,8 @@ Outputs: (all active low)
 // 10111                              Reserved for ALU.
 // -------------------------------------------------------------------------------
 // 11000     ALU:Y                    Read result of last ALU operation
-// 11001     ALU:B       ALU:B        Currently only used by the SRU.                              
+// 11001     ALU:B       ALU:B        Currently only used by the SRU.
+// ...
+// 11111     SWAB        flags        Read from byte swapper. Write to just the flags (no CTX)
 
 ; End of file.

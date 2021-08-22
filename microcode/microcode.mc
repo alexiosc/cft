@@ -75,6 +75,9 @@
 //
 //   Version 7h: (2021-05-04) added NMB instruction to help initialise new
 //   contexts, and ECT to enter them (context switching).
+//
+//   Version 7i: (2021-08-22) added SWAB instruction (swab upper and lower
+//   bytes of AC, useful in communicating with 8-bit peripherals).
 
 
 
@@ -194,7 +197,7 @@ cond uaddr:4;
 // 11100     MBP         MBP          Read/write  Access to the MBP for long jumps
 // 11101     CTX         CTX          Context register access
 // 11110     CTX+flags   CTX+flags    Pushed onto stack as a single 16-bit value (for speed)
-// 11111                 flags        Writes to just the flags (ignores CTX)
+// 11111     SWAB        flags        Read from byte swapper. Write to just the flags (no CTX)
 // -------------------------------------------------------------------------------
 
 // RADDR FIELD
@@ -229,7 +232,7 @@ signal read_mbn        = ...................11011; // Read an MBn register
 signal read_mbp        = ...................11100; // Read the MBP
 signal read_ctx        = ...................11101; // Read the context register
 signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
-//signal               = ...................11111; // (Available)
+signal read_swab       = ...................11111; // Read from byte swapper
 
 // WADDR FIELD
 field  WRITE           = ______________XXXXX_____; // Write unit field
@@ -544,7 +547,7 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define TSA    _INSTR(0000), I=0, R=0, SUBOP=100, COND=X, IDX=XX
 #define TAD    _INSTR(0000), I=0, R=0, SUBOP=101, COND=X, IDX=XX
 #define TDA    _INSTR(0000), I=0, R=0, SUBOP=110, COND=X, IDX=XX
-//#define      _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
+#define SWAB   _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX
 
 #define TRAP   _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
 #define PHA    _INSTR(0000), I=0, R=1, SUBOP=001, COND=X, IDX=XX
@@ -756,6 +759,25 @@ start TAD;
 start TDA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(ac, dr), END;                         // 02 AC ← DR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE SWAB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: SWAB
+// NAME:     Swap high and low bytes
+// DESC:     Swaps the high and low bytes in the accumulator.
+// GROUP:    Arithmetic and Logic
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   :-------
+
+start SWAB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, swab), END;                       // 02 AC ← (AC << 8) | (AC >> 8)
 
 
 ///////////////////////////////////////////////////////////////////////////////
