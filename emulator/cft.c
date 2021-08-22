@@ -826,9 +826,14 @@ read_from_ibus_unit(int raddr)
                 debug3("IBUS ← CTX+FLAGS (%04x)", tmp);
                 return tmp;
 
+        case FIELD_READ_SWAB:
+                tmp = ((cpu.ac << 8) | (cpu.ac >> 8));
+                debug3("IBUS ← SWAB (%04x)", tmp);
+                return tmp;
+
         default:
-                fatal("Unknown RADDR %x.", raddr)
-                        }
+                fatal("Unknown RADDR %x.", raddr);
+        }
 
         // We should never get here
         return cpu.ibus;
