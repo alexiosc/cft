@@ -104,7 +104,7 @@ GAL  PANELEN   MFD   FPA    | MODULE  | Output
 
 SCRIPT
 
-Run this script to regenerate the equations from this table:
+Run this script to regenerate the equations of all four GALs from this table:
 
 for a in {A..D}; do
     echo "--- GAL $a ---"
