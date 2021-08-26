@@ -397,14 +397,6 @@ Wire Wire Line
 Wire Wire Line
 	14150 9800 13750 9800
 Wire Wire Line
-	14100 10600 13750 10600
-Wire Wire Line
-	14100 10700 13750 10700
-Wire Wire Line
-	14100 10800 13750 10800
-Wire Wire Line
-	14100 10900 13750 10900
-Wire Wire Line
 	14100 11000 13750 11000
 Text Label 12200 1250 0    50   ~ 0
 ~RESET
@@ -947,10 +939,6 @@ Text Label 12000 10900 0    50   ~ 0
 ~FPDRH
 Text Label 12000 9700 0    50   ~ 0
 ~FPµC1
-NoConn ~ 14100 10600
-NoConn ~ 14100 10700
-NoConn ~ 14100 10800
-NoConn ~ 14100 10900
 NoConn ~ 14100 11000
 NoConn ~ 14100 11100
 Text HLabel 11950 9300 0    50   Input ~ 0
@@ -1792,6 +1780,30 @@ NoConn ~ 14100 5700
 NoConn ~ 14100 5800
 NoConn ~ 14100 5900
 NoConn ~ 8450 10250
+Wire Wire Line
+	13750 10600 14150 10600
+Wire Wire Line
+	13750 10700 14150 10700
+Wire Wire Line
+	13750 10800 14150 10800
+Wire Wire Line
+	13750 10900 14150 10900
+Text Label 14100 10600 2    50   ~ 0
+~FPRSVD0
+Text Label 14100 10700 2    50   ~ 0
+~FPRSVD1
+Text Label 14100 10800 2    50   ~ 0
+~FPRSVD2
+Text Label 14100 10900 2    50   ~ 0
+~FPRSVD3
+Text HLabel 14150 10600 2    50   Input ~ 0
+~FPRSVD0
+Text HLabel 14150 10700 2    50   Input ~ 0
+~FPRSVD1
+Text HLabel 14150 10800 2    50   Input ~ 0
+~FPRSVD2
+Text HLabel 14150 10900 2    50   Input ~ 0
+~FPRSVD3
 Wire Bus Line
 	2550 5100 2550 6050
 Wire Bus Line

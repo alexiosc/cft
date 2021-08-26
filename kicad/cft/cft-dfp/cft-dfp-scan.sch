@@ -2746,10 +2746,6 @@ Wire Wire Line
 	-3650 6550 -3200 6550
 Text Label -3200 6550 2    50   ~ 0
 ~FPSTATE
-NoConn ~ -3600 4750
-NoConn ~ -3600 4850
-NoConn ~ -3600 4950
-NoConn ~ -3600 5050
 Text HLabel -3600 5850 2    50   Output ~ 0
 ~FPDBL
 Text HLabel -3600 6050 2    50   Output ~ 0
@@ -2772,6 +2768,14 @@ Wire Wire Line
 	-3650 6250 -3600 6250
 Wire Wire Line
 	-3650 6150 -3600 6150
+Text HLabel -3600 4750 2    50   Output ~ 0
+~FPRSVD0
+Text HLabel -3600 4850 2    50   Output ~ 0
+~FPRSVD1
+Text HLabel -3600 4950 2    50   Output ~ 0
+~FPRSVD2
+Text HLabel -3600 5050 2    50   Output ~ 0
+~FPRSVD3
 Wire Bus Line
 	2050 800  2050 1800
 Wire Bus Line

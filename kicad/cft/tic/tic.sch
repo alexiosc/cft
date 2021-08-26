@@ -694,4 +694,37 @@ U 64860A0B
 F0 "Quad Serial Board" 50
 F1 "tty.sch" 50
 $EndSheet
+$Comp
+L Interface_Ethernet:W5100 U?
+U 1 1 61281AB3
+P -9200 9950
+F 0 "U?" H -9200 7861 50  0000 C CNN
+F 1 "W5100" H -9200 7770 50  0000 C CNN
+F 2 "Package_QFP:LQFP-80_10x10mm_P0.4mm" H -9050 8000 50  0001 L CNN
+F 3 "http://www.wiznet.io/wp-content/uploads/wiznethome/Chip/W5100/Document/W5100_Datasheet_v1.2.7.pdf" H -12850 13100 50  0001 C CNN
+	1    -9200 9950
+	1    0    0    -1  
+$EndComp
+$Comp
+L RF_Module:ESP-WROOM-02 U?
+U 1 1 61281AB9
+P -7050 10200
+F 0 "U?" H -7050 10981 50  0000 C CNN
+F 1 "ESP-WROOM-02" H -7050 10890 50  0000 C CNN
+F 2 "RF_Module:ESP-WROOM-02" H -6450 9650 50  0001 C CNN
+F 3 "https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" H -7000 11700 50  0001 C CNN
+	1    -7050 10200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_USB:FT232RL U?
+U 1 1 61DE661D
+P -4650 11150
+F 0 "U?" H -4650 12331 50  0000 C CNN
+F 1 "FT232RL" H -4650 12240 50  0000 C CNN
+F 2 "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" H -3550 10250 50  0001 C CNN
+F 3 "https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf" H -4650 11150 50  0001 C CNN
+	1    -4650 11150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
