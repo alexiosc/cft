@@ -3,665 +3,16 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 13
-Title ""
+Sheet 9 13
+Title "Single DIN 41612 Slot"
 Date ""
-Rev ""
+Rev "2134"
 Comp ""
-Comment1 ""
+Comment1 "PB0"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 6900 5000 0    50   ~ 0
-C32
-Text Label 6900 4900 0    50   ~ 0
-C31
-Text Label 6900 4800 0    50   ~ 0
-C30
-Text Label 6900 4700 0    50   ~ 0
-C29
-Text Label 6900 4600 0    50   ~ 0
-C28
-Text Label 6900 4500 0    50   ~ 0
-C27
-Text Label 6900 4400 0    50   ~ 0
-C26
-Text Label 6900 4300 0    50   ~ 0
-C25
-Text Label 6900 4200 0    50   ~ 0
-C24
-Text Label 6900 4100 0    50   ~ 0
-C23
-Text Label 6900 4000 0    50   ~ 0
-C22
-Text Label 6900 3900 0    50   ~ 0
-C21
-Text Label 6900 3800 0    50   ~ 0
-C20
-Text Label 6900 3700 0    50   ~ 0
-C19
-Text Label 6900 3600 0    50   ~ 0
-C18
-Text Label 6900 3500 0    50   ~ 0
-C17
-Text Label 6900 3400 0    50   ~ 0
-C16
-Text Label 6900 3300 0    50   ~ 0
-C15
-Text Label 6900 3200 0    50   ~ 0
-C14
-Text Label 6900 3100 0    50   ~ 0
-C13
-Text Label 6900 3000 0    50   ~ 0
-C12
-Text Label 6900 2900 0    50   ~ 0
-C11
-Text Label 6900 2800 0    50   ~ 0
-C10
-Text Label 6900 2700 0    50   ~ 0
-C9
-Text Label 6900 2600 0    50   ~ 0
-C8
-Text Label 6900 2500 0    50   ~ 0
-C7
-Text Label 6900 2400 0    50   ~ 0
-C6
-Text Label 6900 2300 0    50   ~ 0
-C5
-Text Label 6900 2200 0    50   ~ 0
-C4
-Text Label 6900 2100 0    50   ~ 0
-C3
-Text Label 6900 2000 0    50   ~ 0
-C2
-Text Label 6900 1900 0    50   ~ 0
-C1
-Text Label 5700 5000 0    50   ~ 0
-B32
-Text Label 5700 4900 0    50   ~ 0
-B31
-Text Label 5700 4800 0    50   ~ 0
-B30
-Text Label 5700 4700 0    50   ~ 0
-B29
-Text Label 5700 4600 0    50   ~ 0
-B28
-Text Label 5700 4500 0    50   ~ 0
-B27
-Text Label 5700 4400 0    50   ~ 0
-B26
-Text Label 5700 4300 0    50   ~ 0
-B25
-Text Label 5700 4200 0    50   ~ 0
-B24
-Text Label 5700 4100 0    50   ~ 0
-B23
-Text Label 5700 4000 0    50   ~ 0
-B22
-Text Label 5700 3900 0    50   ~ 0
-B21
-Text Label 5700 3800 0    50   ~ 0
-B20
-Text Label 5700 3700 0    50   ~ 0
-B19
-Text Label 5700 3600 0    50   ~ 0
-B18
-Text Label 5700 3500 0    50   ~ 0
-B17
-Text Label 5700 3400 0    50   ~ 0
-B16
-Text Label 5700 3300 0    50   ~ 0
-B15
-Text Label 5700 3200 0    50   ~ 0
-B14
-Text Label 5700 3100 0    50   ~ 0
-B13
-Text Label 5700 3000 0    50   ~ 0
-B12
-Text Label 5700 2900 0    50   ~ 0
-B11
-Text Label 5700 2800 0    50   ~ 0
-B10
-Text Label 5700 2700 0    50   ~ 0
-B9
-Text Label 5700 2600 0    50   ~ 0
-B8
-Text Label 5700 2500 0    50   ~ 0
-B7
-Text Label 5700 2400 0    50   ~ 0
-B6
-Text Label 5700 2300 0    50   ~ 0
-B5
-Text Label 5700 2200 0    50   ~ 0
-B4
-Text Label 5700 2100 0    50   ~ 0
-B3
-Text Label 5700 2000 0    50   ~ 0
-B2
-Text Label 5700 1900 0    50   ~ 0
-B1
-$Comp
-L alexios:DIN-41612-3x32-Bauform-C J1
-U 1 1 66BD4109
-P 4950 3400
-AR Path="/6199673B/66BD4109" Ref="J1"  Part="1" 
-AR Path="/859EF273/66BD4109" Ref="J2"  Part="1" 
-AR Path="/85A02236/66BD4109" Ref="J3"  Part="1" 
-AR Path="/85A150E4/66BD4109" Ref="J4"  Part="1" 
-AR Path="/85A27F74/66BD4109" Ref="J5"  Part="1" 
-AR Path="/85A3ADD9/66BD4109" Ref="J6"  Part="1" 
-AR Path="/85A4DD82/66BD4109" Ref="J7"  Part="1" 
-AR Path="/85A60DD6/66BD4109" Ref="J8"  Part="1" 
-AR Path="/85A73EB4/66BD4109" Ref="J9"  Part="1" 
-AR Path="/85A8707D/66BD4109" Ref="J10"  Part="1" 
-AR Path="/85A9A356/66BD4109" Ref="J11"  Part="1" 
-AR Path="/85AAD6B0/66BD4109" Ref="J12"  Part="1" 
-F 0 "J1" H 4950 5100 50  0000 C CNN
-F 1 "DIN-41612-3x32-Bauform-C" H 4800 1600 50  0000 L CNN
-F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 4925 0   50  0001 C CNN
-F 3 " ~" H 4925 0   50  0001 C CNN
-	1    4950 3400
-	1    0    0    -1  
-$EndComp
-Text Label 4500 4800 0    50   ~ 0
-A30
-Text Label 4500 4700 0    50   ~ 0
-A29
-Text Label 4500 4600 0    50   ~ 0
-A28
-Text Label 4500 4500 0    50   ~ 0
-A27
-Text Label 4500 4400 0    50   ~ 0
-A26
-Text Label 4500 4300 0    50   ~ 0
-A25
-Text Label 4500 4200 0    50   ~ 0
-A24
-Text Label 4500 4100 0    50   ~ 0
-A23
-Text Label 4500 4000 0    50   ~ 0
-A22
-Text Label 4500 3900 0    50   ~ 0
-A21
-Text Label 4500 3800 0    50   ~ 0
-A20
-Text Label 4500 3700 0    50   ~ 0
-A19
-Text Label 4500 3600 0    50   ~ 0
-A18
-Text Label 4500 3500 0    50   ~ 0
-A17
-Text Label 4500 3400 0    50   ~ 0
-A16
-Text Label 4500 3300 0    50   ~ 0
-A15
-Text Label 4500 3200 0    50   ~ 0
-A14
-Text Label 4500 3100 0    50   ~ 0
-A13
-Text Label 4500 3000 0    50   ~ 0
-A12
-Text Label 4500 2900 0    50   ~ 0
-A11
-Text Label 4500 2800 0    50   ~ 0
-A10
-Text Label 4500 2700 0    50   ~ 0
-A9
-Text Label 4500 2600 0    50   ~ 0
-A8
-Text Label 4500 2500 0    50   ~ 0
-A7
-Text Label 4500 2400 0    50   ~ 0
-A6
-Text Label 4500 2300 0    50   ~ 0
-A5
-Text Label 4500 2200 0    50   ~ 0
-A4
-Text Label 4500 2100 0    50   ~ 0
-A3
-Text Label 4500 2000 0    50   ~ 0
-A2
-Text Label 4500 1900 0    50   ~ 0
-A1
-Wire Wire Line
-	6900 5000 7050 5000
-Wire Wire Line
-	6900 4900 7050 4900
-Wire Wire Line
-	6900 4800 7050 4800
-Wire Wire Line
-	6900 4700 7050 4700
-Wire Wire Line
-	6900 4600 7050 4600
-Wire Wire Line
-	6900 4500 7050 4500
-Wire Wire Line
-	6900 4400 7050 4400
-Wire Wire Line
-	6900 4300 7050 4300
-Wire Wire Line
-	6900 4200 7050 4200
-Wire Wire Line
-	6900 4100 7050 4100
-Wire Wire Line
-	6900 4000 7050 4000
-Wire Wire Line
-	6900 3900 7050 3900
-Wire Wire Line
-	6900 3800 7050 3800
-Wire Wire Line
-	6900 3700 7050 3700
-Wire Wire Line
-	6900 3600 7050 3600
-Wire Wire Line
-	6900 3500 7050 3500
-Wire Wire Line
-	6900 3400 7050 3400
-Wire Wire Line
-	6900 3300 7050 3300
-Wire Wire Line
-	6900 3200 7050 3200
-Wire Wire Line
-	6900 3100 7050 3100
-Wire Wire Line
-	6900 3000 7050 3000
-Wire Wire Line
-	6900 2900 7050 2900
-Wire Wire Line
-	6900 2800 7050 2800
-Wire Wire Line
-	6900 2700 7050 2700
-Wire Wire Line
-	6900 2600 7050 2600
-Wire Wire Line
-	6900 2500 7050 2500
-Wire Wire Line
-	6900 2400 7050 2400
-Wire Wire Line
-	6900 2300 7050 2300
-Wire Wire Line
-	6900 2200 7050 2200
-Wire Wire Line
-	6900 2100 7050 2100
-Wire Wire Line
-	6900 2000 7050 2000
-Wire Wire Line
-	6900 1900 7050 1900
-$Comp
-L alexios:DIN-41612-3x32-Bauform-C J1
-U 3 1 6DF9D4CB
-P 7350 3400
-AR Path="/6199673B/6DF9D4CB" Ref="J1"  Part="3" 
-AR Path="/859EF273/6DF9D4CB" Ref="J2"  Part="3" 
-AR Path="/85A02236/6DF9D4CB" Ref="J3"  Part="3" 
-AR Path="/85A150E4/6DF9D4CB" Ref="J4"  Part="3" 
-AR Path="/85A27F74/6DF9D4CB" Ref="J5"  Part="3" 
-AR Path="/85A3ADD9/6DF9D4CB" Ref="J6"  Part="3" 
-AR Path="/85A4DD82/6DF9D4CB" Ref="J7"  Part="3" 
-AR Path="/85A60DD6/6DF9D4CB" Ref="J8"  Part="3" 
-AR Path="/85A73EB4/6DF9D4CB" Ref="J9"  Part="3" 
-AR Path="/85A8707D/6DF9D4CB" Ref="J10"  Part="3" 
-AR Path="/85A9A356/6DF9D4CB" Ref="J11"  Part="3" 
-AR Path="/85AAD6B0/6DF9D4CB" Ref="J12"  Part="3" 
-F 0 "J1" H 7250 5100 50  0000 L CNN
-F 1 "DIN-41612-3x32-Bauform-C" H 7530 3305 50  0001 L CNN
-F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 7325 0   50  0001 C CNN
-F 3 " ~" H 7325 0   50  0001 C CNN
-	3    7350 3400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5700 5000 5850 5000
-Wire Wire Line
-	5700 4900 5850 4900
-Wire Wire Line
-	5700 4800 5850 4800
-Wire Wire Line
-	5700 4700 5850 4700
-Wire Wire Line
-	5700 4600 5850 4600
-Wire Wire Line
-	5700 4500 5850 4500
-Wire Wire Line
-	5700 4400 5850 4400
-Wire Wire Line
-	5700 4300 5850 4300
-Wire Wire Line
-	5700 4200 5850 4200
-Wire Wire Line
-	5700 4100 5850 4100
-Wire Wire Line
-	5700 4000 5850 4000
-Wire Wire Line
-	5700 3900 5850 3900
-Wire Wire Line
-	5700 3800 5850 3800
-Wire Wire Line
-	5700 3700 5850 3700
-Wire Wire Line
-	5700 3600 5850 3600
-Wire Wire Line
-	5700 3500 5850 3500
-Wire Wire Line
-	5700 3400 5850 3400
-Wire Wire Line
-	5700 3300 5850 3300
-Wire Wire Line
-	5700 3200 5850 3200
-Wire Wire Line
-	5700 3100 5850 3100
-Wire Wire Line
-	5700 3000 5850 3000
-Wire Wire Line
-	5700 2900 5850 2900
-Wire Wire Line
-	5700 2800 5850 2800
-Wire Wire Line
-	5700 2700 5850 2700
-Wire Wire Line
-	5700 2600 5850 2600
-Wire Wire Line
-	5700 2500 5850 2500
-Wire Wire Line
-	5700 2400 5850 2400
-Wire Wire Line
-	5700 2300 5850 2300
-Wire Wire Line
-	5700 2200 5850 2200
-Wire Wire Line
-	5700 2100 5850 2100
-Wire Wire Line
-	5700 2000 5850 2000
-Wire Wire Line
-	5700 1900 5850 1900
-$Comp
-L alexios:DIN-41612-3x32-Bauform-C J1
-U 2 1 6D6BB2B9
-P 6150 3400
-AR Path="/6199673B/6D6BB2B9" Ref="J1"  Part="2" 
-AR Path="/859EF273/6D6BB2B9" Ref="J2"  Part="2" 
-AR Path="/85A02236/6D6BB2B9" Ref="J3"  Part="2" 
-AR Path="/85A150E4/6D6BB2B9" Ref="J4"  Part="2" 
-AR Path="/85A27F74/6D6BB2B9" Ref="J5"  Part="2" 
-AR Path="/85A3ADD9/6D6BB2B9" Ref="J6"  Part="2" 
-AR Path="/85A4DD82/6D6BB2B9" Ref="J7"  Part="2" 
-AR Path="/85A60DD6/6D6BB2B9" Ref="J8"  Part="2" 
-AR Path="/85A73EB4/6D6BB2B9" Ref="J9"  Part="2" 
-AR Path="/85A8707D/6D6BB2B9" Ref="J10"  Part="2" 
-AR Path="/85A9A356/6D6BB2B9" Ref="J11"  Part="2" 
-AR Path="/85AAD6B0/6D6BB2B9" Ref="J12"  Part="2" 
-F 0 "J1" H 6150 5100 50  0000 C CNN
-F 1 "DIN-41612-3x32-Bauform-C" H 6330 3305 50  0001 L CNN
-F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 6125 0   50  0001 C CNN
-F 3 " ~" H 6125 0   50  0001 C CNN
-	2    6150 3400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4500 4800 4650 4800
-Wire Wire Line
-	4500 4700 4650 4700
-Wire Wire Line
-	4500 4600 4650 4600
-Wire Wire Line
-	4500 4500 4650 4500
-Wire Wire Line
-	4500 4400 4650 4400
-Wire Wire Line
-	4500 4300 4650 4300
-Wire Wire Line
-	4500 4200 4650 4200
-Wire Wire Line
-	4500 4100 4650 4100
-Wire Wire Line
-	4500 4000 4650 4000
-Wire Wire Line
-	4500 3900 4650 3900
-Wire Wire Line
-	4500 3800 4650 3800
-Wire Wire Line
-	4500 3700 4650 3700
-Wire Wire Line
-	4500 3600 4650 3600
-Wire Wire Line
-	4500 3500 4650 3500
-Wire Wire Line
-	4500 3400 4650 3400
-Wire Wire Line
-	4500 3300 4650 3300
-Wire Wire Line
-	4500 3200 4650 3200
-Wire Wire Line
-	4500 3100 4650 3100
-Wire Wire Line
-	4500 3000 4650 3000
-Wire Wire Line
-	4500 2900 4650 2900
-Wire Wire Line
-	4500 2800 4650 2800
-Wire Wire Line
-	4500 2700 4650 2700
-Wire Wire Line
-	4500 2600 4650 2600
-Wire Wire Line
-	4500 2500 4650 2500
-Wire Wire Line
-	4500 2400 4650 2400
-Wire Wire Line
-	4500 2300 4650 2300
-Wire Wire Line
-	4500 2200 4650 2200
-Wire Wire Line
-	4500 2100 4650 2100
-Wire Wire Line
-	4500 2000 4650 2000
-Wire Wire Line
-	4500 1900 4650 1900
-Entry Wire Line
-	4400 1800 4500 1900
-Entry Wire Line
-	4400 1900 4500 2000
-Entry Wire Line
-	4400 2000 4500 2100
-Entry Wire Line
-	4400 2100 4500 2200
-Entry Wire Line
-	4400 2200 4500 2300
-Entry Wire Line
-	4400 2300 4500 2400
-Entry Wire Line
-	4400 2400 4500 2500
-Entry Wire Line
-	4400 2500 4500 2600
-Entry Wire Line
-	4400 2600 4500 2700
-Entry Wire Line
-	4400 2700 4500 2800
-Entry Wire Line
-	4400 2800 4500 2900
-Entry Wire Line
-	4400 2900 4500 3000
-Entry Wire Line
-	4400 3000 4500 3100
-Entry Wire Line
-	4400 3100 4500 3200
-Entry Wire Line
-	4400 3200 4500 3300
-Entry Wire Line
-	4400 3300 4500 3400
-Entry Wire Line
-	4400 3400 4500 3500
-Entry Wire Line
-	4400 3500 4500 3600
-Entry Wire Line
-	4400 3600 4500 3700
-Entry Wire Line
-	4400 3700 4500 3800
-Entry Wire Line
-	4400 3800 4500 3900
-Entry Wire Line
-	4400 3900 4500 4000
-Entry Wire Line
-	4400 4000 4500 4100
-Entry Wire Line
-	4400 4100 4500 4200
-Entry Wire Line
-	4400 4200 4500 4300
-Entry Wire Line
-	4400 4300 4500 4400
-Entry Wire Line
-	4400 4400 4500 4500
-Entry Wire Line
-	4400 4500 4500 4600
-Entry Wire Line
-	4400 4600 4500 4700
-Entry Wire Line
-	5600 1800 5700 1900
-Entry Wire Line
-	5600 1900 5700 2000
-Entry Wire Line
-	5600 2000 5700 2100
-Entry Wire Line
-	5600 2100 5700 2200
-Entry Wire Line
-	5600 2200 5700 2300
-Entry Wire Line
-	5600 2300 5700 2400
-Entry Wire Line
-	5600 2400 5700 2500
-Entry Wire Line
-	5600 2500 5700 2600
-Entry Wire Line
-	5600 2600 5700 2700
-Entry Wire Line
-	5600 2700 5700 2800
-Entry Wire Line
-	5600 2800 5700 2900
-Entry Wire Line
-	5600 2900 5700 3000
-Entry Wire Line
-	5600 3000 5700 3100
-Entry Wire Line
-	5600 3100 5700 3200
-Entry Wire Line
-	5600 3200 5700 3300
-Entry Wire Line
-	5600 3300 5700 3400
-Entry Wire Line
-	5600 3400 5700 3500
-Entry Wire Line
-	5600 3500 5700 3600
-Entry Wire Line
-	5600 3600 5700 3700
-Entry Wire Line
-	5600 3700 5700 3800
-Entry Wire Line
-	5600 3800 5700 3900
-Entry Wire Line
-	5600 3900 5700 4000
-Entry Wire Line
-	5600 4000 5700 4100
-Entry Wire Line
-	5600 4100 5700 4200
-Entry Wire Line
-	5600 4200 5700 4300
-Entry Wire Line
-	5600 4300 5700 4400
-Entry Wire Line
-	5600 4400 5700 4500
-Entry Wire Line
-	5600 4500 5700 4600
-Entry Wire Line
-	5600 4600 5700 4700
-Entry Wire Line
-	5600 4700 5700 4800
-Entry Wire Line
-	5600 4800 5700 4900
-Entry Wire Line
-	5600 4900 5700 5000
-Entry Wire Line
-	6800 1800 6900 1900
-Entry Wire Line
-	6800 1900 6900 2000
-Entry Wire Line
-	6800 2000 6900 2100
-Entry Wire Line
-	6800 2100 6900 2200
-Entry Wire Line
-	6800 2200 6900 2300
-Entry Wire Line
-	6800 2300 6900 2400
-Entry Wire Line
-	6800 2400 6900 2500
-Entry Wire Line
-	6800 2500 6900 2600
-Entry Wire Line
-	6800 2600 6900 2700
-Entry Wire Line
-	6800 2700 6900 2800
-Entry Wire Line
-	6800 2800 6900 2900
-Entry Wire Line
-	6800 2900 6900 3000
-Entry Wire Line
-	6800 3000 6900 3100
-Entry Wire Line
-	6800 3100 6900 3200
-Entry Wire Line
-	6800 3200 6900 3300
-Entry Wire Line
-	6800 3300 6900 3400
-Entry Wire Line
-	6800 3400 6900 3500
-Entry Wire Line
-	6800 3500 6900 3600
-Entry Wire Line
-	6800 3600 6900 3700
-Entry Wire Line
-	6800 3700 6900 3800
-Entry Wire Line
-	6800 3800 6900 3900
-Entry Wire Line
-	6800 3900 6900 4000
-Entry Wire Line
-	6800 4000 6900 4100
-Entry Wire Line
-	6800 4100 6900 4200
-Entry Wire Line
-	6800 4200 6900 4300
-Entry Wire Line
-	6800 4300 6900 4400
-Entry Wire Line
-	6800 4400 6900 4500
-Entry Wire Line
-	6800 4500 6900 4600
-Entry Wire Line
-	6800 4600 6900 4700
-Entry Wire Line
-	6800 4700 6900 4800
-Entry Wire Line
-	6800 4800 6900 4900
-Entry Wire Line
-	6800 4900 6900 5000
-Entry Bus Bus
-	4300 1500 4400 1600
-Entry Bus Bus
-	5500 1500 5600 1600
-Entry Bus Bus
-	6700 1500 6800 1600
-Wire Bus Line
-	4300 1500 4150 1500
-Wire Bus Line
-	5500 1500 5350 1500
-Wire Bus Line
-	6700 1500 6550 1500
-Text HLabel 4150 1500 0    50   UnSpc ~ 0
-A[1..32]
-Text HLabel 5350 1500 0    50   UnSpc ~ 0
-B[1..32]
-Text HLabel 6550 1500 0    50   UnSpc ~ 0
-C[1..32]
 $Comp
 L Mechanical:MountingHole_Pad H1
 U 1 1 85E2059E
@@ -678,7 +29,11 @@ AR Path="/85A73EB4/85E2059E" Ref="H17"  Part="1"
 AR Path="/85A8707D/85E2059E" Ref="H19"  Part="1" 
 AR Path="/85A9A356/85E2059E" Ref="H21"  Part="1" 
 AR Path="/85AAD6B0/85E2059E" Ref="H23"  Part="1" 
-F 0 "H1" H 9150 2099 50  0000 L CNN
+AR Path="/6199DFD2/85E2059E" Ref="H1"  Part="1" 
+AR Path="/619D299D/85E2059E" Ref="H3"  Part="1" 
+AR Path="/61A07546/85E2059E" Ref="H5"  Part="1" 
+AR Path="/61A07551/85E2059E" Ref="H7"  Part="1" 
+F 0 "H7" H 9150 2099 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 2008 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2050 50  0001 C CNN
 F 3 "~" H 9050 2050 50  0001 C CNN
@@ -701,7 +56,11 @@ AR Path="/85A73EB4/85E20FCF" Ref="#PWR021"  Part="1"
 AR Path="/85A8707D/85E20FCF" Ref="#PWR023"  Part="1" 
 AR Path="/85A9A356/85E20FCF" Ref="#PWR025"  Part="1" 
 AR Path="/85AAD6B0/85E20FCF" Ref="#PWR027"  Part="1" 
-F 0 "#PWR05" H 9050 1900 50  0001 C CNN
+AR Path="/6199DFD2/85E20FCF" Ref="#PWR0124"  Part="1" 
+AR Path="/619D299D/85E20FCF" Ref="#PWR0126"  Part="1" 
+AR Path="/61A07546/85E20FCF" Ref="#PWR0130"  Part="1" 
+AR Path="/61A07551/85E20FCF" Ref="#PWR0132"  Part="1" 
+F 0 "#PWR0132" H 9050 1900 50  0001 C CNN
 F 1 "GND" H 9055 1977 50  0000 C CNN
 F 2 "" H 9050 2150 50  0001 C CNN
 F 3 "" H 9050 2150 50  0001 C CNN
@@ -724,7 +83,11 @@ AR Path="/85A73EB4/85E2263F" Ref="H18"  Part="1"
 AR Path="/85A8707D/85E2263F" Ref="H20"  Part="1" 
 AR Path="/85A9A356/85E2263F" Ref="H22"  Part="1" 
 AR Path="/85AAD6B0/85E2263F" Ref="H24"  Part="1" 
-F 0 "H2" H 9150 2599 50  0000 L CNN
+AR Path="/6199DFD2/85E2263F" Ref="H2"  Part="1" 
+AR Path="/619D299D/85E2263F" Ref="H4"  Part="1" 
+AR Path="/61A07546/85E2263F" Ref="H6"  Part="1" 
+AR Path="/61A07551/85E2263F" Ref="H8"  Part="1" 
+F 0 "H8" H 9150 2599 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 2508 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2550 50  0001 C CNN
 F 3 "~" H 9050 2550 50  0001 C CNN
@@ -747,31 +110,558 @@ AR Path="/85A73EB4/85E22645" Ref="#PWR022"  Part="1"
 AR Path="/85A8707D/85E22645" Ref="#PWR024"  Part="1" 
 AR Path="/85A9A356/85E22645" Ref="#PWR026"  Part="1" 
 AR Path="/85AAD6B0/85E22645" Ref="#PWR028"  Part="1" 
-F 0 "#PWR06" H 9050 2400 50  0001 C CNN
+AR Path="/6199DFD2/85E22645" Ref="#PWR0125"  Part="1" 
+AR Path="/619D299D/85E22645" Ref="#PWR0129"  Part="1" 
+AR Path="/61A07546/85E22645" Ref="#PWR0131"  Part="1" 
+AR Path="/61A07551/85E22645" Ref="#PWR0133"  Part="1" 
+F 0 "#PWR0133" H 9050 2400 50  0001 C CNN
 F 1 "GND" H 9055 2477 50  0000 C CNN
 F 2 "" H 9050 2650 50  0001 C CNN
 F 3 "" H 9050 2650 50  0001 C CNN
 	1    9050 2650
 	1    0    0    -1  
 $EndComp
-Entry Wire Line
-	4400 4700 4500 4800
-Entry Wire Line
-	4400 4800 4500 4900
-Entry Wire Line
-	4400 4900 4500 5000
 Wire Wire Line
-	4500 4900 4650 4900
+	3000 5350 3650 5350
 Wire Wire Line
-	4500 5000 4650 5000
-Text Label 4500 4900 0    50   ~ 0
-A31
-Text Label 4500 5000 0    50   ~ 0
+	3000 5250 3650 5250
+Entry Wire Line
+	2900 4350 3000 4450
+Text Label 3500 5350 0    50   ~ 0
 A32
+Text Label 3500 5250 0    50   ~ 0
+A31
+Entry Wire Line
+	2900 5250 3000 5350
+Entry Wire Line
+	2900 5150 3000 5250
+Entry Wire Line
+	2900 5050 3000 5150
+Text HLabel 6050 1850 0    50   UnSpc ~ 0
+C[1..32]
+Text HLabel 4350 1850 0    50   UnSpc ~ 0
+B[1..32]
+Text HLabel 2650 1850 0    50   UnSpc ~ 0
+A[1..32]
 Wire Bus Line
-	6800 1600 6800 4900
+	6200 1850 6050 1850
 Wire Bus Line
-	5600 1600 5600 4900
+	4500 1850 4350 1850
 Wire Bus Line
-	4400 1600 4400 4900
+	2800 1850 2650 1850
+Entry Bus Bus
+	6200 1850 6300 1950
+Entry Bus Bus
+	4500 1850 4600 1950
+Entry Bus Bus
+	2800 1850 2900 1950
+Entry Wire Line
+	6300 5250 6400 5350
+Entry Wire Line
+	6300 5150 6400 5250
+Entry Wire Line
+	6300 5050 6400 5150
+Entry Wire Line
+	6300 4950 6400 5050
+Entry Wire Line
+	6300 4850 6400 4950
+Entry Wire Line
+	6300 4750 6400 4850
+Entry Wire Line
+	6300 4650 6400 4750
+Entry Wire Line
+	6300 4550 6400 4650
+Entry Wire Line
+	6300 4450 6400 4550
+Entry Wire Line
+	6300 4350 6400 4450
+Entry Wire Line
+	6300 4250 6400 4350
+Entry Wire Line
+	6300 4150 6400 4250
+Entry Wire Line
+	6300 4050 6400 4150
+Entry Wire Line
+	6300 3950 6400 4050
+Entry Wire Line
+	6300 3850 6400 3950
+Entry Wire Line
+	6300 3750 6400 3850
+Entry Wire Line
+	6300 3650 6400 3750
+Entry Wire Line
+	6300 3550 6400 3650
+Entry Wire Line
+	6300 3450 6400 3550
+Entry Wire Line
+	6300 3350 6400 3450
+Entry Wire Line
+	6300 3150 6400 3250
+Entry Wire Line
+	6300 3050 6400 3150
+Entry Wire Line
+	6300 2950 6400 3050
+Entry Wire Line
+	6300 2850 6400 2950
+Entry Wire Line
+	6300 2750 6400 2850
+Entry Wire Line
+	6300 2650 6400 2750
+Entry Wire Line
+	6300 2450 6400 2550
+Entry Wire Line
+	6300 2350 6400 2450
+Entry Wire Line
+	6300 2250 6400 2350
+Entry Wire Line
+	6300 2150 6400 2250
+Entry Wire Line
+	4600 5250 4700 5350
+Entry Wire Line
+	4600 5150 4700 5250
+Entry Wire Line
+	4600 4250 4700 4350
+Entry Wire Line
+	4600 4150 4700 4250
+Entry Wire Line
+	4600 4050 4700 4150
+Entry Wire Line
+	4600 3950 4700 4050
+Entry Wire Line
+	4600 3850 4700 3950
+Entry Wire Line
+	4600 3750 4700 3850
+Entry Wire Line
+	4600 3650 4700 3750
+Entry Wire Line
+	4600 3550 4700 3650
+Entry Wire Line
+	4600 3450 4700 3550
+Entry Wire Line
+	4600 3350 4700 3450
+Entry Wire Line
+	4600 3250 4700 3350
+Entry Wire Line
+	4600 3150 4700 3250
+Entry Wire Line
+	4600 3050 4700 3150
+Entry Wire Line
+	4600 2950 4700 3050
+Entry Wire Line
+	4600 2850 4700 2950
+Entry Wire Line
+	4600 2750 4700 2850
+Entry Wire Line
+	4600 2650 4700 2750
+Entry Wire Line
+	4600 2550 4700 2650
+Entry Wire Line
+	4600 2450 4700 2550
+Entry Wire Line
+	4600 2350 4700 2450
+Entry Wire Line
+	4600 2250 4700 2350
+Entry Wire Line
+	4600 2150 4700 2250
+Entry Wire Line
+	2900 4950 3000 5050
+Entry Wire Line
+	2900 4850 3000 4950
+Entry Wire Line
+	2900 4750 3000 4850
+Entry Wire Line
+	2900 4650 3000 4750
+Entry Wire Line
+	2900 4550 3000 4650
+Entry Wire Line
+	2900 4450 3000 4550
+Entry Wire Line
+	2900 2250 3000 2350
+Entry Wire Line
+	2900 2150 3000 2250
+Wire Wire Line
+	3000 2250 3650 2250
+Wire Wire Line
+	3000 2350 3650 2350
+Wire Wire Line
+	3000 4450 3650 4450
+Wire Wire Line
+	3000 4550 3650 4550
+Wire Wire Line
+	3000 4650 3650 4650
+Wire Wire Line
+	3000 4750 3650 4750
+Wire Wire Line
+	3000 4850 3650 4850
+Wire Wire Line
+	3000 4950 3650 4950
+Wire Wire Line
+	3000 5050 3650 5050
+Wire Wire Line
+	3000 5150 3650 5150
+Wire Wire Line
+	4700 2250 5350 2250
+Wire Wire Line
+	4700 2350 5350 2350
+Wire Wire Line
+	4700 2450 5350 2450
+Wire Wire Line
+	4700 2550 5350 2550
+Wire Wire Line
+	4700 2650 5350 2650
+Wire Wire Line
+	4700 2750 5350 2750
+Wire Wire Line
+	4700 2850 5350 2850
+Wire Wire Line
+	4700 2950 5350 2950
+Wire Wire Line
+	4700 3050 5350 3050
+Wire Wire Line
+	4700 3150 5350 3150
+Wire Wire Line
+	4700 3250 5350 3250
+Wire Wire Line
+	4700 3350 5350 3350
+Wire Wire Line
+	4700 3450 5350 3450
+Wire Wire Line
+	4700 3550 5350 3550
+Wire Wire Line
+	4700 3650 5350 3650
+Wire Wire Line
+	4700 3750 5350 3750
+Wire Wire Line
+	4700 3850 5350 3850
+Wire Wire Line
+	4700 3950 5350 3950
+Wire Wire Line
+	4700 4050 5350 4050
+Wire Wire Line
+	4700 4150 5350 4150
+Wire Wire Line
+	4700 4250 5350 4250
+Wire Wire Line
+	4700 4350 5350 4350
+Wire Wire Line
+	4700 5250 5350 5250
+Wire Wire Line
+	4700 5350 5350 5350
+$Comp
+L alexios:DIN-41612-3x32-Bauform-C J?
+U 3 1 619501C5
+P 7350 3750
+AR Path="/6199673B/619501C5" Ref="J?"  Part="3" 
+AR Path="/859EF273/619501C5" Ref="J?"  Part="3" 
+AR Path="/85A02236/619501C5" Ref="J?"  Part="3" 
+AR Path="/85A150E4/619501C5" Ref="J?"  Part="3" 
+AR Path="/85A27F74/619501C5" Ref="J5"  Part="3" 
+AR Path="/85A3ADD9/619501C5" Ref="J6"  Part="3" 
+AR Path="/85A4DD82/619501C5" Ref="J7"  Part="3" 
+AR Path="/85A60DD6/619501C5" Ref="J8"  Part="3" 
+AR Path="/85A73EB4/619501C5" Ref="J9"  Part="3" 
+AR Path="/85A8707D/619501C5" Ref="J10"  Part="3" 
+AR Path="/85A9A356/619501C5" Ref="J11"  Part="3" 
+AR Path="/85AAD6B0/619501C5" Ref="J12"  Part="3" 
+AR Path="/61EE3324/619501C5" Ref="J?"  Part="3" 
+AR Path="/613F6120/619501C5" Ref="J?"  Part="3" 
+AR Path="/62092621/619501C5" Ref="J?"  Part="3" 
+AR Path="/626D8BBA/619501C5" Ref="J?"  Part="3" 
+AR Path="/6199DFD2/619501C5" Ref="J4"  Part="3" 
+AR Path="/619D299D/619501C5" Ref="J3"  Part="3" 
+AR Path="/61A07546/619501C5" Ref="J2"  Part="3" 
+AR Path="/61A07551/619501C5" Ref="J1"  Part="3" 
+F 0 "J1" H 7250 5450 50  0000 L CNN
+F 1 "DIN-41612-3x32-Bauform-C" H 7530 3655 50  0001 L CNN
+F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 7325 350 50  0001 C CNN
+F 3 " ~" H 7325 350 50  0001 C CNN
+	3    7350 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6400 2250 7050 2250
+Wire Wire Line
+	6400 2350 7050 2350
+Wire Wire Line
+	6400 2450 7050 2450
+Wire Wire Line
+	6400 2550 7050 2550
+Wire Wire Line
+	6400 2750 7050 2750
+Wire Wire Line
+	6400 2850 7050 2850
+Wire Wire Line
+	6400 2950 7050 2950
+Wire Wire Line
+	6400 3050 7050 3050
+Wire Wire Line
+	6400 3150 7050 3150
+Wire Wire Line
+	6400 3250 7050 3250
+Wire Wire Line
+	6400 3450 7050 3450
+Wire Wire Line
+	6400 3550 7050 3550
+Wire Wire Line
+	6400 3650 7050 3650
+Wire Wire Line
+	6400 3750 7050 3750
+Wire Wire Line
+	6400 3850 7050 3850
+Wire Wire Line
+	6400 3950 7050 3950
+Wire Wire Line
+	6400 4050 7050 4050
+Wire Wire Line
+	6400 4150 7050 4150
+Wire Wire Line
+	6400 4250 7050 4250
+Wire Wire Line
+	6400 4350 7050 4350
+Wire Wire Line
+	6400 4450 7050 4450
+Wire Wire Line
+	6400 4550 7050 4550
+Wire Wire Line
+	6400 4650 7050 4650
+Wire Wire Line
+	6400 4750 7050 4750
+Wire Wire Line
+	6400 4850 7050 4850
+Wire Wire Line
+	6400 4950 7050 4950
+Wire Wire Line
+	6400 5050 7050 5050
+Wire Wire Line
+	6400 5150 7050 5150
+Wire Wire Line
+	6400 5250 7050 5250
+Wire Wire Line
+	6400 5350 7050 5350
+Text Label 3500 2250 0    50   ~ 0
+A1
+Text Label 3500 2350 0    50   ~ 0
+A2
+Text Label 3500 4450 0    50   ~ 0
+A23
+Text Label 3500 4550 0    50   ~ 0
+A24
+Text Label 3500 4650 0    50   ~ 0
+A25
+Text Label 3500 4750 0    50   ~ 0
+A26
+Text Label 3500 4850 0    50   ~ 0
+A27
+Text Label 3500 4950 0    50   ~ 0
+A28
+Text Label 3500 5050 0    50   ~ 0
+A29
+Text Label 3500 5150 0    50   ~ 0
+A30
+$Comp
+L alexios:DIN-41612-3x32-Bauform-C J?
+U 1 1 619501F3
+P 3950 3750
+AR Path="/6199673B/619501F3" Ref="J?"  Part="1" 
+AR Path="/859EF273/619501F3" Ref="J?"  Part="1" 
+AR Path="/85A02236/619501F3" Ref="J?"  Part="1" 
+AR Path="/85A150E4/619501F3" Ref="J?"  Part="1" 
+AR Path="/85A27F74/619501F3" Ref="J5"  Part="1" 
+AR Path="/85A3ADD9/619501F3" Ref="J6"  Part="1" 
+AR Path="/85A4DD82/619501F3" Ref="J7"  Part="1" 
+AR Path="/85A60DD6/619501F3" Ref="J8"  Part="1" 
+AR Path="/85A73EB4/619501F3" Ref="J9"  Part="1" 
+AR Path="/85A8707D/619501F3" Ref="J10"  Part="1" 
+AR Path="/85A9A356/619501F3" Ref="J11"  Part="1" 
+AR Path="/85AAD6B0/619501F3" Ref="J12"  Part="1" 
+AR Path="/61EE3324/619501F3" Ref="J?"  Part="1" 
+AR Path="/613F6120/619501F3" Ref="J?"  Part="1" 
+AR Path="/62092621/619501F3" Ref="J?"  Part="1" 
+AR Path="/626D8BBA/619501F3" Ref="J?"  Part="1" 
+AR Path="/6199DFD2/619501F3" Ref="J4"  Part="1" 
+AR Path="/619D299D/619501F3" Ref="J3"  Part="1" 
+AR Path="/61A07546/619501F3" Ref="J2"  Part="1" 
+AR Path="/61A07551/619501F3" Ref="J1"  Part="1" 
+F 0 "J1" H 3950 5450 50  0000 C CNN
+F 1 "DIN-41612-3x32-Bauform-C" H 3800 1950 50  0000 L CNN
+F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 3925 350 50  0001 C CNN
+F 3 " ~" H 3925 350 50  0001 C CNN
+	1    3950 3750
+	1    0    0    -1  
+$EndComp
+Text Label 5200 2250 0    50   ~ 0
+B1
+Text Label 5200 2350 0    50   ~ 0
+B2
+Text Label 5200 2450 0    50   ~ 0
+B3
+Text Label 5200 2550 0    50   ~ 0
+B4
+Text Label 5200 2650 0    50   ~ 0
+B5
+Text Label 5200 2750 0    50   ~ 0
+B6
+Text Label 5200 2850 0    50   ~ 0
+B7
+Text Label 5200 2950 0    50   ~ 0
+B8
+Text Label 5200 3050 0    50   ~ 0
+B9
+Text Label 5200 3150 0    50   ~ 0
+B10
+Text Label 5200 3250 0    50   ~ 0
+B11
+Text Label 5200 3350 0    50   ~ 0
+B12
+Text Label 5200 3450 0    50   ~ 0
+B13
+Text Label 5200 3550 0    50   ~ 0
+B14
+Text Label 5200 3650 0    50   ~ 0
+B15
+Text Label 5200 3750 0    50   ~ 0
+B16
+Text Label 5200 3850 0    50   ~ 0
+B17
+Text Label 5200 3950 0    50   ~ 0
+B18
+Text Label 5200 4050 0    50   ~ 0
+B19
+Text Label 5200 4150 0    50   ~ 0
+B20
+Text Label 5200 4250 0    50   ~ 0
+B21
+Text Label 5200 4350 0    50   ~ 0
+B22
+Text Label 5200 5250 0    50   ~ 0
+B31
+Text Label 5200 5350 0    50   ~ 0
+B32
+Text Label 6900 2250 0    50   ~ 0
+C1
+Text Label 6900 2350 0    50   ~ 0
+C2
+Text Label 6900 2450 0    50   ~ 0
+C3
+Text Label 6900 2550 0    50   ~ 0
+C4
+Text Label 6900 2750 0    50   ~ 0
+C6
+Text Label 6900 2850 0    50   ~ 0
+C7
+Text Label 6900 2950 0    50   ~ 0
+C8
+Text Label 6900 3050 0    50   ~ 0
+C9
+Text Label 6900 3150 0    50   ~ 0
+C10
+Text Label 6900 3250 0    50   ~ 0
+C11
+Text Label 6900 3450 0    50   ~ 0
+C13
+Text Label 6900 3550 0    50   ~ 0
+C14
+Text Label 6900 3650 0    50   ~ 0
+C15
+Text Label 6900 3750 0    50   ~ 0
+C16
+Text Label 6900 3850 0    50   ~ 0
+C17
+Text Label 6900 3950 0    50   ~ 0
+C18
+Text Label 6900 4050 0    50   ~ 0
+C19
+Text Label 6900 4150 0    50   ~ 0
+C20
+Text Label 6900 4250 0    50   ~ 0
+C21
+Text Label 6900 4350 0    50   ~ 0
+C22
+Text Label 6900 4450 0    50   ~ 0
+C23
+Text Label 6900 4550 0    50   ~ 0
+C24
+Text Label 6900 4650 0    50   ~ 0
+C25
+Text Label 6900 4750 0    50   ~ 0
+C26
+Text Label 6900 4850 0    50   ~ 0
+C27
+Text Label 6900 4950 0    50   ~ 0
+C28
+Text Label 6900 5050 0    50   ~ 0
+C29
+Text Label 6900 5150 0    50   ~ 0
+C30
+Text Label 6900 5250 0    50   ~ 0
+C31
+Text Label 6900 5350 0    50   ~ 0
+C32
+NoConn ~ 3650 2450
+NoConn ~ 3650 2550
+NoConn ~ 3650 2650
+NoConn ~ 3650 2750
+NoConn ~ 3650 2850
+NoConn ~ 3650 2950
+NoConn ~ 3650 3050
+NoConn ~ 3650 3150
+NoConn ~ 3650 3250
+NoConn ~ 3650 3350
+NoConn ~ 3650 3450
+NoConn ~ 3650 3550
+NoConn ~ 3650 3650
+NoConn ~ 3650 3750
+NoConn ~ 3650 3850
+NoConn ~ 3650 3950
+NoConn ~ 3650 4050
+NoConn ~ 3650 4150
+NoConn ~ 3650 4250
+NoConn ~ 3650 4350
+NoConn ~ 7050 2650
+NoConn ~ 7050 3350
+$Comp
+L alexios:DIN-41612-3x32-Bauform-C J?
+U 2 1 619501A7
+P 5650 3750
+AR Path="/6199673B/619501A7" Ref="J?"  Part="2" 
+AR Path="/859EF273/619501A7" Ref="J?"  Part="2" 
+AR Path="/85A02236/619501A7" Ref="J?"  Part="2" 
+AR Path="/85A150E4/619501A7" Ref="J?"  Part="2" 
+AR Path="/85A27F74/619501A7" Ref="J5"  Part="2" 
+AR Path="/85A3ADD9/619501A7" Ref="J6"  Part="2" 
+AR Path="/85A4DD82/619501A7" Ref="J7"  Part="2" 
+AR Path="/85A60DD6/619501A7" Ref="J8"  Part="2" 
+AR Path="/85A73EB4/619501A7" Ref="J9"  Part="2" 
+AR Path="/85A8707D/619501A7" Ref="J10"  Part="2" 
+AR Path="/85A9A356/619501A7" Ref="J11"  Part="2" 
+AR Path="/85AAD6B0/619501A7" Ref="J12"  Part="2" 
+AR Path="/61EE3324/619501A7" Ref="J?"  Part="2" 
+AR Path="/613F6120/619501A7" Ref="J?"  Part="2" 
+AR Path="/62092621/619501A7" Ref="J?"  Part="2" 
+AR Path="/626D8BBA/619501A7" Ref="J?"  Part="2" 
+AR Path="/6199DFD2/619501A7" Ref="J4"  Part="2" 
+AR Path="/619D299D/619501A7" Ref="J3"  Part="2" 
+AR Path="/61A07546/619501A7" Ref="J2"  Part="2" 
+AR Path="/61A07551/619501A7" Ref="J1"  Part="2" 
+F 0 "J1" H 5650 5450 50  0000 C CNN
+F 1 "DIN-41612-3x32-Bauform-C" H 5830 3655 50  0001 L CNN
+F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 5625 350 50  0001 C CNN
+F 3 " ~" H 5625 350 50  0001 C CNN
+	2    5650 3750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5350 4450
+NoConn ~ 5350 4550
+NoConn ~ 5350 4650
+NoConn ~ 5350 4750
+NoConn ~ 5350 4850
+NoConn ~ 5350 4950
+NoConn ~ 5350 5050
+NoConn ~ 5350 5150
+Wire Bus Line
+	2900 1950 2900 5250
+Wire Bus Line
+	6300 1950 6300 5250
+Wire Bus Line
+	4600 1950 4600 5250
 $EndSCHEMATC
