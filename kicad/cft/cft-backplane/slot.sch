@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 13
+Sheet 9 13
 Title "Single DIN 41612 Slot"
 Date ""
 Rev "2134"
@@ -33,7 +33,7 @@ AR Path="/6199DFD2/85E2059E" Ref="H1"  Part="1"
 AR Path="/619D299D/85E2059E" Ref="H3"  Part="1" 
 AR Path="/61A07546/85E2059E" Ref="H5"  Part="1" 
 AR Path="/61A07551/85E2059E" Ref="H7"  Part="1" 
-F 0 "H7" H 9150 2099 50  0000 L CNN
+F 0 "H23" H 9150 2099 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 2008 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2050 50  0001 C CNN
 F 3 "~" H 9050 2050 50  0001 C CNN
@@ -87,7 +87,7 @@ AR Path="/6199DFD2/85E2263F" Ref="H2"  Part="1"
 AR Path="/619D299D/85E2263F" Ref="H4"  Part="1" 
 AR Path="/61A07546/85E2263F" Ref="H6"  Part="1" 
 AR Path="/61A07551/85E2263F" Ref="H8"  Part="1" 
-F 0 "H8" H 9150 2599 50  0000 L CNN
+F 0 "H24" H 9150 2599 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 2508 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.7mm_M2.5_ISO14580_Pad" H 9050 2550 50  0001 C CNN
 F 3 "~" H 9050 2550 50  0001 C CNN
@@ -371,7 +371,7 @@ AR Path="/6199DFD2/619501C5" Ref="J4"  Part="3"
 AR Path="/619D299D/619501C5" Ref="J3"  Part="3" 
 AR Path="/61A07546/619501C5" Ref="J2"  Part="3" 
 AR Path="/61A07551/619501C5" Ref="J1"  Part="3" 
-F 0 "J1" H 7250 5450 50  0000 L CNN
+F 0 "J12" H 7250 5450 50  0000 L CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 7530 3655 50  0001 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 7325 350 50  0001 C CNN
 F 3 " ~" H 7325 350 50  0001 C CNN
@@ -482,7 +482,7 @@ AR Path="/6199DFD2/619501F3" Ref="J4"  Part="1"
 AR Path="/619D299D/619501F3" Ref="J3"  Part="1" 
 AR Path="/61A07546/619501F3" Ref="J2"  Part="1" 
 AR Path="/61A07551/619501F3" Ref="J1"  Part="1" 
-F 0 "J1" H 3950 5450 50  0000 C CNN
+F 0 "J12" H 3950 5450 50  0000 C CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 3800 1950 50  0000 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 3925 350 50  0001 C CNN
 F 3 " ~" H 3925 350 50  0001 C CNN
@@ -597,28 +597,6 @@ Text Label 6900 5250 0    50   ~ 0
 C31
 Text Label 6900 5350 0    50   ~ 0
 C32
-NoConn ~ 3650 2450
-NoConn ~ 3650 2550
-NoConn ~ 3650 2650
-NoConn ~ 3650 2750
-NoConn ~ 3650 2850
-NoConn ~ 3650 2950
-NoConn ~ 3650 3050
-NoConn ~ 3650 3150
-NoConn ~ 3650 3250
-NoConn ~ 3650 3350
-NoConn ~ 3650 3450
-NoConn ~ 3650 3550
-NoConn ~ 3650 3650
-NoConn ~ 3650 3750
-NoConn ~ 3650 3850
-NoConn ~ 3650 3950
-NoConn ~ 3650 4050
-NoConn ~ 3650 4150
-NoConn ~ 3650 4250
-NoConn ~ 3650 4350
-NoConn ~ 7050 2650
-NoConn ~ 7050 3350
 $Comp
 L alexios:DIN-41612-3x32-Bauform-C J?
 U 2 1 619501A7
@@ -643,25 +621,197 @@ AR Path="/6199DFD2/619501A7" Ref="J4"  Part="2"
 AR Path="/619D299D/619501A7" Ref="J3"  Part="2" 
 AR Path="/61A07546/619501A7" Ref="J2"  Part="2" 
 AR Path="/61A07551/619501A7" Ref="J1"  Part="2" 
-F 0 "J1" H 5650 5450 50  0000 C CNN
+F 0 "J12" H 5650 5450 50  0000 C CNN
 F 1 "DIN-41612-3x32-Bauform-C" H 5830 3655 50  0001 L CNN
 F 2 "alexios:DIN41612_C_3x32_Female_Vertical_THT" H 5625 350 50  0001 C CNN
 F 3 " ~" H 5625 350 50  0001 C CNN
 	2    5650 3750
 	1    0    0    -1  
 $EndComp
-NoConn ~ 5350 4450
-NoConn ~ 5350 4550
-NoConn ~ 5350 4650
-NoConn ~ 5350 4750
-NoConn ~ 5350 4850
-NoConn ~ 5350 4950
-NoConn ~ 5350 5050
-NoConn ~ 5350 5150
-Wire Bus Line
-	2900 1950 2900 5250
+Wire Wire Line
+	3650 2450 3000 2450
+Wire Wire Line
+	3650 2550 3000 2550
+Wire Wire Line
+	3650 2650 3000 2650
+Wire Wire Line
+	3650 2750 3000 2750
+Wire Wire Line
+	3650 2850 3000 2850
+Wire Wire Line
+	3650 2950 3000 2950
+Wire Wire Line
+	3650 3050 3000 3050
+Wire Wire Line
+	3650 3150 3000 3150
+Wire Wire Line
+	3650 3250 3000 3250
+Wire Wire Line
+	3650 3350 3000 3350
+Wire Wire Line
+	3650 3450 3000 3450
+Wire Wire Line
+	3650 3550 3000 3550
+Wire Wire Line
+	3650 3650 3000 3650
+Wire Wire Line
+	3650 3750 3000 3750
+Wire Wire Line
+	3650 3850 3000 3850
+Wire Wire Line
+	3650 3950 3000 3950
+Wire Wire Line
+	3650 4050 3000 4050
+Wire Wire Line
+	3650 4150 3000 4150
+Wire Wire Line
+	3650 4250 3000 4250
+Wire Wire Line
+	3650 4350 3000 4350
+Entry Wire Line
+	2900 2350 3000 2450
+Entry Wire Line
+	2900 2450 3000 2550
+Entry Wire Line
+	2900 2550 3000 2650
+Entry Wire Line
+	2900 2650 3000 2750
+Entry Wire Line
+	2900 2750 3000 2850
+Entry Wire Line
+	2900 2850 3000 2950
+Entry Wire Line
+	2900 2950 3000 3050
+Entry Wire Line
+	2900 3050 3000 3150
+Entry Wire Line
+	2900 3150 3000 3250
+Entry Wire Line
+	2900 3250 3000 3350
+Entry Wire Line
+	2900 3350 3000 3450
+Entry Wire Line
+	2900 3450 3000 3550
+Entry Wire Line
+	2900 3550 3000 3650
+Entry Wire Line
+	2900 3650 3000 3750
+Entry Wire Line
+	2900 3750 3000 3850
+Entry Wire Line
+	2900 3850 3000 3950
+Entry Wire Line
+	2900 3950 3000 4050
+Entry Wire Line
+	2900 4050 3000 4150
+Entry Wire Line
+	2900 4150 3000 4250
+Entry Wire Line
+	2900 4250 3000 4350
+Text Label 3500 2450 0    50   ~ 0
+A3
+Text Label 3500 2550 0    50   ~ 0
+A4
+Text Label 3500 2650 0    50   ~ 0
+A5
+Text Label 3500 2750 0    50   ~ 0
+A6
+Text Label 3500 2850 0    50   ~ 0
+A7
+Text Label 3500 2950 0    50   ~ 0
+A8
+Text Label 3500 3050 0    50   ~ 0
+A9
+Text Label 3500 3150 0    50   ~ 0
+A10
+Text Label 3500 3250 0    50   ~ 0
+A11
+Text Label 3500 3350 0    50   ~ 0
+A12
+Text Label 3500 3450 0    50   ~ 0
+A13
+Text Label 3500 3550 0    50   ~ 0
+A14
+Text Label 3500 3650 0    50   ~ 0
+A15
+Text Label 3500 3750 0    50   ~ 0
+A16
+Text Label 3500 3850 0    50   ~ 0
+A17
+Text Label 3500 3950 0    50   ~ 0
+A18
+Text Label 3500 4050 0    50   ~ 0
+A19
+Text Label 3500 4150 0    50   ~ 0
+A20
+Text Label 3500 4250 0    50   ~ 0
+A21
+Text Label 3500 4350 0    50   ~ 0
+A22
+Entry Wire Line
+	4600 4350 4700 4450
+Wire Wire Line
+	4700 4450 5350 4450
+Entry Wire Line
+	4600 4450 4700 4550
+Wire Wire Line
+	4700 4550 5350 4550
+Entry Wire Line
+	4600 4550 4700 4650
+Wire Wire Line
+	4700 4650 5350 4650
+Entry Wire Line
+	4600 4650 4700 4750
+Wire Wire Line
+	4700 4750 5350 4750
+Entry Wire Line
+	4600 4750 4700 4850
+Wire Wire Line
+	4700 4850 5350 4850
+Entry Wire Line
+	4600 4850 4700 4950
+Wire Wire Line
+	4700 4950 5350 4950
+Entry Wire Line
+	4600 4950 4700 5050
+Wire Wire Line
+	4700 5050 5350 5050
+Entry Wire Line
+	4600 5050 4700 5150
+Wire Wire Line
+	4700 5150 5350 5150
+Text Label 5350 4450 2    50   ~ 0
+B23
+Text Label 5350 4550 2    50   ~ 0
+B24
+Text Label 5350 4650 2    50   ~ 0
+B25
+Text Label 5350 4750 2    50   ~ 0
+B26
+Text Label 5350 4850 2    50   ~ 0
+B27
+Text Label 5350 4950 2    50   ~ 0
+B28
+Text Label 5350 5050 2    50   ~ 0
+B29
+Text Label 5350 5150 2    50   ~ 0
+B30
+Entry Wire Line
+	6300 2550 6400 2650
+Wire Wire Line
+	6400 2650 7050 2650
+Entry Wire Line
+	6300 3250 6400 3350
+Wire Wire Line
+	6400 3350 7050 3350
 Wire Bus Line
 	6300 1950 6300 5250
 Wire Bus Line
+	2900 1950 2900 5250
+Wire Bus Line
 	4600 1950 4600 5250
+Text Label 7000 2650 2    50   ~ 0
+C5
+Text Label 7050 3350 2    50   ~ 0
+C12
 $EndSCHEMATC
