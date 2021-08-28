@@ -488,7 +488,7 @@ $Sheet
 S 1650 6500 800  400 
 U 85A27F74
 F0 "sheet85A27F6F" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 6600 50 
 F3 "B[1..32]" U L 1650 6700 50 
 F4 "C[1..32]" U L 1650 6800 50 
@@ -509,7 +509,7 @@ $Sheet
 S 1650 7100 800  400 
 U 85A3ADD9
 F0 "sheet85A3ADD4" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 7200 50 
 F3 "B[1..32]" U L 1650 7300 50 
 F4 "C[1..32]" U L 1650 7400 50 
@@ -530,7 +530,7 @@ $Sheet
 S 3250 4100 800  400 
 U 85A4DD82
 F0 "sheet85A4DD7D" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 4200 50 
 F3 "B[1..32]" U L 3250 4300 50 
 F4 "C[1..32]" U L 3250 4400 50 
@@ -551,7 +551,7 @@ $Sheet
 S 3250 4700 800  400 
 U 85A60DD6
 F0 "sheet85A60DD1" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 4800 50 
 F3 "B[1..32]" U L 3250 4900 50 
 F4 "C[1..32]" U L 3250 5000 50 
@@ -572,7 +572,7 @@ $Sheet
 S 3250 5300 800  400 
 U 85A73EB4
 F0 "sheet85A73EAF" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 5400 50 
 F3 "B[1..32]" U L 3250 5500 50 
 F4 "C[1..32]" U L 3250 5600 50 
@@ -593,7 +593,7 @@ $Sheet
 S 3250 5900 800  400 
 U 85A8707D
 F0 "sheet85A87078" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 6000 50 
 F3 "B[1..32]" U L 3250 6100 50 
 F4 "C[1..32]" U L 3250 6200 50 
@@ -614,7 +614,7 @@ $Sheet
 S 3250 6500 800  400 
 U 85A9A356
 F0 "sheet85A9A351" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 6600 50 
 F3 "B[1..32]" U L 3250 6700 50 
 F4 "C[1..32]" U L 3250 6800 50 
@@ -635,7 +635,7 @@ $Sheet
 S 3250 7100 800  400 
 U 85AAD6B0
 F0 "sheet85AAD6AB" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 3250 7200 50 
 F3 "B[1..32]" U L 3250 7300 50 
 F4 "C[1..32]" U L 3250 7400 50 
@@ -1809,7 +1809,7 @@ $Sheet
 S 1650 5900 800  400 
 U 6199DFD2
 F0 "sheet6199DFCD" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 6000 50 
 F3 "B[1..32]" U L 1650 6100 50 
 F4 "C[1..32]" U L 1650 6200 50 
@@ -1830,7 +1830,7 @@ $Sheet
 S 1650 5300 800  400 
 U 619D299D
 F0 "sheet619D2998" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 5400 50 
 F3 "B[1..32]" U L 1650 5500 50 
 F4 "C[1..32]" U L 1650 5600 50 
@@ -1851,7 +1851,7 @@ $Sheet
 S 1650 4700 800  400 
 U 61A07546
 F0 "sheet61A07540" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 4800 50 
 F3 "B[1..32]" U L 1650 4900 50 
 F4 "C[1..32]" U L 1650 5000 50 
@@ -1872,7 +1872,7 @@ $Sheet
 S 1650 4100 800  400 
 U 61A07551
 F0 "sheet61A07541" 50
-F1 "slot.sch" 50
+F1 "processor-slot.sch" 50
 F2 "A[1..32]" U L 1650 4200 50 
 F3 "B[1..32]" U L 1650 4300 50 
 F4 "C[1..32]" U L 1650 4400 50 
