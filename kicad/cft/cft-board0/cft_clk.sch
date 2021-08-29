@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 17
+Sheet 17 17
 Title "Clock Generator"
 Date ""
 Rev "2119"
@@ -24,19 +24,6 @@ F 1 "GND" H 2500 5100 50  0000 C CNN
 F 2 "" H 2650 5150 50  0001 C CNN
 F 3 "" H 2650 5150 50  0001 C CNN
 	1    2650 5150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E381101
-P 2650 4450
-AR Path="/5E381101" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E381101" Ref="#PWR01009"  Part="1" 
-F 0 "#PWR01009" H 2650 4300 50  0001 C CNN
-F 1 "+5V" H 2665 4623 50  0000 C CNN
-F 2 "" H 2650 4450 50  0001 C CNN
-F 3 "" H 2650 4450 50  0001 C CNN
-	1    2650 4450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1553,21 +1540,6 @@ Wire Wire Line
 	3600 4800 3700 4800
 Wire Wire Line
 	3700 4450 3700 4500
-$Comp
-L Device:R_Small R?
-U 1 1 60ADAAFD
-P 2650 4600
-AR Path="/60ADAAFD" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/60ADAAFD" Ref="R?"  Part="1" 
-AR Path="/5CD3AC27/60ADAAFD" Ref="R?"  Part="1" 
-AR Path="/5E36D9C8/60ADAAFD" Ref="R1015"  Part="1" 
-F 0 "R1015" H 2591 4554 50  0000 R CNN
-F 1 "30Ω" H 2591 4645 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2650 4600 50  0001 C CNN
-F 3 "~" H 2650 4600 50  0001 C CNN
-	1    2650 4600
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	2650 4450 2650 4500
 Wire Wire Line
@@ -1624,4 +1596,32 @@ Text Notes 3550 6100 0    50   ~ 0
 (Maybe)
 Wire Wire Line
 	4250 1450 4250 2400
+$Comp
+L power:+5V #PWR?
+U 1 1 5E381101
+P 2650 4450
+AR Path="/5E381101" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381101" Ref="#PWR01009"  Part="1" 
+F 0 "#PWR01009" H 2650 4300 50  0001 C CNN
+F 1 "+5V" H 2665 4623 50  0000 C CNN
+F 2 "" H 2650 4450 50  0001 C CNN
+F 3 "" H 2650 4450 50  0001 C CNN
+	1    2650 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 60ADAAFD
+P 2650 4600
+AR Path="/60ADAAFD" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/60ADAAFD" Ref="R?"  Part="1" 
+AR Path="/5CD3AC27/60ADAAFD" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/60ADAAFD" Ref="R1015"  Part="1" 
+F 0 "R1015" H 2591 4554 50  0000 R CNN
+F 1 "30Ω" H 2591 4645 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2650 4600 50  0001 C CNN
+F 3 "~" H 2650 4600 50  0001 C CNN
+	1    2650 4600
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
