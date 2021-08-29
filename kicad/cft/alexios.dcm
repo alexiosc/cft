@@ -1627,7 +1627,7 @@ F https://www.ti.com/lit/ds/symlink/sn74act1073.pdf
 $ENDCMP
 #
 $CMP STC16C554
-D Quad 16550-compatible UART 
+D Quad 16550-compatible UART
 K quad uart
 F https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf
 $ENDCMP
