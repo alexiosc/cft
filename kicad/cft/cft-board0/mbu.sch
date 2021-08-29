@@ -824,20 +824,6 @@ Text Label 3800 2500 0    50   ~ 0
 IR0
 Wire Wire Line
 	3600 2200 4200 2200
-$Comp
-L power:GND #PWR0605
-U 1 1 617A9385
-P 9150 2900
-AR Path="/61F95ACC/617A9385" Ref="#PWR0605"  Part="1" 
-AR Path="/61F95ACC/6888FBA2/617A9385" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0605" H 9150 2650 50  0001 C CNN
-F 1 "GND" H 9155 2727 50  0000 C CNN
-F 2 "" H 9150 2900 50  0001 C CNN
-F 3 "" H 9150 2900 50  0001 C CNN
-	1    9150 2900
-	-1   0    0    -1  
-$EndComp
-NoConn ~ 9150 2500
 Entry Wire Line
 	10050 1600 10150 1700
 Entry Wire Line
@@ -1607,73 +1593,9 @@ Text Notes 9550 950  0    50   ~ 10
 Signals not in order!
 Wire Notes Line width 20 style solid
 	11100 750  11100 1350
-$Comp
-L Device:R_Network08 RN?
-U 1 1 617A93A1
-P 9550 2700
-AR Path="/61F95ACC/6888FBA2/617A93A1" Ref="RN?"  Part="1" 
-AR Path="/61F95ACC/617A93A1" Ref="RN601"  Part="1" 
-F 0 "RN601" H 9070 2654 50  0000 R CNN
-F 1 "10kΩ" H 9070 2745 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP9" V 10025 2700 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9550 2700 50  0001 C CNN
-	1    9550 2700
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8800 2200 9750 2200
-Wire Wire Line
-	8800 2100 9650 2100
-Wire Wire Line
-	8800 2000 9550 2000
-Wire Wire Line
-	8800 1600 9350 1600
-Wire Wire Line
-	8800 1700 9250 1700
 Wire Wire Line
 	8800 1800 9150 1800
 Connection ~ 9150 1800
-Wire Wire Line
-	9150 1800 10050 1800
-Wire Wire Line
-	9250 2500 9250 1700
-Connection ~ 9250 1700
-Wire Wire Line
-	9250 1700 10050 1700
-Wire Wire Line
-	9350 2500 9350 1600
-Connection ~ 9350 1600
-Wire Wire Line
-	9350 1600 10050 1600
-Wire Wire Line
-	9450 2500 9450 1900
-Wire Wire Line
-	8800 1900 9450 1900
-Connection ~ 9450 1900
-Wire Wire Line
-	9450 1900 10050 1900
-Wire Wire Line
-	9550 2500 9550 2000
-Connection ~ 9550 2000
-Wire Wire Line
-	9550 2000 10050 2000
-Wire Wire Line
-	9650 2500 9650 2100
-Connection ~ 9650 2100
-Wire Wire Line
-	9650 2100 10050 2100
-Wire Wire Line
-	9750 2500 9750 2200
-Connection ~ 9750 2200
-Wire Wire Line
-	9750 2200 10050 2200
-Wire Wire Line
-	9850 2500 9850 2300
-Wire Wire Line
-	8800 2300 9850 2300
-Connection ~ 9850 2300
-Wire Wire Line
-	9850 2300 10050 2300
 $Comp
 L power:GND #PWR0143
 U 1 1 60789539
@@ -1716,18 +1638,96 @@ F 3 "" H 7350 5200 50  0001 C CNN
 	1    7350 5200
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9150 1800 10050 1800
+Connection ~ 9850 2300
+Wire Wire Line
+	8800 2300 9850 2300
+Connection ~ 9750 2200
+Connection ~ 9650 2100
+Connection ~ 9550 2000
+Connection ~ 9450 1900
+Wire Wire Line
+	8800 1900 9450 1900
+Connection ~ 9350 1600
+Connection ~ 9250 1700
+Wire Wire Line
+	8800 1700 9250 1700
+Wire Wire Line
+	8800 1600 9350 1600
+Wire Wire Line
+	8800 2000 9550 2000
+Wire Wire Line
+	8800 2100 9650 2100
+Wire Wire Line
+	8800 2200 9750 2200
+Wire Bus Line
+	9300 4800 9300 5700
+Wire Bus Line
+	7000 3750 7000 6550
+Wire Bus Line
+	10150 1700 10150 2600
 Wire Bus Line
 	3700 2600 3700 3050
+Wire Bus Line
+	3700 3400 3700 6550
 Wire Bus Line
 	1550 1050 1550 2400
 Wire Bus Line
 	1650 1000 1650 1900
-Wire Bus Line
-	9300 4800 9300 5700
-Wire Bus Line
-	10150 1700 10150 2600
-Wire Bus Line
-	7000 3750 7000 6550
-Wire Bus Line
-	3700 3400 3700 6550
+Wire Wire Line
+	9850 2300 10050 2300
+Wire Wire Line
+	9750 2200 10050 2200
+Wire Wire Line
+	9650 2100 10050 2100
+Wire Wire Line
+	9550 2000 10050 2000
+Wire Wire Line
+	9450 1900 10050 1900
+Wire Wire Line
+	9350 1600 10050 1600
+Wire Wire Line
+	9250 1700 10050 1700
+Wire Wire Line
+	9850 2500 9850 2300
+Wire Wire Line
+	9750 2500 9750 2200
+Wire Wire Line
+	9650 2500 9650 2100
+Wire Wire Line
+	9550 2500 9550 2000
+Wire Wire Line
+	9450 2500 9450 1900
+Wire Wire Line
+	9350 2500 9350 1600
+Wire Wire Line
+	9250 2500 9250 1700
+$Comp
+L Device:R_Network08 RN?
+U 1 1 617A93A1
+P 9550 2700
+AR Path="/61F95ACC/6888FBA2/617A93A1" Ref="RN?"  Part="1" 
+AR Path="/61F95ACC/617A93A1" Ref="RN601"  Part="1" 
+F 0 "RN601" H 9070 2654 50  0000 R CNN
+F 1 "10kΩ" H 9070 2745 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 10025 2700 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9550 2700 50  0001 C CNN
+	1    9550 2700
+	1    0    0    1   
+$EndComp
+NoConn ~ 9150 2500
+$Comp
+L power:GND #PWR0605
+U 1 1 617A9385
+P 9150 2900
+AR Path="/61F95ACC/617A9385" Ref="#PWR0605"  Part="1" 
+AR Path="/61F95ACC/6888FBA2/617A9385" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0605" H 9150 2650 50  0001 C CNN
+F 1 "GND" H 9155 2727 50  0000 C CNN
+F 2 "" H 9150 2900 50  0001 C CNN
+F 3 "" H 9150 2900 50  0001 C CNN
+	1    9150 2900
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
