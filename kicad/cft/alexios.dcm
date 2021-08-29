@@ -1626,6 +1626,12 @@ K TTL REG DFF DFF8 3State
 F https://www.ti.com/lit/ds/symlink/sn74act1073.pdf
 $ENDCMP
 #
+$CMP STC16C554
+D Quad 16550-compatible UART 
+K quad uart
+F https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf
+$ENDCMP
+#
 $CMP SolderJumper_3_Bridged12
 D 3-pole Solder Jumper, pins 1+2 closed/bridged
 K Solder Jumper SPDT
@@ -1645,9 +1651,9 @@ F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
 $ENDCMP
 #
 $CMP TFT660_copy
-D Crystal Clock Oscillator, DIP8-style metal package
-K Crystal Clock Oscillator
-F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+D Quad Universal Asynchronous Receiver/Transmitter with FIFOs, PLCC-68
+K 4ch UART FIFO
+F https://www.ti.com/lit/ds/symlink/tl16c754b.pdf
 $ENDCMP
 #
 $CMP USB6B1
