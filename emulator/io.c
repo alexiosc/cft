@@ -29,11 +29,30 @@
 
 #include "io.h"
 #include "irc.h"
+
+#ifdef HAVE_DEB
 #include "deb.h"
+#endif // HAVE_DEB
+
+#ifdef HAVE_DFP
 #include "dfp.h"
+#endif // HAVE_DFP
+
+#ifdef HAVE_TTY
 #include "tty.h"
+#endif // HAVE_TTY
+
+#ifdef HAVE_TMR
 #include "tmr.h"
+#endif // HAVE_TMR
+
+#ifdef HAVE_RTC
 #include "rtc.h"
+#endif // HAVE_RTC
+
+#ifdef HAVE_IDE
+#include "ide.h"
+#endif // HAVE_IDE
 
 // #include "io.h"
 // #include "mbu.h"
@@ -169,6 +188,19 @@ iodev_t iodevs[] = {
                 }
         },
 #endif  // HAVE_TTY
+	
+#ifdef HAVE_IDE
+        {
+                .name = "IDE Controller",
+                .code = "IDE",
+                .enabled = 0,
+                .init = ide_init,
+                .read = ide_read,
+                .write = ide_write,
+                .tick = ide_tick,
+                .done = ide_done
+        },
+#endif  // HAVE_IDE
 	
 /*
   {

@@ -38,7 +38,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "io.h"
 #include "fifo.h"
 #include "ide.h"
-#include "cftemu.h"
+// #include "cftemu.h"
+#include "log.h"
 #include "util.h"
 
 
@@ -165,11 +166,11 @@ idehd_set(uint32_t n, char *fname)
 	idehd[n].fname = strdup(fname);
 
 	if ((idehd[n].fp = fopen(fname, "r+")) == NULL) {
-		fail("Unable to open HD image '%s': %m\n", fname);
+		fatal("Unable to open HD image '%s': %m\n", fname);
 	}
 
 	if(fstat(fileno(idehd[n].fp), &st) < 0) {
-		fail("Unable to stat HD image '%s': %m\n", fname);
+		fatal("Unable to stat HD image '%s': %m\n", fname);
 	}
 
 	ideinfo("Disk image %d: file %s, %d kwords\n", n, fname, (uint32_t)st.st_size >> 11);
@@ -279,7 +280,7 @@ idehd_read(int unit)
 	idedebug("IDEHD %u: read %d bytes from ofs %u\n", unit, n * 512, ftell(hd->fp));
 
 	if (fread(&hd->buf, 512, n, hd->fp) != n) {
-		fail("IDEHD %d: failed to read %d bytes from %s: %m\n", 
+		fatal("IDEHD %d: failed to read %d bytes from %s: %m\n", 
 		     unit, 512 * n, hd->fname);
 	}
 	hd->status &= ~SR_DRQ;
@@ -340,7 +341,7 @@ callback_idehd_write(int unit)
 	fseek(hd->fp, ofs, SEEK_SET);
 
 	if (fwrite(&hd->buf, 512, n, hd->fp) != n) {
-		fail("IDEHD %d: failed to write %d bytes to %s: %m\n", 
+		fatal("IDEHD %d: failed to write %d bytes to %s: %m\n", 
 		     unit, 512 * n, hd->fname);
 	}
 

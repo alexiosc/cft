@@ -124,6 +124,14 @@ void io_tty_set_fname(tty_t *, char *);
 
 
 
+
+// The IDE Host Adaptor
+#define IO_IDEA_CS3	   0x00a0 //   a0-a7: rwhef HDA3 (IDE A CS3 base)
+#define IO_IDEA_CS1	   0x00b0 //   b0-b7: rwhef HDA1 (IDE A CS1 base)
+#define IO_IDEB_CS3	   0x00c0 //   c0-c7: rwhef HDA3 (IDE B CS3 base)
+#define IO_IDEB_CS1	   0x00d0 //   d0-d7: rwhef HDA1 (IDE B CS1 base)
+
+
 #if 0
 #warning "These are from the pre-2019 CFT, re-evaluate!"
 
@@ -264,12 +272,6 @@ void io_tty_set_fname(tty_t *, char *);
 #define IO_TIMER1_REG1     0x0099 //      99: rwhef T1R1 (Timer 1, Reg 1)
 #define IO_TIMER1_REG2     0x009a //      9a: rwhef T1R2 (Timer 1, Reg 2)
 #define IO_TIMER1_REG3     0x009b //      9b: rwhef T1R3 (Timer 1, Reg 3)
-
-// The IDE Host Adaptor
-#define IO_IDEA_CS3	   0x00a0 //   a0-a7: rwhef HDA3 (IDE A CS3 base)
-#define IO_IDEA_CS1	   0x00b0 //   b0-b7: rwhef HDA1 (IDE A CS1 base)
-#define IO_IDEB_CS3	   0x00c0 //   c0-c7: rwhef HDA3 (IDE B CS3 base)
-#define IO_IDEB_CS1	   0x00d0 //   d0-d7: rwhef HDA1 (IDE B CS1 base)
 
 // The Ethernet board
 #define IO_ETH_REG0        0x00e0 //   E0,E4,E8,EC: rwh-- Ethernet register #0 (four copies)

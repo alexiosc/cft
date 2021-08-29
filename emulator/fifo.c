@@ -26,9 +26,10 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 #include <assert.h>
 
-#include "cftemu.h"
 #include "fifo.h"
+// #include "cftemu.h"
 #include "util.h"
+#include "log.h"
 
 
 fifo_t *
@@ -36,7 +37,7 @@ fifo_init(int size)
 {
 	fifo_t * retval = malloc(sizeof(fifo_t) + sizeof(uint32_t) * size);
 	if (retval == NULL) {
-		fail("Failed to allocate memory for a FIFO.");
+		fatal("Failed to allocate memory for a FIFO.");
 	}
 	assert(size > 0);
 	retval->size = size;
