@@ -1,24 +1,13 @@
-/* 
-   
-ide.c - Emulates the dual IDE card (two Philips/NXP 26C92 IDEs)
-
-Copyright (C) 2012 Alexios Chouchoulas
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2, or (at your option)
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-
-*/
+// -*- c -*-
+// 
+// ide.c — IDE Adapter Board
+// 
+// Copyright © 2012–2021 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,23 +24,27 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/time.h>
 #include <sys/stat.h>
 
-#include "io.h"
-#include "fifo.h"
-#include "ide.h"
-// #include "cftemu.h"
+#include "cftemu.h"
+#include "cft.h"
+
+#define DEB_MACROS_UNIT ide_log_unit
 #include "log.h"
+
+#include "ide.h"
 #include "util.h"
 
 
 
-void irq();
+// void irq();
 
 
-int ide;
+// int ide;
 
-int ide_speed = 10;
+static log_unit_t   ide_log_unit;
 
-int debug_ide = 0;
+static int          ide_speed = 10;
+
+// int debug_ide = 0;
 
 
 #define IDE_CS3_ASTATUS 6
@@ -153,12 +146,19 @@ callback_diags(int unit)
 	hd->lba2 = 0x00;	/* Cylinder high */
 	hd->lba3 = 0x00;	/* Drive/head */
 
-	ideinfo2("IDEHD %d: Reset complete.\n", unit);
+	notice("IDEHD %d: Reset complete.\n", unit);
 }
 
 
 void
-idehd_set(uint32_t n, char *fname)
+ide_set_speed(int speed)
+{
+	ide_speed = speed;
+}
+
+
+void
+ide_set_image(uint32_t n, char *fname)
 {
 	struct stat st;
 	assert(fname != NULL);
@@ -173,7 +173,7 @@ idehd_set(uint32_t n, char *fname)
 		fatal("Unable to stat HD image '%s': %m\n", fname);
 	}
 
-	ideinfo("Disk image %d: file %s, %d kwords\n", n, fname, (uint32_t)st.st_size >> 11);
+	info("Disk image %d: file %s, %d kwords\n", n, fname, (uint32_t)st.st_size >> 11);
 
 	idehd_t * hd = &idehd[n];
 
@@ -192,8 +192,6 @@ idehd_set(uint32_t n, char *fname)
 	hd->scount = 1;
 	hd->callback = callback_diags;
 	hd->buf_callback = NULL;
-
-	ide = 1;
 }
 
 
@@ -267,7 +265,7 @@ idehd_read(int unit)
 		((hd->lba2 & 0xff) << 16) | 
 		((hd->lba3 & 0xf) << 24);
 
-	idedebug("IDEHD %u: read %d sector(s) starting with %d\n", unit, n, ofs);
+	debug("IDEHD %u: read %d sector(s) starting with %d\n", unit, n, ofs);
 	ofs = ofs << 9;		/* LBA unit: 512-byte sector */
 
 	if (ofs >= hd->size) {
@@ -277,7 +275,7 @@ idehd_read(int unit)
 	}
 	fseek(hd->fp, ofs, SEEK_SET);
 
-	idedebug("IDEHD %u: read %d bytes from ofs %u\n", unit, n * 512, ftell(hd->fp));
+	debug("IDEHD %u: read %d bytes from ofs %u\n", unit, n * 512, ftell(hd->fp));
 
 	if (fread(&hd->buf, 512, n, hd->fp) != n) {
 		fatal("IDEHD %d: failed to read %d bytes from %s: %m\n", 
@@ -305,7 +303,7 @@ idehd_write(int unit)
 		((hd->lba2 & 0xff) << 16) | 
 		((hd->lba3 & 0xf) << 24);
 
-	idedebug("IDEHD %u: write %d sector(s) starting at %d (waiting for data)\n", unit, n, ofs);
+	debug("IDEHD %u: write %d sector(s) starting at %d (waiting for data)\n", unit, n, ofs);
 	hd->status |= SR_DRQ;
 	hd->status &= ~SR_BUSY;
 	hd->c = -1;
@@ -330,7 +328,7 @@ callback_idehd_write(int unit)
 		((hd->lba2 & 0xff) << 16) | 
 		((hd->lba3 & 0xf) << 24);
 
-	idedebug("IDEHD %u: write %d sector(s) starting at %d (data received, writing)\n", unit, n, ofs);
+	debug("IDEHD %u: write %d sector(s) starting at %d (data received, writing)\n", unit, n, ofs);
 
 	ofs = ofs << 9;		/* LBA unit: 512-byte sector */
 	if (ofs >= hd->size) {
@@ -345,7 +343,7 @@ callback_idehd_write(int unit)
 		     unit, 512 * n, hd->fname);
 	}
 
-	idedebug("IDEHD %u: wrote %d bytes to ofs %u\n", unit, n * 512, ofs);
+	debug("IDEHD %u: wrote %d bytes to ofs %u\n", unit, n * 512, ofs);
 
 	hd->bp = 0;
 	hd->scount = 0;
@@ -361,13 +359,13 @@ void idehd_command(int unit, uint16_t cmd)
 
 	switch(cmd) {
 	case 0xec:		/* Identify drive */
-		idedebug("IDEHD %d: Identify\n", unit);
+		debug("IDEHD %d: Identify\n", unit);
 		idehd_identify(unit);
 		hd->c = 100;
 		break;
 
 	case 0x10:		/* Recalibrate */
-		ideinfo("IDEHD %d: Crrrck. Crrrrck. (recalibrating)\n", unit);
+		info("IDEHD %d: Crrrck. Crrrrck. (recalibrating)\n", unit);
 		hd->lba0 = 0;
 		hd->lba1 = 0;
 		hd->lba2 = 0;
@@ -415,7 +413,7 @@ void idehd_command(int unit, uint16_t cmd)
 		break;
 
 	default:
-		warning2("IDEHD %d: unknown command %02x.\n", unit, cmd);
+		notice("IDEHD %d: unknown command %02x.\n", unit, cmd);
 		idehd_err(unit, ERR_ABRT);
 		return;
 	}
@@ -426,28 +424,36 @@ void idehd_command(int unit, uint16_t cmd)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// Board-level emulation
-//
-///////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////
+// //
+// // Board-level emulation
+// //
+// ///////////////////////////////////////////////////////////////////////////////
 
 
-void
-ide_early_init()
-{
-	int i;
-	for (i = 0; i < NUM_IDEHD; i++) {
-		memset(&idehd[i], 0, sizeof(idehd_t));
-		//idehd[i].fp = NULL;
-		drsel[i >> 1] = 0;
-	}
-}
+// void
+// ide_early_init()
+// {
+// 	int i;
+// 	for (i = 0; i < NUM_IDEHD; i++) {
+// 		memset(&idehd[i], 0, sizeof(idehd_t));
+// 		//idehd[i].fp = NULL;
+// 		drsel[i >> 1] = 0;
+// 	}
+// }
 
 
 void
 ide_init()
 {
+        ide_log_unit = log_add_unit("IDE", -1, -1);
+        debug("Initialised IDE Adapter");
+	ide_reset();
+}
+
+
+void
+ide_reset() {
 }
 
 
@@ -464,221 +470,221 @@ ide_done()
 }
 
 
-static int
-get_unit(uint16_t addr)
-{
-	switch (addr & 0xfff0) {
-	case IO_IDEA_CS3:
-	case IO_IDEA_CS1:
-		return drsel[0];
-	case IO_IDEB_CS3:
-	case IO_IDEB_CS1:
-		return 2 + drsel[1];
-	}
+// static int
+// get_unit(uint16_t addr)
+// {
+// 	switch (addr & 0xfff0) {
+// 	case IO_IDEA_CS3:
+// 	case IO_IDEA_CS1:
+// 		return drsel[0];
+// 	case IO_IDEB_CS3:
+// 	case IO_IDEB_CS1:
+// 		return 2 + drsel[1];
+// 	}
 	
-	return -1;
-}
+// 	return -1;
+// }
 
 
-static void
-ide_reset(int unit)
-{
-	int i;
-	unit = unit & ~1;
-	for (i = 0; i < 2; i++, unit++) {
-		idehd_t * hd = &idehd[unit];
-		if (!hd->present) continue;
-		ideinfo2("IDEHD %d: Resetting...\n", unit);
-		hd->c = 100000;	/* Reset counter */
-		hd->callback = callback_diags;
-		hd->bp = 0;
-		hd->error = 0;
-		hd->irqen = 0;
-		hd->irqpending = 0;
-		hd->status = SR_BUSY;
-	}
-}
+// static void
+// ide_reset(int unit)
+// {
+// 	int i;
+// 	unit = unit & ~1;
+// 	for (i = 0; i < 2; i++, unit++) {
+// 		idehd_t * hd = &idehd[unit];
+// 		if (!hd->present) continue;
+// 		ideinfo2("IDEHD %d: Resetting...\n", unit);
+// 		hd->c = 100000;	/* Reset counter */
+// 		hd->callback = callback_diags;
+// 		hd->bp = 0;
+// 		hd->error = 0;
+// 		hd->irqen = 0;
+// 		hd->irqpending = 0;
+// 		hd->status = SR_BUSY;
+// 	}
+// }
 
 
-int 
-ide_write(uint16_t addr, uint16_t dbus)
-{
-	int unit = get_unit(addr);
+// int 
+// ide_write(uint16_t addr, uint16_t dbus)
+// {
+// 	int unit = get_unit(addr);
 
-	if (unit < 0) return 0;
-	idehd_t *hd = &idehd[unit];
-	int tmp;
+// 	if (unit < 0) return 0;
+// 	idehd_t *hd = &idehd[unit];
+// 	int tmp;
 
-	/* All IDE registers are 8 bits. */
-	uint8_t data = dbus & 0xff;
+// 	/* All IDE registers are 8 bits. */
+// 	uint8_t data = dbus & 0xff;
 
-	switch(addr) {
-	case IO_IDEA_CS3|IDE_CS3_DCTL:
-	case IO_IDEB_CS3|IDE_CS3_DCTL:
-		if ((data & 9) != 8) {
-			warning2("IDEHD %d: DCR value must be xxxx1xx0.\n", unit);
-		}
-		/* Reset: bit 2. IRQ enabled: bit 1 */
-		hd->irqen = (data & 2) == 0;
-		tmp = hd->reset;
-		hd->reset = data & 4;
-		if (hd->reset && !tmp) {
-			warning2("IDEHD %d: SRST (reset) asserted.\n", unit);
-			hd->status |= SR_BUSY; /* Per IDE spec section 8.1 */
-		} else if (tmp && !hd->reset) {
-			warning2("IDEHD %d: SRST (reset) cleared.\n", unit);
-			ide_reset(unit);
-		}
-		return 1;
+// 	switch(addr) {
+// 	case IO_IDEA_CS3|IDE_CS3_DCTL:
+// 	case IO_IDEB_CS3|IDE_CS3_DCTL:
+// 		if ((data & 9) != 8) {
+// 			warning2("IDEHD %d: DCR value must be xxxx1xx0.\n", unit);
+// 		}
+// 		/* Reset: bit 2. IRQ enabled: bit 1 */
+// 		hd->irqen = (data & 2) == 0;
+// 		tmp = hd->reset;
+// 		hd->reset = data & 4;
+// 		if (hd->reset && !tmp) {
+// 			warning2("IDEHD %d: SRST (reset) asserted.\n", unit);
+// 			hd->status |= SR_BUSY; /* Per IDE spec section 8.1 */
+// 		} else if (tmp && !hd->reset) {
+// 			warning2("IDEHD %d: SRST (reset) cleared.\n", unit);
+// 			ide_reset(unit);
+// 		}
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_DATA:
-	case IO_IDEA_CS1|IDE_CS1_DATA:
-		hd->buf[hd->bp & 0xfff] = dbus;
-		idedebug("IDEHD %u: buf[%d] = %04x\n", unit, hd->bp & 0xfff, dbus);
+// 	case IO_IDEB_CS1|IDE_CS1_DATA:
+// 	case IO_IDEA_CS1|IDE_CS1_DATA:
+// 		hd->buf[hd->bp & 0xfff] = dbus;
+// 		debug("IDEHD %u: buf[%d] = %04x\n", unit, hd->bp & 0xfff, dbus);
 
-		// End of buffer?uffer
-		hd->bp = (hd->bp + 1) & 0xfff;
-		if (hd->bp >= hd->scount * 256) {
-			hd->bp = 0;
-			if (hd->buf_callback != NULL) {
-				idedebug("IDEHD %u: buffer fully written (%d bytes)\n",
-					 unit, hd->scount * 512);
-				(*(hd->buf_callback))(unit);
-				hd->buf_callback = NULL;
-			}
-		}
-		return 1;
+// 		// End of buffer?uffer
+// 		hd->bp = (hd->bp + 1) & 0xfff;
+// 		if (hd->bp >= hd->scount * 256) {
+// 			hd->bp = 0;
+// 			if (hd->buf_callback != NULL) {
+// 				debug("IDEHD %u: buffer fully written (%d bytes)\n",
+// 					 unit, hd->scount * 512);
+// 				(*(hd->buf_callback))(unit);
+// 				hd->buf_callback = NULL;
+// 			}
+// 		}
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_SCOUNT:
-	case IO_IDEA_CS1|IDE_CS1_SCOUNT:
-		hd->scount = data ? data : 256;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_SCOUNT:
+// 	case IO_IDEA_CS1|IDE_CS1_SCOUNT:
+// 		hd->scount = data ? data : 256;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_FEAT:
-	case IO_IDEA_CS1|IDE_CS1_FEAT:
-		warning2("IDEHD %d: Features register ignored.\n", unit);
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_FEAT:
+// 	case IO_IDEA_CS1|IDE_CS1_FEAT:
+// 		warning2("IDEHD %d: Features register ignored.\n", unit);
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA0:
-	case IO_IDEA_CS1|IDE_CS1_LBA0:
-		hd->lba0 = data & 0xff;
-		//info("LBA0 = %d\n", data & 0xff);
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA0:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA0:
+// 		hd->lba0 = data & 0xff;
+// 		//info("LBA0 = %d\n", data & 0xff);
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA1:
-	case IO_IDEA_CS1|IDE_CS1_LBA1:
-		hd->lba1 = data & 0xff;
-		//info("LBA1 = %d\n", data & 0xff);
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA1:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA1:
+// 		hd->lba1 = data & 0xff;
+// 		//info("LBA1 = %d\n", data & 0xff);
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA2:
-	case IO_IDEA_CS1|IDE_CS1_LBA2:
-		hd->lba2 = data & 0xff;
-		//info("LBA2 = %d\n", data & 0xff);
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA2:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA2:
+// 		hd->lba2 = data & 0xff;
+// 		//info("LBA2 = %d\n", data & 0xff);
+// 		return 1;
 
-	case IO_IDEA_CS1|IDE_CS1_DHEAD:
-	case IO_IDEB_CS1|IDE_CS1_DHEAD:
-		if ((data & 0xa0) != 0xa0) {
-			warning2("IDEHD %d: Drive/Head value must be 1x1xxxxx.\n", unit);
-		}
-		if ((data & 0x40) != 0x40) {
-			warning("IDEHD %d: Selected unimplemented CHS mode.\n", unit);
-		}
-		drsel[unit >> 1] = data & 0x10 ? 1 : 0;
-		//info2("Selected bus=%d unit=%d\n", unit >> 1, drsel[unit >> 1]);
-		hd->lba3 = data & 0xf;
-		//info("LBA3 = %d\n", hd->lba3);
-		return 1;
+// 	case IO_IDEA_CS1|IDE_CS1_DHEAD:
+// 	case IO_IDEB_CS1|IDE_CS1_DHEAD:
+// 		if ((data & 0xa0) != 0xa0) {
+// 			warning2("IDEHD %d: Drive/Head value must be 1x1xxxxx.\n", unit);
+// 		}
+// 		if ((data & 0x40) != 0x40) {
+// 			warning("IDEHD %d: Selected unimplemented CHS mode.\n", unit);
+// 		}
+// 		drsel[unit >> 1] = data & 0x10 ? 1 : 0;
+// 		//info2("Selected bus=%d unit=%d\n", unit >> 1, drsel[unit >> 1]);
+// 		hd->lba3 = data & 0xf;
+// 		//info("LBA3 = %d\n", hd->lba3);
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_CMD:
-	case IO_IDEA_CS1|IDE_CS1_CMD:
-		idehd_command(unit, data);
-		return 1;
-	}
+// 	case IO_IDEB_CS1|IDE_CS1_CMD:
+// 	case IO_IDEA_CS1|IDE_CS1_CMD:
+// 		idehd_command(unit, data);
+// 		return 1;
+// 	}
 
-	return 0;
-}
+// 	return 0;
+// }
 
 
 
-int
-ide_read(uint16_t addr, uint16_t *dbus)
-{
-	int unit = get_unit(addr);
+// int
+// ide_read(uint16_t addr, uint16_t *dbus)
+// {
+// 	int unit = get_unit(addr);
 
-	if (unit < 0) return 0;
-	idehd_t *hd = &idehd[unit];
-	if (!hd->present) {
-		warning2("IDEHD %d: not present\n", unit);
-		*dbus = 0xffff;
-		return 1;
-	}
+// 	if (unit < 0) return 0;
+// 	idehd_t *hd = &idehd[unit];
+// 	if (!hd->present) {
+// 		warning2("IDEHD %d: not present\n", unit);
+// 		*dbus = 0xffff;
+// 		return 1;
+// 	}
 
-	/* When the drive is busy, a read of any of the Command Block
-	 * registers will return the value of the status register. */
-	if ((hd->status & SR_BUSY) && (((addr & 0xfff0) == IO_IDEA_CS1) ||
-				       ((addr & 0xfff0) == IO_IDEB_CS1))) {
-		addr = (addr & 0xfff0) | IDE_CS3_ASTATUS;
-		idedebug("Still busy, returning status register (%04x)\n", hd->status);
-	}
+// 	/* When the drive is busy, a read of any of the Command Block
+// 	 * registers will return the value of the status register. */
+// 	if ((hd->status & SR_BUSY) && (((addr & 0xfff0) == IO_IDEA_CS1) ||
+// 				       ((addr & 0xfff0) == IO_IDEB_CS1))) {
+// 		addr = (addr & 0xfff0) | IDE_CS3_ASTATUS;
+// 		debug("Still busy, returning status register (%04x)\n", hd->status);
+// 	}
 
-	switch(addr) {
-	case IO_IDEA_CS3|IDE_CS3_ASTATUS:
-	case IO_IDEB_CS3|IDE_CS3_ASTATUS:
-		//info("STATUS %04x\n", hd->status);
-		*dbus = hd->status;
-		return 1;
+// 	switch(addr) {
+// 	case IO_IDEA_CS3|IDE_CS3_ASTATUS:
+// 	case IO_IDEB_CS3|IDE_CS3_ASTATUS:
+// 		//info("STATUS %04x\n", hd->status);
+// 		*dbus = hd->status;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_DATA:
-	case IO_IDEA_CS1|IDE_CS1_DATA:
-		*dbus = hd->buf[hd->bp & 0xfff];
-		//info("SOUP: Read: %p (buf=%p, delta=%d) 0x%04x\n", &hd->buf[hd->bp], hd->buf, hd->bp, hd->buf[hd->bp]);
-		hd->bp = (hd->bp + 1) & 0xfff;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_DATA:
+// 	case IO_IDEA_CS1|IDE_CS1_DATA:
+// 		*dbus = hd->buf[hd->bp & 0xfff];
+// 		//info("SOUP: Read: %p (buf=%p, delta=%d) 0x%04x\n", &hd->buf[hd->bp], hd->buf, hd->bp, hd->buf[hd->bp]);
+// 		hd->bp = (hd->bp + 1) & 0xfff;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_SCOUNT:
-	case IO_IDEA_CS1|IDE_CS1_SCOUNT:
-		*dbus = hd->scount;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_SCOUNT:
+// 	case IO_IDEA_CS1|IDE_CS1_SCOUNT:
+// 		*dbus = hd->scount;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_ERR:
-	case IO_IDEA_CS1|IDE_CS1_ERR:
-		*dbus = hd->error;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_ERR:
+// 	case IO_IDEA_CS1|IDE_CS1_ERR:
+// 		*dbus = hd->error;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA0:
-	case IO_IDEA_CS1|IDE_CS1_LBA0:
-		*dbus = hd->lba0;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA0:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA0:
+// 		*dbus = hd->lba0;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA1:
-	case IO_IDEA_CS1|IDE_CS1_LBA1:
-		*dbus = hd->lba1;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA1:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA1:
+// 		*dbus = hd->lba1;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_LBA2:
-	case IO_IDEA_CS1|IDE_CS1_LBA2:
-		*dbus = hd->lba2;
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_LBA2:
+// 	case IO_IDEA_CS1|IDE_CS1_LBA2:
+// 		*dbus = hd->lba2;
+// 		return 1;
 
-	case IO_IDEB_CS1|IDE_CS1_DHEAD:
-	case IO_IDEA_CS1|IDE_CS1_DHEAD:
-		*dbus = (hd->lba3 & 0xf) | 0xe0 | (drsel[unit>>1]? 0x10: 0);
-		return 1;
+// 	case IO_IDEB_CS1|IDE_CS1_DHEAD:
+// 	case IO_IDEA_CS1|IDE_CS1_DHEAD:
+// 		*dbus = (hd->lba3 & 0xf) | 0xe0 | (drsel[unit>>1]? 0x10: 0);
+// 		return 1;
 
-	case IO_IDEA_CS1|IDE_CS1_STATUS:
-	case IO_IDEB_CS1|IDE_CS1_STATUS:
-		//info("STATUS %04x\n", hd->status);
-		*dbus = hd->status;
-		hd->irqpending = 0;
-		hd->status |= SR_DRDY;
-		return 1;
+// 	case IO_IDEA_CS1|IDE_CS1_STATUS:
+// 	case IO_IDEB_CS1|IDE_CS1_STATUS:
+// 		//info("STATUS %04x\n", hd->status);
+// 		*dbus = hd->status;
+// 		hd->irqpending = 0;
+// 		hd->status |= SR_DRDY;
+// 		return 1;
 
-	}
+// 	}
 
-	return 0;
-}
+// 	return 0;
+// }
 
 
 void
@@ -690,7 +696,7 @@ ide_tick(int tick)
 		if(hd->present && hd->c > 0) {
 			hd->c -= ide_speed;
 			if (hd->c <= 0) {
-				idedebug("IDEHD %d: done\n", i);
+				debug("IDEHD %d: done\n", i);
 				hd->status &= ~SR_BUSY;
 				hd->status |= SR_DRDY;
 				if (hd->callback != NULL) {

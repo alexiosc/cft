@@ -64,12 +64,14 @@ enum {
         // ,KEY_DEBUG_DUART
         // ,KEY_DUART_STDIO
 
-        // ,KEY_HD0
-        // ,KEY_HD1
-        // ,KEY_HD2
-        // ,KEY_HD3
-        // ,KEY_IDE_SPEED
+#ifdef HAVE_IDE
+        ,KEY_HD0
+        ,KEY_HD1
+        ,KEY_HD2
+        ,KEY_HD3
+        ,KEY_IDE_SPEED
         // ,KEY_DEBUG_IDE
+#endif // HAVE_IDE
       
         // ,KEY_FS
 

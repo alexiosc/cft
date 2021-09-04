@@ -195,8 +195,9 @@ iodev_t iodevs[] = {
                 .code = "IDE",
                 .enabled = 0,
                 .init = ide_init,
-                .read = ide_read,
-                .write = ide_write,
+                .reset = irc_reset,
+                // .read = ide_read,
+                // .write = ide_write,
                 .tick = ide_tick,
                 .done = ide_done
         },

@@ -25,6 +25,10 @@
 #include "mem.h"
 #include "io.h"
 
+#ifdef HAVE_IDE
+#include "ide.h"
+#endif // HAVE_IDE
+
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
 
@@ -79,6 +83,31 @@ static struct argp_option options[] =
           "standard output. "
           "-t TTY,file,FILENAME connects the specified TTY to the specified filename. "
           "This will handle output only.", 0},
+
+        // IDE
+
+#ifdef HAVE_IDE
+        { "hd0",    'H',  "DISK-IMAGE",            0,
+          "Specify an image file for the first IDE disk (channel 1, disk 1). "
+          "Implies --enable IDE. "
+          "If unspecified, no disk is emulated.", 0 },
+        { "hd1",    KEY_HD1,  "DISK-IMAGE",            0,
+          "Specify an image file for the second IDE disk (channel 1, disk 2). "
+          "Implies --enable IDE. "
+          "If unspecified, no disk is emulated.", 0 },
+        { "hd2",    KEY_HD2,  "DISK-IMAGE",            0,
+          "Specify an image file for the third IDE disk (channel 2, disk 1). "
+          "Implies --enable IDE. "
+          "If unspecified, no disk is emulated.", 0 },
+        { "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
+          "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
+          "Implies --enable IDE. "
+          "If unspecified, no disk is emulated.", 0 },
+        { "ide-speed",  KEY_IDE_SPEED, "TICKS",            0,
+          "Set IDE speed in processor ticks. A higher number makes disk "
+          "access faster. The default is 10. "
+          "Values above 20 are good for debugging.", 0 },
+#endif // HAVE_IDE
 
         { NULL, 0, NULL, 0, "Testing", -3 },
 
@@ -168,25 +197,6 @@ static struct argp_option options[] =
         // { "nvram",    KEY_NVRAM,  NULL,            0,
         //   "Enable a 2k TimeKeeper/NVRAM chip (offset at &090/&08x). "
         //   "The contents of the NVRAM are stored in file " NVRAM_FNAME, 0 },
-
-        // IDE
-
-        // { "hd0",    KEY_HD0,  "DISK-IMAGE",            0,
-        //   "Specify an image file for the first IDE disk (channel 1, disk 1). "
-        //   "If unspecified, no disk is emulated.", 0 },
-        // { "hd1",    KEY_HD1,  "DISK-IMAGE",            0,
-        //   "Specify an image file for the second IDE disk (channel 1, disk 2). "
-        //   "If unspecified, no disk is emulated.", 0 },
-        // { "hd2",    KEY_HD2,  "DISK-IMAGE",            0,
-        //   "Specify an image file for the third IDE disk (channel 2, disk 1). "
-        //   "If unspecified, no disk is emulated.", 0 },
-        // { "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
-        //   "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
-        //   "If unspecified, no disk is emulated.", 0 },
-        // { "ide-speed",    KEY_IDE_SPEED, "FACTOR",            0,
-        //   "Set IDE speed factor. The default is 10, which is normal speed. 20 is double speed, etc. Values below 10 slow down access for debugging.", 0 },
-        // { "debug-ide", KEY_DEBUG_IDE, NULL, 0,
-        //   "Trace the operation of the IDE host adaptors.", 0 },
 
         // Video
 
@@ -594,21 +604,33 @@ parse_opt (int key, char *arg, struct argp_state *state)
                 //     nvram = 1;
                 //     break;
 
-                // case KEY_HD0:
-                // case KEY_HD1:
-                // case KEY_HD2:
-                // case KEY_HD3:
-                //     idehd_set(key - KEY_HD0, arg);
-                //     break;
+#ifdef HAVE_IDE
+        case 'H':
+        case KEY_HD0:
+                io_enable("IDE");
+                ide_set_image(0, arg);
+                break;
 
-                // case KEY_IDE_SPEED:
-                //     if (!sscanf(arg, "%d", &ide_speed)) {
-                //         argp_error (state, "IDE speed should an integer >= 1.");
-                //     }
-                //     if (ide_speed < 1) {
-                //         argp_error (state, "IDE speed should an integer >= 1.");
-                //     }
-                //     break;
+        case KEY_HD1:
+        case KEY_HD2:
+        case KEY_HD3:
+                io_enable("IDE");
+                ide_set_image(key - KEY_HD0, arg);
+                break;
+                
+        case KEY_IDE_SPEED:
+        {
+                int ide_speed;
+                if (!sscanf(arg, "%d", &ide_speed)) {
+                        argp_error (state, "IDE access time should an integer >= 1.");
+                }
+                if (ide_speed < 1) {
+                        argp_error (state, "IDE access time should an integer >= 1.");
+                }
+                ide_set_speed(ide_speed);
+                break;
+        }
+#endif // HAVE_IDE
 
                 // case KEY_DEBUG_IDE:
                 //     debug_ide++;
