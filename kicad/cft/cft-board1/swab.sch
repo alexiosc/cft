@@ -62,7 +62,7 @@ Wire Wire Line
 Wire Wire Line
 	5250 3350 5050 3350
 Text Label 3300 3350 0    50   ~ 0
-CLK2
+CLK1
 Text Label 3300 3450 0    50   ~ 0
 ~READ-SWAB
 Wire Wire Line
@@ -78,7 +78,7 @@ Connection ~ 5050 3350
 Wire Wire Line
 	5050 3350 3250 3350
 Text HLabel 3250 3350 0    50   Input ~ 0
-CLK2
+CLK1
 Text HLabel 3250 3450 0    50   Input ~ 0
 ~READ-SWAB
 Wire Wire Line
