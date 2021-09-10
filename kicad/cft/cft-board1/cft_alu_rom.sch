@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 16 20
+Sheet 14 20
 Title "ALU Operation Table"
 Date "2019-11-17"
 Rev "2023"
