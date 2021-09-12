@@ -87,7 +87,7 @@ static struct argp_option options[] =
         // IDE
 
 #ifdef HAVE_IDE
-        { "hd0",    'H',  "DISK-IMAGE",            0,
+        { "hd0",   KEY_HD0, "DISK-IMAGE",            0,
           "Specify an image file for the first IDE disk (channel 1, disk 1). "
           "Implies --enable IDE. "
           "If unspecified, no disk is emulated.", 0 },
