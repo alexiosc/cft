@@ -1472,6 +1472,12 @@ K Crystal Clock Oscillator
 F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
 $ENDCMP
 #
+$CMP DE9-Female-with-Shield
+D 9-pin female D-SUB connector, Mounting Hole
+K connector female D-SUB
+F  ~
+$ENDCMP
+#
 $CMP DIN-41612-3x32-Bauform-C
 D Connector Europe, 96 contacts, ranges A,B,C
 K connector
