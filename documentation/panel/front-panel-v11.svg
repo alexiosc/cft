@@ -14,8 +14,8 @@
    height="869.56665"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="front-panel-v11.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="front-panel-v10.svg"
    inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/panel/front-panel-v4.png"
    inkscape:export-xdpi="149.99962"
    inkscape:export-ydpi="149.99962"
@@ -95,11 +95,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.78419208"
-     inkscape:cx="922.42374"
-     inkscape:cy="311.70909"
+     inkscape:zoom="1.1683451"
+     inkscape:cx="1458.0872"
+     inkscape:cy="328.85761"
      inkscape:document-units="in"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      showgrid="false"
      inkscape:window-width="2048"
      inkscape:window-height="1123"
@@ -230,7 +230,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3398,12 +3398,7 @@
          y="1000.5611"
          x="366.48004"
          sodipodi:role="line"
-         id="tspan14442">LOCK</tspan><tspan
-         style="color:#000000;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:13.99846077px;line-height:100%;font-family:'Myriad Pro';-inkscape-font-specification:'Myriad Pro Bold Condensed';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate"
-         y="1014.5596"
-         x="366.48004"
-         sodipodi:role="line"
-         id="tspan2104">LTS OFF</tspan></text>
+         id="tspan14442">LOCK</tspan></text>
     <text
        transform="scale(0.99989002,1.00011)"
        xml:space="preserve"
@@ -3547,7 +3542,7 @@
          id="tspan3824"
          x="326.46738"
          y="915.5462"
-         style="color:#000000;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:13.99846077px;line-height:125%;font-family:'Myriad Pro';-inkscape-font-specification:'Myriad Pro Bold Condensed';text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate">BUS</tspan></text>
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:13.99846077px;line-height:125%;font-family:'Myriad Pro';-inkscape-font-specification:'Myriad Pro Bold Condensed';text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate">OFF</tspan></text>
     <text
        id="text3826"
        y="816.58368"
@@ -3562,7 +3557,7 @@
          y="816.58368"
          x="326.28391"
          id="tspan3828"
-         sodipodi:role="line">MICRO</tspan></text>
+         sodipodi:role="line">LTS ON</tspan></text>
     <text
        id="text12457"
        y="686.11908"
@@ -3665,7 +3660,7 @@
          y="722.51465"
          x="447.14365"
          id="tspan19021"
-         sodipodi:role="line">Output Register / Data Register / Stack Pointer</tspan><tspan
+         sodipodi:role="line">Output Register/Data Register/Stack Pointer</tspan><tspan
          style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Myriad Web Pro';-inkscape-font-specification:'Myriad Web Pro';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate"
          y="732.93463"
          x="447.14365"
@@ -3684,7 +3679,7 @@
          y="452.29776"
          x="447.25064"
          sodipodi:role="line"
-         id="tspan2100">Instruction Register &amp; Micro-Address / Data Bus</tspan></text>
+         id="tspan2297">Instruction Register/Micro-Address</tspan></text>
     <text
        xml:space="preserve"
        style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Myriad Web Pro';-inkscape-font-specification:'Myriad Web Pro';text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate"
@@ -3763,8 +3758,8 @@
          style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Myriad Web Pro';-inkscape-font-specification:'Myriad Web Pro';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate"
          y="361.43448"
          x="86.210655"
-         sodipodi:role="line"
-         id="tspan2096">Micro-Instruction Control Vector / Address Bus</tspan></text>
+         id="tspan18957"
+         sodipodi:role="line">Micro-Instruction Control Vector</tspan></text>
     <text
        transform="scale(0.99989001,1.00011)"
        xml:space="preserve"
@@ -6261,17 +6256,7 @@
            x="1541.4186"
            sodipodi:role="line">0</tspan></text>
     </g>
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot2106"
-       style="fill:black;fill-opacity:1;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;font-family:Myriad Web Pro;font-style:normal;font-weight:normal;font-size:20;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Myriad Web Pro;font-stretch:normal;font-variant:normal"><flowRegion
-         id="flowRegion2108"><rect
-           id="rect2110"
-           width="1250.969"
-           height="98.190231"
-           x="81.612656"
-           y="372.2395" /></flowRegion><flowPara
-         id="flowPara2112"></flowPara></flowRoot>  </g>
+  </g>
   <g
      inkscape:groupmode="layer"
      id="layer7"
@@ -10233,6 +10218,6 @@
          id="tspan18685"
          x="86.210655"
          y="649.62848"
-         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Myriad Web Pro';-inkscape-font-specification:'Myriad Web Pro';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate">Context</tspan></text>
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Myriad Web Pro';-inkscape-font-specification:'Myriad Web Pro';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;enable-background:accumulate">Memory Bank</tspan></text>
   </g>
 </svg>
