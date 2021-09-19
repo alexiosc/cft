@@ -2087,7 +2087,6 @@ Text Notes 12350 5600 0    100  ~ 20
 Local Bus
 Text Notes 14300 5600 0    100  ~ 20
 Peripheral Bus
-NoConn ~ 14250 6150
 NoConn ~ 12150 8050
 NoConn ~ 12150 7950
 $Sheet
@@ -2106,4 +2105,5 @@ F9 "~FPCLK~⁄CLK" I L 1450 2450 50
 F10 "T34" O R 2600 2700 50 
 F11 "16MHz" O R 2600 2800 50 
 $EndSheet
+NoConn ~ 14250 6150
 $EndSCHEMATC
