@@ -1506,6 +1506,12 @@ $CMP FT231XS
 F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf
 $ENDCMP
 #
+$CMP FT232RL
+D USB to Serial Interface, SSOP-28
+K FTDI USB Serial
+F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf
+$ENDCMP
+#
 $CMP ICS501
 D LOCO™ PLL Clock Multiplier
 K PLL Clock Multiplier
