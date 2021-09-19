@@ -688,17 +688,11 @@ Wire Wire Line
 	-5900 5250 -5450 5250
 Wire Wire Line
 	-5900 5150 -5450 5150
-$Sheet
-S -3500 6200 1150 3000
-U 64860A0B
-F0 "Quad Serial Board" 50
-F1 "tty.sch" 50
-$EndSheet
 $Comp
-L Interface_Ethernet:W5100 U?
+L Interface_Ethernet:W5100 U101
 U 1 1 61281AB3
 P -9200 9950
-F 0 "U?" H -9200 7861 50  0000 C CNN
+F 0 "U101" H -9200 7861 50  0000 C CNN
 F 1 "W5100" H -9200 7770 50  0000 C CNN
 F 2 "Package_QFP:LQFP-80_10x10mm_P0.4mm" H -9050 8000 50  0001 L CNN
 F 3 "http://www.wiznet.io/wp-content/uploads/wiznethome/Chip/W5100/Document/W5100_Datasheet_v1.2.7.pdf" H -12850 13100 50  0001 C CNN
@@ -706,25 +700,120 @@ F 3 "http://www.wiznet.io/wp-content/uploads/wiznethome/Chip/W5100/Document/W510
 	1    0    0    -1  
 $EndComp
 $Comp
-L RF_Module:ESP-WROOM-02 U?
+L RF_Module:ESP-WROOM-02 U102
 U 1 1 61281AB9
 P -7050 10200
-F 0 "U?" H -7050 10981 50  0000 C CNN
+F 0 "U102" H -7050 10981 50  0000 C CNN
 F 1 "ESP-WROOM-02" H -7050 10890 50  0000 C CNN
 F 2 "RF_Module:ESP-WROOM-02" H -6450 9650 50  0001 C CNN
 F 3 "https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf" H -7000 11700 50  0001 C CNN
 	1    -7050 10200
 	1    0    0    -1  
 $EndComp
-$Comp
-L Interface_USB:FT232RL U?
-U 1 1 61DE661D
-P -4650 11150
-F 0 "U?" H -4650 12331 50  0000 C CNN
-F 1 "FT232RL" H -4650 12240 50  0000 C CNN
-F 2 "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" H -3550 10250 50  0001 C CNN
-F 3 "https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf" H -4650 11150 50  0001 C CNN
-	1    -4650 11150
-	1    0    0    -1  
-$EndComp
+$Sheet
+S -3500 6200 1150 2200
+U 64860A0B
+F0 "Quad Serial Board" 50
+F1 "tty.sch" 50
+F2 "TTYD-TX" O R -2350 6650 50 
+F3 "TTYD-RX" I R -2350 6750 50 
+F4 "RSTHOLD" I L -3500 6350 50 
+F5 "~UART-IRQ" T R -2350 6350 50 
+F6 "AB0" I L -3500 6950 50 
+F7 "~R" I L -3500 6650 50 
+F8 "~W" I L -3500 6750 50 
+F9 "~UARTCS" I L -3500 6550 50 
+F10 "AB1" I L -3500 7050 50 
+F11 "AB2" I L -3500 7150 50 
+F12 "AB3" I L -3500 7250 50 
+F13 "AB4" I L -3500 7350 50 
+F14 "DB0" B L -3500 7550 50 
+F15 "DB1" B L -3500 7650 50 
+F16 "DB2" B L -3500 7750 50 
+F17 "DB3" B L -3500 7850 50 
+F18 "DB4" B L -3500 7950 50 
+F19 "DB5" B L -3500 8050 50 
+F20 "DB6" B L -3500 8150 50 
+F21 "DB7" B L -3500 8250 50 
+$EndSheet
+Wire Wire Line
+	-3500 6350 -3900 6350
+Text Label -3900 6350 0    50   ~ 0
+~RSTHOLD
+Wire Wire Line
+	-3500 6550 -3900 6550
+Text Label -3900 6550 0    50   ~ 0
+~UARTCS
+Wire Wire Line
+	-3500 6650 -3900 6650
+Wire Wire Line
+	-3500 6750 -3900 6750
+Wire Wire Line
+	-3500 6950 -3900 6950
+Wire Wire Line
+	-3500 7050 -3900 7050
+Wire Wire Line
+	-3500 7150 -3900 7150
+Wire Wire Line
+	-3500 7250 -3900 7250
+Wire Wire Line
+	-3500 7350 -3900 7350
+Wire Wire Line
+	-3500 7550 -3900 7550
+Wire Wire Line
+	-3500 7650 -3900 7650
+Wire Wire Line
+	-3500 7750 -3900 7750
+Wire Wire Line
+	-3500 7850 -3900 7850
+Wire Wire Line
+	-3500 7950 -3900 7950
+Wire Wire Line
+	-3500 8050 -3900 8050
+Wire Wire Line
+	-3500 8150 -3900 8150
+Wire Wire Line
+	-3500 8250 -3900 8250
+Text Label -3900 6650 0    50   ~ 0
+~R
+Text Label -3900 6750 0    50   ~ 0
+~W
+Text Label -3900 6950 0    50   ~ 0
+AB0
+Text Label -3900 7050 0    50   ~ 0
+AB1
+Text Label -3900 7150 0    50   ~ 0
+AB2
+Text Label -3900 7250 0    50   ~ 0
+AB3
+Text Label -3900 7350 0    50   ~ 0
+AB4
+Text Label -3900 7550 0    50   ~ 0
+DB0
+Text Label -3900 7650 0    50   ~ 0
+DB1
+Text Label -3900 7750 0    50   ~ 0
+DB2
+Text Label -3900 7850 0    50   ~ 0
+DB3
+Text Label -3900 7950 0    50   ~ 0
+DB4
+Text Label -3900 8050 0    50   ~ 0
+DB5
+Text Label -3900 8150 0    50   ~ 0
+DB6
+Text Label -3900 8250 0    50   ~ 0
+DB7
+Wire Wire Line
+	-2350 6350 -1900 6350
+Text Label -1900 6350 2    50   ~ 0
+~UART-IRQ
+Wire Wire Line
+	-2350 6650 -1900 6650
+Wire Wire Line
+	-2350 6750 -1900 6750
+Text Label -1900 6650 2    50   ~ 0
+TTYD-TX
+Text Label -1900 6750 2    50   ~ 0
+TTYD-RX
 $EndSCHEMATC

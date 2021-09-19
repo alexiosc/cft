@@ -1,7 +1,7 @@
 EESchema Schematic File Version 4
 EELAYER 30 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr A3 16535 11693
 encoding utf-8
 Sheet 6 6
 Title "Serial Ports and IDE Interface"
@@ -17,2153 +17,1604 @@ Text Notes 700  850  0    100  ~ 20
 The TTY and IDE boards
 Text Notes 700  1650 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Wire Wire Line
-	-6950 8700 -7200 8700
-Wire Wire Line
-	-6950 8900 -7200 8900
-Wire Wire Line
-	-6950 9000 -7200 9000
-Wire Wire Line
-	-6950 9100 -7200 9100
-Wire Wire Line
-	-6950 9200 -7200 9200
-Wire Wire Line
-	-6950 9300 -7200 9300
-Wire Wire Line
-	-6950 9400 -7200 9400
-Wire Wire Line
-	-6950 9500 -7200 9500
-Wire Wire Line
-	-6950 9600 -7200 9600
-Wire Wire Line
-	-6950 9800 -7200 9800
-Wire Wire Line
-	-6950 9900 -7200 9900
-Wire Wire Line
-	-6950 10000 -7200 10000
-Wire Wire Line
-	-6950 10200 -7200 10200
-Wire Wire Line
-	-6950 10300 -7200 10300
-Wire Wire Line
-	-6950 10400 -7200 10400
-Wire Wire Line
-	-6950 10500 -7200 10500
-Wire Wire Line
-	-6950 10700 -7200 10700
-Wire Wire Line
-	-6950 10800 -7200 10800
-Wire Wire Line
-	-6950 10900 -7200 10900
-Wire Wire Line
-	-6950 11000 -7200 11000
-Wire Wire Line
-	-6950 11100 -7200 11100
-Wire Wire Line
-	-6950 11200 -7200 11200
-Wire Wire Line
-	-6950 11400 -7200 11400
-Text Label -7200 8900 0    50   ~ 0
-D0
-Text Label -7200 9000 0    50   ~ 0
-D1
-Text Label -7200 9100 0    50   ~ 0
-D2
-Text Label -7200 9200 0    50   ~ 0
-D3
-Text Label -7200 9300 0    50   ~ 0
-D4
-Text Label -7200 9400 0    50   ~ 0
-D5
-Text Label -7200 9500 0    50   ~ 0
-D6
-Text Label -7200 9600 0    50   ~ 0
-D7
-Text Label -7200 9800 0    50   ~ 0
-A0
-Text Label -7200 9900 0    50   ~ 0
-A1
-Text Label -7200 10000 0    50   ~ 0
-A2
-Text Label -7200 10200 0    50   ~ 0
-~CSTTY0
-Text Label -7200 10300 0    50   ~ 0
-~CSTTY1
-Text Label -7200 10400 0    50   ~ 0
-~IOR
-Text Label -7200 10500 0    50   ~ 0
-~IOW
-$Comp
-L alexios:16C2550 U603
-U 1 1 6016BFD4
-P -6350 10100
-F 0 "U603" H -6350 11817 50  0000 C CNN
-F 1 "16C2550" H -6350 11726 50  0000 C CNN
-F 2 "Package_LCC:PLCC-44_THT-Socket" H -6325 8400 50  0001 C CNN
-F 3 "https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf" H -6350 10100 50  0001 C CNN
-	1    -6350 10100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C622
-U 1 1 6017C822
-P -5650 12450
-F 0 "C622" H -5558 12496 50  0000 L CNN
-F 1 "C_Small" H -5558 12405 50  0000 L CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -5650 12450 50  0001 C CNN
-F 3 "~" H -5650 12450 50  0001 C CNN
-	1    -5650 12450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-6950 12300 -7200 12300
-Wire Wire Line
-	-6950 12500 -7200 12500
-Wire Wire Line
-	-6950 12600 -7200 12600
-Wire Wire Line
-	-6950 12700 -7200 12700
-Wire Wire Line
-	-6950 12800 -7200 12800
-Wire Wire Line
-	-6950 12900 -7200 12900
-Wire Wire Line
-	-6950 13000 -7200 13000
-Wire Wire Line
-	-6950 13100 -7200 13100
-Wire Wire Line
-	-6950 13200 -7200 13200
-Wire Wire Line
-	-6950 13400 -7200 13400
-Wire Wire Line
-	-6950 13500 -7200 13500
-Wire Wire Line
-	-6950 13600 -7200 13600
-Wire Wire Line
-	-6950 13800 -7200 13800
-Wire Wire Line
-	-6950 13900 -7200 13900
-Wire Wire Line
-	-6950 14000 -7200 14000
-Wire Wire Line
-	-6950 14100 -7200 14100
-Wire Wire Line
-	-6950 14300 -7200 14300
-Wire Wire Line
-	-6950 14400 -7200 14400
-Wire Wire Line
-	-6950 14500 -7200 14500
-Wire Wire Line
-	-6950 14600 -7200 14600
-Wire Wire Line
-	-6950 14700 -7200 14700
-Wire Wire Line
-	-6950 14800 -7200 14800
-Wire Wire Line
-	-6950 15000 -7200 15000
-Text Label -7200 12500 0    50   ~ 0
-D0
-Text Label -7200 12600 0    50   ~ 0
-D1
-Text Label -7200 12700 0    50   ~ 0
-D2
-Text Label -7200 12800 0    50   ~ 0
-D3
-Text Label -7200 12900 0    50   ~ 0
-D4
-Text Label -7200 13000 0    50   ~ 0
-D5
-Text Label -7200 13100 0    50   ~ 0
-D6
-Text Label -7200 13200 0    50   ~ 0
-D7
-Text Label -7200 13400 0    50   ~ 0
-A0
-Text Label -7200 13500 0    50   ~ 0
-A1
-Text Label -7200 13600 0    50   ~ 0
-A2
-Text Label -7200 13800 0    50   ~ 0
-~CSTTY2
-Text Label -7200 13900 0    50   ~ 0
-~CSTTY3
-Text Label -7200 14000 0    50   ~ 0
-~IOR
-Text Label -7200 14100 0    50   ~ 0
-~IOW
-$Comp
-L alexios:16C2550 U608
-U 1 1 6017C84E
-P -6350 13700
-F 0 "U608" H -6350 15417 50  0000 C CNN
-F 1 "16C2550" H -6350 15326 50  0000 C CNN
-F 2 "Package_LCC:PLCC-44_THT-Socket" H -6325 12000 50  0001 C CNN
-F 3 "https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf" H -6350 13700 50  0001 C CNN
-	1    -6350 13700
-	1    0    0    -1  
-$EndComp
-Text Label -7200 10900 0    50   ~ 0
-~TXRDY0
-Text Label -7200 11000 0    50   ~ 0
-~TXRDY1
-Text Label -7200 14500 0    50   ~ 0
-~TXRDY2
-Text Label -7200 14600 0    50   ~ 0
-~TXRDY3
-Text Label -7200 11100 0    50   ~ 0
-~RXRDY0
-Text Label -7200 11200 0    50   ~ 0
-~RXRDY1
-Text Label -7200 14700 0    50   ~ 0
-~RXRDY2
-Text Label -7200 14800 0    50   ~ 0
-~RXRDY3
-$Comp
-L power:+5V #PWR0153
-U 1 1 601C39D9
-P -5650 12250
-F 0 "#PWR0153" H -5650 12100 50  0001 C CNN
-F 1 "+5V" H -5635 12423 50  0000 C CNN
-F 2 "" H -5650 12250 50  0001 C CNN
-F 3 "" H -5650 12250 50  0001 C CNN
-	1    -5650 12250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0154
-U 1 1 601C4194
-P -5650 12650
-F 0 "#PWR0154" H -5650 12400 50  0001 C CNN
-F 1 "GND" H -5450 12600 50  0000 C CNN
-F 2 "" H -5650 12650 50  0001 C CNN
-F 3 "" H -5650 12650 50  0001 C CNN
-	1    -5650 12650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-5750 12300 -5650 12300
-Wire Wire Line
-	-5650 12250 -5650 12300
-Connection ~ -5650 12300
-Wire Wire Line
-	-5650 12300 -5650 12350
-Wire Wire Line
-	-5750 12600 -5650 12600
-Wire Wire Line
-	-5650 12550 -5650 12600
-Connection ~ -5650 12600
-Wire Wire Line
-	-5650 12600 -5650 12650
 $Comp
 L power:+5V #PWR0155
 U 1 1 601E96B7
-P -7050 1800
-F 0 "#PWR0155" H -7050 1650 50  0001 C CNN
-F 1 "+5V" H -7035 1973 50  0000 C CNN
-F 2 "" H -7050 1800 50  0001 C CNN
-F 3 "" H -7050 1800 50  0001 C CNN
-	1    -7050 1800
+P 3000 2150
+F 0 "#PWR0155" H 3000 2000 50  0001 C CNN
+F 1 "+5V" H 3015 2323 50  0000 C CNN
+F 2 "" H 3000 2150 50  0001 C CNN
+F 3 "" H 3000 2150 50  0001 C CNN
+	1    3000 2150
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0156
 U 1 1 601E96BD
-P -7050 2100
-F 0 "#PWR0156" H -7050 1850 50  0001 C CNN
-F 1 "GND" H -6900 2050 50  0000 C CNN
-F 2 "" H -7050 2100 50  0001 C CNN
-F 3 "" H -7050 2100 50  0001 C CNN
-	1    -7050 2100
+P 3000 2450
+F 0 "#PWR0156" H 3000 2200 50  0001 C CNN
+F 1 "GND" H 3150 2400 50  0000 C CNN
+F 2 "" H 3000 2450 50  0001 C CNN
+F 3 "" H 3000 2450 50  0001 C CNN
+	1    3000 2450
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	-5750 9300 -5300 9300
-Wire Wire Line
-	-5750 9400 -5300 9400
-Wire Wire Line
-	-5750 9500 -5300 9500
-Wire Wire Line
-	-5750 9600 -5300 9600
-Wire Wire Line
-	-5750 9700 -5300 9700
-Wire Wire Line
-	-5750 9800 -5300 9800
-Wire Wire Line
-	-5750 10000 -5300 10000
-Wire Wire Line
-	-5750 10100 -5300 10100
-Text Label -5300 9300 2    50   ~ 0
-TX0
-Text Label -5300 9400 2    50   ~ 0
-RX0
-Text Label -5300 9500 2    50   ~ 0
-~RTS0
-Text Label -5300 9600 2    50   ~ 0
-~CTS0
-Text Label -5300 9700 2    50   ~ 0
+Text Label 3450 5000 0    50   ~ 0
 ~DTR0
-Text Label -5300 9800 2    50   ~ 0
+Text Label 3450 5100 0    50   ~ 0
 ~DSR0
-Text Label -5300 10000 2    50   ~ 0
+Text Label 3450 5300 0    50   ~ 0
 ~CD0
-Text Label -5300 10100 2    50   ~ 0
-~OUT0
-Wire Wire Line
-	-5750 10400 -5300 10400
-Wire Wire Line
-	-5750 10500 -5300 10500
-Wire Wire Line
-	-5750 10600 -5300 10600
-Wire Wire Line
-	-5750 10700 -5300 10700
-Wire Wire Line
-	-5750 10800 -5300 10800
-Wire Wire Line
-	-5750 10900 -5300 10900
-Wire Wire Line
-	-5750 11100 -5300 11100
-Wire Wire Line
-	-5750 11200 -5300 11200
-Text Label -5300 10400 2    50   ~ 0
-TX1
-Text Label -5300 10500 2    50   ~ 0
-RX1
-Text Label -5300 10600 2    50   ~ 0
-~RTS1
-Text Label -5300 10700 2    50   ~ 0
-~CTS1
-Text Label -5300 10800 2    50   ~ 0
-~DTR1
-Text Label -5300 10900 2    50   ~ 0
-~DSR1
-Text Label -5300 11100 2    50   ~ 0
-~CD1
-Text Label -5300 11200 2    50   ~ 0
-~OUT1
-Wire Wire Line
-	-5750 12900 -5300 12900
-Wire Wire Line
-	-5750 13000 -5300 13000
-Wire Wire Line
-	-5750 13100 -5300 13100
-Wire Wire Line
-	-5750 13200 -5300 13200
-Wire Wire Line
-	-5750 13300 -5300 13300
-Wire Wire Line
-	-5750 13400 -5300 13400
-Wire Wire Line
-	-5750 13500 -5300 13500
-Wire Wire Line
-	-5750 13600 -5300 13600
-Wire Wire Line
-	-5750 13700 -5300 13700
-Text Label -5300 13000 2    50   ~ 0
-TX2
-Text Label -5300 13000 2    50   ~ 0
-RX2
-Text Label -5300 13100 2    50   ~ 0
-~RTS2
-Text Label -5300 13200 2    50   ~ 0
-~CTS2
-Text Label -5300 13300 2    50   ~ 0
-~DTR2
-Text Label -5300 13400 2    50   ~ 0
-~DSR2
-Text Label -5300 13600 2    50   ~ 0
-~RI2
-Text Label -5300 13600 2    50   ~ 0
-~CD2
-Text Label -5300 13700 2    50   ~ 0
-~OUT2
-Wire Wire Line
-	-5750 14000 -5300 14000
-Wire Wire Line
-	-5750 14100 -5300 14100
-Wire Wire Line
-	-5750 14200 -5300 14200
-Wire Wire Line
-	-5750 14300 -5300 14300
-Wire Wire Line
-	-5750 14400 -5300 14400
-Wire Wire Line
-	-5750 14500 -5300 14500
-Wire Wire Line
-	-5750 14600 -5300 14600
-Wire Wire Line
-	-5750 14700 -5300 14700
-Wire Wire Line
-	-5750 14800 -5300 14800
-Text Label -5300 14100 2    50   ~ 0
-RX3
-Text Label -5300 14200 2    50   ~ 0
-~RTS3
-Text Label -5300 14300 2    50   ~ 0
-~CTS3
-Text Label -5300 14400 2    50   ~ 0
-~DTR3
-Text Label -5300 14500 2    50   ~ 0
-~DSR3
-Text Label -5300 14800 2    50   ~ 0
-~OUT3
-Text Label -5300 14100 2    50   ~ 0
-TX3
-Text Label -5300 14700 2    50   ~ 0
-~RI3
-Text Label -5300 14700 2    50   ~ 0
-~CD3
-NoConn ~ -5750 11400
-NoConn ~ -5750 15000
-Text Label -7200 10700 0    50   ~ 0
-INT0
-Text Label -7200 10800 0    50   ~ 0
-INT1
-Text Label -7200 14300 0    50   ~ 0
-INT2
-Text Label -7200 14400 0    50   ~ 0
-INT3
-Text Label -7200 8700 0    50   ~ 0
-RESET
-Text Label -7200 12300 0    50   ~ 0
-RESET
 $Comp
-L Device:CP_Small C603
-U 1 1 60473A9E
-P -4150 3350
-F 0 "C603" H -4062 3304 50  0000 L CNN
-F 1 "10μF" H -4062 3395 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -4150 3350 50  0001 C CNN
-F 3 "~" H -4150 3350 50  0001 C CNN
-	1    -4150 3350
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	-4100 3200 -4150 3200
-Wire Wire Line
-	-4150 3200 -4150 3250
-Wire Wire Line
-	-4100 3500 -4150 3500
-Wire Wire Line
-	-4150 3500 -4150 3450
-$Comp
-L power:GND #PWR0162
-U 1 1 60473AA8
-P -2850 3550
-F 0 "#PWR0162" H -2850 3300 50  0001 C CNN
-F 1 "GND" H -2700 3550 50  0000 C CNN
-F 2 "" H -2850 3550 50  0001 C CNN
-F 3 "" H -2850 3550 50  0001 C CNN
-	1    -2850 3550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C608
-U 1 1 60473AAE
-P -4150 3850
-F 0 "C608" H -4237 3896 50  0000 R CNN
-F 1 "1μF" H -4237 3805 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -4150 3850 50  0001 C CNN
-F 3 "~" H -4150 3850 50  0001 C CNN
-	1    -4150 3850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-4100 3700 -4150 3700
-Wire Wire Line
-	-4150 3700 -4150 3750
-Wire Wire Line
-	-4100 4000 -4150 4000
-Wire Wire Line
-	-4150 4000 -4150 3950
-$Comp
-L Device:CP_Small C609
-U 1 1 60473AB8
-P -2850 3850
-F 0 "C609" H -2937 3896 50  0000 R CNN
-F 1 "1μF" H -2937 3805 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -2850 3850 50  0001 C CNN
-F 3 "~" H -2850 3850 50  0001 C CNN
-	1    -2850 3850
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	-2900 3700 -2850 3700
-Wire Wire Line
-	-2850 3700 -2850 3750
-Wire Wire Line
-	-2900 4000 -2850 4000
-Wire Wire Line
-	-2850 4000 -2850 3950
-$Comp
-L Device:CP_Small C604
-U 1 1 60473AC2
-P -2850 3350
-F 0 "C604" H -2762 3304 50  0000 L CNN
-F 1 "10μF" H -2762 3395 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -2850 3350 50  0001 C CNN
-F 3 "~" H -2850 3350 50  0001 C CNN
-	1    -2850 3350
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	-2900 3500 -2850 3500
-Wire Wire Line
-	-2850 3500 -2850 3550
-Wire Wire Line
-	-2850 3450 -2850 3500
-Connection ~ -2850 3500
-Wire Wire Line
-	-2850 3200 -2850 3250
-Wire Wire Line
-	-2900 3200 -2850 3200
-$Comp
-L power:+5V #PWR0164
-U 1 1 60473ACE
-P -4150 3150
-F 0 "#PWR0164" H -4150 3000 50  0001 C CNN
-F 1 "+5V" H -4350 3150 50  0000 C CNN
-F 2 "" H -4150 3150 50  0001 C CNN
-F 3 "" H -4150 3150 50  0001 C CNN
-	1    -4150 3150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-4150 3150 -4150 3200
-Connection ~ -4150 3200
-Text Label -4400 4150 0    50   ~ 0
-~DTR0
-Text Label -4400 4250 0    50   ~ 0
-~DSR0
-Text Label -4400 4450 0    50   ~ 0
-~CD0
-NoConn ~ -5750 9900
-NoConn ~ -5750 11000
-$Comp
-L alexios:MAX232 U604
-U 1 1 605FBA3A
-P 4500 11650
-F 0 "U604" H 4500 12817 50  0000 C CNN
-F 1 "MAX232" H 4500 12726 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 10600 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 11750 50  0001 C CNN
-	1    4500 11650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C610
-U 1 1 605FBA40
-P 3850 10900
-F 0 "C610" H 3938 10854 50  0000 L CNN
-F 1 "10μF" H 3938 10945 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 10900 50  0001 C CNN
-F 3 "~" H 3850 10900 50  0001 C CNN
-	1    3850 10900
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3900 10750 3850 10750
-Wire Wire Line
-	3850 10750 3850 10800
-Wire Wire Line
-	3900 11050 3850 11050
-Wire Wire Line
-	3850 11050 3850 11000
-$Comp
-L power:GND #PWR0165
-U 1 1 605FBA4A
-P 5150 11100
-F 0 "#PWR0165" H 5150 10850 50  0001 C CNN
-F 1 "GND" H 5300 11100 50  0000 C CNN
-F 2 "" H 5150 11100 50  0001 C CNN
-F 3 "" H 5150 11100 50  0001 C CNN
-	1    5150 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C614
-U 1 1 605FBA50
-P 3850 11400
-F 0 "C614" H 3763 11446 50  0000 R CNN
-F 1 "1μF" H 3763 11355 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 11400 50  0001 C CNN
-F 3 "~" H 3850 11400 50  0001 C CNN
-	1    3850 11400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3900 11250 3850 11250
-Wire Wire Line
-	3850 11250 3850 11300
-Wire Wire Line
-	3900 11550 3850 11550
-Wire Wire Line
-	3850 11550 3850 11500
-$Comp
-L Device:CP_Small C615
-U 1 1 605FBA5A
-P 5150 11400
-F 0 "C615" H 5063 11446 50  0000 R CNN
-F 1 "1μF" H 5063 11355 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 11400 50  0001 C CNN
-F 3 "~" H 5150 11400 50  0001 C CNN
-	1    5150 11400
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 11250 5150 11250
-Wire Wire Line
-	5150 11250 5150 11300
-Wire Wire Line
-	5100 11550 5150 11550
-Wire Wire Line
-	5150 11550 5150 11500
-$Comp
-L Device:CP_Small C611
-U 1 1 605FBA64
-P 5150 10900
-F 0 "C611" H 5238 10854 50  0000 L CNN
-F 1 "10μF" H 5238 10945 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 10900 50  0001 C CNN
-F 3 "~" H 5150 10900 50  0001 C CNN
-	1    5150 10900
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	5100 11050 5150 11050
-Wire Wire Line
-	5150 11050 5150 11100
-Wire Wire Line
-	5150 11000 5150 11050
-Connection ~ 5150 11050
-Wire Wire Line
-	5150 10750 5150 10800
-Wire Wire Line
-	5100 10750 5150 10750
-$Comp
-L power:+5V #PWR0166
-U 1 1 605FBA70
-P 3850 10700
-F 0 "#PWR0166" H 3850 10550 50  0001 C CNN
-F 1 "+5V" H 3650 10700 50  0000 C CNN
-F 2 "" H 3850 10700 50  0001 C CNN
-F 3 "" H 3850 10700 50  0001 C CNN
-	1    3850 10700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3850 10700 3850 10750
-Connection ~ 3850 10750
-$Comp
-L alexios:MAX232 U605
-U 1 1 605FBA78
-P 7550 11650
-F 0 "U605" H 7550 12817 50  0000 C CNN
-F 1 "MAX232" H 7550 12726 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 10600 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 11750 50  0001 C CNN
-	1    7550 11650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C612
-U 1 1 605FBA7E
-P 6900 10900
-F 0 "C612" H 6988 10854 50  0000 L CNN
-F 1 "10μF" H 6988 10945 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 10900 50  0001 C CNN
-F 3 "~" H 6900 10900 50  0001 C CNN
-	1    6900 10900
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6950 10750 6900 10750
-Wire Wire Line
-	6900 10750 6900 10800
-Wire Wire Line
-	6950 11050 6900 11050
-Wire Wire Line
-	6900 11050 6900 11000
-$Comp
-L power:GND #PWR0167
-U 1 1 605FBA88
-P 8200 11100
-F 0 "#PWR0167" H 8200 10850 50  0001 C CNN
-F 1 "GND" H 8350 11100 50  0000 C CNN
-F 2 "" H 8200 11100 50  0001 C CNN
-F 3 "" H 8200 11100 50  0001 C CNN
-	1    8200 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C616
-U 1 1 605FBA8E
-P 6900 11400
-F 0 "C616" H 6813 11446 50  0000 R CNN
-F 1 "1μF" H 6813 11355 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 11400 50  0001 C CNN
-F 3 "~" H 6900 11400 50  0001 C CNN
-	1    6900 11400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6950 11250 6900 11250
-Wire Wire Line
-	6900 11250 6900 11300
-Wire Wire Line
-	6950 11550 6900 11550
-Wire Wire Line
-	6900 11550 6900 11500
-$Comp
-L Device:CP_Small C617
-U 1 1 605FBA98
-P 8200 11400
-F 0 "C617" H 8113 11446 50  0000 R CNN
-F 1 "1μF" H 8113 11355 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 11400 50  0001 C CNN
-F 3 "~" H 8200 11400 50  0001 C CNN
-	1    8200 11400
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 11250 8200 11250
-Wire Wire Line
-	8200 11250 8200 11300
-Wire Wire Line
-	8150 11550 8200 11550
-Wire Wire Line
-	8200 11550 8200 11500
-$Comp
-L Device:CP_Small C613
-U 1 1 605FBAA2
-P 8200 10900
-F 0 "C613" H 8288 10854 50  0000 L CNN
-F 1 "10μF" H 8288 10945 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 10900 50  0001 C CNN
-F 3 "~" H 8200 10900 50  0001 C CNN
-	1    8200 10900
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8150 11050 8200 11050
-Wire Wire Line
-	8200 11050 8200 11100
-Wire Wire Line
-	8200 11000 8200 11050
-Connection ~ 8200 11050
-Wire Wire Line
-	8200 10750 8200 10800
-Wire Wire Line
-	8150 10750 8200 10750
-$Comp
-L power:+5V #PWR0168
-U 1 1 605FBAAE
-P 6900 10700
-F 0 "#PWR0168" H 6900 10550 50  0001 C CNN
-F 1 "+5V" H 6700 10700 50  0000 C CNN
-F 2 "" H 6900 10700 50  0001 C CNN
-F 3 "" H 6900 10700 50  0001 C CNN
-	1    6900 10700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6900 10700 6900 10750
-Connection ~ 6900 10750
-Wire Wire Line
-	6950 11700 6650 11700
-Wire Wire Line
-	6950 11900 6650 11900
-Wire Wire Line
-	6950 12000 6650 12000
-Text Label 3600 11700 0    50   ~ 0
-TX1
-Text Label 3600 11800 0    50   ~ 0
-RX1
-Text Label 3600 11900 0    50   ~ 0
-~RTS1
-Text Label 3600 12000 0    50   ~ 0
-~CTS1
-Text Label 6650 11700 0    50   ~ 0
-~DTR1
-Text Label 6650 11900 0    50   ~ 0
-~DSR1
-Text Label 6650 12000 0    50   ~ 0
-~CD1
-NoConn ~ 6950 11800
-NoConn ~ 8150 11800
-$Comp
-L alexios:MAX232 U606
-U 1 1 6062552F
-P 4500 13450
-F 0 "U606" H 4500 14617 50  0000 C CNN
-F 1 "MAX232" H 4500 14526 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 12400 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 13550 50  0001 C CNN
-	1    4500 13450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C618
-U 1 1 60625535
-P 3850 12700
-F 0 "C618" H 3938 12654 50  0000 L CNN
-F 1 "10μF" H 3938 12745 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 12700 50  0001 C CNN
-F 3 "~" H 3850 12700 50  0001 C CNN
-	1    3850 12700
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3900 12550 3850 12550
-Wire Wire Line
-	3850 12550 3850 12600
-Wire Wire Line
-	3900 12850 3850 12850
-Wire Wire Line
-	3850 12850 3850 12800
-$Comp
-L power:GND #PWR0169
-U 1 1 6062553F
-P 5150 12900
-F 0 "#PWR0169" H 5150 12650 50  0001 C CNN
-F 1 "GND" H 5300 12900 50  0000 C CNN
-F 2 "" H 5150 12900 50  0001 C CNN
-F 3 "" H 5150 12900 50  0001 C CNN
-	1    5150 12900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C623
-U 1 1 60625545
-P 3850 13200
-F 0 "C623" H 3763 13246 50  0000 R CNN
-F 1 "1μF" H 3763 13155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 13200 50  0001 C CNN
-F 3 "~" H 3850 13200 50  0001 C CNN
-	1    3850 13200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3900 13050 3850 13050
-Wire Wire Line
-	3850 13050 3850 13100
-Wire Wire Line
-	3900 13350 3850 13350
-Wire Wire Line
-	3850 13350 3850 13300
-$Comp
-L Device:CP_Small C624
-U 1 1 6062554F
-P 5150 13200
-F 0 "C624" H 5063 13246 50  0000 R CNN
-F 1 "1μF" H 5063 13155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 13200 50  0001 C CNN
-F 3 "~" H 5150 13200 50  0001 C CNN
-	1    5150 13200
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 13050 5150 13050
-Wire Wire Line
-	5150 13050 5150 13100
-Wire Wire Line
-	5100 13350 5150 13350
-Wire Wire Line
-	5150 13350 5150 13300
-$Comp
-L Device:CP_Small C619
-U 1 1 60625559
-P 5150 12700
-F 0 "C619" H 5238 12654 50  0000 L CNN
-F 1 "10μF" H 5238 12745 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 12700 50  0001 C CNN
-F 3 "~" H 5150 12700 50  0001 C CNN
-	1    5150 12700
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	5100 12850 5150 12850
-Wire Wire Line
-	5150 12850 5150 12900
-Wire Wire Line
-	5150 12800 5150 12850
-Connection ~ 5150 12850
-Wire Wire Line
-	5150 12550 5150 12600
-Wire Wire Line
-	5100 12550 5150 12550
-$Comp
-L power:+5V #PWR0170
-U 1 1 60625565
-P 3850 12500
-F 0 "#PWR0170" H 3850 12350 50  0001 C CNN
-F 1 "+5V" H 3650 12500 50  0000 C CNN
-F 2 "" H 3850 12500 50  0001 C CNN
-F 3 "" H 3850 12500 50  0001 C CNN
-	1    3850 12500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3850 12500 3850 12550
-Connection ~ 3850 12550
-$Comp
-L alexios:MAX232 U607
-U 1 1 6062556D
-P 7550 13450
-F 0 "U607" H 7550 14617 50  0000 C CNN
-F 1 "MAX232" H 7550 14526 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 12400 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 13550 50  0001 C CNN
-	1    7550 13450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C620
-U 1 1 60625573
-P 6900 12700
-F 0 "C620" H 6988 12654 50  0000 L CNN
-F 1 "10μF" H 6988 12745 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 12700 50  0001 C CNN
-F 3 "~" H 6900 12700 50  0001 C CNN
-	1    6900 12700
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6950 12550 6900 12550
-Wire Wire Line
-	6900 12550 6900 12600
-Wire Wire Line
-	6950 12850 6900 12850
-Wire Wire Line
-	6900 12850 6900 12800
-$Comp
-L power:GND #PWR0171
-U 1 1 6062557D
-P 8200 12900
-F 0 "#PWR0171" H 8200 12650 50  0001 C CNN
-F 1 "GND" H 8350 12900 50  0000 C CNN
-F 2 "" H 8200 12900 50  0001 C CNN
-F 3 "" H 8200 12900 50  0001 C CNN
-	1    8200 12900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C625
-U 1 1 60625583
-P 6900 13200
-F 0 "C625" H 6813 13246 50  0000 R CNN
-F 1 "1μF" H 6813 13155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 13200 50  0001 C CNN
-F 3 "~" H 6900 13200 50  0001 C CNN
-	1    6900 13200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6950 13050 6900 13050
-Wire Wire Line
-	6900 13050 6900 13100
-Wire Wire Line
-	6950 13350 6900 13350
-Wire Wire Line
-	6900 13350 6900 13300
-$Comp
-L Device:CP_Small C626
-U 1 1 6062558D
-P 8200 13200
-F 0 "C626" H 8113 13246 50  0000 R CNN
-F 1 "1μF" H 8113 13155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 13200 50  0001 C CNN
-F 3 "~" H 8200 13200 50  0001 C CNN
-	1    8200 13200
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 13050 8200 13050
-Wire Wire Line
-	8200 13050 8200 13100
-Wire Wire Line
-	8150 13350 8200 13350
-Wire Wire Line
-	8200 13350 8200 13300
-$Comp
-L Device:CP_Small C621
-U 1 1 60625597
-P 8200 12700
-F 0 "C621" H 8288 12654 50  0000 L CNN
-F 1 "10μF" H 8288 12745 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 12700 50  0001 C CNN
-F 3 "~" H 8200 12700 50  0001 C CNN
-	1    8200 12700
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8150 12850 8200 12850
-Wire Wire Line
-	8200 12850 8200 12900
-Wire Wire Line
-	8200 12800 8200 12850
-Connection ~ 8200 12850
-Wire Wire Line
-	8200 12550 8200 12600
-Wire Wire Line
-	8150 12550 8200 12550
-$Comp
-L power:+5V #PWR0172
-U 1 1 606255A3
-P 6900 12500
-F 0 "#PWR0172" H 6900 12350 50  0001 C CNN
-F 1 "+5V" H 6700 12500 50  0000 C CNN
-F 2 "" H 6900 12500 50  0001 C CNN
-F 3 "" H 6900 12500 50  0001 C CNN
-	1    6900 12500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6900 12500 6900 12550
-Connection ~ 6900 12550
-Wire Wire Line
-	3900 13500 3600 13500
-Wire Wire Line
-	3900 13600 3600 13600
-Wire Wire Line
-	3900 13700 3600 13700
-Wire Wire Line
-	3900 13800 3600 13800
-Wire Wire Line
-	6950 13500 6650 13500
-Wire Wire Line
-	6950 13700 6650 13700
-Wire Wire Line
-	6950 13800 6650 13800
-Text Label 3600 13500 0    50   ~ 0
-TX2
-Text Label 3600 13700 0    50   ~ 0
-RX2
-Text Label 3600 13600 0    50   ~ 0
-~RTS2
-Text Label 3600 13800 0    50   ~ 0
-~CTS2
-Text Label 6650 13500 0    50   ~ 0
-~DTR2
-Text Label 6650 13700 0    50   ~ 0
-~DSR2
-Text Label 6650 13800 0    50   ~ 0
-~CD2
-NoConn ~ 6950 13600
-NoConn ~ 8350 13600
-$Comp
-L alexios:MAX232 U609
-U 1 1 606255C2
-P 4500 15250
-F 0 "U609" H 4500 16417 50  0000 C CNN
-F 1 "MAX232" H 4500 16326 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4550 14200 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4500 15350 50  0001 C CNN
-	1    4500 15250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C627
-U 1 1 606255C8
-P 3850 14500
-F 0 "C627" H 3938 14454 50  0000 L CNN
-F 1 "10μF" H 3938 14545 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 14500 50  0001 C CNN
-F 3 "~" H 3850 14500 50  0001 C CNN
-	1    3850 14500
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3900 14350 3850 14350
-Wire Wire Line
-	3850 14350 3850 14400
-Wire Wire Line
-	3900 14650 3850 14650
-Wire Wire Line
-	3850 14650 3850 14600
-$Comp
-L power:GND #PWR0173
-U 1 1 606255D2
-P 5150 14700
-F 0 "#PWR0173" H 5150 14450 50  0001 C CNN
-F 1 "GND" H 5300 14700 50  0000 C CNN
-F 2 "" H 5150 14700 50  0001 C CNN
-F 3 "" H 5150 14700 50  0001 C CNN
-	1    5150 14700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C631
-U 1 1 606255D8
-P 3850 15000
-F 0 "C631" H 3763 15046 50  0000 R CNN
-F 1 "1μF" H 3763 14955 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3850 15000 50  0001 C CNN
-F 3 "~" H 3850 15000 50  0001 C CNN
-	1    3850 15000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3900 14850 3850 14850
-Wire Wire Line
-	3850 14850 3850 14900
-Wire Wire Line
-	3900 15150 3850 15150
-Wire Wire Line
-	3850 15150 3850 15100
-$Comp
-L Device:CP_Small C632
-U 1 1 606255E2
-P 5150 15000
-F 0 "C632" H 5063 15046 50  0000 R CNN
-F 1 "1μF" H 5063 14955 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 15000 50  0001 C CNN
-F 3 "~" H 5150 15000 50  0001 C CNN
-	1    5150 15000
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 14850 5150 14850
-Wire Wire Line
-	5150 14850 5150 14900
-Wire Wire Line
-	5100 15150 5150 15150
-Wire Wire Line
-	5150 15150 5150 15100
-$Comp
-L Device:CP_Small C628
-U 1 1 606255EC
-P 5150 14500
-F 0 "C628" H 5238 14454 50  0000 L CNN
-F 1 "10μF" H 5238 14545 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5150 14500 50  0001 C CNN
-F 3 "~" H 5150 14500 50  0001 C CNN
-	1    5150 14500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	5100 14650 5150 14650
-Wire Wire Line
-	5150 14650 5150 14700
-Wire Wire Line
-	5150 14600 5150 14650
-Connection ~ 5150 14650
-Wire Wire Line
-	5150 14350 5150 14400
-Wire Wire Line
-	5100 14350 5150 14350
-$Comp
-L power:+5V #PWR0174
-U 1 1 606255F8
-P 3850 14300
-F 0 "#PWR0174" H 3850 14150 50  0001 C CNN
-F 1 "+5V" H 3650 14300 50  0000 C CNN
-F 2 "" H 3850 14300 50  0001 C CNN
-F 3 "" H 3850 14300 50  0001 C CNN
-	1    3850 14300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3850 14300 3850 14350
-Connection ~ 3850 14350
-$Comp
-L alexios:MAX232 U610
-U 1 1 60625600
-P 7550 15250
-F 0 "U610" H 7550 16417 50  0000 C CNN
-F 1 "MAX232" H 7550 16326 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 7600 14200 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 7550 15350 50  0001 C CNN
-	1    7550 15250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C629
-U 1 1 60625606
-P 6900 14500
-F 0 "C629" H 6988 14454 50  0000 L CNN
-F 1 "10μF" H 6988 14545 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 14500 50  0001 C CNN
-F 3 "~" H 6900 14500 50  0001 C CNN
-	1    6900 14500
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6950 14350 6900 14350
-Wire Wire Line
-	6900 14350 6900 14400
-Wire Wire Line
-	6950 14650 6900 14650
-Wire Wire Line
-	6900 14650 6900 14600
-$Comp
-L power:GND #PWR0175
-U 1 1 60625610
-P 8200 14700
-F 0 "#PWR0175" H 8200 14450 50  0001 C CNN
-F 1 "GND" H 8350 14700 50  0000 C CNN
-F 2 "" H 8200 14700 50  0001 C CNN
-F 3 "" H 8200 14700 50  0001 C CNN
-	1    8200 14700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP_Small C633
-U 1 1 60625616
-P 6900 15000
-F 0 "C633" H 6813 15046 50  0000 R CNN
-F 1 "1μF" H 6813 14955 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 6900 15000 50  0001 C CNN
-F 3 "~" H 6900 15000 50  0001 C CNN
-	1    6900 15000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6950 14850 6900 14850
-Wire Wire Line
-	6900 14850 6900 14900
-Wire Wire Line
-	6950 15150 6900 15150
-Wire Wire Line
-	6900 15150 6900 15100
-$Comp
-L Device:CP_Small C634
-U 1 1 60625620
-P 8200 15000
-F 0 "C634" H 8113 15046 50  0000 R CNN
-F 1 "1μF" H 8113 14955 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 15000 50  0001 C CNN
-F 3 "~" H 8200 15000 50  0001 C CNN
-	1    8200 15000
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 14850 8200 14850
-Wire Wire Line
-	8200 14850 8200 14900
-Wire Wire Line
-	8150 15150 8200 15150
-Wire Wire Line
-	8200 15150 8200 15100
-$Comp
-L Device:CP_Small C630
-U 1 1 6062562A
-P 8200 14500
-F 0 "C630" H 8288 14454 50  0000 L CNN
-F 1 "10μF" H 8288 14545 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8200 14500 50  0001 C CNN
-F 3 "~" H 8200 14500 50  0001 C CNN
-	1    8200 14500
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8150 14650 8200 14650
-Wire Wire Line
-	8200 14650 8200 14700
-Wire Wire Line
-	8200 14600 8200 14650
-Connection ~ 8200 14650
-Wire Wire Line
-	8200 14350 8200 14400
-Wire Wire Line
-	8150 14350 8200 14350
-$Comp
-L power:+5V #PWR0177
-U 1 1 60625636
-P 6900 14300
-F 0 "#PWR0177" H 6900 14150 50  0001 C CNN
-F 1 "+5V" H 6700 14300 50  0000 C CNN
-F 2 "" H 6900 14300 50  0001 C CNN
-F 3 "" H 6900 14300 50  0001 C CNN
-	1    6900 14300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6900 14300 6900 14350
-Connection ~ 6900 14350
-Wire Wire Line
-	3900 15300 3600 15300
-Wire Wire Line
-	3900 15400 3600 15400
-Wire Wire Line
-	3900 15500 3600 15500
-Wire Wire Line
-	3900 15600 3600 15600
-Wire Wire Line
-	6950 15300 6650 15300
-Wire Wire Line
-	6950 15500 6650 15500
-Wire Wire Line
-	6950 15600 6650 15600
-Text Label 3600 15300 0    50   ~ 0
-TX3
-Text Label 3600 15500 0    50   ~ 0
-RX3
-Text Label 3600 15400 0    50   ~ 0
-~RTS3
-Text Label 3600 15600 0    50   ~ 0
-~CTS3
-Text Label 6650 15300 0    50   ~ 0
-~DTR3
-Text Label 6650 15500 0    50   ~ 0
-~DSR3
-Text Label 6650 15600 0    50   ~ 0
-~CD3
-NoConn ~ 6950 15400
-NoConn ~ 8150 15400
-Wire Wire Line
-	6050 11700 5950 11700
-Wire Wire Line
-	6050 11800 5750 11800
-Wire Wire Line
-	6050 11900 5400 11900
-$Comp
-L alexios:PESD15VS2UT D605
-U 1 1 60AF0A0B
-P 5300 12200
-F 0 "D605" H 5525 12223 50  0000 L CNN
-F 1 "PESD15VS2UT" H 5525 12178 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 11600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 12225 50  0001 C CNN
-	1    5300 12200
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D606
-U 1 1 60AF0A11
-P 5850 12200
-F 0 "D606" H 6075 12269 50  0000 L CNN
-F 1 "PESD15VS2UT" H 6075 12178 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 11600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 12225 50  0001 C CNN
-	1    5850 12200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 12000 5200 12000
-Wire Wire Line
-	5200 12050 5200 12000
-Connection ~ 5200 12000
-Wire Wire Line
-	5200 12000 6050 12000
-Wire Wire Line
-	5400 12050 5400 11900
-Wire Wire Line
-	5750 12050 5750 11800
-Connection ~ 5750 11800
-Wire Wire Line
-	5750 11800 5100 11800
-Wire Wire Line
-	5950 12050 5950 11700
-Connection ~ 5950 11700
-Wire Wire Line
-	5950 11700 5100 11700
-Wire Wire Line
-	6050 13500 5950 13500
-Wire Wire Line
-	6050 13600 5750 13600
-Wire Wire Line
-	6050 13700 5400 13700
-$Comp
-L alexios:PESD15VS2UT D609
-U 1 1 60B1C8CB
-P 5300 14000
-F 0 "D609" H 5525 14023 50  0000 L CNN
-F 1 "PESD15VS2UT" H 5525 13978 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 13400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 14025 50  0001 C CNN
-	1    5300 14000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D610
-U 1 1 60B1C8D1
-P 5850 14000
-F 0 "D610" H 6075 14069 50  0000 L CNN
-F 1 "PESD15VS2UT" H 6075 13978 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 13400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 14025 50  0001 C CNN
-	1    5850 14000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 13800 5200 13800
-Wire Wire Line
-	5200 13850 5200 13800
-Connection ~ 5200 13800
-Wire Wire Line
-	5200 13800 6050 13800
-Wire Wire Line
-	5400 13850 5400 13700
-Wire Wire Line
-	5750 13850 5750 13600
-Connection ~ 5750 13600
-Wire Wire Line
-	5750 13600 5100 13600
-Wire Wire Line
-	5950 13850 5950 13500
-Connection ~ 5950 13500
-Wire Wire Line
-	5950 13500 5100 13500
-Wire Wire Line
-	6050 15300 5950 15300
-Wire Wire Line
-	6050 15400 5750 15400
-Wire Wire Line
-	6050 15500 5400 15500
-$Comp
-L alexios:PESD15VS2UT D613
-U 1 1 60B4ACB5
-P 5300 15800
-F 0 "D613" H 5525 15823 50  0000 L CNN
-F 1 "PESD15VS2UT" H 5525 15778 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5300 15200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5200 15825 50  0001 C CNN
-	1    5300 15800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D614
-U 1 1 60B4ACBB
-P 5850 15800
-F 0 "D614" H 6075 15869 50  0000 L CNN
-F 1 "PESD15VS2UT" H 6075 15778 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 15200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 5750 15825 50  0001 C CNN
-	1    5850 15800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5100 15600 5200 15600
-Wire Wire Line
-	5200 15650 5200 15600
-Connection ~ 5200 15600
-Wire Wire Line
-	5200 15600 6050 15600
-Wire Wire Line
-	5400 15650 5400 15500
-Connection ~ 5400 15500
-Wire Wire Line
-	5400 15500 5100 15500
-Wire Wire Line
-	5750 15650 5750 15400
-Connection ~ 5750 15400
-Wire Wire Line
-	5750 15400 5100 15400
-Wire Wire Line
-	5950 15650 5950 15300
-Connection ~ 5950 15300
-Wire Wire Line
-	5950 15300 5100 15300
-$Comp
-L alexios:MAX232 U602
-U 1 1 60473A98
-P -3500 4100
-F 0 "U602" H -3500 3501 50  0000 C CNN
-F 1 "MAX232" H -3500 3410 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H -3450 3050 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H -3500 4200 50  0001 C CNN
-	1    -3500 4100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9100 11700 9000 11700
-$Comp
-L alexios:PESD15VS2UT D607
-U 1 1 60D6A990
-P 8350 12200
-F 0 "D607" H 8575 12223 50  0000 L CNN
-F 1 "PESD15VS2UT" H 8575 12178 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 11600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 12225 50  0001 C CNN
-	1    8350 12200
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D608
-U 1 1 60D6A996
-P 8900 12200
-F 0 "D608" H 9125 12269 50  0000 L CNN
-F 1 "PESD15VS2UT" H 9125 12178 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 11600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 12225 50  0001 C CNN
-	1    8900 12200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 12000 8250 12000
-Wire Wire Line
-	8250 12050 8250 12000
-Wire Wire Line
-	9000 12050 9000 11700
-Connection ~ 9000 11700
-Wire Wire Line
-	9000 11700 8150 11700
-NoConn ~ 8800 12050
-Wire Wire Line
-	9100 13500 9000 13500
-$Comp
-L alexios:PESD15VS2UT D611
-U 1 1 60D9F210
-P 8350 14000
-F 0 "D611" H 8575 14023 50  0000 L CNN
-F 1 "PESD15VS2UT" H 8575 13978 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 13400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 14025 50  0001 C CNN
-	1    8350 14000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D612
-U 1 1 60D9F216
-P 8900 14000
-F 0 "D612" H 9125 14069 50  0000 L CNN
-F 1 "PESD15VS2UT" H 9125 13978 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 13400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 14025 50  0001 C CNN
-	1    8900 14000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 13800 8250 13800
-Wire Wire Line
-	8250 13850 8250 13800
-Connection ~ 8250 13800
-Wire Wire Line
-	8250 13800 9100 13800
-Wire Wire Line
-	9000 13850 9000 13500
-Connection ~ 9000 13500
-Wire Wire Line
-	9000 13500 8150 13500
-NoConn ~ 8800 13850
-Wire Wire Line
-	9100 15300 9000 15300
-Wire Wire Line
-	9100 15500 8450 15500
-$Comp
-L alexios:PESD15VS2UT D615
-U 1 1 60DD5C2C
-P 8350 15800
-F 0 "D615" H 8575 15823 50  0000 L CNN
-F 1 "PESD15VS2UT" H 8575 15778 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 15200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 15825 50  0001 C CNN
-	1    8350 15800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:PESD15VS2UT D616
-U 1 1 60DD5C32
-P 8900 15800
-F 0 "D616" H 9125 15869 50  0000 L CNN
-F 1 "PESD15VS2UT" H 9125 15778 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8900 15200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8800 15825 50  0001 C CNN
-	1    8900 15800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8150 15600 8250 15600
-Wire Wire Line
-	8250 15650 8250 15600
-Connection ~ 8250 15600
-Wire Wire Line
-	8250 15600 9100 15600
-Wire Wire Line
-	8450 15650 8450 15500
-Wire Wire Line
-	9000 15650 9000 15300
-Connection ~ 9000 15300
-Wire Wire Line
-	9000 15300 8150 15300
-NoConn ~ 8800 15650
-Wire Wire Line
-	8250 12000 9100 12000
-Connection ~ 8250 12000
-Wire Wire Line
-	8450 12050 8450 11900
-Wire Wire Line
-	8450 11900 9100 11900
-Wire Wire Line
-	8150 15500 8450 15500
-Connection ~ 8450 15500
-Wire Wire Line
-	8150 13700 9100 13700
-Wire Wire Line
-	8150 13600 8350 13600
-$Comp
-L Connector:DB25_Female J602
-U 1 1 649907ED
-P 11050 11200
-F 0 "J602" H 11230 11246 50  0000 L CNN
-F 1 "DB25_Female" H 11230 11155 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-25_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 11050 11200 50  0001 C CNN
-F 3 " ~" H 11050 11200 50  0001 C CNN
-	1    11050 11200
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:STC16C554 U?
-U 2 1 613E2CDB
-P 150 12500
-F 0 "U?" H 294 13092 50  0000 C CNN
-F 1 "STC16C554" H 294 13001 50  0000 C CNN
-F 2 "Package_LCC:PLCC-68" H 150 11150 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H 75  12500 50  0001 C CNN
-	2    150  12500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:STC16C554 U?
+L alexios:STC16C554 U602
 U 1 1 613DE706
-P -5650 3000
-F 0 "U?" H -5650 4717 50  0000 C CNN
-F 1 "STC16C554" H -5650 4626 50  0000 C CNN
-F 2 "Package_LCC:PLCC-68" H -5650 1650 50  0001 C CNN
-F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H -5725 3000 50  0001 C CNN
-	1    -5650 3000
+P 2200 3850
+F 0 "U602" H 2200 5542 50  0000 C CNN
+F 1 "STC16C554" H 2200 5451 50  0000 C CNN
+F 2 "Package_LCC:PLCC-68" H 2200 2500 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H 2125 3850 50  0001 C CNN
+	1    2200 3850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3900 12000 3600 12000
-Wire Wire Line
-	3900 11800 3600 11800
-Wire Wire Line
-	3900 11900 3600 11900
-Wire Wire Line
-	3900 11700 3600 11700
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0136
 U 1 1 615E40C0
-P -6300 4150
-F 0 "#PWR?" H -6300 3900 50  0001 C CNN
-F 1 "GND" H -6295 3977 50  0000 C CNN
-F 2 "" H -6300 4150 50  0001 C CNN
-F 3 "" H -6300 4150 50  0001 C CNN
-	1    -6300 4150
+P 1550 5000
+F 0 "#PWR0136" H 1550 4750 50  0001 C CNN
+F 1 "GND" H 1555 4827 50  0000 C CNN
+F 2 "" H 1550 5000 50  0001 C CNN
+F 3 "" H 1550 5000 50  0001 C CNN
+	1    1550 5000
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:CXO_DIP8 X?
+L alexios:CXO_DIP8 X601
 U 1 1 613DDDA4
-P -5750 4800
-F 0 "X?" H -5650 5167 50  0000 C CNN
-F 1 "7.3728 MHz" H -5650 5076 50  0000 C CNN
-F 2 "Oscillator:Oscillator_DIP-8" H -5600 4400 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H -5650 4750 50  0001 C CNN
-	1    -5750 4800
+P 2100 5650
+F 0 "X601" H 2200 6017 50  0000 C CNN
+F 1 "7.3728 MHz" H 2200 5926 50  0000 C CNN
+F 2 "Oscillator:Oscillator_DIP-8" H 2250 5250 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 2200 5600 50  0001 C CNN
+	1    2100 5650
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0140
 U 1 1 613E32DF
-P -5200 4650
-F 0 "#PWR?" H -5200 4500 50  0001 C CNN
-F 1 "+5V" H -5185 4823 50  0000 C CNN
-F 2 "" H -5200 4650 50  0001 C CNN
-F 3 "" H -5200 4650 50  0001 C CNN
-	1    -5200 4650
+P 2650 5500
+F 0 "#PWR0140" H 2650 5350 50  0001 C CNN
+F 1 "+5V" H 2665 5673 50  0000 C CNN
+F 2 "" H 2650 5500 50  0001 C CNN
+F 3 "" H 2650 5500 50  0001 C CNN
+	1    2650 5500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-5250 4700 -5200 4700
+	2600 5550 2650 5550
 Wire Wire Line
-	-5200 4700 -5200 4650
+	2650 5550 2650 5500
 Wire Wire Line
-	-5250 4850 -4950 4850
+	2600 5700 2900 5700
 Wire Wire Line
-	-4950 4850 -4950 3700
+	2900 5700 2900 4550
 Wire Wire Line
-	-4950 3700 -5050 3700
-NoConn ~ -5050 4100
+	2900 4550 2800 4550
+NoConn ~ 2800 4950
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0141
 U 1 1 6143D80A
-P -6100 4650
-F 0 "#PWR?" H -6100 4500 50  0001 C CNN
-F 1 "+5V" H -6085 4823 50  0000 C CNN
-F 2 "" H -6100 4650 50  0001 C CNN
-F 3 "" H -6100 4650 50  0001 C CNN
-	1    -6100 4650
+P 1750 5500
+F 0 "#PWR0141" H 1750 5350 50  0001 C CNN
+F 1 "+5V" H 1765 5673 50  0000 C CNN
+F 2 "" H 1750 5500 50  0001 C CNN
+F 3 "" H 1750 5500 50  0001 C CNN
+	1    1750 5500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-6100 4650 -6100 4700
+	1750 5500 1750 5550
 Wire Wire Line
-	-6100 4700 -6050 4700
+	1750 5550 1800 5550
 $Comp
-L Device:C_Small C?
+L Device:C_Small C611
 U 1 1 6145E382
-P -6100 4850
-F 0 "C?" H -6008 4896 50  0000 L CNN
-F 1 "C_Small" H -6008 4805 50  0000 L CNN
-F 2 "" H -6100 4850 50  0001 C CNN
-F 3 "~" H -6100 4850 50  0001 C CNN
-	1    -6100 4850
+P 1750 5700
+F 0 "C611" H 1842 5746 50  0000 L CNN
+F 1 "100nF" H 1842 5655 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1750 5700 50  0001 C CNN
+F 3 "~" H 1750 5700 50  0001 C CNN
+	1    1750 5700
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	-6100 4700 -6100 4750
-Connection ~ -6100 4700
+	1750 5550 1750 5600
+Connection ~ 1750 5550
 Wire Wire Line
-	-6100 4950 -6100 5000
+	1750 5800 1750 5850
 Wire Wire Line
-	-6100 5000 -6050 5000
+	1750 5850 1800 5850
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0142
 U 1 1 6161F9B9
-P -6100 5050
-F 0 "#PWR?" H -6100 4800 50  0001 C CNN
-F 1 "GND" H -6095 4877 50  0000 C CNN
-F 2 "" H -6100 5050 50  0001 C CNN
-F 3 "" H -6100 5050 50  0001 C CNN
-	1    -6100 5050
+P 1750 5900
+F 0 "#PWR0142" H 1750 5650 50  0001 C CNN
+F 1 "GND" H 1755 5727 50  0000 C CNN
+F 2 "" H 1750 5900 50  0001 C CNN
+F 3 "" H 1750 5900 50  0001 C CNN
+	1    1750 5900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-6100 5000 -6100 5050
-Connection ~ -6100 5000
+	1750 5850 1750 5900
+Connection ~ 1750 5850
 Wire Wire Line
-	-6250 4100 -6300 4100
+	1600 4950 1550 4950
 Wire Wire Line
-	-6300 4100 -6300 4150
-Text Notes -5950 5200 0    50   ~ 0
+	1550 4950 1550 5000
+Text Notes 1900 6050 0    50   ~ 0
 Or 14.7456 MHz.
 Wire Wire Line
-	-6300 1600 -6250 1600
+	1550 2450 1600 2450
 Wire Wire Line
-	-6250 4000 -6300 4000
+	1600 4850 1550 4850
 Wire Wire Line
-	-6300 4000 -6300 4100
-Connection ~ -6300 4100
+	1550 4850 1550 4950
+Connection ~ 1550 4950
 Wire Wire Line
-	-6250 1700 -6750 1700
-Text Label -6750 1700 0    50   ~ 0
+	1600 2550 1050 2550
+Text Label 1100 2550 0    50   ~ 0
 ~RSTHOLD
-Wire Wire Line
-	-6250 1900 -6750 1900
-Wire Wire Line
-	-6250 2000 -6750 2000
-Wire Wire Line
-	-6250 2100 -6750 2100
-Text Label -6750 1900 0    50   ~ 0
+Text Label 1100 2750 0    50   ~ 0
 AB0
-Text Label -6750 2000 0    50   ~ 0
+Text Label 1100 2850 0    50   ~ 0
 AB1
-Text Label -6750 2100 0    50   ~ 0
+Text Label 1100 2950 0    50   ~ 0
 AB2
 Wire Wire Line
-	-6250 2300 -6750 2300
-Wire Wire Line
-	-6250 2400 -6750 2400
-Wire Wire Line
-	-6250 2500 -6750 2500
-Wire Wire Line
-	-6250 2600 -6300 2600
-Wire Wire Line
-	-6250 2700 -6750 2700
-Wire Wire Line
-	-6250 2800 -6750 2800
-Text Label -6750 2700 0    50   ~ 0
+	1600 3450 1550 3450
+Text Label 1100 3550 0    50   ~ 0
 ~R
-Text Label -6750 2800 0    50   ~ 0
+Text Label 1100 3650 0    50   ~ 0
 ~W
-Text Label -6750 2400 0    50   ~ 0
+Text Label 1100 3250 0    50   ~ 0
 AB3
-Text Label -6750 2500 0    50   ~ 0
+Text Label 1100 3350 0    50   ~ 0
 AB4
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0143
 U 1 1 6190A108
-P -6300 2600
-F 0 "#PWR?" H -6300 2450 50  0001 C CNN
-F 1 "+5V" V -6285 2728 50  0000 L CNN
-F 2 "" H -6300 2600 50  0001 C CNN
-F 3 "" H -6300 2600 50  0001 C CNN
-	1    -6300 2600
+P 1550 3450
+F 0 "#PWR0143" H 1550 3300 50  0001 C CNN
+F 1 "+5V" V 1565 3578 50  0000 L CNN
+F 2 "" H 1550 3450 50  0001 C CNN
+F 3 "" H 1550 3450 50  0001 C CNN
+	1    1550 3450
 	0    -1   -1   0   
 $EndComp
-Text Label -6750 2300 0    50   ~ 0
+Text Label 1100 3150 0    50   ~ 0
 ~UARTCS
 Wire Wire Line
-	-5050 1900 -4550 1900
-Text Label -4550 1900 2    50   ~ 0
-~UART-IRQ
-NoConn ~ -5050 2000
-NoConn ~ -5050 2100
-NoConn ~ -5050 2200
+	2800 2750 2900 2750
+NoConn ~ 2800 2850
+NoConn ~ 2800 2950
+NoConn ~ 2800 3050
 Wire Wire Line
-	-6250 3900 -6300 3900
+	1600 4750 1550 4750
 Wire Wire Line
-	-6300 3900 -6300 4000
-Connection ~ -6300 4000
-Wire Wire Line
-	-6250 3000 -6750 3000
-Wire Wire Line
-	-6250 3100 -6750 3100
-Wire Wire Line
-	-6250 3200 -6750 3200
-Wire Wire Line
-	-6250 3300 -6750 3300
-Wire Wire Line
-	-6250 3400 -6750 3400
-Wire Wire Line
-	-6250 3500 -6750 3500
-Wire Wire Line
-	-6250 3600 -6750 3600
-Wire Wire Line
-	-6250 3700 -6750 3700
-Text Label -6750 3000 0    50   ~ 0
+	1550 4750 1550 4850
+Connection ~ 1550 4850
+Text Label 1100 3850 0    50   ~ 0
 DB0
-Text Label -6750 3100 0    50   ~ 0
+Text Label 1100 3950 0    50   ~ 0
 DB1
-Text Label -6750 3200 0    50   ~ 0
+Text Label 1100 4050 0    50   ~ 0
 DB2
-Text Label -6750 3300 0    50   ~ 0
+Text Label 1100 4150 0    50   ~ 0
 DB3
-Text Label -6750 3400 0    50   ~ 0
+Text Label 1100 4250 0    50   ~ 0
 DB4
-Text Label -6750 3500 0    50   ~ 0
+Text Label 1100 4350 0    50   ~ 0
 DB5
-Text Label -6750 3600 0    50   ~ 0
+Text Label 1100 4450 0    50   ~ 0
 DB6
-Text Label -6750 3700 0    50   ~ 0
+Text Label 1100 4550 0    50   ~ 0
 DB7
 Wire Wire Line
-	-6300 1550 -6300 1600
+	1550 2400 1550 2450
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0144
 U 1 1 616A56B4
-P -6300 1550
-F 0 "#PWR?" H -6300 1400 50  0001 C CNN
-F 1 "+5V" H -6285 1723 50  0000 C CNN
-F 2 "" H -6300 1550 50  0001 C CNN
-F 3 "" H -6300 1550 50  0001 C CNN
-	1    -6300 1550
+P 1550 2400
+F 0 "#PWR0144" H 1550 2250 50  0001 C CNN
+F 1 "+5V" H 1565 2573 50  0000 C CNN
+F 2 "" H 1550 2400 50  0001 C CNN
+F 3 "" H 1550 2400 50  0001 C CNN
+	1    1550 2400
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C605
 U 1 1 601E96B1
-P -7050 1950
-F 0 "C605" H -6958 1996 50  0000 L CNN
-F 1 "C_Small" H -6958 1905 50  0000 L CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -7050 1950 50  0001 C CNN
-F 3 "~" H -7050 1950 50  0001 C CNN
-	1    -7050 1950
+P 3000 2300
+F 0 "C605" H 3092 2346 50  0000 L CNN
+F 1 "100nF" H 3092 2255 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3000 2300 50  0001 C CNN
+F 3 "~" H 3000 2300 50  0001 C CNN
+	1    3000 2300
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	-7050 1800 -7050 1850
+	3000 2150 3000 2200
 Wire Wire Line
-	-7050 2050 -7050 2100
-NoConn ~ -5050 2400
-NoConn ~ -5050 2500
-Text Label -4400 2800 0    50   ~ 0
+	3000 2400 3000 2450
+NoConn ~ 2800 3250
+NoConn ~ 2800 3350
+Text Label 3450 3650 0    50   ~ 0
 ~CTS0
-Text Label -4400 2600 0    50   ~ 0
+Text Label 3450 3550 0    50   ~ 0
 ~RTS0
-Text Label -4400 2700 0    50   ~ 0
+Text Label 3450 3450 0    50   ~ 0
 RX0
-Text Label -4400 2500 0    50   ~ 0
+Text Label 3450 3350 0    50   ~ 0
 TX0
 Wire Wire Line
-	-4150 1500 -4150 1550
+	3700 2350 3700 2400
 $Comp
 L power:+5V #PWR0161
 U 1 1 603BCEEF
-P -4150 1500
-F 0 "#PWR0161" H -4150 1350 50  0001 C CNN
-F 1 "+5V" H -4350 1500 50  0000 C CNN
-F 2 "" H -4150 1500 50  0001 C CNN
-F 3 "" H -4150 1500 50  0001 C CNN
-	1    -4150 1500
+P 3700 2350
+F 0 "#PWR0161" H 3700 2200 50  0001 C CNN
+F 1 "+5V" H 3500 2350 50  0000 C CNN
+F 2 "" H 3700 2350 50  0001 C CNN
+F 3 "" H 3700 2350 50  0001 C CNN
+	1    3700 2350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-2900 1550 -2850 1550
+	4950 2400 5000 2400
 Wire Wire Line
-	-2850 1550 -2850 1600
-Connection ~ -2850 1850
+	5000 2400 5000 2450
+Connection ~ 5000 2700
 Wire Wire Line
-	-2850 1800 -2850 1850
+	5000 2650 5000 2700
 Wire Wire Line
-	-2850 1850 -2850 1900
+	5000 2700 5000 2750
 Wire Wire Line
-	-2900 1850 -2850 1850
+	4950 2700 5000 2700
 $Comp
 L Device:CP_Small C602
 U 1 1 603307A2
-P -2850 1700
-F 0 "C602" H -2762 1654 50  0000 L CNN
-F 1 "1μF" H -2762 1745 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -2850 1700 50  0001 C CNN
-F 3 "~" H -2850 1700 50  0001 C CNN
-	1    -2850 1700
+P 5000 2550
+F 0 "C602" H 5088 2504 50  0000 L CNN
+F 1 "1μF" H 5088 2595 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 2550 50  0001 C CNN
+F 3 "~" H 5000 2550 50  0001 C CNN
+	1    5000 2550
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	-2850 2350 -2850 2300
+	5000 3200 5000 3150
 Wire Wire Line
-	-2900 2350 -2850 2350
+	4950 3200 5000 3200
 Wire Wire Line
-	-2850 2050 -2850 2100
+	5000 2900 5000 2950
 Wire Wire Line
-	-2900 2050 -2850 2050
+	4950 2900 5000 2900
 $Comp
 L Device:CP_Small C607
 U 1 1 60320C51
-P -2850 2200
-F 0 "C607" H -2937 2246 50  0000 R CNN
-F 1 "1μF" H -2937 2155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -2850 2200 50  0001 C CNN
-F 3 "~" H -2850 2200 50  0001 C CNN
-	1    -2850 2200
+P 5000 3050
+F 0 "C607" H 4913 3096 50  0000 R CNN
+F 1 "1μF" H 4913 3005 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 3050 50  0001 C CNN
+F 3 "~" H 5000 3050 50  0001 C CNN
+	1    5000 3050
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	-4150 2350 -4150 2300
+	3700 3200 3700 3150
 Wire Wire Line
-	-4100 2350 -4150 2350
+	3750 3200 3700 3200
 Wire Wire Line
-	-4150 2050 -4150 2100
+	3700 2900 3700 2950
 Wire Wire Line
-	-4100 2050 -4150 2050
+	3750 2900 3700 2900
 $Comp
 L Device:CP_Small C606
 U 1 1 60301AED
-P -4150 2200
-F 0 "C606" H -4237 2246 50  0000 R CNN
-F 1 "1μF" H -4237 2155 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -4150 2200 50  0001 C CNN
-F 3 "~" H -4150 2200 50  0001 C CNN
-	1    -4150 2200
+P 3700 3050
+F 0 "C606" H 3613 3096 50  0000 R CNN
+F 1 "1μF" H 3613 3005 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 3050 50  0001 C CNN
+F 3 "~" H 3700 3050 50  0001 C CNN
+	1    3700 3050
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0160
 U 1 1 602FF8BB
-P -2850 1900
-F 0 "#PWR0160" H -2850 1650 50  0001 C CNN
-F 1 "GND" H -2700 1900 50  0000 C CNN
-F 2 "" H -2850 1900 50  0001 C CNN
-F 3 "" H -2850 1900 50  0001 C CNN
-	1    -2850 1900
+P 5000 2750
+F 0 "#PWR0160" H 5000 2500 50  0001 C CNN
+F 1 "GND" H 5150 2750 50  0000 C CNN
+F 2 "" H 5000 2750 50  0001 C CNN
+F 3 "" H 5000 2750 50  0001 C CNN
+	1    5000 2750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-4100 1550 -4150 1550
+	3750 2400 3700 2400
 $Comp
 L Device:CP_Small C601
 U 1 1 602E0136
-P -4150 1800
-F 0 "C601" H -4062 1754 50  0000 L CNN
-F 1 "1μF" H -4062 1845 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H -4150 1800 50  0001 C CNN
-F 3 "~" H -4150 1800 50  0001 C CNN
-	1    -4150 1800
+P 3700 2650
+F 0 "C601" H 3788 2604 50  0000 L CNN
+F 1 "1μF" H 3788 2695 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 2650 50  0001 C CNN
+F 3 "~" H 3700 2650 50  0001 C CNN
+	1    3700 2650
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	-5050 2700 -4850 2700
+	2800 3550 3000 3550
 Wire Wire Line
-	-4850 2700 -4850 2500
+	3000 3550 3000 3350
 Wire Wire Line
-	-4850 2500 -4100 2500
+	3000 3350 3750 3350
 Wire Wire Line
-	-5050 2800 -4750 2800
+	2800 3650 3100 3650
 Wire Wire Line
-	-4750 2800 -4750 2600
+	3100 3650 3100 3450
 Wire Wire Line
-	-4750 2600 -4100 2600
+	3100 3450 3750 3450
 Wire Wire Line
-	-5050 2900 -4650 2900
+	2800 3750 3200 3750
 Wire Wire Line
-	-4650 2900 -4650 2700
+	3200 3750 3200 3550
 Wire Wire Line
-	-4650 2700 -4100 2700
+	3200 3550 3750 3550
 Wire Wire Line
-	-5050 3000 -4550 3000
+	2800 3850 3300 3850
 Wire Wire Line
-	-4550 3000 -4550 2800
+	3300 3850 3300 3650
 Wire Wire Line
-	-4550 2800 -4100 2800
+	3300 3650 3750 3650
 Wire Wire Line
-	-5050 3100 -4550 3100
+	2800 3950 3300 3950
 Wire Wire Line
-	-4550 3100 -4550 4150
+	3300 3950 3300 5000
 Wire Wire Line
-	-4550 4150 -4100 4150
+	3300 5000 3750 5000
 Wire Wire Line
-	-5050 3200 -4650 3200
+	2800 4050 3200 4050
 Wire Wire Line
-	-4650 3200 -4650 4250
+	3200 4050 3200 5100
 Wire Wire Line
-	-4650 4250 -4100 4250
-NoConn ~ -4100 4350
+	3200 5100 3750 5100
 Wire Wire Line
-	-4750 4450 -4750 3400
+	3000 5300 3000 4250
 Wire Wire Line
-	-4750 3400 -5050 3400
+	3000 4250 2800 4250
 Wire Wire Line
-	-4750 4450 -4100 4450
-NoConn ~ -5050 3300
+	3000 5300 3750 5300
 Wire Wire Line
-	-750 2550 -1250 2550
+	6750 3950 6250 3950
 Wire Wire Line
-	-750 2750 -1250 2750
+	6750 4150 6250 4150
 Wire Wire Line
-	-750 2950 -1250 2950
+	6750 4350 6250 4350
 Wire Wire Line
-	-750 3150 -1250 3150
+	6750 4550 6250 4550
 Wire Wire Line
-	-750 2650 -1250 2650
+	6750 4050 6250 4050
 Wire Wire Line
-	-750 2850 -1250 2850
+	6750 4250 6250 4250
 Wire Wire Line
-	-750 3050 -1250 3050
+	6750 4450 6250 4450
 Wire Wire Line
-	-750 3250 -1250 3250
-Text Label -1250 2550 0    50   ~ 0
+	6750 4650 6250 4650
+Text Label 6250 3950 0    50   ~ 0
 RS-DCDA
-Text Label -1250 2750 0    50   ~ 0
+Text Label 6250 4150 0    50   ~ 0
 RS-TXA
-Text Label -1250 2950 0    50   ~ 0
+Text Label 6250 4350 0    50   ~ 0
 RS-RXA
-Text Label -1250 3150 0    50   ~ 0
+Text Label 6250 4550 0    50   ~ 0
 RS-DTRA
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0145
 U 1 1 6242A6E0
-P -800 3600
-F 0 "#PWR?" H -800 3350 50  0001 C CNN
-F 1 "GND" H -795 3427 50  0000 C CNN
-F 2 "" H -800 3600 50  0001 C CNN
-F 3 "" H -800 3600 50  0001 C CNN
-	1    -800 3600
+P 6700 5000
+F 0 "#PWR0145" H 6700 4750 50  0001 C CNN
+F 1 "GND" H 6705 4827 50  0000 C CNN
+F 2 "" H 6700 5000 50  0001 C CNN
+F 3 "" H 6700 5000 50  0001 C CNN
+	1    6700 5000
 	1    0    0    -1  
 $EndComp
-Text Label -1250 2650 0    50   ~ 0
+Text Label 6250 4050 0    50   ~ 0
 RS-DSRA
-Text Label -1250 2850 0    50   ~ 0
+Text Label 6250 4250 0    50   ~ 0
 RS-CTSA
-Text Label -1250 3050 0    50   ~ 0
+Text Label 6250 4450 0    50   ~ 0
 RS-RTSA
-NoConn ~ -1250 3250
-Text Label -1250 3250 0    50   ~ 0
+Text Label 6250 4650 0    50   ~ 0
 RS-RIA
 Wire Wire Line
-	-750 3350 -800 3350
+	6750 4750 6700 4750
 Wire Wire Line
-	-800 3350 -800 3600
-Text Notes -4050 5100 0    50   ~ 0
+	6700 4750 6700 5000
+Text Notes 3100 1900 0    50   ~ 0
 Look at this for ESD protection: https://www.acmesystems.it/pcb_serial
 Wire Wire Line
-	-2900 4450 -1950 4450
+	4950 5300 5900 5300
 Wire Wire Line
-	-2900 4150 -1950 4150
+	4950 5000 5900 5000
 Wire Wire Line
-	-2900 4250 -1950 4250
+	4950 5100 5900 5100
 Wire Wire Line
-	-2900 2500 -1950 2500
+	4950 3350 5900 3350
 Wire Wire Line
-	-2900 2600 -1950 2600
+	4950 3450 5900 3450
 Wire Wire Line
-	-2900 2800 -1950 2800
+	4950 3650 5900 3650
 Wire Wire Line
-	-2900 2700 -1950 2700
-NoConn ~ -2900 4350
+	4950 3550 5900 3550
 $Comp
-L alexios:DE9-Female-with-Shield J?
+L alexios:DE9-Female-with-Shield J601
 U 1 1 629710E4
-P -450 2950
-F 0 "J?" H -256 2941 50  0000 L CNN
-F 1 "DE9-Female-with-Shield" H -256 2850 50  0000 L CNN
-F 2 "" H -450 2950 50  0001 C CNN
-F 3 " ~" H -450 2950 50  0001 C CNN
-	1    -450 2950
+P 7050 4350
+F 0 "J601" H 7244 4341 50  0000 L CNN
+F 1 "DE9-Female-with-Shield" H 7244 4250 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 7050 4350 50  0001 C CNN
+F 3 " ~" H 7050 4350 50  0001 C CNN
+	1    7050 4350
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:Earth #PWR?
+L power:Earth #PWR0146
 U 1 1 629A630C
-P -450 3600
-F 0 "#PWR?" H -450 3350 50  0001 C CNN
-F 1 "Earth" H -450 3450 50  0001 C CNN
-F 2 "" H -450 3600 50  0001 C CNN
-F 3 "~" H -450 3600 50  0001 C CNN
-	1    -450 3600
+P 7050 5000
+F 0 "#PWR0146" H 7050 4750 50  0001 C CNN
+F 1 "Earth" H 7050 4850 50  0001 C CNN
+F 2 "" H 7050 5000 50  0001 C CNN
+F 3 "~" H 7050 5000 50  0001 C CNN
+	1    7050 5000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-450 3600 -450 3550
+	7050 5000 7050 4950
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0147
 U 1 1 62A05D5C
-P -4150 1900
-F 0 "#PWR?" H -4150 1650 50  0001 C CNN
-F 1 "GND" H -4228 1863 50  0000 R CNN
-F 2 "" H -4150 1900 50  0001 C CNN
-F 3 "" H -4150 1900 50  0001 C CNN
-	1    -4150 1900
+P 3700 2750
+F 0 "#PWR0147" H 3700 2500 50  0001 C CNN
+F 1 "GND" H 3622 2713 50  0000 R CNN
+F 2 "" H 3700 2750 50  0001 C CNN
+F 3 "" H 3700 2750 50  0001 C CNN
+	1    3700 2750
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:MAX232 U601
 U 1 1 6016D87B
-P -3500 2450
-F 0 "U601" H -3500 3617 50  0000 C CNN
-F 1 "MAX232" H -3500 3526 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H -3450 1400 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H -3500 2550 50  0001 C CNN
-	1    -3500 2450
+P 4350 3300
+F 0 "U601" H 4350 4467 50  0000 C CNN
+F 1 "MAX232" H 4350 4376 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4400 2250 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4350 3400 50  0001 C CNN
+	1    4350 3300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-4100 1650 -4150 1650
+	3750 2500 3700 2500
 Wire Wire Line
-	-4150 1650 -4150 1700
-Text Notes -4100 1200 0    50   ~ 0
+	3700 2500 3700 2550
+Text Notes 3750 2050 0    50   ~ 0
 Tantalum or ceramic capacitors.
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0148
 U 1 1 62A60075
-P -800 2100
-F 0 "#PWR?" H -800 1850 50  0001 C CNN
-F 1 "GND" H -795 1927 50  0000 C CNN
-F 2 "" H -800 2100 50  0001 C CNN
-F 3 "" H -800 2100 50  0001 C CNN
-	1    -800 2100
+P 6700 3500
+F 0 "#PWR0148" H 6700 3250 50  0001 C CNN
+F 1 "GND" H 6705 3327 50  0000 C CNN
+F 2 "" H 6700 3500 50  0001 C CNN
+F 3 "" H 6700 3500 50  0001 C CNN
+	1    6700 3500
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:Earth #PWR?
+L power:Earth #PWR0153
 U 1 1 62A6007B
-P -500 2100
-F 0 "#PWR?" H -500 1850 50  0001 C CNN
-F 1 "Earth" H -500 1950 50  0001 C CNN
-F 2 "" H -500 2100 50  0001 C CNN
-F 3 "~" H -500 2100 50  0001 C CNN
-	1    -500 2100
+P 7000 3500
+F 0 "#PWR0153" H 7000 3250 50  0001 C CNN
+F 1 "Earth" H 7000 3350 50  0001 C CNN
+F 2 "" H 7000 3500 50  0001 C CNN
+F 3 "~" H 7000 3500 50  0001 C CNN
+	1    7000 3500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C603
 U 1 1 62A8BF27
-P -650 2050
-F 0 "C?" V -879 2050 50  0000 C CNN
-F 1 "1nF 3kV" V -788 2050 50  0000 C CNN
-F 2 "" H -650 2050 50  0001 C CNN
-F 3 "~" H -650 2050 50  0001 C CNN
-	1    -650 2050
+P 6850 3450
+F 0 "C603" V 6621 3450 50  0000 C CNN
+F 1 "1nF 3kV" V 6712 3450 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6850 3450 50  0001 C CNN
+F 3 "~" H 6850 3450 50  0001 C CNN
+	1    6850 3450
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	-800 2100 -800 2050
+	6700 3500 6700 3450
 Wire Wire Line
-	-800 2050 -750 2050
+	6700 3450 6750 3450
 Wire Wire Line
-	-550 2050 -500 2050
+	6950 3450 7000 3450
 Wire Wire Line
-	-500 2050 -500 2100
+	7000 3450 7000 3500
+Wire Wire Line
+	3700 4000 3700 4050
+$Comp
+L power:+5V #PWR0154
+U 1 1 62E195A1
+P 3700 4000
+F 0 "#PWR0154" H 3700 3850 50  0001 C CNN
+F 1 "+5V" H 3500 4000 50  0000 C CNN
+F 2 "" H 3700 4000 50  0001 C CNN
+F 3 "" H 3700 4000 50  0001 C CNN
+	1    3700 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 4050 5000 4050
+Wire Wire Line
+	5000 4050 5000 4100
+Connection ~ 5000 4350
+Wire Wire Line
+	5000 4300 5000 4350
+Wire Wire Line
+	5000 4350 5000 4400
+Wire Wire Line
+	4950 4350 5000 4350
+$Comp
+L Device:CP_Small C604
+U 1 1 62E195AD
+P 5000 4200
+F 0 "C604" H 5088 4154 50  0000 L CNN
+F 1 "1μF" H 5088 4245 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 4200 50  0001 C CNN
+F 3 "~" H 5000 4200 50  0001 C CNN
+	1    5000 4200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5000 4850 5000 4800
+Wire Wire Line
+	4950 4850 5000 4850
+Wire Wire Line
+	5000 4550 5000 4600
+Wire Wire Line
+	4950 4550 5000 4550
+$Comp
+L Device:CP_Small C610
+U 1 1 62E195B7
+P 5000 4700
+F 0 "C610" H 4913 4746 50  0000 R CNN
+F 1 "1μF" H 4913 4655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 4700 50  0001 C CNN
+F 3 "~" H 5000 4700 50  0001 C CNN
+	1    5000 4700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 4850 3700 4800
+Wire Wire Line
+	3750 4850 3700 4850
+Wire Wire Line
+	3700 4550 3700 4600
+Wire Wire Line
+	3750 4550 3700 4550
+$Comp
+L Device:CP_Small C609
+U 1 1 62E195C1
+P 3700 4700
+F 0 "C609" H 3613 4746 50  0000 R CNN
+F 1 "1μF" H 3613 4655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 4700 50  0001 C CNN
+F 3 "~" H 3700 4700 50  0001 C CNN
+	1    3700 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0162
+U 1 1 62E195C7
+P 5000 4400
+F 0 "#PWR0162" H 5000 4150 50  0001 C CNN
+F 1 "GND" H 5150 4400 50  0000 C CNN
+F 2 "" H 5000 4400 50  0001 C CNN
+F 3 "" H 5000 4400 50  0001 C CNN
+	1    5000 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 4050 3700 4050
+$Comp
+L Device:CP_Small C608
+U 1 1 62E195CE
+P 3700 4300
+F 0 "C608" H 3788 4254 50  0000 L CNN
+F 1 "1μF" H 3788 4345 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 4300 50  0001 C CNN
+F 3 "~" H 3700 4300 50  0001 C CNN
+	1    3700 4300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0163
+U 1 1 62E195D4
+P 3700 4400
+F 0 "#PWR0163" H 3700 4150 50  0001 C CNN
+F 1 "GND" H 3622 4363 50  0000 R CNN
+F 2 "" H 3700 4400 50  0001 C CNN
+F 3 "" H 3700 4400 50  0001 C CNN
+	1    3700 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:MAX232 U603
+U 1 1 62E195DA
+P 4350 4950
+F 0 "U603" H 4350 4351 50  0000 C CNN
+F 1 "MAX232" H 4350 4260 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4400 3900 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4350 5050 50  0001 C CNN
+	1    4350 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 4150 3700 4150
+Wire Wire Line
+	3700 4150 3700 4200
+Text Label 3450 8800 0    50   ~ 0
+~DTR1
+Text Label 3450 8900 0    50   ~ 0
+~DSR1
+Text Label 3450 9100 0    50   ~ 0
+~CD1
+Text Label 3450 7450 0    50   ~ 0
+~CTS1
+Text Label 3450 7250 0    50   ~ 0
+RX1
+Text Label 3450 7350 0    50   ~ 0
+~RTS1
+Text Label 3450 7150 0    50   ~ 0
+TX1
+Wire Wire Line
+	3700 6150 3700 6200
+$Comp
+L power:+5V #PWR0164
+U 1 1 62E8B19F
+P 3700 6150
+F 0 "#PWR0164" H 3700 6000 50  0001 C CNN
+F 1 "+5V" H 3500 6150 50  0000 C CNN
+F 2 "" H 3700 6150 50  0001 C CNN
+F 3 "" H 3700 6150 50  0001 C CNN
+	1    3700 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 6200 5000 6200
+Wire Wire Line
+	5000 6200 5000 6250
+Connection ~ 5000 6500
+Wire Wire Line
+	5000 6450 5000 6500
+Wire Wire Line
+	5000 6500 5000 6550
+Wire Wire Line
+	4950 6500 5000 6500
+$Comp
+L Device:CP_Small C612
+U 1 1 62E8B1AB
+P 5000 6350
+F 0 "C612" H 5088 6304 50  0000 L CNN
+F 1 "1μF" H 5088 6395 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 6350 50  0001 C CNN
+F 3 "~" H 5000 6350 50  0001 C CNN
+	1    5000 6350
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5000 7000 5000 6950
+Wire Wire Line
+	4950 7000 5000 7000
+Wire Wire Line
+	5000 6700 5000 6750
+Wire Wire Line
+	4950 6700 5000 6700
+$Comp
+L Device:CP_Small C615
+U 1 1 62E8B1B5
+P 5000 6850
+F 0 "C615" H 4913 6896 50  0000 R CNN
+F 1 "1μF" H 4913 6805 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 6850 50  0001 C CNN
+F 3 "~" H 5000 6850 50  0001 C CNN
+	1    5000 6850
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 7000 3700 6950
+Wire Wire Line
+	3750 7000 3700 7000
+Wire Wire Line
+	3700 6700 3700 6750
+Wire Wire Line
+	3750 6700 3700 6700
+$Comp
+L Device:CP_Small C614
+U 1 1 62E8B1BF
+P 3700 6850
+F 0 "C614" H 3613 6896 50  0000 R CNN
+F 1 "1μF" H 3613 6805 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 6850 50  0001 C CNN
+F 3 "~" H 3700 6850 50  0001 C CNN
+	1    3700 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0165
+U 1 1 62E8B1C5
+P 5000 6550
+F 0 "#PWR0165" H 5000 6300 50  0001 C CNN
+F 1 "GND" H 5150 6550 50  0000 C CNN
+F 2 "" H 5000 6550 50  0001 C CNN
+F 3 "" H 5000 6550 50  0001 C CNN
+	1    5000 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 6200 3700 6200
+$Comp
+L Device:CP_Small C613
+U 1 1 62E8B1CC
+P 3700 6450
+F 0 "C613" H 3788 6404 50  0000 L CNN
+F 1 "1μF" H 3788 6495 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 6450 50  0001 C CNN
+F 3 "~" H 3700 6450 50  0001 C CNN
+	1    3700 6450
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3300 8800 3750 8800
+Wire Wire Line
+	3200 8900 3750 8900
+Wire Wire Line
+	3000 9100 3750 9100
+Wire Wire Line
+	4950 9100 5900 9100
+Wire Wire Line
+	4950 8800 5900 8800
+Wire Wire Line
+	4950 8900 5900 8900
+Wire Wire Line
+	4950 7150 5900 7150
+Wire Wire Line
+	4950 7250 5900 7250
+Wire Wire Line
+	4950 7450 5900 7450
+Wire Wire Line
+	4950 7350 5900 7350
+$Comp
+L power:GND #PWR0166
+U 1 1 62E8B1E2
+P 3700 6550
+F 0 "#PWR0166" H 3700 6300 50  0001 C CNN
+F 1 "GND" H 3622 6513 50  0000 R CNN
+F 2 "" H 3700 6550 50  0001 C CNN
+F 3 "" H 3700 6550 50  0001 C CNN
+	1    3700 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:MAX232 U604
+U 1 1 62E8B1E8
+P 4350 7100
+F 0 "U604" H 4350 8267 50  0000 C CNN
+F 1 "MAX232" H 4350 8176 50  0000 C CNN
+F 2 "Package_LCC:PLCC-68_THT-Socket" H 4400 6050 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4350 7200 50  0001 C CNN
+	1    4350 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 6300 3700 6300
+Wire Wire Line
+	3700 6300 3700 6350
+Wire Wire Line
+	3700 7800 3700 7850
+$Comp
+L power:+5V #PWR0167
+U 1 1 62E8B1F1
+P 3700 7800
+F 0 "#PWR0167" H 3700 7650 50  0001 C CNN
+F 1 "+5V" H 3500 7800 50  0000 C CNN
+F 2 "" H 3700 7800 50  0001 C CNN
+F 3 "" H 3700 7800 50  0001 C CNN
+	1    3700 7800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 7850 5000 7850
+Wire Wire Line
+	5000 7850 5000 7900
+Connection ~ 5000 8150
+Wire Wire Line
+	5000 8100 5000 8150
+Wire Wire Line
+	5000 8150 5000 8200
+Wire Wire Line
+	4950 8150 5000 8150
+$Comp
+L Device:CP_Small C616
+U 1 1 62E8B1FD
+P 5000 8000
+F 0 "C616" H 5088 7954 50  0000 L CNN
+F 1 "1μF" H 5088 8045 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 8000 50  0001 C CNN
+F 3 "~" H 5000 8000 50  0001 C CNN
+	1    5000 8000
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	5000 8650 5000 8600
+Wire Wire Line
+	4950 8650 5000 8650
+Wire Wire Line
+	5000 8350 5000 8400
+Wire Wire Line
+	4950 8350 5000 8350
+$Comp
+L Device:CP_Small C619
+U 1 1 62E8B207
+P 5000 8500
+F 0 "C619" H 4913 8546 50  0000 R CNN
+F 1 "1μF" H 4913 8455 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 5000 8500 50  0001 C CNN
+F 3 "~" H 5000 8500 50  0001 C CNN
+	1    5000 8500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 8650 3700 8600
+Wire Wire Line
+	3750 8650 3700 8650
+Wire Wire Line
+	3700 8350 3700 8400
+Wire Wire Line
+	3750 8350 3700 8350
+$Comp
+L Device:CP_Small C618
+U 1 1 62E8B211
+P 3700 8500
+F 0 "C618" H 3613 8546 50  0000 R CNN
+F 1 "1μF" H 3613 8455 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 8500 50  0001 C CNN
+F 3 "~" H 3700 8500 50  0001 C CNN
+	1    3700 8500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0168
+U 1 1 62E8B217
+P 5000 8200
+F 0 "#PWR0168" H 5000 7950 50  0001 C CNN
+F 1 "GND" H 5150 8200 50  0000 C CNN
+F 2 "" H 5000 8200 50  0001 C CNN
+F 3 "" H 5000 8200 50  0001 C CNN
+	1    5000 8200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 7850 3700 7850
+$Comp
+L Device:CP_Small C617
+U 1 1 62E8B21E
+P 3700 8100
+F 0 "C617" H 3788 8054 50  0000 L CNN
+F 1 "1μF" H 3788 8145 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3700 8100 50  0001 C CNN
+F 3 "~" H 3700 8100 50  0001 C CNN
+	1    3700 8100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0169
+U 1 1 62E8B224
+P 3700 8200
+F 0 "#PWR0169" H 3700 7950 50  0001 C CNN
+F 1 "GND" H 3622 8163 50  0000 R CNN
+F 2 "" H 3700 8200 50  0001 C CNN
+F 3 "" H 3700 8200 50  0001 C CNN
+	1    3700 8200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 7950 3700 7950
+Wire Wire Line
+	3700 7950 3700 8000
+Wire Wire Line
+	2950 7150 3750 7150
+Wire Wire Line
+	2950 7250 3750 7250
+Wire Wire Line
+	2950 7350 3750 7350
+Wire Wire Line
+	2950 7450 3750 7450
+Wire Wire Line
+	2950 7550 3300 7550
+Wire Wire Line
+	3300 7550 3300 8800
+Wire Wire Line
+	3200 8900 3200 7650
+Wire Wire Line
+	3200 7650 2950 7650
+Wire Wire Line
+	2950 7850 3000 7850
+Wire Wire Line
+	3000 7850 3000 9100
+$Comp
+L alexios:STC16C554 U602
+U 2 1 613E2CDB
+P 2450 7450
+F 0 "U602" H 2569 8017 50  0000 C CNN
+F 1 "STC16C554" H 2569 7926 50  0000 C CNN
+F 2 "Package_LCC:PLCC-68" H 2450 6100 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H 2375 7450 50  0001 C CNN
+	2    2450 7450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 7750 3100 7750
+Wire Wire Line
+	3100 7750 3100 9000
+Wire Wire Line
+	3100 9000 3750 9000
+$Comp
+L alexios:MAX232 U605
+U 1 1 62E8B22A
+P 4350 8750
+F 0 "U605" H 4350 8151 50  0000 C CNN
+F 1 "MAX232" H 4350 8060 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 4400 7700 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 4350 8850 50  0001 C CNN
+	1    4350 8750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 9000 5900 9000
+Wire Wire Line
+	2800 4150 3100 4150
+Wire Wire Line
+	3100 4150 3100 5200
+Wire Wire Line
+	3100 5200 3750 5200
+Text Label 3450 5200 0    50   ~ 0
+~RI0
+Wire Wire Line
+	4950 5200 5900 5200
+Text Label 5900 3350 2    50   ~ 0
+RS-TXA
+Text Label 5900 3450 2    50   ~ 0
+RS-RXA
+Text Label 5900 3550 2    50   ~ 0
+RS-RTSA
+Text Label 5900 3650 2    50   ~ 0
+RS-CTSA
+Text Label 5900 5000 2    50   ~ 0
+RS-DTRA
+Text Label 5900 5100 2    50   ~ 0
+RS-DSRA
+Text Label 5900 5200 2    50   ~ 0
+RS-RIA
+Text Label 5900 5300 2    50   ~ 0
+RS-DCDA
+Wire Wire Line
+	6750 7750 6250 7750
+Wire Wire Line
+	6750 7950 6250 7950
+Wire Wire Line
+	6750 8150 6250 8150
+Wire Wire Line
+	6750 8350 6250 8350
+Wire Wire Line
+	6750 7850 6250 7850
+Wire Wire Line
+	6750 8050 6250 8050
+Wire Wire Line
+	6750 8250 6250 8250
+Wire Wire Line
+	6750 8450 6250 8450
+Text Label 6250 7750 0    50   ~ 0
+RS-DCDB
+Text Label 6250 7950 0    50   ~ 0
+RS-TXB
+Text Label 6250 8150 0    50   ~ 0
+RS-RXB
+Text Label 6250 8350 0    50   ~ 0
+RS-DTRB
+$Comp
+L power:GND #PWR0170
+U 1 1 62F11AB7
+P 6700 8800
+F 0 "#PWR0170" H 6700 8550 50  0001 C CNN
+F 1 "GND" H 6705 8627 50  0000 C CNN
+F 2 "" H 6700 8800 50  0001 C CNN
+F 3 "" H 6700 8800 50  0001 C CNN
+	1    6700 8800
+	1    0    0    -1  
+$EndComp
+Text Label 6250 7850 0    50   ~ 0
+RS-DSRB
+Text Label 6250 8050 0    50   ~ 0
+RS-CTSB
+Text Label 6250 8250 0    50   ~ 0
+RS-RTSB
+Text Label 6250 8450 0    50   ~ 0
+RS-RIB
+Wire Wire Line
+	6750 8550 6700 8550
+Wire Wire Line
+	6700 8550 6700 8800
+$Comp
+L alexios:DE9-Female-with-Shield J602
+U 1 1 62F11AC3
+P 7050 8150
+F 0 "J602" H 7244 8141 50  0000 L CNN
+F 1 "DE9-Female-with-Shield" H 7244 8050 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 7050 8150 50  0001 C CNN
+F 3 " ~" H 7050 8150 50  0001 C CNN
+	1    7050 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:Earth #PWR0171
+U 1 1 62F11AC9
+P 7050 8800
+F 0 "#PWR0171" H 7050 8550 50  0001 C CNN
+F 1 "Earth" H 7050 8650 50  0001 C CNN
+F 2 "" H 7050 8800 50  0001 C CNN
+F 3 "~" H 7050 8800 50  0001 C CNN
+	1    7050 8800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 8800 7050 8750
+Text Label 3450 9000 0    50   ~ 0
+~RI1
+Text Label 5900 9100 2    50   ~ 0
+RS-DCDB
+Text Label 5900 8900 2    50   ~ 0
+RS-DSRB
+Text Label 5900 7150 2    50   ~ 0
+RS-TXB
+Text Label 5900 7250 2    50   ~ 0
+RS-RXB
+Text Label 5900 7350 2    50   ~ 0
+RS-RTSB
+Text Label 5900 7450 2    50   ~ 0
+RS-CTSB
+Text Label 5900 8800 2    50   ~ 0
+RS-DTRB
+Text Label 5900 9000 2    50   ~ 0
+RS-RIB
+$Comp
+L alexios:STC16C554 U602
+U 4 1 62F7A029
+P 10350 8000
+F 0 "U602" H 10494 8592 50  0000 C CNN
+F 1 "STC16C554" H 10494 8501 50  0000 C CNN
+F 2 "Package_LCC:PLCC-68" H 10350 6650 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H 10275 8000 50  0001 C CNN
+	4    10350 8000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:FT231XS U606
+U 1 1 62FB703B
+P 11700 4200
+F 0 "U606" H 11750 5117 50  0000 C CNN
+F 1 "FT231XS" H 11750 5026 50  0000 C CNN
+F 2 "Housings_SSOP:SSOP-20_4.4x6.5mm_Pitch0.65mm" H 11800 4200 50  0001 C CNN
+F 3 "https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf" H 11800 4200 50  0001 C CNN
+	1    11700 4200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C620
+U 1 1 62FDA54D
+P 12350 3950
+F 0 "C620" H 12442 3996 50  0000 L CNN
+F 1 "100nF" H 12442 3905 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12350 3950 50  0001 C CNN
+F 3 "~" H 12350 3950 50  0001 C CNN
+	1    12350 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 3850 12350 3800
+$Comp
+L power:GND #PWR0172
+U 1 1 62FE780A
+P 12350 4050
+F 0 "#PWR0172" H 12350 3800 50  0001 C CNN
+F 1 "GND" H 12200 4000 50  0000 C CNN
+F 2 "" H 12350 4050 50  0001 C CNN
+F 3 "" H 12350 4050 50  0001 C CNN
+	1    12350 4050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R601
+U 1 1 630329D8
+P 12750 4400
+F 0 "R601" V 12554 4400 50  0000 C CNN
+F 1 "27Ω" V 12645 4400 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12750 4400 50  0001 C CNN
+F 3 "~" H 12750 4400 50  0001 C CNN
+	1    12750 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R602
+U 1 1 6303342B
+P 12750 4500
+F 0 "R602" V 12854 4500 50  0000 C CNN
+F 1 "27Ω" V 12945 4500 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12750 4500 50  0001 C CNN
+F 3 "~" H 12750 4500 50  0001 C CNN
+	1    12750 4500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	12300 4400 12650 4400
+Wire Wire Line
+	12300 4500 12650 4500
+Wire Wire Line
+	12850 4500 12900 4500
+Text Label 13000 4400 0    50   ~ 0
+D+
+Text Label 13000 4500 0    50   ~ 0
+D-
+$Comp
+L Device:C_Small C622
+U 1 1 6306D7D9
+P 12900 4650
+F 0 "C622" H 12950 4550 50  0000 L CNN
+F 1 "47pF" H 12950 4450 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12900 4650 50  0001 C CNN
+F 3 "~" H 12900 4650 50  0001 C CNN
+	1    12900 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12900 4550 12900 4500
+Wire Wire Line
+	12900 4500 13750 4500
+Wire Wire Line
+	13200 4550 13200 4400
+Wire Wire Line
+	13200 4400 13750 4400
+Wire Wire Line
+	12850 4400 13200 4400
+$Comp
+L power:GND #PWR0173
+U 1 1 630B24EA
+P 12750 4050
+F 0 "#PWR0173" H 12750 3800 50  0001 C CNN
+F 1 "GND" H 12600 4000 50  0000 C CNN
+F 2 "" H 12750 4050 50  0001 C CNN
+F 3 "" H 12750 4050 50  0001 C CNN
+	1    12750 4050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C624
+U 1 1 630C1A13
+P 13500 4650
+F 0 "C624" H 13550 4550 50  0000 L CNN
+F 1 "4.7µF" H 13550 4450 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 13500 4650 50  0001 C CNN
+F 3 "~" H 13500 4650 50  0001 C CNN
+	1    13500 4650
+	1    0    0    -1  
+$EndComp
+Connection ~ 12900 4500
+Connection ~ 13200 4400
+Wire Wire Line
+	12300 3800 12350 3800
+Wire Wire Line
+	12300 5000 12350 5000
+Wire Wire Line
+	12300 4900 12350 4900
+Wire Wire Line
+	12350 4900 12350 5000
+Connection ~ 12350 5000
+Wire Wire Line
+	12350 5000 12400 5000
+Wire Wire Line
+	12400 5050 12400 5000
+Connection ~ 12400 5000
+Wire Wire Line
+	12400 5000 12900 5000
+Connection ~ 12900 5000
+Wire Wire Line
+	12900 5000 13200 5000
+Wire Wire Line
+	12900 4750 12900 5000
+Wire Wire Line
+	13200 4750 13200 5000
+$Comp
+L power:GND #PWR0174
+U 1 1 630C2C89
+P 12400 5050
+F 0 "#PWR0174" H 12400 4800 50  0001 C CNN
+F 1 "GND" H 12405 4877 50  0000 C CNN
+F 2 "" H 12400 5050 50  0001 C CNN
+F 3 "" H 12400 5050 50  0001 C CNN
+	1    12400 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11000 3600 10550 3600
+Text Label 10550 3600 0    50   ~ 0
+~RSTHOLD
+$Comp
+L Connector:USB_OTG J603
+U 1 1 6327CB13
+P 14050 4400
+F 0 "J603" H 14100 4900 50  0000 R CNN
+F 1 "USB_OTG" H 14250 4800 50  0000 R CNN
+F 2 "Connector_USB:USB_B_Lumberg_2411_02_Horizontal" H 14200 4350 50  0001 C CNN
+F 3 " ~" H 14200 4350 50  0001 C CNN
+	1    14050 4400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0175
+U 1 1 632EAC22
+P 14050 4800
+F 0 "#PWR0175" H 14050 4550 50  0001 C CNN
+F 1 "GND" H 14055 4627 50  0000 C CNN
+F 2 "" H 14050 4800 50  0001 C CNN
+F 3 "" H 14050 4800 50  0001 C CNN
+	1    14050 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:Earth #PWR0177
+U 1 1 632F21D7
+P 14150 4800
+F 0 "#PWR0177" H 14150 4550 50  0001 C CNN
+F 1 "Earth" H 14150 4650 50  0001 C CNN
+F 2 "" H 14150 4800 50  0001 C CNN
+F 3 "~" H 14150 4800 50  0001 C CNN
+	1    14150 4800
+	1    0    0    -1  
+$EndComp
+NoConn ~ 13750 4600
+Wire Wire Line
+	13500 4750 13500 5000
+Wire Wire Line
+	13500 5000 13200 5000
+Connection ~ 13200 5000
+Wire Wire Line
+	13500 4200 13500 4550
+$Comp
+L Device:C_Small C621
+U 1 1 633A5C01
+P 12750 3950
+F 0 "C621" H 12842 3996 50  0000 L CNN
+F 1 "100nF" H 12842 3905 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12750 3950 50  0001 C CNN
+F 3 "~" H 12750 3950 50  0001 C CNN
+	1    12750 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12750 3600 12750 3850
+Wire Wire Line
+	12300 3600 12350 3600
+Wire Wire Line
+	12300 3700 12350 3700
+Connection ~ 13500 4200
+Wire Wire Line
+	12350 3700 12350 3600
+Connection ~ 12350 3600
+Wire Wire Line
+	12350 3600 12750 3600
+Wire Wire Line
+	12750 3600 13500 3600
+Wire Wire Line
+	13500 3600 13500 4200
+Connection ~ 12750 3600
+Wire Wire Line
+	13500 4200 13750 4200
+$Comp
+L Device:C_Small C623
+U 1 1 63417CDF
+P 13200 4650
+F 0 "C623" H 13250 4550 50  0000 L CNN
+F 1 "47pF" H 13250 4450 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 13200 4650 50  0001 C CNN
+F 3 "~" H 13200 4650 50  0001 C CNN
+	1    13200 4650
+	1    0    0    -1  
+$EndComp
+Text Notes 12300 3550 0    50   ~ 0
+USB-Powered FTDI IC
+Text Label 12350 4400 0    50   ~ 0
+USBD+
+Text Label 12350 4500 0    50   ~ 0
+USBD-
+Wire Wire Line
+	10700 3800 10800 3900
+Wire Wire Line
+	10800 3900 11000 3900
+Wire Wire Line
+	10700 3900 10800 3800
+Wire Wire Line
+	10800 3800 11000 3800
+Wire Wire Line
+	10700 4000 10800 4100
+Wire Wire Line
+	10800 4100 11000 4100
+Wire Wire Line
+	10400 4000 10700 4000
+Wire Wire Line
+	10800 4000 10700 4100
+Wire Wire Line
+	10800 4000 11000 4000
+Wire Wire Line
+	10400 4100 10700 4100
+Wire Wire Line
+	10700 4200 10800 4300
+Wire Wire Line
+	10400 4200 10700 4200
+Wire Wire Line
+	10700 4300 10800 4200
+Wire Wire Line
+	10800 4200 11000 4200
+Wire Wire Line
+	10400 4300 10650 4300
+Wire Wire Line
+	10900 4300 10900 4500
+Wire Wire Line
+	10650 4500 10400 4500
+Wire Wire Line
+	10650 4300 10650 4500
+Connection ~ 10650 4300
+Wire Wire Line
+	10650 4300 10700 4300
+$Comp
+L alexios:STC16C554 U602
+U 3 1 62F76EF9
+P 9900 4100
+F 0 "U602" H 10044 4692 50  0000 C CNN
+F 1 "STC16C554" H 10044 4601 50  0000 C CNN
+F 2 "Package_LCC:PLCC-68" H 9900 2750 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/146/ST16C554_ST16C554D_ST68C554-1889097.pdf" H 9825 4100 50  0001 C CNN
+	3    9900 4100
+	1    0    0    -1  
+$EndComp
+NoConn ~ 10400 4400
+NoConn ~ 11000 4400
+Connection ~ 10900 4300
+Wire Wire Line
+	10900 4300 11000 4300
+Wire Wire Line
+	10900 4500 11000 4500
+Wire Wire Line
+	10800 4300 10900 4300
+Text Label 10400 3800 0    50   ~ 0
+TXC
+Text Label 10400 3900 0    50   ~ 0
+RXC
+Wire Wire Line
+	10400 3800 10700 3800
+Wire Wire Line
+	10400 3900 10700 3900
+Text Label 10400 4000 0    50   ~ 0
+RTSC
+Text Label 10400 4100 0    50   ~ 0
+CTSC
+Text Label 10400 4200 0    50   ~ 0
+DTRC
+Text Label 10400 4300 0    50   ~ 0
+DSRC
+NoConn ~ 11000 4700
+NoConn ~ 11000 5000
+$Comp
+L Device:LED_ALT D601
+U 1 1 6369041A
+P 10000 4900
+F 0 "D601" H 9993 5117 50  0000 C CNN
+F 1 "LED_ALT" H 9993 5026 50  0000 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 4900 50  0001 C CNN
+F 3 "~" H 10000 4900 50  0001 C CNN
+	1    10000 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R603
+U 1 1 636A42D0
+P 10300 4900
+F 0 "R603" V 10104 4900 50  0000 C CNN
+F 1 "560Ω" V 10195 4900 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10300 4900 50  0001 C CNN
+F 3 "~" H 10300 4900 50  0001 C CNN
+	1    10300 4900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10150 4900 10200 4900
+$Comp
+L Device:LED_ALT D602
+U 1 1 636D93E8
+P 10000 5250
+F 0 "D602" H 9993 5467 50  0000 C CNN
+F 1 "LED_ALT" H 9993 5376 50  0000 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10000 5250 50  0001 C CNN
+F 3 "~" H 10000 5250 50  0001 C CNN
+	1    10000 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R604
+U 1 1 636D93EE
+P 10300 5250
+F 0 "R604" V 10104 5250 50  0000 C CNN
+F 1 "560Ω" V 10195 5250 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10300 5250 50  0001 C CNN
+F 3 "~" H 10300 5250 50  0001 C CNN
+	1    10300 5250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10150 5250 10200 5250
+Wire Wire Line
+	10400 4900 10500 4900
+Wire Wire Line
+	10500 4900 10500 4800
+Wire Wire Line
+	10500 4800 11000 4800
+Wire Wire Line
+	10600 4900 10600 5250
+Wire Wire Line
+	10600 5250 10400 5250
+Wire Wire Line
+	10600 4900 11000 4900
+Text Label 10950 4800 2    50   ~ 0
+~TXLED
+Text Label 10950 4900 2    50   ~ 0
+~RXLED
+Wire Wire Line
+	9850 4900 9500 4900
+Wire Wire Line
+	9500 4900 9500 3200
+Wire Wire Line
+	9500 3200 13500 3200
+Wire Wire Line
+	13500 3200 13500 3600
+Connection ~ 13500 3600
+Wire Wire Line
+	9850 5250 9500 5250
+Wire Wire Line
+	9500 5250 9500 4900
+Connection ~ 9500 4900
+Wire Notes Line
+	9300 2900 14450 2900
+Wire Notes Line
+	14450 2900 14450 5550
+Wire Notes Line
+	14450 5550 9300 5550
+Wire Notes Line
+	9300 5550 9300 2900
+Text Notes 9500 3050 0    50   ~ 0
+TTYC: USB serial (FTDI chip)
+Wire Wire Line
+	10850 7700 11150 7700
+Wire Wire Line
+	10850 7800 11150 7800
+Text Label 10900 7700 0    50   ~ 0
+TXD
+Text Label 10900 7800 0    50   ~ 0
+RXD
+NoConn ~ 10850 7900
+NoConn ~ 10850 8000
+NoConn ~ 10850 8100
+NoConn ~ 10850 8200
+NoConn ~ 10850 8300
+NoConn ~ 10850 8400
+Text HLabel 11150 7700 2    50   Output ~ 0
+TTYD-TX
+Text HLabel 11150 7800 2    50   Input ~ 0
+TTYD-RX
+Text HLabel 1050 2550 0    50   Input ~ 0
+RSTHOLD
+Text HLabel 1050 2750 0    50   Input ~ 0
+AB0
+Text HLabel 1050 2850 0    50   Input ~ 0
+AB1
+Text HLabel 1050 2950 0    50   Input ~ 0
+AB2
+Text HLabel 1050 3250 0    50   Input ~ 0
+AB3
+Text HLabel 1050 3350 0    50   Input ~ 0
+AB4
+Wire Wire Line
+	1050 2750 1600 2750
+Wire Wire Line
+	1050 2850 1600 2850
+Wire Wire Line
+	1050 2950 1600 2950
+Wire Wire Line
+	1050 3250 1600 3250
+Wire Wire Line
+	1050 3350 1600 3350
+Text HLabel 1050 3550 0    50   Input ~ 0
+~R
+Text HLabel 1050 3650 0    50   Input ~ 0
+~W
+Wire Wire Line
+	1050 3550 1600 3550
+Wire Wire Line
+	1050 3650 1600 3650
+Text HLabel 1050 3150 0    50   Input ~ 0
+~UARTCS
+Wire Wire Line
+	1050 3150 1600 3150
+Text HLabel 1050 3850 0    50   BiDi ~ 0
+DB0
+Text HLabel 1050 3950 0    50   BiDi ~ 0
+DB1
+Text HLabel 1050 4050 0    50   BiDi ~ 0
+DB2
+Text HLabel 1050 4150 0    50   BiDi ~ 0
+DB3
+Text HLabel 1050 4250 0    50   BiDi ~ 0
+DB4
+Text HLabel 1050 4350 0    50   BiDi ~ 0
+DB5
+Text HLabel 1050 4450 0    50   BiDi ~ 0
+DB6
+Text HLabel 1050 4550 0    50   BiDi ~ 0
+DB7
+Wire Wire Line
+	1050 3850 1600 3850
+Wire Wire Line
+	1050 3950 1600 3950
+Wire Wire Line
+	1050 4050 1600 4050
+Wire Wire Line
+	1050 4150 1600 4150
+Wire Wire Line
+	1050 4250 1600 4250
+Wire Wire Line
+	1050 4350 1600 4350
+Wire Wire Line
+	1050 4450 1600 4450
+Wire Wire Line
+	1050 4550 1600 4550
+Text HLabel 2900 2750 2    50   3State ~ 0
+~UART-IRQ
+Text Notes 6700 3050 0    100  ~ 20
+TTYA
+Text Notes 6700 7400 0    100  ~ 20
+TTYB
+Text Notes 13750 3300 0    100  ~ 20
+TTYC
+Text Notes 10100 7200 0    100  ~ 20
+TTYD/WIFI
 $EndSCHEMATC

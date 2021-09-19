@@ -550,10 +550,8 @@ Wire Wire Line
 	6200 4150 6700 4150
 Connection ~ 6200 3550
 Wire Wire Line
-	6700 3750 6500 3750
-Wire Wire Line
 	6700 4350 6500 4350
-Text Label 6500 3750 0    50   ~ 0
+Text Label 3100 -600 0    50   ~ 0
 ~R
 Text Label 6500 4350 0    50   ~ 0
 ~W
@@ -1070,4 +1068,83 @@ Wire Notes Line width 18 style solid
 	10200 1950 10200 2850
 Wire Notes Line style solid
 	8900 2100 10200 2100
+Text Notes 1250 -600 0    50   ~ 0
+Tentative I/O plan for this board:\n\n&100 – &107: TTYA\n&108 – &10F: TTYB\n&110 – &117: TTYC (TTYU; USB)\n&118 – &11F: TTYD (WIFI; ESP module)\n
+$Comp
+L alexios:ATF16V8B U301
+U 1 1 63D3EF96
+P 4050 -950
+F 0 "U301" H 4050 -51 50  0000 C CNN
+F 1 "ATF16V8B" H 4050 -142 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4050 -950 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4050 -950 50  0001 C CNN
+F 4 "SIGNTR" H 4050 -233 50  0000 C CNB "Signature"
+F 5 "filename.jed" H 4050 -324 50  0000 C CNN "Image Filename"
+	1    4050 -950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 -500 3100 -500
+Text Label 3100 -500 0    50   ~ 0
+~IODEV1xx
+Wire Wire Line
+	3100 -600 3600 -600
+Text Label 3100 -700 0    50   ~ 0
+~W
+Wire Wire Line
+	3100 -700 3600 -700
+Text Label 3100 -1400 0    50   ~ 0
+AB1
+Text Label 3100 -1300 0    50   ~ 0
+AB2
+Text Label 3100 -1200 0    50   ~ 0
+AB3
+Text Label 3100 -1100 0    50   ~ 0
+AB4
+Text Label 3100 -1000 0    50   ~ 0
+AB5
+Text Label 3100 -900 0    50   ~ 0
+AB6
+Text Label 3100 -800 0    50   ~ 0
+AB7
+Wire Wire Line
+	3100 -1400 3600 -1400
+Wire Wire Line
+	3100 -1300 3600 -1300
+Wire Wire Line
+	3100 -1200 3600 -1200
+Wire Wire Line
+	3100 -1100 3600 -1100
+Wire Wire Line
+	3100 -1000 3600 -1000
+Wire Wire Line
+	3100 -900 3600 -900
+Wire Wire Line
+	3100 -800 3600 -800
+Text Label 4950 -1100 2    50   ~ 0
+~RTC.DATA
+Text Label 4950 -1300 2    50   ~ 0
+~TMR1CS
+Text Label 4950 -1400 2    50   ~ 0
+~TMR0CS
+Wire Wire Line
+	4500 -700 4950 -700
+Wire Wire Line
+	4500 -800 4950 -800
+Wire Wire Line
+	4500 -900 4950 -900
+Wire Wire Line
+	4500 -1000 4950 -1000
+Wire Wire Line
+	4500 -1100 4950 -1100
+Wire Wire Line
+	4500 -1200 4950 -1200
+Wire Wire Line
+	4500 -1300 4950 -1300
+Wire Wire Line
+	4500 -1400 4950 -1400
+Text Label 4950 -1200 2    50   ~ 0
+~RTC.ADDR
+Text Label 4950 -700 2    50   ~ 0
+~MSB
 $EndSCHEMATC
