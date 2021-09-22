@@ -23,6 +23,7 @@
 
 #include "cftemu.h"
 #include "cft.h"
+#include "util.h"
 
 #define LOG_MACROS_UNIT io_log_unit
 #include "log.h"
@@ -70,6 +71,8 @@
 
 
 static log_unit_t   io_log_unit;
+static int          max_fd = -1;
+static int          num_enabled_ttys = 0;
 
 iodev_t iodevs[] = {
         // The MBU is installed in the CPU and permanently enabled.
@@ -368,7 +371,10 @@ io_init()
         debug("Initialising I/O space");
 
         int num_devs = 0;
-        int num_enabled = 0;
+
+        num_enabled_ttys = 0;
+        max_fd = -1;
+
         for (iodev_t * io = iodevs; io->name != NULL; io++){
                 num_devs++;
                 io->magic = MAGIC_DEV_T;
@@ -382,13 +388,14 @@ io_init()
                 // Is the device enabled?
                 if (!io->enabled) continue;
                 // Is there an initialiser?
-                num_enabled++;
+                num_enabled_ttys++;
                 if (io->init != NULL) {
                         (*io->init)(io);
                 }
         }
 
-        info("%d I/O devices, %d enabled", num_devs, num_enabled);
+        info("%d I/O devices, %d enabled", num_devs, num_enabled_ttys);
+        debug("Max TTY FD: %d", max_fd, num_enabled_ttys);
 }
 
 
@@ -557,13 +564,16 @@ io_tty_init(tty_t *tty)
                 tty->mode = TTM_NONE;
         }
 
-        // Only create ring buffers if we'll be using them.
-        if (tty->mode != TTM_NONE) {
-                int bufbits = tty->bufbits ? tty->bufbits : DEFAULT_BUFBITS;
-                debug("bufbits=%d", bufbits);
-                tty->input = ringbuf_init(bufbits);
-                tty->output = ringbuf_init(bufbits);
+        // Stop here if it's not pointed anywhere.
+        if (tty->mode == TTM_NONE) {
+                return;
         }
+
+        // Only create ring buffers if we'll be using them.
+        int bufbits = tty->bufbits ? tty->bufbits : DEFAULT_BUFBITS;
+        debug("bufbits=%d", bufbits);
+        tty->input = ringbuf_init(bufbits);
+        tty->output = ringbuf_init(bufbits);
 
         // File output?
         if (tty->mode == TTM_FILE) {
@@ -574,10 +584,19 @@ io_tty_init(tty_t *tty)
                 if ((tty->fp = fopen(tty->fname, "a")) == NULL) {
                         fatal("Failed to open %s for appending: %s", tty->fname, strerror(errno));
                 }
-                info("Output from device '%s' appended to file '%s'", tty->dev, tty->fname);
+                tty->in_fd = -1;
+                tty->out_fd = fileno(tty->fp);
+                info("Output from device '%s' appended to file '%s' (FD %d)",
+                     tty->dev, tty->fname, tty->out_fd);
+                max_fd = max(max_fd, tty->in_fd);
+                max_fd = max(max_fd, tty->out_fd);
+        } else if (tty->mode == TTM_FD) {
+                // This is already open. Just check the FDs.
+                max_fd = max(max_fd, tty->in_fd);
+                max_fd = max(max_fd, tty->out_fd);
+        } else {
+                fatal("Unhandled tty mode %d\n", tty->mode);
         }
-
-        // Nothing to do for file descriptor I/O.
 }
 
 

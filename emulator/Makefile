@@ -47,8 +47,8 @@ OBJS += tmr.o
 CFLAGS += -DHAVE_TMR
 
 # IDE board
-OBJS += ide.o
-CFLAGS += -DHAVE_IDE
+# OBJS += ide.o
+# CFLAGS += -DHAVE_IDE
 
 ###############################################################################
 #
@@ -62,6 +62,7 @@ CFLAGS += -DHAVE_IDE
 #CFLAGS		+= -DGUI
 #LDFLAGS	+= $(shell pkg-config --libs sdl)
 #LDFLAGS	+= -lX11
+#GENERATED      += romfont.h
 
 # This is necessary to build dependencies at the moment.
 CFLAGS		+= $(shell pkg-config --cflags sdl)
@@ -73,7 +74,10 @@ CFLAGS		+= $(shell pkg-config --cflags sdl)
 #OBJS += dfp.o
 #CFLAGS += -DHAVE_DFP
 
-GENERATED = romfont.h
+# VDU board
+#OBJS += vdu.o
+
+# SDL GUI
 
 ASMINCLUDES = ../../asm/io.asm ../../asm/debugging.asm ../../asm/testing.asm 
 

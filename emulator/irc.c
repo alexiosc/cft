@@ -102,7 +102,7 @@ irc_write(longaddr_t addr, word data)
 
 
 void
-irq_irq(int level)
+irc_irq(int level)
 {
 	word value = (1 << (level & 7)) & 0xff;
 

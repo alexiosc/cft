@@ -190,7 +190,7 @@ uart_init(uart_t *u, char *fname)
 		if (u->fp == NULL) {
 			fail("Failed to open UART file %s: %m\n", fname);
 		}
-	} else {
+	} else{
 		u->fp = NULL;
 	}
 }
