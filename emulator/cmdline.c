@@ -129,6 +129,18 @@ static struct argp_option options[] =
         { "colour", KEY_COLOUR, "1 | 0", 0,
           "Same as --colour." },
 
+        { "suppress-after", KEY_SUPPRESS_AFTER, "NUM-LINES", 0,
+          "Suppress logging identical lines after NUM-LINES copies have been printed. (default: 15)" },
+
+        { "hung-after", KEY_HUNG_AFTER, "NUM-LINES", 0,
+          "Stop the emulation after this many identical lines have been printed. (default: don't stop)" },
+
+        { "no-debug", 'n', "UNIT-NAME", 0,
+          "Disable debugging of the specified unit. Can be supplied multiple times. "
+          "Unit names are the same as device names (use --list-devs for a list, "
+          "and refer to the DEV column). In addition, 'CPU' hides the instruction/state trace, "
+          "and 'CTL' hides the control unit trace." },
+
         { NULL, 0, NULL, 0, "Help", -1 },
 
         // { "map", 'M', "MAP-FILE", 0,
@@ -468,6 +480,34 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
         case KEY_STRICT_SANITY:
                 emu.strict_sanity = 1;
+                break;
+                
+        case KEY_SUPPRESS_AFTER: {
+                int val;
+                if (!sscanf(arg, "%d", &val)) {
+                        argp_error (state, "Expecting a positive integer, got '%s'.", arg);
+                } else if (val < 1) {
+                        argp_error (state, "Expecting a positive integer, got '%s'.", arg);
+                } else {
+                        log_suppress_after = val;
+                }
+                break;
+        }
+                
+        case KEY_HUNG_AFTER: {
+                int val;
+                if (!sscanf(arg, "%d", &val)) {
+                        argp_error (state, "Expecting a positive integer, got '%s'.", arg);
+                } else if (val < 1) {
+                        argp_error (state, "Expecting a positive integer, got '%s'.", arg);
+                } else {
+                        log_hung_after = val;
+                }
+                break;
+        }
+
+        case 'n':
+                log_disable_unit(arg);
                 break;
 
                 // case 'p':

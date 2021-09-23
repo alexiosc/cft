@@ -38,6 +38,9 @@ enum {
         
         ,KEY_COLOR
         ,KEY_COLOUR
+        ,KEY_SUPPRESS_AFTER
+        ,KEY_HUNG_AFTER
+        ,KEY_LIST_DEBUG_UNITS
         
         // These may not be used anymore.
         

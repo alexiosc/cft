@@ -165,6 +165,7 @@ iodev_t iodevs[] = {
                 .write = tty_write,
                 .tick = tty_tick,
                 .done = tty_done,
+                .connect_tty_t = tty_connect_tty_t,
                 
                 .nttys = 4,
                 .ttys = {
@@ -188,6 +189,7 @@ iodev_t iodevs[] = {
                                 .name = "Quad Serial, DUART 2, Port 2",
                                 .dev = "TTY3",
                         }
+
                 }
         },
 #endif  // HAVE_TTY
@@ -382,6 +384,10 @@ io_init()
                 // Initialise ttys.
                 for (int i = 0; i < io->nttys; i++) {
                         io_tty_init(&io->ttys[i]);
+                        // Connect the CFT driver to this tty structure.
+                        if (io->connect_tty_t != NULL) {
+                                (*io->connect_tty_t)(i, &io->ttys[i]);
+                        }
                 }
 
                 //printf("*** %s: init() (%p, %d)", io->name, io->flag, *io->flag);

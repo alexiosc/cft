@@ -27,6 +27,7 @@
 #include "log.h"
 
 
+static log_unit_t cpu_log_unit; // Logging unit for instruction trace etc.
 static log_unit_t ctl_log_unit; // Logging unit for the Control Unit.
 static log_unit_t mbu_log_unit; // Logging unit for the Control Unit.
 
@@ -82,6 +83,7 @@ cpu_init()
         memset(&cpu, 0, sizeof(cpu));
         
         // Initialise logging
+        cpu_log_unit = log_add_unit("CPU", -1, 0);
         ctl_log_unit = log_add_unit("CTL", -1, 0);
         mbu_log_unit = log_add_unit("MBU", -1, 0);
 
@@ -187,7 +189,7 @@ cpu_handle_reset()
                 cpu.uav.rst = 1;
                 cpu.rst_hold = -1;
                 cpu.resetting = 0;
-                debug("RSTHOLD de-asserted.");
+                log_msg(LOG_DEBUG, cpu_log_unit, "RSTHOLD de-asserted.");
         }
 }
 
@@ -196,7 +198,7 @@ void
 cpu_halt()
 {
         cpu.halt = 1;
-        info("Halted");
+        log_msg(LOG_INFO, cpu_log_unit, "Halted");
         // v.dirty++;
         // v.stdirty++;
 }
@@ -206,7 +208,7 @@ void
 cpu_start()
 {
         cpu.halt = 0;
-        info("Resumed");
+        log_msg(LOG_INFO, cpu_log_unit, "Resumed");
         // v.dirty++;
         // v.stdirty++;
 }
@@ -1006,7 +1008,7 @@ cpu_control_store()
         // If an interrupt has been requested and interrupts are allowed, we jump
         // to the IRQ microprogram when the previous instruction ends.
         if (cpu.irq == 1 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
-                notice("Interrupt");
+                log_msg(LOG_NOTICE, cpu_log_unit, "Interrupt");
                 cpu.uav.int_ = 0;       // Set the INT microcode condition 
         }
 
@@ -1022,6 +1024,120 @@ cpu_control_store()
                               cpu.uav.uaddr);
         cpu.ucv = microcode[cpu.uaddr];
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// PRINT OUT THE CPU STATE
+//
+///////////////////////////////////////////////////////////////////////////////
+
+int old_ir, old_fn, old_fz, old_fi, old_fl, old_irq;
+int old_pc, old_ac, old_dr, old_sp;
+int old_ctx, old_mbr[8];
+int old_uaddr, old_ucv;
+
+// BE AFRAID OF THE HACK
+#define HI "\033[38;5;226;4m"
+#define LO "\033[38;5;250;24m"
+#define diffstate(val, old, printval)                                            \
+        (((val) != (old)) && log_have_colour) ? HI : "",                 \
+        (printval),                                                              \
+        (((val) != (old)) && log_have_colour) ? LO : ""
+
+static void
+cpu_print_state()
+{
+        return;
+        // Possibly the most manually-specified format specifiers in a single
+        // string of my entire career.
+
+        log_msg(cpu.uav.uaddr == 2 ? LOG_DEBUG : LOG_DEBUG2,
+                cpu_log_unit,
+                "IR=%s%04x%s  "     // IR
+                "%-14.14s  FL="     // disassembled instruction (no highlighting)
+                "%s%c%s"            // FN
+                "%s%c%s"            // FZ
+                "%s%c%s"            // FV
+                "%s%c%s"            // FI
+                "%s%c%s"            // FL
+                "  %s%s%s  "        // IRQ
+                "PC=%s%04x%s  "     // PC
+                "AC=%s%04x%s  "     // AC
+                "DR=%s%04x%s  "     // DR
+                "SP=%s%04x%s  "     // SP
+                "CTX=%s%02x%s  MB{" // CTX
+                "P=%s%02x%s "       // MB0
+                "D=%s%02x%s "       // MB1
+                "S=%s%02x%s "       // MB2
+                "Z=%s%02x%s "       // MB3
+                "4=%s%02x%s "       // MB4
+                "5=%s%02x%s "       // MB5
+                "6=%s%02x%s "       // MB6
+                "7=%s%02x%s} "      // MB7
+                "uAV=%s%06x%s "     // uAV
+                "uCV=%s%06x%s "     // mCV
+                "%s"                // COND
+                ,
+                diffstate(cpu.ir, old_ir, cpu.ir),
+                disasm(cpu.ir, 1, NULL),
+                diffstate(cpu.fn, old_fn, cpu.fn ? 'N' : '-'),
+                diffstate(cpu.fz, old_fn, cpu.fn ? 'Z' : '-'),
+                diffstate(cpu.fv, old_fn, cpu.fn ? 'V' : '-'),
+                diffstate(cpu.fi, old_fn, cpu.fn ? 'I' : '-'),
+                diffstate(cpu.fl, old_fn, cpu.fn ? 'L' : '-'),
+                diffstate(cpu.irq, old_irq, cpu.irq ? "IRQ" : "   "),
+                diffstate(cpu.pc, old_pc, cpu.pc),
+                diffstate(cpu.ac, old_ac, cpu.ac),
+                diffstate(cpu.dr, old_dr, cpu.dr),
+                diffstate(cpu.sp, old_sp, cpu.sp),
+                diffstate(cpu.ctx, old_ctx, cpu.ctx >> 3),
+                diffstate(get_mbr(0), old_mbr[0], get_mbr(0) >> 16),
+                diffstate(get_mbr(1), old_mbr[1], get_mbr(1) >> 16),
+                diffstate(get_mbr(2), old_mbr[2], get_mbr(2) >> 16),
+                diffstate(get_mbr(3), old_mbr[3], get_mbr(3) >> 16),
+                diffstate(get_mbr(4), old_mbr[4], get_mbr(4) >> 16),
+                diffstate(get_mbr(5), old_mbr[5], get_mbr(5) >> 16),
+                diffstate(get_mbr(6), old_mbr[6], get_mbr(6) >> 16),
+                diffstate(get_mbr(7), old_mbr[7], get_mbr(7) >> 16),
+                diffstate(cpu.uaddr, old_uaddr, cpu.uaddr),
+                diffstate(cpu.ucv, old_ucv, cpu.ucv),
+                cpu.uav.cond ? "    " : "COND");
+
+
+        old_ir = cpu.ir;
+        old_fn = cpu.fn;
+        old_fz = cpu.fz;
+        old_fi = cpu.fi;
+        old_fl = cpu.fl;
+        old_irq = cpu.irq;
+        old_pc = cpu.pc;
+        old_ac = cpu.ac;
+        old_dr = cpu.dr;
+        old_sp = cpu.sp;
+        old_ctx = cpu.ctx;
+        old_mbr[0] = get_mbr(0);
+        old_mbr[1] = get_mbr(1);
+        old_mbr[2] = get_mbr(2);
+        old_mbr[3] = get_mbr(3);
+        old_mbr[4] = get_mbr(4);
+        old_mbr[5] = get_mbr(5);
+        old_mbr[6] = get_mbr(6);
+        old_mbr[7] = get_mbr(7);
+        old_uaddr = cpu.uaddr;
+        old_ucv = cpu.ucv;
+}
+
+#undef HI
+#undef LO
+#undef diffstate
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// MAIN EMULATION LOOP
+//
+///////////////////////////////////////////////////////////////////////////////
 
 
 void
@@ -1097,21 +1213,7 @@ cpu_run()
                 //     dump_state();
                 //     dump_ustate();
                 // }
-                debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
-                      "CTX=%02x  MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
-                      cpu.ir, disasm(cpu.ir, 1, NULL),
-                      cpu.fn ? 'N' : '-',
-                      cpu.fz ? 'Z' : '-',
-                      cpu.fv ? 'V' : '-',
-                      cpu.fi ? 'I' : '-',
-                      cpu.fl ? 'L' : '-',
-                      cpu.irq ? "IRQ" : "   ",
-                      cpu.pc, cpu.ac, cpu.dr, cpu.sp,
-                      cpu.ctx >> 3,
-                      get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
-                      get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
-                      cpu.uaddr, cpu.ucv,
-                      cpu.uav.cond ? "----" : "COND");
+                cpu_print_state();
 
                 // Act on the signals of the control vector. All actions are
                 // essentially level comparisons, edge-sensitive signals are

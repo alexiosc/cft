@@ -41,8 +41,16 @@ typedef int log_unit_t;         // A Unit handle.
 
 extern int log_strict_sanity;   // Sanity failures are fatal.
 
+extern int log_suppress_after;  // Suppress identical lines
+
+extern int log_hung_after;      // Consider hung after this many identical lines
+
+extern int log_have_colour;
+
 
 int log_init(char * filename);
+
+void log_disable_unit(char *unit);
 
 log_unit_t log_add_unit(char *name, int level, int colour);
 

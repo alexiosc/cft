@@ -13,8 +13,9 @@
 #define TTY_H 1
 
 #include "cftemu.h"
+#include "io.h"
 
-#include "fifo.h"
+#include "ringbuf.h"
 //#include "uterm.h"
 
 #define NUM_UARTS 4
@@ -24,9 +25,9 @@
 #define UART_MAGIC 0x55415254
 
 typedef struct {
-	int magic;		// UART_MAGIC
+	int     magic;		// UART_MAGIC
 
-	uint8_t ier;
+	uint8_t ier;            // UART registers
 	uint8_t isr, fcr;
 	uint8_t lcr;
 	uint8_t mcr;
@@ -34,25 +35,20 @@ typedef struct {
 	uint8_t msr;
 	uint8_t spr;
 
-	uint8_t dll, dlh;
+	uint8_t dll, dlh;       // Rate divider
 	uint8_t afr;
        
-	int int_lsr:1;
-	int int_rxrdy:1;
-	int int_rxtimeout:1;
-	int int_txrdy:1;
-	int int_msr:1;
+	int     int_lsr:1;      // Flags
+	int     int_rxrdy:1;
+	int     int_rxtimeout:1;
+	int     int_txrdy:1;
+	int     int_msr:1;
 
-	int int_txrdy_arm;	// TX queue empty, interrupt at next tick
+	int     int_txrdy_arm;	// TX queue empty, interrupt at next tick
 	
-	uint8_t scratch;
+	uint8_t scratch;        // Scratchpad register
 	
-	int is_stdin;
-	int is_stdout;
-	int echo;
-	
-	fifo_t * rxfifo;
-	fifo_t * txfifo;
+        tty_t * tty;            // Link back to the emulator's struct
 
 	// FILE *fp;		/* Output log */
 	// uterm_t * term;		/* UI terminal */
@@ -73,6 +69,9 @@ int tty_write(longaddr_t addr, word data);
 void tty_tick();
 
 void tty_done();
+
+void tty_connect_tty_t(int unit, tty_t* host_tty);
+
 
 #endif // TTY_H
 

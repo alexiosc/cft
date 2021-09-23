@@ -83,6 +83,8 @@ typedef struct iodev_t {
 	void   (*tick)(int);                  // Timer tick callback
 	int    (*read)(longaddr_t, word *);   // Read from device
 	int    (*write)(longaddr_t, word);    // Read to device
+
+	void   (*connect_tty_t)(int, tty_t*); // Connect a host TTY with CFT HW
 } iodev_t;
 
 extern iodev_t iodevs[];

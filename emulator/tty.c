@@ -39,26 +39,6 @@ uint8_t irqs[NUM_UARTS] = { 7, 7, 7, 6 }; // Tentative allocation
 
 
 
-
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // CODE FOR A SINGLE UART
@@ -90,12 +70,7 @@ uart_init(uart_t *u)
 	u->dlh = 0x34;
 	u->afr = 0;
 
-	u->is_stdin = 0;
-	u->is_stdout = 0;
-	u->echo = 0;
-
-	u->rxfifo = fifo_init(16);
-	u->txfifo = fifo_init(16);
+	u->tty = NULL;
 	
 	//u->term = uterm_new(200);
 
@@ -117,25 +92,25 @@ uart_done(uart_t *u)
 {
 	assert(u != NULL);
 	assert(u->magic == UART_MAGIC);
-	fifo_done(u->rxfifo);
-	fifo_done(u->txfifo);
-	//if (u->fp != NULL) fclose(u->fp);
-	//if (u->term != NULL) uterm_destroy(u->term);
 }
 
 
 static int
 uart_read(int unit, longaddr_t ofs, word *dbus)
 {
+        assert (unit >= 0 && unit < 4);
+        assert (ofs >= 0 && ofs < 8);
+        assert (uart[unit].tty != NULL);
+
 	uint32_t c = 0xffff;
         
 	switch (ofs) {
 	case 0:			/* Receive Holding Reg */
-		fifo_get(uart[unit].rxfifo, &c);
-		if (!fifo_poll(uart[unit].rxfifo)) {
+		c = ringbuf_get(uart[unit].tty->input);
+		if (ringbuf_empty(uart[unit].tty->input)) {
 			uart[unit].lsr &= 0xfe; // No data ready, FIFO empty.
 		}
-		*dbus = c;
+		*dbus = c & 0xff;
 		debug("Read UART %d = %04x\n", unit, *dbus);
 		return 1;
 
@@ -176,8 +151,9 @@ uart_read(int unit, longaddr_t ofs, word *dbus)
 
 	case 5:				// LSR
 		*dbus = uart[unit].lsr;
-		//*dbus |= fifo_poll(uart[unit].rxfifo) ? 0x0001 : 0;
-		//*dbus |= !fifo_full(uart[unit].txfifo) ? 0x0020 : 0;
+                // 2021-09-23: what is this? (it was commented out, check 16550 docs)
+		//*dbus |= fifo_poll(uart[unit].input) ? 0x0001 : 0;
+		//*dbus |= !fifo_full(uart[unit].output) ? 0x0020 : 0;
 		debug("UART %d LSR = %04x\n", unit, *dbus);
 		return 1;
 
@@ -220,7 +196,7 @@ uart_write(int unit, longaddr_t ofs, word dbus)
 			// fputc(dbus & 0xff, log_file);
 
 			// c = dbus & 0xff;
-			// fifo_put(uart[unit].txfifo, dbus);
+			// fifo_put(uart[unit].output, dbus);
 			// if (uart[unit].is_stdout) {
 			// 	if (write(fileno(stdout), &c, 1) != 1) {
 			// 		fatal("UART%d: failed to write to stdout: %s",
@@ -312,20 +288,38 @@ uart_write(int unit, longaddr_t ofs, word dbus)
 
 
 void
+uart_rx_from_host(int unit, uint8_t c)
+{
+        info("TODO");
+}
+
+
+void
+uart_tx_to_host(int unit, uint8_t c)
+{
+        info("TODO");
+}
+
+
+
+// TODO: make this a callback io io.h tty_t and call it asynchronously when
+// data is available, rather than polling.
+
+void
 uart_rx(int unit, uart_t * u, char c)
 {
 	assert(u != NULL);
 	assert(u->magic == UART_MAGIC);
 
 	// Mimic 16550 behaviour: FIFO is not updated on overruns.
-	if (fifo_full(u->rxfifo)) {
+	if (ringbuf_full(u->tty->input)) {
 		u->lsr |= 2;		// Flag overrun error
 		warning("Unit %d FIFO full, receive overrun\n", unit);
 	} else {
 		u->lsr &= 0xfd;		// Clear overrun error flag
 		u->lsr |= 1;		// Data available
-		fifo_put(u->rxfifo, c);
-		debug("UART%d receive byte %d %d\n", unit, u->rxfifo->rp, u->rxfifo->wp);
+		ringbuf_put(u->tty->input, c);
+		debug("UART%d receive byte %d %d\n", unit, u->tty->input->ip, u->tty->input->op);
 	}
 
 	// RXRDY interrupt?
@@ -522,6 +516,16 @@ tty_done() {
 	for(int i = 0; i < NUM_UARTS; i++) {
 		uart_done(&uart[i]);
 	}
+}
+
+
+void
+tty_connect_tty_t(int unit, tty_t * tty)
+{
+        assert (unit >= 0 && unit < 4);
+        assert (tty != NULL);
+
+        uart[unit].tty = tty;
 }
 
 

@@ -37,13 +37,22 @@ typedef struct {
 
 
 static FILE *              log_fp = NULL;
-static int                 log_have_colour;
+       int                 log_have_colour;
 static int                 log_level = 0;
 static char *              log_prefix = NULL;
 static log_unitdesc_t *    log_units = NULL;
 static int                 log_numunits;
 
 int                        log_strict_sanity;
+
+// Suppressing duplicate lines
+static char *              oldbuf = NULL;
+static int                 identical_lines = 0;
+int                        log_suppress_after = 10;
+int                        log_hung_after = 0;
+
+static int                 num_disabled_units = 0;
+static char **             disabled_units = NULL;
 
 
 int
@@ -69,6 +78,36 @@ log_init(char * filename)
                 return errno;
         }
 
+        oldbuf = strdup("");
+        identical_lines = 0;
+
+        return 0;
+}
+
+
+void
+log_disable_unit(char *unit)
+{
+        disabled_units = realloc(disabled_units, sizeof(char*) * ++num_disabled_units);
+        assert(disabled_units != NULL);
+        assert(num_disabled_units > 0);
+        assert(unit != NULL);
+
+        disabled_units[num_disabled_units - 1] = strdup(unit);
+}
+
+
+static int
+log_unit_is_disabled(char *unit)
+{
+        if (num_disabled_units == 0) return 0;
+
+        for (int i = 0; i < num_disabled_units; i++) {
+                //printf("%s, %s\n", unit, disabled_units[i]);
+                if (!strcasecmp(unit, disabled_units[i])) {
+                        return 1;
+                }
+        }
         return 0;
 }
 
@@ -86,7 +125,7 @@ log_add_unit(char *name, int level, int colour)
         strncpy(p->name, name, UNIT_NAME_LEN);
         p->colour = colour;
         p->level = level >= 0 ? level : log_level;
-        p->enabled = 1;
+        p->enabled = !log_unit_is_disabled(name);
 
         // Return the index of this unit to be used as a handle.
         return log_numunits - 1;
@@ -178,6 +217,39 @@ log_enabled(int level, log_unit_t unit)
 }
     
 
+inline static int
+suppress(char * buf) {
+        // Is this line different from the previous one? (or the first one?)
+        if (oldbuf == NULL || strcmp(buf, oldbuf)) {
+                if (oldbuf != NULL) {
+                        free (oldbuf);
+                        if (identical_lines > log_suppress_after) {
+                                fprintf(log_fp, "[Suppressed %d identical messages.]\n", identical_lines);
+                        }
+                }
+
+                oldbuf = strdup(buf);
+                identical_lines = 1;
+                return 0;
+        }
+
+        // We've seen this one before.
+        identical_lines++;      // Resisted the urge to say ++identical_lines below
+
+        if (identical_lines < log_suppress_after) {
+                return 0;
+        } else if (identical_lines == log_suppress_after) {
+                fprintf(log_fp, "[Suppressing further identical messages...]\n");
+        } else if (identical_lines >= log_hung_after) {
+                fatal("The emulation has hung");
+        } else if ((identical_lines % 2000000) == 0) {
+                fprintf(log_fp, "[Suppressed %d identical messages so far...]\n", identical_lines);
+        }
+
+        return 1;
+}
+        
+
 void
 log_msg(int level, log_unit_t unit, char * fmt, ...)
 {
@@ -190,6 +262,7 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
         {
                 assert (unit < log_numunits);
                 log_unitdesc_t * up = &log_units[unit];
+                if (!up->enabled) return;
                 if (level > log_level || level > up->level) return;
 
                 va_start(ap, fmt);
@@ -197,16 +270,18 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
                 assert (result >= 0);
                 va_end(ap);
 
-                fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
-                        log_have_colour ? colours[level] : "",
-                        sigils[level],
-                        level,
-                        up->name,
-                        //level < 2 ? codes[level] : "   ",
-                        log_prefix ? log_prefix : "",
-                        buf,
-                        log_have_colour ? "\033[0m" : ""
-                        );
+                if (!suppress(buf)) {
+                        fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
+                                log_have_colour ? colours[level] : "",
+                                sigils[level],
+                                level,
+                                up->name,
+                                //level < 2 ? codes[level] : "   ",
+                                log_prefix ? log_prefix : "",
+                                buf,
+                                log_have_colour ? "\033[0m" : ""
+                                );
+                }
         } else {
                 if (level > log_level) return;
 
@@ -215,15 +290,17 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
                 assert (result >= 0);
                 va_end(ap);
 
-                fprintf(log_fp, "%s%c: L%d %s%s%s\n",
-                        log_have_colour ? colours[level] : "",
-                        sigils[level],
-                        level,
-                        //level < 2 ? codes[level] : "   ",
-                        log_prefix ? log_prefix : "",
-                        buf,
-                        log_have_colour ? "\033[0m" : ""
-                        );
+                if (!suppress(buf)) {
+                        fprintf(log_fp, "%s%c: L%d %s%s%s\n",
+                                log_have_colour ? colours[level] : "",
+                                sigils[level],
+                                level,
+                                //level < 2 ? codes[level] : "   ",
+                                log_prefix ? log_prefix : "",
+                                buf,
+                                log_have_colour ? "\033[0m" : ""
+                                );
+                }
         }
 
         //fflush(log_fp);
