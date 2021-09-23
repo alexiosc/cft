@@ -1,4 +1,4 @@
-(module eDIP-24_W15.24mm (layer F.Cu) (tedit 611A96DE)
+(module eDIP-24_W15.24mm (layer F.Cu) (tedit 614742E2)
   (descr "28-lead though-hole mounted DIP package, row spacing 15.24 mm (600 mils)")
   (tags "THT DIP DIL PDIP 2.54mm 15.24mm 600mil")
   (fp_text reference REF** (at -3.5 0) (layer F.SilkS)
@@ -56,7 +56,7 @@
     (rotate (xyz 0 0 0))
   )
   (model /home/alexios/.config/kicad/libraries/3dmodels/M48T02-150PC1.step
-    (offset (xyz 7.5 -14 0))
+    (offset (xyz 7.5 -14 4.1))
     (scale (xyz 0.9 0.9 0.9))
     (rotate (xyz 0 0 0))
   )
