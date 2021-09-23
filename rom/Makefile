@@ -23,17 +23,24 @@ XPMFILE = 	$(BUILDDIR)/$(BASENAME).xpm
 MAPFILE =	$(BUILDDIR)/$(BASENAME).map
 PASMFILE =	$(BUILDDIR)/$(BASENAME).pasm
 CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
-CFTEMUOPTS +=	-a v4 -M $(MAPFILE) -p $(PASMFILE)
+#CFTEMUOPTS +=	-a v4 -M $(MAPFILE) -p $(PASMFILE)
 #CFTEMUOPTS +=	-V
-CFTEMUOPTS +=	--nvram
-CFTEMUOPTS +=	--hd0=hd0
+#CFTEMUOPTS +=	--nvram
+#CFTEMUOPTS +=	--hd0=hd0
 #CFTEMUOPTS +=	--hd1=hd1
 #CFTEMUOPTS +=	--hd2=hd2
 #CFTEMUOPTS +=	--hd3=hd3
 #CFTEMUOPTS +=	--debug-irc
 #CFTEMUOPTS +=	--debug-ide
-CFTEMUOPTS +=	--dfp-pts
+#CFTEMUOPTS +=	--dfp-pts
 #CFTEMUOPTS +=	--debug-mem
+
+CFTEMUOPTS =    --ram 512 -v
+CFTEMUOPTS +=   --enable DEB
+#CFTEMUOPTS +=   --enable TTY
+#CFTEMUOPTS +=   --enable DFP
+CFTEMUOPTS +=    --enable TTY
+CFTEMUOPTS +=    --hung-after 10000
 
 BASEVECASM =	$(GENDIR)/base-vectable.asm
 FORTHVECASM =	$(GENDIR)/forth-vectable.asm
@@ -48,11 +55,12 @@ FONT2ASM =	$(SCRIPTDIR)/mkromfont
 KEYMAPASM =	$(GENDIR)/keymap.asm
 MKKEYMAP =	$(SCRIPTDIR)/mkkeymap
 
-GENASM =	$(BASEVECASM) $(FORTHVECASM) $(LOGOASM) $(FONTASM) $(KEYMAPASM)
+#GENASM =	$(BASEVECASM) $(FORTHVECASM) $(LOGOASM) $(FONTASM) $(KEYMAPASM)
+GENASM =
 
 CFTASM =	$(TOOLDIR)/cftasm
 #CFTASMFLAGS =	-I $(CFTDIR) --min-addr=$(BASEADDR)
-CFTASMFLAGS =	-I $(CFTDIR)
+CFTASMFLAGS =	-I $(CFTDIR) --blocksize=8
 #CFTASMFLAGS +=	--xpm=$(XPMFILE)
 IMG2ASM =	$(TOOLDIR)/vdu-img2asm
 
@@ -60,7 +68,7 @@ all:		$(ROMBIN)
 
 .PHONY: 	all clean test view
 
-$(ROMBIN):	$(shell find $(SRCDIR) -name '*asm') $(GENASM) ../asm/*asm
+$(ROMBIN):	$(shell find $(SRCDIR) -name '[A-Za-z]*asm') $(GENASM) ../asm/*asm
 		$(CFTASM) $(CFTASMFLAGS) -I $(SRCDIR) $(ROMSRC) -o $(ROMBIN)
 
 # $(BASEVECASM): 	$(SRCDIR)/base-vectable.asm $(SCRIPTDIR)/mkvectors
@@ -84,7 +92,7 @@ clean:
 			$(BUILDDIR)/*.xpm $(GENASM) output output[0-3]
 
 test:		all
-		$(CFTEMU) $(ROMBIN)
+		$(CFTEMU) --rom=$(ROMBIN)
 
 view:		all
 		display $(XPMFILE)
