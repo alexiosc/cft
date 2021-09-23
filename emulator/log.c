@@ -250,6 +250,22 @@ suppress(char * buf) {
 }
         
 
+int
+log_is_enabled(int level, log_unit_t unit)
+{
+        if (unit >= 0) {
+                assert (unit < log_numunits);
+                log_unitdesc_t * up = &log_units[unit];
+                if (!up->enabled) return 0;
+                if (level > log_level || level > up->level) return 0;
+        } else {
+                if (level > log_level) return 0;
+        }
+
+        return 1;
+}
+
+
 void
 log_msg(int level, log_unit_t unit, char * fmt, ...)
 {

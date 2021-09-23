@@ -105,7 +105,17 @@ iodev_t iodevs[] = {
                 .init = deb_init,
                 .read = deb_read,
                 .write = deb_write,
-                .tick = deb_tick
+                .tick = deb_tick,
+                .connect_tty_t = deb_connect_tty_t,
+
+                .nttys = 1,
+                .ttys = {
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "DEB virtual debugging stream output",
+                                .dev = "DEB",
+                        }
+                }
         },
 #endif // HAVE_DEB
 
@@ -486,6 +496,41 @@ io_read(longaddr_t addr, word * data)
 }
 
 
+static void
+___handle_tty_out()
+{
+
+        // TEMPORARY LOCATION: Handle tty output (the basic way)
+        for (iodev_t * io = iodevs; io->name != NULL; io++) {
+                //notice("Dev %s", io->name);
+                if (!io->enabled) continue;
+                for (int i = 0; i < io->nttys; i++) {
+                        tty_t * tty = &io->ttys[i];
+                        if (tty->mode != TTM_NONE && tty->output != NULL) {
+                                char buf[4096];
+                                char * cp = buf;
+                                int len = 0;
+                                int c;
+
+                                notice("Dev %s: Writing %d bytes to FD %d", tty->name, len, tty->out_fd);
+                                while ((c = ringbuf_get(tty->output)) > 0) {
+                                        *cp++ = c & 0xff;
+                                        len++;
+                                }
+                                int res = write(tty->out_fd, buf, len);
+                                if (res != len) {
+                                        fatal("Only wrote %d of %d byte(s) to FD %d", res, len, tty->out_fd);
+                                }
+                        }
+                }
+        }
+
+
+
+
+
+}
+
 int
 io_write(longaddr_t addr, word data)
 {
@@ -500,6 +545,8 @@ io_write(longaddr_t addr, word data)
                         if (retval) {
                                 io->hits = 2000;
                                 debug("OUT (%s) io[%03x] ← %04x", io->code, addr, data);
+
+                                ___handle_tty_out();
                                 return retval;
                         }
                 }

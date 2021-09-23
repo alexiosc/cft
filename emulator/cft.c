@@ -1048,12 +1048,13 @@ int old_uaddr, old_ucv;
 static void
 cpu_print_state()
 {
-        return;
         // Possibly the most manually-specified format specifiers in a single
         // string of my entire career.
 
-        log_msg(cpu.uav.uaddr == 2 ? LOG_DEBUG : LOG_DEBUG2,
-                cpu_log_unit,
+        int log_level = cpu.uav.uaddr == 2 ? LOG_DEBUG : LOG_DEBUG2;
+        if (!log_is_enabled(log_level, cpu_log_unit)) return;
+
+        log_msg(log_level, cpu_log_unit,
                 "IR=%s%04x%s  "     // IR
                 "%-14.14s  FL="     // disassembled instruction (no highlighting)
                 "%s%c%s"            // FN

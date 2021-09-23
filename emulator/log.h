@@ -64,6 +64,8 @@ void log_set_prefix(char *prefix);
 
 void log_msg(int level, log_unit_t unit, char * fmt, ...);
 
+int log_is_enabled(int level, log_unit_t unit);
+
 void log_done();
 
 // Return non-zero if a message for that level and unit would be logged. Useful
