@@ -803,8 +803,8 @@ start SWAB;
 // TODO: now we have a context register, this can be rewritten to be more efficient.
 start TRAP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      action_cli, STACK_PUSH(ctx_flags);        // 02 mem[MBS:SP++] ← <flags,CTX>; CLI
-      STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
+      STACK_PUSH(ctx_flags);                    // 02 mem[MBS:SP++] ← <flags,CTX>
+      STACK_PUSH(pc), action_cli,               // 04 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
       SET(pc, cs3);				// 08 PC ← 0003
       SET(ctx, cs1);				// 09 CTX ← 01
