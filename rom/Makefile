@@ -35,12 +35,14 @@ CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
 #CFTEMUOPTS +=	--dfp-pts
 #CFTEMUOPTS +=	--debug-mem
 
-CFTEMUOPTS =    --ram 512 -v
+CFTEMUOPTS =    --ram 512 -v --tty-color
 CFTEMUOPTS +=   --enable DEB
 #CFTEMUOPTS +=   --enable TTY
 #CFTEMUOPTS +=   --enable DFP
-CFTEMUOPTS +=    --enable TTY
-CFTEMUOPTS +=    --hung-after 10000
+CFTEMUOPTS +=   --enable TTY
+CFTEMUOPTS +=   --hung-after 10000
+# Allow terminal output on DEB device
+CFTEMUOPTS +=   -t DEB,term -nDEB
 
 BASEVECASM =	$(GENDIR)/base-vectable.asm
 FORTHVECASM =	$(GENDIR)/forth-vectable.asm

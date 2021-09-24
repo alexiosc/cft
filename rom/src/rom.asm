@@ -5,6 +5,7 @@
 .include "asm/mbu.asm"
 
 boot:
+		;;  Configure memory management
 		LI         0
 		SCT
                 LI         &80
@@ -14,9 +15,10 @@ boot:
 		SMB        mbu.MBZ	; Zero page at start of RAM
 		SMB        mbu.MBS	; Also stack.
 
-		SUCCESS
+		;; Print "Hello, World!" message
 		LIA        hello
-		STORE R    B1AI0
+		STORE R    B1AI0	; Data bank, auto-inc reg 0
+
 loop:		LOAD I R   B1AI0
 		dfp.PRINTC
 		SNZ
@@ -26,6 +28,6 @@ loop:		LOAD I R   B1AI0
 end:		HALT
 		JMP @
 
-hello:		.str "Hello, world!" 0
+hello:		.str "Hello, world!" 10 0
 
 ; End of file.
