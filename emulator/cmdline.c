@@ -84,6 +84,12 @@ static struct argp_option options[] =
           "-t TTY,file,FILENAME connects the specified TTY to the specified filename. "
           "This will handle output only.", 0},
 
+        { "tty-colours", KEY_TTY_COLORS, NULL, 0,
+          "Use a different colour for each TTY output when using 'term' outputs.", 0},
+
+        { "tty-colors", KEY_TTY_COLORS, NULL, 0,
+          "Same as --tty-colours", 0},
+
         // IDE
 
 #ifdef HAVE_IDE
@@ -463,6 +469,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
                 }
                 break;
         }
+
+        case KEY_TTY_COLORS:
+                io_tty_colourise = 1;
+                break;
 
         case KEY_COLOUR:
         case KEY_COLOR:

@@ -73,6 +73,12 @@
 static log_unit_t   io_log_unit;
 static int          max_fd = -1;
 static int          num_enabled_ttys = 0;
+int                 io_tty_colourise = 0;
+static int          lastcolour = 0;
+
+#define NCOLORS 6
+static int tty_colours[NCOLORS] = { 226, 118, 123, 135, 196, 231 };
+
 
 iodev_t iodevs[] = {
         // The MBU is installed in the CPU and permanently enabled.
@@ -106,6 +112,7 @@ iodev_t iodevs[] = {
                 .read = deb_read,
                 .write = deb_write,
                 .tick = deb_tick,
+
                 .connect_tty_t = deb_connect_tty_t,
 
                 .nttys = 1,
@@ -114,6 +121,7 @@ iodev_t iodevs[] = {
                                 .magic = MAGIC_TTY_T,
                                 .name = "DEB virtual debugging stream output",
                                 .dev = "DEB",
+                                .bufbits = 12   // 8192 bytes for ring buffers
                         }
                 }
         },
@@ -387,6 +395,10 @@ io_init()
         num_enabled_ttys = 0;
         max_fd = -1;
 
+        if (!log_have_colour) {
+                io_tty_colourise = 0;
+        }
+
         for (iodev_t * io = iodevs; io->name != NULL; io++){
                 num_devs++;
                 io->magic = MAGIC_DEV_T;
@@ -394,8 +406,9 @@ io_init()
                 // Initialise ttys.
                 for (int i = 0; i < io->nttys; i++) {
                         io_tty_init(&io->ttys[i]);
+                        
                         // Connect the CFT driver to this tty structure.
-                        if (io->connect_tty_t != NULL) {
+                        if (io->ttys[i].mode != TTM_NONE && io->connect_tty_t != NULL) {
                                 (*io->connect_tty_t)(i, &io->ttys[i]);
                         }
                 }
@@ -446,15 +459,66 @@ io_done()
 }
 
 
+static void
+___handle_tty_out()
+{
+
+        // TEMPORARY LOCATION: Handle tty output (the basic way)
+        for (iodev_t * io = iodevs; io->name != NULL; io++) {
+                //notice("Dev %s", io->name);
+                if (!io->enabled) continue;
+                for (int i = 0; i < io->nttys; i++) {
+                        tty_t * tty = &io->ttys[i];
+                        if (tty->mode != TTM_NONE && tty->output != NULL) {
+                                char buf[4096];
+                                char * cp = buf;
+                                int len = 0, got_data = 0;
+                                int c;
+
+                                if (io_tty_colourise) {
+                                        snprintf(buf, sizeof(buf), "\033[0;38;5;%dm", tty->colour);
+                                        len = strlen(buf);
+                                        cp += len;
+                                }
+
+                                while ((c = ringbuf_get(tty->output)) > 0) {
+                                        *cp++ = c & 0xff;
+                                        len++;
+                                        got_data = 1;
+                                }
+
+                                if (io_tty_colourise) {
+                                        strcpy(cp, "\033[0m");
+                                        len += 4;
+                                }
+
+                                if (got_data) {
+                                        debug3("Dev %s: Writing %d bytes to FD %d", tty->name, len, tty->out_fd);
+                                        int res = write(tty->out_fd, buf, len);
+                                        if (res != len) {
+                                                fatal("Only wrote %d of %d byte(s) to FD %d", res, len, tty->out_fd);
+                                        }
+                                }
+                        }
+                }
+        }
+
+
+
+
+
+}
+
+
 // This is called once per clock tick to handle I/O and other background tasks.
 
 void
-io_tick()
+io_tick(state_t * cpu, int force)
 {
         static int delay = 0;
 
         delay = (delay + 1) & 0x3ff; /* Check I/O every 1024 clock ticks */
-        if (delay) return;
+        if (!force && delay) return;
 
         iodev_t * io;
         for (io = iodevs; io->name != NULL; io++){
@@ -466,6 +530,7 @@ io_tick()
                 }
         }
 	
+        ___handle_tty_out();
         //ui_tick();
 }
 
@@ -496,41 +561,6 @@ io_read(longaddr_t addr, word * data)
 }
 
 
-static void
-___handle_tty_out()
-{
-
-        // TEMPORARY LOCATION: Handle tty output (the basic way)
-        for (iodev_t * io = iodevs; io->name != NULL; io++) {
-                //notice("Dev %s", io->name);
-                if (!io->enabled) continue;
-                for (int i = 0; i < io->nttys; i++) {
-                        tty_t * tty = &io->ttys[i];
-                        if (tty->mode != TTM_NONE && tty->output != NULL) {
-                                char buf[4096];
-                                char * cp = buf;
-                                int len = 0;
-                                int c;
-
-                                notice("Dev %s: Writing %d bytes to FD %d", tty->name, len, tty->out_fd);
-                                while ((c = ringbuf_get(tty->output)) > 0) {
-                                        *cp++ = c & 0xff;
-                                        len++;
-                                }
-                                int res = write(tty->out_fd, buf, len);
-                                if (res != len) {
-                                        fatal("Only wrote %d of %d byte(s) to FD %d", res, len, tty->out_fd);
-                                }
-                        }
-                }
-        }
-
-
-
-
-
-}
-
 int
 io_write(longaddr_t addr, word data)
 {
@@ -545,8 +575,6 @@ io_write(longaddr_t addr, word data)
                         if (retval) {
                                 io->hits = 2000;
                                 debug("OUT (%s) io[%03x] ← %04x", io->code, addr, data);
-
-                                ___handle_tty_out();
                                 return retval;
                         }
                 }
@@ -624,7 +652,7 @@ io_tty_init(tty_t *tty)
 
         // Only create ring buffers if we'll be using them.
         int bufbits = tty->bufbits ? tty->bufbits : DEFAULT_BUFBITS;
-        debug("bufbits=%d", bufbits);
+        debug("Device %s has bufbits=%d (%d byte buffers)", tty->name, bufbits);
         tty->input = ringbuf_init(bufbits);
         tty->output = ringbuf_init(bufbits);
 
@@ -661,6 +689,7 @@ io_tty_set_term(tty_t *tty)
         tty->mode = TTM_FD;
         tty->in_fd = 0;
         tty->out_fd = 1;
+        tty->colour = tty_colours[(lastcolour++) % NCOLORS];
 }
       
 

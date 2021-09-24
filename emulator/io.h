@@ -47,6 +47,8 @@ typedef struct {
         FILE *      fp;                       // C library file (may be NULL)
         char *      fname;                    // Filename (may be NULL)
 
+        int         colour;                   // Colour code for colourised output
+
         uint8_t     bufbits;                  // log₂ of ringbuf buffer size
         ringbuf_t * input;                    // Data from the outside world
         ringbuf_t * output;                   // Data to the outside world
@@ -89,6 +91,8 @@ typedef struct iodev_t {
 
 extern iodev_t iodevs[];
 
+extern int     io_tty_colourise;
+
 
 // Enable or device the specified device. ‘dev’ is the three-letter device
 // code. The function returns 0 if the device was not found.
@@ -101,7 +105,7 @@ void io_init();
 
 void io_reset();
 
-void io_tick();
+void io_tick(state_t * cpu, int force);
 
 void io_done();
 

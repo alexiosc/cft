@@ -13,6 +13,7 @@
 #define DEB_H 1
 
 #include "cftemu.h"
+#include "tty.h"
 
 void deb_init();
 
@@ -22,6 +23,7 @@ int deb_write(longaddr_t addr, word data);
 
 void deb_tick();
 
+void deb_connect_tty_t(int unit, tty_t* host_tty);
 
 #endif // DEB_H
 

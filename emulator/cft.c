@@ -1280,8 +1280,11 @@ cpu_run()
                 }
 
                 // Perform 'background' 'hardware' tasks.
-                if (cpu.iotick != NULL) (*cpu.iotick)(&cpu);
+                if (cpu.iotick != NULL) (*cpu.iotick)(&cpu, 0);
         }
+
+        // One last forced I/O tick to flush out TTY buffers, etc
+        if (cpu.iotick != NULL) (*cpu.iotick)(&cpu, 1);
 
         // time_t t1 = time(NULL);
         // if (t1 != t0) {

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <string.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -28,6 +29,7 @@
 #include "log.h"
 
 #include "deb.h"
+#include "ringbuf.h"
 #include "util.h"
 
 
@@ -37,6 +39,8 @@
 
 static log_unit_t   deb_log_unit;
 static word         hidata;
+static tty_t *      deb_tty = NULL;
+static int          warned_tty = 0;
 
 #ifdef TST
 static log_unit_t   tst_log_unit;
@@ -74,6 +78,42 @@ void deb_init()
         irq = 0;
         irqen = 0;
 #endif // TST
+}
+
+
+static void
+deb_ttyprintf(char *fmt, ...)
+{
+        va_list ap;
+        char * buf;
+
+        if ((deb_tty == NULL || deb_tty->output == NULL) && warned_tty == 0) {
+                warning("Characters output from DEB, but device not connected to a TTY");
+                warned_tty = 1;
+                return;
+        }
+        if (warned_tty) return;
+
+        va_start(ap, fmt);
+        int result = vasprintf(&buf, fmt, ap);
+        assert (result >= 0);
+        va_end(ap);
+
+        // Dump to the ring buffer, allow overrun to happen.
+        for (char *cp = buf; *cp != '\0'; cp++) {
+                if (ringbuf_put(deb_tty->output, *cp) < 0) {
+                        warning("Output buffer overrun");
+                        break;
+                }
+        }
+}
+
+
+void
+deb_connect_tty_t(int unit, tty_t * tty)
+{
+        assert (tty != NULL);
+        deb_tty = tty;
 }
 
 
@@ -171,39 +211,48 @@ deb_write(longaddr_t addr, word data)
 
         case 0x10f:
                 deb_out("341 SENTINEL");
+                deb_ttyprintf("[fail]");
                 fatal("DEB board SENTINEL, exiting.");
                 return 1;
 
         case 0x110:
                 deb_out("340 PRINTA: %04x", data);
+                deb_ttyprintf("%04x", data);
                 return 1;
             
         case 0x111:
                 deb_out("340 PRINTC: %d", data & 0xff);
+                deb_ttyprintf("%c", data & 0xff);
                 return 1;
             
         case 0x112:
                 deb_out("340 PRINTD: %d", (int16_t)data);
+                deb_ttyprintf("%d", (int16_t)data);
                 return 1;
             
         case 0x113:
                 deb_out("340 PRINTU: %d", data);
+                deb_ttyprintf("%d", data);
                 return 1;
             
         case 0x114:
                 deb_out("340 PRINTH: %04x", data);
+                deb_ttyprintf("%04x", data);
                 return 1;
 
         case 0x115:
                 deb_out("340 PRINTB: %16.16s", format_bin(data, 16));
+                deb_ttyprintf("%16.16s", format_bin(data, 16));
                 return 1;
 
         case 0x116:
                 deb_out("340 PRINTC: 32");
+                deb_ttyprintf(" ");
                 return 1;
 
         case 0x117:
                 deb_out("340 PRINTC: 10");
+                deb_ttyprintf("\n");
                 return 1;
 
         case 0x118:
@@ -219,6 +268,7 @@ deb_write(longaddr_t addr, word data)
         case 0x11c:
                 hidata = data;
                 deb_out("340 PRINTL: %04x%04x", hidata, data);
+                deb_ttyprintf("%04x%04x", hidata, data);
                 return 1;
 
         case 0x11d:
@@ -229,10 +279,12 @@ deb_write(longaddr_t addr, word data)
         
         case 0x11e:
                 deb_out("345 Success");
+                deb_ttyprintf("[ok]");
                 return 1;
 
         case 0x11f:
                 deb_out("346 Fail");
+                deb_ttyprintf("[fail]");
                 return 1;
 
 #ifdef TST

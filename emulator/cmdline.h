@@ -31,6 +31,8 @@ enum {
         DUMMY_KEY=129
         ,KEY_LIST_DEVS
         ,KEY_LIST_TTYS
+
+        ,KEY_TTY_COLORS
         
         ,KEY_FILL_RAM
         ,KEY_WRITEABLE_ROM

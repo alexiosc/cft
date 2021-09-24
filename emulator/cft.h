@@ -74,11 +74,11 @@ typedef struct state_t {
 
         // Callbacks for bus transactions
 
-        int (*memr)(longaddr_t, word *);  // Read from memory
-        int (*memw)(longaddr_t, word);    // Write to memory
-        int (*ior)(longaddr_t,  word *);  // Input from I/O
-        int (*iow)(longaddr_t,  word);    // Output to I/O
-        void (*iotick)(struct state_t *); // I/O tick
+        int (*memr)(longaddr_t, word *);       // Read from memory
+        int (*memw)(longaddr_t, word);         // Write to memory
+        int (*ior)(longaddr_t,  word *);       // Input from I/O
+        int (*iow)(longaddr_t,  word);         // Output to I/O
+        void (*iotick)(struct state_t *, int); // I/O tick
 } state_t;
 
 extern state_t cpu;

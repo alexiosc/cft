@@ -77,7 +77,7 @@ mem_init()
                 memp->pasm = NULL;
                 memp->map = NULL;
 
-                debug("ROM: %s - %s (%dK) is %s",
+                debug("ROM: %s - %s (%dKW) is %s",
                       format_longaddr(memp->start, start_addr),
                       format_longaddr(memp->end - 1, end_addr),
                       memp->size >> 10,
@@ -128,12 +128,12 @@ mem_init()
         // Initialise the RAM with the sentinel value.
         for (int i = 0; i < memp->size; i++) memp->mem[i] = emu.ram_sentinel;
 
-        debug("RAM: %s - %s (%dK)",
+        debug("RAM: %s - %s (%dKW)",
               format_longaddr(memp->start, start_addr),
               format_longaddr(memp->end - 1, end_addr),
               memp->size >> 10);
 
-        info("%dK RAM, %dK ROM", memp->size >> 10, kw_rom >> 10);
+        info("%dKW RAM, %dKW ROM", memp->size >> 10, kw_rom >> 10);
 
         if (emu.writeable_rom) mem_writeable_rom();
 }
