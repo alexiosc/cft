@@ -25,11 +25,12 @@
 #define LOG_WARN    2
 #define LOG_NOTICE  3
 #define LOG_INFO    4
-#define LOG_DEBUG   5
-#define LOG_DEBUG2  6
-#define LOG_DEBUG3  7
-#define LOG_DEBUG4  8
-#define LOG_DEBUG5  9
+#define LOG_TRACE   5
+#define LOG_DEBUG   6
+#define LOG_DEBUG2  7
+#define LOG_DEBUG3  8
+#define LOG_DEBUG4  9
+#define LOG_DEBUG5  10
 
 #define LOG_NO_UNIT -1
 
@@ -94,6 +95,7 @@ int log_enabled(int level, log_unit_t unit);
 #  define debug2(msg, ...)   log_msg(LOG_DEBUG2, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define debug3(msg, ...)   log_msg(LOG_DEBUG3, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define debug4(msg, ...)   log_msg(LOG_DEBUG4, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug5(msg, ...)   log_msg(LOG_DEBUG5, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 
 //#  define log_enabled(l)     log_enabled(level, LOG_MACROS_UNIT)
 
@@ -113,6 +115,7 @@ int log_enabled(int level, log_unit_t unit);
 #  define debug2(msg, ...)   log_msg(LOG_DEBUG2, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define debug3(msg, ...)   log_msg(LOG_DEBUG3, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define debug4(msg, ...)   log_msg(LOG_DEBUG4, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug5(msg, ...)   log_msg(LOG_DEBUG5, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 
 #  define cft_perror(msg)    log_msg(LOG_ERROR, LOG_NO_UNIT, "%s: %s", msg, strerror(errno))
 

@@ -173,6 +173,7 @@ static char * colours[NUM_COLOURS] = {
         CSI "38;5;214m",            // Warnings: orange
         CSI "38;5;226m",            // Notices: yellow
         CSI "38;5;46m",             // Info: green
+        CSI "38;5;15m",             // Trace: white
         CSI "38;5;250m",            // Debug: grey
         CSI "38;5;247m",            // Debug: grey
         CSI "38;5;244m",            // Debug: grey
@@ -199,7 +200,6 @@ static char * colours[NUM_COLOURS] = {
         CSI "38;5;241m",            // Debug: grey
         CSI "38;5;241m",            // Debug: grey
         CSI "38;5;241m",            // Debug: grey
-        CSI "38;5;241m"             // Debug: grey
 };
 
 

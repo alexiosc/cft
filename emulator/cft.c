@@ -1032,14 +1032,14 @@ cpu_control_store()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-int old_ir, old_fn, old_fz, old_fi, old_fl, old_irq;
+int old_ir, old_fn, old_fz, old_fv, old_fi, old_fl, old_irq;
 int old_pc, old_ac, old_dr, old_sp;
 int old_ctx, old_mbr[8];
 int old_uaddr, old_ucv;
 
 // BE AFRAID OF THE HACK
-#define HI "\033[38;5;226;4m"
-#define LO "\033[38;5;250;24m"
+#define HI "\033[7m"
+#define LO "\033[27m"
 #define diffstate(val, old, printval)                                            \
         (((val) != (old)) && log_have_colour) ? HI : "",                 \
         (printval),                                                              \
@@ -1051,7 +1051,7 @@ cpu_print_state()
         // Possibly the most manually-specified format specifiers in a single
         // string of my entire career.
 
-        int log_level = cpu.uav.uaddr == 2 ? LOG_DEBUG : LOG_DEBUG2;
+        int log_level = cpu.uav.uaddr == 2 ? LOG_TRACE : LOG_DEBUG2;
         if (!log_is_enabled(log_level, cpu_log_unit)) return;
 
         log_msg(log_level, cpu_log_unit,
@@ -1083,10 +1083,10 @@ cpu_print_state()
                 diffstate(cpu.ir, old_ir, cpu.ir),
                 disasm(cpu.ir, 1, NULL),
                 diffstate(cpu.fn, old_fn, cpu.fn ? 'N' : '-'),
-                diffstate(cpu.fz, old_fn, cpu.fn ? 'Z' : '-'),
-                diffstate(cpu.fv, old_fn, cpu.fn ? 'V' : '-'),
-                diffstate(cpu.fi, old_fn, cpu.fn ? 'I' : '-'),
-                diffstate(cpu.fl, old_fn, cpu.fn ? 'L' : '-'),
+                diffstate(cpu.fz, old_fz, cpu.fz ? 'Z' : '-'),
+                diffstate(cpu.fv, old_fv, cpu.fv ? 'V' : '-'),
+                diffstate(cpu.fi, old_fi, cpu.fi ? 'I' : '-'),
+                diffstate(cpu.fl, old_fl, cpu.fl ? 'L' : '-'),
                 diffstate(cpu.irq, old_irq, cpu.irq ? "IRQ" : "   "),
                 diffstate(cpu.pc, old_pc, cpu.pc),
                 diffstate(cpu.ac, old_ac, cpu.ac),
