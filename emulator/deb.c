@@ -101,7 +101,7 @@ deb_ttyprintf(char *fmt, ...)
 
         // Dump to the ring buffer, allow overrun to happen.
         for (char *cp = buf; *cp != '\0'; cp++) {
-                if (ringbuf_put(deb_tty->output, *cp) < 0) {
+                if (ringbuf_put(deb_tty->output, (uint32_t)(*cp & 0xff)) < 0) {
                         warning("Output buffer overrun");
                         break;
                 }
