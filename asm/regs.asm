@@ -1,20 +1,13 @@
-;;; Definitions for Page Zero.
-;;;
-;;; Copyright © 2014–2020 Alexios Chouchoulas.
-;;;
-;;; This program is free software; you can redistribute it and/or modify it
-;;; under the terms of the GNU General Public License as published by the Free
-;;; Software Foundation; either version 2, or (at your option) any later
-;;; version.
+;;; -*- cftasm -*-
 ;;; 
-;;; This program is distributed in the hope that it will be useful, but WITHOUT
-;;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-;;; FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-;;; more details.
-;;; 
-;;; You should have received a copy of the GNU General Public License along with
-;;; this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-;;; Place - Suite 330, Boston, MA 02111-1307, USA.
+;;; Definitions for Memory-Bank relative ‘magic’ locations in Page Zero.
+;;;
+;;; Copyright © 2014–2021 Alexios Chouchoulas.
+;;;
+;;; This program is free software; you can redistribute it and/or modify
+;;; it under the terms of the GNU General Public License as published by
+;;; the Free Software Foundation; either version 2, or (at your option)
+;;; any later version.
 
 ;;; Zero page addresses between &300 and &3ff have special meaning: accessing
 ;;; them using page zero indirect addressing modes looks up memory relative to
@@ -88,13 +81,13 @@
 
 ;;; Stack registers: incremented after writes; decremented before reads.
 
-.equ I0 R &3c0 &00
-.equ I1 R &3c0 &08
-.equ I2 R &3c0 &10
-.equ I3 R &3c0 &18
-.equ I4 R &3c0 &20
-.equ I5 R &3c0 &28
-.equ I6 R &3c0 &30
-.equ I7 R &3c0 &38
+.equ S0 R &3c0 &00
+.equ S1 R &3c0 &08
+.equ S2 R &3c0 &10
+.equ S3 R &3c0 &18
+.equ S4 R &3c0 &20
+.equ S5 R &3c0 &28
+.equ S6 R &3c0 &30
+.equ S7 R &3c0 &38
 
 ;;; End of file.
