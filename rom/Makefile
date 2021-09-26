@@ -35,7 +35,7 @@ CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
 #CFTEMUOPTS +=	--dfp-pts
 #CFTEMUOPTS +=	--debug-mem
 
-CFTEMUOPTS =    --ram 512 -v --tty-color
+CFTEMUOPTS +=    --ram 512 -v --tty-color
 CFTEMUOPTS +=   --enable DEB
 #CFTEMUOPTS +=   --enable TTY
 #CFTEMUOPTS +=   --enable DFP

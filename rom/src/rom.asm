@@ -15,19 +15,47 @@ boot:
 		SMB        mbu.MBZ	; Zero page at start of RAM
 		SMB        mbu.MBS	; Also stack.
 
+		;;  Set the stack pointer above Page Zero
+		LOAD       spinit
+		TAS
+
 		;; Print "Hello, World!" message
 		LIA        hello
-		STORE R    B1AI0	; Data bank, auto-inc reg 0
+		STORE R    MBD I0	; Data bank, auto-inc reg 0
 
-loop:		LOAD I R   B1AI0
-		dfp.PRINTC
+loop:		LOAD I R   MBD I0
 		SNZ
-		JMP end
-		JMP loop
+		JMP        end
+		dfp.PRINTC
+		JMP        loop
+end:		
+		LOAD       num
+		JSR        putud
+		dfp.PRINTNL
+
+		LOAD       @num+1
+		JSR        putud
+		dfp.PRINTNL
 		
-end:		HALT
+		LOAD       @num+2
+		JSR        putud
+		dfp.PRINTNL
+		
+		LOAD       @num+3
+		JSR        putud
+		dfp.PRINTNL
+		
+		LOAD       @num+4
+		JSR        putud
+		dfp.PRINTNL
+		
+		HALT
 		JMP @
 
 hello:		.str "Hello, world!" 10 0
+spinit:		.data &400
+num:		.data 12345 666 65535 9 0
+
+.include "asm/lib/putud.asm"
 
 ; End of file.
