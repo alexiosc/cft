@@ -12,6 +12,7 @@ import sys
 import copy
 import types
 import array
+import ctypes
 import pprint
 import doctest
 import argparse
@@ -1955,6 +1956,12 @@ class CFTAssembler(object):
         if addr is None:
             addr = self.addr
         addr = addr & self.addr_mask
+
+         # Final range check
+        if val < -32768 or val > 65535:
+            self.fail("Final value {} is beyond 16-bit limits.".format(val))
+
+        val = val & 0xffff
 
         if self.final_pass and self.sentinel[addr] not in (self.PKT_UNUSED, self.PKT_FILL):
             self.warn("Writing {} &{:>04x} to address {} overwrites previous {} &{:>04x}".format(
