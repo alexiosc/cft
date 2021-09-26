@@ -465,7 +465,7 @@ ___handle_tty_out()
 
         // TEMPORARY LOCATION: Handle tty output (the basic way)
         for (iodev_t * io = iodevs; io->name != NULL; io++) {
-                //notice("Dev %s", io->name);
+                //debug("Dev %s", io->code);
                 if (!io->enabled) continue;
                 for (int i = 0; i < io->nttys; i++) {
                         tty_t * tty = &io->ttys[i];
@@ -485,7 +485,11 @@ ___handle_tty_out()
                                         *cp++ = c & 0xff;
                                         len++;
                                         got_data = 1;
+                                        //info("--1 c=(%c)", c & 0xff);
                                 }
+
+                                // notice("Dev %s TTY %d (%s) mode %d buf=(%s)",
+                                //        io->code, i, tty->name, tty->mode, buf);
 
                                 if (io_tty_colourise) {
                                         strcpy(cp, "\033[0m");

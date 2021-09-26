@@ -1032,7 +1032,7 @@ cpu_control_store()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-int old_ir, old_fn, old_fz, old_fv, old_fi, old_fl, old_irq;
+int old_fn, old_fz, old_fv, old_fi, old_fl, old_irq;
 int old_pc, old_ac, old_dr, old_sp;
 int old_ctx, old_mbr[8];
 int old_uaddr, old_ucv;
@@ -1055,7 +1055,7 @@ cpu_print_state()
         if (!log_is_enabled(log_level, cpu_log_unit)) return;
 
         log_msg(log_level, cpu_log_unit,
-                "IR=%s%04x%s  "     // IR
+                "IR=%04x  "         // IR
                 "%-14.14s  FL="     // disassembled instruction (no highlighting)
                 "%s%c%s"            // FN
                 "%s%c%s"            // FZ
@@ -1063,7 +1063,7 @@ cpu_print_state()
                 "%s%c%s"            // FI
                 "%s%c%s"            // FL
                 "  %s%s%s  "        // IRQ
-                "PC=%s%04x%s  "     // PC
+                "PC=%s%04x%s  "     // PC (indicated on jumps only)
                 "AC=%s%04x%s  "     // AC
                 "DR=%s%04x%s  "     // DR
                 "SP=%s%04x%s  "     // SP
@@ -1080,7 +1080,7 @@ cpu_print_state()
                 "uCV=%s%06x%s "     // mCV
                 "%s"                // COND
                 ,
-                diffstate(cpu.ir, old_ir, cpu.ir),
+                cpu.ir,
                 disasm(cpu.ir, 1, NULL),
                 diffstate(cpu.fn, old_fn, cpu.fn ? 'N' : '-'),
                 diffstate(cpu.fz, old_fz, cpu.fz ? 'Z' : '-'),
@@ -1088,10 +1088,12 @@ cpu_print_state()
                 diffstate(cpu.fi, old_fi, cpu.fi ? 'I' : '-'),
                 diffstate(cpu.fl, old_fl, cpu.fl ? 'L' : '-'),
                 diffstate(cpu.irq, old_irq, cpu.irq ? "IRQ" : "   "),
-                diffstate(cpu.pc, old_pc, cpu.pc),
+
+                diffstate((get_mbr(0) | cpu.pc), get_mbr(0) | ((old_pc + 1) & 0xffff), cpu.pc),
                 diffstate(cpu.ac, old_ac, cpu.ac),
                 diffstate(cpu.dr, old_dr, cpu.dr),
                 diffstate(cpu.sp, old_sp, cpu.sp),
+
                 diffstate(cpu.ctx, old_ctx, cpu.ctx >> 3),
                 diffstate(get_mbr(0), old_mbr[0], get_mbr(0) >> 16),
                 diffstate(get_mbr(1), old_mbr[1], get_mbr(1) >> 16),
@@ -1105,8 +1107,7 @@ cpu_print_state()
                 diffstate(cpu.ucv, old_ucv, cpu.ucv),
                 cpu.uav.cond ? "    " : "COND");
 
-
-        old_ir = cpu.ir;
+        //old_ir = cpu.ir;
         old_fn = cpu.fn;
         old_fz = cpu.fz;
         old_fi = cpu.fi;
