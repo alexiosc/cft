@@ -2106,4 +2106,16 @@ F10 "T34" O R 2600 2700 50
 F11 "16MHz" O R 2600 2800 50 
 $EndSheet
 NoConn ~ 14250 6150
+Text Notes 825  10600 0    100  ~ 20
+Errata
+Text Notes 850  10750 0    50   ~ 0
+Rev. 2119: RN601 not connected to ground.\n
+Wire Notes Line width 24 style solid
+	650  10250 3450 10250
+Wire Notes Line width 24 style solid
+	650  10250 650  10950
+Wire Notes Line width 24 style solid
+	650  10950 3450 10950
+Wire Notes Line width 24 style solid
+	3450 10250 3450 10950
 $EndSCHEMATC
