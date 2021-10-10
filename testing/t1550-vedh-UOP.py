@@ -200,7 +200,7 @@ def test_00_UOP_opcodes(framework, capsys, tmpdir):
 def test_UOP(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -332,7 +332,7 @@ def test_UOP(framework, capsys, tmpdir):
 def test_NOT(framework, capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -422,7 +422,7 @@ def neg(x):
 def test_NEG(framework, capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -505,7 +505,7 @@ def test_INC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -600,7 +600,7 @@ def test_DEC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -693,7 +693,7 @@ def test_DEC_long(framework, capsys, tmpdir):
 def test_IFL(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -836,7 +836,7 @@ def test_IFL(framework, capsys, tmpdir):
 def test_IFV(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
 
     &0:

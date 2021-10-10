@@ -20,7 +20,7 @@ def test_ASR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT
@@ -192,7 +192,7 @@ def test_ASR_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT

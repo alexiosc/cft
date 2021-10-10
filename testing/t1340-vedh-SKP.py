@@ -20,7 +20,7 @@ def test_NOP(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -58,7 +58,7 @@ def test_SKIP(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -101,7 +101,7 @@ def _test_SKP_subinstr(framework, capsys, tmpdir, instr, skip_taken):
     
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -311,7 +311,7 @@ def _test_SNP_long(framework, capsys, tmpdir):
     
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.

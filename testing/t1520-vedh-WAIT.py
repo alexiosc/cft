@@ -26,7 +26,7 @@ def test_WAIT(framework, capsys, tmpdir):
     num_waits = 32
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             JMP start

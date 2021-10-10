@@ -103,7 +103,7 @@ def test_mbu_asm(framework, capsys, tmpdir):
 def test_MBU_reset(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LMB mbu.MB0

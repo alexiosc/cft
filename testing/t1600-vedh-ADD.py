@@ -160,7 +160,7 @@ def test_ADD(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -240,7 +240,7 @@ def test_ADD_R(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -318,7 +318,7 @@ def test_ADD_I(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80
@@ -403,7 +403,7 @@ def test_ADD_I_R(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80
@@ -491,7 +491,7 @@ def test_ADD_I_R_autoinc(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80
@@ -576,7 +576,7 @@ def test_ADD_I_R_autodec(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80
@@ -665,7 +665,7 @@ def test_ADD_I_R_stack(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80

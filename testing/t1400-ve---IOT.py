@@ -25,7 +25,7 @@ def test_IOT(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -80,7 +80,7 @@ def test_IOT_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -135,7 +135,7 @@ def test_IOT_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -202,7 +202,7 @@ def test_IOT_I_R_autoinc(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -293,7 +293,7 @@ def test_IOT_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -386,7 +386,7 @@ def test_IOT_I_R_stack(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe

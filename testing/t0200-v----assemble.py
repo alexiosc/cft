@@ -453,12 +453,12 @@ def test_scope(framework, capsys, tmpdir):
 
 @pytest.mark.cftasm
 def test_include(framework, capsys, tmpdir):
-    """Also checks for the existence and sanity of dfp2.asm and mbu.asm,
+    """Also checks for the existence and sanity of dev/dfp2.asm and mbu.asm,
     which we really need to have for subsequent testing!"""
 
     assemble(tmpdir, """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     SMB
             LMB

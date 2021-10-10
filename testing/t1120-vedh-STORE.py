@@ -21,7 +21,7 @@ def test_STORE(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ addr 1
 
@@ -66,7 +66,7 @@ def test_STORE_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ addr 1
 
@@ -122,7 +122,7 @@ def test_STORE_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ addr 1
 
@@ -175,7 +175,7 @@ def test_STORE_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ addr 1
 
@@ -236,7 +236,7 @@ def test_STORE_I_R_autoinc(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     LI 0
             SCT
@@ -296,7 +296,7 @@ def test_STORE_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     LI 0
             SCT
@@ -356,7 +356,7 @@ def test_STORE_I_R_stack(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     LI 0
             SCT

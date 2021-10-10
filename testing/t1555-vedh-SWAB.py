@@ -140,7 +140,7 @@ data = [
 def test_SWAB(framework, capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.

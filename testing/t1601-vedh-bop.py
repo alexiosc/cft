@@ -143,7 +143,7 @@ def _test_bop(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -188,7 +188,7 @@ def _test_bop_R(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
@@ -231,7 +231,7 @@ def _test_bop_I(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -278,7 +278,7 @@ def _test_bop_I_R(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -324,7 +324,7 @@ def _test_bop_I_R_autoinc(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -373,7 +373,7 @@ def _test_bop_I_R_autodec(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -424,7 +424,7 @@ def _test_bop_I_R_stack(framework, capsys, tmpdir, instr, validator_fx):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.

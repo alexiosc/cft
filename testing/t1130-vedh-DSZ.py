@@ -24,7 +24,7 @@ def test_DSZ(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
            LI           &80
@@ -76,7 +76,7 @@ def test_DSZ_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
            LI           &80
@@ -126,7 +126,7 @@ def test_DSZ_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
            LI           &80
@@ -179,7 +179,7 @@ def test_DSZ_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ LOOPREG R &303 ; Use an MBZ-relative register
 

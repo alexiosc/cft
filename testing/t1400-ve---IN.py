@@ -24,7 +24,7 @@ def test_IN(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -77,7 +77,7 @@ def test_IN_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -136,7 +136,7 @@ def test_IN_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -213,7 +213,7 @@ def test_IN_I_R_autoinc(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -281,7 +281,7 @@ def test_IN_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -349,7 +349,7 @@ def test_IN_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe

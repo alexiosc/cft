@@ -35,7 +35,7 @@ def test_LRET(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &000000:   SENTINEL ; Set minimum memory address for cftasm
 

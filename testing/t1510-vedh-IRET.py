@@ -24,7 +24,7 @@ from testing import *
 def test_IRET(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             LI &0         ; Set up context 0 (the reset context, and ours)
@@ -139,7 +139,7 @@ def test_IRET(framework, capsys, tmpdir):
 def test_IRET_int(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             JMP start     ; 82:0000: Reset vector

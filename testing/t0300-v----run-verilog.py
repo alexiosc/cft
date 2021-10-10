@@ -17,7 +17,7 @@ def test_verilog_emu(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     SUCCESS
             HALT

@@ -18,7 +18,7 @@ from testing import *
 def test_wait_states(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.

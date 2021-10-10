@@ -20,7 +20,7 @@ def test_ROR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT
@@ -166,7 +166,7 @@ def test_ROR_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT

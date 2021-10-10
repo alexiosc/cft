@@ -19,7 +19,7 @@ def test_LIA_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
     """
@@ -44,7 +44,7 @@ def test_LIA(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 65535 HALT
     &0:     JMP I @+1

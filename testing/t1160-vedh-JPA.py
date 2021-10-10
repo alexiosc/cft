@@ -33,7 +33,7 @@ def test_JPA(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80

@@ -18,7 +18,7 @@ def test_LOAD(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
     """
@@ -206,7 +206,7 @@ def test_LOAD_I_R_autoinc(framework, capsys, tmpdir):
 def test_LOAD_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
     .equ autodec &380
     """
 

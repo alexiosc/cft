@@ -47,7 +47,7 @@ def test_JSR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
@@ -101,7 +101,7 @@ def test_JSR_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:    .fill 32768 SENTINEL
     &0:    JMP I @+1
@@ -156,7 +156,7 @@ def test_JSR_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
@@ -212,7 +212,7 @@ def test_JSR_I_R(framework, capsys, tmpdir):
 
     source =  """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
@@ -274,7 +274,7 @@ def test_JSR_I_R_bank_relative(framework, capsys, tmpdir):
 
     source =  """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
@@ -355,7 +355,7 @@ def test_JSR_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
 
     source =  """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
@@ -425,7 +425,7 @@ def test_JSR_I_R_autodec_double_indirect(framework, capsys, tmpdir):
 
     source =  """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL
@@ -495,7 +495,7 @@ def test_JSR_I_R_stack(framework, capsys, tmpdir):
 
     source =  """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
     &800000:    .fill 32768 SENTINEL

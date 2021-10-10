@@ -16,7 +16,7 @@ from testing import *
 def test_sentinel(framework, capsys, tmpdir):
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
@@ -31,7 +31,7 @@ def test_sentinel(framework, capsys, tmpdir):
 def test_halt(framework, capsys, tmpdir):
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
@@ -48,7 +48,7 @@ def test_halt(framework, capsys, tmpdir):
 def test_success(framework, capsys, tmpdir):
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
@@ -67,7 +67,7 @@ def test_success(framework, capsys, tmpdir):
 def test_fail(framework, capsys, tmpdir):
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL
@@ -89,7 +89,7 @@ def test_print(framework, capsys, tmpdir):
     after all!"""
 
     source = """
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:     .fill 32768 SENTINEL
             .fill 32768 SENTINEL

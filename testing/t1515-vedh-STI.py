@@ -24,7 +24,7 @@ from testing import *
 def test_STI(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &800000:
             JMP start

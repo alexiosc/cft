@@ -20,7 +20,7 @@ def test_SHL(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT
@@ -145,7 +145,7 @@ def test_SHL_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:        LI &80
                SCT

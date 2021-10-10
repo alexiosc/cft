@@ -21,7 +21,7 @@ def test_SMB(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0: .word &dead
     &000100: .word &0000

@@ -20,7 +20,7 @@ def test_OUT(framework, capsys, tmpdir):
     extended instructions, so this test can be trivial."""
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -73,7 +73,7 @@ def test_OUT(framework, capsys, tmpdir):
 def test_OUT_I(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -132,7 +132,7 @@ def test_OUT_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -217,7 +217,7 @@ def test_OUT_I_R_autoinc(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -282,7 +282,7 @@ def test_OUT_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
@@ -345,7 +345,7 @@ def test_OUT_I_R_stack(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
-    .include "dfp2.asm"
+    .include "dev/dfp2.asm"
 
     .equ PORTA R &3fd
     .equ PORTB R &3fe
