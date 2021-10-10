@@ -85,8 +85,8 @@ Text HLabel 1250 3000 0    50   Input ~ 0
 CLK4
 Text Label 1300 4900 0    50   ~ 0
 ~IRQ
-Text Notes 2400 6550 0    50   ~ 0
-Interrupts are very prone to metastability. Using two flip-flops\nhere greatly reduces the probability of this happening. Normally,\nyou use the same clock for metastability protection, but in this case\nwe can use CLK3 and CLK4 because the rising edge of CLK3 is\nguaranteed to lead the rising edge of CLK4 by 62.5ns, greater than\nthe set-up time on the HC or AC family. We still use the AC family\nbecause its set-up time is shorter, so the chance of metastability is\nlower.
+Text Notes 2400 6650 0    50   ~ 0
+Interrupts are very prone to metastability. Using two flip-flops here greatly\nreduces the probability of this happening. Normally, you use the same clock\nfor metastability protection, but in this case we can use CLK3 and CLK4\nbecause the rising edge of CLK3 is guaranteed to lead the rising edge of\nCLK4 by 62.5ns, greater than the set-up time on the HC or AC family. We\nstill use the AC family because its set-up time is shorter, so the chance of\nmetastability is lower.\n\nUpdate on 2021-10-10: I can't source 74AC74 on DIP, so will try HC family\ninstead.
 Text HLabel 1250 3600 0    50   Input ~ 0
 ~END
 Text Label 6000 4900 0    50   ~ 0
@@ -425,7 +425,7 @@ Wire Wire Line
 	3700 4800 3700 4900
 Wire Wire Line
 	4050 4800 4250 4800
-Text Notes 2400 5500 0    63   ~ 13
+Text Notes 2400 5400 0    63   ~ 13
 Caution: AC Family part!
 Connection ~ 1600 4900
 Wire Wire Line
@@ -443,16 +443,16 @@ Input Stage
 Wire Wire Line
 	3950 5000 3950 4200
 NoConn ~ 7750 5000
-Text Notes 2400 5850 0    63   ~ 13
+Text Notes 2400 5750 0    63   ~ 13
 Metastability
 Wire Notes Line width 24 style solid
-	2300 5650 5200 5650
+	2300 5550 5550 5550
 Wire Notes Line width 24 style solid
-	2300 5650 2300 6650
+	2300 5550 2300 6800
 Wire Notes Line width 24 style solid
-	5200 6650 2300 6650
+	5550 6800 2300 6800
 Wire Notes Line width 24 style solid
-	5200 6650 5200 5650
+	5550 6800 5550 5550
 $Comp
 L alexios:74AC74 U1404
 U 2 1 60709A8C
@@ -822,4 +822,6 @@ Text Label 2300 4800 0    50   ~ 0
 ~INH
 Text Label 6850 4700 2    50   ~ 0
 ~RESET
+Text Notes 3650 5400 0    50   ~ 0
+(or not, let's see how it goes)
 $EndSCHEMATC
