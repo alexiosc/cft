@@ -15,6 +15,23 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+putd:
+.scope
+.equ num R 15
+.equ OUTPUT   dfp.PRINTC
+
+		SNA			; Is it negative?
+		JMP        putud	; No. Just print it.
+		NEG			; Negate it.
+		STORE      num		; Store it
+		LI         '-'		; '-'
+		OUTPUT
+		JMP        @putud+1	; R 15 is already set up, jump over STORE
+
+		;; Fall through to putud
+		
+.endscope
+
 putud:
 
 ;;; Algorithm:
@@ -43,7 +60,6 @@ putud:
 .equ digit    R 11			; used by ship_out_digit
 
 .equ OUTPUT   dfp.PRINTC
-
 
 		STORE      num		; number to convert (running modulo)
 		LI         48		; Running digit is '0'

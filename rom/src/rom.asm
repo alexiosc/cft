@@ -1,6 +1,6 @@
 ; -*- cftasm -*_
 
-.include "asm/dfp2.asm"
+.include "asm/dev/dfp2.asm"
 .include "asm/regs.asm"
 .include "asm/mbu.asm"
 
@@ -49,12 +49,24 @@ end:
 		JSR        putud
 		dfp.PRINTNL
 		
+		LOAD       @num+5
+		JSR        putd
+		dfp.PRINTNL
+		
+		LOAD       @num+6
+		JSR        putd
+		dfp.PRINTNL
+		
+		LOAD       @num+7
+		JSR        putd
+		dfp.PRINTNL
+		
 		HALT
 		JMP @
 
 hello:		.str "Hello, world!" 10 0
 spinit:		.data &400
-num:		.data 12345 666 65535 9 0
+num:		.data 12345 666 65535 9 0 -1 -12345 32768
 
 .include "asm/lib/putud.asm"
 
