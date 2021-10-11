@@ -1306,6 +1306,7 @@ class CFTAssembler(object):
         * base 2: "#. E.g. #10:1100_ = 88. Ony of "0-._" are parsed as '0'. '1'
           is parsed as 1. ":,'" are ignored entirely. Useful for building
           human-readable bitfields.
+        * Printable, non-whitespace UTF-8 character (U+FFFF or less): '@'.
 
         >>> x = CFTAssembler()
         >>> x.parse_literal('&10')
@@ -1324,6 +1325,10 @@ class CFTAssembler(object):
         16
         >>> x.parse_literal('#1--:--')
         16
+        >>> x.parse_literal(r"'\n'")
+        10
+        >>> x.parse_literal("'@'")
+        64
         >>> x.parse_literal('foobar')
         Traceback (most recent call last):
         ValueError: unable to parse literal 'foobar'
@@ -1349,6 +1354,14 @@ class CFTAssembler(object):
                 return int(literal[2:], 16)
             except:
                 self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
+
+        elif literal.startswith("'"):
+            x = literal.strip("'")
+            if len(x) != 1:
+                self.fail("Invalid character literal '{}'".format(literal))
+            if ord(x[0]) not in range(65536):
+                self.fail("Unicode character > U+FFFF: '{}'".format(literal))
+            return ord(x[0])
 
         elif literal[0] in "0123456789-":
             try:
