@@ -1104,11 +1104,13 @@
 ; 		STORE %tgth
 ; .endmacro
 
-; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; ;;;
-; ;;; PACKED STRING MACROS
-; ;;;
-; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; PACKED STRING MACROS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; The existence of SWAB in Microcode 7i makes these macros a little trivial.
 
 ; ;;; Macro: GETLOCHAR()
 ; ;;;
@@ -1116,8 +1118,8 @@
 ; ;;;
 ; ;;; Side effects:
 ; ;;;   AC = AC & 0xff
-; .macro GETLOCHAR()
-; 		AND BYTELO		; AND &00ff
+; .macro getlochar()
+; 		AND        BYTELO	; getlochar()
 ; .endmacro
 
 
@@ -1130,10 +1132,9 @@
 ; ;;; Side effects:
 ; ;;;   AC = (AC >> 8) & 0xff00)
 ; ;;;   L	
-; .macro GETHICHAR()
-; 		RNR			; GETHICHAR()
-; 		RNR
-; 		AND BYTELO		; AND &00ff
+; .macro gethichar()
+; 		SWAB	   		; gethichar()
+; 		AND        BYTELO	; AND &00ff
 ; .endmacro
 
 
@@ -1146,10 +1147,9 @@
 ; ;;; Side effects:
 ; ;;;   AC = (AC << 8) & 0xff00)
 ; ;;;   L	
-; .macro MAKEHICHAR()
-; 		RNL			; MAKEHICHAR()
-; 		RNL
-; 		AND BYTEHI		; AND &ff00
+; .macro makehichar()
+; 		SWAB			; makehichar()
+; 		AND        BYTEHI	; AND &ff00
 ; .endmacro
 
 	
