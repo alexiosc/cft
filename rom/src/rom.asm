@@ -61,12 +61,28 @@ end:
 		JSR        putd
 		dfp.PRINTNL
 		
+		LOAD       @num+8
+		JSR        puth
+		dfp.PRINTNL
+		
+		LOAD       @num+9
+		JSR        puth
+		dfp.PRINTNL
+		
+		LOAD       @num+10
+		JSR        puth
+		dfp.PRINTNL
+		
+		LOAD       @num+11
+		JSR        puth
+		dfp.PRINTNL
+		
 		HALT
 		JMP @
 
 hello:		.str "Hello, world!" 10 0
 spinit:		.data &400
-num:		.data 12345 666 65535 9 0 -1 -12345 32768
+num:		.data 12345 666 65535 9 0 -1 -12345 32768 &1234 &5678 &9abc &def0
 
 .include "asm/lib/putud.asm"
 
