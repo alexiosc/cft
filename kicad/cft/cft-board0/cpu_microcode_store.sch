@@ -1033,7 +1033,7 @@ Text Label 3800 4750 0    50   ~ 0
 Text Label 3100 3350 1    50   ~ 0
 µCV[0..7]
 Text Notes 9000 1950 0    50   ~ 0
-The '157 mux disables bus transactions\nduring ~NRSTHOLD~ to ensure undefined\ncontrol signals don't have unforeseen\nside effects on peripherals.
+The '257 mux disables bus transactions\nduring ~RSTHOLD~ to ensure undefined\ncontrol signals don't have unforeseen\nside effects on peripherals.
 Entry Bus Bus
 	8000 4050 7900 4150
 $Comp
@@ -1667,4 +1667,6 @@ Wire Bus Line
 	1200 4250 1200 5350
 Wire Bus Line
 	3100 1900 3100 4050
+Text Notes 10050 3750 0    50   ~ 0
+RN1702 is optional.\nSignals are pulled up\non backplane.
 $EndSCHEMATC
