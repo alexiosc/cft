@@ -1,5 +1,43 @@
 ;;; -*- cftasm -*-
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; put -- print numbers in various formats
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Subroutine:	 putd: print out a 16-bit unsigned decimal.
+;;; 
+;;; This routine prints 16-bit unsigned decimals without using full
+;;; division. Instead, it implements a very limited form of BCD-converting
+;;; division by iteratively subtracting 20,000, 10,000, 5,000, 2,000, ..., 50,
+;;; 20, 10 from the original number, keeping track of the quotient.
+;;;
+;;; On the CFT, this is faster than a Double Dabble.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; putud -- convert unsigned word to base 10 string
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+putd:
+.scope
+.equ num R 15
+.equ OUTPUT   dfp.PRINTC
+
+putd:		SNA			; Is it negative?
+		JMP        putud	; No. Just print it.
+		NEG			; Negate it.
+		STORE      num		; Store it
+		LI         '-'		; '-'
+		OUTPUT
+		JMP        @putud+1	; R 15 is already set up, jump over STORE
+
+		;; Fall through to putud
+		
+.endscope
+
 ;;; Subroutine:	 putud: print out a 16-bit unsigned decimal.
 ;;; 
 ;;; This routine prints 16-bit unsigned decimals without using full
@@ -11,26 +49,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; putud -- convert unsigned word to base 10 string, append to buffer
+;;; putud -- convert unsigned word to base 10 string
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-putd:
-.scope
-.equ num R 15
-.equ OUTPUT   dfp.PRINTC
-
-		SNA			; Is it negative?
-		JMP        putud	; No. Just print it.
-		NEG			; Negate it.
-		STORE      num		; Store it
-		LI         '-'		; '-'
-		OUTPUT
-		JMP        @putud+1	; R 15 is already set up, jump over STORE
-
-		;; Fall through to putud
-		
-.endscope
 
 putud:
 
@@ -61,7 +82,7 @@ putud:
 
 .equ OUTPUT   dfp.PRINTC
 
-		STORE      num		; number to convert (running modulo)
+putud:		STORE      num		; number to convert (running modulo)
 		LI         48		; Running digit is '0'
 		STORE      digit
 		STORE      printed	; leading zero suppression is also '0'
@@ -183,5 +204,47 @@ ship_out_digit: LOAD       digit
 		RET
 
 .endscope
+
+;;; Subroutine:	 puth: print out a 16-bit hex number.
+;;; 
+;;; This routine prints a 16-bit number as 4 hexadecimal digits.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; puth -- convert unsigned word to four hex digits
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+puth:
+.scope
+.equ num R 15
+.equ tmp R 14
+.equ OUTPUT   dfp.PRINTC
+
+puth:		STORE      num
+		ROL        5		;  Get most significant nibble
+		JSR        print_digit
+
+		LOAD       num
+		SWAB			; Fast way to get bits 8-11
+		JSR        print_digit	; Second most significant nibble
 		
+		LOAD       num
+		SHR        4
+		JSR        print_digit	; Third most significant nibble
+		
+		LOAD       num		; Final digit
+		
+print_digit:	AND        nibble
+		STORE      tmp
+		LIA        digits
+		ADD        tmp
+		IND
+		OUTPUT
+		RET
+
+nibble:		.data &f
+digits:		.str "0123456789abcdef"
+.endscope		
+
 ;;; End of file
