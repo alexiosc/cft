@@ -70,7 +70,7 @@ all:		$(ROMBIN)
 
 .PHONY: 	all clean test view
 
-$(ROMBIN):	$(shell find $(SRCDIR) -name '[A-Za-z]*asm') $(GENASM) ../asm/*asm
+$(ROMBIN):	$(shell find $(SRCDIR) $(CFTDIR)/asm -name '[A-Za-z]*.asm') $(GENASM)
 		$(CFTASM) $(CFTASMFLAGS) -I $(SRCDIR) $(ROMSRC) -o $(ROMBIN)
 
 # $(BASEVECASM): 	$(SRCDIR)/base-vectable.asm $(SCRIPTDIR)/mkvectors
