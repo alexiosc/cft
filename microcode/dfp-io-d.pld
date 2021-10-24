@@ -1,0 +1,26 @@
+GAL16V8         ; this is the GAL type
+DFPIOD00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+FPA0	FPA1	FPA2	EN0	EN1	NC	NC	WR	RD	GND
+NC	RCV1	W4C	RCV0	RCV2	R4C	R4B	RDSR2	RDSR1	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+; Note: RDSR0 decoding has moved to 'B' PLD. W4C has moved in its place.
+; /RDSR = EN0 * /EN1 * WR * /RD * /FPA2 * /FPA1 * /FPA0
+/W4C    = EN0 * /EN1 * /WR * RD *  FPA2 * /FPA1 * /FPA0
+
+/RDSR1  = EN0 * /EN1 * WR * /RD * /FPA2 * /FPA1 *  FPA0
+/RDSR2  = EN0 * /EN1 * WR * /RD * /FPA2 *  FPA1 * /FPA0
+/R4B    = EN0 * /EN1 * WR * /RD * /FPA2 *  FPA1 *  FPA0
+/R4C    = EN0 * /EN1 * WR * /RD *  FPA2 * /FPA1 * /FPA0
+/RCV0   = EN0 * /EN1 * WR * /RD *  FPA2 * /FPA1 *  FPA0
+/RCV1   = EN0 * /EN1 * WR * /RD *  FPA2 *  FPA1 * /FPA0
+/RCV2   = EN0 * /EN1 * WR * /RD *  FPA2 *  FPA1 *  FPA0
+
+DESCRIPTION
+
+See dfp-io-a.pld for a description.
+
+; End of file.

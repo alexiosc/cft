@@ -1,0 +1,29 @@
+GAL16V8         ; this is the GAL type
+DFPIOB00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+FPA0	FPA1	FPA2	EN0	EN1	NC	NC	WR	RD	GND
+NC	WCV2	WCV1	WCV0	RDSR0	W4B	W4A	WOR1	WOR0	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/WOR0 = EN0 * /EN1 * /WR * RD * /FPA2 * /FPA1 * /FPA0
+/WOR1 = EN0 * /EN1 * /WR * RD * /FPA2 * /FPA1 *  FPA0
+/W4A  = EN0 * /EN1 * /WR * RD * /FPA2 *  FPA1 * /FPA0
+/W4B  = EN0 * /EN1 * /WR * RD * /FPA2 *  FPA1 *  FPA0
+/WCV0 = EN0 * /EN1 * /WR * RD *  FPA2 * /FPA1 *  FPA0
+/WCV1 = EN0 * /EN1 * /WR * RD *  FPA2 *  FPA1 * /FPA0
+/WCV2 = EN0 * /EN1 * /WR * RD *  FPA2 *  FPA1 *  FPA0
+
+; Moved this here to ease baord routing. W4C is in the 'C' PLD now.
+;/W4C  = EN0 * /EN1 * /WR * RD *  FPA2 * /FPA1 * /FPA0
+
+/RDSR0 = /EN0 * EN1 * WR * /RD *   FPA2 *  FPA1 *  FPA0
+
+
+DESCRIPTION
+
+See dfp-io-a.pld for a description.
+
+; End of file.

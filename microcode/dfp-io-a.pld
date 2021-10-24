@@ -1,0 +1,71 @@
+GAL16V8         ; this is the GAL type
+DFPIOA00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+FPA0	FPA1	AUTOSCN	FPA2	EN0	EN1	NC	WR	RD	GND
+NC	WDB1	WIB1	WDB0	WAB2	WIB0	WAB1	WAB0	ROWEN	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/WAB0 = /EN0 * EN1 * /WR * RD * /FPA2 * /FPA1 * /FPA0
+/WAB1 = /EN0 * EN1 * /WR * RD * /FPA2 * /FPA1 *  FPA0
+/WAB2 = /EN0 * EN1 * /WR * RD * /FPA2 *  FPA1 * /FPA0
+/WDB0 = /EN0 * EN1 * /WR * RD * /FPA2 * /FPA1 * /FPA0
+/WDB1 = /EN0 * EN1 * /WR * RD *  FPA2 *  FPA1 *  FPA0
+/WIB0 = /EN0 * EN1 * /WR * RD *  FPA2 *  FPA1 * /FPA0
+/WIB1 = /EN0 * EN1 * /WR * RD *  FPA2 * /FPA1 *  FPA0
+
+
+
+; ROWEN is a courtesy XOR function, but it saves a hard-to solder SOT chip. It
+; activates the front panel row decoder only when the µPC really wants it, or
+; when the front panel is being automatically scanned. Note: WR is not
+; enough on its own. The row decoder also decodes FPA bits 7 and 6 for this.
+;
+; NB: AUTOSCAN is abbreviated AUTOSCN here.
+; __  ________
+; WR  AUTOSCAN  ROWEN
+; ------------------------------------------------------------------
+;  0      0       0    Disable FP, this is a fault condition
+;  0      1       1    WR active, µCU is driving FPA
+;  1      0       1    AUTOSCAN active, the FP is being auto-updated
+;  1      1       0    Idle
+
+; Note: we're also requiring RD to be deasserted here for safety.
+
+ROWEN = /WR * RD * AUTOSCN   +  WR * RD * /AUTOSCN
+
+
+
+
+DESCRIPTION
+
+This is one of four address decoders for DFP peripherals. There are two read
+and two write decoders and they're all slightly different.
+
+The addresses to decode are:
+
+  PLD
+ R   W  FPA          What
+-------------------------------------------------------------------------------
+ C   A  x1000000 40  R/W: AB low pod
+ C   A  x1000001 41  R/W: AB mid pod
+ C   A  x1000010 42  R/W: AB high pod
+ C   A  x1000011 43  R/W: DB low pod
+ C   A  x1000100 44  R/W: DB high pod
+ C   A  x1000101 45  R/W: IBus low pod
+ C   A  x1000110 46  R/W: IBus high pod
+ -   -  x1000111 47  R: decoded but not used; W: not decoded at all
+-------------------------------------------------------------------------------
+>B<  B  x1001000 48  R: DIP Switch 0;         W: OR low
+ D   B  x1001001 49  R: DIP Switch 1;         W: OR high
+ D   B  x1001010 4a  R: DIP Switch 2;         W: not used	       
+ D   B  x1001011 4b  Not used
+ D   B  x1001100 4c  Not used
+ D   B  x1001101 4d  R/W: Control Vector 0 (RADDR)
+ D   B  x1001110 4e  R/W: Control Vector 1 (WADDR)
+ D   B  x1001111 4f  R/W: Control Vector 2 (ACTION & COND)
+-------------------------------------------------------------------------------
+
+; End of file.

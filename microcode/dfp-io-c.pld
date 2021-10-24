@@ -1,0 +1,24 @@
+GAL16V8         ; this is the GAL type
+DFPIOC00        ; this is the signature
+
+
+; 1     2       3       4       5       6       7       8       9       10
+FPA0	FPA1	FPA2	EN0	EN1	NC	NC	WR	RD	GND
+NC	R47	RIB1	RIB0	RDB1	RAB2	RAB1	RAB0	RDB0	VCC
+;11     12      13      14      15      16      17      18      19      20
+
+
+/RAB0 = EN0 * /EN1 * WR * /RD * /FPA2 * /FPA1 * /FPA0
+/RAB1 = EN0 * /EN1 * WR * /RD * /FPA2 * /FPA1 *  FPA0
+/RAB2 = EN0 * /EN1 * WR * /RD * /FPA2 *  FPA1 * /FPA0
+/RDB0 = EN0 * /EN1 * WR * /RD * /FPA2 *  FPA1 *  FPA0
+/RDB1 = EN0 * /EN1 * WR * /RD *  FPA2 * /FPA1 * /FPA0
+/RIB0 = EN0 * /EN1 * WR * /RD *  FPA2 * /FPA1 *  FPA0
+/RIB1 = EN0 * /EN1 * WR * /RD *  FPA2 *  FPA1 * /FPA0
+/R47  = EN0 * /EN1 * WR * /RD *  FPA2 *  FPA1 *  FPA0
+
+DESCRIPTION
+
+See dfp-io-a.pld for a description.
+
+; End of file.
