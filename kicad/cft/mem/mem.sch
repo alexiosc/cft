@@ -1082,10 +1082,8 @@ F 3 "" H 15650 10100 50  0001 C CNN
 $EndComp
 Text Notes 12000 5550 0    197  ~ 39
 Backplane
-Text Label 13950 3850 0    50   ~ 0
-AB18
 Text Label 13950 3750 0    50   ~ 0
-AB17
+PIN30
 Text Label 13950 3650 0    50   ~ 0
 AB16
 Text Label 13950 3550 0    50   ~ 0
@@ -1159,9 +1157,9 @@ Wire Wire Line
 Wire Wire Line
 	14300 2050 13950 2050
 Text Label 11800 3850 0    50   ~ 0
-AB18
+PIN1
 Text Label 11800 3750 0    50   ~ 0
-AB17
+PIN30
 Text Label 11800 3650 0    50   ~ 0
 AB16
 Text Label 11800 3550 0    50   ~ 0
@@ -2185,32 +2183,6 @@ F 5 "mem-decoder.jed" H 6600 3200 50  0000 C CNN "Image Filename"
 	1    6600 3850
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:ATF16V8B U3
-U 1 1 6790CC6A
-P 6600 5550
-F 0 "U3" H 6600 6300 50  0000 C CNN
-F 1 "ATF16V8B" H 6600 6200 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 6600 5550 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6600 5550 50  0001 C CNN
-F 4 "MEMDEC00" V 6600 5600 50  0000 C CNB "Signature"
-F 5 "mem-decoder.jed" H 6600 4900 50  0000 C CNN "Image Filename"
-	1    6600 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:ATF16V8B U2
-U 1 1 6790D79A
-P 6600 7100
-F 0 "U2" H 6600 7850 50  0000 C CNN
-F 1 "ATF16V8B" H 6600 7750 50  0000 C CNN
-F 2 "alexios:DIP-20_W7.62mm_Socket" H 6600 7100 50  0001 C CNN
-F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6600 7100 50  0001 C CNN
-F 4 "MEMDEC00" V 6600 7150 50  0000 C CNB "Signature"
-F 5 "mem-decoder.jed" H 6600 6450 50  0000 C CNN "Image Filename"
-	1    6600 7100
-	1    0    0    -1  
-$EndComp
 NoConn ~ 6150 4200
 NoConn ~ 6150 4300
 NoConn ~ 6150 5900
@@ -2942,4 +2914,162 @@ FF:FFFF
 Text Notes 9200 1200 0    197  ~ 39
 Memory Map
 NoConn ~ 14350 6400
+$Comp
+L alexios:ATF16V8B U3
+U 1 1 6790D79A
+P 6600 7100
+F 0 "U3" H 6600 7850 50  0000 C CNN
+F 1 "ATF16V8B" H 6600 7750 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 6600 7100 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6600 7100 50  0001 C CNN
+F 4 "MEMDEC00" V 6600 7150 50  0000 C CNB "Signature"
+F 5 "mem-decoder.jed" H 6600 6450 50  0000 C CNN "Image Filename"
+	1    6600 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U2
+U 1 1 6790CC6A
+P 6600 5550
+F 0 "U2" H 6600 6300 50  0000 C CNN
+F 1 "ATF16V8B" H 6600 6200 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 6600 5550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6600 5550 50  0001 C CNN
+F 4 "MEMDEC00" V 6600 5600 50  0000 C CNB "Signature"
+F 5 "mem-decoder.jed" H 6600 4900 50  0000 C CNN "Image Filename"
+	1    6600 5550
+	1    0    0    -1  
+$EndComp
+Text Label 13950 3850 0    50   ~ 0
+PIN1
+Wire Wire Line
+	10250 4500 10300 4500
+Wire Wire Line
+	10250 4600 10300 4600
+Wire Wire Line
+	10300 4600 10300 4500
+Connection ~ 10300 4500
+Wire Wire Line
+	10300 4500 10550 4500
+Wire Wire Line
+	10250 4700 10300 4700
+Wire Wire Line
+	10300 4700 10300 4600
+Connection ~ 10300 4600
+Text Label 10550 4500 2    50   ~ 0
+PIN1
+Wire Wire Line
+	9750 4600 9550 4600
+$Comp
+L power:GND #PWR?
+U 1 1 61B7C8CC
+P 9700 4750
+AR Path="/60F438E4/61B7C8CC" Ref="#PWR?"  Part="1" 
+AR Path="/61B7C8CC" Ref="#PWR0101"  Part="1" 
+F 0 "#PWR0101" H 9700 4500 50  0001 C CNN
+F 1 "GND" H 9705 4577 50  0000 C CNN
+F 2 "" H 9700 4750 50  0001 C CNN
+F 3 "" H 9700 4750 50  0001 C CNN
+	1    9700 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 4750 9700 4700
+Text Label 9550 4600 0    50   ~ 0
+AB18
+Wire Wire Line
+	9750 4500 9700 4500
+Wire Wire Line
+	9700 4700 9750 4700
+$Comp
+L power:+5V #PWR?
+U 1 1 61DB2781
+P 9700 4450
+AR Path="/60F438E4/61DB2781" Ref="#PWR?"  Part="1" 
+AR Path="/61DB2781" Ref="#PWR0103"  Part="1" 
+F 0 "#PWR0103" H 9700 4300 50  0001 C CNN
+F 1 "+5V" H 9715 4623 50  0000 C CNN
+F 2 "" H 9700 4450 50  0001 C CNN
+F 3 "" H 9700 4450 50  0001 C CNN
+	1    9700 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 4450 9700 4500
+Wire Wire Line
+	11350 4500 11400 4500
+Wire Wire Line
+	11350 4600 11400 4600
+Wire Wire Line
+	11400 4600 11400 4500
+Connection ~ 11400 4500
+Wire Wire Line
+	11400 4500 11650 4500
+Wire Wire Line
+	11350 4700 11400 4700
+Wire Wire Line
+	11400 4700 11400 4600
+Connection ~ 11400 4600
+Text Label 11650 4500 2    50   ~ 0
+PIN30
+Wire Wire Line
+	10850 4600 10650 4600
+$Comp
+L power:GND #PWR?
+U 1 1 61EF1A55
+P 10800 4750
+AR Path="/60F438E4/61EF1A55" Ref="#PWR?"  Part="1" 
+AR Path="/61EF1A55" Ref="#PWR0110"  Part="1" 
+F 0 "#PWR0110" H 10800 4500 50  0001 C CNN
+F 1 "GND" H 10805 4577 50  0000 C CNN
+F 2 "" H 10800 4750 50  0001 C CNN
+F 3 "" H 10800 4750 50  0001 C CNN
+	1    10800 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10800 4750 10800 4700
+Text Label 10650 4600 0    50   ~ 0
+AB17
+Wire Wire Line
+	10850 4500 10800 4500
+Wire Wire Line
+	10800 4700 10850 4700
+$Comp
+L power:+5V #PWR?
+U 1 1 61EF1A5F
+P 10800 4450
+AR Path="/60F438E4/61EF1A5F" Ref="#PWR?"  Part="1" 
+AR Path="/61EF1A5F" Ref="#PWR0113"  Part="1" 
+F 0 "#PWR0113" H 10800 4300 50  0001 C CNN
+F 1 "+5V" H 10815 4623 50  0000 C CNN
+F 2 "" H 10800 4450 50  0001 C CNN
+F 3 "" H 10800 4450 50  0001 C CNN
+	1    10800 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10800 4450 10800 4500
+$Comp
+L Connector_Generic:Conn_02x03_Odd_Even J1
+U 1 1 61F404B4
+P 9950 4600
+F 0 "J1" H 10000 4825 50  0000 C CNN
+F 1 "Conn_02x03_Odd_Even" H 10000 4826 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 9950 4600 50  0001 C CNN
+F 3 "~" H 9950 4600 50  0001 C CNN
+	1    9950 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x03_Odd_Even J2
+U 1 1 61F41D9E
+P 11050 4600
+F 0 "J2" H 11100 4825 50  0000 C CNN
+F 1 "Conn_02x03_Odd_Even" H 11100 4826 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 11050 4600 50  0001 C CNN
+F 3 "~" H 11050 4600 50  0001 C CNN
+	1    11050 4600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
