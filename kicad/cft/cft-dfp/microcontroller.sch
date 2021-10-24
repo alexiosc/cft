@@ -33,21 +33,15 @@ Text Notes 2600 750  0    100  ~ 20
 DFP Microcontroller
 Text Label 2450 4900 2    50   ~ 0
 ~µCRAM
-Wire Wire Line
-	2550 4800 2000 4800
-Wire Wire Line
-	2000 4650 1750 4650
-Wire Wire Line
-	2000 4800 2000 4650
 $Comp
 L power:GND #PWR013
 U 1 1 6085DCB4
-P 1250 4650
-F 0 "#PWR013" H 1250 4400 50  0001 C CNN
-F 1 "GND" H 1400 4600 50  0000 C CNN
-F 2 "" H 1250 4650 50  0001 C CNN
-F 3 "" H 1250 4650 50  0001 C CNN
-	1    1250 4650
+P 950 4850
+F 0 "#PWR013" H 950 4600 50  0001 C CNN
+F 1 "GND" H 1100 4800 50  0000 C CNN
+F 2 "" H 950 4850 50  0001 C CNN
+F 3 "" H 950 4850 50  0001 C CNN
+	1    950  4850
 	-1   0    0    -1  
 $EndComp
 Text Label 2050 4800 0    50   ~ 0
@@ -55,17 +49,17 @@ ACT-LED
 $Comp
 L Device:R_Small R?
 U 1 1 608B26E9
-P 1650 4650
+P 1400 4800
 AR Path="/608B26E9" Ref="R?"  Part="1" 
 AR Path="/64C48268/608B26E9" Ref="R?"  Part="1" 
 AR Path="/60757845/607965DD/608B26E9" Ref="R?"  Part="1" 
 AR Path="/60A2F394/608B26E9" Ref="R?"  Part="1" 
 AR Path="/60757845/608B26E9" Ref="R6"  Part="1" 
-F 0 "R6" V 1846 4650 50  0000 C CNN
-F 1 "1kΩ" V 1755 4650 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1650 4650 50  0001 C CNN
-F 3 "~" H 1650 4650 50  0001 C CNN
-	1    1650 4650
+F 0 "R6" V 1500 4700 50  0000 C CNN
+F 1 "1kΩ" V 1450 5000 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1400 4800 50  0001 C CNN
+F 3 "~" H 1400 4800 50  0001 C CNN
+	1    1400 4800
 	0    1    -1   0   
 $EndComp
 Wire Wire Line
@@ -73,17 +67,17 @@ Wire Wire Line
 $Comp
 L Device:LED_ALT D?
 U 1 1 604918F8
-P 1400 4650
+P 1150 4800
 AR Path="/604918F8" Ref="D?"  Part="1" 
 AR Path="/64C48268/604918F8" Ref="D?"  Part="1" 
 AR Path="/60757845/607965DD/604918F8" Ref="D?"  Part="1" 
 AR Path="/60A2F394/604918F8" Ref="D?"  Part="1" 
 AR Path="/60757845/604918F8" Ref="D4"  Part="1" 
-F 0 "D4" H 1393 4487 50  0000 C CNN
-F 1 "LED_ALT" H 1393 4486 50  0001 C CNN
-F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1400 4650 50  0001 C CNN
-F 3 "~" H 1400 4650 50  0001 C CNN
-	1    1400 4650
+F 0 "D4" H 1100 4950 50  0000 C CNN
+F 1 "LED_ALT" H 1143 4636 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1150 4800 50  0001 C CNN
+F 3 "~" H 1150 4800 50  0001 C CNN
+	1    1150 4800
 	1    0    0    1   
 $EndComp
 Text Notes 6700 2900 0    100  ~ 20
@@ -714,10 +708,6 @@ Text Label 1850 3800 0    50   ~ 0
 ~ABOE
 Text Label 1850 3900 0    50   ~ 0
 ~DBOE
-Text Label 2050 4500 0    50   ~ 0
-~CLR
-Wire Wire Line
-	2550 4500 2000 4500
 Text Label 5150 2100 2    50   ~ 0
 ~FPIRQ
 Text Label 4700 3400 2    50   ~ 0
@@ -726,10 +716,6 @@ Text Label 4700 3500 2    50   ~ 0
 ~µCR
 Text Label 1850 3600 0    50   ~ 0
 CLRWS
-Wire Wire Line
-	2550 4600 2050 4600
-Text HLabel 2000 4500 0    50   Output ~ 0
-~CLR
 Wire Wire Line
 	2550 1200 2500 1200
 $Comp
@@ -1846,7 +1832,6 @@ NoConn ~ 2550 5800
 NoConn ~ 2550 5900
 NoConn ~ 2550 6000
 NoConn ~ 1200 2300
-NoConn ~ 2050 4600
 $Comp
 L power:GND #PWR0101
 U 1 1 61DAC69D
@@ -1894,6 +1879,61 @@ Wire Wire Line
 	3550 6850 3100 6850
 Text Label 3100 6850 0    50   ~ 0
 ~LED-STOP
+Text HLabel 1750 4100 0    50   Output ~ 0
+~CLR
+Wire Wire Line
+	2550 4500 2450 4500
+Text Label 1850 4100 0    50   ~ 0
+~CLR
+Wire Wire Line
+	1750 4100 2450 4100
+Wire Wire Line
+	2450 4100 2450 4500
+Wire Wire Line
+	1500 4800 2550 4800
+$Comp
+L Device:LED_ALT D?
+U 1 1 622DACA0
+P 1150 4600
+AR Path="/622DACA0" Ref="D?"  Part="1" 
+AR Path="/64C48268/622DACA0" Ref="D?"  Part="1" 
+AR Path="/60757845/607965DD/622DACA0" Ref="D?"  Part="1" 
+AR Path="/60A2F394/622DACA0" Ref="D?"  Part="1" 
+AR Path="/60757845/622DACA0" Ref="D3"  Part="1" 
+F 0 "D3" H 1150 4450 50  0000 C CNN
+F 1 "LED_ALT" H 1143 4436 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1150 4600 50  0001 C CNN
+F 3 "~" H 1150 4600 50  0001 C CNN
+	1    1150 4600
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	1000 4600 950  4600
+Wire Wire Line
+	1000 4800 950  4800
+Wire Wire Line
+	950  4600 950  4800
+Wire Wire Line
+	950  4800 950  4850
+Connection ~ 950  4800
+$Comp
+L Device:R_Small R?
+U 1 1 62313475
+P 1400 4600
+AR Path="/62313475" Ref="R?"  Part="1" 
+AR Path="/64C48268/62313475" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/62313475" Ref="R?"  Part="1" 
+AR Path="/60A2F394/62313475" Ref="R?"  Part="1" 
+AR Path="/60757845/62313475" Ref="R8"  Part="1" 
+F 0 "R8" V 1500 4500 50  0000 C CNN
+F 1 "1kΩ" V 1450 4800 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1400 4600 50  0001 C CNN
+F 3 "~" H 1400 4600 50  0001 C CNN
+	1    1400 4600
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	1500 4600 2550 4600
 Wire Bus Line
 	1400 3200 1400 3600
 Wire Bus Line
@@ -1908,4 +1948,8 @@ Wire Bus Line
 	6200 950  6200 1800
 Wire Bus Line
 	8200 1300 8200 3900
+Text Label 2050 4600 0    50   ~ 0
+PANEL-LED
+Text Notes 4400 2850 0    50   ~ 0
+D13 is Arduino LED.
 $EndSCHEMATC

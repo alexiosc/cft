@@ -13,65 +13,63 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 3150 2700 2    50   ~ 0
+Text Label 3100 3050 2    50   ~ 0
 ~WOR1
-Text Label 3150 4650 2    50   ~ 0
-~RDSR0
 Wire Wire Line
-	2900 4650 3150 4650
+	2850 5300 3100 5300
 Wire Wire Line
-	2900 2700 3150 2700
+	2850 3050 3100 3050
 Wire Wire Line
-	2900 3200 3400 3200
+	2850 3450 3350 3450
 Wire Wire Line
-	2900 3300 3400 3300
+	2850 3550 3350 3550
 Wire Wire Line
-	2900 3400 3400 3400
-Text Label 3150 3200 2    50   ~ 0
+	2850 3650 3350 3650
+Text Label 3100 3450 2    50   ~ 0
 ~WCV0
-Text Label 3150 3300 2    50   ~ 0
+Text Label 3100 3550 2    50   ~ 0
 ~WCV1
-Text Label 3150 3400 2    50   ~ 0
+Text Label 3100 3650 2    50   ~ 0
 ~WCV2
-Text Label 3150 5200 2    50   ~ 0
+Text Label 3100 6250 2    50   ~ 0
 ~RDSR1
 Wire Wire Line
-	2900 5200 3150 5200
+	2850 6250 3100 6250
 Wire Wire Line
-	2900 5700 3400 5700
+	2850 6750 3350 6750
 Wire Wire Line
-	2900 5800 3400 5800
+	2850 6950 3350 6950
 Wire Wire Line
-	2900 5900 3400 5900
-Text Label 3150 5700 2    50   ~ 0
+	2850 6650 3350 6650
+Text Label 3100 6750 2    50   ~ 0
 ~RCV0
-Text Label 3150 5800 2    50   ~ 0
+Text Label 3100 6950 2    50   ~ 0
 ~RCV1
-Text Label 3150 5900 2    50   ~ 0
+Text Label 3100 6650 2    50   ~ 0
 ~RCV2
 Wire Wire Line
-	2900 5300 3150 5300
-Text Label 3150 5300 2    50   ~ 0
+	2850 6350 3100 6350
+Text Label 3100 6350 2    50   ~ 0
 ~RDSR2
-Text Notes 3350 5300 0    50   ~ 0
+Text Notes 3300 6350 0    50   ~ 0
 Optional
 Text Notes 1850 850  0    100  ~ 20
 DFP Address Decoders
-Text HLabel 3400 3200 2    50   Output ~ 0
+Text HLabel 3350 3450 2    50   Output ~ 0
 ~WCV0
-Text HLabel 3400 3300 2    50   Output ~ 0
+Text HLabel 3350 3550 2    50   Output ~ 0
 ~WCV1
-Text HLabel 3400 3400 2    50   Output ~ 0
+Text HLabel 3350 3650 2    50   Output ~ 0
 ~WCV2
-Text HLabel 3400 5700 2    50   Output ~ 0
+Text HLabel 3350 6750 2    50   Output ~ 0
 ~RCV0
-Text HLabel 3400 5800 2    50   Output ~ 0
+Text HLabel 3350 6950 2    50   Output ~ 0
 ~RCV1
-Text HLabel 3400 5900 2    50   Output ~ 0
+Text HLabel 3350 6650 2    50   Output ~ 0
 ~RCV2
 Wire Bus Line
-	1450 1150 1050 1150
-Text HLabel 1050 1150 0    50   Input ~ 0
+	1500 1000 1100 1000
+Text HLabel 1100 1000 0    50   Input ~ 0
 FPA[0..7]
 Wire Wire Line
 	4400 3900 4900 3900
@@ -1364,271 +1362,113 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5100 53
 $EndComp
 Connection ~ 5050 5500
 Connection ~ 5050 5300
-$Comp
-L alexios:74HC138 U301
-U 1 1 6464B82D
-P 2400 1850
-F 0 "U301" H 2400 2517 50  0000 C CNN
-F 1 "74HC138" H 2400 2426 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2400 1850 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 2400 1850 50  0001 C CNN
-F 4 "Yes" H 2325 1025 50  0001 C CNN "Verified"
-	1    2400 1850
-	1    0    0    -1  
-$EndComp
-Text Label 3150 1450 2    50   ~ 0
-~WAB0
-Text Label 3150 1650 2    50   ~ 0
-~WAB2
-Text Label 3150 1750 2    50   ~ 0
-~WDB0
-Text Label 3150 1850 2    50   ~ 0
-~WDB1
-Text Label 3150 1950 2    50   ~ 0
-~WIB0
-Text Label 3150 2050 2    50   ~ 0
-~WIB1
-Text Label 3150 2150 2    50   ~ 0
+Text Label 4200 1000 2    50   ~ 0
 ~WOR0
-Text Label 3150 1550 2    50   ~ 0
-~WAB1
 Wire Wire Line
-	2900 2150 3150 2150
-Wire Wire Line
-	2900 2050 3400 2050
-Wire Wire Line
-	2900 1950 3400 1950
-Wire Wire Line
-	2900 1850 3400 1850
-Wire Wire Line
-	2900 1750 3400 1750
-Wire Wire Line
-	2900 1650 3400 1650
-Wire Wire Line
-	2900 1550 3400 1550
-Wire Wire Line
-	2900 1450 3400 1450
-Text HLabel 3400 1450 2    50   Output ~ 0
-~WAB0
-Text HLabel 3400 1550 2    50   Output ~ 0
-~WAB1
-Text HLabel 3400 1650 2    50   Output ~ 0
-~WAB2
-Text HLabel 3400 1750 2    50   Output ~ 0
-~WDB0
-Text HLabel 3400 1850 2    50   Output ~ 0
-~WDB1
-Text HLabel 3400 1950 2    50   Output ~ 0
-~WIB0
-Text HLabel 3400 2050 2    50   Output ~ 0
-~WIB1
-Text Label 1650 1650 0    50   ~ 0
+	3950 1000 4200 1000
+Text Label 1550 1600 0    50   ~ 0
 FPA2
-Text Label 1650 1550 0    50   ~ 0
+Text Label 1550 1400 0    50   ~ 0
 FPA1
-Text Label 1650 1450 0    50   ~ 0
+Text Label 1550 1300 0    50   ~ 0
 FPA0
 Wire Wire Line
-	1900 1650 1650 1650
+	1950 1600 1550 1600
 Wire Wire Line
-	1900 1550 1650 1550
+	1950 1400 1550 1400
 Wire Wire Line
-	1900 1450 1650 1450
-Text Label 1650 2250 0    50   ~ 0
+	1950 1300 1550 1300
+Text Label 1550 2000 0    50   ~ 0
 ~WR
-Text Label 1650 2150 0    50   ~ 0
+Text Label 1550 1700 0    50   ~ 0
 ~EN0
-$Comp
-L alexios:74HC138 U302
-U 1 1 64774450
-P 2400 3100
-F 0 "U302" H 2400 3767 50  0000 C CNN
-F 1 "74HC138" H 2400 3676 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2400 3100 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 2400 3100 50  0001 C CNN
-F 4 "Yes" H 2325 2275 50  0001 C CNN "Verified"
-	1    2400 3100
-	1    0    0    -1  
-$EndComp
-Text Label 1650 2900 0    50   ~ 0
+Text Label 1700 3150 0    50   ~ 0
 FPA2
-Text Label 1650 2800 0    50   ~ 0
+Text Label 1700 3050 0    50   ~ 0
 FPA1
-Text Label 1650 2700 0    50   ~ 0
+Text Label 1700 2950 0    50   ~ 0
 FPA0
 Wire Wire Line
-	1900 2900 1650 2900
+	1950 3150 1700 3150
 Wire Wire Line
-	1900 2800 1650 2800
+	1950 3050 1700 3050
 Wire Wire Line
-	1900 2700 1650 2700
-Text Label 1650 3500 0    50   ~ 0
+	1950 2950 1700 2950
+Text Label 1700 3650 0    50   ~ 0
 ~WR
-Text Label 1650 4650 0    50   ~ 0
-~EN0
-$Comp
-L alexios:74HC138 U303
-U 1 1 647BCCC8
-P 2400 4350
-F 0 "U303" H 2400 5017 50  0000 C CNN
-F 1 "74HC138" H 2400 4926 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2400 4350 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 2400 4350 50  0001 C CNN
-F 4 "Yes" H 2325 3525 50  0001 C CNN "Verified"
-	1    2400 4350
-	1    0    0    -1  
-$EndComp
-Text Label 1650 4150 0    50   ~ 0
+Text Label 1700 4800 0    50   ~ 0
 FPA2
-Text Label 1650 4050 0    50   ~ 0
+Text Label 1700 4700 0    50   ~ 0
 FPA1
-Text Label 1650 3950 0    50   ~ 0
+Text Label 1700 4600 0    50   ~ 0
 FPA0
 Wire Wire Line
-	1900 4150 1650 4150
+	1950 4800 1700 4800
 Wire Wire Line
-	1900 4050 1650 4050
+	1950 4700 1700 4700
 Wire Wire Line
-	1900 3950 1650 3950
-Text Label 1650 4750 0    50   ~ 0
-~RD
-Text Label 1650 5400 0    50   ~ 0
+	1950 4600 1700 4600
+Text Label 1700 6450 0    50   ~ 0
 FPA2
-Text Label 1650 5300 0    50   ~ 0
+Text Label 1700 6350 0    50   ~ 0
 FPA1
-Text Label 1650 5200 0    50   ~ 0
+Text Label 1700 6250 0    50   ~ 0
 FPA0
 Wire Wire Line
-	1900 5400 1650 5400
+	1950 6450 1700 6450
 Wire Wire Line
-	1900 5300 1650 5300
+	1950 6350 1700 6350
 Wire Wire Line
-	1900 5200 1650 5200
-Text HLabel 3400 4550 2    50   Output ~ 0
+	1950 6250 1700 6250
+Text HLabel 3350 5200 2    50   Output ~ 0
 ~RIB1
-Text HLabel 3400 4450 2    50   Output ~ 0
+Text HLabel 3350 5100 2    50   Output ~ 0
 ~RIB0
-Text HLabel 3400 4350 2    50   Output ~ 0
+Text HLabel 3350 5000 2    50   Output ~ 0
 ~RDB1
-Text HLabel 3400 4250 2    50   Output ~ 0
+Text HLabel 3350 4600 2    50   Output ~ 0
 ~RDB0
-Text HLabel 3400 4150 2    50   Output ~ 0
+Text HLabel 3350 4900 2    50   Output ~ 0
 ~RAB2
-Text HLabel 3400 4050 2    50   Output ~ 0
+Text HLabel 3350 4800 2    50   Output ~ 0
 ~RAB1
-Text HLabel 3400 3950 2    50   Output ~ 0
+Text HLabel 3350 4700 2    50   Output ~ 0
 ~RAB0
-Text Label 3150 4050 2    50   ~ 0
+Text Label 3100 4800 2    50   ~ 0
 ~RAB1
 Wire Wire Line
-	2900 4050 3400 4050
-Text Label 3150 4550 2    50   ~ 0
+	2850 4800 3350 4800
+Text Label 3100 5200 2    50   ~ 0
 ~RIB1
-Text Label 3150 4450 2    50   ~ 0
+Text Label 3100 5100 2    50   ~ 0
 ~RIB0
-Text Label 3150 4350 2    50   ~ 0
+Text Label 3100 5000 2    50   ~ 0
 ~RDB1
-Text Label 3150 4250 2    50   ~ 0
+Text Label 3100 4600 2    50   ~ 0
 ~RDB0
-Text Label 3150 4150 2    50   ~ 0
+Text Label 3100 4900 2    50   ~ 0
 ~RAB2
-Text Label 3150 3950 2    50   ~ 0
+Text Label 3100 4700 2    50   ~ 0
 ~RAB0
 Wire Wire Line
-	2900 4550 3400 4550
+	2850 5200 3350 5200
 Wire Wire Line
-	2900 4450 3400 4450
+	2850 5100 3350 5100
 Wire Wire Line
-	2900 4350 3400 4350
+	2850 5000 3350 5000
 Wire Wire Line
-	2900 4250 3400 4250
+	2850 4600 3350 4600
 Wire Wire Line
-	2900 4150 3400 4150
+	2850 4900 3350 4900
 Wire Wire Line
-	2900 3950 3400 3950
-$Comp
-L alexios:74HC138 U304
-U 1 1 647BCCF2
-P 2400 5600
-F 0 "U304" H 2400 6267 50  0000 C CNN
-F 1 "74HC138" H 2400 6176 50  0000 C CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 2400 5600 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 2400 5600 50  0001 C CNN
-F 4 "Yes" H 2325 4775 50  0001 C CNN "Verified"
-	1    2400 5600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1900 6000 1650 6000
-Text Label 1650 6000 0    50   ~ 0
-~RD
-Text Notes 2750 3600 0    50   ~ 0
+	2850 4700 3350 4700
+Text Notes 2750 3850 0    50   ~ 0
 Writes to &48–4F
-$Comp
-L power:+5V #PWR0108
-U 1 1 6491A656
-P 1850 5750
-F 0 "#PWR0108" H 1850 5600 50  0001 C CNN
-F 1 "+5V" H 1865 5923 50  0000 C CNN
-F 2 "" H 1850 5750 50  0001 C CNN
-F 3 "" H 1850 5750 50  0001 C CNN
-	1    1850 5750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 5750 1850 5800
-Wire Wire Line
-	1850 5800 1900 5800
-$Comp
-L power:+5V #PWR0109
-U 1 1 64933507
-P 1850 4500
-F 0 "#PWR0109" H 1850 4350 50  0001 C CNN
-F 1 "+5V" H 1865 4673 50  0000 C CNN
-F 2 "" H 1850 4500 50  0001 C CNN
-F 3 "" H 1850 4500 50  0001 C CNN
-	1    1850 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 4500 1850 4550
-Wire Wire Line
-	1850 4550 1900 4550
-$Comp
-L power:+5V #PWR0110
-U 1 1 6494BCC9
-P 1850 3250
-F 0 "#PWR0110" H 1850 3100 50  0001 C CNN
-F 1 "+5V" H 1865 3423 50  0000 C CNN
-F 2 "" H 1850 3250 50  0001 C CNN
-F 3 "" H 1850 3250 50  0001 C CNN
-	1    1850 3250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 3250 1850 3300
-Wire Wire Line
-	1850 3300 1900 3300
-$Comp
-L power:+5V #PWR0111
-U 1 1 64964AA9
-P 1850 2000
-F 0 "#PWR0111" H 1850 1850 50  0001 C CNN
-F 1 "+5V" H 1865 2173 50  0000 C CNN
-F 2 "" H 1850 2000 50  0001 C CNN
-F 3 "" H 1850 2000 50  0001 C CNN
-	1    1850 2000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 2000 1850 2050
-Wire Wire Line
-	1850 2050 1900 2050
-Text Notes 2750 2300 0    50   ~ 0
+Text Notes 2750 2150 0    50   ~ 0
 Writes to &40–47
-Text Notes 2750 4850 0    50   ~ 0
+Text Notes 2750 5500 0    50   ~ 0
 Reads from &40–47
-Text Notes 2750 6100 0    50   ~ 0
+Text Notes 2750 7150 0    50   ~ 0
 Reads from &48–4F
 $Comp
 L Device:C_Small C?
@@ -1685,20 +1525,6 @@ F 3 "" H 4600 6650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC138 U301
-U 2 1 649BE404
-P 4950 6550
-F 0 "U301" H 5130 6596 50  0000 L CNN
-F 1 "74HC138" H 5130 6505 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4950 6550 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 4950 6550 50  0001 C CNN
-F 4 "Yes" H 4875 5725 50  0001 C CNN "Verified"
-	2    4950 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 4600 6450
-Connection ~ 4600 6650
-$Comp
 L Device:C_Small C?
 U 1 1 649DA5F0
 P 4600 7250
@@ -1752,20 +1578,6 @@ F 3 "" H 4600 7350 50  0001 C CNN
 	1    4600 7350
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC138 U302
-U 2 1 649DA603
-P 4950 7250
-F 0 "U302" H 5130 7296 50  0000 L CNN
-F 1 "74HC138" H 5130 7205 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 4950 7250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 4950 7250 50  0001 C CNN
-F 4 "Yes" H 4875 6425 50  0001 C CNN "Verified"
-	2    4950 7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 4600 7150
-Connection ~ 4600 7350
 $Comp
 L Device:C_Small C?
 U 1 1 64A0CF56
@@ -1821,20 +1633,6 @@ F 3 "" H 5950 6650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC138 U303
-U 2 1 64A0CF69
-P 6300 6550
-F 0 "U303" H 6480 6596 50  0000 L CNN
-F 1 "74HC138" H 6480 6505 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 6300 6550 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 6300 6550 50  0001 C CNN
-F 4 "Yes" H 6225 5725 50  0001 C CNN "Verified"
-	2    6300 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 5950 6450
-Connection ~ 5950 6650
-$Comp
 L Device:C_Small C?
 U 1 1 64A0CF71
 P 5950 7250
@@ -1888,38 +1686,18 @@ F 3 "" H 5950 7350 50  0001 C CNN
 	1    5950 7350
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC138 U304
-U 2 1 64A0CF84
-P 6300 7250
-F 0 "U304" H 6480 7296 50  0000 L CNN
-F 1 "74HC138" H 6480 7205 50  0000 L CNN
-F 2 "alexios:DIP-16_W7.62mm_Socket" H 6300 7250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 6300 7250 50  0001 C CNN
-F 4 "Yes" H 6225 6425 50  0001 C CNN "Verified"
-	2    6300 7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 5950 7150
-Connection ~ 5950 7350
-Text HLabel 1600 2150 0    50   Input ~ 0
+Text HLabel 1500 1700 0    50   Input ~ 0
 ~EN0
-Text HLabel 1600 3400 0    50   Input ~ 0
+Text HLabel 1500 1800 0    50   Input ~ 0
 ~EN1
 Wire Wire Line
-	1600 2150 1900 2150
-Wire Wire Line
-	1600 3400 1900 3400
-Text HLabel 1600 2250 0    50   Input ~ 0
+	1500 1700 1950 1700
+Text HLabel 1500 2000 0    50   Input ~ 0
 ~WR
 Wire Wire Line
-	1600 2250 1900 2250
+	1500 2000 1950 2000
 Wire Wire Line
-	1900 3500 1650 3500
-Text HLabel 1600 4750 0    50   Input ~ 0
-~RD
-Wire Wire Line
-	1600 4750 1900 4750
+	1950 3650 1700 3650
 $Comp
 L Device:R_Network08 RN?
 U 1 1 654B3ABF
@@ -1952,69 +1730,291 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 7700 5300 50  0001 C CNN
 	1    7700 5300
 	1    0    0    1   
 $EndComp
-NoConn ~ 3250 2800
-NoConn ~ 3250 2900
-NoConn ~ 3250 3000
-NoConn ~ 3250 3100
-Text Label 3150 2800 2    50   ~ 0
-~W49
-Text Label 3150 2900 2    50   ~ 0
+NoConn ~ 3200 3150
+NoConn ~ 3200 3250
+Text Label 3100 3150 2    50   ~ 0
 ~W4A
-Text Label 3150 3000 2    50   ~ 0
+Text Label 3100 3250 2    50   ~ 0
 ~W4B
-Text Label 3150 3100 2    50   ~ 0
-~W4C
 Wire Wire Line
-	2900 2800 3250 2800
+	2850 3150 3200 3150
 Wire Wire Line
-	2900 2900 3250 2900
-Wire Wire Line
-	2900 3000 3250 3000
-Wire Wire Line
-	2900 3100 3250 3100
-Text Notes 3300 3000 0    50   ~ 0
+	2850 3250 3200 3250
+Text Notes 3250 3250 0    50   ~ 0
 Expansion
-NoConn ~ 3250 5400
-NoConn ~ 3250 5500
-NoConn ~ 3250 5600
-Text Label 3150 5400 2    50   ~ 0
-~R49
-Text Label 3150 5500 2    50   ~ 0
-~R4A
-Text Label 3150 5600 2    50   ~ 0
+NoConn ~ 3200 6450
+NoConn ~ 3200 6550
+Text Label 3100 6450 2    50   ~ 0
 ~R4B
+Text Label 3100 6550 2    50   ~ 0
+~R4C
 Wire Wire Line
-	2900 5400 3250 5400
+	2850 6450 3200 6450
 Wire Wire Line
-	2900 5500 3250 5500
-Wire Wire Line
-	2900 5600 3250 5600
-Text Notes 3350 5500 0    50   ~ 0
+	2850 6550 3200 6550
+Text Notes 3300 6550 0    50   ~ 0
 Expansion
-Wire Wire Line
-	1650 4650 1900 4650
-Text Label 1650 5900 0    50   ~ 0
-~EN1
-Wire Wire Line
-	1650 5900 1900 5900
-Text Label 1650 3400 0    50   ~ 0
+Text Label 1550 1800 0    50   ~ 0
 ~EN1
 Text HLabel 4400 3900 0    50   Input ~ 0
 ~FPORH
 Text HLabel 4400 2450 0    50   Input ~ 0
 ~FPORL
-Text Label 1450 1150 2    50   ~ 0
+Text Label 1500 1000 2    50   ~ 0
 FPA[0..7]
-Entry Bus Bus
-	1450 1150 1550 1250
-Entry Wire Line
-	1550 1350 1650 1450
-Entry Wire Line
-	1550 1450 1650 1550
-Entry Wire Line
-	1550 1550 1650 1650
-Wire Bus Line
-	1550 1250 1550 1550
+$Comp
+L alexios:ATF16V8B U?
+U 1 1 6232D468
+P 2400 1750
+AR Path="/614F5B8D/6232D468" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6232D468" Ref="U301"  Part="1" 
+F 0 "U301" H 2400 2500 50  0000 C CNN
+F 1 "ATF16V8B" H 2400 2400 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 1750 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 1750 50  0001 C CNN
+F 4 "DFPIOA00" V 2400 1800 50  0000 C CNB "Signature"
+F 5 "dfp-io-write-a.jed" H 2400 1100 50  0000 C CNN "Image Filename"
+	1    2400 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U?
+U 1 1 62344682
+P 2400 3400
+AR Path="/614F5B8D/62344682" Ref="U?"  Part="1" 
+AR Path="/64FC7999/62344682" Ref="U302"  Part="1" 
+F 0 "U302" H 2400 4150 50  0000 C CNN
+F 1 "ATF16V8B" H 2400 4050 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 3400 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 3400 50  0001 C CNN
+F 4 "DFPIOB00" V 2400 3450 50  0000 C CNB "Signature"
+F 5 "dfp-io-write-b.jed" H 2400 2750 50  0000 C CNN "Image Filename"
+	1    2400 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U?
+U 1 1 6235B864
+P 2400 5050
+AR Path="/614F5B8D/6235B864" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6235B864" Ref="U303"  Part="1" 
+F 0 "U303" H 2400 5800 50  0000 C CNN
+F 1 "ATF16V8B" H 2400 5700 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 5050 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 5050 50  0001 C CNN
+F 4 "DFPDEC" V 2400 5100 50  0000 C CNB "Signature"
+F 5 "dfp-decode.jed" H 2400 4400 50  0000 C CNN "Image Filename"
+	1    2400 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U?
+U 1 1 62372CAE
+P 2400 6700
+AR Path="/614F5B8D/62372CAE" Ref="U?"  Part="1" 
+AR Path="/64FC7999/62372CAE" Ref="U304"  Part="1" 
+F 0 "U304" H 2400 7450 50  0000 C CNN
+F 1 "ATF16V8B" H 2400 7350 50  0000 C CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 6700 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 6700 50  0001 C CNN
+F 4 "DFPDEC" V 2400 6750 50  0000 C CNB "Signature"
+F 5 "dfp-decode.jed" H 2400 6050 50  0000 C CNN "Image Filename"
+	1    2400 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:ATF16V8B U?
+U 2 1 623899AC
+P 4950 6550
+AR Path="/614F5B8D/623899AC" Ref="U?"  Part="1" 
+AR Path="/64FC7999/623899AC" Ref="U301"  Part="2" 
+F 0 "U301" H 5130 6596 50  0000 L CNN
+F 1 "ATF16V8B" H 5130 6505 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 6550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 6550 50  0001 C CNN
+F 4 "DFPDEC" V 4950 6600 50  0001 C CNB "Signature"
+F 5 "dfp-decode.jed" H 4950 5900 50  0001 C CNN "Image Filename"
+	2    4950 6550
+	1    0    0    -1  
+$EndComp
+Connection ~ 4600 6650
+Connection ~ 4600 6450
+$Comp
+L alexios:ATF16V8B U?
+U 2 1 6238B311
+P 4950 7250
+AR Path="/614F5B8D/6238B311" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6238B311" Ref="U302"  Part="2" 
+F 0 "U302" H 5130 7296 50  0000 L CNN
+F 1 "ATF16V8B" H 5130 7205 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 4950 7250 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 4950 7250 50  0001 C CNN
+F 4 "DFPDEC" V 4950 7300 50  0001 C CNB "Signature"
+F 5 "dfp-decode.jed" H 4950 6600 50  0001 C CNN "Image Filename"
+	2    4950 7250
+	1    0    0    -1  
+$EndComp
+Connection ~ 4600 7350
+Connection ~ 4600 7150
+$Comp
+L alexios:ATF16V8B U?
+U 2 1 6238BCB0
+P 6300 6550
+AR Path="/614F5B8D/6238BCB0" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6238BCB0" Ref="U303"  Part="2" 
+F 0 "U303" H 6480 6596 50  0000 L CNN
+F 1 "ATF16V8B" H 6480 6505 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 6300 6550 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6300 6550 50  0001 C CNN
+F 4 "DFPDEC" V 6300 6600 50  0001 C CNB "Signature"
+F 5 "dfp-decode.jed" H 6300 5900 50  0001 C CNN "Image Filename"
+	2    6300 6550
+	1    0    0    -1  
+$EndComp
+Connection ~ 5950 6650
+Connection ~ 5950 6450
+$Comp
+L alexios:ATF16V8B U?
+U 2 1 6238CA8D
+P 6300 7250
+AR Path="/614F5B8D/6238CA8D" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6238CA8D" Ref="U304"  Part="2" 
+F 0 "U304" H 6480 7296 50  0000 L CNN
+F 1 "ATF16V8B" H 6480 7205 50  0000 L CNN
+F 2 "alexios:DIP-20_W7.62mm_Socket" H 6300 7250 50  0001 C CNN
+F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 6300 7250 50  0001 C CNN
+F 4 "DFPDEC" V 6300 7300 50  0001 C CNB "Signature"
+F 5 "dfp-decode.jed" H 6300 6600 50  0001 C CNN "Image Filename"
+	2    6300 7250
+	1    0    0    -1  
+$EndComp
+Connection ~ 5950 7350
+Connection ~ 5950 7150
+Text HLabel 1500 1500 0    50   Input ~ 0
+~AUTOSCAN
+Text Label 1550 1500 0    50   ~ 0
+~AUTOSCAN
+Wire Wire Line
+	1500 1500 1950 1500
+NoConn ~ 1950 1900
+NoConn ~ 1950 2200
+Text Label 3100 1400 2    50   ~ 0
+~WAB0
+Text Label 3100 1700 2    50   ~ 0
+~WAB2
+Text Label 3100 1800 2    50   ~ 0
+~WDB0
+Text Label 3100 2000 2    50   ~ 0
+~WDB1
+Text Label 3100 1600 2    50   ~ 0
+~WIB0
+Text Label 3100 1900 2    50   ~ 0
+~WIB1
+Text Label 3100 1500 2    50   ~ 0
+~WAB1
+Wire Wire Line
+	2850 1800 3350 1800
+Wire Wire Line
+	2850 1700 3350 1700
+Wire Wire Line
+	2850 1500 3350 1500
+Wire Wire Line
+	2850 1400 3350 1400
+Text HLabel 3350 1400 2    50   Output ~ 0
+~WAB0
+Text HLabel 3350 1500 2    50   Output ~ 0
+~WAB1
+Text HLabel 3350 1700 2    50   Output ~ 0
+~WAB2
+Text HLabel 3350 1800 2    50   Output ~ 0
+~WDB0
+Wire Wire Line
+	2850 1300 3350 1300
+Text HLabel 3350 1300 2    50   Output ~ 0
+ROWEN
+Text Label 2900 1300 0    50   ~ 0
+ROWEN
+Wire Wire Line
+	2850 2950 3100 2950
+Text Label 3100 2950 2    50   ~ 0
+~WOR0
+Text HLabel 3350 1900 2    50   Output ~ 0
+~WIB1
+Text HLabel 3350 1600 2    50   Output ~ 0
+~WIB0
+Text HLabel 3350 2000 2    50   Output ~ 0
+~WDB1
+Wire Wire Line
+	2850 2000 3350 2000
+Wire Wire Line
+	2850 1600 3350 1600
+Wire Wire Line
+	2850 1900 3350 1900
+Wire Wire Line
+	1500 1800 1950 1800
+Wire Wire Line
+	1950 3250 1700 3250
+Wire Wire Line
+	1950 3350 1700 3350
+Text Label 1700 3250 0    50   ~ 0
+~EN0
+Text Label 1700 3350 0    50   ~ 0
+~EN1
+Wire Wire Line
+	1950 4900 1700 4900
+Wire Wire Line
+	1950 5000 1700 5000
+Text Label 1700 4900 0    50   ~ 0
+~EN0
+Text Label 1700 5000 0    50   ~ 0
+~EN1
+Wire Wire Line
+	1950 6550 1700 6550
+Wire Wire Line
+	1950 6650 1700 6650
+Text Label 1700 6550 0    50   ~ 0
+~EN0
+Text Label 1700 6650 0    50   ~ 0
+~EN1
+Text Label 1550 2100 0    50   ~ 0
+~RD
+Text HLabel 1500 2100 0    50   Input ~ 0
+~RD
+Wire Wire Line
+	1500 2100 1950 2100
+Text Label 1700 3750 0    50   ~ 0
+~RD
+Wire Wire Line
+	1950 3750 1700 3750
+Text Label 1700 5300 0    50   ~ 0
+~WR
+Wire Wire Line
+	1950 5300 1700 5300
+Text Label 1700 5400 0    50   ~ 0
+~RD
+Wire Wire Line
+	1950 5400 1700 5400
+Text Label 1700 6950 0    50   ~ 0
+~WR
+Wire Wire Line
+	1950 6950 1700 6950
+Text Label 1700 7050 0    50   ~ 0
+~RD
+Wire Wire Line
+	1950 7050 1700 7050
+Text Label 3100 5300 2    50   ~ 0
+~R47
+Wire Wire Line
+	2850 3350 3100 3350
+Text Label 3100 3350 2    50   ~ 0
+~RDSR0
+Text Notes 3250 3350 0    50   ~ 0
+← NB: read signal!
+Wire Wire Line
+	2850 6850 3200 6850
+Text Label 3100 6850 2    50   ~ 0
+~W4C
+NoConn ~ 3200 6850
 Wire Bus Line
 	6300 1150 6300 4000
 Wire Bus Line

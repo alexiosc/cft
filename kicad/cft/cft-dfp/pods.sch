@@ -1065,21 +1065,6 @@ Wire Bus Line
 	10400 1750 9900 1750
 Text Label 9900 1750 0    50   ~ 0
 COND[0..3]
-$Comp
-L alexios:74HC08 U401
-U 1 1 61FEF78C
-P 7000 4900
-F 0 "U401" H 7125 4775 50  0000 C CNN
-F 1 "74HC08" H 7125 4684 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4450 50  0001 C CNN
-	1    7000 4900
-	1    0    0    -1  
-$EndComp
-Text Label 7650 4850 2    50   ~ 0
-BPCP
-Wire Wire Line
-	7350 4850 7650 4850
 Wire Wire Line
 	6500 4800 6900 4800
 Text HLabel 6500 4900 0    50   Input ~ 0
@@ -1202,28 +1187,6 @@ F 3 "~" H 4600 7200 50  0001 C CNN
 	1    4600 7200
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC08 U402
-U 2 1 61FE9961
-P 8700 5350
-F 0 "U402" H 8825 5225 50  0000 C CNN
-F 1 "74HC08" H 8825 5134 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4900 50  0001 C CNN
-	2    8700 5350
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U402
-U 4 1 624150B9
-P 8700 4450
-F 0 "U402" H 8825 4325 50  0000 C CNN
-F 1 "74HC08" H 8825 4234 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4000 50  0001 C CNN
-	4    8700 4450
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8600 5250 8250 5250
 Wire Wire Line
@@ -1231,15 +1194,9 @@ Wire Wire Line
 Wire Wire Line
 	8600 6250 8550 6250
 Wire Wire Line
-	9050 5300 9350 5300
-Wire Wire Line
-	9050 4850 9350 4850
-Wire Wire Line
 	8600 4800 8250 4800
 Wire Wire Line
 	6900 5250 6550 5250
-Wire Wire Line
-	7350 5300 7650 5300
 Text Label 6550 5250 0    50   ~ 0
 ~RAB0
 Text Label 6550 5700 0    50   ~ 0
@@ -1250,14 +1207,6 @@ Text Label 8250 4800 0    50   ~ 0
 ~RDB0
 Text Label 8250 5250 0    50   ~ 0
 ~RDB1
-Text Label 7650 5300 2    50   ~ 0
-~RAB0A
-Text Label 7650 6200 2    50   ~ 0
-~RAB2A
-Text Label 9350 4850 2    50   ~ 0
-~RDB0A
-Text Label 9350 5300 2    50   ~ 0
-~RDB1A
 Text Label 6550 5350 0    50   ~ 0
 ~FPABL
 Text Label 6550 5800 0    50   ~ 0
@@ -1268,38 +1217,10 @@ Text Label 8250 4900 0    50   ~ 0
 ~FPDBL
 Text Label 8250 5350 0    50   ~ 0
 ~FPDBH
-Text Label 7650 5750 2    50   ~ 0
-~RAB1A
-Wire Wire Line
-	7350 5750 7650 5750
 Wire Wire Line
 	6900 5700 6550 5700
-$Comp
-L alexios:74HC08 U401
-U 3 1 6272CC8C
-P 7000 4450
-F 0 "U401" H 7125 4325 50  0000 C CNN
-F 1 "74HC08" H 7125 4234 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4000 50  0001 C CNN
-	3    7000 4450
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6900 6150 6550 6150
-Wire Wire Line
-	7350 6200 7650 6200
-$Comp
-L alexios:74HC08 U401
-U 4 1 626F0E3A
-P 7000 5350
-F 0 "U401" H 7125 5225 50  0000 C CNN
-F 1 "74HC08" H 7125 5134 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4900 50  0001 C CNN
-	4    7000 5350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8600 5800 8550 5800
 Wire Wire Line
@@ -1358,39 +1279,6 @@ Text HLabel 8200 5350 0    50   Input ~ 0
 ~FPDBH
 Wire Wire Line
 	8200 5350 8600 5350
-$Comp
-L alexios:74HC08 U402
-U 3 1 61FEAB81
-P 8700 5800
-F 0 "U402" H 8825 5675 50  0000 C CNN
-F 1 "74HC08" H 8825 5584 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 5350 50  0001 C CNN
-	3    8700 5800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U401
-U 2 1 627A4D3C
-P 8700 4900
-F 0 "U401" H 8825 4775 50  0000 C CNN
-F 1 "74HC08" H 8825 4684 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4450 50  0001 C CNN
-	2    8700 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U402
-U 1 1 61FE438A
-P 7000 5800
-F 0 "U402" H 7125 5675 50  0000 C CNN
-F 1 "74HC08" H 7125 5584 50  0000 C CNN
-F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 5350 50  0001 C CNN
-	1    7000 5800
-	1    0    0    -1  
-$EndComp
 Text Notes 3350 2100 1    50   ~ 10
 µCV 1/3
 Text Notes 3350 3600 1    50   ~ 10
@@ -1703,6 +1591,118 @@ F19 "~DRIVE" I R 8950 2350 50
 F20 "SAMPLE" I L 8150 2350 50 
 F21 "~READ" I L 8150 2450 50 
 $EndSheet
+Text Label 9350 5300 2    50   ~ 0
+~RDB1A
+Text Label 9350 4850 2    50   ~ 0
+~RDB0A
+Wire Wire Line
+	9050 4850 9350 4850
+Wire Wire Line
+	9050 5300 9350 5300
 Wire Bus Line
 	2450 1250 2450 2050
+Wire Wire Line
+	7350 6200 7650 6200
+Wire Wire Line
+	7350 5750 7650 5750
+Text Label 7650 5750 2    50   ~ 0
+~RAB1A
+Text Label 7650 6200 2    50   ~ 0
+~RAB2A
+Text Label 7650 5300 2    50   ~ 0
+~RAB0A
+Wire Wire Line
+	7350 5300 7650 5300
+Wire Wire Line
+	7350 4850 7650 4850
+Text Label 7650 4850 2    50   ~ 0
+BPCP
+$Comp
+L alexios:74HC08 U402
+U 3 1 61FEAB81
+P 8700 5800
+F 0 "U402" H 8825 5675 50  0000 C CNN
+F 1 "74HC08" H 8825 5584 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 5350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 5350 50  0001 C CNN
+	3    8700 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 2 1 61FE9961
+P 8700 5350
+F 0 "U402" H 8825 5225 50  0000 C CNN
+F 1 "74HC08" H 8825 5134 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4900 50  0001 C CNN
+	2    8700 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U401
+U 2 1 627A4D3C
+P 8700 4900
+F 0 "U401" H 8825 4775 50  0000 C CNN
+F 1 "74HC08" H 8825 4684 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4450 50  0001 C CNN
+	2    8700 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 4 1 624150B9
+P 8700 4450
+F 0 "U402" H 8825 4325 50  0000 C CNN
+F 1 "74HC08" H 8825 4234 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 8900 4000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8900 4000 50  0001 C CNN
+	4    8700 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U402
+U 1 1 61FE438A
+P 7000 5800
+F 0 "U402" H 7125 5675 50  0000 C CNN
+F 1 "74HC08" H 7125 5584 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 5350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 5350 50  0001 C CNN
+	1    7000 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U401
+U 4 1 626F0E3A
+P 7000 5350
+F 0 "U401" H 7125 5225 50  0000 C CNN
+F 1 "74HC08" H 7125 5134 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4900 50  0001 C CNN
+	4    7000 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U401
+U 1 1 61FEF78C
+P 7000 4900
+F 0 "U401" H 7125 4775 50  0000 C CNN
+F 1 "74HC08" H 7125 4684 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4450 50  0001 C CNN
+	1    7000 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U401
+U 3 1 6272CC8C
+P 7000 4450
+F 0 "U401" H 7125 4325 50  0000 C CNN
+F 1 "74HC08" H 7125 4234 50  0000 C CNN
+F 2 "alexios:DIP-14_W7.62mm_Socket" H 7200 4000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4000 50  0001 C CNN
+	3    7000 4450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

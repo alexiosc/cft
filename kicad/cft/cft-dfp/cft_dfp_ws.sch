@@ -446,12 +446,6 @@ Wire Wire Line
 	7000 2500 7050 2500
 Wire Wire Line
 	5000 2750 7000 2750
-Wire Wire Line
-	3350 2600 3900 2600
-Text Label 3800 2600 2    50   ~ 0
-~EN0
-Text HLabel 3900 2600 2    50   Output ~ 0
-~EN0
 $Comp
 L alexios:ATF16V8B U40
 U 1 1 60F2558F
@@ -553,8 +547,6 @@ Wire Wire Line
 	7650 2100 7700 2100
 Wire Wire Line
 	7700 2100 7700 2150
-NoConn ~ 3350 2300
-NoConn ~ 3350 2200
 Text HLabel 1200 3850 0    50   Input ~ 0
 CLRWS
 Text Label 1250 3850 0    50   ~ 0
@@ -594,16 +586,21 @@ F 3 "" H 2200 4150 50  0001 C CNN
 $EndComp
 Text Notes 2600 3700 0    50   ~ 0
 Also decodes µCU XMEM A6 line\nfor DFP reads/writes. (~RD~ and \n~WR~ are decoded separately).
-Text HLabel 3900 2500 2    50   Output ~ 0
+Text HLabel 3900 2400 2    50   Output ~ 0
 ~EN1
 Wire Wire Line
-	3350 2500 3900 2500
-Text Label 3800 2500 2    50   ~ 0
+	3350 2400 3900 2400
+Text Label 3800 2400 2    50   ~ 0
 ~EN1
 NoConn ~ 2450 3000
 Text Notes 3350 2800 0    50   ~ 0
 Input
-NoConn ~ 3350 2400
+Text HLabel 3900 2300 2    50   Output ~ 0
+~EN0
+Text Label 3800 2300 2    50   ~ 0
+~EN0
+Wire Wire Line
+	3350 2300 3900 2300
 Wire Bus Line
 	1750 1750 1750 2200
 Wire Bus Line
