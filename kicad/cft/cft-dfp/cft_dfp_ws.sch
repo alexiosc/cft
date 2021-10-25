@@ -601,6 +601,9 @@ Text Label 3800 2300 2    50   ~ 0
 ~EN0
 Wire Wire Line
 	3350 2300 3900 2300
+NoConn ~ 3350 2200
+NoConn ~ 3350 2500
+NoConn ~ 3350 2600
 Wire Bus Line
 	1750 1750 1750 2200
 Wire Bus Line

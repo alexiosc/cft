@@ -1934,6 +1934,10 @@ F 3 "~" H 1400 4600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1500 4600 2550 4600
+Text Label 2050 4600 0    50   ~ 0
+PANEL-LED
+Text Notes 4400 2850 0    50   ~ 0
+D13 is Arduino LED.
 Wire Bus Line
 	1400 3200 1400 3600
 Wire Bus Line
@@ -1948,8 +1952,4 @@ Wire Bus Line
 	6200 950  6200 1800
 Wire Bus Line
 	8200 1300 8200 3900
-Text Label 2050 4600 0    50   ~ 0
-PANEL-LED
-Text Notes 4400 2850 0    50   ~ 0
-D13 is Arduino LED.
 $EndSCHEMATC

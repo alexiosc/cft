@@ -2015,6 +2015,15 @@ Wire Wire Line
 Text Label 3100 6850 2    50   ~ 0
 ~W4C
 NoConn ~ 3200 6850
+NoConn ~ 1950 5100
+NoConn ~ 1950 5200
+NoConn ~ 1950 5500
+NoConn ~ 1950 6750
+NoConn ~ 1950 6850
+NoConn ~ 1950 7150
+NoConn ~ 1950 3450
+NoConn ~ 1950 3550
+NoConn ~ 1950 3850
 Wire Bus Line
 	6300 1150 6300 4000
 Wire Bus Line
