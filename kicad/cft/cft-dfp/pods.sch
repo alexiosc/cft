@@ -1599,8 +1599,6 @@ Wire Wire Line
 	9050 4850 9350 4850
 Wire Wire Line
 	9050 5300 9350 5300
-Wire Bus Line
-	2450 1250 2450 2050
 Wire Wire Line
 	7350 6200 7650 6200
 Wire Wire Line
@@ -1705,4 +1703,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7200 4000 50  0001 C CNN
 	3    7000 4450
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	2450 1250 2450 2050
 $EndSCHEMATC

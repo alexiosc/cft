@@ -80,34 +80,34 @@ Text HLabel 14200 1350 2    50   UnSpc ~ 0
 Text HLabel 14200 1950 2    50   UnSpc ~ 0
 ~WS
 Wire Bus Line
-	8100 9250 7500 9250
-Text HLabel 7500 9250 0    50   Input ~ 0
+	7400 9250 6800 9250
+Text HLabel 6800 9250 0    50   Input ~ 0
 FPA[0..1]
-Text Label 8100 9250 2    50   ~ 0
+Text Label 7400 9250 2    50   ~ 0
 FPA[0..1]
 Wire Bus Line
-	8100 9350 7500 9350
-Text HLabel 7500 9350 0    50   Input ~ 0
+	7400 9350 6800 9350
+Text HLabel 6800 9350 0    50   Input ~ 0
 ~ROW[1..5]
 Wire Bus Line
-	8100 9450 7500 9450
-Text HLabel 7500 9450 0    50   Input ~ 0
+	7400 9450 6800 9450
+Text HLabel 6800 9450 0    50   Input ~ 0
 SWA[0..3]
-Text Label 8100 9350 2    50   ~ 0
+Text Label 7400 9350 2    50   ~ 0
 ~ROW[1..5]
-Text Label 8100 9450 2    50   ~ 0
+Text Label 7400 9450 2    50   ~ 0
 SWA[0..3]
 Wire Bus Line
-	8100 9550 7500 9550
-Text HLabel 7500 9550 0    50   Input ~ 0
+	7400 9550 6800 9550
+Text HLabel 6800 9550 0    50   Input ~ 0
 SWD[0..3]
-Text Label 8100 9550 2    50   ~ 0
+Text Label 7400 9550 2    50   ~ 0
 SWD[0..3]
-Text Label 8100 9650 2    50   ~ 0
+Text Label 7400 9650 2    50   ~ 0
 ~LTSON
 Wire Wire Line
-	7500 9650 8100 9650
-Text HLabel 7500 9650 0    50   Input ~ 0
+	6800 9650 7400 9650
+Text HLabel 6800 9650 0    50   Input ~ 0
 ~LTSON
 Text HLabel 11950 9200 0    50   Input ~ 0
 FPCLKEN
@@ -142,10 +142,10 @@ Text HLabel 15400 3450 2    50   Input ~ 0
 Text HLabel 15400 3550 2    50   Input ~ 0
 ~FPSPHOE
 Wire Bus Line
-	8100 9150 7500 9150
-Text HLabel 7500 9150 0    50   Input ~ 0
+	7400 9150 6800 9150
+Text HLabel 6800 9150 0    50   Input ~ 0
 FP-FPD[0..7]
-Text Label 8100 9150 2    50   ~ 0
+Text Label 7400 9150 2    50   ~ 0
 FP-FPD[0..7]
 $Comp
 L alexios:CFT-2021-Processor-Bus P1
@@ -658,9 +658,9 @@ Wire Wire Line
 Wire Wire Line
 	9650 10150 9300 10150
 Text Label 8450 9050 0    50   ~ 0
-FPA0
+FP-FPA0
 Text Label 9650 9050 2    50   ~ 0
-FPA1
+FP-FPA1
 Text Label 8450 9150 0    50   ~ 0
 FP-FPD7
 Text Label 8450 9550 0    50   ~ 0
@@ -1804,6 +1804,82 @@ Text HLabel 14150 10800 2    50   Input ~ 0
 ~FPRSVD2
 Text HLabel 14150 10900 2    50   Input ~ 0
 ~FPRSVD3
+$Comp
+L alexios:PESD5V2S2UT D21
+U 1 1 63909192
+P 10400 6100
+F 0 "D21" H 10650 5950 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 10300 5850 50  0001 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 10400 5500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 10300 6125 50  0001 C CNN
+	1    10400 6100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 6390A3D5
+P 10400 6200
+F 0 "#PWR05" H 10400 5950 50  0001 C CNN
+F 1 "GND" H 10405 6027 50  0000 C CNN
+F 2 "" H 10400 6200 50  0001 C CNN
+F 3 "" H 10400 6200 50  0001 C CNN
+	1    10400 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10300 5950 10300 5750
+Wire Wire Line
+	10300 5750 10750 5750
+Wire Wire Line
+	10500 5950 10500 5850
+Wire Wire Line
+	10500 5850 10750 5850
+Text Label 10750 5750 2    50   ~ 0
+FP-FPA0
+Text Label 10750 5850 2    50   ~ 0
+FP-FPA1
+$Comp
+L Device:R_Small R?
+U 1 1 639C4088
+P 9950 5750
+AR Path="/639C4088" Ref="R?"  Part="1" 
+AR Path="/60757845/639C4088" Ref="R?"  Part="1" 
+AR Path="/5FE640D1/639C4088" Ref="R9"  Part="1" 
+F 0 "R9" V 10000 5950 50  0000 C CNN
+F 1 "1kΩ" V 10000 5550 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 5750 50  0001 C CNN
+F 3 "~" H 9950 5750 50  0001 C CNN
+	1    9950 5750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10050 5750 10300 5750
+Connection ~ 10300 5750
+Connection ~ 10500 5850
+$Comp
+L Device:R_Small R?
+U 1 1 63B0F292
+P 9950 5850
+AR Path="/63B0F292" Ref="R?"  Part="1" 
+AR Path="/60757845/63B0F292" Ref="R?"  Part="1" 
+AR Path="/5FE640D1/63B0F292" Ref="R11"  Part="1" 
+F 0 "R11" V 10000 6050 50  0000 C CNN
+F 1 "1kΩ" V 10000 5650 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 5850 50  0001 C CNN
+F 3 "~" H 9950 5850 50  0001 C CNN
+	1    9950 5850
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10050 5850 10500 5850
+Wire Wire Line
+	9850 5750 9500 5750
+Wire Wire Line
+	9850 5850 9500 5850
+Text Label 9500 5750 0    50   ~ 0
+FPA0
+Text Label 9500 5850 0    50   ~ 0
+FPA1
 Wire Bus Line
 	2550 5100 2550 6050
 Wire Bus Line
