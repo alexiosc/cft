@@ -4,7 +4,7 @@ ISMCTL00        ; this is the signature
 
 ; 1     2       3       4       5       6       7       8       9       10
 RESET   CLK4    FI	ACT0    ACT1    ACT2    ACT3    END	IDXEN	GND
-NC1	IDX 	INCPC   INCDR   DECDR   ENDCP	ACTSTI	INH	ACTCLI  VCC
+NC	IDX 	INCPC   INCDR   DECDR   ENDCP	ACTSTI	INH	ACTCLI  VCC
 ;11     12      13      14      15      16      17      18      19      20
 
 
@@ -20,7 +20,7 @@ NC1	IDX 	INCPC   INCDR   DECDR   ENDCP	ACTSTI	INH	ACTCLI  VCC
 ; We mask (inhibit) interrupts when reset or action_cli is asserted,
 ; or when the Interrupt Flag (FI) is 0 (interrupts disabled).
 
-/INH =    /RESET   +   /CLK4 * /ACT3 * /ACT2 * /ACT1 * /ACT0   +   /FI
+/INH =    /RESET   +   /CLK4 * /ACT3 * ACT2 * /ACT1 * /ACT0   +   /FI
 
 
 ; If we've received and registered an IRQ, let the microcode sequencer
