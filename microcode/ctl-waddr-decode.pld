@@ -3,17 +3,17 @@ CUWDEC00        ; this is the signature
 
 
 ; 1     2       3       4       5       6       7       8       9       10
-WA4     WA3     WA2     WA1     WA0     NC0     NC1     NC2     CLK4    GND
-NC4     NC5     XORA    XORB    XORY    WIR     WPC     WF      WDR     VCC
+WA4     WA3     WA2     WA1     WA0     NC      NC      NC     CLK4    GND
+NC      NC      XORA    XORB    XORY    WIR     WPC     WF      WDR     VCC
 ;11     12      13      14      15      16      17      18      19      20
 
-/WPC =    /CLK4 * /WA4 * WA3 * /WA2 * /WA1 * /WA0
+/WPC = /CLK4 * /WA4 * WA3 * /WA2 * /WA1 * /WA0
 
-/WDR =    /CLK4 * /WA4 * WA3 * /WA2 * /WA1 *  WA0
+/WDR = /CLK4 * /WA4 * WA3 * /WA2 * /WA1 *  WA0
 
-/WIR =    /CLK4 * /WA4 * WA3 *  WA2 *  WA1 *  WA0
+/WIR = /CLK4 * /WA4 * WA3 *  WA2 *  WA1 *  WA0
 
-/WF = /CLK4 *  WA4 * WA3 *  WA2 *  WA1
+/WF =  /CLK4 *  WA4 * WA3 *  WA2 *  WA1
 
 
 ; This is the single XOR gate in the Skip/Branch Unit. Putting it here saves a
