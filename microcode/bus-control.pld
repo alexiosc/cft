@@ -37,17 +37,23 @@ WS    	DBEN	ABEN	DBDIR	SETW	CLRRW	SETWS	SETR	CLRWS	VCC
 ; rising edge of CLK1.
 
 ; Update: added sanity: only assert when MEM or IO are also asserted.
+; Update: more paranoia: ensure only one of each pair of { REN, WEN }
+; and { MEM, IO } is enabled.
 
-/SETR = /MEM * /REN * /CLK3  +  /IO * /REN * /CLK3  +  /REN * /WAITING
+/SETR = /MEM * IO * /REN * WEN * /CLK3  +  MEM * /IO * /REN * WEN * /CLK3  +  /MEM * IO * /REN * WEN * /WAITING  +  MEM * /IO * /REN * WEN * /WAITING
 
-/SETW = /MEM * /WEN * /CLK3  +  /IO * /WEN * /CLK3  +  /WEN * /WAITING
+/SETW = /MEM * IO * REN * /WEN * /CLK3  +  MEM * /IO * REN * /WEN * /CLK3  +  /MEM * IO * REN * /WEN * /WAITING  +  MEM * /IO * REN * /WEN * /WAITING
 
 
 ; Disable the peripheral bus on reset. Also, for paranoia's sake, disable it
 ; whenever there's no bus transaction (REN or WEN are both high, or MEM and IO
 ; are both high) during T3.
 
-/CLRRW = /RESET  +  /CLK3 * WAITING * WEN * REN  +  /CLK3 * MEM * IO
+; /CLRRW = /RESET  +  /CLK3 * WAITING * WEN * REN  +  /CLK3 * MEM * IO
+
+; Note: the paranoia modification above makes WAITING a don't-care
+; value so the equation is simplified.
+/CLRRW = /RESET  +  /MEM * /IO  + /REN * /WEN  +  MEM * IO  +  REN * WEN
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,8 +84,8 @@ WS    	DBEN	ABEN	DBDIR	SETW	CLRRW	SETWS	SETR	CLRWS	VCC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Truth table:
-; ___  __  _______     _____
-; MEM  IO  WAITING  |  BUSEN
+; ___  __  _______     ____
+; MEM  IO  WAITING  |  DBEN
 ; ------------------|-------
 ;  0    X     X     |    0
 ;  X    0     X     |    0
@@ -89,11 +95,13 @@ WS    	DBEN	ABEN	DBDIR	SETW	CLRRW	SETWS	SETR	CLRWS	VCC
 ; I.e. it's a three-input negative-logic OR gate. (implemented as a
 ; three-input AND gate in the pre-GAL schematics).
 
-; Note, the /WAITING term isn't strictly needed, because MEM or IO will remain
-; asserted during a wait state. But added minterm coverage helps avoid
-; glitches.
+; Note, MEM or IO remain asserted during a wait state, so the /WAITING terms
+; are redundant. But added minterm coverage helps avoid glitches.
 
-/DBEN = RESET * /MEM  +  RESET * /IO  +  RESET * /WAITING
+; For safety's sake, account for just the four defined bus transactions.
+
+;       memory read                        memory write                       I/O read                           I/O write
+/DBEN = RESET * /MEM * IO * /REN * WEN  +  RESET * /MEM * IO * REN * /WEN  +  RESET * MEM * /IO * /REN * WEN  +  RESET * MEM * /IO * REN * /WEN  +  RESET * /MEM * IO * /REN * WEN * /WAITING  +  RESET * /MEM * IO * REN * /WEN * /WAITING  +  RESET * MEM * /IO * /REN * WEN * /WAITING  +  RESET * MEM * /IO * REN * /WEN * /WAITING
 
 
 ; Set the bus direction. When low, a data bus read is performed. When high, a
@@ -103,10 +111,10 @@ WS    	DBEN	ABEN	DBDIR	SETW	CLRRW	SETWS	SETR	CLRWS	VCC
 ; (b) To add some added protection using /MEM and /IO.
 ; (c) So it can be changed if nasty glitches happen anyway.
 
-/DBDIR = /REN * /MEM  +  /REN * /IO
+/DBDIR = /REN * WEN * /MEM * IO  +  /REN * WEN * MEM * /IO
 
-; DBDIR used to be R, the bus signal, but it helps to drive it early, so the
-; data bus has enabled by the time R is asserted.
+; DBDIR used to be R, the bus signal, but it helps to drive the bus early, so
+; the data bus has enabled by the time R is asserted.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

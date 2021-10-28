@@ -28,15 +28,15 @@ IR0     IR1     IR2     IBUSEN  A0      A1      A2      WE      OE      VCC
 ; ------------------------------------------|-------------------------------------------
 ;  0     1    -     -     -     -      -    |   1     1   1  MBU disabled
 ;  0     -    1     -     -     -      -    |   1     1   1  MBU disabled
-;  0     0    -     -     -     -      -    |   0     1   1  MBU disabled, read hard map
-;  0     -    0     -     -     -      -    |   0     1   1  MBU disabled, read hard map
+;  0     0    1     1     -     1      1    |   0     1   1  MBU disabled, read hard map
+;  0     1    0     1     -     1      1    |   0     1   1  MBU disabled, read hard map
 ;  0     -    -     0     -     -      -    |   1     1   1  MBU disabled, ignore writes
 ;  0     -    -     -     -     0      -    |   1     1   1  MBU disabled, ignore writes
 ;  0     -    -     -     -     -      0    |   1     1   1  MBU disabled, ignore writes
 ; ------------------------------------------|-------------------------------------------
 ;  1     1    1     1     -     1      1    |   1     0   1  MBU idle, output MB0
 ; ------------------------------------------|-------------------------------------------
-;  1     0    -     -     -     -      -    |   0     0   1  Read MBP
+;  1     0    1     1     -     1      1    |   0     0   1  Read MBP
 ; ------------------------------------------|-------------------------------------------
 ;  1     1    0     1     -     1      1    |   0     0   1  Read MBP index register
 ; ------------------------------------------|-------------------------------------------
@@ -52,7 +52,9 @@ IR0     IR1     IR2     IBUSEN  A0      A1      A2      WE      OE      VCC
 ; Enable the IBUS when /RMBN or /RMBP is asserted, even when the MBU
 ; is disabled. Other signals are included as a safety interlock.
 
-IBUSEN = /WAR  +  /WMBN  +  /WMBP  +  /RMBP * /RMBN  +  RMBP * RMBN * WMBP * WMBN
+; IBUSEN = /WAR  +  /WMBN  +  /WMBP  +  /RMBP * /RMBN  +  RMBP * RMBN * WMBP * WMBN
+
+/IBUSEN = /RMBP * RMBN * WAR * WMBP * WMBN  +  RMBP * /RMBN * WAR * WMBP * WMBN
 	  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -69,14 +71,14 @@ IBUSEN = /WAR  +  /WMBN  +  /WMBP  +  /RMBP * /RMBN  +  RMBP * RMBN * WMBP * WMB
 ; ------------------------------------------|-------------------------------------
 ;  1     0    -     -     -     -      -    |   0   1  Read MBP
 ; ------------------------------------------|-------------------------------------
-;  1     1    0     1     -     1      1    |   0   1  Read MBX index register
+;  1     1    0     1     -     1      1    |   0   1  Read MBn index register
 ; ------------------------------------------|-------------------------------------
 ;  1     1    1     0     1     1      1    |   0   1  write_ar_mbX
 ;  1     1    1     0     0     1      1    |   0   1  write_ar_mbz, MBX idx reg
 ; ------------------------------------------|-------------------------------------
-;  1     1    1     1     -     0      1    |   1   0  Write BMP
+;  1     1    1     1     -     0      1    |   1   0  Write MBP
 ; ------------------------------------------|-------------------------------------
-;  1     1    1     1     -     1      0    |   1   0  Write MBX index register
+;  1     1    1     1     -     1      0    |   1   0  Write MBn index register
 ; ------------------------------------------|-------------------------------------
 ;  1     0    0     -     -     -      -    |   0   1  Safety (RBMP + RMBn asserted)
 ;  1     0    -     0     -     -      -    |   0   1  Safety (RBMP + WAR  asserted)
@@ -102,8 +104,12 @@ IBUSEN = /WAR  +  /WMBN  +  /WMBP  +  /RMBP * /RMBN  +  RMBP * RMBN * WMBP * WMB
 ; 2. The MBU is enabled and WMBn is the only asserted signal.
 ;
 ; Note: Espresso comes up with the exact same expression in positive logic.
+; OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /WMBN
 
-OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /WMBN
+; Update: restricting OE and using negative logic.
+;    read_mbp                                    read_mbn                                   write_ar_xx
+/OE = DIS * /RMBP * RMBN * WAR * WMBP * WMBN  +  DIS * RMBP * /RMBN * WAR * WMBP * WMBN  +  DIS * RMBP * RMBN * /WAR * WMBP * WMBN
+
 
 ; Memory Write Enable. This one is easier to do in negative logic because there's only two minterms:
 ;
@@ -111,8 +117,14 @@ OE = /DIS  +  RMBP * RMBN * WAR * /WMBP * WMBN  +  RMBP * RMBN * WAR * WMBP * /W
 ; 2. The MBU is enabled and write_mbn is the only asserted control signal.
 ;
 ; Note: Again, Espresso comes up with the exact same expression.
+; WE = /DIS  +  /WAR  +  /RMBN  +  /RMBP  +  /WMBP * /WMBN  +  RMBP * RMBN * WMBP * WMBN
 
-WE = /DIS  +  /WAR  +  /RMBN  +  /RMBP  +  /WMBP * /WMBN  +  RMBP * RMBN * WMBP * WMBN
+; 2021-10-28: recoding in negative logic, which is clearer. There are
+; only two cases where the register file is enabled for write, and
+; this implies all safety interlocks too.
+
+;     write_mbp                                  write_mbn    
+/WE = DIS * RMBP * RMBN * WAR * /WMBP * WMBN  +  DIS * RMBP * RMBN * WAR * WMBP * /WMBN
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -190,7 +202,7 @@ DIS  RMBP  RMBn  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  IBEN  OE  WE 
  1     1    1     0     0     1      1     --       110   |   110   1     0   1  write_ar_mbz, MB6 idx reg
  1     1    1     0     0     1      1     --       111   |   111   1     0   1  write_ar_mbz, MB7 idx reg
 ----------------------------------------------------------|-------------------------------------------------
- 1     1    1     1     -     0      1     --       ---   |   000   1     1   0  Write BMP
+ 1     1    1     1     -     0      1     --       ---   |   000   1     1   0  Write MBP
 ----------------------------------------------------------|-------------------------------------------------
  1     1    1     1     -     1      0     --       000   |   000   1     1   0  Write MBP index register
  1     1    1     1     -     1      0     --       001   |   001   1     1   0  Write MBD index register

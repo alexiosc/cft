@@ -220,29 +220,43 @@ def busctl00():
     for reset, clk3, t34, halt, waiting, wen, ren, mem, io, ws in itertools.product("01", repeat=10):
         dben, aben, dbdir, setw, clrrw, setws, setr, clrws = "HHHHHHHH"
 
-        if (mem == "0" and ren == "0" and clk3 == "0") or \
-           (io == "0" and ren == "0" and clk3 == "0") or \
-           (ren == "0" and waiting == "0"):
+        mode = {
+            "01 01": "mem_read",
+            "10 01": "mem_write",
+            "01 10": "io_read",
+            "10 10": "io_write"
+        }.get(ren + wen + " " + mem + io, "-")
+
+        if mode in ("mem_read", "io_read") and (clk3 == "0" or waiting == "0"):
             setr = "L"
 
-        if (mem == "0" and wen == "0" and clk3 == "0") or \
-           (io == "0" and wen == "0" and clk3 == "0") or \
-           (wen == "0" and waiting == "0"):
+        if mode in ("mem_write", "io_write") and (clk3 == "0" or waiting == "0"):
             setw = "L"
 
         if reset == "0" or \
-           clk3 == "0" and waiting == "1" and wen == "1" and ren == "1" or \
-           clk3 == "0" and mem == "1" and io == "0":
+           (mem == "0" and io == "0") or \
+           (ren == "0" and wen == "0") or \
+           (mem == "1" and io == "1") or \
+           (ren == "1" and wen == "1"):
             clrrw = "L"
 
         if reset == "1" and halt == "1":
             aben = "L"
 
-        if (reset == "1") and (mem == "0" or io == "0" or waiting == "0"):
+        # Note: the /WAITING term is really a don't-care value.
+        if reset == "1" and mode in ("mem_read", "mem_write", "io_read", "io_write"):
             dben = "L"
 
-        if (ren == "0" and mem == "0") or (ren == "0" and io == "0"):
+        if mode in ("mem_read", "io_read"):
             dbdir = "L"
+
+        # Sanity interlocks (note: the Address bus still always drives)
+        if (mode == "-"):
+            setr = "H"
+            setw = "H"
+            clrrw = "L"
+            dben, dbdir = "HH" # Both A & B ports of DB driver '248 tri-stated
+            
 
         if ws == "0":
             setws = "L"
@@ -280,17 +294,17 @@ def mbudec00():
                 if raddr == 0b11100:
                     rmbp = "L"
                 if raddr == 0b11101 or raddr == 0b11110:
-                    nrctx = "L"
+                    rctx = "L"
 
-                if waddr == 0b11011:
+                if clk4 == "0" and waddr == 0b11011:
                     wmbn = "L"
-                if waddr == 0b11100:
+                if clk4 == "0" and waddr == 0b11100:
                     wmbp = "L"
-                if waddr == 0b11101 or waddr == 0b11110:
+                if clk4 == "0" and (waddr == 0b11101 or waddr == 0b11110):
                     wctx = "L"
 
                 if clk4 == "0" and (waddr >= 0b00100 and waddr <= 0b00111):
-                    war = "0"
+                    war = "L"
 
                 nc = "X"
 
@@ -301,39 +315,6 @@ def mbudec00():
                 addvec(vector)
     endentry()
 
-
-    """
-   assign #delay ibusen = ((war == 1'b0)) || 
-			  ((wmbn == 1'b0)) || 
-			  ((wmbp == 1'b0)) || 
-			  ((rmbp == 1'b0) && (rmbn == 1'b0)) || 
-			  ((rmbp == 1'b1) && (rmbn == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1));
-
-   assign #delay oe = ((dis == 1'b0)) || 
-		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b0) && (wmbn == 1'b1)) || 
-		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0));
-
-   assign #delay we = ((dis == 1'b0)) || 
-		      ((war == 1'b0)) || 
-		      ((rmbn == 1'b0)) || 
-		      ((rmbp == 1'b0)) || 
-		      ((wmbp == 1'b0) && (wmbn == 1'b0)) || 
-		      ((rmbp == 1'b1) && (rmbn == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1));
-
-   assign #delay a0 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir0 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir0 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr0 == 1'b1));
-
-   assign #delay a1 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir1 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir1 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (addr1 == 1'b1));
-
-   assign #delay a2 = ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b0) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b1) && (wmbp == 1'b1) && (wmbn == 1'b0) && (ir2 == 1'b1)) || 
-		      ((dis == 1'b1) && (rmbp == 1'b1) && (rmbn == 1'b1) && (war == 1'b0) && (iden == 1'b0) && (wmbp == 1'b1) && (wmbn == 1'b1) && (ir2 == 1'b1));
-"""
 
 def mbuctl00():
 
@@ -347,42 +328,79 @@ def mbuctl00():
         
                 # The default state is to be reading MB0.
                 ra = 0
-                ibusen, we, oe = "HHL"
+                ibusen, we, oe = "HHH" # Idle by default
+
+                # WAR=1  WMBN=1  RMBN=1  RMBP=1  DIS=1  WMBP=1  IDXEN=0  ADDR0=0  ADDR1=0
+                
+                mode = {
+                    "0 1 1 1 1": "read_mbp",
+                    "1 0 1 1 1": "read_mbn",
+                    "1 1 0 1 1": "write_ar",
+                    "1 1 1 0 1": "write_mbp",
+                    "1 1 1 1 0": "write_mbn",
+                    "1 1 1 1 1": "idle",
+                }.get(" ".join([rmbp, rmbn, war, wmbp, wmbn]), "-")
         
-                # Simplify test creation by decoding MBU operations
-                if dis == "1" and rmbp == "0" and rmbn == "1" and war == "1" and wmbp == "1" and wmbn == "1":
-                    mode = "read_mbp"
-                elif dis == "1" and rmbp == "1" and rmbn == "0" and war == "1" and wmbp == "1" and wmbn == "1":
-                    mode = "read_mbn"
-                elif dis == "1" and rmbp == "1" and rmbn == "1" and war == "0" and wmbp == "1" and wmbn == "1":
-                    mode = "write_ar"
-                elif dis == "1" and rmbp == "1" and rmbn == "1" and war == "1" and wmbp == "0" and wmbn == "1":
-                    mode = "write_mbp"
-                elif dis == "1" and rmbp == "1" and rmbn == "1" and war == "1" and wmbp == "1" and wmbn == "0":
-                    mode = "write_mbn"
-                else:
-                    mode = "?"
-        
-                # IBUS only enabled during register reads
-                if mode in ("read_mbp", "read_mbn"):
-                    ibusen = "L"
-        
-                # OE disabled during writes
-                if dis == "0" or mode in ("write_mbp", "write_mbn"):
+                # RMBP=0 RMBN=1 WAR=1 WMBP=1 WMBN=1   DIS=0   IDXEN=0 ADDR=00
+
+                # MBU disabled: always reading MBP, but really it's the
+                # hardware memory map (pull-down resistors).
+                if dis == "0" and mode in ("read_mbp", "read_mbn"):
+                    ibusen = "L"  # Enable the IBUS
+                    oe = "H"      # But disable the register file
+                    we = "H"
+                    ra = 0
+
+                # MBU enabled and idle: output MBP.
+                if dis == "1" and mode == "idle":
+                    ibusen = "H"
                     oe = "H"
-        
-                # WE enabled during writes
-                if mode in ("write_mbp", "write_mbn"):
-                    we = "L"
-        
-                # IR references MBR
-                if mode in ("read_mbn", "write_mbn"):
+                    we = "H"
+                    ra = 0
+                    
+                # MBU enabled: MBP reads
+                if dis == "1" and mode == "read_mbp":
+                    ibusen = "L"  # We're putting values on the IBUS
+                    oe = "L"      # Enable reads from the register file
+                    we = "H"      # Disable writes
+                    ra = 0
+
+                # MBU enabled: MBn reads (the register number is in the IR)
+                if dis == "1" and mode == "read_mbn":
+                    ibusen = "L"  # We're putting values on the IBUS
+                    oe = "L"      # Enable reads from the register file
+                    we = "H"      # Disable writes
                     ra = ir
-                elif mode == "write_ar" and idxen == "0":
-                    # write_ar_mbz. WADDR[1:0] selects register.
-                    ra = waddr
-                elif mode == "write_ar" and idxen == "1":
-                    # write_ar_mbz with autoindexing enabled. IR selects register
+
+                # MBU enabled: write_ar_xx signals (reading from MB0-3, address
+                # in low order two bits of waddr).
+                if dis == "1" and mode == "write_ar":
+                    if idxen == "1":
+                        # Not using an autoindex location. (address in low order
+                        # bits of waddr)
+                        ibusen = "H"  # This isn't an IBUS read
+                        oe = "L"      # Enable reads from the register file
+                        we = "H"      # Disable writes
+                        ra = waddr & 3
+                    else:
+                        # Using an autoindex location. (address in IR)
+                        ibusen = "H"  # This isn't an IBUS read
+                        oe = "L"      # Enable reads from the register file
+                        we = "H"      # Disable writes
+                        ra = ir
+                        
+                # MBU enabled: MBP writes
+                if dis == "1" and mode == "write_mbp":
+                    we = "L"      # Enable writes
+                    oe = "H"      # Disable register file reads
+                    ibusen = "H"  # Disable read drivers
+                    ra = 0
+
+                # MBU enabled: MBn writes (register in IR)
+                if dis == "1" and mode == "write_mbn":
+                    we = "L"      # Enable writes
+                    oe = "H"      # Disable register file reads
+                    ibusen = "H"  # Disable read drivers
                     ra = ir
 
                 waddr1, waddr0 = bin(waddr)[2:].zfill(2)
@@ -400,6 +418,7 @@ def mbuctl00():
                     assert not (ibusen == "L"  and we == "L")
                     assert not (oe == "L"  and we == "L")
                 except:
+                    print("Sanity check failed")
                     import pprint
                     pprint.pprint(locals())
                     raise

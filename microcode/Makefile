@@ -61,14 +61,16 @@ PLDS =			$(BUILDDIR)/mbu-control.jed \
 			$(BUILDDIR)/dfp-fpoeb.jed \
 			$(BUILDDIR)/dfp-fpoec.jed \
 			$(BUILDDIR)/dfp-fpoed.jed \
-			$(BUILDDIR)/dfp-bus-sample.jed \
+
+PLDVECTORS = 		$(BUILDDIR)/tl866-cft-gal-vectors.xml
+MKPLDVECTORS = 		scripts/make-gal-test-vectors.py
 
 
 #.PHONY: 		all clean microcode alu-binary alu-unary
 .PHONY: 		all clean microcode json disasm alu-rom
 
 #all:			microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM) $(CFTASM)
-all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(CFTASM) $(ALUROMLIST) $(ALUROMBIN) $(PLDS)
+all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(CFTASM) $(ALUROMLIST) $(ALUROMBIN) $(PLDS) $(PLDVECTORS)
 
 clean:
 			rm -f *.h *.json
@@ -101,5 +103,8 @@ disasm	$(DISASM):	microcode.mc
 
 cftasm	$(CFTASM):	microcode.mc
 			$(MC) -p $< | $(MCPARSER) --cftasm >$@
+
+$(PLDVECTORS):		$(MKPLDVECTORS) $(PLDS)
+			$(MKPLDVECTORS) >$@
 
 # End of file.
