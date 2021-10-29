@@ -345,7 +345,8 @@ kicad/**/*.png.xmp
 
 # Board plots, ready for manufacture. Let's keep the zip files for those, and only those.
 /kicad/**/Plots/[0-9]*/
-!/kicad/**/Plots/[0-9]*/*zip
+!/kicad/**/Plots/[0-9]*/*.zip
+!/kicad/**/Plots/[0-9]*/*.sh
 
 ###############################################################################
 #
