@@ -1,9 +1,20 @@
 [submodule "external/simavr"]
 	path = external/simavr
 	url = git://github.com/buserror/simavr.git
+	ignore = dirty
 [submodule "external/sxsdiff"]
 	path = external/sxsdiff
 	url = git://github.com/timonwong/sxsdiff.git
-[submodule "external/galasm"]
-	path = external/galasm
+	ignore = dirty
+[submodule "external/galasm-official-buggy"]
+	path = external/galasm-official-buggy
 	url = https://github.com/daveho/GALasm.git
+	ignore = dirty
+[submodule "external/alexios-galasm"]
+	path = external/alexios-galasm
+	url = https://github.com/alexiosc/GALasm.git
+	ignore = dirty
+[submodule "external/pjdennis-galasm"]
+	path = external/pjdennis-galasm
+	url = https://github.com/pjdennis/GALasm.git
+	ignore = dirty
