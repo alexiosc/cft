@@ -288,6 +288,7 @@ experiments/**
 **/firmware/[lh]fuse
 **/firmware/sim_dfp
 **/firmware/dfp.elf
+**/firmware/dfp.cap
 # **/simavr/
 # **/simavr/simavr/obj-x86_64-linux-gnu/
 **/lib*.so
