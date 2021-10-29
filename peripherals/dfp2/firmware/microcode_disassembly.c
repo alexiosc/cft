@@ -52,25 +52,25 @@ const uint8_t disasm_raddr_ofs[32] PROGMEM = {
 };
 
 const microcode_disassembly_t disasm_raddr[] PROGMEM = {
-        { /*  0. */ 0,       "",       "idle" },
-        { /*  1. */ 0,       "",       "" },
-        { /*  2. */ BRD_BUS, "&0",     "constant 0" },
-        { /*  3. */ BRD_BUS, "&1",     "constant 1" },
-        { /*  4. */ BRD_BUS, "&2",     "constant 2" },
-        { /*  5. */ BRD_BUS, "&3",     "constant 3" },
-        { /*  6. */ BRD_REG, "PC",     "PC" },
-        { /*  7. */ BRD_REG, "DR",     "DR" },
-        { /*  8. */ BRD_REG, "AC",     "AC" },
-        { /*  9. */ BRD_REG, "SP",     "SP" },
-        { /* 10. */ BRD_BUS, "MBPF",   "MBP, Flags" },
-        { /* 11. */ BRD_CTL, "AGL",    "AGL" },
-        { /* 12. */ BRD_ALU, "ADD",    "ADD" },
-        { /* 13. */ BRD_ALU, "AND",    "AND" },
-        { /* 14. */ BRD_ALU, "OR",     "OR" },
-        { /* 15. */ BRD_ALU, "XOR",    "XOR" },
-        { /* 16. */ BRD_ALU, "NO",     "NOT" },
-        { /* 17. */ BRD_ALU, "Y",      "ALU Y" },
-        { /* 18. */ BRD_ALU, "B",      "ALU B" },
+/**/ { /*  0. */ 0,       "",       "idle" },
+/**/ { /*  1. */ 0,       "",       "" },
+/**/ { /*  2. */ BRD_BUS, "&0",     "constant 0" },
+/**/ { /*  3. */ BRD_BUS, "&1",     "constant 1" },
+/**/ { /*  4. */ BRD_BUS, "&2",     "constant 2" },
+/**/ { /*  5. */ BRD_BUS, "&3",     "constant 3" },
+/**/ { /*  6. */ BRD_REG, "PC",     "PC" },
+/**/ { /*  7. */ BRD_REG, "DR",     "DR" },
+/**/ { /*  8. */ BRD_REG, "AC",     "AC" },
+/**/ { /*  9. */ BRD_REG, "SP",     "SP" },
+/**/ { /* 10. */ BRD_BUS, "MBPF",   "MBP, Flags" },
+/**/ { /* 11. */ BRD_CTL, "AGL",    "AGL" },
+/**/ { /* 12. */ BRD_ALU, "ADD",    "ADD" },
+/**/ { /* 13. */ BRD_ALU, "AND",    "AND" },
+/**/ { /* 14. */ BRD_ALU, "OR",     "OR" },
+/**/ { /* 15. */ BRD_ALU, "XOR",    "XOR" },
+/**/ { /* 16. */ BRD_ALU, "NO",     "NOT" },
+/**/ { /* 17. */ BRD_ALU, "Y",      "ALU Y" },
+/**/ { /* 18. */ BRD_ALU, "B",      "ALU B" },
 };
 
 const uint8_t disasm_waddr_ofs[32] PROGMEM = {
@@ -85,21 +85,21 @@ const uint8_t disasm_waddr_ofs[32] PROGMEM = {
 };
 
 const microcode_disassembly_t disasm_waddr[] PROGMEM = {
-        { /*  0. */ 0,       "",       "idle" },
-        { /*  1. */ 0,       "",       "" },
-        { /*  2. */ BRD_BUS, "MBP:AR", "MBP:AR" },
-        { /*  3. */ BRD_BUS, "MBD:AR", "MBD:AR" },
-        { /*  4. */ BRD_BUS, "MBS:AR", "MBS:AR" },
-        { /*  5. */ BRD_BUS, "MBZ:AR", "MBZ:AR" },
-        { /*  6. */ BRD_REG, "PC",     "PC" },
-        { /*  7. */ BRD_REG, "DR",     "DR" },
-        { /*  8. */ BRD_REG, "AC",     "AC" },
-        { /*  9. */ BRD_REG, "SP",     "SP" },
-        { /* 10. */ BRD_BUS, "MBP",    "MBP" },
-        { /* 11. */ BRD_BUS, "MBPF",   "MBP+Flags" },
-        { /* 12. */ BRD_BUS, "Flags",  "Flags" },
-        { /* 13. */ BRD_CTL, "IR",     "IR" },
-        { /* 14. */ BRD_ALU, "B",      "ALU B" },
+/**/ { /*  0. */ 0,       "",       "idle" },
+/**/ { /*  1. */ 0,       "",       "" },
+/**/ { /*  2. */ BRD_BUS, "MBP:AR", "MBP:AR" },
+/**/ { /*  3. */ BRD_BUS, "MBD:AR", "MBD:AR" },
+/**/ { /*  4. */ BRD_BUS, "MBS:AR", "MBS:AR" },
+/**/ { /*  5. */ BRD_BUS, "MBZ:AR", "MBZ:AR" },
+/**/ { /*  6. */ BRD_REG, "PC",     "PC" },
+/**/ { /*  7. */ BRD_REG, "DR",     "DR" },
+/**/ { /*  8. */ BRD_REG, "AC",     "AC" },
+/**/ { /*  9. */ BRD_REG, "SP",     "SP" },
+/**/ { /* 10. */ BRD_BUS, "MBP",    "MBP" },
+/**/ { /* 11. */ BRD_BUS, "MBPF",   "MBP+Flags" },
+/**/ { /* 12. */ BRD_BUS, "Flags",  "Flags" },
+/**/ { /* 13. */ BRD_CTL, "IR",     "IR" },
+/**/ { /* 14. */ BRD_ALU, "B",      "ALU B" },
 };
 
 const uint8_t disasm_action_ofs[16] PROGMEM = {
@@ -110,21 +110,21 @@ const uint8_t disasm_action_ofs[16] PROGMEM = {
 };
 
 const microcode_disassembly_t disasm_action[] PROGMEM = {
-        { /*  0. */ 0,       "",       "idle" },
-        { /*  1. */ 0,       "",       "" },
-        { /*  2. */ BRD_ALU, "CPL",    "CPL" },
-        { /*  3. */ BRD_ALU, "CLL",    "CLL" },
-        { /*  4. */ BRD_BUS, "STI",    "STI" },
-        { /*  5. */ BRD_BUS, "CLI",    "CLI" },
-        { /*  6. */ BRD_BUS, "IDX",    "IDX[IR0-2]" },
-        { /*  7. */ BRD_ALU, "SRU",    "SRU start" },
-        { /*  8. */ BRD_REG, "PC++",   "INCPC" },
-        { /*  9. */ BRD_REG, "DR++",   "INCDR" },
-        { /* 10. */ BRD_REG, "DR--",   "DECDR" },
-        { /* 11. */ BRD_BUS, "AC++",   "INCAC" },
-        { /* 12. */ BRD_BUS, "AC--",   "DECAC" },
-        { /* 13. */ BRD_BUS, "SP++",   "INCSP" },
-        { /* 14. */ BRD_CTL, "SP--",   "DECSP" }
+/**/ { /*  0. */ 0,       "",       "idle" },
+/**/ { /*  1. */ 0,       "",       "" },
+/**/ { /*  2. */ BRD_ALU, "CPL",    "CPL" },
+/**/ { /*  3. */ BRD_ALU, "CLL",    "CLL" },
+/**/ { /*  4. */ BRD_BUS, "STI",    "STI" },
+/**/ { /*  5. */ BRD_BUS, "CLI",    "CLI" },
+/**/ { /*  6. */ BRD_BUS, "IDX",    "IDX[IR0-2]" },
+/**/ { /*  7. */ BRD_ALU, "SRU",    "SRU start" },
+/**/ { /*  8. */ BRD_REG, "PC++",   "INCPC" },
+/**/ { /*  9. */ BRD_REG, "DR++",   "INCDR" },
+/**/ { /* 10. */ BRD_REG, "DR--",   "DECDR" },
+/**/ { /* 11. */ BRD_BUS, "AC++",   "INCAC" },
+/**/ { /* 12. */ BRD_BUS, "AC--",   "DECAC" },
+/**/ { /* 13. */ BRD_BUS, "SP++",   "INCSP" },
+/**/ { /* 14. */ BRD_CTL, "SP--",   "DECSP" }
 };
 
 // End of file.

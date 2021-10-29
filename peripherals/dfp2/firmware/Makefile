@@ -14,7 +14,7 @@ PROG	=	dfp
 #
 ###############################################################################
 
-VERSION		=	2.0
+VERSION		=	3.0
 THISYEAR	= 	"$(shell date +%Y)"
 
 DEFINES		=	-DDEBUG
@@ -39,7 +39,8 @@ DEFINES		+=	-DDUMP_TEXT
 #MCU_TARGET	=	atmega168
 #MCU_TARGET	=	atmega328p
 #MCU_TARGET     =	atmega128
-MCU_TARGET     =	atmega64
+#MCU_TARGET     =	atmega64
+MCU_TARGET      =       atmega2560
 
 #CPU_FREQ	=	1000000  # Hz (Factory default)
 #CPU_FREQ	=	14745600 # Hz (DFP1, 14.7456 MHz crystal)
@@ -53,7 +54,7 @@ CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
 #SERIAL_BPS	=	38400
 #SERIAL_BPS	=	9600
 #SERIAL_BPS	=	250000
-SERIAL_BPS      =       500000   # DFP2
+SERIAL_BPS      =       921600   # DFP2
 
 BUFSIZE		=	512
 
@@ -80,7 +81,7 @@ AVRLDFLAGS	+=	-fdata-sections
 AVRLDFLAGS	+=	-ffunction-sections
 AVRLDFLAGS	+=	-gdwarf-2 -Wl,--undefined=_mmcu,--section-start=.mmcu=0x910000
 
-
+DEVICE		=	/dev/ttyACM0
 
 ###############################################################################
 #
@@ -126,7 +127,9 @@ HOSTCC		=	gcc
 HOSTDEFS	=	-DHOST -D_GNU_SOURCE
 HOSTCFLAGS	=	-O2 -g -Wall $(HOSTDEFS) $(DEFINES) -fpack-struct=1 -std=c99 -Dasm=__asm
 
-AVRDUDE		=	sudo avrdude -c avrisp2 -p $(MCU_TARGET) -P usb
+#AVRDUDE		=	sudo avrdude -c avrisp2 -p $(MCU_TARGET) -P usb
+#AVRDUDE		=	sudo avrdude -c wiring -p $(MCU_TARGET) -P $(DEVICE) -b115200
+AVRDUDE		=	sudo avrdude -c wiring -p $(MCU_TARGET) -P $(DEVICE) -b115200
 
 # Override is only needed by avr-lib build system.
 
@@ -148,9 +151,13 @@ SIMAVRFLAGS	+=	$(DEFINES) -DSIMAVR -g -Wall -std=gnu99 -O0 \
 			-DMCU_TARGET='"$(MCU_TARGET)"' -DFIRMWARE='"$(PROG).elf"' \
 			-L$(SIMAVRLIBDIR) $(SIMAVRLIBS) -Wl,-rpath,$(SIMAVRLIBDIR)
 
+#/usr/share/arduino/hardware/tools/avrdude -C/usr/share/arduino/hardware/tools/avrdude.conf -v -v -v -v -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:/tmp/build9292991676299442218.tmp/Fade.cpp.hex:i
+
+
 .PHONY:		all dep clean veryclean download verify reset test fuses sim lib
 
-all: 		sim_$(PROG) $(PROG).elf lst text eeprom $(TESTS) $(EMULIBOUT)
+#all: 		sim_$(PROG) $(PROG).elf lst text eeprom $(TESTS) $(EMULIBOUT)
+all: 		$(PROG).hex lst text eeprom
 #all: 		test_$(PROG)
 
 dep .depends:   $(GENERATED)
@@ -170,9 +177,11 @@ fuses:		.stamp-fuses
 # (b) set lfuse.SUT = 10 (wait for 64ms for clock to stabilise)
 
 # .stamp-fuses:
+#		pkill -f "minicom dfp" && sleep 0.5
 # 		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
 
 .stamp-fuses:
+		pkill -f "minicom.dfp" && sleep 0.5
 		$(AVRDUDE) -s -u -v -U lfuse:w:0xe0:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m
 
 # Fuses for 168
@@ -182,14 +191,19 @@ fuses:		.stamp-fuses
 download:	.stamp-dl
 
 .stamp-dl:	$(PROG).bin
-		$(AVRDUDE) -U flash:w:$(PROG).bin
+		pkill -f "[m]inicom.dfp" && sleep 0.5 || true
+		$(AVRDUDE) -D -U flash:w:$(PROG).hex
 		touch $@
 
 verify:		$(PROG).bin
-		$(AVRDUDE) -U flash:v:$(PROG).bin
+		pkill -f "[m]inicom.dfp" && sleep 0.5 || true
+		$(AVRDUDE) -U flash:v:$(PROG).hex
 
 reset:		
 		$(AVRDUDE) -v
+
+minicom:	
+		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(DEVICE) -b $(SERIAL_BPS) -C dfp.cap -o
 
 # Special source files
 proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
