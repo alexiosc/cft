@@ -688,20 +688,20 @@ get_addr()
 uint32_t
 parse_hex(char *s)
 {
-/**/ register uint32_t x;
-/**/ x = 0;
-/**/ while (*s) {
-/**/         x = x << 4;
-/**/         if ((*s) >= '0' && (*s) <= '9') x |= (*s - 48);
-/**/         else if ((*s) >= 'a' && (*s) <= 'f') x |= (*s - 87);
-/**/         else if ((*s) >= 'A' && (*s) <= 'F') x |= (*s - 55);
-/**/         else {
-/**/                 uistate.is_error = 1;
-/**/                 return 0;
-/**/         }
-/**/         s++;
-/**/ }
-/**/ return x;
+        register uint32_t x;
+        x = 0;
+        while (*s) {
+                x = x << 4;
+                if ((*s) >= '0' && (*s) <= '9') x |= (*s - 48);
+                else if ((*s) >= 'a' && (*s) <= 'f') x |= (*s - 87);
+                else if ((*s) >= 'A' && (*s) <= 'F') x |= (*s - 55);
+                else {
+                        uistate.is_error = 1;
+                        return 0;
+                }
+                s++;
+        }
+        return x;
 }
 
 
@@ -1070,25 +1070,34 @@ go_swtest()
 void
 gs_dsr()
 {
-/**/ char * s = get_arg();
-/**/ if (s != NULL) {
-/**/         if (s[0] == '-') {
-/**/                 // Read the DSR from the physical switches.
-/**/                 hwstate.dsr = DSR_HIGH | read_dfp_address(XMEM_DSR);
-/**/         } else {
-/**/                 uint16_t x = parse_hex(s);
-/**/                 if (uistate.is_error == 0) {
-/**/                         hwstate.dsr = x;
-/**/                 } else {
-/**/                         badval();
-/**/                         return;
-/**/                 }
-/**/         }
-/**/         report_gs(1);
-/**/ } else {
-/**/         report_gs(0);
-/**/ }
-/**/ report_hex_value(PSTR(STR_DSR), hwstate.dsr, 4);
+        char * s = get_arg();
+        uint32_t dsvalue;
+        if (s != NULL) {
+                if (s[0] == '-') {
+                        // Read the DSR from the physical switches.
+                        hwstate.dsr0 = read_dfp_address(XMEM_DSR_L);
+                        hwstate.dsr1 = read_dfp_address(XMEM_DSR_M);
+                        hwstate.dsr2 = read_dfp_address(XMEM_DSR_H);
+                        dsvalue = hwstate.dsr0;
+                        dsvalue |= ((uint32_t) hwstate.dsr1) << 8;
+                        dsvalue |= ((uint32_t) hwstate.dsr2) << 16;
+                } else {
+                        dsvalue  = parse_hex(s);
+                        if (uistate.is_error == 0) {
+                                hwstate.dsr0 = dsvalue & 0xff;
+                                hwstate.dsr1 = (dsvalue >> 8) & 0xff;
+                                hwstate.dsr2 = (dsvalue >> 16) & 0xff;
+                        } else {
+                                badval();
+                                return;
+                        }
+                }
+                report_gs(1);
+        } else {
+                report_gs(0);
+        }
+        hwstate.dsr2 |= DSR_HIGH;
+        report_hex_value(PSTR(STR_DSR), dsvalue & 0xffffff, 6);
 }
 
 

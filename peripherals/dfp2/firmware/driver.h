@@ -39,7 +39,7 @@ typedef struct {
 	uint8_t   ab_l,  ab_m, ab_h; // Last sampled value of the Address Bus
 	uint8_t   db_l, db_h;        // Last sampled value of the Data Bus
 	uint8_t   ibus_l, ibus_h;    // Last sampled value from the IBUS
-	uint16_t  dsr;               // The DIP switches (or overridden value)
+	uint16_t  dsr0, dsr1, dsr2;  // The DIP switches (or overridden value)
 
 	// Computer Inputs
 	uint8_t   ir_l, ir_h;
@@ -67,8 +67,8 @@ typedef struct {
 
 	uint8_t   is_busy:1;         // The DFP is busy.
 
-	uint8_t   fp_scanen:1;       // The FP scanner is on (SCANEN# asserted)
-	uint8_t   fp_panelen:1;      // The panel is working autonomously (PANELEN# asserted)
+	uint8_t   fp_autoscan:1;     // The FP scanner is on (AUTOSCAN# asserted)
+	uint8_t   fp_grab:1;         // The DFP controls the front panel
 
 	uint8_t   swdata[8];         // Front Panel Switches
 

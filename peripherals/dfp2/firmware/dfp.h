@@ -139,64 +139,70 @@ typedef enum {
 // (module/column A–D, rows 1–5), and edge connector pin (Cxx).
 
 typedef enum {
-	XMEM_UCV_H   = 0x00,	//  0 A1 C16: µCV bits 16–23
-	XMEM_UCV_M   = 0x01,	//  1 B1 C22: µCV bits 8–15
-	XMEM_UCV_L   = 0x02,	//  2 C1 C30: µCV bits 0–7
-	XMEM_IRQ_ACT = 0x03,	//  3 D1 C39: IRQs active
 
-	XMEM_AEXT    = 0x04,	//  4 A2  C4: AEXT
-	XMEM_PC_H    = 0x05,	//  5 B2 C21: PC bits 8–15
-	XMEM_PC_L    = 0x06,	//  6 C2 C27: PC bits 0–7
-	XMEM_IRQ_EN  = 0x07,	//  7 D2 C40: IRQs enabled
+        // Needs review!
+        
+	/**/ XMEM_UCV_H   = 0x00,	//  0 A1 C16: µCV bits 16–23
+	/**/ XMEM_UCV_M   = 0x01,	//  1 B1 C22: µCV bits 8–15
+	/**/ XMEM_UCV_L   = 0x02,	//  2 C1 C30: µCV bits 0–7
+	/**/ XMEM_IRQ_ACT = 0x03,	//  3 D1 C39: IRQs active
 
-	XMEM_FLAGS   = 0x08,	//  8 A3 C13: flags
-	XMEM_AC_H    = 0x09,	//  9 B3 C20: AC bits 8–15
-	XMEM_AC_L    = 0x0a,	// 10 C3 C28: AC bits 0–7
-	XMEM_FP_D3   = 0x0b,	// 11 D3 C37: TBD, for expansion
+	/**/ XMEM_AEXT    = 0x04,	//  4 A2  C4: AEXT
+	/**/ XMEM_PC_H    = 0x05,	//  5 B2 C21: PC bits 8–15
+	/**/ XMEM_PC_L    = 0x06,	//  6 C2 C27: PC bits 0–7
+	/**/ XMEM_IRQ_EN  = 0x07,	//  7 D2 C40: IRQs enabled
 
-	XMEM_FP_A4   = 0x0c,	// 12 A4 C12: (TBD)
-	XMEM_MFD_H   = 0x0d,    // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
-	XMEM_MFD_L   = 0x0e,    // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
-	XMEM_FP_D4   = 0x0f,    // 15 D4 C38: TBD, for expansion
+	/**/ XMEM_FLAGS   = 0x08,	//  8 A3 C13: flags
+	/**/ XMEM_AC_H    = 0x09,	//  9 B3 C20: AC bits 8–15
+	/**/ XMEM_AC_L    = 0x0a,	// 10 C3 C28: AC bits 0–7
+	/**/ XMEM_FP_D3   = 0x0b,	// 11 D3 C37: TBD, for expansion
 
-	XMEM_STATE   = 0x10,	// 16 A5 Cxx: state (run/stop etc)
-	XMEM_IR_HI   = 0x11,	// 17 B5 C19: IR bits 8–15
-	XMEM_IR_LO   = 0x12,	// 18 C5 C25: IR bits 0–7
-	XMEM_UAV_LO  = 0x13,	// 19 D5 C35: micro-address low bits
+	/**/ XMEM_FP_A4   = 0x0c,	// 12 A4 C12: (TBD)
+	/**/ XMEM_MFD_H   = 0x0d,    // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+	/**/ XMEM_MFD_L   = 0x0e,    // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+	/**/ XMEM_FP_D4   = 0x0f,    // 15 D4 C38: TBD, for expansion
 
-	XMEM_SCANCLR = 0x14,    // 20 -- ---: SCANCLR#. Autonomic counter reset.
-	XMEM_FPOE21  = 0x15,    // 21 -- C17: FPOE21#, future expansion
-	XMEM_FPOE22  = 0x16,    // 22 -- C26: FPOE22#, future expansion
-	XMEM_FPOE23  = 0x17,    // 23 -- C36: FPOE23#, future expansion
+	/**/ XMEM_STATE   = 0x10,	// 16 A5 Cxx: state (run/stop etc)
+	/**/ XMEM_IR_HI   = 0x11,	// 17 B5 C19: IR bits 8–15
+	/**/ XMEM_IR_LO   = 0x12,	// 18 C5 C25: IR bits 0–7
+	/**/ XMEM_UAV_LO  = 0x13,	// 19 D5 C35: micro-address low bits
 
-	XMEM_FPOE24  = 0x18,    // 24 -- C11: FPOE24#, future expansion
-	XMEM_FPOE25  = 0x19,    // 25 -- C18: FPOE25#, future expansion
-	XMEM_FPOE26  = 0x1a,    // 26 -- C24: FPOE26#, future expansion
-	XMEM_FPOE27  = 0x1b,    // 27 -- C33: FPOE27#, future expansion
+	/**/ XMEM_SCANCLR = 0x14,    // 20 -- ---: SCANCLR#. Autonomic counter reset.
+	/**/ XMEM_FPOE21  = 0x15,    // 21 -- C17: FPOE21#, future expansion
+	/**/ XMEM_FPOE22  = 0x16,    // 22 -- C26: FPOE22#, future expansion
+	/**/ XMEM_FPOE23  = 0x17,    // 23 -- C36: FPOE23#, future expansion
 
-	XMEM_FPOE28  = 0x1c,    // 28 -- C10: FPOE28#, future expansion
-	XMEM_FPOE29  = 0x1d,    // 29 -- C15: FPOE29#, future expansion
-	XMEM_FPOE30  = 0x1e,    // 30 -- C23: FPOE30#, future expansion
-	XMEM_FPOE31  = 0x1f,    // 31 -- ---: FPOE31#, unrouted
+	/**/ XMEM_FPOE24  = 0x18,    // 24 -- C11: FPOE24#, future expansion
+	/**/ XMEM_FPOE25  = 0x19,    // 25 -- C18: FPOE25#, future expansion
+	/**/ XMEM_FPOE26  = 0x1a,    // 26 -- C24: FPOE26#, future expansion
+	/**/ XMEM_FPOE27  = 0x1b,    // 27 -- C33: FPOE27#, future expansion
 
-	XMEM_AB_L    = 0x40,	// Write to AB bits 0-7
-	XMEM_AB_M    = 0x41,	// Write to AB bits 8-15
-	XMEM_AB_H    = 0x42,	// Write to AB bits 16-23
-	XMEM_DB_L    = 0x43,	// Write to DB bits 0-7
-	XMEM_DB_H    = 0x44,	// Write to DB bits 8-15
-	XMEM_IBUS_L  = 0x45,	// Write to IBUS bits 0-7
-	XMEM_IBUS_H  = 0x46,	// Write to IBUS bits 8-15
-	XMEM_OR_L    = 0x47,	// (write-only) Write to OR, bits 0-7
-	XMEM_DSR     = 0x47,	// (read-only) Read DIP switches
+	/**/ XMEM_FPOE28  = 0x1c,    // 28 -- C10: FPOE28#, future expansion
+	/**/ XMEM_FPOE29  = 0x1d,    // 29 -- C15: FPOE29#, future expansion
+	/**/ XMEM_FPOE30  = 0x1e,    // 30 -- C23: FPOE30#, future expansion
+	/**/ XMEM_FPOE31  = 0x1f,    // 31 -- ---: FPOE31#, unrouted
 
-	XMEM_OR_H    = 0x80,	// Write to OR, bits 8-15
-	XMEM_RADDR   = 0x81,	// output to µCV RADDR field
-	XMEM_WADDR   = 0x82,	// output to µCV WADDR field
-	XMEM_ACTION  = 0x83,	// output to µCV ACTION field
-	XMEM_TP104   = 0x84,	// tp104 output (reserved)
-	XMEM_TP105   = 0x85,	// tp105 output (reserved)
-	XMEM_TP106   = 0x86,	// tp106 output (reserved)
-	XMEM_TP107   = 0x87	// tp107 output (reserved)
+
+        // Reviewed and valid for DFP PLDs, 2021-10-29.
+
+	XMEM_AB_L    = 0x40,	// AB Pod, bits 0-7
+	XMEM_AB_M    = 0x41,	// AB Pod, bits 8-15
+	XMEM_AB_H    = 0x42,	// AB Pod, bits 16-23
+	XMEM_DB_L    = 0x43,	// DB Pod, bits 0-7
+	XMEM_DB_H    = 0x44,	// DB Pod, bits 8-15
+	XMEM_IBUS_L  = 0x45,	// IBus Pod, bits 0-7
+	XMEM_IBUS_H  = 0x46,	// IBus Pod, bits 8-15
+
+	XMEM_OR_L    = 0x48,	// (write-only) Write to OR, bits 0-7
+	XMEM_OR_H    = 0x49,	// (write-only) Write to OR, bits 8-15
+
+	XMEM_DSR_L   = 0x48,	// (read-only) Read DIP switches, bits 0-7
+	XMEM_DSR_M   = 0x49,	// (read-only) Read DIP switches, bits 8-15
+	XMEM_DSR_H   = 0x4a,	// (read-only) Read DIP switches, bits 16-23
+
+	XMEM_RADDR   = 0x4d,	// µCV Pod, RADDR field
+	XMEM_WADDR   = 0x4e,	// µCV Pod, WADDR field
+	XMEM_ACTION  = 0x4f,	// µCV Pod, ACTION & COND fields
 } xmem_addr_t;
 
 // (*) Addresses 0x13 and 0x14 are for the MFD. They always address FP lights

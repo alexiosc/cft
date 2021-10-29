@@ -94,78 +94,97 @@ static void dfp_diags();
 
 // Port B: Programming/Control
 
-#define B_NCLR       PB0        // O. AL: resets the run/stop/step state machine
-#define __SCK        PB1        // SCK (programming, not used)
-#define __MOSI       PB2        // MOSI (programming, not used)
-#define __MISO       PB3        // MISO (programming, not used)
-#define B_FPROM      PB4        // O. to MBR. 0=RAM-only, 1=ROM & RAM.
-#define B_FPCLKEN    PB5        // O. to clock generator. 1=Clock enable.
-#define B_BUSCP      PB7        // O. RE: input FFs sample data.
+#define B_NCLR       PB0 /**/        // O. AL: resets the run/stop/step state machine
+#define __SCK        PB1 /**/        // SCK (programming, not used)
+#define __MOSI       PB2 /**/        // MOSI (programming, not used)
+#define __MISO       PB3 /**/        // MISO (programming, not used)
+#define B_FPCLKEN    PB5 /**/        // O. to clock generator. 1=Clock enable.
                      
 // Port C: Bus Enables & Control
 
-#define C_CLRWS      PC0        // O. RE: done with transaction, clear WS
-#define C_NIBOE      PC1        // O. AL: drive IBUS
-#define C_NABOE      PC2        // O. AL: drive AB (Address Bus)
-#define C_NDBOE      PC3        // O. AL: drive DB (Data Bus)
-#define C_NMEM       PC4        // I/OD. AL: drive MEM# bus signal.
-#define C_NIO        PC5        // I/OD. AL: drive IO# bus signal.
-#define C_NR         PC6        // I/OD. AL: drive R# bus signal.
-#define C_NW         PC7        // I/OD. AL: drive W# bus signal.
+#define C_CLRWS      PC0 /**/       // O. RE: done with transaction, clear WS
+#define C_NIBOE      PC1 /**/       // O. AL: drive IBUS
+#define C_NABOE      PC2 /**/       // O. AL: drive AB (Address Bus)
+#define C_NDBOE      PC3 /**/       // O. AL: drive DB (Data Bus)
+#define C_NMEM       PC4 /**/       // I/OD. AL: drive MEM# bus signal.
+#define C_NIO        PC5 /**/       // I/OD. AL: drive IO# bus signal.
+#define C_NR         PC6 /**/       // I/OD. AL: drive R# bus signal.
+#define C_NW         PC7 /**/       // I/OD. AL: drive W# bus signal.
 
 // Port D: Panel & Run Control
 
-#define D_NIOINT     PD0        // Used for incoming interrupts only.
-#define D_NWAIT      PD1        // I. AL: Run/Stop/Step FSM is (µ)stepping, or reset in progress
-#define D_NLTSON     PD2        // O. to FP. AL: all FP lights enabled.
-#define D_NSCANEN    PD3        // O. AL: lets FP scanner control the bus, FP updating (*)
-#define D_NPANELEN   PD4        // O. AL: connect FP scanner to computer. (*)
-#define D_LED_STOP   PD5        // O. to FP. Controls the STOP LED. (FP scanner must be running)
-#define D_NSTEP_RUN  PD6        // O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
-#define D_NMSTEP     PD7        // O. to Run/Stop/Step FSM. AL: request microstep.
+#define D_NIOINT     PD0 /**/       // Used for incoming interrupts only.
+#define D_NWAIT      PD1 /**/       // I. AL: Run/Stop/Step FSM is (µ)stepping, or reset in progress
+#define D_NLTSON     PD2 /**/       // O. to FP. AL: all FP lights enabled.
+#define D_LED_STOP   PD5 /**/       // O. to FP. Controls the STOP LED. (FP scanner must be running)
+#define D_NSTEP_RUN  PD6 /**/       // O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
+#define D_NMSTEP     PD7 /**/       // O. to Run/Stop/Step FSM. AL: request microstep.
+                             
+// Port E: Serial I/O, Panel, Control Vector enable
+
+#define E_RXD        PE0 /**/       // USART, not used directly.
+#define E_TXD        PE1 /**/       // USART, not used directly.
+#define E_NFPIRQ     PE2 /**/       // O. AL: signal (jumper configurable) IRQ to processor
+#define E_MFD0       PE3 /**/       // O. Set MFD value. (low bit)
+#define E_MFD1       PE4 /**/       // O. Set MFD value. (high bit)
+#define E_NMCVOE     PE5 /**/       // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
+#define E_NFPRESET   PE6 /**/       // O. AL: signals reset to processor.
+#define E_NFPRSTHOLD PE7 /**/       // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
+                             
+#define E_MFDMASK    (BV(E_MFD0) | BV(E_MFD1)) // The MFD mask
+#define E_MFDSHIFT   (E_MFD0)                  // The MFD shift value
+
+// Port F: Front panel switches
+
+#define F_SWA0       PF0 /**/       // O. FP switch address, bit 0.
+#define F_SWA1       PF1 /**/       // O. FP switch address, bit 1.
+#define F_SWA2       PF2 /**/       // O. FP switch address, bit 2.
+#define F_SWA3       PF3 /**/       // O. FP switch address, bit 3.
+#define F_SWD0       PF4 /**/       // I. FP switch data, bit 0.
+#define F_SWD1       PF5 /**/       // I. FP switch data, bit 1.
+#define F_SWD2       PF6 /**/       // I. FP switch data, bit 2.
+#define F_SWD3       PF7 /**/       // I. FP switch data, bit 3.
+                             
+// Port G: XMEM bus control
+
+#define G_NFPHALT    PG3 /**/       // O. AL: asserts FPHALT#. Connected to TP101. (**)
+#define G_TP102      PG4 /**/       // Connected to TP102, unused.
+
+// (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
+//      connected to the PEN pin, which can't be controlled by the MCU. This
+//      trace has been cut on the board and patched to TP101 (pin 18, PG3).
+
+
+
+
+
+// Key:
+//
+// O.     Output
+// I.     Input
+// AL.    Active Low
+// RE.    Rising Edge
+// OD.    Open Drain output.
+// I/OD.  Open drain, also used as input when in Z state.
+// FP     Front Panel
 
 // (*) SCANEN# and PANELEN# work like this:
 //
-// SCANEN#   PANELEN#    What
+// SCANEN#    FPGRAB    What
 // ----------------------------------------------------------------------------------
 //    0          0       FP scanner samples the computer and updates the FP itself.
 //    0          1       FP scanner on, but no panel updates. Pointless.
 //    1          0       MCU can read from computer, panel updates as read.
 //    1          1       MCU can write to front panel.
 
-// Port E: Serial I/O, Panel, Control Vector enable
+// Port C.
+#define C_NBUSEN     PC0            // O. 0: DFP drives the FP bus. 1: autoscan drives.
+#define C_NAUTOSCAN  PC1            // O. AL: FP scan counter controls the bus & FP.
+#define C_FPGRAB     PC2            // O. 1: DFP drives FP. 0: CFT drives FP.
 
-#define E_RXD        PE0        // USART, not used directly.
-#define E_TXD        PE1        // USART, not used directly.
-#define E_NFPIRQ     PE2        // O. AL: signal (jumper configurable) IRQ to processor
-#define E_MFD0       PE3        // O. Set MFD value. (low bit)
-#define E_MFD1       PE4        // O. Set MFD value. (high bit)
-#define E_NMCVOE     PE5        // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
-#define E_NFPRESET   PE6        // O. AL: signals reset to processor.
-#define E_NFPRSTHOLD PE7        // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
-
-#define E_MFDMASK    (BV(E_MFD0) | BV(E_MFD1)) // The MFD mask
-#define E_MFDSHIFT   (E_MFD0)                  // The MFD shift value
-
-// Port F: Front panel switches
-
-#define F_SWA0       PF0        // O. FP switch address, bit 0.
-#define F_SWA1       PF1        // O. FP switch address, bit 1.
-#define F_SWA2       PF2        // O. FP switch address, bit 2.
-#define F_SWA3       PF3        // O. FP switch address, bit 3.
-#define F_SWD0       PF4        // I. FP switch data, bit 0.
-#define F_SWD1       PF5        // I. FP switch data, bit 1.
-#define F_SWD2       PF6        // I. FP switch data, bit 2.
-#define F_SWD3       PF7        // I. FP switch data, bit 3.
-
-// Port G: XMEM bus control
-
-#define G_NFPHALT    PG3        // O. AL: asserts FPHALT#. Connected to TP101. (**)
-#define G_TP102      PG4        // Connected to TP102, unused.
-
-// (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
-//      connected to the PEN pin, which can't be controlled by the MCU. This
-//      trace has been cut on the board and patched to TP101 (pin 18, PG3).
+// Port L: CFP control signals
+#define L_FPROM      PL4            // O. To MBU. 0=RAM-only, 1=ROM & RAM.
+#define L_BUSCP      PL7            // O. RE: input FFs sample data.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -294,9 +313,9 @@ sample()
 {
         // Strobe the BUSCP signal, which causes all the input flip-flops to
         // simultaneously sample their respective buses.
-        /**/ clearbit(PORTB, B_BUSCP);
-        /**/ setuptime();
-        /**/ setbit(PORTB, B_BUSCP);
+        clearbit(PORTL, L_BUSCP);
+        setuptime();
+        setbit(PORTL, L_BUSCP);
 } 
 
 
@@ -328,10 +347,10 @@ read_dfp_address(xmem_addr_t a)
 void
 read_full_state()
 {
-        /**/ // Note: we stop the scanner but don't deselect the front panel. Any
-        /**/ // reads we perform that also map to FP lights will update the FP. For
-        /**/ // example, as we read the AC, the front panel's Accumulator lights
-        /**/ // will also update to the current value on the FPD bus.
+        // Note: we stop the scanner but don't deselect the front panel. Any
+        // reads we perform that also map to FP lights will update the FP. For
+        // example, as we read the AC, the front panel's Accumulator lights
+        // will also update to the current value on the FPD bus.
         /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         /**/         fp_scanner_stop();
         /**/         sample();          // Clock data into our own flip flops.
@@ -347,7 +366,9 @@ read_full_state()
         /**/         hwstate.ibus_h = xmem_read(XMEM_DB_H);
         /**/         hwstate.ibus_l = xmem_read(XMEM_DB_L);
         /**/         
-        /**/         hwstate.dsr = DSR_HIGH | xmem_read(XMEM_DSR);
+        /**/         hwstate.dsr0 = xmem_read(XMEM_DSR_L);
+        /**/         hwstate.dsr1 = xmem_read(XMEM_DSR_L);
+        /**/         hwstate.dsr2 = DSR_HIGH | xmem_read(XMEM_DSR_L);
         /**/         
         /**/         // Read via buffers in the computer.
         /**/         hwstate.ucv_h = xmem_read(XMEM_UCV_H);
@@ -362,16 +383,16 @@ read_full_state()
 inline static void
 tristate_buses()
 {
-        /**/ // Release IBus, AB and DB and deassert bus control signals by setting
-        /**/ // all of their bits. They're active low.
+        // Release IBus, AB and DB and deassert bus control signals by setting
+        // all of their bits. They're active low.
         /**/ PORTC |= BV(C_NIBOE) | BV(C_NABOE) | BV(C_NDBOE) |
         /**/         BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW);
 
-        /**/ // Tristate bus control signals and the rest of control bus by clearing
-        /**/ // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+        // Tristate bus control signals and the rest of control bus by clearing
+        // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
         /**/ DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
-        /**/ // Tristate the µCV (control vector) outputs too.
+        // Tristate the µCV (control vector) outputs too.
         /**/ PORTE |= BV(E_NMCVOE);
 }
 
@@ -386,11 +407,11 @@ tristate_ibus()
 inline static void
 tristate_ucv()
 {
-        /**/ // Tristate bus control signals and the rest of control bus by clearing
-        /**/ // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+        // Tristate bus control signals and the rest of control bus by clearing
+        // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
         /**/ DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
-        /**/ // Tristate the µCV (control vector) outputs too.
+        // Tristate the µCV (control vector) outputs too.
         /**/ PORTE |= BV(E_NMCVOE);
 }
 
@@ -437,22 +458,22 @@ _bare_ibus_write(uint8_t waddr, uint16_t val)
         /**/ clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
         /**/ setuptime();
 
-        /**/ // This allows the devices on the IBUS plenty of time to tristate
-        /**/ // themselves.
+        // This allows the devices on the IBUS plenty of time to tristate
+        // themselves.
         /**/ 
-        /**/ // Write to our IBUS buffers and then drive the IBUS
+        // Write to our IBUS buffers and then drive the IBUS
         /**/ xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
         /**/ xmem_write(XMEM_IBUS_L, (val & 0xff));
         /**/ clearbit(PORTC, C_NIBOE);
         /**/ setuptime();
         /**/ 
-        /**/ // Now, strobe the WADDR address
+        // Now, strobe the WADDR address
         /**/ xmem_write(XMEM_WADDR, waddr);
         /**/ setuptime();
         /**/ xmem_write(XMEM_WADDR, 0);
         /**/ setuptime();
         /**/ 
-        /**/ // Tri-state everything again
+        // Tri-state everything again
         /**/ tristate_buses();
 }
 
@@ -534,12 +555,12 @@ _bare_processor_action(uint8_t action)
         /**/ xmem_write(XMEM_ACTION, action & 0x1f); // Set action
         /**/ xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
 
-        /**/ // Tri-state everything again
+        // Tri-state everything again
         /**/ tristate_buses();
 
-        /**/ // Bus hold should now leave all control unit buses idle, but
-        /**/ // we don't have a direct way to read RADDR, WADDR or ACTION so
-        /**/ // we can't verify this.
+        // Bus hold should now leave all control unit buses idle, but
+        // we don't have a direct way to read RADDR, WADDR or ACTION so
+        // we can't verify this.
 }
 
 
@@ -584,8 +605,8 @@ tristate_ab()
 inline static MUST_CHECK errno_t
 drive_ab()
 {
-        /**/ // If the BUS board is present and the processor isn't halted, we can't
-        /**/ // drive the AB.
+        // If the BUS board is present and the processor isn't halted, we can't
+        // drive the AB.
         /**/ if (hwstate.have_bus && !hwstate.is_halted) {
         /**/         // Tristate the AB driver. Should already be tristated since
         /**/         // drive_ab() is being called, but let's be safe.
@@ -593,7 +614,7 @@ drive_ab()
         /**/         return ERR_NMASTER;
         /**/ }
 
-        /**/ // Enable the AB drivers. This will enable all three AB drivers.
+        // Enable the AB drivers. This will enable all three AB drivers.
         /**/ clearbit(PORTC, C_NABOE);
         /**/ return ERR_SUCCESS;
 }
@@ -602,14 +623,14 @@ drive_ab()
 inline static MUST_CHECK errno_t
 write_ab(const uint16_t addr, const uint8_t aext)
 {
-        /**/ // If the BUS board is present and the processor isn't halted, we can't
-        /**/ // write to the AB.
+        // If the BUS board is present and the processor isn't halted, we can't
+        // write to the AB.
         /**/ if (hwstate.have_bus && !hwstate.is_halted) {
         /**/         tristate_ab();
         /**/         return ERR_NMASTER;
         /**/ }
 
-        /**/ // Drive the Address Bus ourselves.
+        // Drive the Address Bus ourselves.
         /**/ xmem_write(XMEM_AB_L, addr & 0xff);
         /**/ xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
         /**/ xmem_write(XMEM_AB_H, aext);
@@ -632,8 +653,8 @@ tristate_db()
 inline static MUST_CHECK errno_t
 drive_db()
 {
-        /**/ // If the BUS board is present and the processor isn't halted, we can't
-        /**/ // drive the DB.
+        // If the BUS board is present and the processor isn't halted, we can't
+        // drive the DB.
         /**/ if (hwstate.have_bus && !hwstate.is_halted) {
         /**/         // Tristate the DB driver. Should already be tristated since
         /**/         // drive_db() is being called, but let's be safe.
@@ -641,7 +662,7 @@ drive_db()
         /**/         return ERR_NMASTER;
         /**/ }
 
-        /**/ // Enable the DB drivers. This will enable both DB buffers.
+        // Enable the DB drivers. This will enable both DB buffers.
         /**/ clearbit(PORTC, C_NDBOE);
         /**/ return ERR_SUCCESS;
 }
@@ -650,14 +671,14 @@ drive_db()
 static MUST_CHECK errno_t
 write_db(const word_t data)
 {
-        /**/ // If the BUS board is present and the processor isn't halted, we can't
-        /**/ // write to the DB.
+        // If the BUS board is present and the processor isn't halted, we can't
+        // write to the DB.
         /**/ if (hwstate.have_bus && !hwstate.is_halted) {
         /**/         tristate_db();
         /**/         return ERR_NMASTER;
         /**/ }
 
-        /**/ // Drive the Data Bus ourselves.
+        // Drive the Data Bus ourselves.
         /**/ xmem_write(XMEM_DB_L, data & 0xff);
         /**/ xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
 }
@@ -684,8 +705,8 @@ write_db(const word_t data)
 void
 clk_fast()
 {
-        /**/ // Note: we can't set the clock to fast mode without starting it. So if
-        /**/ // the clock is currently stopped, do nothing here.
+        // Note: we can't set the clock to fast mode without starting it. So if
+        // the clock is currently stopped, do nothing here.
 
         /**/ if (hwstate.clk_stopped) return;
 
@@ -703,16 +724,16 @@ clk_setfreq(uint8_t prescaler, uint16_t div)
 
         /**/ clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
 
-        /**/ // COM1A = 00
-        /**/ // COM1B = 01 (toggle OC1B on compare match)
-        /**/ // WGM   = 0100 (CTC mode)
+        // COM1A = 00
+        // COM1B = 01 (toggle OC1B on compare match)
+        // WGM   = 0100 (CTC mode)
 
-        /**/ // TCCR1A = 0x10;                         // Toggle OC1B on compare match
-        /**/ // TCCR1B = 8 | (prescaler & 7);          // CTC, prescaler
-        /**/ // TIMSK1 = 2;
-        /**/ // OCR1B = div;
+        // TCCR1A = 0x10;                         // Toggle OC1B on compare match
+        // TCCR1B = 8 | (prescaler & 7);          // CTC, prescaler
+        // TIMSK1 = 2;
+        // OCR1B = div;
 
-        /**/ // Program the timer to generate the requested rate.
+        // Program the timer to generate the requested rate.
         /**/ TCCR1B = BV(WGM12) | (prescaler & 7); // Select CTC, set prescaler
         /**/ OCR1A = div;                         // Note: automagic 16-bit register write!
 }
@@ -721,10 +742,10 @@ clk_setfreq(uint8_t prescaler, uint16_t div)
 void
 clk_slow()
 {
-        /**/ // 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
+        // 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
         /**/ clk_setfreq(PSV_1024, 97);
 
-        /**/ // Enable the clock output unless the clock is stopped.
+        // Enable the clock output unless the clock is stopped.
         /**/ if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -732,10 +753,10 @@ clk_slow()
 void
 clk_creep()
 {
-        /**/ // 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
+        // 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
         /**/ clk_setfreq(PSV_1024, 976);
 
-        /**/ // Enable the clock output unless the clock is stopped.
+        // Enable the clock output unless the clock is stopped.
         /**/ if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -757,11 +778,11 @@ clk_start()
 void
 clk_stop()
 {
-        /**/ // Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
-        /**/ // in its last hwstate.
+        // Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
+        // in its last hwstate.
         /**/ TCCR1A = 0;                // Disconnect FPUSTEP-IN pin, no pulses.
 
-        /**/ // And now disable the processor's full-speed clock too.
+        // And now disable the processor's full-speed clock too.
         /**/ clearbit(PORTB, B_FPCLKEN);
 
         /**/ hwstate.clk_stopped = 1;
@@ -805,7 +826,7 @@ rc_wait()
         /**/         }
         /**/ }
 
-        /**/ // TODO: implement actual timeout
+        // TODO: implement actual timeout
         /**/ return ERR_TIMEOUT;
 }
 
@@ -816,8 +837,8 @@ rc_halt()
         /**/ if (hwstate.is_halted) return ERR_HALTED;
         /**/ setbit(PORTD, D_NSTEP_RUN); // Stop running
 
-        /**/ // The FSM will stop at the next fetch→execute transition. We
-        /**/ // should wait for that.
+        // The FSM will stop at the next fetch→execute transition. We
+        // should wait for that.
         /**/ return rc_wait();
 }
 
@@ -836,11 +857,11 @@ rc_step()
 {
         /**/ if (!hwstate.is_halted) return ERR_NHALTED;
 
-        /**/ // The only way to perform a single step using the FSM is to very
-        /**/ // briefly strobe the STEP/RUN# signal. The strobe must be shorter than
-        /**/ // a single CFT instruction. We cheat by stopping the clock while
-        /**/ // strobing. The CFT is a fully static design and doesn't mind clock
-        /**/ // variations.
+        // The only way to perform a single step using the FSM is to very
+        // briefly strobe the STEP/RUN# signal. The strobe must be shorter than
+        // a single CFT instruction. We cheat by stopping the clock while
+        // strobing. The CFT is a fully static design and doesn't mind clock
+        // variations.
         /**/ 
         /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         /**/         clk_stop();
@@ -858,7 +879,7 @@ rc_ustep()
 {
         /**/ if (!hwstate.is_halted) return ERR_NHALTED;
 
-        /**/ // Again, stop the clock while strobing the µSTEP# signal.
+        // Again, stop the clock while strobing the µSTEP# signal.
 
         /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         /**/         clk_stop();
@@ -880,56 +901,51 @@ rc_ustep()
 void
 set_fpramrom(bool_t rom)
 {
-        /**/ // Controls the FPRAM/ROM signal to the memory manager. High
-        /**/ // maps RAM+ROM on reset, Low maps RAM only.
+        // Controls the FPRAM/ROM signal to the memory manager. High
+        // maps RAM+ROM on reset, Low maps RAM only.
 
-        /**/ if (rom) setbit(PORTB, B_FPROM);
-        /**/ else clearbit(PORTB, B_FPROM);
+        if (rom) setbit(PORTL, L_FPROM);
+        else clearbit(PORTL, L_FPROM);
 }
 
 
 inline static void
 fp_scanner_stop()
 {
-        /**/ hwstate.fp_scanen = 0;
-        /**/ setbit(PORTD, D_NSCANEN);
-        /**/ MCUCR = BV(SRE);  // Enable XMEM.
+        hwstate.fp_autoscan = 0;
+        setbit(PORTC, C_NAUTOSCAN); // Disable the counter's bus driver
 }
 
 
 inline static void
 fp_scanner_start()
 {
-#ifdef LIGHT_MODULE_TESTING
-        /**/ // Never enable the scnner while testing
-#else
-        /**/ MCUCR = 0; // Disable XMEM, release Porta A
-        /**/ clearbit(PORTD, D_NSCANEN);
-        /**/ hwstate.fp_scanen = 1;
-#endif
+        // Safety: disable our own bus drivers before enabling the counter.
+        setbit(PORTC, C_NBUSEN);
+        clearbit(PORTC, C_NAUTOSCAN);
+        hwstate.fp_autoscan = 1;
 }
 
 
 inline void
 fp_grab()
 {
-        /**/ fp_scanner_stop();
-        /**/ hwstate.fp_panelen = 0;
-        /**/ PORTD |= BV(D_NPANELEN);
-        /**/ 
+        hwstate.fp_autoscan = 0;
+        setbit(PORTC, C_NAUTOSCAN); // Disable the autoscan counter
+        clearbit(PORTC, C_NBUSEN);  // Enable our bus driver
+        setbit(PORTC, C_FPGRAB);    // Grab control of the FP lights
+        hwstate.fp_grab = 1;
 }
 
 
 inline void
 fp_release()
 {
-#ifdef LIGHT_MODULE_TESTING
-        /**/ // Never release the panel while testing
-#else
-        /**/ PORTD &= ~(BV(D_NPANELEN));
-        /**/ hwstate.fp_panelen = 1;
-        /**/ fp_scanner_start();
-#endif
+        hwstate.fp_grab = 0;
+        clearbit(PORTC, C_FPGRAB);    // Release control of the FP lights
+        setbit(PORTC, C_NBUSEN);      // Disable our bus drivers
+        clearbit(PORTC, C_NAUTOSCAN); // Enable the autoscan counter
+        hwstate.fp_autoscan = 1;
 }
 
 
@@ -957,8 +973,8 @@ fp_write_addr(xmem_addr_t addr, uint8_t value)
 void
 set_mfd(mfd_t mfd)
 {
-        /**/ // The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
-        /**/ // respectively, so this task is relatively simple.
+        // The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
+        // respectively, so this task is relatively simple.
         /**/ PORTE = (PORTE & (~E_MFDMASK)) | ((mfd & 3) << E_MFD0);
 }
 
@@ -1020,7 +1036,7 @@ clear_ws()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// INITIALISATION
+// ATMEGAN INITIALISATION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -1028,27 +1044,25 @@ clear_ws()
 inline static void
 avr_init()
 {
-        /**/ // MCUCSR = BV(JTD);       //  Disable JTAG
+        // On the 2560, this is probably not necessary, but let's do it anyway.
+        MCUCR = BV(JTD);       //  Disable JTAG
 
-        /**/ XMCRA = 0;         // No wait states
-        /**/ XMCRB = BV(XMBK) |         // Enable Bus Keeper (hold) on Port A (FPA/FPD)
-        /**/         BV(XMM0) | // 8-bit Address bus, recover all of Port C
-        /**/         BV(XMM1) |
-        /**/         BV(XMM2);
+        XMCRA = 0;         // No wait states
+        XMCRB = BV(XMBK) |         // Enable Bus Keeper (hold) on Port A (FPA/FPD)
+                BV(XMM0) | // 8-bit Address bus, recover all of Port C
+                BV(XMM1) |
+                BV(XMM2);
 
-        /**/ XMCRA =  BV(SRE);  // *NOW* we can enable XMEM.
+        XMCRA =  BV(SRE);  // *NOW* we can enable XMEM.
 
-
-#warning "Ported up to here for Arduino 2560"
+        // PORTED TO HERE
         /**/ return;
 
+        // XMEM overrides our settings for Port A.
 
+        // Configure other ports. Use binary for brevity.
 
-        /**/ // XMEM overrides our settings for Port A.
-
-        /**/ // Configure other ports. Use binary for brevity.
-
-        /**/ //         76543210
+        //         76543210
         /**/ DDRB =   0b11110001; // PB1–3 left as inputs.
         /**/ PORTB =  0b10000000; // Init, step 1.
         /**/ PORTB =  0b10001000; // Init, step 2, CLR# rising edge
@@ -1071,7 +1085,7 @@ avr_init()
         /**/ DDRF =   0b00001111; // Port F direction (SWA/SWD)
         /**/ PORTF =  0b11110000; // Enable pull-ups on inputs.
 
-        /**/ //         ---43210
+        //         ---43210
         /**/ DDRG =   0b00000000; // Port G direction, XMEM control pins
         /**/ PORTG =  0b00000000; // RD# and WR# pull-ups.
 }
@@ -1080,55 +1094,57 @@ avr_init()
 static inline void
 enable_cft_interrupts()
 {
-        /**/ // Disable INT0
-        /**/ clearbit(EIMSK, INT0);
-        /**/ // Set falling edge sensitivity (ISC01=1, ISC00=0)
-        /**/ EICRA = (EICRA & 0b11111100) | BV(ISC01);
-        /**/ // Enable INT0
-        /**/ setbit(EIMSK, INT0);
+        // Disable INT0
+        clearbit(EIMSK, INT0);
+        // Set falling edge sensitivity (ISC01=1, ISC00=0)
+        EICRA = (EICRA & 0b11111100) | BV(ISC01);
+        // Enable INT0
+        setbit(EIMSK, INT0);
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+// 
+// INITIALISATION ENTRY POINT
+//
+///////////////////////////////////////////////////////////////////////////////
 
 void
 hw_init()
 {
-        /**/ avr_init();
+        avr_init();             // not fully ported
         /**/ tristate_buses();
         /**/ rc_freeze();
         /**/ clear_ws();
 
-        /**/ // Enable interrupts for CFT-originated transactions
-        /**/ // Wait for the CFT to be able to use these before enabling.
-#ifdef ON_DFP_BOARD
+        // Enable interrupts for CFT-originated transactions
+        // Wait for the CFT to be able to use these before enabling.
         /**/ enable_cft_interrupts();
-#endif // ON_DFP_BOARD
 
-        /**/ // Initialise switch debouncing and enable switch timer ISR
+        // Initialise switch debouncing and enable switch timer ISR
         /**/ sw_init();
         /**/ 
-        /**/ // Initialise serial port and interrupts
+        // Initialise serial port and interrupts
         /**/ serial_init();
 
-        /**/ // Wait for signals to stabilise.
+        // Wait for signals to stabilise.
         /**/ _delay_ms(100);
 
-        /**/ // We're booting. Let'em know.
+        // We're booting. Let'em know.
         /**/ report_pstr(PSTR(STR_BOOTUP));
 
-#ifdef ON_DFP_BOARD
         /**/ fp_grab();
         /**/ fp_start_light_test();
         /**/ _delay_ms(500);
         /**/ fp_stop_light_test();
-#endif // ON_DFP_BOARD
 
-        /**/ // Enable the watchdog.
-        /**/ wdt_enable(WATCHDOG_TIMEOUT);
+        // Enable the watchdog.
+        wdt_enable(WATCHDOG_TIMEOUT);
 
-        /**/ // Run diagnostics and detect processor boards.
-        /**/ dfp_diags();
+        // Run diagnostics and detect processor boards.
+        dfp_diags();            // not fully ported
 
-        /**/ // Make Panel work
+        // Make Panel work
         /**/ fp_release();
 
 
@@ -1141,7 +1157,7 @@ hw_init()
         /**/ uint16_t val = 0;
         /**/ uint16_t checkval = 0;
 
-        /**/ // Deassert FP-RESET (FOR TESTING)
+        // Deassert FP-RESET (FOR TESTING)
         /**/ setbit(PORTE, E_NMCVOE);     // Drive the control bus
         /**/ setbit(PORTE, E_NFPRESET);   /* TEST */
 
@@ -1222,22 +1238,22 @@ hw_init()
 
 #warning "PORTED TO THIS POINT"
 #if 0
-        /**/ // Time = 4
+        // Time = 4
 
-        /**/ // Set up the switch sampling/debouncing timer. Atmega168 datasheet,
-        /**/ // p. 104.
-        /**/ //
-        /**/ // Sampling rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
-        /**/ //
-        /**/ // That's 35.56 ms between samples, plenty of time for
-        /**/ // switches to stop bouncing.
+        // Set up the switch sampling/debouncing timer. Atmega168 datasheet,
+        // p. 104.
+        //
+        // Sampling rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
+        //
+        // That's 35.56 ms between samples, plenty of time for
+        // switches to stop bouncing.
         /**/ 
-        /**/ // Timer 1 (the slow clock input to the CFT processor) is set further
-        /**/ // down, on demand.
+        // Timer 1 (the slow clock input to the CFT processor) is set further
+        // down, on demand.
 
-        /**/ // Time = 5
+        // Time = 5
 
-        /**/ // Is a processor attached to the system?
+        // Is a processor attached to the system?
         /**/ if (detect_cpu()) {
         /**/         // Mark the processor as present
         /**/         flags |= FL_PROC;
@@ -1250,12 +1266,12 @@ hw_init()
         /**/ }
 
 
-        /**/ // Read the initial state of the front panel switches.
+        // Read the initial state of the front panel switches.
         /**/ deb_sample(0);
 
 
-        /**/ // Set the initial clock values on the speed switch. Don't start the
-        /**/ // clock yet.
+        // Set the initial clock values on the speed switch. Don't start the
+        // clock yet.
         /**/ uint8_t spd = (_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT;
         /**/ if (spd == 2) {
         /**/         _clk_prescale = PSV_1024;
@@ -1268,15 +1284,15 @@ hw_init()
         /**/         _clk_div = 0;
         /**/ }
 
-        /**/ // Don't write anything to the control bus just yet.
+        // Don't write anything to the control bus just yet.
         /**/ defercb = 255;
 
-        /**/ // Set the initial RAM/ROM values
+        // Set the initial RAM/ROM values
         /**/ panel_rom(_swright & SWR_ROM);
         /**/ 
-        /**/ // If the RAM mapping was selected, start halted. The machine is
-        /**/ // unprogrammed and the operator will take it from there. Otherwise,
-        /**/ // with ROM mapped, start running. (note: 0 = RAM, non-zero = ROM);
+        // If the RAM mapping was selected, start halted. The machine is
+        // unprogrammed and the operator will take it from there. Otherwise,
+        // with ROM mapped, start running. (note: 0 = RAM, non-zero = ROM);
         /**/ if (_swright & SWR_ROM) {
         /**/         // Switch is in the ROM position. Start the processor.
         /**/         clk_start();                // Start the clock.
@@ -1291,24 +1307,24 @@ hw_init()
         /**/         flags |= FL_HALT;           // The debugging interface needs to know.
         /**/ }
 
-        /**/ // Update the control bus
+        // Update the control bus
         /**/ defercb = 0;
         /**/ write_cb();
 
-        /**/ // Perform a full machine RESET cycle, which will either strobe
-        /**/ // FPRESET# (only the de-assertion of which is needed), or perform a
-        /**/ // standalone RESET#/RSTHOLD# cycle if the processor is missing.
+        // Perform a full machine RESET cycle, which will either strobe
+        // FPRESET# (only the de-assertion of which is needed), or perform a
+        // standalone RESET#/RSTHOLD# cycle if the processor is missing.
         /**/ perform_reset();
 
-        /**/ // Now de-assert the various reset signals explicitly. Can't hurt.
+        // Now de-assert the various reset signals explicitly. Can't hurt.
         /**/ cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
         /**/ cb[1] |= CB1_NFPRESET | CB1_NRESET;
 #endif // 0
 
-        /**/ // Set up the console ring buffer
+        // Set up the console ring buffer
         /**/ ringbuf_init();
         /**/ 
-        /**/ // Enable the global interrupt flag
+        // Enable the global interrupt flag
         /**/ sei();
 
 }
@@ -1317,14 +1333,14 @@ hw_init()
 void
 hw_tick()
 {
-        /**/ // This is not needed.
+        // This is not needed.
 }
 
 
 void
 hw_done()
 {
-        /**/ // The AVR hardware is never uninitialised.
+        // The AVR hardware is never uninitialised.
 }
 
 
@@ -1340,29 +1356,29 @@ static uint8_t _switches[64];
 static inline void
 sw_init()
 {
-        /**/ // Initialise the switch hwstate.
+        // Initialise the switch hwstate.
         /**/ for (uint8_t i = 0; i < 64; i++) {
         /**/         _switches[i] = 0;
         /**/ }
 
-        /**/ // // Program Timer 3 to scan switches and perform other housekeeping
-        /**/ // // tasks.
-        /**/ // TCCR3A = 0b00000000; // Normal port operation, no pins driven.
-        /**/ // TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
+        // // Program Timer 3 to scan switches and perform other housekeeping
+        // // tasks.
+        // TCCR3A = 0b00000000; // Normal port operation, no pins driven.
+        // TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
 
-        /**/ // // Set the A count comparator and trigger an interrupt when it matches.
-        /**/ // //OCR3A = 259;               // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
-        /**/ // OCR3A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
-        /**/ // ETIMSK = BV(OCIE3A); // Interrupt on timer compare match
+        // // Set the A count comparator and trigger an interrupt when it matches.
+        // //OCR3A = 259;               // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+        // OCR3A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
+        // ETIMSK = BV(OCIE3A); // Interrupt on timer compare match
 }
 
 
 void
 sw_clear_changed()
 {
-        /**/ // Clear the map of changed switches. Do this atomically on the AVR,
-        /**/ // because the timer interrupt may change them while we're clearing
-        /**/ // bits here.
+        // Clear the map of changed switches. Do this atomically on the AVR,
+        // because the timer interrupt may change them while we're clearing
+        // bits here.
 
         /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         /**/         // Unroll the loop because it's only 8 STO instructions anyway.
@@ -1381,8 +1397,8 @@ sw_clear_changed()
 void
 sw_read()
 {
-        /**/ // The AVR driver reads and debounces the switches in an ISR
-        /**/ // below. We don't need to do anything here.
+        // The AVR driver reads and debounces the switches in an ISR
+        // below. We don't need to do anything here.
 }
 
 
@@ -1525,12 +1541,12 @@ ISR(TIMER3_COMPA_vect)
 {
         /**/ static uint8_t pause = 0;
 
-        /**/ // Scan the switches.
+        // Scan the switches.
         /**/ sw_scan();
 
-        /**/ // Blink the STOP light at ~10Hz while busy, and ignore the front panel
-        /**/ // switches. Any routine working overtime here had better call
-        /**/ // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
+        // Blink the STOP light at ~10Hz while busy, and ignore the front panel
+        // switches. Any routine working overtime here had better call
+        // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
         /**/ if (hwstate.is_busy) {
         /**/         pause = (pause + 1) & 3;
         /**/         if (pause == 0) togglebit(PORTD, D_LED_STOP);
@@ -1544,29 +1560,29 @@ ISR(TIMER3_COMPA_vect)
         /**/ static uint8_t autorepeat = 45;
         /**/ static uint8_t accelerate = 0;
 
-        /**/ // We're still alive!
+        // We're still alive!
         /**/ wdt_reset();
         /**/ 
-        /**/ // If software-locked, ignore switches.
+        // If software-locked, ignore switches.
         /**/ if (flags & FL_SWLOCK) return;
         /**/ 
-        /**/ // Toggle switch handling
+        // Toggle switch handling
         /**/ deb_sample(0);          // Read the switches
         /**/ 
-        /**/ // Print out the Switch Register to the debugging console, if it's
-        /**/ // changed (the decision is made in panel_sr()). The SR can't be
-        /**/ // locked, so we act on it before the panel lock check.
+        // Print out the Switch Register to the debugging console, if it's
+        // changed (the decision is made in panel_sr()). The SR can't be
+        // locked, so we act on it before the panel lock check.
         /**/ if (_sr0 != _sr) panel_sr(_sr);
 
-        /**/ // If the front panel is locked, bail out.
+        // If the front panel is locked, bail out.
         /**/ if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
         /**/         return;
         /**/ }
 
-        /**/ // Ignore 'action' panel switches if we're busy
+        // Ignore 'action' panel switches if we're busy
         /**/ if (flags & FL_BUSY) return;
 
-        /**/ // Have the switches changed?
+        // Have the switches changed?
         /**/ if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
         /**/         if (autorepeat > 1) autorepeat--;
         /**/         if (autorepeat != 1) return;
@@ -1597,23 +1613,23 @@ ISR(TIMER3_COMPA_vect)
         /**/         }
         /**/ }
 
-        /**/ // Set the clock speed.
+        // Set the clock speed.
         /**/ panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
 
-        /**/ // The RAM switch is only acted on on reset (an edge action), and when
-        /**/ // the clock is halted (a level action or latch). Again, the decision
-        /**/ // is made in panel_rom().
+        // The RAM switch is only acted on on reset (an edge action), and when
+        // the clock is halted (a level action or latch). Again, the decision
+        // is made in panel_rom().
         /**/ panel_rom(_swright & SWR_ROM ? 1 : 0);
 
-        /**/ // Is the increment signal being asserted?
+        // Is the increment signal being asserted?
         /**/ bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
 
-        /**/ // Become insensitive to this switch configuration.
+        // Become insensitive to this switch configuration.
         /**/ _swleft0 = _swleft;
         /**/ _swright0 = _swright;
         /**/ _sr0 = _sr;
 
-        /**/ // Check switches. Act on just one per timer interrupt.
+        // Check switches. Act on just one per timer interrupt.
         /**/ if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
         /**/         // Start (reset + run)
         /**/         panel_start();
@@ -1744,25 +1760,25 @@ serial_init()
 {
         /**/ UCSR0A = INIT_UCSR0A;
 
-        /**/ // Configure the serial port.
+        // Configure the serial port.
         /**/ UCSR0B =
         /**/         BV(TXEN0) |     // Enable data transmission
         /**/         BV(RXEN0);      // Enable data reception
 
-        /**/ // Set asynchronous mode, no parity, 8 bits, 1 stop bit. This is the
-        /**/ // default, so we don't actually have to set UCSR0C for this
-        /**/ // configuration. This saves another 4 bytes of program memory.
+        // Set asynchronous mode, no parity, 8 bits, 1 stop bit. This is the
+        // default, so we don't actually have to set UCSR0C for this
+        // configuration. This saves another 4 bytes of program memory.
 
-        /**/ //         -APPSCC-
+        //         -APPSCC-
         /**/ UCSR0C = 0b00000110;    // Async, no parity, 1 stop bit, 8 data bits.
 
-        /**/ // Set the bps rate.
+        // Set the bps rate.
         /**/ UBRR0L = BPS & 0xff;
         /**/ UBRR0H = (BPS >> 8) & 0xff;
 
         /**/ report_pstr(PSTR("\017\033[0m\n\r\n\r"));
 
-        /**/ // We can enable interrupt handling now.
+        // We can enable interrupt handling now.
         /**/ UCSR0B = 0b10011000;    // Enable interrupts on received characters.
 }
 
@@ -1775,7 +1791,7 @@ serial_write(unsigned char c)
 {
         /**/ loop_until_bit_is_set(UCSR0A, UDRE0);
         /**/ UDR0 = c;
-        /**/ //_delay_ms(11);
+        //_delay_ms(11);
 }
 
 
@@ -1784,8 +1800,8 @@ ISR(USART0_RX_vect)
 {
         /**/ uint8_t c;
 
-        /**/ // Ensure we don't have any framing errors. If we do, ignore the received
-        /**/ // character.
+        // Ensure we don't have any framing errors. If we do, ignore the received
+        // character.
         /**/ if (!bit_is_clear(UCSR0A, FE0)) {
         /**/         serial_errors++;
         /**/         c = UDR0;
@@ -1793,8 +1809,8 @@ ISR(USART0_RX_vect)
         /**/         return;
         /**/ }
 
-        /**/ // The Atmega64 has a two byte FIFO. Pretend it's a big boy and query
-        /**/ // as if the buffer is arbitrary size.
+        // The Atmega64 has a two byte FIFO. Pretend it's a big boy and query
+        // as if the buffer is arbitrary size.
         /**/ while (UCSR0A & _BV(RXC0)) {
         /**/         // Process the character directly from its register.
         /**/         c = UDR0;
@@ -1830,25 +1846,25 @@ set_reg(reg_t reg, uint16_t value)
         /**/ report_pstr(PSTR("set_reg() not implemented"));
         /**/ return 1;
         /**/ 
-        /**/ // // Even with the processor halted, some control signals are
-        /**/ // // bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
+        // // Even with the processor halted, some control signals are
+        // // bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
 
-        /**/ // write_ibus(value);
-        /**/ // drive_ibus();
-        /**/ // setup();
-        /**/ // switch (reg) {
-        /**/ // case reg_ir:
-        /**/ //      strobe_wir();
-        /**/ //      break;
-        /**/ // }
-        /**/ // hold();
-        /**/ // tristate_ibus();
+        // write_ibus(value);
+        // drive_ibus();
+        // setup();
+        // switch (reg) {
+        // case reg_ir:
+        //      strobe_wir();
+        //      break;
+        // }
+        // hold();
+        // tristate_ibus();
 
-        /**/ // // Sample the bus after setting the reg. This can be used to
-        /**/ // // verify a correct write.
-        /**/ // virtual_panel_sample(0);
+        // // Sample the bus after setting the reg. This can be used to
+        // // verify a correct write.
+        // virtual_panel_sample(0);
 
-        /**/ // return 1;
+        // return 1;
 }
 
 
@@ -1897,7 +1913,7 @@ diag_failure()
         /**/         if (i < 20) wdt_reset();
         /**/ }
 
-        /**/ // We never get to this point.
+        // We never get to this point.
 }
 
 
@@ -1911,7 +1927,7 @@ report_diags(const char *msg)
         /**/         (((pgm_read_byte(msg++) - '0') & 0xf) << 4) |
         /**/         ((pgm_read_byte(msg++) - '0') & 0xf);
         /**/ 
-        /**/ if (hwstate.fp_scanen == 0 && hwstate.fp_panelen == 0) {
+        /**/ if (hwstate.fp_autoscan == 0 && hwstate.fp_grab == 0) {
         /**/         // During early diagnostics, the panel is grabbed so we need to
         /**/         // write to it directly, but we also write to the OR (even
         /**/         // though it's not displayed yet)
@@ -1975,15 +1991,15 @@ static void
 _dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
 {
         /**/ report_diags(diagmsg);
-        /**/ // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
-        /**/ //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+        // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+        //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
         /**/ 
-        /**/ // Sample the bus to begin with.
+        // Sample the bus to begin with.
         /**/ setuptime();
         /**/ sample();
         /**/ uint16_t val = xmem_read(addr_h) << 8 | xmem_read(addr_l);
 
-        /**/ // Repeat 65535 times (around 4ms).
+        // Repeat 65535 times (around 4ms).
         /**/ for (uint16_t reps = 0; reps < 0xffff; reps++) {
         /**/         wdt_reset();
         /**/         setuptime();
@@ -2111,12 +2127,12 @@ dfp_diags_db_pod()
 static void
 _dfp_diags_set_ibus_via_bus_hold(uint16_t value)
 {
-        /**/ // Write the value to the IBUS.
+        // Write the value to the IBUS.
         /**/ xmem_write(XMEM_IBUS_H, (value >> 8) & 0xff);
         /**/ xmem_write(XMEM_IBUS_L, (value & 0xff));
 
-        /**/ // And strobe the IBOE pin on the Atmega, which will drive the IBUS
-        /**/ // temporarily.
+        // And strobe the IBOE pin on the Atmega, which will drive the IBUS
+        // temporarily.
         /**/ setuptime();
         /**/ clearbit(PORTC, C_NIBOE);
         /**/ setuptime();
@@ -2180,9 +2196,9 @@ dfp_diags_raddr()
         /**/ tristate_buses();
         /**/ const uint8_t num_reps = 64; // avr-gcc should optimise the variable away.
 
-        /**/ // We only have four processor boards, but valid board numbers are in
-        /**/ // the range 1-4. This wastes a byte of stack space while this function
-        /**/ // is running. Whatevs.
+        // We only have four processor boards, but valid board numbers are in
+        // the range 1-4. This wastes a byte of stack space while this function
+        // is running. Whatevs.
         /**/ uint16_t detcounts[5] = {0, 0, 0, 0, 0};
 
         /**/ report_diags(PSTR(STR_D_RADDR));
@@ -2238,22 +2254,22 @@ dfp_diags_raddr()
 
         /**/ report_pstr(PSTR(STR_D_PASS));
 
-        /**/ // For a board to be detected, it must have responded on all
-        /**/ // repetitions on at least one RADDR. Since we don't quite know what
-        /**/ // the unit does, and it might output a value we've already put on the
-        /**/ // IBUS, we assmut it's driving a constant value and require it to
-        /**/ // drive values different from all but one of our test patterns.
+        // For a board to be detected, it must have responded on all
+        // repetitions on at least one RADDR. Since we don't quite know what
+        // the unit does, and it might output a value we've already put on the
+        // IBUS, we assmut it's driving a constant value and require it to
+        // drive values different from all but one of our test patterns.
         /**/ const uint16_t expected = num_reps * (NUM_16BIT_PATTERNS - 1);
 
-        /**/ // Now let's print out detection messages, and update our data structures.
+        // Now let's print out detection messages, and update our data structures.
         /**/ if (detcounts[BRD_CTL] >= expected) {
         /**/         hwstate.have_ctl = 1;
         /**/         report_pstr(PSTR(STR_HAVECTL));
         /**/         report_pstr(PSTR(STR_BRDRESP));
         /**/ } else hwstate.have_ctl = 0;
 
-        /**/ // For REG, we should have 4*expected, but maybe we have a bad register, and
-        /**/ // we'll test soon.
+        // For REG, we should have 4*expected, but maybe we have a bad register, and
+        // we'll test soon.
         /**/ if (detcounts[BRD_REG] >= expected) {
         /**/         hwstate.have_reg = 1;
         /**/         report_pstr(PSTR(STR_HAVEREG));
@@ -2364,7 +2380,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
 static inline void
 dfp_diags_reg_pc()
 {
-        /**/ // PC RADDR/WADDR: 8; pc++ action: 8. (no pc-- action)
+        // PC RADDR/WADDR: 8; pc++ action: 8. (no pc-- action)
         /**/ _dfp_diags_reg_xx(PSTR(STR_D_REGPC), 8, 8, 0); // The PC cant't decrement
 }
 
@@ -2372,7 +2388,7 @@ dfp_diags_reg_pc()
 static inline void
 dfp_diags_reg_dr()
 {
-        /**/ // DR RADDR/WADDR: 9; dr++ action: 10. dr-- action: 11
+        // DR RADDR/WADDR: 9; dr++ action: 10. dr-- action: 11
         /**/ _dfp_diags_reg_xx(PSTR(STR_D_REGDR), 9, 10, 11);
 }
 
@@ -2380,7 +2396,7 @@ dfp_diags_reg_dr()
 static inline void
 dfp_diags_reg_ac()
 {
-        /**/ // AC RADDR/WADDR: 10; ac++ action: 12. ac-- action: 13
+        // AC RADDR/WADDR: 10; ac++ action: 12. ac-- action: 13
         /**/ _dfp_diags_reg_xx(PSTR(STR_D_REGAC), 10, 12, 13);
 }
 
@@ -2388,7 +2404,7 @@ dfp_diags_reg_ac()
 static inline void
 dfp_diags_reg_sp()
 {
-        /**/ // SP RADDR/WADDR: 11; sp++ action: 14. sp-- action: 15
+        // SP RADDR/WADDR: 11; sp++ action: 14. sp-- action: 15
         /**/ _dfp_diags_reg_xx(PSTR(STR_D_REGSP), 11, 14, 15);
 }
 
@@ -2396,9 +2412,9 @@ dfp_diags_reg_sp()
 static void
 dfp_diags()
 {
-        /**/ // Grab full control of the FPD bus and front panel. Also, stop the
-        /**/ // processor clock ad de-assert RESET# and RSTHOLD#. Keep the clock
-        /**/ // running.
+        // Grab full control of the FPD bus and front panel. Also, stop the
+        // processor clock ad de-assert RESET# and RSTHOLD#. Keep the clock
+        // running.
 
         /**/ fp_grab();
         /**/ clearbit(PORTG, G_NFPHALT);
@@ -2415,15 +2431,15 @@ dfp_diags()
         /**/ dfp_diags_ab_msw_pod();
         /**/ dfp_diags_db_pod();
         /**/ 
-        /**/ // We don't have direct read access of the addresses on the control bus
-        /**/ // (RADDR, WADDR and ACTION), but we can check them indirectly. Any
-        /**/ // device that decodes a RADDR address will put a value on the
-        /**/ // IBUS. This will also detect processor components.
+        // We don't have direct read access of the addresses on the control bus
+        // (RADDR, WADDR and ACTION), but we can check them indirectly. Any
+        // device that decodes a RADDR address will put a value on the
+        // IBUS. This will also detect processor components.
 
         /**/ dfp_diags_raddr_quiescence();
         /**/ dfp_diags_raddr();
 
-        /**/ // Diagnose boards that responded to the RADDR test.
+        // Diagnose boards that responded to the RADDR test.
         /**/ if (hwstate.have_reg) {
         /**/         dfp_diags_reg_pc();
         /**/         dfp_diags_reg_dr();
@@ -2432,10 +2448,10 @@ dfp_diags()
         /**/ }
 
 
-        /**/ // dfp_det_ctl();      // Detect CTL and run basic diags
-        /**/ // dfp_det_reg();      // Detect REG and run basic diags
-        /**/ // dfp_det_alu();
-        /**/ // dfp_detdfp_diagdet_bus();      // Detect BUS and run basic diags
+        // dfp_det_ctl();      // Detect CTL and run basic diags
+        // dfp_det_reg();      // Detect REG and run basic diags
+        // dfp_det_alu();
+        // dfp_detdfp_diagdet_bus();      // Detect BUS and run basic diags
 
         /**/ fp_release();
 }
@@ -2674,8 +2690,8 @@ test_bushold(uint16_t val)
         /**/ drive_ab();
         /**/ tristate_ab();
 
-        /**/ // Now wait a LONG time. Haven't checked the assembly output and
-        /**/ // instruction tables, but between 0.05 and 0.1s.
+        // Now wait a LONG time. Haven't checked the assembly output and
+        // instruction tables, but between 0.05 and 0.1s.
         /**/ uint16_t x = 65535;
         /**/ while (x--) {
         /**/         wdt_reset();
@@ -2683,7 +2699,7 @@ test_bushold(uint16_t val)
         /**/         short_delay();
         /**/ }
 
-        /**/ // Sample the bus
+        // Sample the bus
         /**/ deb_sample(1);           // Get AB and DB
         /**/ if (_ab != val) report_mismatch(PSTR("Bus hold mismatch:"), val, _ab);
         /**/ return _ab == val;
@@ -2704,19 +2720,19 @@ inline static bool_t
 detect_cpu()
 {
 
-        /**/ // TODO: Decide if we need cpu-less mode at all now.
+        // TODO: Decide if we need cpu-less mode at all now.
         /**/ report_pstr(PSTR(STR_DETPROC STR_DETPROC1));
 
         /**/ return 1;
 
 
-        /**/ // Strategy: hold RESET# and HALT asserted. They should
-        /**/ // already be asserted, but let's make sure.
+        // Strategy: hold RESET# and HALT asserted. They should
+        // already be asserted, but let's make sure.
         /**/ clearflag(cb[1], CB1_NFPRESET);
         /**/ setflag(cb[2], CB2_HALT);
         /**/ write_cb();
         /**/ 
-        /**/ // Write various values to the address bus.
+        // Write various values to the address bus.
         /**/ uint8_t i, found = 1;
         /**/ for (i = 0; i < NUM_PATTERNS; i++) {
         /**/         if (!test_bushold(_diag_patterns[i])) {
@@ -2725,7 +2741,7 @@ detect_cpu()
         /**/         }
         /**/ }
 
-        /**/ // All the patterns worked out.
+        // All the patterns worked out.
         /**/ report_pstr(found ? PSTR(STR_DETPROC1) : PSTR(STR_DETPROC0));
         /**/ return found;
 }
@@ -2742,15 +2758,15 @@ dfp_diags()
 
         /**/ defercb = 0;
 
-        /**/ // Test low level stuff first, pretending the processor isn't
-        /**/ // there. We'll be asserting RESET and HALT while these tests run, to
-        /**/ // remove the processor from all the buses.
+        // Test low level stuff first, pretending the processor isn't
+        // there. We'll be asserting RESET and HALT while these tests run, to
+        // remove the processor from all the buses.
 
-        /**/ // Read only tests: first, test the two shift register chains. The
-        /**/ // IOADDR0 pin is connected to the cascade-in pin of the last shift
-        /**/ // register, so after sampling, the value of the VPIN (for the virtual
-        /**/ // panel) and DEBIN (for the debugging shift regs) should be the same
-        /**/ // as IOADDR0. This allows diagnostics.
+        // Read only tests: first, test the two shift register chains. The
+        // IOADDR0 pin is connected to the cascade-in pin of the last shift
+        // register, so after sampling, the value of the VPIN (for the virtual
+        // panel) and DEBIN (for the debugging shift regs) should be the same
+        // as IOADDR0. This allows diagnostics.
 
         /**/ cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
         /**/ cb[2] |= CB2_HALT;      // Halted
@@ -2763,10 +2779,10 @@ dfp_diags()
         /**/         _delay_ms(100);
         /**/ }
 
-        /**/ ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
 
-        /**/ // We'll need to let go of NFPRESET and NRESET now, otherwise we can't
-        /**/ // set the OR. We keep the processor in the HALT state, though.
+        // We'll need to let go of NFPRESET and NRESET now, otherwise we can't
+        // set the OR. We keep the processor in the HALT state, though.
         /**/ setflag(cb[1], CB1_NFPRESET);
         /**/ cb[1] &= ~(CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD);
         /**/ write_cb();
@@ -2775,9 +2791,9 @@ dfp_diags()
         /**/ outcmd(CMD_STEPRUN, 1);
         /**/ PORTB &= ~_BV(B_FPCLKEN);
         /**/ uint16_t x;
-        /**/ // for (x = 0; x < 65535; x++) {
-        /**/ //      clr_ws();
-        /**/ // }
+        // for (x = 0; x < 65535; x++) {
+        //      clr_ws();
+        // }
         /**/ for(;;) {
         /**/         PORTB ^= _BV(B_FPUSTEP);
         /**/         _delay_ms(300);
@@ -2810,11 +2826,11 @@ dfp_diags()
 
         /**/         report_pstr(PSTR("\n"));
         /**/ }
-        /**/ ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
 
 #endif
 
-        /**/ // Report the version
+        // Report the version
         /**/ report_pstr(PSTR(BANNER1));
 
 
@@ -2854,33 +2870,33 @@ dfp_diags()
         /**/ }
         /**/ report_pstr(PSTR(STR_D_OK));
 
-        /**/ // The shift regs are working, so we can use them to test other
-        /**/ // things. Assert RESET# and HALT#. Hardware failsafes should have
-        /**/ // asserted them automatically on MCU reset, but do it explicitly just
-        /**/ // in case.
+        // The shift regs are working, so we can use them to test other
+        // things. Assert RESET# and HALT#. Hardware failsafes should have
+        // asserted them automatically on MCU reset, but do it explicitly just
+        // in case.
         /**/ uint32_t oldflags = flags;
         /**/ flags &= ~ FL_PROC;     // (Why) is this necessary?
-        /**/ //clearflag(cb[1], CB1_NFPRESET);
+        //clearflag(cb[1], CB1_NFPRESET);
         /**/ setflag(cb[2], CB2_HALT);
         /**/ write_cb();
 
-        /**/ // uint16_t x =0;
-        /**/ // for(;;) {
-        /**/ //      write_ab(x);
-        /**/ //      x = (x + 1) & 0xffff;
-        /**/ //      drive_ab();
-        /**/ //      //tristate_ab();
-        /**/ //      for (j = 0; j < 1; j++) {
-        /**/ //              deb_sample(0);
-        /**/ //              report_pstr(PSTR("ABUS: "));
-        /**/ //              uint32_t x = _ab & 0xffff;
-        /**/ //              report_hex(x, 4);
-        /**/ //              report_pstr(PSTR("\n"));
-        /**/ //              _delay_ms(250);
-        /**/ //      }
-        /**/ // }
+        // uint16_t x =0;
+        // for(;;) {
+        //      write_ab(x);
+        //      x = (x + 1) & 0xffff;
+        //      drive_ab();
+        //      //tristate_ab();
+        //      for (j = 0; j < 1; j++) {
+        //              deb_sample(0);
+        //              report_pstr(PSTR("ABUS: "));
+        //              uint32_t x = _ab & 0xffff;
+        //              report_hex(x, 4);
+        //              report_pstr(PSTR("\n"));
+        //              _delay_ms(250);
+        //      }
+        // }
 
-        /**/ // Does driving the ABUS work?
+        // Does driving the ABUS work?
         /**/ set_or(code = 0x104);
         /**/ report_pstr(PSTR(STR_D_ABDRV));
         /**/ drive_ab();
@@ -2902,9 +2918,9 @@ dfp_diags()
         /**/ if (errors) goto faulty;
         /**/ report_pstr(PSTR(STR_D_OK));
 
-        /**/ // Does tristating the ABUS work? Account for bus hold. The
-        /**/ // value read from the bus should never change from the
-        /**/ // current one.
+        // Does tristating the ABUS work? Account for bus hold. The
+        // value read from the bus should never change from the
+        // current one.
         /**/ set_or(code = 0x105);
         /**/ report_pstr(PSTR(STR_D_ABTRI));
         /**/ {
@@ -2924,7 +2940,7 @@ dfp_diags()
         /**/ }
         /**/ report_pstr(PSTR(STR_D_OK));
 
-        /**/ // Does driving the DBUS work?
+        // Does driving the DBUS work?
         /**/ set_or(code = 0x106);
         /**/ report_pstr(PSTR(STR_D_DBDRV));
         /**/ drive_db();
@@ -2946,9 +2962,9 @@ dfp_diags()
         /**/ if (errors) goto faulty;
         /**/ report_pstr(PSTR(STR_D_OK));
         /**/ 
-        /**/ // Does tristating the ABUS work? Account for bus hold. The
-        /**/ // value read from the bus should never change from the
-        /**/ // current one.
+        // Does tristating the ABUS work? Account for bus hold. The
+        // value read from the bus should never change from the
+        // current one.
         /**/ set_or(code = 0x107);
         /**/ report_pstr(PSTR(STR_D_DBTRI));
         /**/ {
@@ -2971,8 +2987,8 @@ dfp_diags()
 
         /**/ flags = oldflags;
 
-        /**/ // With the RESET# signal asserted, check there's no bus chatter.
-        /**/ // clearflag(cb[1], CB1_NFPRESET);
+        // With the RESET# signal asserted, check there's no bus chatter.
+        // clearflag(cb[1], CB1_NFPRESET);
         /**/ setflag(cb[2], CB2_HALT);
         /**/ write_cb();
         /**/ set_or(code = 0x108);
@@ -2985,7 +3001,7 @@ dfp_diags()
 
         /**/ perform_reset();        // Let the RESET signals go.
 
-        /**/ // Check the AC register.
+        // Check the AC register.
         /**/ set_or(code = 0x109);
         /**/ report_pstr(PSTR(STR_D_ACCHK));
         /**/ tristate_ab();
@@ -3013,7 +3029,7 @@ dfp_diags()
         /**/ if (errors) goto faulty;
         /**/ report_pstr(PSTR(STR_D_OK));
 
-        /**/ // Check the PC register.
+        // Check the PC register.
         /**/ set_or(code = 0x110);
         /**/ report_pstr(PSTR(STR_D_PCCHK));
         /**/ tristate_ab();
@@ -3041,7 +3057,7 @@ dfp_diags()
         /**/ if (errors) goto faulty;
         /**/ report_pstr(PSTR(STR_D_OK));
 
-        /**/ // Check the IR register.
+        // Check the IR register.
         /**/ set_or(code = 0x111);
         /**/ report_pstr(PSTR(STR_D_IRCHK));
         /**/ tristate_ab();
@@ -3071,10 +3087,10 @@ dfp_diags()
         /**/ return;
 
 faulty:
-        /**/ // Endlessly print out the ‘faulty’ string.
+        // Endlessly print out the ‘faulty’ string.
         /**/ cli();
 
-        /**/ // Crash here. The watchdog will cold reset us in a bit.
+        // Crash here. The watchdog will cold reset us in a bit.
         /**/ wdt_enable(WATCHDOG_TIMEOUT);
         /**/ for (;;) {
         /**/         // Blink the STOP light slowly. Hopefully this will work.
@@ -3141,8 +3157,8 @@ faulty:
 unsigned char
 query_char(int timeout_usec)
 {
-        /**/ // The AVR version reads characters in the USART0 receive ISR
-        /**/ // (in serial.c). Nothing to do here.
+        // The AVR version reads characters in the USART0 receive ISR
+        // (in serial.c). Nothing to do here.
         /**/ return 0;
 }
 
@@ -3150,8 +3166,8 @@ query_char(int timeout_usec)
 unsigned char
 read_next_char()
 {
-        /**/ // The AVR version reads characters in the USART0 receive ISR
-        /**/ // (in serial.c). Nothing to do here.
+        // The AVR version reads characters in the USART0 receive ISR
+        // (in serial.c). Nothing to do here.
         /**/ return 0;
 }
 
@@ -3225,9 +3241,9 @@ sample_shift_registers_reverse(uint8_t in)
 static void
 out_shift_registers(uint8_t val, uint8_t clk)
 {
-        /**/ // The loop is unrolled and we use a multistrobe context for
-        /**/ // faster shifting. We get ~205 kbps with loops and individual
-        /**/ // strobes, ~820 kbps with this technique.
+        // The loop is unrolled and we use a multistrobe context for
+        // faster shifting. We get ~205 kbps with loops and individual
+        // strobes, ~820 kbps with this technique.
         /**/ _multistrobe_start(clk);
         /**/         
         /**/ bit(PORTC, C_DOUT, val & 0x80); _multistrobe_pulse();
@@ -3246,9 +3262,9 @@ out_shift_registers(uint8_t val, uint8_t clk)
 static void
 out_shift_registers16(uint16_t val, uint8_t clk)
 {
-        /**/ // The loop is unrolled and we use a multistrobe context for
-        /**/ // faster shifting. We get ~205 kbps with loops and individual
-        /**/ // strobes, ~820 kbps with this technique.
+        // The loop is unrolled and we use a multistrobe context for
+        // faster shifting. We get ~205 kbps with loops and individual
+        // strobes, ~820 kbps with this technique.
         /**/ _multistrobe_start(clk);
         /**/         
         /**/ bit(PORTC, C_DOUT, val & 0x8000); _multistrobe_pulse();
@@ -3494,9 +3510,9 @@ write_ibus(const uint16_t ibus)
 {
         /**/ out_shift_registers16(ibus, CMD_IBUSCLK);
 
-        /**/ // Move data from ALL the shift registers to their respective output
-        /**/ // registers. Tristated output registers will of course not have any
-        /**/ // effects.
+        // Move data from ALL the shift registers to their respective output
+        // registers. Tristated output registers will of course not have any
+        // effects.
         /**/ strobecmd(CMD_STCP);
 }
 
@@ -3519,8 +3535,8 @@ tristate_ibus()
 void
 wait_for_halt(bool_t reckless)
 {
-        /**/ // This will obviously lock up the MCU if the HALT condition isn't
-        /**/ // seen. We want this.
+        // This will obviously lock up the MCU if the HALT condition isn't
+        // seen. We want this.
         /**/ flags |= FL_BUSY | FL_STOPPING;
         /**/ uint16_t timeout = 6000;
         /**/ while (timeout--) {
@@ -3547,12 +3563,12 @@ wait_for_halt(bool_t reckless)
         /**/         if ((get_flags() & CFL_NWAIT) != 0) break;
         /**/ }
 
-        /**/ // When we have no CPU, go through the motions but don't fail because
-        /**/ // the state machine will never get to the STOP state.
+        // When we have no CPU, go through the motions but don't fail because
+        // the state machine will never get to the STOP state.
         /**/ if ((flags & FL_PROC) == 0) return;
 
-        /**/ // Set the FL_HALT flag first because assert_halted() checks
-        /**/ // that before proceeding to proper tests.
+        // Set the FL_HALT flag first because assert_halted() checks
+        // that before proceeding to proper tests.
         /**/ flags |= FL_HALT;
 
         /**/ if (!reckless && !assert_halted()) {
@@ -3577,34 +3593,34 @@ wait_for_halt(bool_t reckless)
 inline void
 perform_step()
 {
-        /**/ // Stop the clock, just in case
+        // Stop the clock, just in case
         /**/ clk_stop();
         /**/ 
-        /**/ // De-assert the HALT# signal, letting the processor control the bus.
+        // De-assert the HALT# signal, letting the processor control the bus.
         /**/ set_halt(0);
 
-        /**/ // Start the step state machine. This will start the clock, wait until
-        /**/ // the next fetch cycle completes, then stop it again. The clock isn't
-        /**/ // running yet, so the STEP/RUN# pulse width is immaterial.
+        // Start the step state machine. This will start the clock, wait until
+        // the next fetch cycle completes, then stop it again. The clock isn't
+        // running yet, so the STEP/RUN# pulse width is immaterial.
         /**/ outcmd(CMD_STEPRUN, 0); // Note: inverted!
         /**/ outcmd(CMD_STEPRUN, 1);
         /**/ outcmd(CMD_STEPRUN, 0);
 
-        /**/ // *NOW* start the clock. Use whatever speed has been set up.
+        // *NOW* start the clock. Use whatever speed has been set up.
         /**/ clk_start();
-        /**/ //bit(PORTB, B_FPCLKEN, 1);
+        //bit(PORTB, B_FPCLKEN, 1);
 
-        /**/ // When the state machine has completed, WAIT# will be deasserted. Wait
-        /**/ // for this event. (often, we don't even have to)
+        // When the state machine has completed, WAIT# will be deasserted. Wait
+        // for this event. (often, we don't even have to)
         /**/ wait_for_halt(0);
         /**/ clk_stop();
-        /**/ //bit(PORTB, B_FPCLKEN, 0);
+        //bit(PORTB, B_FPCLKEN, 0);
 
-        /**/ // Assert HALT#, securing the processor.
+        // Assert HALT#, securing the processor.
         /**/ set_halt(1);
 
-        /**/ // The clock will have been stopped automatically by the FSM, but stop
-        /**/ // it anyway for added safety.
+        // The clock will have been stopped automatically by the FSM, but stop
+        // it anyway for added safety.
         /**/ clk_stop();
 }
 
@@ -3619,23 +3635,23 @@ set_stopping()
 void
 set_steprun(bool_t val)
 {
-        /**/ // Algorithm:
-        /**/ // To RUN:
-        /**/ //   Assert STEP/RUN#.
-        /**/ //   Start clock.
-        /**/ //
-        /**/ // To STOP:
-        /**/ //   Assume clock is running.
-        /**/ //   Deassert (H) STEP/RUN#. STEP is performed automatically.
-        /**/ //   Wait for WAIT# signal to be deasserted.
-        /**/ //   Stop clock.
-        /**/ //
-        /**/ // To STEP (assuming clock is stopped and STEP/RUN# is HIGH):
-        /**/ //   Stop clock (assume stopped)
-        /**/ //   Strobe (H-L-H) STEP/RUN#
-        /**/ //   Start clock
-        /**/ //   Wait for WAIT# signal to be deasserted.
-        /**/ //   Stop clock.
+        // Algorithm:
+        // To RUN:
+        //   Assert STEP/RUN#.
+        //   Start clock.
+        //
+        // To STOP:
+        //   Assume clock is running.
+        //   Deassert (H) STEP/RUN#. STEP is performed automatically.
+        //   Wait for WAIT# signal to be deasserted.
+        //   Stop clock.
+        //
+        // To STEP (assuming clock is stopped and STEP/RUN# is HIGH):
+        //   Stop clock (assume stopped)
+        //   Strobe (H-L-H) STEP/RUN#
+        //   Start clock
+        //   Wait for WAIT# signal to be deasserted.
+        //   Stop clock.
 
         /**/ outcmd(CMD_STEPRUN, !val); // Note: inverted!
         /**/ clk_start();
@@ -3646,36 +3662,36 @@ set_steprun(bool_t val)
 void
 perform_ustep()
 {
-        /**/ // Stop the clock, just in case
+        // Stop the clock, just in case
         /**/ clk_stop();
         /**/ 
-        /**/ // De-assert the HALT# signal, letting the processor control the bus.
+        // De-assert the HALT# signal, letting the processor control the bus.
         /**/ set_halt(0);
 
-        /**/ // Start the step state machine. This will start the clock, wait until
-        /**/ // the next fetch cycle completes, then stop it again. The clock isn't
-        /**/ // running yet, so the STEP/RUN# pulse width is immaterial.
+        // Start the step state machine. This will start the clock, wait until
+        // the next fetch cycle completes, then stop it again. The clock isn't
+        // running yet, so the STEP/RUN# pulse width is immaterial.
         /**/ outcmd(CMD_USTEP, 0);
         /**/ outcmd(CMD_USTEP, 1);
         /**/ outcmd(CMD_USTEP, 0);
 
-        /**/ // *NOW* start the clock.
+        // *NOW* start the clock.
         /**/ bit(PORTB, B_FPCLKEN, 1);
 
-        /**/ // Sample the bus, because we'll need the info
+        // Sample the bus, because we'll need the info
         /**/ virtual_panel_sample(0);
 
-        /**/ // When the state machine has completed, WAIT# will be deasserted. Wait
-        /**/ // for this event. (often, we don't even have to). Use ‘reckless’ mode
-        /**/ // (do not assert HALT#, preserving vector lights)
+        // When the state machine has completed, WAIT# will be deasserted. Wait
+        // for this event. (often, we don't even have to). Use ‘reckless’ mode
+        // (do not assert HALT#, preserving vector lights)
         /**/ wait_for_halt(1);
         /**/ bit(PORTB, B_FPCLKEN, 0);
 
-        /**/ // Assert HALT#, securing the processor.
-        /**/ //set_halt(1);
+        // Assert HALT#, securing the processor.
+        //set_halt(1);
 
-        /**/ // The clock will have been stopped automatically by the FSM, but stop
-        /**/ // it anyway for added safety.
+        // The clock will have been stopped automatically by the FSM, but stop
+        // it anyway for added safety.
         /**/ clk_stop();
 }
 
@@ -3793,12 +3809,12 @@ strobe_wir()
 void
 strobe_w()
 {
-        /**/ // R/W safety interlock.
+        // R/W safety interlock.
         /**/ clearflag(cb[2], CB2_R);
         /**/ 
-        /**/ // The processor is halted, so we can drive W# directly. The
-        /**/ // signal is low for so long (tens of bus cycles), wait states
-        /**/ // don't really apply.
+        // The processor is halted, so we can drive W# directly. The
+        // signal is low for so long (tens of bus cycles), wait states
+        // don't really apply.
 
         /**/ setflag(cb[2], CB2_W);
         /**/ write_cb();
@@ -3807,30 +3823,30 @@ strobe_w()
         /**/ write_cb();
 
 /*              
-        /**/              if (flags & FL_PROC) {
+                      if (flags & FL_PROC) {
 
-        /**/         // A processor is present. Enable writing and let it handle the
-        /**/         // write cycle, observing wait states etc.
+                 // A processor is present. Enable writing and let it handle the
+                 // write cycle, observing wait states etc.
 
-        /**/         clearflag(cb[1], CB1_NWEN);
-        /**/         write_cb();
-        /**/         
-        /**/         perform_ustep();
+                 clearflag(cb[1], CB1_NWEN);
+                 write_cb();
+                 
+                 perform_ustep();
 
-        /**/         setflag(cb[1], CB1_NWEN);
-        /**/         write_cb();
+                 setflag(cb[1], CB1_NWEN);
+                 write_cb();
 
-        /**/              } else {
+                      } else {
 
-        /**/         // No processor. Strobe the W# signal directly. The signal is
-        /**/         // low for so long, wait states hardly even apply.
+                 // No processor. Strobe the W# signal directly. The signal is
+                 // low for so long, wait states hardly even apply.
 
-        /**/         clearflag(cb[2], CB2_NW);
-        /**/         write_cb();
+                 clearflag(cb[2], CB2_NW);
+                 write_cb();
 
-        /**/         setflag(cb[2], CB2_NW);
-        /**/         write_cb();
-        /**/              }
+                 setflag(cb[2], CB2_NW);
+                 write_cb();
+                      }
 
 */
 }
@@ -3839,7 +3855,7 @@ strobe_w()
 void
 set_r(bool_t val)
 {
-        /**/ // R/W safety interlock.
+        // R/W safety interlock.
         /**/ clearflag(cb[2], CB2_W);
         /**/ do_cb(2, R, val);
         /**/ write_cb();
@@ -3849,7 +3865,7 @@ set_r(bool_t val)
 void
 set_mem(bool_t val)
 {
-        /**/ // MEM/IO safety interlock.
+        // MEM/IO safety interlock.
         /**/ clearflag(cb[2], CB2_IO);
         /**/ do_cb(2, MEM, val);
         /**/ write_cb();
@@ -3859,7 +3875,7 @@ set_mem(bool_t val)
 void
 set_io(bool_t val)
 {
-        /**/ // MEM/IO safety interlock.
+        // MEM/IO safety interlock.
         /**/ clearflag(cb[2], CB2_MEM);
         /**/ do_cb(2, IO, val);
         /**/ write_cb();
@@ -3899,10 +3915,10 @@ strobe_incpc()
 void
 set_halt(bool_t val)
 {
-        /**/ // Also update the FPRAM signal
+        // Also update the FPRAM signal
         /**/ if (val) panel_rom(_swright & SWR_ROM ? 1 : 0);
 
-        /**/ //report_bool_value(PSTR("*** set_halt:"), val);
+        //report_bool_value(PSTR("*** set_halt:"), val);
         /**/ do_cb(2, HALT, val);
         /**/ write_cb();
 }
@@ -3911,7 +3927,7 @@ set_halt(bool_t val)
 void
 set_fprunstop(bool_t run)
 {
-        /**/ // Update the front panel LEDs
+        // Update the front panel LEDs
         /**/ cb[2] &= ~(CB2_FPRUN | CB2_FPSTOP);
         /**/ cb[2] |= run ? CB2_FPRUN : CB2_FPSTOP;
         /**/ write_cb();
@@ -3960,14 +3976,14 @@ ISR(INT0_vect)
         /**/ deb_sample(1);           // Get AB and DB
         /**/ virtual_panel_sample(1); // Get control signals
         /**/ 
-        /**/ // Is it a write cycle? (NR = 1, i.e. unasserted)
+        // Is it a write cycle? (NR = 1, i.e. unasserted)
         /**/ if (_flags & CFL_NR) {
         /**/         buscmd_write();
         /**/ } else {
         /**/         buscmd_read();
         /**/ }
         /**/ 
-        /**/ // Strobe the CLR-WS signal to clear wait states.
+        // Strobe the CLR-WS signal to clear wait states.
         /**/ clr_ws();
 }
 
