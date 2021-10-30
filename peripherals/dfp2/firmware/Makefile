@@ -94,6 +94,9 @@ AVRLDFLAGS	+=	-gdwarf-2 -Wl,--undefined=_mmcu,--section-start=.mmcu=0x910000
 
 DEVICE		=	/dev/ttyACM0
 
+#TTYD		=	$(DEVICE)
+TTYD		=	/dev/ttyUSB0
+
 ###############################################################################
 #
 # SIMAVR DEFINES (OBSOLETE)
@@ -195,11 +198,9 @@ fuses:		.stamp-fuses
 # (b) set lfuse.SUT = 10 (wait for 64ms for clock to stabilise)
 
 # .stamp-fuses:
-#		pkill -f "minicom dfp" && sleep 0.5
 # 		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
 
 .stamp-fuses:
-		pkill -f "minicom.dfp" && sleep 0.5
 		$(AVRDUDE) -s -u -v -U lfuse:w:0xe0:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m
 
 # Fuses for 168
@@ -209,20 +210,17 @@ fuses:		.stamp-fuses
 download:	.stamp-dl
 
 .stamp-dl:	$(PROG).hex
-		pkill -f "[m]inicom.dfp" && sleep 0.5 || true
 		$(AVRDUDE) -D -U flash:w:$(PROG).hex
 		touch $@
 
 verify:		$(PROG).bin
-		pkill -f "[m]inicom.dfp" && sleep 0.5 || true
 		$(AVRDUDE) -U flash:v:$(PROG).hex
 
 reset:		
 		$(AVRDUDE) -v
 
 minicom:	
-#		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(DEVICE) -b $(SERIAL_BPS) -C dfp.cap -o
-		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D /dev/ttyUSB0 -b $(SERIAL_BPS) -C dfp.cap -o
+		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(TTYD) -b $(SERIAL_BPS) -C dfp.cap -o
 
 # Special source files
 proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
