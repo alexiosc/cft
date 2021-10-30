@@ -16,12 +16,15 @@ PROG	=	dfp
 
 VERSION		=	3.0
 THISYEAR	= 	"$(shell date +%Y)"
+TS		=       "$(shell date +'%Y-%m-%d %H:%M:%S %Z')"
 
 DEFINES		=	-DDEBUG
-DEFINES		+=	-DVERSION='"$(VERSION) $(shell date +%Y-%m-%d)"'
+DEFINES		+=	-DVERSION='"$(VERSION)"'
+DEFINES         +=      -DTS='$(TS)'
 DEFINES		+=	-DTHISYEAR='"$(shell date +%Y)"'
 DEFINES		+=	-DBUFSIZE=$(BUFSIZE) -DBUFSIZE_S='"$(shell printf "%x\n" $(BUFSIZE))"'
 DEFINES		+=	-DF_CPU=$(CPU_FREQ) -DF_CPU_S='"$(CPU_FREQ)"'
+DEFINES         +=      -DSERIAL_PORT=$(SERIAL_PORT)
 DEFINES		+=	-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"'
 DEFINES		+=	-D__DELAY_BACKWARD_COMPATIBLE__
 DEFINES		+=	-DDISASSEMBLE
@@ -46,6 +49,14 @@ MCU_TARGET      =       atmega2560
 #CPU_FREQ	=	14745600 # Hz (DFP1, 14.7456 MHz crystal)
 CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
 
+# The USART to use. If only one USART is defined, that one will be
+#used. On DIN-based DFP, USART 0 is used for programming and the
+#(dodgy) on-board USB serial. Ports 1 and 3 are routed to the board
+#TTYD header.
+#SERIAL_PORT	=	0   	# USB-to-serial. Unreliable.
+SERIAL_PORT 	=	1	# Selectable using jumpers on DFP
+#SERIAL_PORT	=	3	# Selectable using jumpers on DFP
+
 #SERIAL_BPS	= 	921600
 #SERIAL_BPS	=	460800   # DFP1
 #SERIAL_BPS	=	230400
@@ -54,7 +65,7 @@ CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
 #SERIAL_BPS	=	38400
 #SERIAL_BPS	=	9600
 #SERIAL_BPS	=	250000
-SERIAL_BPS      =       921600   # DFP2
+SERIAL_BPS      =       500000   # DFP2
 
 BUFSIZE		=	512
 
@@ -168,6 +179,13 @@ $(PROG).elf:	$(SOURCES) $(DRIVER_AVR)
 		-@$(AVRCC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(DRIVER_AVR) $(LIBS)
 		$(AVRCC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(DRIVER_AVR) $(LIBS)
 		@echo; avr-size -C --mcu=$(MCU_TARGET) $(PROG).elf
+		@printf "\nVERSION:           \033[0;1;32m%s\033[0m\n" $(VERSION)
+		@printf "TS:                \033[0;1;32m%s\033[0m\n" $(TS)
+		@printf "MCU:               \033[0;1;32m%s\033[0m\n" $(MCU_TARGET)
+		@printf "SPEED:             \033[0;1;32m%s kHz\033[0m\n" $$(($(CPU_FREQ) / 1000))
+		@printf "TTYD SERIAL PORT:  \033[0;1;32mUSART%s\033[0m\n" $(SERIAL_PORT)
+		@printf "TTYD SERIAL RATE:  \033[0;1;32m%s bps\033[0m\n" $(SERIAL_BPS)
+		@echo
 
 fuses:		.stamp-fuses
 
@@ -190,7 +208,7 @@ fuses:		.stamp-fuses
 
 download:	.stamp-dl
 
-.stamp-dl:	$(PROG).bin
+.stamp-dl:	$(PROG).hex
 		pkill -f "[m]inicom.dfp" && sleep 0.5 || true
 		$(AVRDUDE) -D -U flash:w:$(PROG).hex
 		touch $@
@@ -203,7 +221,8 @@ reset:
 		$(AVRDUDE) -v
 
 minicom:	
-		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(DEVICE) -b $(SERIAL_BPS) -C dfp.cap -o
+#		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(DEVICE) -b $(SERIAL_BPS) -C dfp.cap -o
+		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D /dev/ttyUSB0 -b $(SERIAL_BPS) -C dfp.cap -o
 
 # Special source files
 proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py

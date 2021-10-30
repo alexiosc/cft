@@ -103,13 +103,6 @@ static void dfp_diags();
 // Port C: Bus Enables & Control
 
 #define C_CLRWS      PC0 /**/       // O. RE: done with transaction, clear WS
-#define C_NIBOE      PC1 /**/       // O. AL: drive IBUS
-#define C_NABOE      PC2 /**/       // O. AL: drive AB (Address Bus)
-#define C_NDBOE      PC3 /**/       // O. AL: drive DB (Data Bus)
-#define C_NMEM       PC4 /**/       // I/OD. AL: drive MEM# bus signal.
-#define C_NIO        PC5 /**/       // I/OD. AL: drive IO# bus signal.
-#define C_NR         PC6 /**/       // I/OD. AL: drive R# bus signal.
-#define C_NW         PC7 /**/       // I/OD. AL: drive W# bus signal.
 
 // Port D: Panel & Run Control
 
@@ -127,7 +120,6 @@ static void dfp_diags();
 #define E_NFPIRQ     PE2 /**/       // O. AL: signal (jumper configurable) IRQ to processor
 #define E_MFD0       PE3 /**/       // O. Set MFD value. (low bit)
 #define E_MFD1       PE4 /**/       // O. Set MFD value. (high bit)
-#define E_NMCVOE     PE5 /**/       // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
 #define E_NFPRESET   PE6 /**/       // O. AL: signals reset to processor.
 #define E_NFPRSTHOLD PE7 /**/       // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
                              
@@ -157,7 +149,6 @@ static void dfp_diags();
 
 
 
-
 // Key:
 //
 // O.     Output
@@ -178,13 +169,28 @@ static void dfp_diags();
 //    1          1       MCU can write to front panel.
 
 // Port C.
-#define C_NBUSEN     PC0            // O. 0: DFP drives the FP bus. 1: autoscan drives.
-#define C_NAUTOSCAN  PC1            // O. AL: FP scan counter controls the bus & FP.
-#define C_FPGRAB     PC2            // O. 1: DFP drives FP. 0: CFT drives FP.
+#define C_NBUSEN     PC0    // O.    0: DFP drives the FP bus. 1: autoscan drives.
+#define C_NAUTOSCAN  PC1    // O.    AL: FP scan counter controls the bus & FP.
+#define C_FPGRAB     PC2    // O.    1: DFP drives FP. 0: CFT drives FP.
+//                   PC3    // (not used)
+#define C_NW         PC4    // I/OD. AL: drive W# bus signal.
+#define C_NR         PC5    // I/OD. AL: drive R# bus signal.
+#define C_NIO        PC6    // I/OD. AL: drive IO# bus signal.
+#define C_NMEM       PC7    // I/OD. AL: drive MEM# bus signal.
+
+// Port K: Bus enables etc.
+
+#define K_NIBOE      PK1    // O. AL: drive IBUS
+#define K_NABOE      PK2    // O. AL: drive AB (Address Bus)
+#define K_NDBOE      PK3    // O. AL: drive DB (Data Bus)
+#define K_NUCVOE     PK4    // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
+//                   PK5    // (not used)
+//                   PK6    // (not used)
+//                   PK7    // (not used)
 
 // Port L: CFP control signals
-#define L_FPROM      PL4            // O. To MBU. 0=RAM-only, 1=ROM & RAM.
-#define L_BUSCP      PL7            // O. RE: input FFs sample data.
+#define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
+#define L_BUSCP      PL7    // O. RE: input FFs sample data.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -206,6 +212,20 @@ static void dfp_diags();
 #define PORT_NNO(bit)  (0)
 
 #define PORT_PUP(bit)  (BV(BIT))
+
+
+#define _tristate_ab()    setbit(PORTK, K_NABOE)
+#define _drive_ab()       clearbit(PORTK, K_NABOE)
+
+#define _tristate_db()    setbit(PORTK, K_NDBOE)
+#define _drive_db()       clearbit(PORTK, K_NDBOE)
+
+#define _tristate_ibus()  setbit(PORTK, K_NIBOE)
+#define _drive_ibus()     clearbit(PORTK, K_NIBOE)
+
+#define _tristate_ucv()   setbit(PORTK, K_NUCVOE)
+#define _drive_ucv()      clearbit(PORTK, K_NUCVOE)
+
 
 
 static void NEVER_INLINE
@@ -311,21 +331,12 @@ xmem_read(const xmem_addr_t addr)
 inline static void
 sample()
 {
-        // Strobe the BUSCP signal, which causes all the input flip-flops to
+        // Strobe the BUSCP signal, which causes all the pod flip-flops to
         // simultaneously sample their respective buses.
         clearbit(PORTL, L_BUSCP);
         setuptime();
         setbit(PORTL, L_BUSCP);
 } 
-
-
-const uint8_t state_addrs[] PROGMEM = {
-        /**/ XMEM_AB_H, XMEM_AB_M, XMEM_AB_L,    // The Address Bus
-        /**/ XMEM_DB_H, XMEM_DB_L,                  // The Data Bus
-        /**/ XMEM_IBUS_H, XMEM_IBUS_L,      // The IBUS
-    
-        /**/ XMEM_UCV_H, XMEM_UCV_M, XMEM_UCV_L, // The UCV
-};
 
 
 uint8_t
@@ -351,32 +362,34 @@ read_full_state()
         // reads we perform that also map to FP lights will update the FP. For
         // example, as we read the AC, the front panel's Accumulator lights
         // will also update to the current value on the FPD bus.
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         fp_scanner_stop();
-        /**/         sample();          // Clock data into our own flip flops.
-        /**/         
-        /**/         // Read the buses directly.
-        /**/         hwstate.ab_h = xmem_read(XMEM_AB_H);
-        /**/         hwstate.ab_m = xmem_read(XMEM_AB_M);
-        /**/         hwstate.ab_l = xmem_read(XMEM_AB_L);
-        /**/         
-        /**/         hwstate.db_h = xmem_read(XMEM_DB_H);
-        /**/         hwstate.db_l = xmem_read(XMEM_DB_L);
-        /**/         
-        /**/         hwstate.ibus_h = xmem_read(XMEM_DB_H);
-        /**/         hwstate.ibus_l = xmem_read(XMEM_DB_L);
-        /**/         
-        /**/         hwstate.dsr0 = xmem_read(XMEM_DSR_L);
-        /**/         hwstate.dsr1 = xmem_read(XMEM_DSR_L);
-        /**/         hwstate.dsr2 = DSR_HIGH | xmem_read(XMEM_DSR_L);
-        /**/         
-        /**/         // Read via buffers in the computer.
-        /**/         hwstate.ucv_h = xmem_read(XMEM_UCV_H);
-        /**/         hwstate.ucv_m = xmem_read(XMEM_UCV_M);
-        /**/         hwstate.ucv_l = xmem_read(XMEM_UCV_L);
-        /**/         
-        /**/         fp_scanner_start();
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                fp_scanner_stop();
+                sample();          // Clock data into our own flip flops.
+                
+                // Read the buses from the 10 pods.
+                hwstate.ab_h = xmem_read(XMEM_AB_H);
+                hwstate.ab_m = xmem_read(XMEM_AB_M);
+                hwstate.ab_l = xmem_read(XMEM_AB_L);
+                
+                hwstate.db_h = xmem_read(XMEM_DB_H);
+                hwstate.db_l = xmem_read(XMEM_DB_L);
+                
+                hwstate.ibus_h = xmem_read(XMEM_DB_H);
+                hwstate.ibus_l = xmem_read(XMEM_DB_L);
+                
+                hwstate.ucv_h = xmem_read(XMEM_UCV_H);
+                hwstate.ucv_m = xmem_read(XMEM_UCV_M);
+                hwstate.ucv_l = xmem_read(XMEM_UCV_L);
+
+                // The DIP Switch Registers are directly attached to the DFP,
+                // but still read the same way. (except there's no need to call
+                // sample() because they're not pods).
+                hwstate.dsr0 = xmem_read(XMEM_DSR_L);
+                hwstate.dsr1 = xmem_read(XMEM_DSR_M);
+                hwstate.dsr2 = DSR_HIGH | xmem_read(XMEM_DSR_H);
+                
+                fp_scanner_start();
+        }
 }
 
 
@@ -385,22 +398,13 @@ tristate_buses()
 {
         // Release IBus, AB and DB and deassert bus control signals by setting
         // all of their bits. They're active low.
-        /**/ PORTC |= BV(C_NIBOE) | BV(C_NABOE) | BV(C_NDBOE) |
-        /**/         BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW);
+        PORTK |= BV(K_NIBOE) | BV(K_NABOE) | BV(K_NDBOE) | BV(K_NUCVOE);
 
-        // Tristate bus control signals and the rest of control bus by clearing
-        // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
-        /**/ DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+        // Deassert bus control signals.
+        PORTC |= BV(C_NMEM)  | BV(C_NIO)   | BV(C_NR)    | BV(C_NW);
 
-        // Tristate the µCV (control vector) outputs too.
-        /**/ PORTE |= BV(E_NMCVOE);
-}
-
-
-inline static void
-tristate_ibus()
-{
-        /**/ setbit(PORTC, C_NIBOE);
+        // Tristate bus control signals.
+        DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 }
 
 
@@ -408,11 +412,11 @@ inline static void
 tristate_ucv()
 {
         // Tristate bus control signals and the rest of control bus by clearing
-        // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
-        /**/ DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+        // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC register.
+        DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
         // Tristate the µCV (control vector) outputs too.
-        /**/ PORTE |= BV(E_NMCVOE);
+        _tristate_ucv();
 }
 
 
@@ -450,136 +454,139 @@ tristate_ucv()
 static void
 _bare_ibus_write(uint8_t waddr, uint16_t val)
 {
-        /**/ tristate_buses();              // Tristate everything
-        /**/ 
-        /**/ xmem_write(XMEM_RADDR, 0);     // Idle RADDR
-        /**/ xmem_write(XMEM_WADDR, 0);     // Idle WADDR
-        /**/ xmem_write(XMEM_ACTION, 0);    // Idle ACTION
-        /**/ clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
-        /**/ setuptime();
+        tristate_buses();              // Tristate everything
+
+        xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+        xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+        _drive_ucv();                  // Drive the idle control bus
+        setuptime();
 
         // This allows the devices on the IBUS plenty of time to tristate
         // themselves.
-        /**/ 
-        // Write to our IBUS buffers and then drive the IBUS
-        /**/ xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
-        /**/ xmem_write(XMEM_IBUS_L, (val & 0xff));
-        /**/ clearbit(PORTC, C_NIBOE);
-        /**/ setuptime();
-        /**/ 
+
+        // Write to our IBUS buffers and then drive the IBUS so it sees the
+        // complete 16-bit value all at once.
+        xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
+        xmem_write(XMEM_IBUS_L, (val & 0xff));
+        _drive_ibus();
+        setuptime();
+        
         // Now, strobe the WADDR address
-        /**/ xmem_write(XMEM_WADDR, waddr);
-        /**/ setuptime();
-        /**/ xmem_write(XMEM_WADDR, 0);
-        /**/ setuptime();
-        /**/ 
+        xmem_write(XMEM_WADDR, waddr);
+        setuptime();
+        xmem_write(XMEM_WADDR, 0);
+        setuptime();
+        
         // Tri-state everything again
-        /**/ tristate_buses();
+        tristate_buses();
 }
 
 
 MUST_CHECK errno_t
 write_to_ibus_unit(uint8_t waddr, uint16_t val)
 {
-        /**/ if (!hwstate.is_halted) {
-        /**/         return ERR_NHALTED;
-        /**/ }
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
 
-        /**/ if (waddr > 0x31) {
-        /**/         return ERR_BADVAL;
-        /**/ }
+        if (waddr == 0 || waddr > 0x31) {
+                return ERR_BADVAL;
+        }
 
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         _bare_ibus_write(waddr, val);
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                _bare_ibus_write(waddr, val);
+        }
 
-        /**/ return ERR_SUCCESS;
+        return ERR_SUCCESS;
 }
 
 
 static uint16_t
 _bare_ibus_read(uint8_t raddr)
 {
-        /**/         tristate_buses();              // Tristate everything
-        /**/         
-        /**/         xmem_write(XMEM_RADDR, 0);     // Idle RADDR
-        /**/         xmem_write(XMEM_WADDR, 0);     // Idle WADDR
-        /**/         xmem_write(XMEM_ACTION, 0);    // Idle ACTION
-        /**/         clearbit(PORTE, E_NMCVOE);     // Drive the control bus
-        /**/         setuptime();
+        tristate_buses();              // Tristate everything
+                
+        xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+        xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+        _drive_ucv();                  // Drive the control bus
+        setuptime();
 
-        /**/         xmem_write(XMEM_RADDR, raddr); // Set RADDR
-        /**/         setuptime();
+        xmem_write(XMEM_RADDR, raddr); // Set RADDR
+        setuptime();
 
-        /**/         // Read from the IBUS
-        /**/         sample();
-        /**/         uint16_t val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
-        /**/         xmem_write(XMEM_RADDR, 0);     // Idle RADDR again
-        /**/         setuptime();
+        // Read from the IBUS
+        sample();
+        uint16_t val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+        xmem_write(XMEM_RADDR, 0);     // Idle RADDR again
+        setuptime();
 
-        /**/         // Tri-state everything again
-        /**/         tristate_buses();
+        // Tri-state everything again
+        tristate_buses();
 
-        /**/         return val;
+        return val;
 }
 
 
 MUST_CHECK errno_t
 read_from_ibus_unit(uint8_t raddr, uint16_t * val)
 {
-        /**/ if (!hwstate.is_halted) {
-        /**/         return ERR_NHALTED;
-        /**/ }
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
 
-        /**/ if (raddr > 0x31) {
-        /**/         return ERR_BADVAL;
-        /**/ }
+        if (raddr > 0x31) {
+                return ERR_BADVAL;
+        }
 
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         *val = _bare_ibus_read(raddr);
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                *val = _bare_ibus_read(raddr);
+        }
 
-        /**/ return ERR_SUCCESS;
+        return ERR_SUCCESS;
 }
 
 
 void static
 _bare_processor_action(uint8_t action)
 {
-        /**/ tristate_buses();           // Tristate everything
-        /**/ xmem_write(XMEM_RADDR, 0);  // Idle RADDR
-        /**/ xmem_write(XMEM_WADDR, 0);  // Idle WADDR
-        /**/ xmem_write(XMEM_ACTION, 0); // Idle ACTION
-        /**/ clearbit(PORTE, E_NMCVOE);  // Drive the control bus
+        tristate_buses();           // Tristate everything
+        xmem_write(XMEM_RADDR, 0);  // Idle RADDR
+        xmem_write(XMEM_WADDR, 0);  // Idle WADDR
+        xmem_write(XMEM_ACTION, 0); // Idle ACTION
+        _drive_ucv();               // Drive the control bus
 
-        /**/ xmem_write(XMEM_ACTION, action & 0x1f); // Set action
-        /**/ xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
+        xmem_write(XMEM_ACTION, action & 0x1f); // Set action
+        xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
 
         // Tri-state everything again
-        /**/ tristate_buses();
+        tristate_buses();
 
         // Bus hold should now leave all control unit buses idle, but
         // we don't have a direct way to read RADDR, WADDR or ACTION so
         // we can't verify this.
+
+        // TODO: the above is no longer true. Sample and verify bus state.
 }
 
 
 MUST_CHECK errno_t
 processor_action(uint8_t action)
 {
-        /**/ if (!hwstate.is_halted) {
-        /**/         return ERR_NHALTED;
-        /**/ }
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
 
-        /**/ if (action > 0xf) {
-        /**/         return ERR_BADVAL;
-        /**/ }
+        if (action > 0xf) {
+                return ERR_BADVAL;
+        }
 
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         _bare_processor_action(action);
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                _bare_processor_action(action);
+        }
 
-        /**/ return ERR_SUCCESS;
+        return ERR_SUCCESS;
 }
 
 
@@ -595,27 +602,20 @@ processor_action(uint8_t action)
 // value on the AB, we just write the addresses to the registers one byte at a
 // time and clear the C_NABOE pin. (it's active low)
 
-inline void
-tristate_ab()
-{
-        /**/ setbit(PORTC, C_NABOE);
-}
-
-
 inline static MUST_CHECK errno_t
 drive_ab()
 {
         // If the BUS board is present and the processor isn't halted, we can't
         // drive the AB.
-        /**/ if (hwstate.have_bus && !hwstate.is_halted) {
-        /**/         // Tristate the AB driver. Should already be tristated since
-        /**/         // drive_ab() is being called, but let's be safe.
-        /**/         tristate_ab();
-        /**/         return ERR_NMASTER;
-        /**/ }
+        if (hwstate.have_bus && !hwstate.is_halted) {
+                // Tristate the AB driver. Should already be tristated since
+                // drive_ab() is being called, but let's be safe.
+                _tristate_ab();
+                return ERR_NMASTER;
+        }
 
         // Enable the AB drivers. This will enable all three AB drivers.
-        /**/ clearbit(PORTC, C_NABOE);
+        drive_ab();
         /**/ return ERR_SUCCESS;
 }
 
@@ -625,15 +625,15 @@ write_ab(const uint16_t addr, const uint8_t aext)
 {
         // If the BUS board is present and the processor isn't halted, we can't
         // write to the AB.
-        /**/ if (hwstate.have_bus && !hwstate.is_halted) {
-        /**/         tristate_ab();
-        /**/         return ERR_NMASTER;
-        /**/ }
+        if (hwstate.have_bus && !hwstate.is_halted) {
+                _tristate_ab();
+                return ERR_NMASTER;
+        }
 
         // Drive the Address Bus ourselves.
-        /**/ xmem_write(XMEM_AB_L, addr & 0xff);
-        /**/ xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
-        /**/ xmem_write(XMEM_AB_H, aext);
+        xmem_write(XMEM_AB_L, addr & 0xff);
+        xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
+        xmem_write(XMEM_AB_H, aext);
 }
 
 
@@ -643,28 +643,21 @@ write_ab(const uint16_t addr, const uint8_t aext)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-inline static void
-tristate_db()
-{
-        /**/ setbit(PORTC, C_NDBOE);
-}
-
-
 inline static MUST_CHECK errno_t
 drive_db()
 {
         // If the BUS board is present and the processor isn't halted, we can't
         // drive the DB.
-        /**/ if (hwstate.have_bus && !hwstate.is_halted) {
-        /**/         // Tristate the DB driver. Should already be tristated since
-        /**/         // drive_db() is being called, but let's be safe.
-        /**/         tristate_db();
-        /**/         return ERR_NMASTER;
-        /**/ }
+        if (hwstate.have_bus && !hwstate.is_halted) {
+                // Tristate the DB driver. Should already be tristated since
+                // drive_db() is being called, but let's be safe.
+                _tristate_db();
+                return ERR_NMASTER;
+        }
 
         // Enable the DB drivers. This will enable both DB buffers.
-        /**/ clearbit(PORTC, C_NDBOE);
-        /**/ return ERR_SUCCESS;
+        _drive_db();
+        return ERR_SUCCESS;
 }
 
 
@@ -673,14 +666,14 @@ write_db(const word_t data)
 {
         // If the BUS board is present and the processor isn't halted, we can't
         // write to the DB.
-        /**/ if (hwstate.have_bus && !hwstate.is_halted) {
-        /**/         tristate_db();
-        /**/         return ERR_NMASTER;
-        /**/ }
+        if (hwstate.have_bus && !hwstate.is_halted) {
+                _tristate_db();
+                return ERR_NMASTER;
+        }
 
         // Drive the Data Bus ourselves.
-        /**/ xmem_write(XMEM_DB_L, data & 0xff);
-        /**/ xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
+        xmem_write(XMEM_DB_L, data & 0xff);
+        xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
 }
 
 
@@ -1119,33 +1112,33 @@ hw_init()
 
         // Enable interrupts for CFT-originated transactions
         // Wait for the CFT to be able to use these before enabling.
-        /**/ enable_cft_interrupts();
+        enable_cft_interrupts();
 
         // Initialise switch debouncing and enable switch timer ISR
         /**/ sw_init();
-        /**/ 
+
         // Initialise serial port and interrupts
-        /**/ serial_init();
+        serial_init();
 
         // Wait for signals to stabilise.
-        /**/ _delay_ms(100);
+        _delay_ms(100);
 
         // We're booting. Let'em know.
-        /**/ report_pstr(PSTR(STR_BOOTUP));
+        report_pstr(PSTR(STR_BOOTUP));
 
-        /**/ fp_grab();
+        fp_grab();
         /**/ fp_start_light_test();
-        /**/ _delay_ms(500);
+        _delay_ms(500);
         /**/ fp_stop_light_test();
 
         // Enable the watchdog.
         wdt_enable(WATCHDOG_TIMEOUT);
 
         // Run diagnostics and detect processor boards.
-        dfp_diags();            // not fully ported
+        //dfp_diags();            // not fully ported
 
         // Make Panel work
-        /**/ fp_release();
+        fp_release();
 
 
 
@@ -1158,7 +1151,7 @@ hw_init()
         /**/ uint16_t checkval = 0;
 
         // Deassert FP-RESET (FOR TESTING)
-        /**/ setbit(PORTE, E_NMCVOE);     // Drive the control bus
+        _drive_ucv();
         /**/ setbit(PORTE, E_NFPRESET);   /* TEST */
 
         /**/ for(;;){
@@ -1731,10 +1724,10 @@ get_switch(uint8_t swidx)
 // 16MHz.
 
 #if F_CPU == 1000000
-#  define INIT_UCSR0A _BV(U2X0)
+#  define INIT_UCSRxA _BV(U2X0)
 #  define INIT_RATE_DIV 8UL
 #else
-#  define INIT_UCSR0A 0
+#  define INIT_UCSRxA 0
 #  define INIT_RATE_DIV 16UL
 #endif // F_CPU == 1000000
 
@@ -1748,38 +1741,43 @@ get_switch(uint8_t swidx)
 
 void USART_TxString_P(const unsigned char *data)
 {
-        /**/ while (pgm_read_byte(data) != 0x00) {
-        /**/         unsigned char c = pgm_read_byte(data++);
-        /**/         loop_until_bit_is_set(UCSR0A, UDRE0);
-        /**/         UDR0 = c;
-        /**/ }
+        while (pgm_read_byte(data) != 0x00) {
+                unsigned char c = pgm_read_byte(data++);
+                loop_until_bit_is_set(UCSR0A, UDRE0);
+                UDR0 = c;
+        }
 }
 
 inline void
 serial_init()
 {
-        /**/ UCSR0A = INIT_UCSR0A;
+        UCSRxA = INIT_UCSRxA;
 
         // Configure the serial port.
-        /**/ UCSR0B =
-        /**/         BV(TXEN0) |     // Enable data transmission
-        /**/         BV(RXEN0);      // Enable data reception
+        UCSRxB =
+                BV(TXENx) |     // Enable data transmission
+                BV(RXENx);      // Enable data reception
 
         // Set asynchronous mode, no parity, 8 bits, 1 stop bit. This is the
         // default, so we don't actually have to set UCSR0C for this
         // configuration. This saves another 4 bytes of program memory.
 
         //         -APPSCC-
-        /**/ UCSR0C = 0b00000110;    // Async, no parity, 1 stop bit, 8 data bits.
+        UCSRxC = 0b00000110;    // Async, no parity, 1 stop bit, 8 data bits.
 
         // Set the bps rate.
-        /**/ UBRR0L = BPS & 0xff;
-        /**/ UBRR0H = (BPS >> 8) & 0xff;
+        UBRRxL = BPS & 0xff;
+        UBRRxH = (BPS >> 8) & 0xff;
 
-        /**/ report_pstr(PSTR("\017\033[0m\n\r\n\r"));
+        // For testing:
+        //for(;;) for(char c = 32; c < 127; c++) serial_write(c);
+        report_pstr(PSTR("\017\033[0m\n\r\n\r"));
 
         // We can enable interrupt handling now.
-        /**/ UCSR0B = 0b10011000;    // Enable interrupts on received characters.
+        UCSRxB =
+                BV(RXCIEx) |    // Enable interrupts
+                BV(TXENx) |     // Enable data transmission
+                BV(RXENx);      // Enable data reception
 }
 
 
@@ -1789,47 +1787,62 @@ volatile uint8_t serial_errors = 0;
 inline void
 serial_write(unsigned char c)
 {
-        /**/ loop_until_bit_is_set(UCSR0A, UDRE0);
-        /**/ UDR0 = c;
+        loop_until_bit_is_set(UCSRxA, UDRE1);
+        UDRx = c;
         //_delay_ms(11);
 }
 
 
 // Serial receive interrupt handler.
+
+// To avoid avr-gcc's warnings about misspelled signal handlers, we compile
+// conditionally here and avoid a macro.
+#if SERIAL_PORT == 0
+#  ifdef USART0_RX_vect
 ISR(USART0_RX_vect)
+#  else        
+ISR(USART_RX_vect)
+#  endif        
+#endif
+#if SERIAL_PORT == 1
+ISR(USART1_RX_vect)
+#endif
+#if SERIAL_PORT == 3
+ISR(USART3_RX_vect)
+#endif
 {
-        /**/ uint8_t c;
+        uint8_t c;
 
         // Ensure we don't have any framing errors. If we do, ignore the received
         // character.
-        /**/ if (!bit_is_clear(UCSR0A, FE0)) {
-        /**/         serial_errors++;
-        /**/         c = UDR0;
-        /**/         serial_write('X');
-        /**/         return;
-        /**/ }
+        if (!bit_is_clear(UCSRxA, FE0)) {
+                serial_errors++;
+                c = UDRx;
+                serial_write('X');
+                return;
+        }
 
         // The Atmega64 has a two byte FIFO. Pretend it's a big boy and query
         // as if the buffer is arbitrary size.
-        /**/ while (UCSR0A & _BV(RXC0)) {
-        /**/         // Process the character directly from its register.
-        /**/         c = UDR0;
-
-        /**/         // Add it to the ring buffer. No niceties here at all, just
-        /**/         // stuff it in.
-        /**/         uint8_t new_ip = (rb.ip + 1) & RBMASK;
-        /**/         if (new_ip != rb.op) {
-        /**/                 rb.b[rb.ip] = c;
-        /**/                 rb.ip = new_ip;
-        /**/         }
-        /**/ }
+        while (UCSRxA & _BV(RXCx)) {
+                // Process the character directly from its register.
+                c = UDRx;
+                
+                // Add it to the ring buffer. No niceties here at all, just
+                // stuff it in.
+                uint8_t new_ip = (rb.ip + 1) & RBMASK;
+                if (new_ip != rb.op) {
+                        rb.b[rb.ip] = c;
+                        rb.ip = new_ip;
+                }
+        }
 }
 
 
 
 ISR(BADISR_vect)
 {
-        /**/ while(1) UDR0 = '?';
+        while(1) UDRx = '?';
 }
 
 
@@ -1843,9 +1856,9 @@ ISR(BADISR_vect)
 uint8_t
 set_reg(reg_t reg, uint16_t value)
 {
-        /**/ report_pstr(PSTR("set_reg() not implemented"));
-        /**/ return 1;
-        /**/ 
+        report_pstr(PSTR("set_reg() not implemented"));
+        return 1;
+        
         // // Even with the processor halted, some control signals are
         // // bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
 
@@ -2088,39 +2101,40 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
 static inline void
 dfp_diags_ibus_pod()
 {
-        /**/ tristate_buses();
-        /**/ clearbit(PORTC, C_NIBOE);
+        tristate_buses();
+        _drive_ibus();
         /**/ _dfp_diags_pod(PSTR(STR_D_IBUSP), XMEM_IBUS_H, XMEM_IBUS_L);
-        /**/ setbit(PORTC, C_NIBOE);
+        tristate_buses();
 }
 
 
 static inline void
 dfp_diags_ab_lsw_pod()
 {
-        /**/ tristate_buses();
-        /**/ clearbit(PORTC, C_NABOE);
+        tristate_buses();
+        _drive_ab();
         /**/ _dfp_diags_pod(PSTR(STR_D_ABLP), XMEM_AB_M, XMEM_AB_L);
-        /**/ setbit(PORTC, C_NABOE);
+        tristate_buses();
 }
 
 
 static inline void
 dfp_diags_ab_msw_pod()
 {
-        /**/ tristate_buses();
-        /**/ clearbit(PORTC, C_NABOE);
+        tristate_buses();
+        _drive_ab();
         /**/ _dfp_diags_pod(PSTR(STR_D_ABMP), XMEM_AB_H, XMEM_AB_M);
-        /**/ setbit(PORTC, C_NABOE);
+        tristate_buses();
 }
 
 
 static inline void
 dfp_diags_db_pod()
 {
-        /**/ clearbit(PORTC, C_NDBOE);
+        tristate_buses();
+        _drive_db();
         /**/ _dfp_diags_pod(PSTR(STR_D_DBP), XMEM_DB_H, XMEM_DB_L);
-        /**/ setbit(PORTC, C_NDBOE);
+        tristate_buses();
 }
 
 
@@ -2134,9 +2148,9 @@ _dfp_diags_set_ibus_via_bus_hold(uint16_t value)
         // And strobe the IBOE pin on the Atmega, which will drive the IBUS
         // temporarily.
         /**/ setuptime();
-        /**/ clearbit(PORTC, C_NIBOE);
-        /**/ setuptime();
-        /**/ setbit(PORTC, C_NIBOE);
+        _drive_ibus();
+        setuptime();
+        tristate_buses();
 }
 
 
@@ -2416,9 +2430,9 @@ dfp_diags()
         // processor clock ad de-assert RESET# and RSTHOLD#. Keep the clock
         // running.
 
-        /**/ fp_grab();
+        fp_grab();
         /**/ clearbit(PORTG, G_NFPHALT);
-        /**/ setbit(PORTE, E_NMCVOE);
+        tristate_ucv();
         /**/ setbit(PORTE, E_NFPRESET);
 
         /**/ dfp_diags_fpd_quiescence();
@@ -3498,13 +3512,6 @@ get_ac()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-inline void
-drive_ibus()
-{
-        /**/ clearbit(PORTD, D_NIBUSOE);
-}
-
-
 void
 write_ibus(const uint16_t ibus)
 {
@@ -3515,14 +3522,6 @@ write_ibus(const uint16_t ibus)
         // effects.
         /**/ strobecmd(CMD_STCP);
 }
-
-
-inline void
-tristate_ibus()
-{
-        /**/ setbit(PORTD, D_NIBUSOE);
-}
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -4044,11 +4043,11 @@ ISR(INT0_vect)
   // Set bus values
   write_ab(_pc);                // Set the address
   write_db(_sr);                // Read from the SR, put it on the data bus
-        /**/ 
+
   drive_ab();           // Drive the address bus
   if (is_io) set_io(1);
   else set_mem(1);
-        /**/ 
+
   strobe_w();
 
   if (is_io) set_io(0);
@@ -4101,10 +4100,10 @@ ISR(INT0_vect)
   // Set bus values
   write_ab(_pc);                // Set the address
   tristate_db();                // Just in case
-        /**/ 
+
   if (is_io) set_io(1);
   else set_mem(1);
-        /**/ 
+
   set_r(1);
   asm("nop");           // Additional 678ns set up time
   strobe_wac();         // Read data into the AC.

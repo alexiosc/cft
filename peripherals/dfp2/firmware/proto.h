@@ -53,7 +53,7 @@ extern volatile uistate_t uistate;
 #define AUTHOR "Alexios Chouchoulas <alexios@bedroomlan.org>"
 #define URL    "https://www.bedroomlan.org/cft"
 #define STR_VERSION \
-	"201 Version: " VERSION "+dis\n"
+	"201 Version: " VERSION "+dis [" TS "]\n"
 
 #define BANNER								\
 	"202 (c) 2012-" THISYEAR " " AUTHOR "\n"			\

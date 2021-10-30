@@ -1097,7 +1097,18 @@ gs_dsr()
                 report_gs(0);
         }
         hwstate.dsr2 |= DSR_HIGH;
-        report_hex_value(PSTR(STR_DSR), dsvalue & 0xffffff, 6);
+
+	report_pstr(PSTR(STR_DSR));
+	style_info();
+	report_hex(dsvalue & 0xffffffff, 6);
+        report_pstr(PSTR(" :"));
+        report_bin_pad(hwstate.dsr2 & 0xff, 8);
+        report_pstr(PSTR(" :"));
+        report_bin_pad(hwstate.dsr1 & 0xff, 8);
+        report_pstr(PSTR(" :"));
+        report_bin_pad(hwstate.dsr0 & 0xff, 8);
+	style_normal();
+	report_nl();
 }
 
 

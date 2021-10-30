@@ -33,19 +33,70 @@
 #endif
 
 // If we're on a platform with only one USART, redefine some macros.
+#ifndef SERIAL_PORT
+#error "SERIAL_PORT is undefined"
+#endif
+
 #ifndef UCSR0A
-#  define UCSR0A UCSRA
-#  define UCSR0B UCSRB
-#  define UCSR0C UCSRC
-#  define TXEN0 TXEN
-#  define RXEN0 RXEN
-#  define UBRR0L UBRRL
-#  define UBRR0H UBRRH
-#  define RXCIE0 RXCIE
-#  define USART_RX_vect USART_RXC_vect
-#  define FE0 FE
-#  define UDR0 UDR
-#  define UDRE0 UDRE
+#  define UCSRxA          UCSRA
+#  define UCSRxB          UCSRB
+#  define UCSRxC          UCSRC
+#  define RXCIEx          RXCIE
+#  define TXENx           TXEN
+#  define RXENx           RXEN
+#  define UBRRxL          UBRRL
+#  define UBRRxH          UBRRH
+#  define FEx             FE
+#  define UDRx            UDR
+#  define UDREx           UDRE
+#  define RXCx            RXC
+#else
+#  if SERIAL_PORT == 0
+#    define UCSRxA          UCSR0A
+#    define UCSRxB          UCSR0B
+#    define UCSRxC          UCSR0C
+#    define RXCIEx          RXCIE0
+#    define TXENx           TXEN0
+#    define RXENx           RXEN0
+#    define UBRRxL          UBRR0L
+#    define UBRRxH          UBRR0H
+#    define FEx             FE0
+#    define UDRx            UDR0
+#    define UDREx           UDRE0
+#    define RXCx            RXC0
+#    ifndef ___warned_port0
+#      define ___warned_port0
+#      warning "PORT 0 is unreliable."
+#    endif
+#  endif
+#  if SERIAL_PORT == 1
+#    define UCSRxA          UCSR1A
+#    define UCSRxB          UCSR1B
+#    define UCSRxC          UCSR1C
+#    define RXCIEx          RXCIE1
+#    define TXENx           TXEN1
+#    define RXENx           RXEN1
+#    define UBRRxL          UBRR1L
+#    define UBRRxH          UBRR1H
+#    define FEx             FE1
+#    define UDRx            UDR1
+#    define UDREx           UDRE1
+#    define RXCx            RXC1
+#  endif
+#  if SERIAL_PORT == 3
+#    define UCSRxA          UCSR3A
+#    define UCSRxB          UCSR3B
+#    define UCSRxC          UCSR3C
+#    define RXCIEx          RXCIE3
+#    define TXENx           TXEN3
+#    define RXENx           RXEN3
+#    define UBRRxL          UBRR3L
+#    define UBRRxH          UBRR3H
+#    define FEx             FE3
+#    define UDRx            UDR3
+#    define UDREx           UDRE3
+#    define RXCx            RXC3
+#  endif
 #endif // UCSR0
 
 #define setup() short_delay()

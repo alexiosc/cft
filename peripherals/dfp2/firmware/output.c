@@ -229,15 +229,14 @@ report_nl() {
 	serial_write('\r');
 	serial_write('\n');
 }
-       
+
 
 // Send a hexadecimal number to the serial port.
 void
-
-        report_hex(uint32_t val, uint8_t pad)
+report_hex(uint32_t val, uint8_t pad)
 {
 	if (uistate.in_console) return;
-
+        
 	// PAD=5, shift = f0000 (0xf << 16)
 	// PAD=4, shift =  f000 (0xf << 12)
 	// PAD=3, shift =   f00 (0xf << 8)
@@ -245,10 +244,11 @@ void
 	// PAD=1, shift =     f (0xf << 0)
 	// shift = f << ((pad - 1) * 4)
 	const char * hex = PSTR("0123456789abcdef");
-
+        
 	uint32_t shift = (pad - 1L) << 2L;
 	uint32_t bits = 0xfL << shift;
 	while (bits) {
+                if (bits == 0xf000L) serial_write(':');
 		serial_write((unsigned char)pgm_read_byte(&(hex[(val & bits) >> shift])));
 		bits >>= 4;
 		shift -= 4;
