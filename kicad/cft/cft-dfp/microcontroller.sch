@@ -175,7 +175,7 @@ F 3 "~" H 7750 5150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Text Notes 8250 5350 0    50   ~ 0
-Socket X2 and try frequencies that aren't harmonics\nof the CPU clock (4 MHz) to avoid strobe effects on\nthe front panel lights. The panel will update at 1/21\nthe crystal frequency.
+Socket X1 and try frequencies that aren't harmonics\nof the CPU clock (4 MHz) to avoid strobe effects on\nthe front panel lights. The panel will update at 1/21\nthe crystal frequency.
 Entry Wire Line
 	8300 3300 8200 3200
 Entry Wire Line
@@ -1938,6 +1938,12 @@ Text Label 2050 4600 0    50   ~ 0
 PANEL-LED
 Text Notes 4400 2850 0    50   ~ 0
 D13 is Arduino LED.
+Text Notes 4450 4950 0    50   ~ 0
+Erratum: bridge PE5 and PL6!
+Text Notes 650  5700 0    63   ~ 13
+Erratum
+Text Notes 650  6100 0    50   ~ 0
+Pin PL6 (µCµSTEP, slow clock generation)\nis not connected to a timer output. Fix by\nmaking PL6 high-Z and bridging to pin PE5\nwhich outputs OC3C.
 Wire Bus Line
 	1400 3200 1400 3600
 Wire Bus Line
