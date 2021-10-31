@@ -30,7 +30,7 @@
 #include "utils.h"
 #include "driver.h"
 
-#define USE_ATOMIC_BLOCKS
+#define USE_ATOMIC_BLOCKS 
 
 #ifdef USE_ATOMIC_BLOCKS
 #include <util/atomic.h>
@@ -94,7 +94,6 @@ static void dfp_diags();
 
 // Port B: Programming/Control
 
-#define B_NCLR       PB0 /**/        // O. AL: resets the run/stop/step state machine
 #define __SCK        PB1 /**/        // SCK (programming, not used)
 #define __MOSI       PB2 /**/        // MOSI (programming, not used)
 #define __MISO       PB3 /**/        // MISO (programming, not used)
@@ -120,8 +119,6 @@ static void dfp_diags();
 #define E_NFPIRQ     PE2 /**/       // O. AL: signal (jumper configurable) IRQ to processor
 #define E_MFD0       PE3 /**/       // O. Set MFD value. (low bit)
 #define E_MFD1       PE4 /**/       // O. Set MFD value. (high bit)
-#define E_NFPRESET   PE6 /**/       // O. AL: signals reset to processor.
-#define E_NFPRSTHOLD PE7 /**/       // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
                              
 #define E_MFDMASK    (BV(E_MFD0) | BV(E_MFD1)) // The MFD mask
 #define E_MFDSHIFT   (E_MFD0)                  // The MFD shift value
@@ -139,7 +136,6 @@ static void dfp_diags();
                              
 // Port G: XMEM bus control
 
-#define G_NFPHALT    PG3 /**/       // O. AL: asserts FPHALT#. Connected to TP101. (**)
 #define G_TP102      PG4 /**/       // Connected to TP102, unused.
 
 // (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
@@ -178,6 +174,12 @@ static void dfp_diags();
 #define C_NIO        PC6    // I/OD. AL: drive IO# bus signal.
 #define C_NMEM       PC7    // I/OD. AL: drive MEM# bus signal.
 
+// Port H: FP OD Reset signals
+
+#define H_NFPHALT    PH3    // O. AL: asserts FPHALT#.
+#define H_NFPRESET   PH5    // O. OD: signals reset to processor.
+#define H_NFPRSTHOLD PH6    // O. OD: asserts RSTHOLD#. (only use when CTL is absent)
+
 // Port K: Bus enables etc.
 
 #define K_NIBOE      PK1    // O. AL: drive IBUS
@@ -189,13 +191,14 @@ static void dfp_diags();
 //                   PK7    // (not used)
 
 // Port L: CFP control signals
+#define L_NCLR       PL0    // O. AL: resets the run/stop/step state machine
 #define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
 #define L_BUSCP      PL7    // O. RE: input FFs sample data.
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// UTILITIES
+// UTILITIES AND CRUCIAL OPERATIONS (FOR CONSISTENCY)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -238,6 +241,55 @@ setuptime()
 
         _NOP();
 }
+
+
+inline static void
+assert_fpreset()
+{
+        clearbit(PORTH, H_NFPRESET); // No pull-up, set pin driver low
+        setbit(DDRH, H_NFPRESET);    // Make it an output pin, driving low
+}
+
+
+inline static void
+deassert_fpreset()
+{
+        clearbit(DDRH, H_NFPRESET);  // Stop driving pin
+        clearbit(PORTH, H_NFPRESET); // Also disable pull-up just in case
+}
+
+
+inline static void
+assert_fprsthold()
+{
+        clearbit(PORTH, H_NFPRSTHOLD); // No pull-up, set pin driver low
+        setbit(DDRH, H_NFPRSTHOLD);    // Make it an output pin, driving low
+}
+
+
+inline static void
+deassert_fprsthold()
+{
+        clearbit(DDRH, H_NFPRSTHOLD);  // Stop driving pin
+        clearbit(PORTH, H_NFPRSTHOLD); // Also disable pull-up just in case
+}
+
+
+inline static void
+assert_halt()
+{
+        clearbit(PORTH, H_NFPHALT); // No pull-up, set pin driver low
+        setbit(DDRH, H_NFPHALT);    // Make it an output pin, driving low
+}
+
+
+inline static void
+deassert_halt()
+{
+        clearbit(DDRH, H_NFPHALT);  // Stop driving pin
+        clearbit(PORTH, H_NFPHALT); // Also disable pull-up just in case
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -791,22 +843,22 @@ clk_stop()
 inline static void
 rc_freeze()
 {
-        /**/ clearbit(PORTB, B_NCLR);
+        clearbit(PORTL, L_NCLR);
 }
 
 
 inline static void
 rc_thaw()
 {
-        /**/ setbit(PORTB, B_NCLR);
+        setbit(PORTL, L_NCLR);
 }
 
 
 inline static void
 rc_reset()
 {
-        /**/ clearbit(PORTB, B_NCLR);
-        /**/ setbit(PORTB, B_NCLR);
+        clearbit(PORTL, L_NCLR);
+        setbit(PORTL, L_NCLR);
 }
 
 
@@ -1056,31 +1108,37 @@ avr_init()
         // Configure other ports. Use binary for brevity.
 
         //         76543210
-        /**/ DDRB =   0b11110001; // PB1–3 left as inputs.
-        /**/ PORTB =  0b10000000; // Init, step 1.
-        /**/ PORTB =  0b10001000; // Init, step 2, CLR# rising edge
+        DDRB =   0b11111110;    // PB1-7 are all outputs. PB0 is FPIRQ (OD).
+        PORTB =  0b00000000;    // FP Lights on, STOP LED on.
 
-        /**/ DDRC =   0b00001111; // Port C direction, bus control tristated
-        /**/ PORTC =  0b00001110; // Init, step 1. Disable pull-ups on bus control
-        /**/ PORTC =  0b00001111; // Init, step 2, CLRWS raising edge
+        DDRC =   0b00000111;    // All outputs, but tristate top 4 bits.
+        PORTC =  0b00000000;    // Disable FP scanning
 
-        /**/ DDRD =   0b11111100; // Port D direction
-        /**/ PORTD =  0b11011000; // Port D init. (Lights on, FP scan disabled, FPOE disabled)
+        DDRD =   0b00000000;    // Port D is all inputs (plus USART1)
+        PORTD =  0b00000000;    //
 
-#ifdef LIGHT_MODULE_TESTING
-#warning "LIGHT TESTING IS ENABLED IN MAKEFILE"
-        /**/ PORTD |= BV(D_NLTSON);  // Start with LTS switch set to off
-#endif
+        DDRE =   0b00011000;    // Port E only has two outputs
+        PORTE =  0b00000000;
 
-        /**/ DDRE =   0b11111100; // Port E direction
-        /**/ PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
+        DDRF =   0b00001111;    // Port F is for the front panel switches
+        PORTF =  0b00000000;
 
-        /**/ DDRF =   0b00001111; // Port F direction (SWA/SWD)
-        /**/ PORTF =  0b11110000; // Enable pull-ups on inputs.
+        DDRG =   0b00000000;    // Port G is for XMEM bus signals
+        PORTG =  0b00000000;
 
-        //         ---43210
-        /**/ DDRG =   0b00000000; // Port G direction, XMEM control pins
-        /**/ PORTG =  0b00000000; // RD# and WR# pull-ups.
+        DDRH =   0b00000000;    // Port H is tri-stated unless needed
+        PORTH =  0b00000000;
+
+        DDRK =   0b00011111;    // Port K is for bus enables etc.
+        PORTK =  0b00011110;    // Tri-state pods
+
+        DDRL =   0b11111011;    // Port L
+        PORTL =  0b00001010;    // Turn on LEDs. CLR# low.
+
+        rc_reset();             // Strobe CLR#
+        deassert_fprsthold();
+        assert_halt();
+        assert_fpreset();
 }
 
 
@@ -1152,7 +1210,7 @@ hw_init()
 
         // Deassert FP-RESET (FOR TESTING)
         _drive_ucv();
-        /**/ setbit(PORTE, E_NFPRESET);   /* TEST */
+        deassert_fpreset();
 
         /**/ for(;;){
         /**/         wdt_reset();
@@ -1312,6 +1370,7 @@ hw_init()
         // Now de-assert the various reset signals explicitly. Can't hurt.
         /**/ cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
         /**/ cb[1] |= CB1_NFPRESET | CB1_NRESET;
+        deassert_fpreset();
 #endif // 0
 
         // Set up the console ring buffer
@@ -1350,19 +1409,19 @@ static inline void
 sw_init()
 {
         // Initialise the switch hwstate.
-        /**/ for (uint8_t i = 0; i < 64; i++) {
-        /**/         _switches[i] = 0;
-        /**/ }
+        for (uint8_t i = 0; i < 64; i++) {
+                _switches[i] = 0;
+        }
 
-        // // Program Timer 3 to scan switches and perform other housekeeping
-        // // tasks.
-        // TCCR3A = 0b00000000; // Normal port operation, no pins driven.
-        // TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
+        // Program Timer 3 to scan switches and perform other housekeeping
+        // tasks.
+        TCCR3A = 0b00000000; // Normal port operation, no pins driven.
+        TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
 
-        // // Set the A count comparator and trigger an interrupt when it matches.
-        // //OCR3A = 259;               // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
-        // OCR3A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
-        // ETIMSK = BV(OCIE3A); // Interrupt on timer compare match
+        // Set the A count comparator and trigger an interrupt when it matches.
+        //OCR3A = 259;               // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+        OCR3A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
+        ETIMSK = BV(OCIE3A); // Interrupt on timer compare match
 }
 
 
@@ -1373,17 +1432,17 @@ sw_clear_changed()
         // because the timer interrupt may change them while we're clearing
         // bits here.
 
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         // Unroll the loop because it's only 8 STO instructions anyway.
-        /**/         hwstate.swchange[0] = 0;
-        /**/         hwstate.swchange[1] = 0;
-        /**/         hwstate.swchange[2] = 0;
-        /**/         hwstate.swchange[3] = 0;
-        /**/         hwstate.swchange[4] = 0;
-        /**/         hwstate.swchange[5] = 0;
-        /**/         hwstate.swchange[6] = 0;
-        /**/         hwstate.swchange[7] = 0;
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                // Unroll the loop because it's only 8 STO instructions anyway.
+                hwstate.swchange[0] = 0;
+                hwstate.swchange[1] = 0;
+                hwstate.swchange[2] = 0;
+                hwstate.swchange[3] = 0;
+                hwstate.swchange[4] = 0;
+                hwstate.swchange[5] = 0;
+                hwstate.swchange[6] = 0;
+                hwstate.swchange[7] = 0;
+        }
 }
 
 
@@ -1493,61 +1552,61 @@ sw_read()
 static inline void
 sw_scan()
 {
-        /**/ uint8_t i = 0; // Index 0..63 into the debouncing array
+        uint8_t i = 0; // Index 0..63 into the debouncing array
 
-        /**/ for (uint8_t swa = 0; swa < 16; swa++) {
-        /**/         // Set PORTF to pull-ups in MS nibble, and set switch address
-        /**/         // in LS nibble.
-        /**/         PORTF = 0xf0 | (swa & 0x0f);
+        for (uint8_t swa = 0; swa < 16; swa++) {
+                // Set PORTF to pull-ups in MS nibble, and set switch address
+                // in LS nibble.
+                PORTF = 0xf0 | (swa & 0x0f);
 
-        /**/         for (uint8_t j = 0; j < 4; j++, i++) {
-        /**/                 // Input from AVR pin, stick the value in the
-        /**/                 // debouncing array. Switches are active low, so a high
-        /**/                 // bit means ‘not actuated’. We invert these semantics
-        /**/                 // here.
-        /**/                 uint8_t pin_bit = 0x10 << j; // AVR Port F input pin mask
-        /**/                 _switches[i] = (_switches[i] << 1) | (PINF & pin_bit ? 0 : 1);
+                for (uint8_t j = 0; j < 4; j++, i++) {
+                        // Input from AVR pin, stick the value in the
+                        // debouncing array. Switches are active low, so a high
+                        // bit means ‘not actuated’. We invert these semantics
+                        // here.
+                        uint8_t pin_bit = 0x10 << j; // AVR Port F input pin mask
+                        _switches[i] = (_switches[i] << 1) | (PINF & pin_bit ? 0 : 1);
 
-        /**/                 uint8_t ofs = i >> 3;        // Byte in switch array 
-        /**/                 uint8_t mask = 1 << (i & 7); // Bit in byte
+                        uint8_t ofs = i >> 3;        // Byte in switch array 
+                        uint8_t mask = 1 << (i & 7); // Bit in byte
 
-        /**/                 // Last state of this switch
-        /**/                 uint8_t laststate = hwstate.switches[ofs] & mask;
+                        // Last state of this switch
+                        uint8_t laststate = hwstate.switches[ofs] & mask;
 
-        /**/                 if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
-        /**/                         // The switch is on. Set the relevant bit in the switch array.
-        /**/                         hwstate.switches[ofs] |= mask;
-        /**/                         // The switch was off before. Mark it as changed!
-        /**/                         if (!laststate) hwstate.swchange[ofs] |= mask;
-        /**/                 } else if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_RELEASED) {
-        /**/                         // The switch is off. Clear the relevant bit in the switch array.
-        /**/                         hwstate.switches[ofs] &= ~mask;
-        /**/                         // The switch was on before. Mark it as changed!
-        /**/                         if (laststate) hwstate.swchange[ofs] |= mask;
-        /**/                 }
-        /**/         }
-        /**/ }
+                        if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
+                                // The switch is on. Set the relevant bit in the switch array.
+                                hwstate.switches[ofs] |= mask;
+                                // The switch was off before. Mark it as changed!
+                                if (!laststate) hwstate.swchange[ofs] |= mask;
+                        } else if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_RELEASED) {
+                                // The switch is off. Clear the relevant bit in the switch array.
+                                hwstate.switches[ofs] &= ~mask;
+                                // The switch was on before. Mark it as changed!
+                                if (laststate) hwstate.swchange[ofs] |= mask;
+                        }
+                }
+        }
 }
 
 
 ISR(TIMER3_COMPA_vect)
 {
-        /**/ static uint8_t pause = 0;
+        static uint8_t pause = 0;
 
         // Scan the switches.
-        /**/ sw_scan();
+        sw_scan();
 
         // Blink the STOP light at ~10Hz while busy, and ignore the front panel
         // switches. Any routine working overtime here had better call
         // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
-        /**/ if (hwstate.is_busy) {
-        /**/         pause = (pause + 1) & 3;
-        /**/         if (pause == 0) togglebit(PORTD, D_LED_STOP);
-        /**/         // No more switch processing carried out while busy.
-        /**/         return;
-        /**/ }
+        if (hwstate.is_busy) {
+                pause = (pause + 1) & 3;
+                if (pause == 0) togglebit(PORTD, D_LED_STOP);
+                // No more switch processing carried out while busy.
+                return;
+        }
 
-        /**/ return;
+        return;
 
 #if 0
         /**/ static uint8_t autorepeat = 45;
@@ -2431,9 +2490,10 @@ dfp_diags()
         // running.
 
         fp_grab();
-        /**/ clearbit(PORTG, G_NFPHALT);
+        assert_halt();
         tristate_ucv();
-        /**/ setbit(PORTE, E_NFPRESET);
+        deassert_fpreset();
+        deassert_fprsthold();
 
         /**/ dfp_diags_fpd_quiescence();
         /**/ dfp_diags_ibus_quiescence();
@@ -2742,8 +2802,8 @@ detect_cpu()
 
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
-        /**/ clearflag(cb[1], CB1_NFPRESET);
-        /**/ setflag(cb[2], CB2_HALT);
+        assert_fpreset();
+        assert_halt();
         /**/ write_cb();
         /**/ 
         // Write various values to the address bus.
@@ -2781,6 +2841,9 @@ dfp_diags()
         // register, so after sampling, the value of the VPIN (for the virtual
         // panel) and DEBIN (for the debugging shift regs) should be the same
         // as IOADDR0. This allows diagnostics.
+
+        deassert_fpreset();
+        deassert_fprsthold();
 
         /**/ cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
         /**/ cb[2] |= CB2_HALT;      // Halted
