@@ -174,6 +174,9 @@ static void dfp_diags();
 #define C_NIO        PC6    // I/OD. AL: drive IO# bus signal.
 #define C_NMEM       PC7    // I/OD. AL: drive MEM# bus signal.
 
+// Port E.
+#define E_FPUSTEP    PE5    // O. Slow clock generator.
+
 // Port H: FP OD Reset signals
 
 #define H_NFPHALT    PH3    // O. AL: asserts FPHALT#.
@@ -193,6 +196,7 @@ static void dfp_diags();
 // Port L: CFP control signals
 #define L_NCLR       PL0    // O. AL: resets the run/stop/step state machine
 #define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
+#define L_UNUSED     PL6    // (keep at High-Z, connected to PE5).
 #define L_BUSCP      PL7    // O. RE: input FFs sample data.
 
 
@@ -668,7 +672,7 @@ drive_ab()
 
         // Enable the AB drivers. This will enable all three AB drivers.
         drive_ab();
-        /**/ return ERR_SUCCESS;
+        return ERR_SUCCESS;
 }
 
 
@@ -753,10 +757,10 @@ clk_fast()
         // Note: we can't set the clock to fast mode without starting it. So if
         // the clock is currently stopped, do nothing here.
 
-        /**/ if (hwstate.clk_stopped) return;
+        if (hwstate.clk_stopped) return;
 
-        /**/ hwstate.clk_fast = 1;
-        /**/ TCCR1A = 0;                  // Disable the MCU slow clock timer
+        hwstate.clk_fast = 1;
+        TCCR1A = 0;                  // Disable the MCU slow clock timer
         /**/ setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
 }
 
@@ -1111,28 +1115,36 @@ avr_init()
         DDRB =   0b11111110;    // PB1-7 are all outputs. PB0 is FPIRQ (OD).
         PORTB =  0b00000000;    // FP Lights on, STOP LED on.
 
+        //         76543210
         DDRC =   0b00000111;    // All outputs, but tristate top 4 bits.
         PORTC =  0b00000000;    // Disable FP scanning
 
+        //         76543210
         DDRD =   0b00000000;    // Port D is all inputs (plus USART1)
         PORTD =  0b00000000;    //
 
-        DDRE =   0b00011000;    // Port E only has two outputs
+        //         76543210
+        DDRE =   0b00111000;    // Port E only has three outputs
         PORTE =  0b00000000;
 
+        //         76543210
         DDRF =   0b00001111;    // Port F is for the front panel switches
         PORTF =  0b00000000;
 
+        //         76543210
         DDRG =   0b00000000;    // Port G is for XMEM bus signals
         PORTG =  0b00000000;
 
+        //         76543210
         DDRH =   0b00000000;    // Port H is tri-stated unless needed
         PORTH =  0b00000000;
 
+        //         76543210
         DDRK =   0b00011111;    // Port K is for bus enables etc.
         PORTK =  0b00011110;    // Tri-state pods
 
-        DDRL =   0b11111011;    // Port L
+        //         76543210
+        DDRL =   0b10111011;    // Port L (PL6 always tri-stated)
         PORTL =  0b00001010;    // Turn on LEDs. CLR# low.
 
         rc_reset();             // Strobe CLR#
@@ -1413,15 +1425,15 @@ sw_init()
                 _switches[i] = 0;
         }
 
-        // Program Timer 3 to scan switches and perform other housekeeping
+        // Program Timer 4 to scan switches and perform other housekeeping
         // tasks.
-        TCCR3A = 0b00000000; // Normal port operation, no pins driven.
-        TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
+        TCCR4A = 0b00000000; // Normal port operation, no pins driven.
+        TCCR4B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
 
         // Set the A count comparator and trigger an interrupt when it matches.
-        //OCR3A = 259;               // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
-        OCR3A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
-        ETIMSK = BV(OCIE3A); // Interrupt on timer compare match
+        //OCR3A = 259;       // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+        OCR4A = 519;         // CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
+        TIMSK4 = BV(OCIE4A); // Interrupt on timer compare match
 }
 
 
@@ -1589,7 +1601,7 @@ sw_scan()
 }
 
 
-ISR(TIMER3_COMPA_vect)
+ISR(TIMER4_COMPA_vect)
 {
         static uint8_t pause = 0;
 
