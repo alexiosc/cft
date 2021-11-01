@@ -1345,18 +1345,18 @@ Text Notes 1400 2600 0    50   ~ 0
 ~DBOE~ never floats.
 Text Notes 6300 900  2    100  ~ 20
 I/O Pods
-Text Notes 1100 6150 0    100  ~ 20
-I/O Pod Enables
-Text Notes 1100 7150 0    50   ~ 0
-These pods provide byte-wide multiplexed access just under\n80 signals. These include all three buses and the Micro-Control\nVector.\n\nInput: all buses are sampled simultaneously on the rising edge of\nBUSCP (µCU control) or the rising edge of ~SCANCLR~ (for front\npanel display). Pod values drive the FPD when ~IOE~ is low. This is\ndone via µCU control for all pods, or via the autonomic front panel\nscanner for the AB and DB pods. Negative-logic OR gates (AND)\nare provided to do this.\n\nOutput:  when ~OOE~ is low, pod values drive their respective buses.\nThis is done under µCU control only.
+Text Notes 750  6300 0    100  ~ 20
+I/O Pods
+Text Notes 750  7550 0    50   ~ 0
+These pods provide byte-wide multiplexed access for just under\n80 signals. These include all three buses and the Micro-Control\nVector.\n\nInput: all buses are sampled simultaneously on the rising edge of\nBUSCP (µCU control) or the rising edge of ~SCANCLR~ (for front\npanel display). Pod values drive the FPD when ~READ~ is low. This is\ndone via µCU control for all pods, or via the autonomic front panel\nscanner for the AB and DB pods. Negative-logic OR gates (AND)\nare provided to do this.\n\nOutput:  when ~DRIVE~ is low, pod values drive their respective buses.\nThis is done under µCU control only. The µCU can set the value to\ndrive by setting FPD and strobing WRITE. (positive edge)
 Wire Notes Line width 12 style solid
-	3850 5900 950  5900
+	3500 6050 600  6050
 Wire Notes Line width 12 style solid
-	950  5900 950  7300
+	600  6050 600  7700
 Wire Notes Line width 12 style solid
-	950  7300 3850 7300
+	600  7700 3500 7700
 Wire Notes Line width 12 style solid
-	3850 7300 3850 5900
+	3500 7700 3500 6050
 $Sheet
 S 6400 1300 800  1300
 U 61FBB558
