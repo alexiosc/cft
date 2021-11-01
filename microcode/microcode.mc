@@ -216,6 +216,7 @@ signal read_ac         = ...................01010; // Read from AC
 signal read_sp         = ...................01011; // Read from SP
 //signal               = ...................01100; // (Available)
 //signal               = ...................01101; // (Available)
+//signal               = ...................01110; // (Available)
 signal read_agl        = ...................01111; // Read from address generation logic
 signal read_alu_add    = ...................10000; // ALU: Read from ALU: AC + B + L
 signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND B
