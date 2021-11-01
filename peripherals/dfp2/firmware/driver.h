@@ -60,10 +60,35 @@ typedef struct {
 
 	uint8_t   is_halted:1;	     // Set when the computer has been halted.
 
-	uint8_t   have_ctl:1;	     // The CTL processor board is present.
-	uint8_t   have_reg:1;	     // The REG processor board is present.
-	uint8_t   have_alu:1;        // The ALU processor board is present.
-	uint8_t   have_bus:1;	     // The BUS processor board is present.
+        // TODO: Remove these
+        uint8_t   have_ctl:1;
+        uint8_t   have_reg:1;
+        //uint8_t   have_alu:1;
+        //uint8_t   have_bus:1;
+
+        // Flags for detected (and operational) units
+        uint8_t   have_reset:1;      // PB0: Clock generator and reset.
+        uint8_t   have_ir:1;         // PB0: Instruction Register
+        uint8_t   have_ucv:1;        // PB0: Microcode Sequencer (control vector present)
+        uint8_t   have_flag_unit:1;  // PB0: Flag Unit
+        uint8_t   have_agl:1;        // PB0: Address Generation Logic
+        uint8_t   have_pc:1;         // PB0: Program Counter
+        uint8_t   have_dr:1;         // PB0: Data Register
+        uint8_t   have_cs:1;         // PB0: Constant Store
+        uint8_t   have_mbu:1;        // PB0: Memory Banking Unit
+        uint8_t   have_ar:1;         // PB0: Address Register
+        uint8_t   have_bus:1;        // PB0: Address/Data Bus driver
+        uint8_t   have_ism:1;        // PB0: Interrupt State Machine (detected via FI)
+
+        uint8_t   have_porta:1;      // PB1: ALU Port A (implicitly detected)
+        uint8_t   have_portb:1;      // PB1: ALU Port B
+        uint8_t   have_alu:1;        // PB1: ALU ROMs
+        uint8_t   have_fl:1;         // PB1: Link flag working
+        uint8_t   have_fv:1;         // PB1: Overflow working
+        uint8_t   have_sru:1;        // PB1: Shift/Rotate Unit
+        uint8_t   have_swab:1;       // PB1: Byte-swap
+        uint8_t   have_ac:1;         // PB1: Accumulator
+        uint8_t   have_sp:1;         // PB1: Stack Pointer
 
 	uint8_t   is_busy:1;         // The DFP is busy.
 

@@ -164,6 +164,9 @@ static void dfp_diags();
 //    1          0       MCU can read from computer, panel updates as read.
 //    1          1       MCU can write to front panel.
 
+// Port B.
+#define B_LED        PB7    // O.    Built-in Arduino LED.
+
 // Port C.
 #define C_NBUSEN     PC0    // O.    0: DFP drives the FP bus. 1: autoscan drives.
 #define C_NAUTOSCAN  PC1    // O.    AL: FP scan counter controls the bus & FP.
@@ -195,6 +198,8 @@ static void dfp_diags();
 
 // Port L: CFP control signals
 #define L_NCLR       PL0    // O. AL: resets the run/stop/step state machine
+#define L_PANEL_LED  PC1    // O. Control PANEL LED. (switch activity)
+#define L_ACT_LED    PC3    // O. Control ACT LED. (receive chars from TTYD)
 #define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
 #define L_UNUSED     PL6    // (keep at High-Z, connected to PE5).
 #define L_BUSCP      PL7    // O. RE: input FFs sample data.
@@ -1055,17 +1060,17 @@ set_or(word_t value)
 void
 fp_start_light_test()
 {
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         fp_grab();
-        /**/         for (xmem_addr_t a = 0; a < 20; a++) fp_write_addr(a, 0xff);
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                fp_grab();
+                for (xmem_addr_t a = 0; a < 20; a++) fp_write_addr(a, 0xff);
+        }
 }
 
 
 void
 fp_stop_light_test()
 {
-        /**/ fp_release();
+        fp_release();
 }
 
 
@@ -1093,6 +1098,23 @@ clear_ws()
 inline static void
 avr_init()
 {
+        DDRB = 0xff;
+        PORTB = 0xff;
+
+        TCCR0A = 0;
+        TCCR0B = 0;
+        TCCR1A = 0;
+        TCCR1B = 0;
+        TCCR1C = 0;
+        TCCR2A = 0;
+        TCCR2B = 0;
+        TCCR3A = 0;
+        TCCR3B = 0;
+        TCCR3C = 0;
+        TCCR4A = 0;
+        TCCR4B = 0;
+        TCCR4C = 0;
+
         // On the 2560, this is probably not necessary, but let's do it anyway.
         MCUCR = BV(JTD);       //  Disable JTAG
 
@@ -1103,9 +1125,6 @@ avr_init()
                 BV(XMM2);
 
         XMCRA =  BV(SRE);  // *NOW* we can enable XMEM.
-
-        // PORTED TO HERE
-        /**/ return;
 
         // XMEM overrides our settings for Port A.
 
@@ -1151,6 +1170,7 @@ avr_init()
         deassert_fprsthold();
         assert_halt();
         assert_fpreset();
+
 }
 
 
@@ -1197,15 +1217,15 @@ hw_init()
         report_pstr(PSTR(STR_BOOTUP));
 
         fp_grab();
-        /**/ fp_start_light_test();
+        fp_start_light_test();
         _delay_ms(500);
-        /**/ fp_stop_light_test();
+        fp_stop_light_test();
 
         // Enable the watchdog.
         wdt_enable(WATCHDOG_TIMEOUT);
 
         // Run diagnostics and detect processor boards.
-        //dfp_diags();            // not fully ported
+        /**/ dfp_diags();            // not fully ported
 
         // Make Panel work
         fp_release();
@@ -1608,6 +1628,9 @@ ISR(TIMER4_COMPA_vect)
         // Scan the switches.
         sw_scan();
 
+        clearbit(PORTB, B_LED);
+        clearbit(PORTL, L_ACT_LED);
+
         // Blink the STOP light at ~10Hz while busy, and ignore the front panel
         // switches. Any routine working overtime here had better call
         // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
@@ -1884,6 +1907,9 @@ ISR(USART3_RX_vect)
 {
         uint8_t c;
 
+        setbit(PORTB, B_LED);
+        setbit(PORTL, L_ACT_LED);
+
         // Ensure we don't have any framing errors. If we do, ignore the received
         // character.
         if (!bit_is_clear(UCSRxA, FE0)) {
@@ -1969,17 +1995,17 @@ set_reg(reg_t reg, uint16_t value)
 
 #define NUM_16BIT_PATTERNS 64
 static const uint16_t _16bit_patterns[NUM_16BIT_PATTERNS] PROGMEM = {
-        /**/ 0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100,
-        /**/ 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001,
+        0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100,
+        0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001,
 
-        /**/ 0x7fff, 0xbfff, 0xdfff, 0xefff, 0xf7ff, 0xfbff, 0xfdff, 0xfeff,
-        /**/ 0xff7f, 0xffbf, 0xffdf, 0xffef, 0xfff7, 0xfffb, 0xfffd, 0xfffe,
+        0x7fff, 0xbfff, 0xdfff, 0xefff, 0xf7ff, 0xfbff, 0xfdff, 0xfeff,
+        0xff7f, 0xffbf, 0xffdf, 0xffef, 0xfff7, 0xfffb, 0xfffd, 0xfffe,
 
-        /**/ 0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
-        /**/ 0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff,
+        0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
+        0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff,
 
-        /**/ 0xfffe, 0xfffc, 0xfff8, 0xfff0, 0xffe0, 0xffc0, 0xff80, 0xff00,
-        /**/ 0xfe00, 0xfc00, 0xf800, 0xf000, 0xe000, 0xc000, 0x8000, 0x0000
+        0xfffe, 0xfffc, 0xfff8, 0xfff0, 0xffe0, 0xffc0, 0xff80, 0xff00,
+        0xfe00, 0xfc00, 0xf800, 0xf000, 0xe000, 0xc000, 0x8000, 0x0000
 };
 
 
@@ -2507,6 +2533,7 @@ dfp_diags()
         deassert_fpreset();
         deassert_fprsthold();
 
+        #if 0
         /**/ dfp_diags_fpd_quiescence();
         /**/ dfp_diags_ibus_quiescence();
         /**/ dfp_diags_ab_lsw_quiescence();
@@ -2539,7 +2566,9 @@ dfp_diags()
         // dfp_det_alu();
         // dfp_detdfp_diagdet_bus();      // Detect BUS and run basic diags
 
-        /**/ fp_release();
+        #endif
+
+        fp_release();
 }
 
 
