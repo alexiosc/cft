@@ -1601,7 +1601,7 @@ Wire Wire Line
 Wire Notes Line
 	1225 4500 1225 5375
 Text Notes 1275 5325 0    50   ~ 0
-Operation\n\nTwo's complement addition\nBitwise disjunction\nBitwise conjunction\nBitwise complementation\nBitwise exclusive OR\nReserved\nReserved\nReserved\n
+Operation\n\nTwo's complement addition\nBitwise disjunction\nBitwise conjunction\nBitwise exclusive OR\nBitwise complementation\nReserved\nReserved\nReserved\n
 Text Notes 750  5325 0    50   ~ 0
  OP\n\n000\n001\n010\n011\n100\n101\n110\n111
 Wire Notes Line
@@ -1617,7 +1617,7 @@ Wire Notes Line width 20 style solid
 Wire Notes Line width 20 style solid
 	700  4500 2550 4500
 Text Notes 1000 5325 0    50   ~ 0
-Instr\n\nADD\nAND\nOR\nNOT\nXOR\nN/A\nN/A\nN/A
+Instr\n\nADD\nAND\nOR\nXOR\nNOT\nN/A\nN/A\nN/A
 Text Notes 9500 1250 0    50   ~ 0
 FLCPL toggles L on carry out.
 Wire Notes Line width 20 style solid
