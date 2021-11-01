@@ -1773,7 +1773,7 @@ F 1 "ATF16V8B" H 2400 2400 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 1750 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 1750 50  0001 C CNN
 F 4 "DFPIOA00" V 2400 1800 50  0000 C CNB "Signature"
-F 5 "dfp-io-write-a.jed" H 2400 1100 50  0000 C CNN "Image Filename"
+F 5 "dfp-io-a.jed" H 2400 1100 50  0000 C CNN "Image Filename"
 	1    2400 1750
 	1    0    0    -1  
 $EndComp
@@ -1788,7 +1788,7 @@ F 1 "ATF16V8B" H 2400 4050 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 3400 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 3400 50  0001 C CNN
 F 4 "DFPIOB00" V 2400 3450 50  0000 C CNB "Signature"
-F 5 "dfp-io-write-b.jed" H 2400 2750 50  0000 C CNN "Image Filename"
+F 5 "dfp-io-b.jed" H 2400 2750 50  0000 C CNN "Image Filename"
 	1    2400 3400
 	1    0    0    -1  
 $EndComp
@@ -1802,8 +1802,8 @@ F 0 "U303" H 2400 5800 50  0000 C CNN
 F 1 "ATF16V8B" H 2400 5700 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 5050 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 5050 50  0001 C CNN
-F 4 "DFPDEC" V 2400 5100 50  0000 C CNB "Signature"
-F 5 "dfp-decode.jed" H 2400 4400 50  0000 C CNN "Image Filename"
+F 4 "DFPIOC00" V 2400 5100 50  0000 C CNB "Signature"
+F 5 "dfp-io-c.jed" H 2400 4400 50  0000 C CNN "Image Filename"
 	1    2400 5050
 	1    0    0    -1  
 $EndComp
@@ -1817,8 +1817,8 @@ F 0 "U304" H 2400 7450 50  0000 C CNN
 F 1 "ATF16V8B" H 2400 7350 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 2400 6700 50  0001 C CNN
 F 3 "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf" H 2400 6700 50  0001 C CNN
-F 4 "DFPDEC" V 2400 6750 50  0000 C CNB "Signature"
-F 5 "dfp-decode.jed" H 2400 6050 50  0000 C CNN "Image Filename"
+F 4 "DFPIOD00" V 2400 6750 50  0000 C CNB "Signature"
+F 5 "dfp-io-d.jed" H 2400 6050 50  0000 C CNN "Image Filename"
 	1    2400 6700
 	1    0    0    -1  
 $EndComp
@@ -2008,8 +2008,6 @@ Wire Wire Line
 	2850 3350 3100 3350
 Text Label 3100 3350 2    50   ~ 0
 ~RDSR0
-Text Notes 3250 3350 0    50   ~ 0
-← NB: read signal!
 Wire Wire Line
 	2850 6850 3200 6850
 Text Label 3100 6850 2    50   ~ 0
