@@ -16,7 +16,7 @@ NC	WCV2	WCV1	WCV0	RDSR0	W4B	W4A	WOR1	WOR0	VCC
 /WCV1 = EN0 * /EN1 * /WR * RD *  FPA2 *  FPA1 * /FPA0
 /WCV2 = EN0 * /EN1 * /WR * RD *  FPA2 *  FPA1 *  FPA0
 
-; Moved this here to ease baord routing. W4C is in the 'C' PLD now.
+; Moved this here to ease board routing. W4C is in the 'C' PLD now.
 ;/W4C  = EN0 * /EN1 * /WR * RD *  FPA2 * /FPA1 * /FPA0
 
 /RDSR0 = /EN0 * EN1 * WR * /RD *   FPA2 *  FPA1 *  FPA0
