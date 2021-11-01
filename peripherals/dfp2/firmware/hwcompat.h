@@ -26,11 +26,12 @@
 #define short_delay() asm("nop");
 
 // Not all devices support an 8 second watchdog timeout. All devices support a 2s one.
-#ifdef WDTO_8S
-#  define WATCHDOG_TIMEOUT WDTO_8S
-#else
-#  define WATCHDOG_TIMEOUT WDTO_2S
-#endif
+// #ifdef WDTO_8S
+// #  define WATCHDOG_TIMEOUT WDTO_8S
+// #else
+// #  define WATCHDOG_TIMEOUT WDTO_2S
+// #endif
+#define WATCHDOG_TIMEOUT WDTO_2S
 
 // If we're on a platform with only one USART, redefine some macros.
 #ifndef SERIAL_PORT
