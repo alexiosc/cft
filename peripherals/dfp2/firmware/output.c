@@ -248,10 +248,10 @@ report_hex(uint32_t val, uint8_t pad)
 	uint32_t shift = (pad - 1L) << 2L;
 	uint32_t bits = 0xfL << shift;
 	while (bits) {
-                if (bits == 0xf000L) serial_write(':');
 		serial_write((unsigned char)pgm_read_byte(&(hex[(val & bits) >> shift])));
 		bits >>= 4;
 		shift -= 4;
+                if (bits == 0xf000L) serial_write(':');
 	}
 }
 
