@@ -220,7 +220,7 @@ reset:
 		$(AVRDUDE) -v
 
 minicom:	
-		minicom --term vt102 --metakey --8bit --color=on --attrib=on --wrap -D $(TTYD) -b $(SERIAL_BPS) -C dfp.cap -o
+		minicom --term vt102 -R utf8 --metakey --8bit --color=on --attrib=on --wrap -D $(TTYD) -b $(SERIAL_BPS) -C dfp.cap -o
 
 # Special source files
 proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
