@@ -325,8 +325,9 @@ proto_init()
 
 /**/ hwstate.is_busy = 1;
 
-/**/ say_version();
-/**/ report_pstr(PSTR(BANNER));
+        report_pstr(PSTR(BANNER0));
+        say_version();
+        report_pstr(PSTR(BANNER));
 /**/ say_bufsize();
 /**/ say_proc();
 /**/ buflen = 0;

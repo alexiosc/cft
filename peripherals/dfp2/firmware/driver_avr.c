@@ -165,6 +165,7 @@ static void dfp_diags();
 //    1          1       MCU can write to front panel.
 
 // Port B.
+#define B_LED_STOP   PB4    // O. to FP. Controls the STOP LED. (FP scanner must be running)
 #define B_LED        PB7    // O.    Built-in Arduino LED.
 
 // Port C.
@@ -198,8 +199,8 @@ static void dfp_diags();
 
 // Port L: CFP control signals
 #define L_NCLR       PL0    // O. AL: resets the run/stop/step state machine
-#define L_PANEL_LED  PC1    // O. Control PANEL LED. (switch activity)
-#define L_ACT_LED    PC3    // O. Control ACT LED. (receive chars from TTYD)
+#define L_LED_PANEL  PL1    // O. Control PANEL LED. (switch activity)
+#define L_LED_ACT    PL3    // O. Control ACT LED. (receive chars from TTYD)
 #define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
 #define L_UNUSED     PL6    // (keep at High-Z, connected to PE5).
 #define L_BUSCP      PL7    // O. RE: input FFs sample data.
@@ -1132,7 +1133,7 @@ avr_init()
 
         //         76543210
         DDRB =   0b11111110;    // PB1-7 are all outputs. PB0 is FPIRQ (OD).
-        PORTB =  0b00000000;    // FP Lights on, STOP LED on.
+        PORTB =  0b00010000;    // FP Lights on, STOP LED on.
 
         //         76543210
         DDRC =   0b00000111;    // All outputs, but tristate top 4 bits.
@@ -1220,6 +1221,8 @@ hw_init()
         fp_start_light_test();
         _delay_ms(500);
         fp_stop_light_test();
+        clearbit(PORTL, L_LED_PANEL);
+        setbit(PORTB, B_LED_STOP);
 
         // Enable the watchdog.
         wdt_enable(WATCHDOG_TIMEOUT);
@@ -1629,14 +1632,16 @@ ISR(TIMER4_COMPA_vect)
         sw_scan();
 
         clearbit(PORTB, B_LED);
-        clearbit(PORTL, L_ACT_LED);
+        clearbit(PORTL, L_LED_ACT);
 
         // Blink the STOP light at ~10Hz while busy, and ignore the front panel
         // switches. Any routine working overtime here had better call
         // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
         if (hwstate.is_busy) {
                 pause = (pause + 1) & 3;
-                if (pause == 0) togglebit(PORTD, D_LED_STOP);
+                // if (pause == 0) {
+                //         togglebit(PORTB, B_LED_STOP);
+                // }
                 // No more switch processing carried out while busy.
                 return;
         }
@@ -1908,7 +1913,7 @@ ISR(USART3_RX_vect)
         uint8_t c;
 
         setbit(PORTB, B_LED);
-        setbit(PORTL, L_ACT_LED);
+        setbit(PORTL, L_LED_ACT);
 
         // Ensure we don't have any framing errors. If we do, ignore the received
         // character.
