@@ -325,8 +325,8 @@ proto_init()
 
 /**/ hwstate.is_busy = 1;
 
-/**/ say_version();
-/**/ report_pstr(PSTR(BANNER));
+        say_version();
+        report_pstr(PSTR(BANNER));
 /**/ say_bufsize();
 /**/ say_proc();
 /**/ buflen = 0;
@@ -339,24 +339,29 @@ proto_init()
 void
 proto_prompt()
 {
-/**/ if (uistate.in_console) return; // No need to prompt in the virtual console
+        if (uistate.in_console) return; // No need to prompt in the virtual console
 
-/**/ style_normal();
-/**/ // report_hex(flags, 4);
-/**/ // report_char(32);
+        style_normal();
+        // report_hex(flags, 4);
+        // report_char(32);
 
-/**/ // TODO: Reinstate this.
-/**/ // if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
-/**/ if (hwstate.is_halted) {
-/**/         style_info();
-/**/         report_pstr(PSTR(STR_PSTOP));
-/**/         style_normal();
-/**/         report_hex(uistate.addr, 6);
-/**/         report_pstr(PSTR(STR_PROMPT));
-/**/ } else {
-/**/         report_pstr(PSTR(STR_PRUN));
-/**/ }
-/**/ style_input();
+        // TODO: Reinstate this.
+        // if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
+        if (!hwstate.have_dfp) {
+                style_info();
+                report_pstr(PSTR(STR_MCU_ONLY));
+                style_normal();
+        }
+        if (hwstate.is_halted) {
+                style_info();
+                report_pstr(PSTR(STR_PSTOP));
+                style_normal();
+                report_hex(uistate.addr, 6);
+                report_pstr(PSTR(STR_PROMPT));
+        } else {
+                report_pstr(PSTR(STR_PRUN));
+        }
+        style_input();
 
 /**/ // If echo is on, print out the current input buffer. The
 /**/ // buffer may have been left intact before the prompt is

@@ -67,6 +67,7 @@ typedef struct {
         //uint8_t   have_bus:1;
 
         // Flags for detected (and operational) units
+        uint8_t   have_dfp:1;        // The DFP board has been detected. (pretty basic)
         uint8_t   have_reset:1;      // PB0: Clock generator and reset.
         uint8_t   have_ir:1;         // PB0: Instruction Register
         uint8_t   have_ucv:1;        // PB0: Microcode Sequencer (control vector present)
@@ -91,6 +92,7 @@ typedef struct {
         uint8_t   have_sp:1;         // PB1: Stack Pointer
 
 	uint8_t   is_busy:1;         // The DFP is busy.
+	uint8_t   is_booting:1;      // Blink the PANEL light during boot/diagnostics.
 
 	uint8_t   fp_autoscan:1;     // The FP scanner is on (AUTOSCAN# asserted)
 	uint8_t   fp_grab:1;         // The DFP controls the front panel

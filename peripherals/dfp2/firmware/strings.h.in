@@ -85,6 +85,7 @@
 #define STR_GSSP     "55 SP: "
 
 // 4xx: Warnings.
+#define STR_NO_DFP   "401 DFP board not detected (running on a disconnected Arduino board)\n"
 #define STR_WNOCTL   "410 CTL board not detected\n"
 #define STR_WNOREG   "411 REG board not detected\n"
 #define STR_WNOALU   "412 ALU board not detected\n"
@@ -116,18 +117,24 @@
 #define STR_UNKERR  "699 Unknown error"
 
 // 9xx: Diagnostic faults
-#define STR_DIAGF   "901 Diagnostics failed.\n"
-#define STR_URRESP1 "902 Unassigned RADDR "
-#define STR_URRESP2      ": wrote "
-#define STR_NVMIS   "910 Value mismatch. Wrote "
-#define STR_INCMIS  "911 Reg inc failure. Inc'ed to "
-#define STR_DECMIS  "912 Reg dec failure. Dec'ed to "
+#define STR_DIAGF     "901 Diagnostics failed.\n"
+#define STR_DFPFAULT1 "9xx µCU sanity check failed (PK5 high).\n"
+#define STR_DFPFAULT2 "9xx µCU sanity check failed (bus noise).\n"
+#define STR_URRESP1   "902 Unassigned RADDR "
+#define STR_URRESP2        ": wrote "
+#define STR_NVMIS     "910 Value mismatch. Wrote "
+#define STR_INCMIS    "911 Reg inc failure. Inc'ed to "
+#define STR_DECMIS    "912 Reg dec failure. Dec'ed to "
 
 #define STR_WAS          ", read back "
 
-#define STR_PROMPT  "> "
-#define STR_PRUN    "[running]" STR_PROMPT
-#define STR_PSTOP   "[halted] "
+#define STR_PROMPT     "> "
+#define STR_PRUN       "[running]" STR_PROMPT
+#define STR_PRUN       "[running]" STR_PROMPT
+
+#define STR_PSTOP      "[halted] "
+#define STR_MCU_ONLY   "[mcu only] "
+
 // #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"

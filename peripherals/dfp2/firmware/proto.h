@@ -50,13 +50,30 @@ typedef struct uistate {
 extern volatile uistate_t uistate;
 
 
+#define BANNER0                                       \
+        "202 \n"                                      \
+        "202     #########.      ,################\n" \
+        "202   #############,   #                #\n" \
+        "202  #####'   '#####  #   ,######   #####\n" \
+        "202 #####'      #######   ####  #   #\n"     \
+        "202 #####                    #  #   #\n"     \
+        "202 #####,      #######   ####  #   #\n"     \
+        "202  #####,   ,#####  #   #     #   #\n"     \
+        "202   #############   #   #     #   #\n"     \
+        "202    '#########'    #####     #####\n"     \
+        "202 \n"                                      \
+        "202  16 BIT SOLID STATE MINI COMPUTER\n"     \
+        "202 \n"                                      \
+        "202  DEBUGGING FRONT PANEL CONTROLLER\n"     \
+        "202 \n"                                      \
+
 #define AUTHOR "Alexios Chouchoulas <alexios@bedroomlan.org>"
 #define URL    "https://www.bedroomlan.org/cft"
 #define STR_VERSION \
 	"201 Version: " VERSION "+dis [" TS "]\n"
 
 #define BANNER								\
-	"202 (c) 2012-" THISYEAR " " AUTHOR "\n"			\
+	"202 © 2012–" THISYEAR " " AUTHOR "\n"			\
 	"202 Licensed under the GNU Public License v.3.\n"		\
 	"202 " URL "\n"							\
 	"202 All values base 16 unless otherwise noted.\n"
