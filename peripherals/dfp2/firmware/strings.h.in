@@ -146,7 +146,7 @@
 
 // 9xx: Diagnostic faults
 #define STR_DIAGF     "901 Diagnostics failed.\n"
-#define STR_DFPFAULT1 "9xx µCU sanity check failed (PK5 high).\n"
+#define STR_DFPFAULT1 "9xx µCU sanity check failed (PK5 stuck low).\n"
 #define STR_DFPFAULT2 "9xx µCU sanity check failed (bus noise).\n"
 #define STR_URRESP1   "902 Unassigned RADDR "
 #define STR_URRESP2        ": wrote "

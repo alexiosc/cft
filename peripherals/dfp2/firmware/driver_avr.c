@@ -2565,47 +2565,39 @@ _fault(const char *msg)
 static void
 _dfp_detect()
 {
+
         // Superfluous, but done for good measure.
         fp_grab();
         assert_halt();
         tristate_ucv();
-        setbit(PORTK, K_DFPDETECT);
 
-        // At this point, µCVOE should be de-asserted (high). If pin K_DFPDETECT is
-        // also high, the µCU is plugged in to the DFP board.
+        // Ensure the detection pin is an input, and pulled up.
+        clearbit(DDRK, K_DFPDETECT); // Set as input
+        setbit(PORTK, K_DFPDETECT);  // Enable pull up.
+
+        // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
+        _drive_ucv();
+
         if (getbit(PINK, K_DFPDETECT)) {
-                // This is provisional and may be undone in the next tests.
-                hwstate.have_dfp = 1;
-        } else {
-                // No DFP detected. Say so and exit here (no more testing).
-                report("---1\n");
+                // µCV is asserted (low) but the detection pin is still
+                // high. No DFP detected.
                 hwstate.have_dfp = 0;
                 report_pstr(PSTR(STR_NO_DFP));
                 return;
         }
 
-        // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
-        _drive_ucv();
-        report("---2\n");
-
-        // At this point, µCVOE should be de-asserted (low). If pin K_DFPDETECT
-        // is high, we have a fault or at best an µCU misconfiguration. Sanity
-        // check failed, then.
-        uint8_t pin = getbit(PINK, K_DFPDETECT);
-        _tristate_ucv();
-        report("---3\n");
-        if (pin != 0) {
-                hwstate.have_dfp = 0;
-                report("---4\n");
-                _fault(PSTR(STR_DFPFAULT1));
-        }
-
-        // Same if the bit hasn't gone back high.
-        if (hwstate.have_dfp && getbit(PINK, K_DFPDETECT) != 1) {
-                report("---5\n");
+        // If we de-assert µCVOE, we should be getting a high level.
+        tristate_ucv();
+        
+        if (getbit(PINK, K_DFPDETECT)) {
                 hwstate.have_dfp = 0;
                 _fault(PSTR(STR_DFPFAULT1));
+                return;
         }
+
+        // Disable the detection pin again.
+        clearbit(DDRK, K_DFPDETECT);  // Set as input
+        clearbit(PORTK, K_DFPDETECT); // Disable pull up.
 
         // Well, we have good indications we're plugged into the DFP board. Try
         // scanning the entire DFP bus. Get control of the FP bus and just
