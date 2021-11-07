@@ -2569,15 +2569,16 @@ _dfp_detect()
         fp_grab();
         assert_halt();
         tristate_ucv();
-        clearbit(PORTK, K_DFPDETECT);
+        setbit(PORTK, K_DFPDETECT);
 
         // At this point, µCVOE should be de-asserted (high). If pin K_DFPDETECT is
         // also high, the µCU is plugged in to the DFP board.
-        if (getbit(PORTK, K_DFPDETECT)) {
+        if (getbit(PINK, K_DFPDETECT)) {
                 // This is provisional and may be undone in the next tests.
                 hwstate.have_dfp = 1;
         } else {
                 // No DFP detected. Say so and exit here (no more testing).
+                report("---1\n");
                 hwstate.have_dfp = 0;
                 report_pstr(PSTR(STR_NO_DFP));
                 return;
@@ -2585,20 +2586,23 @@ _dfp_detect()
 
         // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
         _drive_ucv();
+        report("---2\n");
 
         // At this point, µCVOE should be de-asserted (low). If pin K_DFPDETECT
         // is high, we have a fault or at best an µCU misconfiguration. Sanity
         // check failed, then.
-        uint8_t pin = getbit(PORTK, K_DFPDETECT);
+        uint8_t pin = getbit(PINK, K_DFPDETECT);
         _tristate_ucv();
-
+        report("---3\n");
         if (pin != 0) {
                 hwstate.have_dfp = 0;
+                report("---4\n");
                 _fault(PSTR(STR_DFPFAULT1));
         }
 
         // Same if the bit hasn't gone back high.
-        if (hwstate.have_dfp && getbit(PORTK, K_DFPDETECT) != 1) {
+        if (hwstate.have_dfp && getbit(PINK, K_DFPDETECT) != 1) {
+                report("---5\n");
                 hwstate.have_dfp = 0;
                 _fault(PSTR(STR_DFPFAULT1));
         }
@@ -2610,8 +2614,9 @@ _dfp_detect()
         // bus. (low-order address and data buses are shared) If this is the
         // case, the DFP board is not decoding properly.
         fp_grab();
-        for (uint8_t r = 0; r < 256; r++) {
-                if (read_dfp_address((xmem_addr_t) r) != r) {
+        for (uint16_t r = XMEM_BASE; r < XMEM_BASE + 256; r++) {
+                uint8_t data =  *((volatile uint8_t *)(r));
+                if (data != r) {
                         hwstate.have_dfp = 1;
                         break;
                 }
@@ -2619,8 +2624,9 @@ _dfp_detect()
 
         // But, as a sanity check, go through addresses 0xa0 to 0xbf which
         // aren't decoded. If THEY read anything, we have a DFP fault.
-        for (uint8_t r = 0xa0; r < 0xbf; r++) {
-                if (read_dfp_address((xmem_addr_t) r) != r) {
+        for (uint16_t r = XMEM_BASE + 0xa0; r < XMEM_BASE - 0xbf; r++) {
+                uint8_t data =  *((volatile uint8_t *)(r));
+                if (data != r) {
                         hwstate.have_dfp = 0;
                         _fault(PSTR(STR_DFPFAULT2));
                         break;
