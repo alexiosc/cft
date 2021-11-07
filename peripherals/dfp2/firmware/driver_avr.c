@@ -193,7 +193,7 @@ static void dfp_diags();
 #define K_NABOE      PK2    // O. AL: drive AB (Address Bus)
 #define K_NDBOE      PK3    // O. AL: drive DB (Data Bus)
 #define K_NUCVOE     PK4    // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
-//                   PK5    // (not used)
+#define K_DFPDETECT  PK5    // I. MCU is plugged into DFP board if PK4 == PK5
 //                   PK6    // (not used)
 //                   PK7    // (not used)
 
@@ -1196,8 +1196,11 @@ enable_cft_interrupts()
 void
 hw_init()
 {
+        hwstate.is_booting = 1; // This blinks the PANEL light during boot
+        hwstate.have_dfp = 0;   // MCU unplugged from DFP (until DFP detected)
+        
         avr_init();             // not fully ported
-        /**/ tristate_buses();
+        tristate_buses();
         /**/ rc_freeze();
         /**/ clear_ws();
 
@@ -1226,6 +1229,21 @@ hw_init()
 
         // Enable the watchdog.
         wdt_enable(WATCHDOG_TIMEOUT);
+
+        // Say hello.
+        report_pstr(PSTR(BANNER0));
+
+        // Read the DIP switches now.
+        hwstate.dsr0 = xmem_read(XMEM_DSR_L);
+        hwstate.dsr1 = xmem_read(XMEM_DSR_M);
+        hwstate.dsr2 = xmem_read(XMEM_DSR_H);
+
+        report_hex(hwstate.dsr0, 2);
+        report_nl();
+        report_hex(hwstate.dsr1, 2);
+        report_nl();
+        report_hex(hwstate.dsr2, 2);
+        report_nl();
 
         // Run diagnostics and detect processor boards.
         /**/ dfp_diags();            // not fully ported
@@ -1451,7 +1469,7 @@ sw_init()
         // Program Timer 4 to scan switches and perform other housekeeping
         // tasks.
         TCCR4A = 0b00000000; // Normal port operation, no pins driven.
-        TCCR4B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
+        TCCR4B = 0b00001101; // CTC mode, CLK÷1024 prescaler
 
         // Set the A count comparator and trigger an interrupt when it matches.
         //OCR3A = 259;       // CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
@@ -1637,16 +1655,15 @@ ISR(TIMER4_COMPA_vect)
         // Blink the STOP light at ~10Hz while busy, and ignore the front panel
         // switches. Any routine working overtime here had better call
         // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
-        if (hwstate.is_busy) {
-                pause = (pause + 1) & 3;
-                // if (pause == 0) {
-                //         togglebit(PORTB, B_LED_STOP);
-                // }
+        if (hwstate.is_busy || hwstate.is_booting) {
+                pause = (pause + 1) & 15;
+                if ((pause & 3) == 0 && hwstate.is_busy) togglebit(PORTB, B_LED_STOP);
+                if (pause == 0 && hwstate.is_booting) togglebit(PORTL, L_LED_PANEL);
                 // No more switch processing carried out while busy.
                 return;
         }
 
-        return;
+        return;// TODO: Remove this and process switches
 
 #if 0
         /**/ static uint8_t autorepeat = 45;
@@ -2526,6 +2543,93 @@ dfp_diags_reg_sp()
 
 
 static void
+_fault(const char *msg)
+{
+        report_pstr(msg);
+        cli();
+
+        // Crash here. The watchdog will cold reset us in a bit.
+        wdt_enable(WATCHDOG_TIMEOUT);
+        for (;;) {
+                wdt_reset();
+                
+                // Blink the STOP light slowly. Hopefully this will work.
+                togglebit(PORTD, D_LED_STOP);
+                togglebit(PORTB, B_LED);
+                // TODO: display error code on front panel, if it's available
+                _delay_ms(500);
+        }
+}
+
+
+static void
+_dfp_detect()
+{
+        // Superfluous, but done for good measure.
+        fp_grab();
+        assert_halt();
+        tristate_ucv();
+        clearbit(PORTK, K_DFPDETECT);
+
+        // At this point, µCVOE should be de-asserted (high). If pin K_DFPDETECT is
+        // also high, the µCU is plugged in to the DFP board.
+        if (getbit(PORTK, K_DFPDETECT)) {
+                // This is provisional and may be undone in the next tests.
+                hwstate.have_dfp = 1;
+        } else {
+                // No DFP detected. Say so and exit here (no more testing).
+                hwstate.have_dfp = 0;
+                report_pstr(PSTR(STR_NO_DFP));
+                return;
+        }
+
+        // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
+        _drive_ucv();
+
+        // At this point, µCVOE should be de-asserted (low). If pin K_DFPDETECT
+        // is high, we have a fault or at best an µCU misconfiguration. Sanity
+        // check failed, then.
+        uint8_t pin = getbit(PORTK, K_DFPDETECT);
+        _tristate_ucv();
+
+        if (pin != 0) {
+                hwstate.have_dfp = 0;
+                _fault(PSTR(STR_DFPFAULT1));
+        }
+
+        // Same if the bit hasn't gone back high.
+        if (hwstate.have_dfp && getbit(PORTK, K_DFPDETECT) != 1) {
+                hwstate.have_dfp = 0;
+                _fault(PSTR(STR_DFPFAULT1));
+        }
+
+        // Well, we have good indications we're plugged into the DFP board. Try
+        // scanning the entire DFP bus. Get control of the FP bus and just
+        // perform XMEM reads. If all data values are the same as the
+        // *addresses*, we're reading the bus hold circuitry on the XMEM
+        // bus. (low-order address and data buses are shared) If this is the
+        // case, the DFP board is not decoding properly.
+        fp_grab();
+        for (uint8_t r = 0; r < 256; r++) {
+                if (read_dfp_address((xmem_addr_t) r) != r) {
+                        hwstate.have_dfp = 1;
+                        break;
+                }
+        }
+
+        // But, as a sanity check, go through addresses 0xa0 to 0xbf which
+        // aren't decoded. If THEY read anything, we have a DFP fault.
+        for (uint8_t r = 0xa0; r < 0xbf; r++) {
+                if (read_dfp_address((xmem_addr_t) r) != r) {
+                        hwstate.have_dfp = 0;
+                        _fault(PSTR(STR_DFPFAULT2));
+                        break;
+                }
+        }
+}
+
+
+static void
 dfp_diags()
 {
         // Grab full control of the FPD bus and front panel. Also, stop the
@@ -2537,6 +2641,11 @@ dfp_diags()
         tristate_ucv();
         deassert_fpreset();
         deassert_fprsthold();
+
+        _dfp_detect();
+        // 
+                        
+        uint8_t dfp_detection = (getbit(PORTK, K_DFPDETECT) == getbit(PORTK, K_NUCVOE));
 
         #if 0
         /**/ dfp_diags_fpd_quiescence();

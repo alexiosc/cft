@@ -122,6 +122,7 @@ static void go_creep();
 
 static void gs_or();
 
+static void go_udet();
 static void go_fpr();
 static void go_fpdump();
 static void gs_dsr();
@@ -325,7 +326,6 @@ proto_init()
 
 /**/ hwstate.is_busy = 1;
 
-        report_pstr(PSTR(BANNER0));
         say_version();
         report_pstr(PSTR(BANNER));
 /**/ say_bufsize();
@@ -340,24 +340,29 @@ proto_init()
 void
 proto_prompt()
 {
-/**/ if (uistate.in_console) return; // No need to prompt in the virtual console
+        if (uistate.in_console) return; // No need to prompt in the virtual console
 
-/**/ style_normal();
-/**/ // report_hex(flags, 4);
-/**/ // report_char(32);
+        style_normal();
+        // report_hex(flags, 4);
+        // report_char(32);
 
-/**/ // TODO: Reinstate this.
-/**/ // if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
-/**/ if (hwstate.is_halted) {
-/**/         style_info();
-/**/         report_pstr(PSTR(STR_PSTOP));
-/**/         style_normal();
-/**/         report_hex(uistate.addr, 6);
-/**/         report_pstr(PSTR(STR_PROMPT));
-/**/ } else {
-/**/         report_pstr(PSTR(STR_PRUN));
-/**/ }
-/**/ style_input();
+        // TODO: Reinstate this.
+        // if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
+        if (!hwstate.have_dfp) {
+                style_info();
+                report_pstr(PSTR(STR_MCU_ONLY));
+                style_normal();
+        }
+        if (hwstate.is_halted) {
+                style_info();
+                report_pstr(PSTR(STR_PSTOP));
+                style_normal();
+                report_hex(uistate.addr, 6);
+                report_pstr(PSTR(STR_PROMPT));
+        } else {
+                report_pstr(PSTR(STR_PRUN));
+        }
+        style_input();
 
 /**/ // If echo is on, print out the current input buffer. The
 /**/ // buffer may have been left intact before the prompt is
@@ -955,6 +960,57 @@ go_creep()
 
 
 static void
+_report_det(uint8_t flag, uint16_t num, const char *str)
+{
+        if (flag) {
+                report_int(701 + num);
+                report_pstr(str);
+                style_on();
+                report_pstr(PSTR(STR_DET_PRESENT));
+        } else {
+                report_int(700 + num);
+                report_pstr(str);
+                style_off();
+                report_pstr(PSTR(STR_DET_ABSENT));
+        }
+        style_normal();
+}
+
+
+static void
+go_udet()
+{
+        _report_det(hwstate.have_dfp,        0, PSTR(STR_DET_DFP));
+        _report_det(hwstate.have_clock,      2, PSTR(STR_DET_CLOCK));
+        _report_det(hwstate.have_reset,      4, PSTR(STR_DET_RESET));
+
+        _report_det(hwstate.have_ir,         6, PSTR(STR_DET_IR));
+        _report_det(hwstate.have_ucv,        8, PSTR(STR_DET_UCV));
+        _report_det(hwstate.have_ism,       10, PSTR(STR_DET_ISM));
+        _report_det(hwstate.have_flag_unit, 12, PSTR(STR_DET_FLAG_UNIT));
+
+        _report_det(hwstate.have_ar,        14, PSTR(STR_DET_AR));
+        _report_det(hwstate.have_bus,       16, PSTR(STR_DET_BUS));
+        _report_det(hwstate.have_agl,       18, PSTR(STR_DET_AGL));
+        _report_det(hwstate.have_cs,        20, PSTR(STR_DET_CS));
+        _report_det(hwstate.have_mbu,       22, PSTR(STR_DET_MBU));
+
+        _report_det(hwstate.have_pc,        24, PSTR(STR_DET_PC));
+        _report_det(hwstate.have_dr,        26, PSTR(STR_DET_DR));
+        _report_det(hwstate.have_ac,        28, PSTR(STR_DET_AC));
+        _report_det(hwstate.have_sp,        30, PSTR(STR_DET_SP));
+        _report_det(hwstate.have_fl,        32, PSTR(STR_DET_FL));
+        _report_det(hwstate.have_fv,        34, PSTR(STR_DET_FV));
+
+        _report_det(hwstate.have_porta,     36, PSTR(STR_DET_PORTA));
+        _report_det(hwstate.have_portb,     38, PSTR(STR_DET_PORTB));
+        _report_det(hwstate.have_alu,       40, PSTR(STR_DET_ALU));
+        _report_det(hwstate.have_sru,       42, PSTR(STR_DET_SRU));
+        _report_det(hwstate.have_swab,      44, PSTR(STR_DET_SWAB));
+}
+
+
+static void
 go_fpr()
 {
 /**/ // Parse addr
@@ -1079,9 +1135,6 @@ gs_dsr()
                         hwstate.dsr0 = read_dfp_address(XMEM_DSR_L);
                         hwstate.dsr1 = read_dfp_address(XMEM_DSR_M);
                         hwstate.dsr2 = read_dfp_address(XMEM_DSR_H);
-                        dsvalue = hwstate.dsr0;
-                        dsvalue |= ((uint32_t) hwstate.dsr1) << 8;
-                        dsvalue |= ((uint32_t) hwstate.dsr2) << 16;
                 } else {
                         dsvalue  = parse_hex(s);
                         if (uistate.is_error == 0) {
@@ -1098,6 +1151,10 @@ gs_dsr()
                 report_gs(0);
         }
         hwstate.dsr2 |= DSR_HIGH;
+
+        dsvalue = hwstate.dsr0;
+        dsvalue |= ((uint32_t) hwstate.dsr1) << 8;
+        dsvalue |= ((uint32_t) hwstate.dsr2) << 16;
 
 	report_pstr(PSTR(STR_DSR));
 	style_info();

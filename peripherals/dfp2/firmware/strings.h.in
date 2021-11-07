@@ -85,6 +85,7 @@
 #define STR_GSSP     "55 SP: "
 
 // 4xx: Warnings.
+#define STR_NO_DFP   "401 DFP board not detected (running on a disconnected Arduino board)\n"
 #define STR_WNOCTL   "410 CTL board not detected\n"
 #define STR_WNOREG   "411 REG board not detected\n"
 #define STR_WNOALU   "412 ALU board not detected\n"
@@ -115,19 +116,53 @@
 // ...
 #define STR_UNKERR  "699 Unknown error"
 
+// 7xx: Unit detection messages
+#define STR_DET_DFP         " DFP board:                      "
+#define STR_DET_CLOCK       " Clock generator:                "
+#define STR_DET_RESET       " Reset circuitry:                "
+#define STR_DET_IR          " Instruction Register (IR):      "
+#define STR_DET_UCV         " Microcode Sequencer (µCV):      "
+#define STR_DET_FLAG_UNIT   " Flag Unit:                      "
+#define STR_DET_AGL         " Address Generation Logic (AGL): "
+#define STR_DET_PC          " Program Counter (PC):           "
+#define STR_DET_DR          " Data Register (DR):             "
+#define STR_DET_CS          " Constant Store:                 "
+#define STR_DET_MBU         " Memory Banking Unit (MBU):      "
+#define STR_DET_AR          " Address Register (AR):          "
+#define STR_DET_BUS         " Expansion Bus driver:           "
+#define STR_DET_ISM         " Interrupt State Machine:        "
+#define STR_DET_PRESENT     " present\n"
+#define STR_DET_ABSENT      " absent\n"
+
+#define STR_DET_PORTA       " ALU Port A:                     "
+#define STR_DET_PORTB       " ALU Port B:                     "
+#define STR_DET_ALU         " ALU ROMs and Port Y:            "
+#define STR_DET_FL          " Link Flag (L):                  "
+#define STR_DET_FV          " Overflow Flag (V):              "
+#define STR_DET_SRU         " Shift/Rotate Unit (SRU):        "
+#define STR_DET_SWAB        " Byte Swap Unit (SWAB):          "
+#define STR_DET_AC          " Accumulator (AC):               "
+#define STR_DET_SP          " Stack Pointer (SP):             "
+
 // 9xx: Diagnostic faults
-#define STR_DIAGF   "901 Diagnostics failed.\n"
-#define STR_URRESP1 "902 Unassigned RADDR "
-#define STR_URRESP2      ": wrote "
-#define STR_NVMIS   "910 Value mismatch. Wrote "
-#define STR_INCMIS  "911 Reg inc failure. Inc'ed to "
-#define STR_DECMIS  "912 Reg dec failure. Dec'ed to "
+#define STR_DIAGF     "901 Diagnostics failed.\n"
+#define STR_DFPFAULT1 "9xx µCU sanity check failed (PK5 high).\n"
+#define STR_DFPFAULT2 "9xx µCU sanity check failed (bus noise).\n"
+#define STR_URRESP1   "902 Unassigned RADDR "
+#define STR_URRESP2        ": wrote "
+#define STR_NVMIS     "910 Value mismatch. Wrote "
+#define STR_INCMIS    "911 Reg inc failure. Inc'ed to "
+#define STR_DECMIS    "912 Reg dec failure. Dec'ed to "
 
 #define STR_WAS          ", read back "
 
-#define STR_PROMPT  "> "
-#define STR_PRUN    "[running]" STR_PROMPT
-#define STR_PSTOP   "[halted] "
+#define STR_PROMPT     "> "
+#define STR_PRUN       "[running]" STR_PROMPT
+#define STR_PRUN       "[running]" STR_PROMPT
+
+#define STR_PSTOP      "[halted] "
+#define STR_MCU_ONLY   "[µC only] "
+
 // #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"

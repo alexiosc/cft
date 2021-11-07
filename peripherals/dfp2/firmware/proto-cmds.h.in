@@ -22,6 +22,7 @@ static const struct {
 
 	// Front panel functionality
 
+	{"udet",    go_udet,     "-- Show detected units"},
 	{"fpr",     go_fpr,      "[ BYTE ] -- Read from FP Bus Address"},
 	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
        	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
