@@ -1237,14 +1237,7 @@ hw_init()
         hwstate.dsr0 = xmem_read(XMEM_DSR_L);
         hwstate.dsr1 = xmem_read(XMEM_DSR_M);
         hwstate.dsr2 = xmem_read(XMEM_DSR_H);
-
-        report_hex(hwstate.dsr0, 2);
-        report_nl();
-        report_hex(hwstate.dsr1, 2);
-        report_nl();
-        report_hex(hwstate.dsr2, 2);
-        report_nl();
-
+  
         // Run diagnostics and detect processor boards.
         /**/ dfp_diags();            // not fully ported
 
@@ -2565,7 +2558,6 @@ _fault(const char *msg)
 static void
 _dfp_detect()
 {
-
         // Superfluous, but done for good measure.
         fp_grab();
         assert_halt();
@@ -2574,6 +2566,18 @@ _dfp_detect()
         // Ensure the detection pin is an input, and pulled up.
         clearbit(DDRK, K_DFPDETECT); // Set as input
         setbit(PORTK, K_DFPDETECT);  // Enable pull up.
+
+        // At this point, µCVOE should be de-asserted (high). If pin K_DFPDETECT is
+        // also high, the µCU is plugged in to the DFP board.
+        if (getbit(PORTK, K_DFPDETECT)) {
+                // This is provisional and may be undone in the next tests.
+                hwstate.have_dfp = 1;
+        } else {
+                // No DFP detected. Say so and exit here (no more testing).
+                hwstate.have_dfp = 0;
+                report_pstr(PSTR(STR_NO_DFP));
+                return;
+        }
 
         // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
         _drive_ucv();
@@ -2598,7 +2602,7 @@ _dfp_detect()
         // Disable the detection pin again.
         clearbit(DDRK, K_DFPDETECT);  // Set as input
         clearbit(PORTK, K_DFPDETECT); // Disable pull up.
-
+  
         // Well, we have good indications we're plugged into the DFP board. Try
         // scanning the entire DFP bus. Get control of the FP bus and just
         // perform XMEM reads. If all data values are the same as the
