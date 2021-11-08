@@ -2592,8 +2592,8 @@ _dfp_detect()
 
         // If we de-assert µCVOE, we should be getting a high level.
         tristate_ucv();
-        
-        if (getbit(PINK, K_DFPDETECT)) {
+
+        if (!getbit(PINK, K_DFPDETECT)) {
                 hwstate.have_dfp = 0;
                 _fault(PSTR(STR_DFPFAULT1));
                 return;
