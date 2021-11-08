@@ -320,15 +320,15 @@ proto_input(unsigned char c)
 void
 proto_init()
 {
-/**/ uistate.is_mesg = 1;
-/**/ uistate.is_term = 1;
-/**/ uistate.is_echo = 1;
+        uistate.is_mesg = 1;
+        uistate.is_term = 1;
+        uistate.is_echo = 1;
 
-/**/ hwstate.is_busy = 1;
-
+        hwstate.is_busy = 1;
+        
         say_version();
         report_pstr(PSTR(BANNER));
-/**/ say_bufsize();
+        say_bufsize();
 /**/ say_proc();
 /**/ buflen = 0;
 /**/ hwstate.is_busy = 0;
@@ -815,9 +815,9 @@ _assert_board_present(uint8_t have_board, const char * msg)
 uint8_t
 check_mismatch(uint16_t should_be, uint16_t was)
 {
-/**/ if (should_be == was) return 0;
-/**/ report_mismatch(PSTR(STR_NVMIS), should_be, was);
-/**/ return 1;
+        if (should_be == was) return 0;
+        report_mismatch(PSTR(STR_NVMIS), should_be, was);
+        return 1;
 }
 
 
@@ -981,32 +981,46 @@ static void
 go_udet()
 {
         _report_det(hwstate.have_dfp,        0, PSTR(STR_DET_DFP));
-        _report_det(hwstate.have_clock,      2, PSTR(STR_DET_CLOCK));
-        _report_det(hwstate.have_reset,      4, PSTR(STR_DET_RESET));
+        _report_det(hwstate.have_pod_ucv0,   2, PSTR(STR_DET_POD_UCV0));
+        _report_det(hwstate.have_pod_ucv1,   4, PSTR(STR_DET_POD_UCV1));
+        _report_det(hwstate.have_pod_ucv2,   6, PSTR(STR_DET_POD_UCV2));
+        _report_det(hwstate.have_pod_ibus0,  8, PSTR(STR_DET_POD_IBUS0));
+        _report_det(hwstate.have_pod_ibus1, 10, PSTR(STR_DET_POD_IBUS1));
+        _report_det(hwstate.have_pod_ab0,   12, PSTR(STR_DET_POD_AB0));
+        _report_det(hwstate.have_pod_ab1,   14, PSTR(STR_DET_POD_AB1));
+        _report_det(hwstate.have_pod_ab2,   16, PSTR(STR_DET_POD_AB2));
+        _report_det(hwstate.have_pod_db0,   18, PSTR(STR_DET_POD_DB0));
+        _report_det(hwstate.have_pod_db1,   20, PSTR(STR_DET_POD_DB1));
 
-        _report_det(hwstate.have_ir,         6, PSTR(STR_DET_IR));
-        _report_det(hwstate.have_ucv,        8, PSTR(STR_DET_UCV));
-        _report_det(hwstate.have_ism,       10, PSTR(STR_DET_ISM));
-        _report_det(hwstate.have_flag_unit, 12, PSTR(STR_DET_FLAG_UNIT));
+        _report_det(hwstate.have_clock,     30, PSTR(STR_DET_CLOCK));
+        _report_det(hwstate.have_reset,     32, PSTR(STR_DET_RESET));
 
-        _report_det(hwstate.have_ar,        14, PSTR(STR_DET_AR));
-        _report_det(hwstate.have_bus,       16, PSTR(STR_DET_BUS));
-        _report_det(hwstate.have_agl,       18, PSTR(STR_DET_AGL));
-        _report_det(hwstate.have_cs,        20, PSTR(STR_DET_CS));
-        _report_det(hwstate.have_mbu,       22, PSTR(STR_DET_MBU));
+        _report_det(hwstate.have_ir,        40, PSTR(STR_DET_IR));
+        _report_det(hwstate.have_ucv,       42, PSTR(STR_DET_UCV));
+        _report_det(hwstate.have_ism,       44, PSTR(STR_DET_ISM));
+        _report_det(hwstate.have_flag_unit, 48, PSTR(STR_DET_FLAG_UNIT));
 
-        _report_det(hwstate.have_pc,        24, PSTR(STR_DET_PC));
-        _report_det(hwstate.have_dr,        26, PSTR(STR_DET_DR));
-        _report_det(hwstate.have_ac,        28, PSTR(STR_DET_AC));
-        _report_det(hwstate.have_sp,        30, PSTR(STR_DET_SP));
-        _report_det(hwstate.have_fl,        32, PSTR(STR_DET_FL));
-        _report_det(hwstate.have_fv,        34, PSTR(STR_DET_FV));
+        _report_det(hwstate.have_ar,        60, PSTR(STR_DET_AR));
+        _report_det(hwstate.have_bus,       62, PSTR(STR_DET_BUS));
+        _report_det(hwstate.have_agl,       64, PSTR(STR_DET_AGL));
+        _report_det(hwstate.have_cs,        66, PSTR(STR_DET_CS));
+        _report_det(hwstate.have_mbu,       68, PSTR(STR_DET_MBU));
 
-        _report_det(hwstate.have_porta,     36, PSTR(STR_DET_PORTA));
-        _report_det(hwstate.have_portb,     38, PSTR(STR_DET_PORTB));
-        _report_det(hwstate.have_alu,       40, PSTR(STR_DET_ALU));
-        _report_det(hwstate.have_sru,       42, PSTR(STR_DET_SRU));
-        _report_det(hwstate.have_swab,      44, PSTR(STR_DET_SWAB));
+        _report_det(hwstate.have_pc,        80, PSTR(STR_DET_PC));
+        _report_det(hwstate.have_dr,        82, PSTR(STR_DET_DR));
+        _report_det(hwstate.have_ac,        84, PSTR(STR_DET_AC));
+        _report_det(hwstate.have_sp,        86, PSTR(STR_DET_SP));
+        _report_det(hwstate.have_fl,        88, PSTR(STR_DET_FL));
+        _report_det(hwstate.have_fv,        90, PSTR(STR_DET_FV));
+
+        _report_det(hwstate.have_porta,    100, PSTR(STR_DET_PORTA));
+        _report_det(hwstate.have_portb,    102, PSTR(STR_DET_PORTB));
+        _report_det(hwstate.have_alu,      104, PSTR(STR_DET_ALU));
+        _report_det(hwstate.have_sru,      106, PSTR(STR_DET_SRU));
+        _report_det(hwstate.have_swab,     108, PSTR(STR_DET_SWAB));
+
+        // Say we're done so a dynamic parser knows to stop reading.
+        report_pstr(PSTR(STR_DONE));
 }
 
 

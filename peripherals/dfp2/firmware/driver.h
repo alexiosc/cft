@@ -68,6 +68,18 @@ typedef struct {
 
         // Flags for detected (and operational) units
         uint8_t   have_dfp:1;        // The DFP board has been detected. (pretty basic)
+        uint8_t   have_pod_ucv0;     // Microcode Control Vector Pod, RADDR field
+        uint8_t   have_pod_ucv1;     // Microcode Control Vector Pod, WADDR field
+        uint8_t   have_pod_ucv2;     // Microcode Control Vector Pod, ACTION & COND fields
+        uint8_t   have_pod_ibus0;    // IBus, bits 0-7
+        uint8_t   have_pod_ibus1;    // IBus, bits 8-15
+        uint8_t   have_pod_ab0;      // Address Bus Pod, bits 0-7
+        uint8_t   have_pod_ab1;      // Address Bus Pod, bits 8-15
+        uint8_t   have_pod_ab2;      // Address Bus Pod, bits 16-23
+        uint8_t   have_pod_db0;      // Data Bus Pod, bits 0-7
+        uint8_t   have_pod_db1;      // Data Bus Pod, bits 8-15
+
+        // Units on PB0
         uint8_t   have_clock:1;      // PB0: Clock generator
         uint8_t   have_reset:1;      // PB0: Reset
         uint8_t   have_ir:1;         // PB0: Instruction Register
@@ -82,6 +94,7 @@ typedef struct {
         uint8_t   have_bus:1;        // PB0: Address/Data Bus driver
         uint8_t   have_ism:1;        // PB0: Interrupt State Machine (detected via FI)
 
+        // Units on PB1
         uint8_t   have_porta:1;      // PB1: ALU Port A (implicitly detected)
         uint8_t   have_portb:1;      // PB1: ALU Port B
         uint8_t   have_alu:1;        // PB1: ALU ROMs
@@ -196,9 +209,6 @@ extern ringbuf_t ringbuf;
 ///////////////////////////////////////////////////////////////////////////////
 
 void read_full_state(); // Updates the entire virtual front panel synchronously
-
-void read_dip_switches();       // Read the DIP Switches
-
 
 // Control Unit functionality
 

@@ -23,6 +23,9 @@
 inline void
 init()
 {
+        // Start with terminal bells and whistles.
+        uistate.is_term = 1;
+        
         // Initialise hardware. Also run diagnostics at appropriate points
         // during the initialisation process.
 	hw_init();

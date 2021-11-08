@@ -73,6 +73,20 @@ style_async()
 
 
 void
+style_success()
+{
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;32m"));
+}
+
+
+void
+style_warn()
+{
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;33m"));
+}
+
+
+void
 style_error()
 {
 	if (uistate.is_term) report_pstr(PSTR("\033[0;1;31m"));
@@ -146,6 +160,51 @@ report_pstr(const char *msg)
 #else
 	while ((c = *msg++) != '\0') {
 #endif
+                if (uistate.output_state == 1) {
+                        uistate.output_state = 0;
+                        switch (c) {
+                        case '0':
+                                style_off();
+                                continue;
+                        case '1':
+                                style_on();
+                                continue;
+                        case 'i':
+                        case 'I':
+                                style_info();
+                                continue;
+                        case 's':
+                        case 'S':
+                                style_success();
+                                continue;
+                        case 'W':
+                        case 'w':
+                                style_warn();
+                                continue;
+                        case 'E':
+                        case 'e':
+                                style_error();
+                                continue;
+                        case 'N':
+                        case 'n':
+                                style_normal();
+                                continue;
+                        case 'H':
+                        case 'h':
+                                style_hibit();
+                                continue;
+                        case '<':
+                                style_input();
+                                continue;
+                        case 'A':
+                        case 'a':
+                                style_async();
+                                continue;
+                        default:
+                                serial_write('~');
+                                serial_write(c);
+                        }
+                }
 
 		// Decompress help string components and process characters.
 		switch (c) {
@@ -188,6 +247,9 @@ report_pstr(const char *msg)
                 case 20:
 			report_pstr(PSTR(": "));
 			break;
+                case '~':
+                        uistate.output_state = 1;
+                        break;
 		case '\n':
 			// Convert \n to \r\n, which is fairly standard practice on
 			// terminal comms.
@@ -326,6 +388,41 @@ _report(const char *result, const char *msg)
 	
 	if (result != NULL) report_pstr((char *)result);
 	if (msg != NULL) report_pstr((char *)msg);
+	report_nl();
+}
+
+
+void
+report_bin_value(const char *msg, uint16_t val, uint8_t bits)
+{
+	if (uistate.in_console) return;
+	report_pstr((char *)msg);
+	style_info();
+	report_bin_pad(val, bits);
+	style_normal();
+	report_nl();
+}
+
+
+void
+report_int16_value(const char *msg, int16_t val)
+{
+	if (uistate.in_console) return;
+	report_pstr((char *)msg);
+	style_info();
+	report_int(val);
+	style_normal();
+	report_nl();
+}
+
+void
+report_uint16_value(const char *msg, uint16_t val)
+{
+	if (uistate.in_console) return;
+	report_pstr((char *)msg);
+	style_info();
+	report_uint(val);
+	style_normal();
 	report_nl();
 }
 

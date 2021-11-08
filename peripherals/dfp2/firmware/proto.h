@@ -44,6 +44,8 @@ typedef struct uistate {
 
 	uint8_t  abort_stepping:1; // Stepping has been aborted.
 
+        uint8_t  output_state:1;    // Expecting a style character.
+
 	uint32_t addr;		   // The current UI address.
 } uistate_t;
 

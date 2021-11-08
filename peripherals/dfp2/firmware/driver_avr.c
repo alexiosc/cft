@@ -2555,13 +2555,117 @@ _fault(const char *msg)
 }
 
 
-static void
-_dfp_detect()
+// Pod detection strategy:
+// 
+// 1. Drive the pod output (done before calling this function)
+// 2. Write a value to a pod.
+// 3. Strobe SAMPLE to read from the pod.
+// 4. Stop driving for good measure.
+// 5. If the read value is the written value, the pod exists.
+//
+// Repeat this for all 8-bit values as a test. Keep a running AND and running
+// OR of read values. For detection:
+//
+// * All values must match.
+// * (sanity) Running AND must be 0x00
+// * (sanity) Running OR must be 0xff
+//
+// If all values were the pod's address, then the pod isn't present at
+// all. (nothing driving the data bus, so the XMEM address is still present on
+// it)
+//
+// If AND is non-zero, one or more bits are stuck high. Report AND and OR.
+// If OR is != 0xff, one or more bits are stuck low. Report AND and OR.
+//
+// Note: because of the way we've set up hwstate, this function has a bunch of
+// case statements.
+
+static errno_t
+dfp_detect_pod(const char *msg, const xmem_addr_t addr)
+{
+        uint8_t  and = 255;
+        uint8_t  or = 0;
+        uint16_t val = 0;
+        uint16_t matches_addr = 0;
+        uint16_t faults = 0;
+
+        report_pstr(msg);       // Pod detection message. (no newline)
+
+        for (uint16_t val = 0; val <= 255; val++) {
+                xmem_write(addr, 0);
+                sample();
+                uint8_t x = xmem_read(addr);
+
+                // Tally it
+                and &= x;
+                or |= x;
+                
+                // We don't report this as a mismatched value, even when it
+                // is. If the pod is missing entirely, all values will match
+                // its XMEM address, and we don't want to report mismatched
+                // values for missing pods. It's not pertinent.
+                if (x == addr) {
+                        matches_addr++;
+                        continue;
+                }
+
+                if (x != val) {
+                        if (faults == 0) {
+                                report_pstr(PSTR(STR_DET_FAULTY));
+                        }
+                        faults++;
+                        if (faults < 20) {
+                                report_mismatch(PSTR(STR_NVMIS), val, x);
+                        } else if (faults == 20) {
+                                report_pstr(PSTR(STR_SUPPMIS));
+                        }
+                }
+        } while (++val);
+        tristate_buses();       // Can't hurt!
+
+        // If all values read matched the address, nothing on the bus
+        // responded. The pod is missing.
+        if (matches_addr == 256) {
+                report_pstr(PSTR(STR_DET_ABSENT));
+                return ERR_NOUNIT;
+        }
+
+        // If faults were reported, then also print out the map of potential
+        // stuck bits.
+        if (faults) {
+                report_uint16_value(PSTR(STR_NMISMATCH), faults);
+                if (and != 0) {
+                        report_bin_value(PSTR(STR_STUCKHI), and, 8);
+                }
+                if (or != 255) {
+                        report_bin_value(PSTR(STR_STUCKLO), or ^ 0xff, 8);
+                }
+                return ERR_FAULTY; // Is it Basil Fawlty?
+        }
+
+        // We tortured it and it still works. Must be fine, then.
+        report_pstr(PSTR(STR_DET_PASS));
+        return ERR_SUCCESS;
+}
+        
+
+
+// This function detects the presence of the DFP. Performs some basic sanity
+// checks on the board, and detects what I/O pods are present.
+
+static errno_t
+dfp_detect()
 {
         // Superfluous, but done for good measure.
         fp_grab();
         assert_halt();
         tristate_ucv();
+        report_pstr(PSTR(STR_D_DFP));
+
+        // Just in case, idle the control fields.
+        xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+        xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+        xmem_write(XMEM_ACTION, 0);    // Idle ACTION (and COND)
 
         // Ensure the detection pin is an input, and pulled up.
         clearbit(DDRK, K_DFPDETECT); // Set as input
@@ -2575,8 +2679,8 @@ _dfp_detect()
         } else {
                 // No DFP detected. Say so and exit here (no more testing).
                 hwstate.have_dfp = 0;
-                report_pstr(PSTR(STR_NO_DFP));
-                return;
+                report_pstr(PSTR(STR_DET_ABSENT));
+                return ERR_NOUNIT;
         }
 
         // Let's drive µCVOE and see if we can read it on the K_DFPDETECT pin.
@@ -2586,8 +2690,8 @@ _dfp_detect()
                 // µCV is asserted (low) but the detection pin is still
                 // high. No DFP detected.
                 hwstate.have_dfp = 0;
-                report_pstr(PSTR(STR_NO_DFP));
-                return;
+                report_pstr(PSTR(STR_DET_ABSENT));
+                return ERR_NOUNIT;
         }
 
         // If we de-assert µCVOE, we should be getting a high level.
@@ -2595,8 +2699,9 @@ _dfp_detect()
 
         if (!getbit(PINK, K_DFPDETECT)) {
                 hwstate.have_dfp = 0;
+                report_pstr(PSTR(STR_DET_FAULTY));
                 _fault(PSTR(STR_DFPFAULT1));
-                return;
+                return ERR_FAULTY;
         }
 
         // Disable the detection pin again.
@@ -2624,10 +2729,60 @@ _dfp_detect()
                 uint8_t data =  *((volatile uint8_t *)(r));
                 if (data != r) {
                         hwstate.have_dfp = 0;
+                        report_pstr(PSTR(STR_DET_FAULTY));
                         _fault(PSTR(STR_DFPFAULT2));
-                        break;
+                        return ERR_FAULTY;
                 }
         }
+
+        if (hwstate.have_dfp) {
+                report_pstr(PSTR(STR_DET_PASS));
+                return ERR_SUCCESS;
+        }
+
+        return ERR_NOUNIT;      // For sanity
+}
+
+static void
+dfp_detect_pods()
+{
+        fp_grab();
+        assert_halt();
+        tristate_buses();
+
+        // UCV Pods
+        _drive_ucv();
+        hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS;
+
+        _drive_ucv();
+        hwstate.have_pod_ucv1 = dfp_detect_pod(PSTR(STR_D_POD_UCV1), XMEM_WADDR) == ERR_SUCCESS;
+
+        _drive_ucv();
+        hwstate.have_pod_ucv2 = dfp_detect_pod(PSTR(STR_D_POD_UCV2), XMEM_ACTION) == ERR_SUCCESS;
+
+        // IBus Pods
+        _drive_ibus();
+        hwstate.have_pod_ibus0 = dfp_detect_pod(PSTR(STR_D_POD_IBUS0), XMEM_ACTION) == ERR_SUCCESS;
+
+        _drive_ibus();
+        hwstate.have_pod_ibus1 = dfp_detect_pod(PSTR(STR_D_POD_IBUS1), XMEM_ACTION) == ERR_SUCCESS;
+
+        // AB Pods
+        _drive_ab();
+        hwstate.have_pod_ab0 = dfp_detect_pod(PSTR(STR_D_POD_AB0), XMEM_ACTION) == ERR_SUCCESS;
+
+        _drive_ab();
+        hwstate.have_pod_ab1 = dfp_detect_pod(PSTR(STR_D_POD_AB1), XMEM_ACTION) == ERR_SUCCESS;
+
+        _drive_ab();
+        hwstate.have_pod_ab2 = dfp_detect_pod(PSTR(STR_D_POD_AB2), XMEM_ACTION) == ERR_SUCCESS;
+
+        // DB Pods
+        _drive_db();
+        hwstate.have_pod_db0 = dfp_detect_pod(PSTR(STR_D_POD_DB0), XMEM_ACTION) == ERR_SUCCESS;
+
+        _drive_db();
+        hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_ACTION) == ERR_SUCCESS;
 }
 
 
@@ -2644,11 +2799,12 @@ dfp_diags()
         deassert_fpreset();
         deassert_fprsthold();
 
-        _dfp_detect();
-        // 
+        dfp_detect();
+        // No sense looking for pods without a healthy DFP board.
+        if (hwstate.have_dfp) {
+                dfp_detect_pods();
+        }
                         
-        uint8_t dfp_detection = (getbit(PORTK, K_DFPDETECT) == getbit(PORTK, K_NUCVOE));
-
         #if 0
         /**/ dfp_diags_fpd_quiescence();
         /**/ dfp_diags_ibus_quiescence();

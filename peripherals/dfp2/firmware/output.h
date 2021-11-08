@@ -30,6 +30,10 @@ void style_off();
 
 void style_async();
 
+void style_success();
+
+void style_warn();
+
 void style_error();
 
 
@@ -63,6 +67,12 @@ void report_bin_pad(uint16_t val, uint8_t bits);
 void report_ok(char *msg);
 
 #define report_error(msg) { style_error(); report_pstr(msg); }
+
+void report_bin_value(const char *msg, uint16_t val, uint8_t bits);
+
+void report_int16_value(const char *msg, int16_t val);
+
+void report_uint16_value(const char *msg, uint16_t val);
 
 void report_hex_value(const char *msg, uint32_t val, uint8_t pad);
 

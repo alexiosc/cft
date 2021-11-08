@@ -15,6 +15,18 @@
 
 // 1xx: Boot-time Diagnostics
 #define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
+#define STR_D_DFP      "1xx DFP board:"
+#define STR_D_POD_UCV0 "1xx µCV POD low (RADDR):"
+#define STR_D_POD_UCV1 "1xx µCV POD mid (WADDR):"
+#define STR_D_POD_UCV2 "1xx µCV POD high (ACTION, COND):"
+#define STR_D_POD_AB0  "1xx AB POD low:"
+#define STR_D_POD_AB1  "1xx AB POD mid:"
+#define STR_D_POD_AB2  "1xx AB POD high:"
+#define STR_D_POD_DB0   "1xx DB POD low:"
+#define STR_D_POD_DB1   "1xx DB POD mid:"
+#define STR_D_POD_IBUS0 "1xx IBus POD low:"
+#define STR_D_POD_IBUS1 "1xx IBus POD mid:"
+
 #define STR_D_FPDQ  "101 DFP Quiescence: "
 #define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
 #define STR_D_ABLQ  "103 AB LSW Bus Hold & Quiescence: "
@@ -56,6 +68,8 @@
 #define STR_WU      "264 Write value: "
 #define STR_WU2          " to IBUS Address: "
 #define STR_ACT     "265 Kicked off action: "
+#define STR_STUCKHI "2xx Bits marked 1 are stuck high: "
+#define STR_STUCKLO "2xx Bits marked 1 are stuck low: "
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -85,7 +99,6 @@
 #define STR_GSSP     "55 SP: "
 
 // 4xx: Warnings.
-#define STR_NO_DFP   "401 DFP board not detected (running on a disconnected Arduino board)\n"
 #define STR_WNOCTL   "410 CTL board not detected\n"
 #define STR_WNOREG   "411 REG board not detected\n"
 #define STR_WNOALU   "412 ALU board not detected\n"
@@ -118,6 +131,17 @@
 
 // 7xx: Unit detection messages
 #define STR_DET_DFP         " DFP board:                      "
+#define STR_DET_POD_UCV0    " DFP µCV0 pod (RADDR):           "
+#define STR_DET_POD_UCV1    " DFP µCV1 pod (WADDR):           "
+#define STR_DET_POD_UCV2    " DFP µCV2 pod (ACTION & COND):   "
+#define STR_DET_POD_IBUS0   " DFP IBus low pod:               "
+#define STR_DET_POD_IBUS1   " DFP IBus high pod):             "
+#define STR_DET_POD_AB0     " DFP Address Bus low pod:        "
+#define STR_DET_POD_AB1     " DFP Address Bus mid pod:        "
+#define STR_DET_POD_AB2     " DFP Address Bus high pod:       "
+#define STR_DET_POD_DB0     " DFP Data Bus low pod:           "
+#define STR_DET_POD_DB1     " DFP Data Bus low pod:           "
+
 #define STR_DET_CLOCK       " Clock generator:                "
 #define STR_DET_RESET       " Reset circuitry:                "
 #define STR_DET_IR          " Instruction Register (IR):      "
@@ -131,8 +155,10 @@
 #define STR_DET_AR          " Address Register (AR):          "
 #define STR_DET_BUS         " Expansion Bus driver:           "
 #define STR_DET_ISM         " Interrupt State Machine:        "
-#define STR_DET_PRESENT     " present\n"
-#define STR_DET_ABSENT      " absent\n"
+#define STR_DET_PASS        " ~Spresent & healthy~N\n"
+#define STR_DET_PRESENT     " ~Spresent~N\n"
+#define STR_DET_FAULTY      " ~Efaulty~N\n"
+#define STR_DET_ABSENT      " ~Wabsent~N\n"
 
 #define STR_DET_PORTA       " ALU Port A:                     "
 #define STR_DET_PORTB       " ALU Port B:                     "
@@ -153,6 +179,8 @@
 #define STR_NVMIS     "910 Value mismatch. Wrote "
 #define STR_INCMIS    "911 Reg inc failure. Inc'ed to "
 #define STR_DECMIS    "912 Reg dec failure. Dec'ed to "
+#define STR_SUPPMIS   "9xx Suppressing further mismatch messages."
+#define STR_NMISMATCH "9xx Total value mismatches: "
 
 #define STR_WAS          ", read back "
 
