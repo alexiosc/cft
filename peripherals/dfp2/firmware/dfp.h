@@ -154,12 +154,13 @@ typedef enum {
 	/**/ XMEM_PC_L    = 0x06,	//  6 C2 C27: PC bits 0–7
 	/**/ XMEM_IRQ_EN  = 0x07,	//  7 D2 C40: IRQs enabled
 
-	/**/ XMEM_FLAGS   = 0x08,	//  8 A3 C13: flags
+	XMEM_CTX   = 0x08,	        //  8 3A MFD=XXX (GAL A, pin 19): CTX
+
 	/**/ XMEM_AC_H    = 0x09,	//  9 B3 C20: AC bits 8–15
 	/**/ XMEM_AC_L    = 0x0a,	// 10 C3 C28: AC bits 0–7
 	/**/ XMEM_FP_D3   = 0x0b,	// 11 D3 C37: TBD, for expansion
 
-	/**/ XMEM_FP_A4   = 0x0c,	// 12 A4 C12: (TBD)
+	XMEM_FLAGS = 0x0c,	        // 12 4A MFD=XXX (GAL B, pin 18): Flags
 	/**/ XMEM_MFD_H   = 0x0d,    // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
 	/**/ XMEM_MFD_L   = 0x0e,    // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
 	/**/ XMEM_FP_D4   = 0x0f,    // 15 D4 C38: TBD, for expansion

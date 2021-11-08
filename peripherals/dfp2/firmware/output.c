@@ -169,6 +169,8 @@ report_pstr(const char *msg)
                         case '1':
                                 style_on();
                                 continue;
+                        case 'b':
+                        case 'B':
                         case 'i':
                         case 'I':
                                 style_info();
@@ -187,6 +189,7 @@ report_pstr(const char *msg)
                                 continue;
                         case 'N':
                         case 'n':
+                        case '.':
                                 style_normal();
                                 continue;
                         case 'H':

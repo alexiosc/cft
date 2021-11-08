@@ -97,11 +97,8 @@ static void dfp_diags();
 #define __SCK        PB1 /**/        // SCK (programming, not used)
 #define __MOSI       PB2 /**/        // MOSI (programming, not used)
 #define __MISO       PB3 /**/        // MISO (programming, not used)
-#define B_FPCLKEN    PB5 /**/        // O. to clock generator. 1=Clock enable.
                      
 // Port C: Bus Enables & Control
-
-#define C_CLRWS      PC0 /**/       // O. RE: done with transaction, clear WS
 
 // Port D: Panel & Run Control
 
@@ -117,12 +114,7 @@ static void dfp_diags();
 #define E_RXD        PE0 /**/       // USART, not used directly.
 #define E_TXD        PE1 /**/       // USART, not used directly.
 #define E_NFPIRQ     PE2 /**/       // O. AL: signal (jumper configurable) IRQ to processor
-#define E_MFD0       PE3 /**/       // O. Set MFD value. (low bit)
-#define E_MFD1       PE4 /**/       // O. Set MFD value. (high bit)
                              
-#define E_MFDMASK    (BV(E_MFD0) | BV(E_MFD1)) // The MFD mask
-#define E_MFDSHIFT   (E_MFD0)                  // The MFD shift value
-
 // Port F: Front panel switches
 
 #define F_SWA0       PF0 /**/       // O. FP switch address, bit 0.
@@ -165,8 +157,14 @@ static void dfp_diags();
 //    1          1       MCU can write to front panel.
 
 // Port B.
+#define B_MFD0       PB1    // O. Set MFD value.
+#define B_MFD1       PB2    // O. Set MFD value.
+#define B_MFD2       PB3    // O. Set MFD value.
 #define B_LED_STOP   PB4    // O. to FP. Controls the STOP LED. (FP scanner must be running)
 #define B_LED        PB7    // O.    Built-in Arduino LED.
+
+#define B_MFDMASK    (BV(B_MFD0) | BV(B_MFD1) | BV(B_MFD2)) // The MFD mask
+#define B_MFDSHIFT   (E_MFD0)   // The MFD shift value
 
 // Port C.
 #define C_NBUSEN     PC0    // O.    0: DFP drives the FP bus. 1: autoscan drives.
@@ -189,6 +187,7 @@ static void dfp_diags();
 
 // Port K: Bus enables etc.
 
+#define K_CLRWS      PK0    // O. RE: done with transaction, clear WS
 #define K_NIBOE      PK1    // O. AL: drive IBUS
 #define K_NABOE      PK2    // O. AL: drive AB (Address Bus)
 #define K_NDBOE      PK3    // O. AL: drive DB (Data Bus)
@@ -202,6 +201,7 @@ static void dfp_diags();
 #define L_LED_PANEL  PL1    // O. Control PANEL LED. (switch activity)
 #define L_LED_ACT    PL3    // O. Control ACT LED. (receive chars from TTYD)
 #define L_FPROM      PL4    // O. To MBU. 0=RAM-only, 1=ROM & RAM.
+#define L_FPCLKEN    PL5    // O. to clock generator. 1=Clock enable.
 #define L_UNUSED     PL6    // (keep at High-Z, connected to PE5).
 #define L_BUSCP      PL7    // O. RE: input FFs sample data.
 
@@ -443,6 +443,10 @@ read_full_state()
                 hwstate.ucv_m = xmem_read(XMEM_UCV_M);
                 hwstate.ucv_l = xmem_read(XMEM_UCV_L);
 
+                // Also sample the flags.
+                hwstate.flags = xmem_read(XMEM_FLAGS);
+                hwstate.ctx = xmem_read(XMEM_CTX);
+
                 // The DIP Switch Registers are directly attached to the DFP,
                 // but still read the same way. (except there's no need to call
                 // sample() because they're not pods).
@@ -452,6 +456,24 @@ read_full_state()
                 
                 fp_scanner_start();
         }
+}
+
+
+void
+read_mbr(int n)
+{
+        // Algorithm:
+        //
+        // Ensure the processor is halted.
+        // Read and save IR.
+        // Write n to IR to select MBR.
+        // Read and save µCV.
+        // Set µCv to RADDR=read_mbn, WADDR=ACTION=COND=0.
+        // Read from IBus. MBR value is in low order bits.
+        // Set µCv to saved value.
+        // Restore saved IR.
+
+        // TODO: Write this.
 }
 
 
@@ -767,7 +789,7 @@ clk_fast()
 
         hwstate.clk_fast = 1;
         TCCR1A = 0;                  // Disable the MCU slow clock timer
-        /**/ setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
+        setbit(PORTL, L_FPCLKEN);    // Enable the CFT's clock generator.
 }
 
 
@@ -777,7 +799,7 @@ clk_setfreq(uint8_t prescaler, uint16_t div)
         /**/ hwstate.clk_prescaler = prescaler;
         /**/ hwstate.clk_div = div;
 
-        /**/ clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
+        clearbit(PORTL, L_FPCLKEN); // Disable the CFT's own clock;
 
         // COM1A = 00
         // COM1B = 01 (toggle OC1B on compare match)
@@ -838,9 +860,9 @@ clk_stop()
         /**/ TCCR1A = 0;                // Disconnect FPUSTEP-IN pin, no pulses.
 
         // And now disable the processor's full-speed clock too.
-        /**/ clearbit(PORTB, B_FPCLKEN);
+        clearbit(PORTL, L_FPCLKEN);
 
-        /**/ hwstate.clk_stopped = 1;
+        hwstate.clk_stopped = 1;
 }
 
 
@@ -1014,14 +1036,14 @@ fp_release()
 void
 fp_write(uint8_t module, uint8_t row, uint8_t value)
 {
-        /**/ xmem_write((row << 2) | (module & 3), value);
+        xmem_write((row << 2) | (module & 3), value);
 }
 
 
 inline static void
 fp_write_addr(xmem_addr_t addr, uint8_t value)
 {
-        /**/ xmem_write(addr & 0xff, value);
+        xmem_write(addr & 0xff, value);
 }
 
 
@@ -1030,28 +1052,28 @@ set_mfd(mfd_t mfd)
 {
         // The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
         // respectively, so this task is relatively simple.
-        /**/ PORTE = (PORTE & (~E_MFDMASK)) | ((mfd & 3) << E_MFD0);
+        PORTB = (PORTB & (~B_MFDMASK)) | ((mfd & 7) << B_MFD0);
 }
 
 
 inline word_t
 get_or()
 {
-        /**/ return (hwstate.or_h << 8) | hwstate.or_l;
+        return (hwstate.or_h << 8) | hwstate.or_l;
 }
 
 
 void
 set_or(word_t value)
 {
-        /**/ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        /**/         hwstate.or_l = value & 0xff;
-        /**/         hwstate.or_h = (value >> 8) & 0xff;
-        /**/         fp_scanner_stop();
-        /**/         xmem_write(XMEM_OR_H, hwstate.or_h);
-        /**/         xmem_write(XMEM_OR_L, hwstate.or_l);
-        /**/         fp_scanner_start();
-        /**/ }
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                hwstate.or_l = value & 0xff;
+                hwstate.or_h = (value >> 8) & 0xff;
+                fp_scanner_stop();
+                xmem_write(XMEM_OR_H, hwstate.or_h);
+                xmem_write(XMEM_OR_L, hwstate.or_l);
+                fp_scanner_start();
+        }
 }
 
 
@@ -1084,8 +1106,8 @@ fp_stop_light_test()
 inline static void
 clear_ws()
 {
-        /**/ clearbit(PORTC, C_CLRWS);
-        /**/ setbit(PORTC, C_CLRWS);
+        clearbit(PORTK, K_CLRWS);
+        setbit(PORTK, K_CLRWS);
 }
 
 
@@ -1201,15 +1223,15 @@ hw_init()
         
         avr_init();             // not fully ported
         tristate_buses();
-        /**/ rc_freeze();
-        /**/ clear_ws();
+        rc_freeze();
+        clear_ws();
 
         // Enable interrupts for CFT-originated transactions
         // Wait for the CFT to be able to use these before enabling.
         enable_cft_interrupts();
 
         // Initialise switch debouncing and enable switch timer ISR
-        /**/ sw_init();
+        sw_init();
 
         // Initialise serial port and interrupts
         serial_init();
@@ -1218,6 +1240,8 @@ hw_init()
         _delay_ms(100);
 
         // We're booting. Let'em know.
+        report_bin_pad(hwstate.last_reset, 8);
+        report_nl();
         report_pstr(PSTR(STR_BOOTUP));
 
         fp_grab();
@@ -2540,6 +2564,7 @@ _fault(const char *msg)
 {
         report_pstr(msg);
         cli();
+        hwstate.is_faulty = 1;
 
         // Crash here. The watchdog will cold reset us in a bit.
         wdt_enable(WATCHDOG_TIMEOUT);
@@ -2633,6 +2658,7 @@ dfp_detect_pod(const char *msg, const xmem_addr_t addr)
         // If faults were reported, then also print out the map of potential
         // stuck bits.
         if (faults) {
+                hwstate.is_faulty = 1;
                 report_uint16_value(PSTR(STR_NMISMATCH), faults);
                 if (and != 0) {
                         report_bin_value(PSTR(STR_STUCKHI), and, 8);
@@ -2699,6 +2725,7 @@ dfp_detect()
 
         if (!getbit(PINK, K_DFPDETECT)) {
                 hwstate.have_dfp = 0;
+                hwstate.is_faulty = 1;
                 report_pstr(PSTR(STR_DET_FAULTY));
                 _fault(PSTR(STR_DFPFAULT1));
                 return ERR_FAULTY;
@@ -2729,6 +2756,7 @@ dfp_detect()
                 uint8_t data =  *((volatile uint8_t *)(r));
                 if (data != r) {
                         hwstate.have_dfp = 0;
+                        hwstate.is_faulty = 1;
                         report_pstr(PSTR(STR_DET_FAULTY));
                         _fault(PSTR(STR_DFPFAULT2));
                         return ERR_FAULTY;
@@ -2806,7 +2834,7 @@ dfp_diags()
         }
                         
         #if 0
-        /**/ dfp_diags_fpd_quiescence();
+soup        /**/ dfp_diags_fpd_quiescence();
         /**/ dfp_diags_ibus_quiescence();
         /**/ dfp_diags_ab_lsw_quiescence();
         /**/ dfp_diags_ab_msw_quiescence();

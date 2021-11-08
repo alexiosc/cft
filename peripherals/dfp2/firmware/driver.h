@@ -49,6 +49,12 @@ typedef struct {
 	uint8_t   sp_l, sp_h;
 	uint8_t   ucv_l, ucv_m, ucv_h;
 
+        // Memory management
+        uint8_t   ctx;
+
+        // Flags
+        uint8_t   flags;
+
 	// Direct Outputs
 	uint8_t   or_l, or_h;	     // Last set value of the OR
 
@@ -105,6 +111,7 @@ typedef struct {
         uint8_t   have_ac:1;         // PB1: Accumulator
         uint8_t   have_sp:1;         // PB1: Stack Pointer
 
+        uint8_t   is_faulty:1;       // Faulty units detected        
 	uint8_t   is_busy:1;         // The DFP is busy.
 	uint8_t   is_booting:1;      // Blink the PANEL light during boot/diagnostics.
 

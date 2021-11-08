@@ -25,7 +25,7 @@
 #define STR_D_POD_DB0   "1xx DB POD low:"
 #define STR_D_POD_DB1   "1xx DB POD mid:"
 #define STR_D_POD_IBUS0 "1xx IBus POD low:"
-#define STR_D_POD_IBUS1 "1xx IBus POD mid:"
+#define STR_D_POD_IBUS1 "1xx IBus POD high:"
 
 #define STR_D_FPDQ  "101 DFP Quiescence: "
 #define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
@@ -188,8 +188,9 @@
 #define STR_PRUN       "[running]" STR_PROMPT
 #define STR_PRUN       "[running]" STR_PROMPT
 
-#define STR_PSTOP      "[halted] "
-#define STR_MCU_ONLY   "[µC only] "
+#define STR_PFAULTY    "~E[fault]~. "
+#define STR_PSTOP      "~B[halted]~. "
+#define STR_PNODFP     "~B[µC only]~. "
 
 // #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"

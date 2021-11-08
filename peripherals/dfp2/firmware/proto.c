@@ -348,15 +348,14 @@ proto_prompt()
 
         // TODO: Reinstate this.
         // if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
+        if (hwstate.is_faulty) {
+                report_pstr(PSTR(STR_PFAULTY));
+        }
         if (!hwstate.have_dfp) {
-                style_info();
-                report_pstr(PSTR(STR_MCU_ONLY));
-                style_normal();
+                report_pstr(PSTR(STR_PNODFP));
         }
         if (hwstate.is_halted) {
-                style_info();
                 report_pstr(PSTR(STR_PSTOP));
-                style_normal();
                 report_hex(uistate.addr, 6);
                 report_pstr(PSTR(STR_PROMPT));
         } else {
@@ -965,15 +964,12 @@ _report_det(uint8_t flag, uint16_t num, const char *str)
         if (flag) {
                 report_int(701 + num);
                 report_pstr(str);
-                style_on();
                 report_pstr(PSTR(STR_DET_PRESENT));
         } else {
                 report_int(700 + num);
                 report_pstr(str);
-                style_off();
                 report_pstr(PSTR(STR_DET_ABSENT));
         }
-        style_normal();
 }
 
 
