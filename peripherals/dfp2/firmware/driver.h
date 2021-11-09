@@ -118,7 +118,10 @@ typedef struct {
 	uint8_t   fp_autoscan:1;     // The FP scanner is on (AUTOSCAN# asserted)
 	uint8_t   fp_grab:1;         // The DFP controls the front panel
 
+        uint8_t   lts_on:1;          // LTS switch in the ON position
+
 	uint8_t   swdata[8];         // Front Panel Switches
+
 
 	// Switches
 	uint8_t   switches[8];       // 64 switch bits
@@ -243,6 +246,8 @@ word_t get_or();
 
 void set_or(const word_t);	// Output (lights) register
 
+void set_lts(uint8_t on);       // Set LTS ON signal. (1 == extra lights on)
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -266,6 +271,14 @@ typedef enum { reg_ir, reg_pc, reg_dr, reg_ac, reg_sp } reg_t;
 // FIXME: this should probably not be here! (not even implemented in driver_avr)
 uint8_t set_reg(reg_t reg, uint16_t value);
 
+// Flags
+// TODO: Ensure this is the final layout, possibly rewire Board 0's DFP driver.
+
+#define CFL_FN       0x04
+#define CFL_FZ       0x08
+#define CFL_FL       0x10
+#define CFL_FV       0x20
+#define CFL_FI       0x80
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -315,15 +328,6 @@ uint8_t set_reg(reg_t reg, uint16_t value);
 // uint16_t get_rsw();		// Right switches
 
 // void virtual_panel_sample(bool_t quick); // Read the machine state
-
-// #define CFL_FN       0x01
-// #define CFL_FZ       0x02
-// #define CFL_FV       0x04
-// #define CFL_FI       0x08
-// #define CFL_FL       0x10
-// #define CFL_NWAIT    0x20
-// #define CFL_NWEN     0x40
-// #define CFL_NR       0x80	// The R# signal is here too
 
 // #define get_flags get_misc
 // uint8_t get_misc();		// flags, card select signals

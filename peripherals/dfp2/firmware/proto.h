@@ -147,6 +147,10 @@ void go_slow();
 
 void go_creep();
 
+void go_state();
+
+void gs_lts();
+
 uint8_t check_mismatch(uint16_t, uint16_t);
 
 #endif // 0

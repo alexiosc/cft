@@ -111,6 +111,7 @@ static void gs_term();
 static void gs_echo();
 static void gs_mesg();
 static void gs_lock();
+static void gs_lts();
 
 static void go_dfprst();
 
@@ -135,6 +136,8 @@ static void gs_pc();
 static void gs_dr();
 static void gs_ac();
 static void gs_sp();
+
+static void go_state();
 
 static void go_ru();
 static void go_wu();
@@ -713,27 +716,31 @@ parse_hex(char *s)
 char
 parse_bool(char *s)
 {
-/**/ // Minimalist parser for (0/1/on/off/true/false)
-/**/ if (s[0] == '0') return 0; // 0
-/**/ if (s[0] == 'f') return 0; // false
-/**/ if (s[0] == 'o' && s[1] == 'f') return 0; // off
-/**/ if (s[0] == 'n') return 0; // no
-/**/ return 1;
+        // Minimalist parser for (0/1/on/off/true/false)
+        if (s[0] == '0') return 0; // 0
+        if (s[0] == 'f') return 0; // false
+        if (s[0] == 'o' && s[1] == 'f') return 0; // off
+        if (s[0] == 'n') return 0; // no
+
+        if (s[0] == '-') return s[0]; // Special value
+
+        // TODO: Better error handling.
+        return 1;
 }
 
 
 int8_t
 optional_bool_val(uint8_t * bool)
 {
-/**/ char * s = get_arg();
-/**/ if (s == NULL) return 0;
-
-/**/ *bool = parse_bool(s);
-/**/ if (uistate.is_error) {
-/**/         badval();
-/**/         return -1;
-/**/ }
-/**/ return 1;
+        char * s = get_arg();
+        if (s == NULL) return 0;
+        
+        *bool = parse_bool(s);
+        if (uistate.is_error) {
+                badval();
+                return -1;
+        }
+        return 1;
 }
 
 
@@ -829,14 +836,14 @@ check_mismatch(uint16_t should_be, uint16_t was)
 static void
 gs_echo()
 {
-/**/ uint8_t v;
-/**/ int8_t res;
-/**/ res = optional_bool_val(&v);
-/**/ if (res < 0) return;
-/**/ if (res > 0) uistate.is_echo = v ? 1 : 0;
-/**/ // Report current setting.
-/**/ report_gs(res);
-/**/ report_bool_value(PSTR(STR_GSECHO), uistate.is_echo != 0);
+        uint8_t v;
+        int8_t res;
+        res = optional_bool_val(&v);
+        if (res < 0) return;
+        if (res > 0) uistate.is_echo = v ? 1 : 0;
+        // Report current setting.
+        report_gs(res);
+        report_bool_value(PSTR(STR_GSECHO), uistate.is_echo != 0);
 }
 
 
@@ -844,14 +851,14 @@ gs_echo()
 static void
 gs_mesg()
 {
-/**/ uint8_t v;
-/**/ int8_t res;
-/**/ res = optional_bool_val(&v);
-/**/ if (res < 0) return;
-/**/ if (res > 0) uistate.is_mesg = v ? 1 : 0;
-/**/ // Report current setting.
-/**/ report_gs(res);
-/**/ report_bool_value(PSTR(STR_GSMESG), uistate.is_mesg != 0);
+        uint8_t v;
+        int8_t res;
+        res = optional_bool_val(&v);
+        if (res < 0) return;
+        if (res > 0) uistate.is_mesg = v ? 1 : 0;
+        // Report current setting.
+        report_gs(res);
+        report_bool_value(PSTR(STR_GSMESG), uistate.is_mesg != 0);
 }
 
 
@@ -859,14 +866,14 @@ gs_mesg()
 static void
 gs_term()
 {
-/**/ uint8_t v;
-/**/ int8_t res;
-/**/ res = optional_bool_val(&v);
-/**/ if (res < 0) return;
-/**/ if (res > 0) uistate.is_term = v ? 1 : 0;
-/**/ // Report current setting.
-/**/ report_gs(res);
-/**/ report_bool_value(PSTR(STR_GSTERM), uistate.is_echo != 0);
+        uint8_t v;
+        int8_t res;
+        res = optional_bool_val(&v);
+        if (res < 0) return;
+        if (res > 0) uistate.is_term = v ? 1 : 0;
+        // Report current setting.
+        report_gs(res);
+        report_bool_value(PSTR(STR_GSTERM), uistate.is_echo != 0);
 }
 
 
@@ -882,6 +889,28 @@ gs_lock()
 /**/ // Report current setting.
 /**/ report_gs(res);
 /**/ report_bool_value(PSTR(STR_GSLOCK), uistate.is_locked != 0);
+}
+
+void
+gs_lts()
+{
+        uint8_t v;
+        int8_t res;
+        res = optional_bool_val(&v);
+        if (res < 0) return;
+        else if (res == '-') {
+                // TODO: read from switch and update hwstate.lts_on;
+                report_pstr(PSTR(STR_NIMPL));
+                return;
+        }
+        else if (res >= 0) {
+                hwstate.lts_on = v ? 1 : 0;
+                set_lts(hwstate.lts_on);
+        }
+
+        // Report current setting.
+        report_gs(res);
+        report_bool_value(PSTR(STR_LTS), hwstate.lts_on != 0);
 }
 
 
@@ -1711,6 +1740,63 @@ go_act()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// REGISTERS, BUSES AND STATE
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static void
+_report_machine_state()
+{
+        report_pstr(PSTR(STR_STATE_AB));
+        report_hex(((uint32_t)hwstate.ab_h << 16) | (hwstate.ab_m << 8) | hwstate.ab_l, 6);
+
+        report_pstr(PSTR(STR_STATE_DB));
+        report_hex(((uint16_t)hwstate.db_h << 8) | hwstate.db_l, 4);
+
+        report_pstr(PSTR("~N "));
+        report_char(hwstate.flags & CFL_FN ? 'n' : '-');
+        report_char(hwstate.flags & CFL_FZ ? 'z' : '-');
+        report_char(hwstate.flags & CFL_FV ? 'v' : '-');
+        report_char(hwstate.flags & CFL_FI ? 'i' : '-');
+        report_char(hwstate.flags & CFL_FL ? 'l' : '-');
+
+        report_pstr(PSTR(STR_STATE_PC));
+        report_hex(((uint16_t)hwstate.pc_h << 8) | hwstate.pc_l, 4);
+
+        report_pstr(PSTR(STR_STATE_AC));
+        report_hex(((uint16_t)hwstate.ac_h << 8) | hwstate.ac_l, 4);
+
+        report_pstr(PSTR(STR_STATE_DR));
+        report_hex(((uint16_t)hwstate.dr_h << 8) | hwstate.dr_l, 4);
+
+        report_pstr(PSTR(STR_STATE_SP));
+        report_hex(((uint16_t)hwstate.sp_h << 8) | hwstate.sp_l, 4);
+
+        report_pstr(PSTR(STR_STATE_IR));
+        uint16_t ir = ((uint16_t)hwstate.ir_h << 8) | hwstate.ir_l;
+        report_hex(ir, 4);
+
+        // TODO: Reinstate disassembly.
+// #ifdef DISASSEMBLE
+//         report_char(' ');
+//         _disassemble(ir, 1);
+// #endif // DISASSEMBLE
+}
+
+
+static void
+go_state()
+{
+        //if (!assert_proc_present()) return;
+        read_full_state();
+        report_pstr(PSTR(STR_STATE));
+        _report_machine_state();
+        report_nl();
+}
+
+
 
 
 
@@ -2057,41 +2143,6 @@ _disassemble(uint16_t w, uint8_t brief)
 #endif // DISASSEMBLE
 
 
-static void
-_machine_state()
-{
-/**/ //virtual_panel_sample(0);
-/**/ 
-/**/ uint8_t f = get_flags();
-/**/ style_info();
-/**/ report_char(f & CFL_FN ? 'n' : '-');
-/**/ report_char(f & CFL_FZ ? 'z' : '-');
-/**/ report_char(f & CFL_FV ? 'v' : '-');
-/**/ report_char(f & CFL_FI ? 'i' : '-');
-/**/ report_char(f & CFL_FL ? 'l' : '-');
-
-/**/ style_normal();
-/**/ report_pstr(PSTR(STR_PC));
-/**/ style_info();
-/**/ report_hex(get_pc(), 4);
-
-/**/ style_normal();
-/**/ report_pstr(PSTR(STR_AC));
-/**/ style_info();
-/**/ report_hex(get_ac(), 4);
-
-/**/ style_normal();
-/**/ report_pstr(PSTR(STR_IR));
-/**/ style_info();
-/**/ report_hex(get_ir(), 4);
-
-#ifdef DISASSEMBLE
-/**/ report_char(' ');
-/**/ _disassemble(get_ir(), 1);
-#endif // DISASSEMBLE
-}
-
-
 //static char * _strdis PROGMEM = "memio[ar]ALU.AGLPCDRACaddandorxorrollnotcs1cs2 <- ARIR";
 
 // Note: all of these are normally active low on the processor, but
@@ -2306,17 +2357,6 @@ _ustate()
 /**/         report_pstr(IS_DEC(u) ? PSTR("AC- ") : PSTR("AC+ "));
 /**/ }
 /**/ if (IS_END(u)) report_pstr(PSTR("END"));
-}
-
-
-static void
-go_state()
-{
-/**/ if (!assert_proc_present()) return;
-/**/ virtual_panel_sample(0);
-/**/ report_pstr(PSTR(STR_STATE));
-/**/ _machine_state();
-/**/ report_nl();
 }
 
 

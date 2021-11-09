@@ -60,6 +60,19 @@
 #define STR_FPR2         " Value: "
 
 #define STR_SWS     "251 Switch state: "
+#define STR_STATE   "250 Machine state: "
+#define STR_USTATE  "252 Microcode control: "
+#define STR_GSBPT    "59 Breakpoint "
+
+#define STR_STATE_AB     "~N AB:~I"
+#define STR_STATE_DB     "~N DB:~I"
+#define STR_STATE_AC     "~N AC:~I"
+#define STR_STATE_PC     "~N PC:~I"
+#define STR_STATE_DR     "~N DR:~I"
+#define STR_STATE_SP     "~N SP:~I"
+#define STR_STATE_CTX    "~N CTX:~I"
+#define STR_STATE_IR     "~N IR:~I"
+
 #define STR_ABUS    "260 ABUS: "
 #define STR_DBUS    "261 DBUS: "
 #define STR_IBUS    "262 IBUS: "
@@ -70,6 +83,10 @@
 #define STR_ACT     "265 Kicked off action: "
 #define STR_STUCKHI "2xx Bits marked 1 are stuck high: "
 #define STR_STUCKLO "2xx Bits marked 1 are stuck low: "
+
+
+
+
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -91,6 +108,7 @@
 #define STR_GSLOCK   "15 Front panel lock: "
 #define STR_GSOR     "21 Output Register: "
 #define STR_DSR      "22 DIP Switch Register: "
+#define STR_LTS      "xx All panel lights enabled: "
 
 #define STR_GSIR     "51 IR: "
 #define STR_GSPC     "52 PC: "
@@ -245,15 +263,6 @@
 
 #define STR_IN1     "234 IN Address: "
 #define STR_IN2          " Value: "
-
-#define STR_STATE   "250 Machine state: "
-#define STR_USTATE  "252 Microcode control: "
-#define STR_GSBPT    "59 Breakpoint "
-
-#define STR_AC           " AC:"
-#define STR_PC           " PC:"
-#define STR_IR           " IR:"
-
 
 
 #define STR_DUMP    "300 Dumping\n"

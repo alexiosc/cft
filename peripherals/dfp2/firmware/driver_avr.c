@@ -104,7 +104,6 @@ static void dfp_diags();
 
 #define D_NIOINT     PD0 /**/       // Used for incoming interrupts only.
 #define D_NWAIT      PD1 /**/       // I. AL: Run/Stop/Step FSM is (µ)stepping, or reset in progress
-#define D_NLTSON     PD2 /**/       // O. to FP. AL: all FP lights enabled.
 #define D_LED_STOP   PD5 /**/       // O. to FP. Controls the STOP LED. (FP scanner must be running)
 #define D_NSTEP_RUN  PD6 /**/       // O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
 #define D_NMSTEP     PD7 /**/       // O. to Run/Stop/Step FSM. AL: request microstep.
@@ -161,6 +160,7 @@ static void dfp_diags();
 #define B_MFD1       PB2    // O. Set MFD value.
 #define B_MFD2       PB3    // O. Set MFD value.
 #define B_LED_STOP   PB4    // O. to FP. Controls the STOP LED. (FP scanner must be running)
+#define B_NLTSON     PB6    // O. to FP. AL: all FP lights enabled.
 #define B_LED        PB7    // O.    Built-in Arduino LED.
 
 #define B_MFDMASK    (BV(B_MFD0) | BV(B_MFD1) | BV(B_MFD2)) // The MFD mask
@@ -443,7 +443,6 @@ read_full_state()
                 hwstate.ucv_m = xmem_read(XMEM_UCV_M);
                 hwstate.ucv_l = xmem_read(XMEM_UCV_L);
 
-                // Also sample the flags.
                 hwstate.flags = xmem_read(XMEM_FLAGS);
                 hwstate.ctx = xmem_read(XMEM_CTX);
 
@@ -1063,6 +1062,14 @@ get_or()
 }
 
 
+inline void
+set_lts(uint8_t on)
+{
+        if (on) clearbit(PORTB, B_NLTSON);
+        else setbit(PORTB, B_NLTSON);
+}
+
+
 void
 set_or(word_t value)
 {
@@ -1240,8 +1247,6 @@ hw_init()
         _delay_ms(100);
 
         // We're booting. Let'em know.
-        report_bin_pad(hwstate.last_reset, 8);
-        report_nl();
         report_pstr(PSTR(STR_BOOTUP));
 
         fp_grab();
@@ -2834,7 +2839,7 @@ dfp_diags()
         }
                         
         #if 0
-soup        /**/ dfp_diags_fpd_quiescence();
+        /**/ dfp_diags_fpd_quiescence();
         /**/ dfp_diags_ibus_quiescence();
         /**/ dfp_diags_ab_lsw_quiescence();
         /**/ dfp_diags_ab_msw_quiescence();

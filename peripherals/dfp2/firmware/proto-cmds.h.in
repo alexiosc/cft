@@ -29,6 +29,7 @@ static const struct {
        	{"sws",     go_sws,      "-- Show Switch state"},
        	{"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	{"ltest",   go_ltest,    "-- Light test" NL },
+       	{"lts",     gs_lts,      "[ on | off ] -- turn on or off panel quiet mode." NL },
 
  	// Buses
 
@@ -48,8 +49,9 @@ static const struct {
 	{"wu",      go_wu,       "[ WADDR WORD ] -- Write WORD to processor unit WADDR"},
 	{"act",     go_act,      "[ ACTION ] -- Execute processor action"},
 
+	{"s",       go_state,    "-- Current processor status"},
+
 #message "TODO: Evaluate and reinstate commands"
-	// {"s",       go_state,    "-- Current processor status"},
        	// {"us",      go_ustate,   "-- Microcode control state"},
        	// {"dfps",    go_dfps,     "-- Show DFP state"},
 	// {"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit)."},
