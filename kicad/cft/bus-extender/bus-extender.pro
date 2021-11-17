@@ -1,4 +1,4 @@
-update=Thu 15 Jul 2021 10:30:56 EEST
+update=Mon Nov 15 13:24:38 2021
 version=1
 last_client=kicad
 [general]
@@ -26,7 +26,7 @@ ERC_TestSimilarLabels=1
 version=1
 PageLayoutDescrFile=/home/alexios/PROJECTS/HARDWARE/cft/kicad/layout/a3-layout.kicad_wks
 LastNetListRead=cft-dfp.net
-CopperLayerCount=2
+CopperLayerCount=4
 BoardThickness=1.6
 AllowMicroVias=0
 AllowBlindVias=0
@@ -91,11 +91,11 @@ Enabled=1
 [pcbnew/Layer.In1.Cu]
 Name=In1.Cu
 Type=0
-Enabled=0
+Enabled=1
 [pcbnew/Layer.In2.Cu]
 Name=In2.Cu
 Type=0
-Enabled=0
+Enabled=1
 [pcbnew/Layer.In3.Cu]
 Name=In3.Cu
 Type=0
