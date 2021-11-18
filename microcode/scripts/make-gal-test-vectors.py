@@ -1,5 +1,24 @@
 #!/usr/bin/python3
 
+"""
+
+To program:
+
+( cd /home/alexios/PROJECTS/minipro/; 
+sudo ./minipro -p ATF16V8B -P \
+    --write /home/alexios/PROJECTS/HARDWARE/cft/microcode/build/dfp-decode.jed ; 
+cd - )
+
+To test:
+
+export MINIPRO_HOME=/home/alexios/PROJECTS/minipro/
+sudo $MINIPRO_HOME/minipro --infoic $MINIPRO_HOME/infoic.xml \
+   --logicic build/tl866-cft-gal-vectors.xml \
+   -T -p ATF16V8B-cft:MBUCTL00
+
+"""
+
+
 import itertools
 import os
 import re
@@ -427,6 +446,185 @@ def mbuctl00():
     endentry()
 
 
+###############################################################################
+#
+# DFP: ADDRESS DECODER & DATA BUS ENABLE
+#
+###############################################################################
+
+def dfpdec00():
+    start_entry("ATF16V8B-cft:DFPDEC00", 20)
+    for a5, a6, a7, iodev1, dbreq, r, fpa6, fpa5, fpa4, fpa3 in itertools.product("01", repeat=10):
+
+        dfpsel, dboe = 'H', 'H'
+        
+        # Test DFP bus address (&100-&11f), 32 addresses. iodev1 means addresses &1xx.
+        if iodev1 == "0" and a7 == "0" and a6 == "0" and a5 == "0":
+            dfpsel = "L"
+            # Also enable the Data Bus driver if we're being read from.
+            if r == "0":
+                dboe = "L"
+
+        # Enable the data bus if DBREQ is low
+        if dbreq == "0":
+            dboe = "L"
+
+        # Also decode FPA addresses.
+        en0, en1 = 'H', 'H'
+        if fpa6 == '1' and fpa5 == '0' and fpa4 == '0' and fpa3 == '0':
+            en0 = 'L'
+        if fpa6 == '1' and fpa5 == '0' and fpa4 == '0' and fpa3 == '1':
+            en1 = 'L'
+
+
+        nc = 'X'
+                    
+        vector = "{} {} {} {} {} {} {} {} {} G ".format(
+            a5, a6, a7, iodev1, dbreq, r, fpa6, fpa5, fpa4)
+        vector += "{} {} {} {} {} {} {} {} {} V".format(
+            nc, fpa3, dboe, nc, nc, en1, en0, nc, dfpsel)
+        addvec(vector)
+    endentry()
+
+
+###############################################################################
+#
+# DFP: FOUR DFP I/O ADDRESS DECODERS (FOR PODS AND ONBOARD DEVICES)
+#
+###############################################################################
+
+def dfpioa00():
+    start_entry("ATF16V8B-cft:DFPIOA00", 20)
+    for en0, en1, wr, rd, autoscan in itertools.product("01", repeat=5):
+        for fpa in range(8):
+            fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(3)
+
+            write_0 = en0 == "0" and en1 == "1" and wr == "0" and rd == "1"
+
+            wab0 = "HL"[write_0 and fpa == 0]
+            wab1 = "HL"[write_0 and fpa == 1]
+            wab2 = "HL"[write_0 and fpa == 2]
+            wdb0 = "HL"[write_0 and fpa == 3]
+            wdb1 = "HL"[write_0 and fpa == 4]
+            wib0 = "HL"[write_0 and fpa == 5]
+            wib1 = "HL"[write_0 and fpa == 6]
+            # Address 7 not decoded
+
+            # Panel light enables. This implements a safety interlock.
+            
+            rowen = "L"
+            # Enable front panel light driver when bus writes are on and
+            # autoscan is inactive. (the light row decoder further decodes
+            # FPA[7:6] using a '138).
+            if wr == "0" and rd == "1" and autoscan == "1":
+                rowen = "H"
+
+            # Also enable the front panel when the MCU is idle and autoscan is
+            # active.
+            if wr == "1" and rd == "1" and autoscan == "0":
+                rowen = "H"
+
+        nc = 'X'
+        vector = "{} {} {} {} {} {} {} {} {} G ".format(
+            fpa0, fpa1, autoscan, fpa2, en0, en1, nc, wr, rd)
+        vector += "{} {} {} {} {} {} {} {} {} V".format(
+            nc, wdb1, wib1, wdb0, wab2, wib0, wab1, wab0, rowen)
+        addvec(vector)
+    endentry()
+
+
+def dfpiob00():
+    start_entry("ATF16V8B-cft:DFPIOB00", 20)
+    for en0, en1, wr, rd in itertools.product("01", repeat=4):
+        for fpa in range(8):
+            fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(3)
+
+            write_1 = en0 == "1" and en1 == "0" and wr == "0" and rd == "1"
+            read_1  = en0 == "1" and en1 == "0" and wr == "1" and rd == "0"
+
+            wor0 = "HL"[write_1 and fpa == 0] # &48
+            wor1 = "HL"[write_1 and fpa == 1] # &49
+            w4a  = "HL"[write_1 and fpa == 2] # &4a
+            w4b  = "HL"[write_1 and fpa == 3] # &4b
+
+            wcv0 = "HL"[write_1 and fpa == 5] # &4d
+            wcv1 = "HL"[write_1 and fpa == 6] # &4e
+            wcv2 = "HL"[write_1 and fpa == 7] # &4f
+
+            rdsr0 = "HL"[read_1 and fpa == 0] # read from &48
+            
+            nc = 'X'
+            vector = "{} {} {} {} {} {} {} {} {} G ".format(
+                fpa0, fpa1, fpa2, en0, en1, nc, nc, wr, rd)
+            vector += "{} {} {} {} {} {} {} {} {} V".format(
+                nc, wcv2, wcv1, wcv0, rdsr0, w4b, w4a, wor1, wor0)
+            addvec(vector)
+    endentry()
+
+
+def dfpioc00():
+    start_entry("ATF16V8B-cft:DFPIOC00", 20)
+    for en0, en1, wr, rd in itertools.product("01", repeat=4):
+        for fpa in range(8):
+            fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(3)
+
+            read_0  = en0 == "0" and en1 == "1" and wr == "1" and rd == "0"
+
+            rab0 = "HL"[read_0 and fpa == 0]
+            rab1 = "HL"[read_0 and fpa == 1]
+            rab2 = "HL"[read_0 and fpa == 2]
+            rdb0 = "HL"[read_0 and fpa == 3]
+            rdb1 = "HL"[read_0 and fpa == 4]
+            rib0 = "HL"[read_0 and fpa == 5]
+            rib1 = "HL"[read_0 and fpa == 6]
+            r47  = "HL"[read_0 and fpa == 7] 
+            
+            nc = 'X'
+            vector = "{} {} {} {} {} {} {} {} {} G ".format(
+                fpa0, fpa1, fpa2, en0, en1, nc, nc, wr, rd)
+            vector += "{} {} {} {} {} {} {} {} {} V".format(
+                nc, r47, rib1, rib0, rdb1, rab2, rab1, rab0, rdb0)
+            addvec(vector)
+    endentry()
+
+
+def dfpiod00():
+    start_entry("ATF16V8B-cft:DFPIOD00", 20)
+    for en0, en1, wr, rd in itertools.product("01", repeat=4):
+        for fpa in range(8):
+            fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(3)
+
+            write_1 = en0 == "1" and en1 == "0" and wr == "0" and rd == "1"
+            read_1  = en0 == "1" and en1 == "0" and wr == "1" and rd == "0"
+
+            # rdsr0 is in dfp-io-b.
+            rdsr1 = "HL"[read_1 and fpa == 1] # &49
+            rdsr2 = "HL"[read_1 and fpa == 2] # &4a
+            r4b   = "HL"[read_1 and fpa == 3] # &4b
+            r4c   = "HL"[read_1 and fpa == 4] # &4c
+            rcv0  = "HL"[read_1 and fpa == 5] # &4d
+            rcv1  = "HL"[read_1 and fpa == 6] # &4e
+            rcv2  = "HL"[read_1 and fpa == 7] # &4f
+
+            w4c = "HL"[write_1 and fpa == 4] # write to &4c
+            
+            nc = 'X'
+            vector = "{} {} {} {} {} {} {} {} {} G ".format(
+                fpa0, fpa1, fpa2, en0, en1, nc, nc, wr, rd)
+            vector += "{} {} {} {} {} {} {} {} {} V".format(
+                nc, rcv1, w4c, rcv0, rcv2, r4c, r4b, rdsr2, rdsr1)
+            addvec(vector)
+    endentry()
+
+
+###############################################################################
+#
+# MAIN PROGRAM
+#
+###############################################################################
+
+
+# Processor Board 0
 curdec00()
 cuwdec00()
 ismctl00()
@@ -434,6 +632,15 @@ upcgte00()
 busctl00()
 mbudec00()
 mbuctl00()
+
+# Processor Board 1
+
+# DFP
+dfpdec00()
+dfpioa00()
+dfpiob00()
+dfpioc00()
+dfpiod00()
 
 
 print(FOOTER)
