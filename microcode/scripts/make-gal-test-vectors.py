@@ -617,6 +617,70 @@ def dfpiod00():
     endentry()
 
 
+def dfpoe(unit):
+    start_entry("ATF16V8B-cft:DFPOE{}00".format(unit), 20)
+    for panelen, mfd2, mfd1, mfd0 in itertools.product("01", repeat=4):
+        for fpa in range(64):
+            fpa5, fpa4, fpa3, fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(6)
+
+            p = panelen == "0"
+
+            if unit == "A":
+                pin12 = "HL"[fpa == 0b0000_00 and p and mfd2 == "0"]                   # 1A: µCV2
+                pin13 = "HL"[fpa == 0b0011_10 and p]                                   # 4C: AC lo
+                pin14 = "HL"[fpa == 0b0100_10 and p and mfd1 == "1" and mfd0 == "0"]   # 5C: SP lo
+                pin15 = "HL"[fpa == 0b0000_01 and p and mfd2 == "0"]                   # 1B: µCV1
+                
+                pin16 = "HL"[fpa == 0b0000_10 and p]                                   # 1C: µCV0
+                pin17 = "HL"[fpa == 0b0001_11 and p]                                   # 2D: UAV lo (µA)
+                pin18 = "HL"[fpa == 0b0001_10 and p]                                   # 2C: IR lo
+                pin19 = "HL"[fpa == 0b0010_00 and p]                                   # 3A: CTX
+
+            elif unit == "B":
+                pin12 = "HL"[fpa == 0b0101_00 and p]                                   # SCANCLR
+                pin13 = "HL"[fpa == 0b0011_01 and p]                                   # 4B: AC hi
+                pin14 = "HL"[fpa == 0b0100_01 and p and mfd1 == "1" and mfd0 == "0"]   # 5B: SP hi
+                pin15 = "HL"[fpa == 0b0010_01 and p]                                   # 3B: PC hi
+                
+                pin16 = "HL"[fpa == 0b0010_10 and p]                                   # 3C: PC lo
+                pin17 = "HL"[fpa == 0b0101_11 and p]                                   # --: AEXT
+                pin18 = "HL"[fpa == 0b0011_00 and p]                                   # 4A: FLAGS
+                pin19 = "HL"[fpa == 0b0001_01 and p and mfd2 == "0"]                   # 2B: IR hi
+
+            elif unit == "C":
+                pin12 = "X"
+                pin13 = "X"
+                pin14 = "X"
+                pin15 = "X"
+                
+                pin16 = "HL"[fpa == 0b0010_11 and p]                                   # 3D: IRF?
+                pin17 = "HL"[fpa == 0b0000_11 and p]                                   # 1D: IEN
+                pin18 = "HL"[fpa == 0b0100_01 and p and mfd1 == "0" and mfd0 == "1"]   # 5B: DR hi
+                pin19 = "HL"[fpa == 0b0100_10 and p and mfd1 == "0" and mfd0 == "1"]   # 5C: DR lo
+
+            elif unit == "D":
+                pin12 = "HL"[fpa == 0b0001_00 and p]                                   # 2A: STATE
+                pin13 = "HL"[fpa == 0b0100_01 and p and mfd1 == "1" and mfd0 == "1"]   # 5B: OR hi
+                pin14 = "HL"[fpa == 0b0100_10 and p and mfd1 == "1" and mfd0 == "1"]   # 5C: OR lo
+                pin15 = "HL"[fpa == 0b0001_01 and p and mfd2 == "1"]                   # 2B: DB hi
+                
+                pin16 = "HL"[fpa == 0b0000_00 and p and mfd2 == "1"]                   # 1A: AB hi
+                pin17 = "HL"[fpa == 0b0000_01 and p and mfd2 == "1"]                   # 1B: AB mid
+                pin18 = "HL"[fpa == 0b0000_10 and p]                                   # 1C: AB lo
+                pin19 = "HL"[fpa == 0b0001_10 and p]                                   # 2C: DB lo
+
+            else:
+                assert False, "Unknown unit {}".format(unit)
+                
+            nc = 'X'
+            vector = "{} {} {} {} {} {} {} {} {} G ".format(
+                fpa0, fpa1, fpa2, fpa3, fpa4, fpa5, mfd0, mfd1, mfd2)
+            vector += "{} {} {} {} {} {} {} {} {} V".format(
+                panelen, pin12, pin13, pin14, pin15, pin16, pin17, pin18, pin19)
+            addvec(vector)
+    endentry()
+
+
 ###############################################################################
 #
 # MAIN PROGRAM
@@ -641,6 +705,10 @@ dfpioa00()
 dfpiob00()
 dfpioc00()
 dfpiod00()
+dfpoe("A")
+dfpoe("B")
+dfpoe("C")
+dfpoe("D")
 
 
 print(FOOTER)
