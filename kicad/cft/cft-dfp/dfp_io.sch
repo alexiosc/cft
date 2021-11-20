@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-dfp-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -236,7 +237,7 @@ AR Path="/64FC7999/6548E0CC/6607EE46" Ref="U?"  Part="2"
 AR Path="/64FC7999/6549E394/6607EE46" Ref="U?"  Part="2" 
 AR Path="/64FC7999/6607EE46" Ref="U305"  Part="1" 
 F 0 "U305" H 5400 2717 50  0000 C CNN
-F 1 "74HC541" H 5400 2626 50  0000 C CNN
+F 1 "74HC574" H 5400 2626 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 5100 1900 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5100 1900 50  0001 C CNN
 	1    5400 1950
@@ -255,7 +256,7 @@ AR Path="/64FC7999/6548E0CC/66080820" Ref="U?"  Part="2"
 AR Path="/64FC7999/6549E394/66080820" Ref="U?"  Part="2" 
 AR Path="/64FC7999/66080820" Ref="U306"  Part="1" 
 F 0 "U306" H 5400 4167 50  0000 C CNN
-F 1 "74HC541" H 5400 4076 50  0000 C CNN
+F 1 "74HC574" H 5400 4076 50  0000 C CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 5100 3350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5100 3350 50  0001 C CNN
 	1    5400 3400
@@ -1333,7 +1334,7 @@ AR Path="/64FC7999/6548E0CC/6B515ACE" Ref="U?"  Part="2"
 AR Path="/64FC7999/6549E394/6B515ACE" Ref="U?"  Part="2" 
 AR Path="/64FC7999/6B515ACE" Ref="U305"  Part="2" 
 F 0 "U305" H 5580 4746 50  0000 L CNN
-F 1 "74HC541" H 5580 4655 50  0000 L CNN
+F 1 "74HC574" H 5580 4655 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 5100 4650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5100 4650 50  0001 C CNN
 	2    5400 4700
@@ -1354,7 +1355,7 @@ AR Path="/64FC7999/6548E0CC/6B516CE1" Ref="U?"  Part="2"
 AR Path="/64FC7999/6549E394/6B516CE1" Ref="U?"  Part="2" 
 AR Path="/64FC7999/6B516CE1" Ref="U306"  Part="2" 
 F 0 "U306" H 5580 5446 50  0000 L CNN
-F 1 "74HC541" H 5580 5355 50  0000 L CNN
+F 1 "74HC574" H 5580 5355 50  0000 L CNN
 F 2 "alexios:DIP-20_W7.62mm_Socket" H 5100 5350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5100 5350 50  0001 C CNN
 	2    5400 5400
