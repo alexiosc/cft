@@ -1733,10 +1733,6 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 7700 5300 50  0001 C CNN
 $EndComp
 NoConn ~ 3200 3150
 NoConn ~ 3200 3250
-Text Label 3100 3150 2    50   ~ 0
-~W4A
-Text Label 3100 3250 2    50   ~ 0
-~W4B
 Wire Wire Line
 	2850 3150 3200 3150
 Wire Wire Line
@@ -2029,4 +2025,8 @@ Wire Bus Line
 	4500 1550 4500 4000
 Wire Bus Line
 	9700 1150 9700 5300
+Text Label 3100 3250 2    50   ~ 0
+~W4B
+Text Label 3100 3150 2    50   ~ 0
+~W4A
 $EndSCHEMATC
