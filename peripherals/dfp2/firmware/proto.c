@@ -1083,17 +1083,19 @@ go_fpr()
 static void
 go_fpdump()
 {
-/**/ for (uint8_t r = 0; r < 16; r++) {
-/**/         report_hex(r << 4, 2);
-/**/         report_pstr(PSTR("|"));
-/**/         for (uint8_t c = 0; c < 16; c++) {
-/**/                 uint8_t v = read_dfp_address((xmem_addr_t) ((r << 4) | c));
-/**/                 report_pstr(PSTR(" "));
-/**/                 report_hex(v, 2);
-/**/         }
-/**/         report_nl();
-/**/ }
-/**/ report_pstr(PSTR(STR_DONE));
+        fp_grab();
+        for (uint8_t r = 0; r < 16; r++) {
+                report_hex(r << 4, 2);
+                report_pstr(PSTR("|"));
+                for (uint8_t c = 0; c < 16; c++) {
+                        uint8_t v = read_dfp_address((xmem_addr_t) ((r << 4) | c));
+                        report_pstr(PSTR(" "));
+                        report_hex(v, 2);
+                }
+                report_nl();
+        }
+        fp_release();
+        report_pstr(PSTR(STR_DONE));
 }
 
 

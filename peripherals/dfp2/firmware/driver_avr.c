@@ -409,7 +409,9 @@ read_dfp_address(xmem_addr_t a)
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
                 fp_scanner_stop();
                 sample();               // Clock data into our own flip flops.
+                clearbit(PORTC, C_NBUSEN);
                 val = xmem_read(a);
+                setbit(PORTC, C_NBUSEN);
                 fp_scanner_start();
         }
     
