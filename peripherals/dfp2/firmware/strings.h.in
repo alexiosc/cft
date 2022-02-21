@@ -197,7 +197,7 @@
 #define STR_NVMIS     "910 Value mismatch. Wrote "
 #define STR_INCMIS    "911 Reg inc failure. Inc'ed to "
 #define STR_DECMIS    "912 Reg dec failure. Dec'ed to "
-#define STR_SUPPMIS   "9xx Suppressing further mismatch messages."
+#define STR_SUPPMIS   "9xx Suppressing further mismatch messages.\n"
 #define STR_NMISMATCH "9xx Total value mismatches: "
 
 #define STR_WAS          ", read back "
