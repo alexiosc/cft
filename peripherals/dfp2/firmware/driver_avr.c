@@ -412,6 +412,7 @@ read_dfp_address(xmem_addr_t a)
                 clearbit(PORTC, C_NBUSEN);
                 val = xmem_read(a);
                 setbit(PORTC, C_NBUSEN);
+                //_delay_ms(1);
                 fp_scanner_start();
         }
     
@@ -1079,9 +1080,14 @@ set_or(word_t value)
                 hwstate.or_l = value & 0xff;
                 hwstate.or_h = (value >> 8) & 0xff;
                 fp_scanner_stop();
+                clearbit(PORTC, C_NBUSEN);
                 xmem_write(XMEM_OR_H, hwstate.or_h);
                 xmem_write(XMEM_OR_L, hwstate.or_l);
+                setbit(PORTC, C_NBUSEN);
                 fp_scanner_start();
+
+                //TODO: Remove
+                set_mfd(7);
         }
 }
 
@@ -1130,6 +1136,13 @@ clear_ws()
 inline static void
 avr_init()
 {
+#ifdef PRESCALE_HALF_SPEED
+#warning "This hasn't been tested sufficiently."
+        // Run at 8 MHz.
+        CLKPR = BV(CLKPCE);  // Enable change of the clock prescaler
+        CLKPR = BV(CLKPS0);  // Divide frequency by 2.
+#endif // PRESCALE_HALF_SPEED
+
         DDRB = 0xff;
         PORTB = 0xff;
 
@@ -1148,15 +1161,17 @@ avr_init()
         TCCR4C = 0;
 
         // On the 2560, this is probably not necessary, but let's do it anyway.
-        MCUCR = BV(JTD);       //  Disable JTAG
+        MCUCR = BV(JTD);        //  Disable JTAG
 
-        XMCRA = 0;         // No wait states
-        XMCRB = BV(XMBK) |         // Enable Bus Keeper (hold) on Port A (FPA/FPD)
-                BV(XMM0) | // 8-bit Address bus, recover all of Port C
+        XMCRA = 0;              // No wait states
+        XMCRB = BV(XMBK) |      // Enable Bus Keeper (hold) on Port A (FPA/FPD)
+                BV(XMM0) |      // 8-bit Address bus, recover all of Port C
                 BV(XMM1) |
                 BV(XMM2);
 
-        XMCRA =  BV(SRE);  // *NOW* we can enable XMEM.
+        XMCRA = BV(SRE) |               // *NOW* we can enable XMEM
+                BV(SRW00) | BV(SRW01) | // We don't need wait states, but
+                BV(SRW10) | BV(SRW11);  // ...they can't hurt.
 
         // XMEM overrides our settings for Port A.
 
