@@ -13,8 +13,8 @@ NC	WDB1	WIB1	WDB0	WAB2	WIB0	WAB1	WAB0	ROWEN	VCC
 /WAB2 = /EN0 * EN1 * /WR * RD * /FPA2 *  FPA1 * /FPA0
 /WDB0 = /EN0 * EN1 * /WR * RD * /FPA2 *  FPA1 *  FPA0
 /WDB1 = /EN0 * EN1 * /WR * RD *  FPA2 * /FPA1 * /FPA0
-/WIB0 = /EN0 * EN1 * /WR * RD *  FPA2 *  FPA1 * /FPA0
-/WIB1 = /EN0 * EN1 * /WR * RD *  FPA2 * /FPA1 *  FPA0
+/WIB0 = /EN0 * EN1 * /WR * RD *  FPA2 * /FPA1 *  FPA0
+/WIB1 = /EN0 * EN1 * /WR * RD *  FPA2 *  FPA1 * /FPA0
 
 
 

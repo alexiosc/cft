@@ -500,7 +500,6 @@ def dfpioa00():
             fpa2, fpa1, fpa0 = bin(fpa)[2:].zfill(3)
 
             write_0 = en0 == "0" and en1 == "1" and wr == "0" and rd == "1"
-
             wab0 = "HL"[write_0 and fpa == 0]
             wab1 = "HL"[write_0 and fpa == 1]
             wab2 = "HL"[write_0 and fpa == 2]
@@ -524,12 +523,13 @@ def dfpioa00():
             if wr == "1" and rd == "1" and autoscan == "0":
                 rowen = "H"
 
-        nc = 'X'
-        vector = "{} {} {} {} {} {} {} {} {} G ".format(
-            fpa0, fpa1, autoscan, fpa2, en0, en1, nc, wr, rd)
-        vector += "{} {} {} {} {} {} {} {} {} V".format(
-            nc, wdb1, wib1, wdb0, wab2, wib0, wab1, wab0, rowen)
-        addvec(vector)
+            nc = 'X'
+            vector = "{} {} {} {} {} {} {} {} {} G ".format(
+                fpa0, fpa1, autoscan, fpa2, en0, en1, nc, wr, rd)
+            vector += "{} {} {} {} {} {} {} {} {} V".format(
+                nc, wdb1, wib1, wdb0, wab2, wib0, wab1, wab0, rowen)
+            addvec(vector)
+            print(write_0, fpa, wib0, vector, file=sys.stderr)
     endentry()
 
 
