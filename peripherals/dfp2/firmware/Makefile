@@ -48,6 +48,7 @@ MCU_TARGET      =       atmega2560
 #CPU_FREQ	=	1000000  # Hz (Factory default)
 #CPU_FREQ	=	14745600 # Hz (DFP1, 14.7456 MHz crystal)
 CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
+#CPU_FREQ	=	8000000 # Hz (DFP2, 16.0 MHz crystal, 50% prescaling)
 
 # The USART to use. If only one USART is defined, that one will be
 #used. On DIN-based DFP, USART 0 is used for programming and the
