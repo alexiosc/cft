@@ -488,8 +488,9 @@ report_errno(errno_t err)
 
 // Print out a mismatch message in the following format: should_be +
 // ", was " + was. End with a newline.
+//
 void 
-report_mismatch(const char *msg, uint16_t should_be, uint16_t was)
+report_mismatch(const char *msg, uint16_t should_be, uint16_t was, uint8_t pad)
 {
 	uint32_t x;
 
@@ -497,14 +498,20 @@ report_mismatch(const char *msg, uint16_t should_be, uint16_t was)
 	report_pstr((char *)msg);
 	x = should_be & 0xffff;
 	style_info();
-	report_hex(x, 4);
+	report_hex(x, pad);
 
 	style_error();
 	report_pstr(PSTR(STR_WAS));
 	x = was & 0xffff;
 	style_info();
-	report_hex(x, 4);
+	report_hex(x, pad);
 
+        style_error();
+        report_pstr(PSTR(STR_DIFF));
+        style_info();
+        x = (should_be ^ was) & 0xffff;
+        report_bin_pad(x, pad << 2);
+        
 	report_nl();
 }
 
