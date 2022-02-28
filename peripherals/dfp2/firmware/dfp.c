@@ -38,6 +38,9 @@ init()
 inline void
 run()
 {
+        // We've clearly finished booting.
+        hwstate.is_booting = 0;
+
         // Read and react to serial/debugging input.
 	proto_loop();
 }

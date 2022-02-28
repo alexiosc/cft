@@ -30,6 +30,8 @@ DEFINES		+=	-D__DELAY_BACKWARD_COMPATIBLE__
 DEFINES		+=	-DDISASSEMBLE
 DEFINES		+=	-DDUMP_TEXT
 #DEFINES	+=	-DLIGHT_MODULE_TESTING
+#DEFINES	+=	-DPRESCALE_HALF_SPEED
+#DEFINES	+=	-DENABLE_XMEM
 
 
 ###############################################################################

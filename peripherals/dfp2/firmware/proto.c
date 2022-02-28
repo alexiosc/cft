@@ -822,7 +822,7 @@ uint8_t
 check_mismatch(uint16_t should_be, uint16_t was)
 {
         if (should_be == was) return 0;
-        report_mismatch(PSTR(STR_NVMIS), should_be, was);
+        report_mismatch(PSTR(STR_NVMIS), should_be, was, 4);
         return 1;
 }
 

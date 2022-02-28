@@ -16,16 +16,16 @@
 // 1xx: Boot-time Diagnostics
 #define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
 #define STR_D_DFP      "1xx DFP board:"
-#define STR_D_POD_UCV0 "1xx µCV POD low (RADDR):"
-#define STR_D_POD_UCV1 "1xx µCV POD mid (WADDR):"
-#define STR_D_POD_UCV2 "1xx µCV POD high (ACTION, COND):"
-#define STR_D_POD_AB0  "1xx AB POD low:"
-#define STR_D_POD_AB1  "1xx AB POD mid:"
-#define STR_D_POD_AB2  "1xx AB POD high:"
-#define STR_D_POD_DB0   "1xx DB POD low:"
-#define STR_D_POD_DB1   "1xx DB POD mid:"
-#define STR_D_POD_IBUS0 "1xx IBus POD low:"
-#define STR_D_POD_IBUS1 "1xx IBus POD high:"
+#define STR_D_POD_UCV0 "1xx µCV pod low (RADDR):"
+#define STR_D_POD_UCV1 "1xx µCV pod mid (WADDR):"
+#define STR_D_POD_UCV2 "1xx µCV pod high (ACTION, COND):"
+#define STR_D_POD_AB0  "1xx AB pod low:"
+#define STR_D_POD_AB1  "1xx AB pod mid:"
+#define STR_D_POD_AB2  "1xx AB pod high:"
+#define STR_D_POD_DB0   "1xx DB pod low:"
+#define STR_D_POD_DB1   "1xx DB pod high:"
+#define STR_D_POD_IBUS0 "1xx IBus pod low:"
+#define STR_D_POD_IBUS1 "1xx IBus pod high:"
 
 #define STR_D_FPDQ  "101 DFP Quiescence: "
 #define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
@@ -201,6 +201,7 @@
 #define STR_NMISMATCH "9xx Total value mismatches: "
 
 #define STR_WAS          ", read back "
+#define STR_DIFF         ", XOR "
 
 #define STR_PROMPT     "> "
 #define STR_PRUN       "[running]" STR_PROMPT

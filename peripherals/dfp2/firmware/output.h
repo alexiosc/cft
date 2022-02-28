@@ -80,7 +80,7 @@ void report_bool_value(const char *msg, char val);
 
 void report_errno(errno_t err);
 
-void report_mismatch(const char *msg, uint16_t should_be, uint16_t was);
+void report_mismatch(const char *msg, uint16_t should_be, uint16_t was, uint8_t pad);
 
 
 #endif // __OUTPUT_H__

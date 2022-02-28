@@ -127,7 +127,9 @@ static void dfp_diags();
                              
 // Port G: XMEM bus control
 
-#define G_TP102      PG4 /**/       // Connected to TP102, unused.
+#define G_WR         PG0 /**/       // O. XMEM or manual bus control
+#define G_RD         PG1 /**/       // O. XMEM or manual bus control
+#define G_ALE        PG2 /**/       // O. XMEM or manual bus control
 
 // (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
 //      connected to the PEN pin, which can't be controlled by the MCU. This
@@ -368,6 +370,8 @@ ringbuf_get(uint8_t *c)
 // The autonomic FP Scanner controls the FPD bus otherwise and bus contention
 // will occur.
 
+#ifdef ENABLE_XMEM
+
 #define XMEM_BASE 0x8000
 inline static void
 xmem_write(const xmem_addr_t addr, const uint8_t val)
@@ -381,6 +385,70 @@ xmem_read(const xmem_addr_t addr)
 {
         return *((volatile uint8_t *)(XMEM_BASE + addr));
 }
+
+#else
+//                          __
+//                      ---ARW
+#define BUSOP_IDLE    0b000011
+#define BUSOP_SETADDR 0b000111
+#define BUSOP_READ    0b000001
+#define BUSOP_WRITE   0b000010
+
+
+// Requirements:
+// * Port G should be idle at end of functions.
+// * Port A should be tri-stated at end of functions.
+// * Caller to deassert ~AUTOSCAN beforehand, if needed.
+// * Caller to assert ~BUSEN beforehand.
+
+inline static void
+xmem_write(const xmem_addr_t addr, const uint8_t val)
+{
+        PORTG = BUSOP_IDLE;
+
+        setbit(PORTC, C_NAUTOSCAN);
+        clearbit(PORTC, C_NBUSEN);
+                
+        DDRA = 0xff;                // Port A to output mode.
+        PORTA = addr;               // Set address
+        PORTG = BUSOP_SETADDR;      // Strobe ALE
+        PORTG = BUSOP_IDLE;
+
+        PORTA = val;
+        PORTG = BUSOP_WRITE;
+        PORTG = BUSOP_IDLE;
+        DDRA = 0;                   // Tri-state port A.
+        PORTA = 0x55;
+}
+
+
+inline static uint8_t
+xmem_read(const xmem_addr_t addr)
+{
+        PORTG = BUSOP_IDLE;         // Idle the bus
+        
+        setbit(PORTC, C_NAUTOSCAN);
+        clearbit(PORTC, C_NBUSEN);
+
+        DDRA = 0xff;                // PORT A to output mode.
+        PORTA = addr;               // Set address
+        PORTG = BUSOP_SETADDR;      // Strobe ALE
+        PORTG = BUSOP_IDLE;
+
+        DDRA = 0;                   // Port A is input
+        PORTA = 0;
+        PORTG = BUSOP_READ;         // Read operation
+
+        short_delay();
+        short_delay();
+        
+        uint8_t val = PINA;         // Read from bus
+        PORTA = 0x55;               // Pull-ups for diagnostics
+
+        return val;
+}
+
+#endif // ENABLE_XMEM
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1163,6 +1231,8 @@ avr_init()
         // On the 2560, this is probably not necessary, but let's do it anyway.
         MCUCR = BV(JTD);        //  Disable JTAG
 
+#ifdef ENABLE_XMEM
+
         XMCRA = 0;              // No wait states
         XMCRB = BV(XMBK) |      // Enable Bus Keeper (hold) on Port A (FPA/FPD)
                 BV(XMM0) |      // 8-bit Address bus, recover all of Port C
@@ -1173,7 +1243,19 @@ avr_init()
                 BV(SRW00) | BV(SRW01) | // We don't need wait states, but
                 BV(SRW10) | BV(SRW11);  // ...they can't hurt.
 
-        // XMEM overrides our settings for Port A.
+        // Enabling XMEM implies special configuration for Port A, so don't
+        // touch that.
+
+#else
+
+        DDRA = 0;               // Port A (our addr/data port) is an input port
+                                // by default.
+        PORTA = 0xff;           // Enable pull-ups.
+
+        DDRG |= 7;              // PG0, PG1, PG2 are outputs.
+        PORTG = BUSOP_IDLE;     // Idle the bus strobes
+
+#endif // ENABLE_XMEM
 
         // Configure other ports. Use binary for brevity.
 
@@ -1197,9 +1279,11 @@ avr_init()
         DDRF =   0b00001111;    // Port F is for the front panel switches
         PORTF =  0b00000000;
 
+#ifdef ENABLE_XMEM
         //         76543210
         DDRG =   0b00000000;    // Port G is for XMEM bus signals
         PORTG =  0b00000000;
+#endif // ENABLE_XMEM
 
         //         76543210
         DDRH =   0b00000000;    // Port H is tri-stated unless needed
@@ -1279,14 +1363,16 @@ hw_init()
         // Say hello.
         report_pstr(PSTR(BANNER0));
 
-        // Read the DIP switches now.
-        hwstate.dsr0 = xmem_read(XMEM_DSR_L);
-        hwstate.dsr1 = xmem_read(XMEM_DSR_M);
-        hwstate.dsr2 = xmem_read(XMEM_DSR_H);
-  
         // Run diagnostics and detect processor boards.
         /**/ dfp_diags();            // not fully ported
 
+        // Read the DIP switches now.
+        clearbit(PORTC, C_NBUSEN);
+        hwstate.dsr0 = xmem_read(XMEM_DSR_L);
+        hwstate.dsr1 = xmem_read(XMEM_DSR_M);
+        hwstate.dsr2 = xmem_read(XMEM_DSR_H);
+        setbit(PORTC, C_NBUSEN);
+  
         // Make Panel work
         fp_release();
 
@@ -1683,6 +1769,8 @@ sw_scan()
 
 ISR(TIMER4_COMPA_vect)
 {
+#warning "Reinstate this after debugging XMEM/bus"
+#if 0
         static uint8_t pause = 0;
 
         // Scan the switches.
@@ -1694,10 +1782,12 @@ ISR(TIMER4_COMPA_vect)
         // Blink the STOP light at ~10Hz while busy, and ignore the front panel
         // switches. Any routine working overtime here had better call
         // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
-        if (hwstate.is_busy || hwstate.is_booting) {
+        if (hwstate.is_busy || hwstate.is_booting || hwstate.is_faulty) {
                 pause = (pause + 1) & 15;
-                if ((pause & 3) == 0 && hwstate.is_busy) togglebit(PORTB, B_LED_STOP);
                 if (pause == 0 && hwstate.is_booting) togglebit(PORTL, L_LED_PANEL);
+                else if ((pause & 3) == 0 && hwstate.is_busy) togglebit(PORTL, L_LED_PANEL);
+
+                if (pause & 1 && hwstate.is_faulty) togglebit(PORTB, B_LED_STOP);
                 // No more switch processing carried out while busy.
                 return;
         }
@@ -1853,6 +1943,7 @@ ISR(TIMER4_COMPA_vect)
         /**/         panel_ifr6();
         /**/ }
 
+#endif
 #endif
 }
 
@@ -2137,7 +2228,7 @@ dfp_diags_fpd_quiescence()
         /**/         setuptime();
         /**/         if (data != addr) {
         /**/                 report_pstr(PSTR(STR_D_FAIL));
-        /**/                 report_mismatch(PSTR(STR_NVMIS), addr, data);
+        /**/                 report_mismatch(PSTR(STR_NVMIS), addr, data, 4);
         /**/                 diag_failure();
         /**/         }
 
@@ -2148,7 +2239,7 @@ dfp_diags_fpd_quiescence()
         /**/                 volatile uint8_t data = xmem_read(addr);
         /**/                 if (data != addr) {
         /**/                         report_pstr(PSTR(STR_D_FAIL));
-        /**/                         report_mismatch(PSTR(STR_NVMIS), addr, data);
+        /**/                         report_mismatch(PSTR(STR_NVMIS), addr, data, 4);
         /**/                         diag_failure();
         /**/                 }
         /**/         }
@@ -2181,7 +2272,7 @@ _dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
 
         /**/         if (val != checkval) {
         /**/                 report_pstr(PSTR(STR_D_FAIL));
-        /**/                 report_mismatch(PSTR(STR_NVMIS), val, checkval);
+        /**/                 report_mismatch(PSTR(STR_NVMIS), val, checkval, 4);
         /**/                 diag_failure();
         /**/         }
         /**/ }
@@ -2242,7 +2333,7 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
         /**/                 if (failures++ == 0) {
         /**/                         report_pstr(PSTR(STR_D_FAIL));
         /**/                 }
-        /**/                 report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+        /**/                 report_mismatch(PSTR(STR_NVMIS), pattern, checkval, 4);
         /**/         }
         /**/ }
 
@@ -2333,7 +2424,7 @@ dfp_diags_raddr_quiescence()
         /**/                         if (failures++ == 0) {
         /**/                                 report_pstr(PSTR(STR_D_FAIL));
         /**/                         }
-        /**/                         report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+        /**/                         report_mismatch(PSTR(STR_NVMIS), pattern, checkval, 4);
         /**/                 }
         /**/         }
 
@@ -2407,7 +2498,7 @@ dfp_diags_raddr()
         /**/                                         report_pstr(PSTR(STR_URRESP1));
         /**/                                         style_info();
         /**/                                         report_hex(raddr, 2);
-        /**/                                         report_mismatch(PSTR(STR_URRESP2), pattern, checkval);
+        /**/                                         report_mismatch(PSTR(STR_URRESP2), pattern, checkval, 4);
         /**/                                 } else {
         /**/                                         // A unit we expected to see has
         /**/                                         // responded! Mark this piece of
@@ -2490,7 +2581,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
         /**/                         if (failures++ == 0) {
         /**/                                 report_pstr(PSTR(STR_D_FAIL));
         /**/                         }
-        /**/                         report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+        /**/                         report_mismatch(PSTR(STR_NVMIS), pattern, checkval, 4);
         /**/                 }
 
         /**/         }
@@ -2507,7 +2598,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
         /**/                         if (failures++ == 0) {
         /**/                                 report_pstr(PSTR(STR_D_FAIL));
         /**/                         }
-        /**/                         report_mismatch(PSTR(STR_INCMIS), last_read, checkval);
+        /**/                         report_mismatch(PSTR(STR_INCMIS), last_read, checkval, 4);
         /**/                 }
         /**/                 wdt_reset();
         /**/         }
@@ -2529,7 +2620,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
         /**/                         if (failures++ == 0) {
         /**/                                 report_pstr(PSTR(STR_D_FAIL));
         /**/                         }
-        /**/                         report_mismatch(PSTR(STR_DECMIS), last_read, checkval);
+        /**/                         report_mismatch(PSTR(STR_DECMIS), last_read, checkval, 4);
         /**/                 }
         /**/                 wdt_reset();
         /**/         }
@@ -2638,40 +2729,45 @@ dfp_detect_pod(const char *msg, const xmem_addr_t addr)
 
         report_pstr(msg);       // Pod detection message. (no newline)
 
-        for (uint16_t val = 0; val <= 255; val++) {
-                xmem_write(addr, 0);
-                sample();
-                uint8_t x = xmem_read(addr);
-
-                // Tally it
-                and &= x;
-                or |= x;
-                
-                // We don't report this as a mismatched value, even when it
-                // is. If the pod is missing entirely, all values will match
-                // its XMEM address, and we don't want to report mismatched
-                // values for missing pods. It's not pertinent.
-                if (x == addr) {
-                        matches_addr++;
-                        continue;
-                }
-
-                if (x != val) {
-                        if (faults == 0) {
-                                report_pstr(PSTR(STR_DET_FAULTY));
+        clearbit(PORTC, C_NBUSEN);
+        for (uint16_t rep = 0; rep < 128; rep++) {
+                for (uint16_t val = 0; val <= 255; val++) {
+                        xmem_write(addr, val);
+                        sample();
+                        uint8_t x = xmem_read(addr);
+                        
+                        // Tally it
+                        and &= x;
+                        or |= x;
+                        
+                        // We don't report this as a mismatched value, even when it
+                        // is. If the pod is missing entirely, all values will match
+                        // its XMEM address, and we don't want to report mismatched
+                        // values for missing pods. It's not pertinent.
+                        if (x == addr) {
+                                matches_addr++;
+                                continue;
                         }
-                        faults++;
-                        if (faults < 20) {
-                                report_mismatch(PSTR(STR_NVMIS), val, x);
-                        } else if (faults == 20) {
-                                report_pstr(PSTR(STR_SUPPMIS));
+                        
+                        if (x != val) {
+                                if (faults == 0) {
+                                        report_pstr(PSTR(STR_DET_FAULTY));
+                                }
+                                faults++;
+                                if (faults < 40) {
+                                        report_mismatch(PSTR(STR_NVMIS), val, x, 2);
+                                } else if (faults == 20) {
+                                        report_pstr(PSTR(STR_SUPPMIS));
+                                }
                         }
                 }
-        } while (++val);
+        }
+        setbit(PORTC, C_NBUSEN);
         tristate_buses();       // Can't hurt!
 
         // If all values read matched the address, nothing on the bus
         // responded. The pod is missing.
+        // TODO: not the case on the 2021 DFP. Remove this and use something else.
         if (matches_addr == 256) {
                 report_pstr(PSTR(STR_DET_ABSENT));
                 return ERR_NOUNIT;
@@ -2763,7 +2859,9 @@ dfp_detect()
         // *addresses*, we're reading the bus hold circuitry on the XMEM
         // bus. (low-order address and data buses are shared) If this is the
         // case, the DFP board is not decoding properly.
+#warning "TODO: reinstate these using read_xmem()"
         fp_grab();
+#if 0
         for (uint16_t r = XMEM_BASE; r < XMEM_BASE + 256; r++) {
                 uint8_t data =  *((volatile uint8_t *)(r));
                 if (data != r) {
@@ -2784,7 +2882,11 @@ dfp_detect()
                         return ERR_FAULTY;
                 }
         }
-
+#else
+        hwstate.have_dfp = 1;
+#endif
+        
+        
         if (hwstate.have_dfp) {
                 report_pstr(PSTR(STR_DET_PASS));
                 return ERR_SUCCESS;
@@ -2800,39 +2902,48 @@ dfp_detect_pods()
         assert_halt();
         tristate_buses();
 
+        xmem_write(XMEM_ACTION, 0);    // Idle ACTION (and COND)
+
+dfp_detect_pods_again:
         // UCV Pods
-        _drive_ucv();
-        hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS;
+        /* _drive_ucv(); */
+        /* hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS; */
 
-        _drive_ucv();
-        hwstate.have_pod_ucv1 = dfp_detect_pod(PSTR(STR_D_POD_UCV1), XMEM_WADDR) == ERR_SUCCESS;
+        // _drive_ucv();
+        // hwstate.have_pod_ucv1 = dfp_detect_pod(PSTR(STR_D_POD_UCV1), XMEM_WADDR) == ERR_SUCCESS;
 
-        _drive_ucv();
-        hwstate.have_pod_ucv2 = dfp_detect_pod(PSTR(STR_D_POD_UCV2), XMEM_ACTION) == ERR_SUCCESS;
+        // _drive_ucv();
+        // hwstate.have_pod_ucv2 = dfp_detect_pod(PSTR(STR_D_POD_UCV2), XMEM_ACTION) == ERR_SUCCESS;
 
         // IBus Pods
-        _drive_ibus();
-        hwstate.have_pod_ibus0 = dfp_detect_pod(PSTR(STR_D_POD_IBUS0), XMEM_ACTION) == ERR_SUCCESS;
+        /* _drive_ibus(); */
+        /* hwstate.have_pod_ibus0 = dfp_detect_pod(PSTR(STR_D_POD_IBUS0), XMEM_IBUS_L) == ERR_SUCCESS; */
 
-        _drive_ibus();
-        hwstate.have_pod_ibus1 = dfp_detect_pod(PSTR(STR_D_POD_IBUS1), XMEM_ACTION) == ERR_SUCCESS;
+        /* _drive_ibus(); */
+        /* hwstate.have_pod_ibus1 = dfp_detect_pod(PSTR(STR_D_POD_IBUS1), XMEM_IBUS_H) == ERR_SUCCESS; */
 
         // AB Pods
         _drive_ab();
-        hwstate.have_pod_ab0 = dfp_detect_pod(PSTR(STR_D_POD_AB0), XMEM_ACTION) == ERR_SUCCESS;
+        hwstate.have_pod_ab0 = dfp_detect_pod(PSTR(STR_D_POD_AB0), XMEM_AB_L) == ERR_SUCCESS;
+
+        /* _drive_ab(); */
+        /* hwstate.have_pod_ab1 = dfp_detect_pod(PSTR(STR_D_POD_AB1), XMEM_AB_M) == ERR_SUCCESS; */
 
         _drive_ab();
-        hwstate.have_pod_ab1 = dfp_detect_pod(PSTR(STR_D_POD_AB1), XMEM_ACTION) == ERR_SUCCESS;
-
-        _drive_ab();
-        hwstate.have_pod_ab2 = dfp_detect_pod(PSTR(STR_D_POD_AB2), XMEM_ACTION) == ERR_SUCCESS;
+        hwstate.have_pod_ab2 = dfp_detect_pod(PSTR(STR_D_POD_AB2), XMEM_AB_H) == ERR_SUCCESS;
 
         // DB Pods
         _drive_db();
-        hwstate.have_pod_db0 = dfp_detect_pod(PSTR(STR_D_POD_DB0), XMEM_ACTION) == ERR_SUCCESS;
+        hwstate.have_pod_db0 = dfp_detect_pod(PSTR(STR_D_POD_DB0), XMEM_DB_L) == ERR_SUCCESS;
 
-        _drive_db();
-        hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_ACTION) == ERR_SUCCESS;
+        /* _drive_db(); */
+        /* hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_DB_H) == ERR_SUCCESS; */
+
+        /* wdt_reset(); */
+        /* _delay_ms(1000); */
+        /* wdt_reset(); */
+        /* goto dfp_detect_pods_again; */
+
 }
 
 
