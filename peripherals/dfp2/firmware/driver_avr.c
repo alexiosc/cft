@@ -2730,7 +2730,8 @@ dfp_detect_pod(const char *msg, const xmem_addr_t addr)
         report_pstr(msg);       // Pod detection message. (no newline)
 
         clearbit(PORTC, C_NBUSEN);
-        for (uint16_t rep = 0; rep < 128; rep++) {
+        for (uint16_t rep = 0; rep < 32; rep++) {
+                wdt_reset();
                 for (uint16_t val = 0; val <= 255; val++) {
                         xmem_write(addr, val);
                         sample();
@@ -2906,28 +2907,28 @@ dfp_detect_pods()
 
 dfp_detect_pods_again:
         // UCV Pods
-        /* _drive_ucv(); */
-        /* hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS; */
+        _drive_ucv();
+        hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS;
 
-        // _drive_ucv();
-        // hwstate.have_pod_ucv1 = dfp_detect_pod(PSTR(STR_D_POD_UCV1), XMEM_WADDR) == ERR_SUCCESS;
+        _drive_ucv();
+        hwstate.have_pod_ucv1 = dfp_detect_pod(PSTR(STR_D_POD_UCV1), XMEM_WADDR) == ERR_SUCCESS;
 
-        // _drive_ucv();
-        // hwstate.have_pod_ucv2 = dfp_detect_pod(PSTR(STR_D_POD_UCV2), XMEM_ACTION) == ERR_SUCCESS;
+        _drive_ucv();
+        hwstate.have_pod_ucv2 = dfp_detect_pod(PSTR(STR_D_POD_UCV2), XMEM_ACTION) == ERR_SUCCESS;
 
         // IBus Pods
-        /* _drive_ibus(); */
-        /* hwstate.have_pod_ibus0 = dfp_detect_pod(PSTR(STR_D_POD_IBUS0), XMEM_IBUS_L) == ERR_SUCCESS; */
+        _drive_ibus();
+        hwstate.have_pod_ibus0 = dfp_detect_pod(PSTR(STR_D_POD_IBUS0), XMEM_IBUS_L) == ERR_SUCCESS;
 
-        /* _drive_ibus(); */
-        /* hwstate.have_pod_ibus1 = dfp_detect_pod(PSTR(STR_D_POD_IBUS1), XMEM_IBUS_H) == ERR_SUCCESS; */
+        _drive_ibus();
+        hwstate.have_pod_ibus1 = dfp_detect_pod(PSTR(STR_D_POD_IBUS1), XMEM_IBUS_H) == ERR_SUCCESS;
 
         // AB Pods
         _drive_ab();
         hwstate.have_pod_ab0 = dfp_detect_pod(PSTR(STR_D_POD_AB0), XMEM_AB_L) == ERR_SUCCESS;
 
-        /* _drive_ab(); */
-        /* hwstate.have_pod_ab1 = dfp_detect_pod(PSTR(STR_D_POD_AB1), XMEM_AB_M) == ERR_SUCCESS; */
+        _drive_ab();
+        hwstate.have_pod_ab1 = dfp_detect_pod(PSTR(STR_D_POD_AB1), XMEM_AB_M) == ERR_SUCCESS;
 
         _drive_ab();
         hwstate.have_pod_ab2 = dfp_detect_pod(PSTR(STR_D_POD_AB2), XMEM_AB_H) == ERR_SUCCESS;
@@ -2936,8 +2937,8 @@ dfp_detect_pods_again:
         _drive_db();
         hwstate.have_pod_db0 = dfp_detect_pod(PSTR(STR_D_POD_DB0), XMEM_DB_L) == ERR_SUCCESS;
 
-        /* _drive_db(); */
-        /* hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_DB_H) == ERR_SUCCESS; */
+        _drive_db();
+        hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_DB_H) == ERR_SUCCESS;
 
         /* wdt_reset(); */
         /* _delay_ms(1000); */
