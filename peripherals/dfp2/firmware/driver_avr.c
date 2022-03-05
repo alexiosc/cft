@@ -252,6 +252,7 @@ setuptime()
         // much we end up saving two bytes per call this way.
 
         _NOP();
+        _NOP();
 }
 
 
@@ -439,8 +440,7 @@ xmem_read(const xmem_addr_t addr)
         PORTA = 0;
         PORTG = BUSOP_READ;         // Read operation
 
-        short_delay();
-        short_delay();
+        setuptime();
         
         uint8_t val = PINA;         // Read from bus
         PORTA = 0x55;               // Pull-ups for diagnostics
@@ -461,8 +461,8 @@ xmem_read(const xmem_addr_t addr)
 inline static void
 sample()
 {
-        // Strobe the BUSCP signal, which causes all the pod flip-flops to
-        // simultaneously sample their respective buses.
+        // Strobe the BUSCP signal, which causes all the pod input flip-flops
+        // to simultaneously sample their respective buses.
         clearbit(PORTL, L_BUSCP);
         setuptime();
         setbit(PORTL, L_BUSCP);
@@ -2136,28 +2136,21 @@ set_reg(reg_t reg, uint16_t value)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// #define NUM_8BIT_PATTERNS 32
-// static const uint8_t _8bit_patterns[NUM_PATTERNS] PROGMEM = {
-//         0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01,
-//         0x7f, 0xbf, 0xdf, 0xef, 0xf7, 0xfb, 0xfd, 0xfe,
-//         0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff,
-//         0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00
-// };
-
+#define NUM_8BIT_PATTERNS 40
+static const uint8_t _8bit_patterns[NUM_8BIT_PATTERNS] PROGMEM = {
+        0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01, // Walking 1s
+        0x7f, 0xbf, 0xdf, 0xef, 0xf7, 0xfb, 0xfd, 0xfe, // Walking 0s
+        0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff, // Bits on
+        0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00, // Bits off
+        0xff, 0x00, 0xff, 0x00, 0xff, 0x00, 0xff, 0x00  // All flipping
+};
 
 #define NUM_16BIT_PATTERNS 64
 static const uint16_t _16bit_patterns[NUM_16BIT_PATTERNS] PROGMEM = {
-        0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100,
         0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001,
-
-        0x7fff, 0xbfff, 0xdfff, 0xefff, 0xf7ff, 0xfbff, 0xfdff, 0xfeff,
         0xff7f, 0xffbf, 0xffdf, 0xffef, 0xfff7, 0xfffb, 0xfffd, 0xfffe,
-
         0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
-        0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff,
-
         0xfffe, 0xfffc, 0xfff8, 0xfff0, 0xffe0, 0xffc0, 0xff80, 0xff00,
-        0xfe00, 0xfc00, 0xf800, 0xf000, 0xe000, 0xc000, 0x8000, 0x0000
 };
 
 
@@ -2166,6 +2159,9 @@ static const uint16_t _16bit_patterns[NUM_16BIT_PATTERNS] PROGMEM = {
 static void
 diag_failure()
 {
+        report_pstr(PSTR("509 diag_failure() not implemented\n"));
+        return;
+
         /**/ cli();
         /**/ report_pstr(PSTR(STR_DIAGF));
         /**/ for (uint8_t i = 0; ; i++) {
@@ -2248,65 +2244,56 @@ dfp_diags_fpd_quiescence()
         /**/ report_pstr(PSTR(STR_D_PASS));
 }
 
-
 static void
-_dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
+_dfp_diags_quiescence(const char *diagmsg, uint8_t addr)
 {
-        /**/ report_diags(diagmsg);
-        // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
-        //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
-        /**/ 
+        tristate_buses();
+        clearbit(PORTC, C_NBUSEN);
+        setuptime();
+
+        report_diags(diagmsg);
+         
         // Sample the bus to begin with.
-        /**/ setuptime();
-        /**/ sample();
-        /**/ uint16_t val = xmem_read(addr_h) << 8 | xmem_read(addr_l);
+        setuptime();
+        sample();
+        uint8_t val = xmem_read(addr);
+        _delay_ms(50);
 
         // Repeat 65535 times (around 4ms).
-        /**/ for (uint16_t reps = 0; reps < 0xffff; reps++) {
-        /**/         wdt_reset();
-        /**/         setuptime();
-        /**/         sample();
+        for (uint16_t reps = 0; reps < 0xffff; reps++) {
+                wdt_reset();
+                sample();
 
-        /**/         uint16_t checkval = 
-        /**/                 xmem_read(addr_h) << 8 | xmem_read(addr_l);
-
-        /**/         if (val != checkval) {
-        /**/                 report_pstr(PSTR(STR_D_FAIL));
-        /**/                 report_mismatch(PSTR(STR_NVMIS), val, checkval, 4);
-        /**/                 diag_failure();
-        /**/         }
-        /**/ }
-        /**/ report_pstr(PSTR(STR_D_PASS));
+                uint8_t checkval = xmem_read(addr);
+                if (checkval != val) {
+                        report_pstr(PSTR(STR_D_FAIL));
+                        report_mismatch(PSTR(STR_NVMIS), val, checkval, 2);
+                        diag_failure();
+                        return;
+                }
+        }
+        report_pstr(PSTR(STR_D_PASS));
+        setbit(PORTC, C_NBUSEN);
 }
 
 
-static inline void
-dfp_diags_ibus_quiescence()
+static void
+dfp_ensure_bus_quiescence()
 {
-        /**/ _dfp_diags_quiescence(PSTR(STR_D_IBUSQ), XMEM_IBUS_H, XMEM_IBUS_L);
+        _dfp_diags_quiescence(PSTR(STR_D_UCV0Q), XMEM_UCV_L);
+        _dfp_diags_quiescence(PSTR(STR_D_UCV1Q), XMEM_UCV_M);
+        _dfp_diags_quiescence(PSTR(STR_D_UCV2Q), XMEM_UCV_H);
+        
+        _dfp_diags_quiescence(PSTR(STR_D_IBUSLQ), XMEM_IBUS_L);
+        _dfp_diags_quiescence(PSTR(STR_D_IBUSHQ), XMEM_IBUS_H);
+
+        _dfp_diags_quiescence(PSTR(STR_D_ABLQ), XMEM_AB_L);
+        _dfp_diags_quiescence(PSTR(STR_D_ABMQ), XMEM_AB_M);
+        _dfp_diags_quiescence(PSTR(STR_D_ABHQ), XMEM_AB_H);
+        
+        _dfp_diags_quiescence(PSTR(STR_D_DBLQ), XMEM_DB_L);
+        _dfp_diags_quiescence(PSTR(STR_D_DBHQ), XMEM_DB_H);
 }
-
-
-static inline void
-dfp_diags_ab_lsw_quiescence()
-{
-        /**/ _dfp_diags_quiescence(PSTR(STR_D_ABLQ), XMEM_AB_M, XMEM_AB_L);
-}
-
-
-static inline void
-dfp_diags_ab_msw_quiescence()
-{
-        /**/ _dfp_diags_quiescence(PSTR(STR_D_ABMQ), XMEM_AB_H, XMEM_AB_M);
-}
-
-
-static inline void
-dfp_diags_db_quiescence()
-{
-        /**/ _dfp_diags_quiescence(PSTR(STR_D_DBQ), XMEM_AB_H, XMEM_DB_L);
-}
-
 
 
 // Test strategy: write values to the pod and read them back. This will verify
@@ -2314,36 +2301,69 @@ dfp_diags_db_quiescence()
 // the output drivers of the pod under test.
 
 static void
-_dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
+_dfp_diags_pod(const char *msg, uint8_t addr, uint8_t k_busoe_pin)
 {
-        /**/ uint8_t failures = 0;
+        uint16_t failures = 0;
 
-        /**/ report_diags(msg);
-        /**/ for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
-        /**/         wdt_reset();
-        /**/         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+        tristate_buses();
+        clearbit(PORTC, C_NBUSEN);
+        setuptime();
 
-        /**/         xmem_write(addr_h, (pattern >> 8) & 0xff);
-        /**/         xmem_write(addr_l, (pattern & 0xff));
-        /**/         setuptime();
-        /**/         sample();
-        /**/         uint16_t checkval = xmem_read(addr_h) << 8 | xmem_read(addr_l);
+        report_diags(msg);
+        for (uint8_t reps = 0; reps < 128; reps++) {
+                for (uint8_t i = 0; i < NUM_8BIT_PATTERNS; i++) {
+                        wdt_reset();
+                        
+                        clearbit(PORTK, k_busoe_pin);
+                        uint8_t pattern = (uint8_t) pgm_read_word(&(_8bit_patterns[i]));
+                        xmem_write(addr, pattern);
+                        setuptime();
+                        sample();
+                        setuptime();
+                        setbit(PORTK, k_busoe_pin);
+                        setuptime();
+                        uint16_t checkval = xmem_read(addr);
 
-        /**/         if (pattern != checkval) {
-        /**/                 if (failures++ == 0) {
-        /**/                         report_pstr(PSTR(STR_D_FAIL));
-        /**/                 }
-        /**/                 report_mismatch(PSTR(STR_NVMIS), pattern, checkval, 4);
-        /**/         }
-        /**/ }
+                        if (pattern != checkval) {
+                                // Print out the failure message on the first failure.
+                                if (failures++ == 0) {
+                                        report_pstr(PSTR(STR_D_FAIL));
+                                }
+                                if (failures < 40) {
+                                        report_mismatch(PSTR(STR_NVMIS), pattern, checkval, 2);
+                                }
+                        }
+                }
+        }
+ 
+        if (failures) {
+                diag_failure();
+        } else {
+                report_pstr(PSTR(STR_D_PASS));
+        }
 
-        /**/ if (failures) {
-        /**/         diag_failure();
-        /**/ } else {
-        /**/         report_pstr(PSTR(STR_D_PASS));
-        /**/ }
+        tristate_buses();
+        setbit(PORTC, C_NBUSEN);
+}
 
-        /**/ tristate_buses();
+
+static inline void
+dfp_diags_test_pods()
+{
+        tristate_buses();
+        _dfp_diags_pod(PSTR(STR_D_UCV0), XMEM_UCV_L, K_NUCVOE);
+        _dfp_diags_pod(PSTR(STR_D_UCV1), XMEM_UCV_M, K_NUCVOE);
+        _dfp_diags_pod(PSTR(STR_D_UCV2), XMEM_UCV_H, K_NUCVOE);
+
+        _dfp_diags_pod(PSTR(STR_D_IBUSL), XMEM_IBUS_L, K_NIBOE);
+        _dfp_diags_pod(PSTR(STR_D_IBUSH), XMEM_IBUS_H, K_NIBOE);
+
+        _dfp_diags_pod(PSTR(STR_D_ABL), XMEM_AB_L, K_NABOE);
+        _dfp_diags_pod(PSTR(STR_D_ABM), XMEM_AB_M, K_NABOE);
+        _dfp_diags_pod(PSTR(STR_D_ABH), XMEM_AB_H, K_NABOE);
+
+        _dfp_diags_pod(PSTR(STR_D_DBL), XMEM_DB_L, K_NDBOE);
+        _dfp_diags_pod(PSTR(STR_D_DBH), XMEM_DB_H, K_NDBOE);
 }
 
 
@@ -2723,7 +2743,6 @@ dfp_detect_pod(const char *msg, const xmem_addr_t addr)
 {
         uint8_t  and = 255;
         uint8_t  or = 0;
-        uint16_t val = 0;
         uint16_t matches_addr = 0;
         uint16_t faults = 0;
 
@@ -2905,7 +2924,6 @@ dfp_detect_pods()
 
         xmem_write(XMEM_ACTION, 0);    // Idle ACTION (and COND)
 
-dfp_detect_pods_again:
         // UCV Pods
         _drive_ucv();
         hwstate.have_pod_ucv0 = dfp_detect_pod(PSTR(STR_D_POD_UCV0), XMEM_RADDR) == ERR_SUCCESS;
@@ -2939,12 +2957,6 @@ dfp_detect_pods_again:
 
         _drive_db();
         hwstate.have_pod_db1 = dfp_detect_pod(PSTR(STR_D_POD_DB1), XMEM_DB_H) == ERR_SUCCESS;
-
-        /* wdt_reset(); */
-        /* _delay_ms(1000); */
-        /* wdt_reset(); */
-        /* goto dfp_detect_pods_again; */
-
 }
 
 
@@ -2963,16 +2975,24 @@ dfp_diags()
 
         dfp_detect();
         // No sense looking for pods without a healthy DFP board.
-        if (hwstate.have_dfp) {
-                dfp_detect_pods();
+        if (!hwstate.have_dfp) {
+                goto dfp_diags_done;
         }
-                        
+
+        // Diagnose pods.
+        dfp_detect_pods();
+        if (hwstate.is_faulty) {
+                report_pstr(PSTR(STR_POD_DIAGF));
+                goto dfp_diags_done;
+        }
+
+        // TODO: reinstate this.
+        // dfp_diags_fpd_quiescence();
+
+        dfp_ensure_bus_quiescence();
+        dfp_diags_test_pods();
+        
         #if 0
-        /**/ dfp_diags_fpd_quiescence();
-        /**/ dfp_diags_ibus_quiescence();
-        /**/ dfp_diags_ab_lsw_quiescence();
-        /**/ dfp_diags_ab_msw_quiescence();
-        /**/ dfp_diags_db_quiescence();
         /**/ dfp_diags_ibus_pod();
         /**/ dfp_diags_ab_lsw_pod();
         /**/ dfp_diags_ab_msw_pod();
@@ -3002,6 +3022,7 @@ dfp_diags()
 
         #endif
 
+dfp_diags_done:
         fp_release();
 }
 

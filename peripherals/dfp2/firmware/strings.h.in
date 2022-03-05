@@ -15,23 +15,45 @@
 
 // 1xx: Boot-time Diagnostics
 #define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
-#define STR_D_DFP      "1xx DFP board:"
-#define STR_D_POD_UCV0 "1xx µCV pod low (RADDR):"
-#define STR_D_POD_UCV1 "1xx µCV pod mid (WADDR):"
-#define STR_D_POD_UCV2 "1xx µCV pod high (ACTION, COND):"
-#define STR_D_POD_AB0  "1xx AB pod low:"
-#define STR_D_POD_AB1  "1xx AB pod mid:"
-#define STR_D_POD_AB2  "1xx AB pod high:"
-#define STR_D_POD_DB0   "1xx DB pod low:"
-#define STR_D_POD_DB1   "1xx DB pod high:"
-#define STR_D_POD_IBUS0 "1xx IBus pod low:"
-#define STR_D_POD_IBUS1 "1xx IBus pod high:"
 
-#define STR_D_FPDQ  "101 DFP Quiescence: "
-#define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
-#define STR_D_ABLQ  "103 AB LSW Bus Hold & Quiescence: "
-#define STR_D_ABMQ  "104 AB MSW Bus Hold & Quiescence: "
-#define STR_D_DBQ   "105 DB Bus Hold & Quiescence: "
+#define STR_D_DFP        "1xx DFP board:"
+#define STR_D_POD_UCV0   "1xx µCV pod low (RADDR):"
+#define STR_D_POD_UCV1   "1xx µCV pod mid (WADDR):"
+#define STR_D_POD_UCV2   "1xx µCV pod high (ACTION, COND):"
+#define STR_D_POD_IBUS0  "1xx IBus pod low:"
+#define STR_D_POD_IBUS1  "1xx IBus pod high:"
+#define STR_D_POD_AB0    "1xx AB pod low:"
+#define STR_D_POD_AB1    "1xx AB pod mid:"
+#define STR_D_POD_AB2    "1xx AB pod high:"
+#define STR_D_POD_DB0    "1xx DB pod low:"
+#define STR_D_POD_DB1    "1xx DB pod high:"
+
+#define STR_D_DBQ        "1xx DB Bus Hold & Quiescence: "
+
+#define STR_D_FPDQ       "1xx DFP Quiescence: "
+
+#define STR_D_UCV0Q      "1xx µCV low (RADDR) Hold & Quiescence: "
+#define STR_D_UCV1Q      "1xx µCV mid (WADDR) Hold & Quiescence: "
+#define STR_D_UCV2Q      "1xx µCV high (ACTION, COND) Hold & Quiescence: "
+#define STR_D_IBUSLQ     "1xx IBUS low Bus Hold & Quiescence: "
+#define STR_D_IBUSHQ     "1xx IBUS high Bus Hold & Quiescence: "
+#define STR_D_ABLQ       "1xx AB lo Bus Hold & Quiescence: "
+#define STR_D_ABMQ       "1xx AB mid Bus Hold & Quiescence: "
+#define STR_D_ABHQ       "1xx AB high Bus Hold & Quiescence: "
+#define STR_D_DBLQ       "1xx DB low Bus Hold & Quiescence: "
+#define STR_D_DBHQ       "1xx DB high Bus Hold & Quiescence: "
+
+#define STR_D_UCV0       "1xx µCV low (RADDR): "
+#define STR_D_UCV1       "1xx µCV mid (WADDR): "
+#define STR_D_UCV2       "1xx µCV high (ACTION, COND): "
+#define STR_D_IBUSL      "1xx IBUS low: "
+#define STR_D_IBUSH      "1xx IBUS high: "
+#define STR_D_ABL        "1xx AB lo: "
+#define STR_D_ABM        "1xx AB mid: "
+#define STR_D_ABH        "1xx AB high: "
+#define STR_D_DBL        "1xx DB low: "
+#define STR_D_DBH        "1xx DB high: "
+
 #define STR_D_IBUSP "106 IBUS Pod: "
 #define STR_D_ABLP  "107 AB LSW Pod: "
 #define STR_D_ABMP  "108 AB MSW Pod: "
@@ -189,6 +211,8 @@
 #define STR_DET_SP          " Stack Pointer (SP):             "
 
 // 9xx: Diagnostic faults
+#define STR_POD_DIAGF "9xx Cannot proceed without healthy pods.\n"
+
 #define STR_DIAGF     "901 Diagnostics failed.\n"
 #define STR_DFPFAULT1 "9xx µCU sanity check failed (PK5 stuck low).\n"
 #define STR_DFPFAULT2 "9xx µCU sanity check failed (bus noise).\n"
@@ -214,8 +238,8 @@
 // #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"
-#define STR_D_PASS  "pass\n"
-#define STR_D_FAIL  "FAIL!\n"
+#define STR_D_PASS  "~Spass~N\n"
+#define STR_D_FAIL  "~SFAIL~E!\n"
 
 // The blocksize for block-oriented writes.
 #define BLOCKSIZE ((BUFSIZE - 3) / 5)
